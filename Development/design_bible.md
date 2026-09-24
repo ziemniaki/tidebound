@@ -2,7 +2,7 @@
 
 ## Game bible
 
-**Version 1.27 | 23 September 2026**  
+**Version 1.28 | 24 September 2026**  
 **Creative direction: Wojciech Krzyżanowski**  
 **Working title: Tidebound | Full story spoilers**
 
@@ -505,6 +505,12 @@ The ordinary battle move and the story-specific interaction must agree. A generi
 **Confirmed.** Wild Pokémon can genuinely threaten communities. The regional ecology must permit frightening, hostile encounters without treating every dangerous animal as possessed.
 
 **Proposed encounter variety.** Territorial danger, hunger, injury, displacement, criminal exploitation, and supernatural corruption create different problems. Some can be redirected or helped; some require fighting. A late demon should feel different from an ordinary creature guarding its young.
+
+### 7.9 Tidebound Ekans and Arbok
+
+**Confirmed, implemented in the current source.** Both local forms are Normal/Dark. Their original pixel silhouettes, shading and distinctive markings remain; the purple scales become neutral gray. Front, rear and party sprites match. Poison-type level-up, tutor and egg moves are replaced with Dark-type moves. This includes Coil, replaced by Hone Claws. Stats, abilities and the level-22 evolution remain unchanged.
+
+**Implementation scope.** Newly encountered Ekans on the South Coast Road use the regional form and evolve into regional Arbok. Already-owned ordinary snakes retain their form and moves. No new Arbok encounter is added. Regional shiny artwork temporarily shares the gray palette. Their evolutionary or mythological origin remains open; no new lore is implied by this palette change.
 
 ## 8. Factions, danger, and everyday life
 

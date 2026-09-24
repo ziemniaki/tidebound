@@ -61,7 +61,7 @@ def cover(canvas,doc):
                  'an excuse to refuse their absence.']:
         canvas.setFont('Body',12);canvas.drawString(55,y,line);y-=20
     canvas.setFillColor(colors.HexColor('#C1D6D4'));canvas.setFont('Head',10)
-    for i,line in enumerate(['Creative direction: Wojciech Krzyżanowski','Version 1.27 / 23 September 2026',
+    for i,line in enumerate(['Creative direction: Wojciech Krzyżanowski','Version 1.28 / 24 September 2026',
                              'Working title / Full story spoilers',
                              'Confirmed decisions, proposals, and intentional mysteries']):
         canvas.drawString(55,155-i*20,line)
@@ -72,7 +72,7 @@ def bodypage(canvas,doc):
     canvas.drawString(52,h-32,'TIDEBOUND  /  GAME BIBLE')
     canvas.setStrokeColor(colors.HexColor('#CED8D5'));canvas.setLineWidth(.5)
     canvas.line(52,h-41,w-52,h-41)
-    canvas.drawString(52,29,'Version 1.27  /  23 September 2026  /  Full story spoilers')
+    canvas.drawString(52,29,'Version 1.28  /  24 September 2026  /  Full story spoilers')
     canvas.drawRightString(w-52,29,str(doc.page));canvas.restoreState()
 
 doc=BibleDoc(str(OUT),pagesize=A4,rightMargin=52,leftMargin=52,topMargin=63,bottomMargin=52,

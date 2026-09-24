@@ -3,7 +3,7 @@
 **Repository handoff — 24 September 2026:** use `Development/REPOSITORY_WORKFLOW.md` for the new GitHub workflow. Initial import is current Demo 1 / 0.8.0 only. Migration is complete and verified at source commit `19780315bf4227f24ab9b5ccdf6d8ee54b6e773e`. GitHub `ziemniaki/tidebound` is authoritative. Older statements below about ZIP-only logistics are historical and superseded. Do not depend on conversation memory.
 
 
-**Guide version:** 2.25, 23 September 2026  
+**Guide version:** 2.26, 24 September 2026  
 **Project baseline:** Demo 1 / 0.8.0, Pokémon Essentials 21.1  
 **Status:** existing game, continuing development; do not start over.
 
@@ -96,8 +96,8 @@ Introduce deeper mechanical changes, unusual scripts, animation and stronger vis
 
 ### Narrative authority and safeguards
 
-`Development/design_bible.md` is the consolidated game bible, version 1.27,
-23 September 2026. Its separate download is `Tidebound_Design_Bible.md`; a reading
+`Development/design_bible.md` is the consolidated game bible, version 1.28,
+24 September 2026. Its separate download is `Tidebound_Design_Bible.md`; a reading
 PDF is also maintained. Keep packaged and separate copies synchronised. Its
 confirmed decisions govern lore; proposals and open questions are not canon.
 Do not treat working names or implementation conveniences as binding facts.
@@ -1217,3 +1217,19 @@ Continue preserves existing party, inventory and quest flags. Updated map data r
 `rebuild_scripts.py` replaces the exact visible faint messages in stock Battler_ChangeSelf and Overworld while preserving mechanics and method names. It embeds the numbered source files once. `rebuild_whyduck_data.py` maintains level16 forward/reverse evolution plus PBS. Do not change ordinary Psyduck's level33 evolution. Map magic 26092301 reloads event data for old saves. Save directory remains Tidebound_Opening_0_2. Mac version0.8.0/build34, same native runtime.
 
 Run rebuild_maps.py, rebuild_whyduck_data.py, rebuild_scripts.py and validate_maps.py with rubymarshal/Pillow installed. Tests/demo_native.rb is a disposable native test driver, not release code. See validation_demo_080.md for completed checks and platform limits. Later content, including Psyduck Island and the museum heist, remains unimplemented.
+
+
+## Unreleased — regional Ekans / Arbok (24 September 2026)
+
+`rebuild_snake_data.py` creates form 1 of both species, Normal/Dark, and replaces
+all Poison moves across level-up, tutor and egg pools (including Coil). Run it
+independently or via `rebuild_regional_data.py`, then `rebuild_scripts.py`.
+`Art/Snakes/recolour.py` regenerates matching front/back/shiny/icon PNGs by exact
+palette substitution from unmodified ordinary assets. Stats, abilities, cries,
+metrics and native level-22 evolution stay unchanged; gray shiny art is provisional.
+`014_RegionalForms.rb` selects form 1 for new map-108 Ekans/Arbok and resets their
+initial moves. It does not migrate already-owned ordinary snakes or add Arbok to
+encounter tables. Native evolution retains form 1; never add DefaultForm_0 here.
+`Tests/regional_snakes.cjs` uses actual Essentials objects for encounter hooks,
+learnsets, evolution, ordinary-form isolation and save preservation. Run after
+Tests/prepare_reference.py and npm ci. Release 0.8.0 ZIPs remain unchanged.

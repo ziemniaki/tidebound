@@ -34,3 +34,14 @@ EventHandlers.add(:on_wild_pokemon_created, :tidebound_psyduck,
     pkmn.reset_moves
   }
 )
+
+# Gray coastal snakes retain their regional form when evolving and travelling.
+# Reset moves after assigning form so new encounters cannot inherit Poison moves.
+EventHandlers.add(:on_wild_pokemon_created, :tidebound_snakes,
+  proc { |pkmn|
+    next unless $game_map && $game_map.map_id == 108
+    next unless [:EKANS, :ARBOK].include?(pkmn.species) && pkmn.form_simple == 0
+    pkmn.form = 1
+    pkmn.reset_moves
+  }
+)

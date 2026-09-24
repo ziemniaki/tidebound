@@ -1,8 +1,10 @@
 # Current project status
 
-Demo 1 / 0.8.0 · Bible 1.27 · Guide 2.25 · 23 September 2026
+Demo 1 / 0.8.0 · Bible 1.28 · Guide 2.26 · 24 September 2026
 
 ## Unreleased — 24 September 2026
+
+Regional Ekans and Arbok are now gray Normal/Dark forms. South Coast Road wild Ekans use form 1 and evolve into form-1 Arbok at level 22. All Poison-type level-up/tutor/egg moves are replaced with Dark moves; stats and abilities are unchanged. Ordinary owned snakes remain intact. Front/back/icon art and provisional matching shiny sprites use exact palette edits. Data, PBS, embedded encounter hook and Bible 1.28 are synchronized. Tests/regional_snakes.cjs verifies native Pokémon creation, evolution, inherited egg moves and save roundtrips; no graphical Mac playtest was performed. These changes await the next downloadable build.
 
 Northern forest (The Listening Wood, map 103): Aipom replaces Caterpie in tall grass at the same 45% encounter weight and levels 3–5. Weedle (40%) and regional Wurmple (15%) remain. The encounter generator, PBS and compiled data agree. Existing companions and saves are unchanged. This source update is not yet included in the published 0.8.0 Mac/project ZIPs.
 
