@@ -1,6 +1,6 @@
 # Tidebound — developer guide
 
-**Repository handoff — 24 September 2026:** use `Development/REPOSITORY_WORKFLOW.md` for the new GitHub workflow. Initial import is current Demo 1 / 0.8.0 only. Older statements below about ZIP-only logistics are historical and superseded after remote import verification. Do not depend on conversation memory.
+**Repository handoff — 24 September 2026:** use `Development/REPOSITORY_WORKFLOW.md` for the new GitHub workflow. Initial import is current Demo 1 / 0.8.0 only. Migration is complete and verified at source commit `19780315bf4227f24ab9b5ccdf6d8ee54b6e773e`. GitHub `ziemniaki/tidebound` is authoritative. Older statements below about ZIP-only logistics are historical and superseded. Do not depend on conversation memory.
 
 
 **Guide version:** 2.25, 23 September 2026  

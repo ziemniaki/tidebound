@@ -142,4 +142,4 @@ Earlier milestone 0.7.18: New Game began in a false ordinary bedroom. Inspect it
 
 ## GitHub migration — 24 September 2026
 
-Prepared for the public ziemniaki/tidebound repository: current 0.8.0 source, assets, bible1.27 and guide2.25; old release archives and archived test evidence are excluded. The Mac game archive is unchanged. See Development/REPOSITORY_WORKFLOW.md. Remote upload must be verified before migration is reported complete.
+Prepared for the public ziemniaki/tidebound repository: current 0.8.0 source, assets, bible1.27 and guide2.25; old release archives and archived test evidence are excluded. The Mac game archive is unchanged. See Development/REPOSITORY_WORKFLOW.md. Migration verified on 24 September 2026: all 7,964 current files were cloned from public GitHub commit `19780315bf4227f24ab9b5ccdf6d8ee54b6e773e` and compared with the prepared release snapshot. Only standard Git text line-ending normalization differs; all build-manifest hashes pass. The one-time import workflow completed successfully and removed itself. GitHub `ziemniaki/tidebound` is now the authoritative working project.
