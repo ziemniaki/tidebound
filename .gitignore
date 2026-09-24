@@ -1,0 +1,20 @@
+# User saves and local outputs
+Game.rxdata
+Game.rxdata.bak
+Save*.rxdata
+*.log
+errorlog.txt
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/
+.env
+.env.*
+*.pem
+*.key
+Mac_Build/
+release/
+releases/
+Tidebound_Project.zip
+Tidebound_Mac_*.zip
+# Runtime/macOS archives are required source/build inputs, so stay tracked.

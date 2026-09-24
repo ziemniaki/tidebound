@@ -1,0 +1,10 @@
+* text=auto
+*.rxdata binary
+*.dat binary
+*.png binary
+*.ogg binary
+*.zip binary
+*.gz binary
+*.dll binary
+*.exe binary
+*.pdf binary
