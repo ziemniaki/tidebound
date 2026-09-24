@@ -1,0 +1,26 @@
+﻿# Regional Psyduck evolution. Build via Development/rebuild_whyduck_data.py.
+[WHYDUCK]
+Name = Whyduck
+Types = WATER,PSYCHIC
+BaseStats = 75,55,70,75,130,115
+GenderRatio = Female50Percent
+GrowthRate = Medium
+BaseExp = 190
+EVs = SPECIAL_ATTACK,2
+CatchRate = 75
+Happiness = 70
+Abilities = OWNTEMPO,CLOUDNINE
+HiddenAbilities = INNERFOCUS
+Moves = 0,PSYCHIC,1,AQUAJET,1,WATERGUN,1,CONFUSION,1,TAILWHIP,9,PSYBEAM,13,WATERPULSE,17,DISABLE,21,MIST,25,PSYCHUP,29,AQUARING,35,CALMMIND,40,PSYSHOCK,44,BRINE,48,FUTURESIGHT,52,HYDROPUMP,56,PSYCHICTERRAIN,60,RECOVER,65,STOREDPOWER
+TutorMoves = PSYCHIC,PSYSHOCK,FUTURESIGHT,CALMMIND,LIGHTSCREEN,REFLECT,TRICKROOM,PSYCHICTERRAIN,SURF,SCALD,ICEBEAM,BLIZZARD,RAINDANCE,PROTECT,REST,DIVE,ENCORE,AMNESIA,SUBSTITUTE,WATERPULSE,WONDERROOM
+EggGroups = Water1,Field
+HatchSteps = 5120
+Height = 1.1
+Weight = 26.0
+Color = Yellow
+Shape = BipedalTail
+Habitat = WatersEdge
+Category = Still Mind
+Pokedex = Its headaches ceased when the folds on its head opened. It stands quietly by the tide for hours, as if considering a question it cannot ask.
+Generation = 0
+Flags = DefaultForm_0

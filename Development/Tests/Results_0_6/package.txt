@@ -1,0 +1,1 @@
+PASS: Mac scripts/data match; version0.6.0/build7; nine custom scripts; no test injection; fontHeightReporting1; same save directory; executable bit; 1051 upstream runtime files unchanged.

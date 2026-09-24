@@ -1,0 +1,10 @@
+Map 101: 144 connected walkable cells; 11 events
+Map 102: 586 connected walkable cells; 20 events
+Map 103: 584 connected walkable cells; 8 events
+Map 104: 63 connected walkable cells; 3 events
+Map 105: 475 connected walkable cells; 10 events
+Map 106: 77 connected walkable cells; 4 events
+Map 107: 87 connected walkable cells; 5 events
+Map 108: 1236 connected walkable cells; 17 events
+Map 109: 203 connected walkable cells; 17 events
+PASS: 95 map events; every arrival, door and interaction reachable; script archive matches editable sources.

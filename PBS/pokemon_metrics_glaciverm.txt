@@ -1,0 +1,14 @@
+[GLACIVERM]
+BackSprite = -1,0
+FrontSprite = -2,18
+FrontSpriteAltitude = 0
+ShadowX = 0
+ShadowSize = 1
+
+[FROSTCOON]
+BackSprite = -2,0
+FrontSprite = 0,24
+FrontSpriteAltitude = 0
+ShadowX = 0
+ShadowSize = 2
+

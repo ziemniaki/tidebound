@@ -1,0 +1,17 @@
+(node:7) ExperimentalWarning: WASI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+`RubyGems' were not loaded.
+`error_highlight' was not loaded.
+`did_you_mean' was not loaded.
+`syntax_suggest' was not loaded.
+PASS: actual Essentials Pokemon/Move/Owner/Player objects; capture copy, identity, HP, status, PP and Marshal persistence.
+PASS: NATU; no pier; 99/100 steps, return, identity, keys/save/unlock/oil.
+PASS: MAKUHITA; optional pier; 99/100 steps, return, identity, keys/save/unlock/oil.
+PASS: POOCHYENA; no pier; 99/100 steps, return, identity, keys/save/unlock/oil.
+PASS: 0.2/0.3 migration, preserved oil, existing/unselected companions and astral losses.
+PASS: chosen Makuhita loss, rest, guide, real SaveData and no replacement starter.
+PASS: NATU whole quest; saved stages; trainer loss/draw/retry; unique items; preserved household.
+PASS: MAKUHITA whole quest; saved stages; trainer loss/draw/retry; unique items; preserved household.
+PASS: POOCHYENA whole quest; saved stages; trainer loss/draw/retry; unique items; preserved household.
+PASS: completed-oil legacy save, full-bag meal rollback and necklace retry without rebattle.
+PASS: 9 embedded scripts and 92 native event scripts compile.

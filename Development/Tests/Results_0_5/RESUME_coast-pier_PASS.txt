@@ -1,0 +1,1 @@
+PASS: full native save load, safe coastal position, pet/quest/follower preservation, idempotent migration.

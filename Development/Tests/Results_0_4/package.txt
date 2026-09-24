@@ -1,0 +1,4 @@
+PASS: Mac ZIP integrity, permissions, version, source/data/config equality
+PASS: Native executable and bundled dependency bytes unchanged from working 0.3
+PASS: Release contains six custom modules and no test injection
+PASS: Battle adapter and astral map preserved

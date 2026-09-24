@@ -1,0 +1,24 @@
+﻿[NIVALORA]
+Name = Nivalora
+Types = ICE,DRAGON
+BaseStats = 100,45,65,145,130,115
+GenderRatio = Female50Percent
+GrowthRate = Medium
+BaseExp = 300
+EVs = SPEED,3
+CatchRate = 45
+Happiness = 70
+Abilities = SHIELDDUST
+Moves = 0,DRAGONBREATH,1,GUST,1,POWDERSNOW,1,HARDEN,1,STRINGSHOT,10,WISH,13,STUNSPORE,16,RAINDANCE,19,PROTECT,22,LIFEDEW,25,STICKYWEB,28,SLEEPPOWDER,31,HAIL,34,AURORAVEIL,38,REFLECT,42,LIGHTSCREEN,46,SAFEGUARD,50,BATONPASS,54,WIDEGUARD,55,ICEBEAM,58,DRAGONDANCE,61,ROOST,64,DRAGONPULSE,68,BLIZZARD,72,QUIVERDANCE,76,TAILWIND,80,MIST
+TutorMoves = PROTECT,ENDURE,SUBSTITUTE,SAFEGUARD,LIGHTSCREEN,REFLECT,HAIL,RAINDANCE,HELPINGHAND,ICEBEAM,BLIZZARD,ICYWIND,DRAGONPULSE,DRACOMETEOR,ROOST,TAILWIND,AERIALACE,ACROBATICS
+EggGroups = Bug,Dragon
+HatchSteps = 3840
+Height = 2.4
+Weight = 22.0
+Color = White
+Shape = MultiWinged
+Habitat = Forest
+Category = Kindly Wings
+Pokedex = Rarely seen, it shelters lost travelers beneath its frost-white wings. Its gentle scales lull frightened creatures to sleep, and it waits beside them until they wake.
+Generation = 0
+Flags = DefaultForm_0

@@ -1,0 +1,37 @@
+(node:15) ExperimentalWarning: WASI is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+`RubyGems' were not loaded.
+`error_highlight' was not loaded.
+`did_you_mean' was not loaded.
+`syntax_suggest' was not loaded.
+PASS death snapshots the individual and detaches mutable data
+PASS recapture preserves name, owner, IVs, EVs, moves, form and item
+PASS spirit opponent is healthy and carries no duplicable item
+PASS encounter is spent after permanent loss and cannot be replayed
+PASS one encounter cannot overlap another
+PASS leaving marks waiting spirits lost with recorded location
+PASS same companion can survive one death and be lost on the next
+PASS lost identities cannot be reintroduced and duplicated
+PASS duplicate party identities are rejected before astral transition
+PASS nested death, empty parties and eggs are rejected
+PASS rest gives an HP and PP floor without curing poison or cumulative healing
+PASS cemetery uses exact lost companions, fills vacancies and preserves archives
+PASS no-loss cemetery uses complete fallback, inadequate fallback fails clearly
+PASS cemetery uses the six most recent losses without exceeding team size
+PASS save round trip preserves identities, encounter states, archive and checkpoint
+PASS victory without healed Suicune stays dark
+PASS healing, sabre and final victory are all needed for restoration
+PASS adapter bypasses defeat auto-heal and transfers ownership to spirit records
+PASS adapter winning battle leaves party in living world
+PASS captured engine copy is not stored or allowed to overwrite original identity
+PASS failed encounter archives one companion and keeps other spirits searchable
+PASS technical battle fault restores party and does not consume the spirit
+PASS all six original companions can return without exceeding party capacity
+PASS zero survivors still permit a return, with a new low-HP companion
+PASS ordinary catches remain on the normal engine storage path
+PASS spirit catch rate override leaves ordinary species rates intact
+PASS six-turn spirit deadline ends only unresolved spirit battles
+PASS SaveData registration resets new games and serializes complete custom state
+PASS mismatched capture is a technical fault, not a permanent companion loss
+PASS battle without a return checkpoint is rejected without harming the party
+30 passed; 0 failed

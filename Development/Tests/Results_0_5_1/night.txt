@@ -1,0 +1,1 @@
+PASS: retained 0.3 save; all clock hours resolve to night; coast/forest/interior/astral lighting; actual wild battle uses night and renders.

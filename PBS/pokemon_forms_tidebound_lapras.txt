@@ -1,0 +1,5 @@
+﻿# The pale pier apparition. Other fields inherit ordinary Lapras.
+[LAPRAS,1]
+FormName = Tidebound
+Types = WATER,GHOST
+Color = White

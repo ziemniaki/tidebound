@@ -1,0 +1,6 @@
+﻿# Regional Wurmple. Native personality split, both branches at level 10.
+[WURMPLE,1]
+FormName = Tidebound
+Types = BUG,ICE
+Color = Blue
+Evolutions = GLACIVERM,Silcoon,10,FROSTCOON,Cascoon,10

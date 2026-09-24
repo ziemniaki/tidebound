@@ -1,0 +1,5 @@
+﻿# Regional shore Psyduck. All other fields inherit the ordinary form.
+[PSYDUCK,1]
+FormName = Tidebound
+Types = WATER,PSYCHIC
+Evolutions = WHYDUCK,Level,16

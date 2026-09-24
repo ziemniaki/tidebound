@@ -1,0 +1,1 @@
+PASS: legacy party/inventory preserved; night/window rendering; visible Psyduck and regional level16 evolution; ordinary Psyduck unchanged; 15 sailor events; ships; blocked-save relocation; repeatable demo endpoint/save; two actual sailor wins; overworld wild win; 5 native death messages; opening caption.

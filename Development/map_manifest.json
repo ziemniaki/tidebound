@@ -1,0 +1,1978 @@
+[
+  {
+    "id": 101,
+    "name": "The Keeper's House",
+    "width": 20,
+    "height": 16,
+    "targets": [
+      [
+        "Mother",
+        12,
+        7,
+        0,
+        true
+      ],
+      [
+        "Book",
+        4,
+        10,
+        0,
+        false
+      ],
+      [
+        "Opening",
+        2,
+        13,
+        3,
+        false
+      ],
+      [
+        "House:NATU",
+        6,
+        5,
+        0,
+        false
+      ],
+      [
+        "House:MAKUHITA",
+        10,
+        9,
+        0,
+        false
+      ],
+      [
+        "House:POOCHYENA",
+        13,
+        11,
+        0,
+        false
+      ],
+      [
+        "Crate",
+        10,
+        10,
+        0,
+        false
+      ],
+      [
+        "Crate spare",
+        12,
+        10,
+        0,
+        false
+      ],
+      [
+        "Door",
+        6,
+        3,
+        1,
+        false
+      ],
+      [
+        "Door",
+        10,
+        14,
+        1,
+        false
+      ],
+      [
+        "Door",
+        17,
+        3,
+        1,
+        false
+      ],
+      [
+        "Cellar stairs",
+        3,
+        12,
+        1,
+        false
+      ],
+      [
+        "Seller at home",
+        14,
+        12,
+        0,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 102,
+    "name": "Shiohama",
+    "width": 108,
+    "height": 88,
+    "targets": [
+      [
+        "Door",
+        32,
+        35,
+        1,
+        false
+      ],
+      [
+        "Shop door",
+        45,
+        31,
+        1,
+        false
+      ],
+      [
+        "Seller outside",
+        46,
+        32,
+        0,
+        false
+      ],
+      [
+        "Pookie outside",
+        35,
+        36,
+        0,
+        false
+      ],
+      [
+        "Oil shop sign",
+        47,
+        32,
+        0,
+        false
+      ],
+      [
+        "Empty house",
+        53,
+        31,
+        0,
+        false
+      ],
+      [
+        "Seated neighbour",
+        55,
+        38,
+        0,
+        true
+      ],
+      [
+        "Pier",
+        78,
+        40,
+        1,
+        false
+      ],
+      [
+        "Lapras",
+        80,
+        43,
+        0,
+        false
+      ],
+      [
+        "Tide bell",
+        42,
+        40,
+        0,
+        false
+      ],
+      [
+        "Forest path",
+        48,
+        23,
+        1,
+        false
+      ],
+      [
+        "Headland flowers",
+        35,
+        32,
+        0,
+        false
+      ],
+      [
+        "Sea glass",
+        53,
+        44,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:home",
+        29,
+        36,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:pier",
+        76,
+        39,
+        0,
+        false
+      ],
+      [
+        "Mooring rope",
+        78,
+        41,
+        0,
+        false
+      ],
+      [
+        "South path",
+        54,
+        51,
+        1,
+        false
+      ],
+      [
+        "Robbery youth one",
+        45,
+        31,
+        0,
+        false
+      ],
+      [
+        "Robbery youth two",
+        45,
+        32,
+        0,
+        false
+      ],
+      [
+        "Coast road sign",
+        55,
+        49,
+        0,
+        false
+      ],
+      [
+        "Berry:ORANBERRY",
+        36,
+        38,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:shop",
+        48,
+        32,
+        0,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 103,
+    "name": "The Listening Wood",
+    "width": 36,
+    "height": 30,
+    "targets": [
+      [
+        "Ninja",
+        9,
+        20,
+        0,
+        true
+      ],
+      [
+        "Fire",
+        10,
+        21,
+        0,
+        true
+      ],
+      [
+        "Wild:NATU",
+        21,
+        13,
+        0,
+        false
+      ],
+      [
+        "Dark pool",
+        27,
+        10,
+        1,
+        false
+      ],
+      [
+        "Shop keys",
+        14,
+        11,
+        0,
+        false
+      ],
+      [
+        "White flowers",
+        14,
+        9,
+        0,
+        false
+      ],
+      [
+        "Northern way",
+        17,
+        3,
+        1,
+        false
+      ],
+      [
+        "Door",
+        17,
+        27,
+        1,
+        false
+      ],
+      [
+        "Berry:ORANBERRY",
+        12,
+        19,
+        0,
+        false
+      ],
+      [
+        "Berry:ORANBERRY",
+        22,
+        9,
+        0,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 104,
+    "name": "The Lantern Room",
+    "width": 14,
+    "height": 14,
+    "targets": [
+      [
+        "Main lamp",
+        6,
+        5,
+        0,
+        true
+      ],
+      [
+        "Downward lamp",
+        9,
+        8,
+        0,
+        true
+      ],
+      [
+        "Door",
+        6,
+        11,
+        1,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 105,
+    "name": "Beyond the Shore",
+    "width": 32,
+    "height": 26,
+    "targets": [
+      [
+        "Spirit:0",
+        9,
+        7,
+        0,
+        false
+      ],
+      [
+        "Spirit:1",
+        21,
+        8,
+        0,
+        false
+      ],
+      [
+        "Spirit:2",
+        7,
+        15,
+        0,
+        false
+      ],
+      [
+        "Spirit:3",
+        23,
+        16,
+        0,
+        false
+      ],
+      [
+        "Spirit:4",
+        13,
+        5,
+        0,
+        false
+      ],
+      [
+        "Spirit:5",
+        18,
+        19,
+        0,
+        false
+      ],
+      [
+        "Guide",
+        15,
+        20,
+        0,
+        false
+      ],
+      [
+        "Return",
+        15,
+        22,
+        1,
+        false
+      ],
+      [
+        "Ashes",
+        5,
+        12,
+        0,
+        false
+      ],
+      [
+        "Arrival",
+        3,
+        22,
+        3,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 106,
+    "name": "The Oil Shop",
+    "width": 16,
+    "height": 14,
+    "targets": [
+      [
+        "Oil seller",
+        7,
+        5,
+        0,
+        true
+      ],
+      [
+        "Bottles",
+        4,
+        7,
+        0,
+        false
+      ],
+      [
+        "Old ledger",
+        11,
+        10,
+        0,
+        false
+      ],
+      [
+        "Door",
+        8,
+        12,
+        1,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 107,
+    "name": "Your Room",
+    "width": 16,
+    "height": 14,
+    "targets": [
+      [
+        "Room:NATU",
+        7,
+        8,
+        0,
+        false
+      ],
+      [
+        "Mother visiting",
+        8,
+        11,
+        0,
+        false
+      ],
+      [
+        "Book",
+        4,
+        9,
+        0,
+        false
+      ],
+      [
+        "Opening",
+        2,
+        11,
+        3,
+        false
+      ],
+      [
+        "Bedroom exit",
+        8,
+        12,
+        1,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 108,
+    "name": "The South Coast Road",
+    "width": 56,
+    "height": 68,
+    "targets": [
+      [
+        "Door",
+        18,
+        4,
+        1,
+        false
+      ],
+      [
+        "Wild:NATU:shorebird",
+        20,
+        10,
+        0,
+        false
+      ],
+      [
+        "Wild:ZIGZAGOON:shoreforager",
+        22,
+        18,
+        0,
+        false
+      ],
+      [
+        "Road thief",
+        26,
+        26,
+        0,
+        false
+      ],
+      [
+        "Thief crossing",
+        25,
+        24,
+        1,
+        false
+      ],
+      [
+        "Thief crossing",
+        26,
+        24,
+        1,
+        false
+      ],
+      [
+        "Thief crossing",
+        27,
+        24,
+        1,
+        false
+      ],
+      [
+        "Running thief",
+        31,
+        43,
+        0,
+        false
+      ],
+      [
+        "Storehouse approach",
+        29,
+        42,
+        1,
+        false
+      ],
+      [
+        "Storehouse approach",
+        29,
+        43,
+        1,
+        false
+      ],
+      [
+        "Storehouse approach",
+        29,
+        44,
+        1,
+        false
+      ],
+      [
+        "Storehouse door",
+        35,
+        41,
+        1,
+        false
+      ],
+      [
+        "Road traveller",
+        23,
+        39,
+        0,
+        true
+      ],
+      [
+        "Fire",
+        24,
+        40,
+        0,
+        true
+      ],
+      [
+        "Southern steps",
+        26,
+        58,
+        0,
+        false
+      ],
+      [
+        "Torn wrapping",
+        31,
+        34,
+        0,
+        false
+      ],
+      [
+        "Shore flowers",
+        16,
+        10,
+        0,
+        false
+      ],
+      [
+        "Berry:ORANBERRY",
+        21,
+        16,
+        0,
+        false
+      ],
+      [
+        "Berry:SITRUSBERRY",
+        28,
+        38,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:storehouse",
+        33,
+        42,
+        0,
+        false
+      ],
+      [
+        "Dock city",
+        44,
+        43,
+        1,
+        false
+      ],
+      [
+        "Dock road sign",
+        42,
+        41,
+        0,
+        false
+      ],
+      [
+        "Wild:PSYDUCK:shoreduck",
+        27,
+        36,
+        0,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 109,
+    "name": "The Old Storehouse",
+    "width": 22,
+    "height": 18,
+    "targets": [
+      [
+        "Crate goods",
+        4,
+        5,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        5,
+        5,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        6,
+        5,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        4,
+        6,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        5,
+        6,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        16,
+        5,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        17,
+        5,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        17,
+        6,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        7,
+        13,
+        0,
+        true
+      ],
+      [
+        "Crate goods",
+        8,
+        13,
+        0,
+        true
+      ],
+      [
+        "Abyss runner",
+        11,
+        9,
+        0,
+        true
+      ],
+      [
+        "Necklace thief",
+        14,
+        7,
+        0,
+        true
+      ],
+      [
+        "Abyss packer",
+        17,
+        11,
+        0,
+        true
+      ],
+      [
+        "Abyss lookout",
+        5,
+        10,
+        0,
+        true
+      ],
+      [
+        "Dispatch slip",
+        16,
+        8,
+        0,
+        false
+      ],
+      [
+        "Arrival",
+        2,
+        15,
+        3,
+        false
+      ],
+      [
+        "Door",
+        11,
+        16,
+        1,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 110,
+    "name": "The Lighthouse Cellar",
+    "width": 26,
+    "height": 20,
+    "targets": [
+      [
+        "Door",
+        6,
+        14,
+        1,
+        false
+      ],
+      [
+        "Crate cellar",
+        5,
+        5,
+        0,
+        true
+      ],
+      [
+        "Crate cellar",
+        6,
+        5,
+        0,
+        true
+      ],
+      [
+        "Crate cellar",
+        8,
+        6,
+        0,
+        true
+      ],
+      [
+        "Crate cellar",
+        20,
+        13,
+        0,
+        true
+      ],
+      [
+        "Crate cellar",
+        21,
+        13,
+        0,
+        true
+      ],
+      [
+        "Crate cellar",
+        20,
+        14,
+        0,
+        true
+      ],
+      [
+        "Old tools",
+        6,
+        11,
+        0,
+        false
+      ],
+      [
+        "Vault doorway",
+        17,
+        4,
+        0,
+        false
+      ],
+      [
+        "Vault ironwork",
+        17,
+        3,
+        0,
+        true
+      ],
+      [
+        "Coast lamp:cellar",
+        13,
+        8,
+        0,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 111,
+    "name": "The Lighthouse Vault",
+    "width": 28,
+    "height": 22,
+    "targets": [
+      [
+        "Vault pillar",
+        5,
+        10,
+        0,
+        true
+      ],
+      [
+        "Vault pillar",
+        21,
+        10,
+        0,
+        true
+      ],
+      [
+        "Vault pillar",
+        5,
+        15,
+        0,
+        true
+      ],
+      [
+        "Vault pillar",
+        21,
+        15,
+        0,
+        true
+      ],
+      [
+        "Mother at vault",
+        13,
+        8,
+        0,
+        false
+      ],
+      [
+        "Seller at vault",
+        11,
+        8,
+        0,
+        false
+      ],
+      [
+        "Necklace drawer",
+        12,
+        6,
+        0,
+        true
+      ],
+      [
+        "Empty bays",
+        20,
+        6,
+        0,
+        false
+      ],
+      [
+        "Cabinet locks",
+        6,
+        6,
+        0,
+        false
+      ],
+      [
+        "Old masonry",
+        23,
+        17,
+        0,
+        false
+      ],
+      [
+        "Arrival",
+        3,
+        18,
+        3,
+        false
+      ],
+      [
+        "Door",
+        12,
+        18,
+        1,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 112,
+    "name": "The Docks",
+    "width": 80,
+    "height": 64,
+    "targets": [
+      [
+        "Door",
+        10,
+        28,
+        1,
+        false
+      ],
+      [
+        "Museum door",
+        31,
+        21,
+        1,
+        false
+      ],
+      [
+        "Museum sign",
+        35,
+        23,
+        0,
+        false
+      ],
+      [
+        "Crate dock",
+        44,
+        30,
+        0,
+        true
+      ],
+      [
+        "Crate dock",
+        45,
+        30,
+        0,
+        true
+      ],
+      [
+        "Crate dock",
+        48,
+        33,
+        0,
+        true
+      ],
+      [
+        "Crate dock",
+        50,
+        33,
+        0,
+        true
+      ],
+      [
+        "Crate dock",
+        18,
+        33,
+        0,
+        true
+      ],
+      [
+        "Coast lamp:dock",
+        14,
+        27,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:dock",
+        28,
+        23,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:dock",
+        37,
+        27,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:dock",
+        43,
+        39,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:dock",
+        55,
+        34,
+        0,
+        false
+      ],
+      [
+        "Porter",
+        22,
+        30,
+        0,
+        true
+      ],
+      [
+        "Mender",
+        38,
+        35,
+        0,
+        true
+      ],
+      [
+        "Warehouse notice",
+        45,
+        22,
+        0,
+        false
+      ],
+      [
+        "Closed quay",
+        59,
+        28,
+        0,
+        false
+      ],
+      [
+        "Dock frontage",
+        14,
+        38,
+        0,
+        false
+      ],
+      [
+        "Dock frontage",
+        33,
+        37,
+        0,
+        false
+      ],
+      [
+        "Dock frontage",
+        47,
+        38,
+        0,
+        false
+      ],
+      [
+        "Dock frontage",
+        54,
+        24,
+        0,
+        false
+      ],
+      [
+        "Dock frontage",
+        18,
+        21,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:quay",
+        23,
+        17,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:quay",
+        40,
+        23,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:quay",
+        51,
+        31,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:quay",
+        18,
+        40,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:quay",
+        35,
+        40,
+        0,
+        false
+      ],
+      [
+        "Coast lamp:quay",
+        57,
+        41,
+        0,
+        false
+      ],
+      [
+        "Dock bollard",
+        25,
+        44,
+        0,
+        false
+      ],
+      [
+        "Dock bollard",
+        27,
+        49,
+        0,
+        false
+      ],
+      [
+        "Dock bollard",
+        42,
+        44,
+        0,
+        false
+      ],
+      [
+        "Dock bollard",
+        44,
+        49,
+        0,
+        false
+      ],
+      [
+        "Dock bollard",
+        54,
+        44,
+        0,
+        false
+      ],
+      [
+        "Dock bollard",
+        56,
+        49,
+        0,
+        false
+      ],
+      [
+        "Dock nets",
+        26,
+        47,
+        0,
+        false
+      ],
+      [
+        "Dock nets",
+        43,
+        46,
+        0,
+        false
+      ],
+      [
+        "Dock nets",
+        55,
+        47,
+        0,
+        false
+      ],
+      [
+        "Dock nets",
+        20,
+        40,
+        0,
+        false
+      ],
+      [
+        "Dock boat",
+        24,
+        48,
+        0,
+        false
+      ],
+      [
+        "Dock boat",
+        45,
+        50,
+        0,
+        false
+      ],
+      [
+        "Dock stall",
+        30,
+        39,
+        0,
+        false
+      ],
+      [
+        "Quay worker",
+        34,
+        40,
+        0,
+        false
+      ],
+      [
+        "Dock resident",
+        24,
+        17,
+        0,
+        false
+      ],
+      [
+        "Demo prop:ship1",
+        27,
+        47,
+        0,
+        false
+      ],
+      [
+        "Demo prop:ship2",
+        56,
+        47,
+        0,
+        false
+      ],
+      [
+        "Sailor ropes",
+        24,
+        41,
+        0,
+        true
+      ],
+      [
+        "Sailor keeper",
+        26,
+        42,
+        0,
+        true
+      ],
+      [
+        "Sailor flour",
+        25,
+        46,
+        0,
+        true
+      ],
+      [
+        "Sailor stars",
+        27,
+        45,
+        0,
+        true
+      ],
+      [
+        "Sailor letters",
+        30,
+        41,
+        0,
+        true
+      ],
+      [
+        "Sailor cargo",
+        33,
+        42,
+        0,
+        true
+      ],
+      [
+        "Sailor museum",
+        39,
+        40,
+        0,
+        true
+      ],
+      [
+        "Sailor snow",
+        46,
+        42,
+        0,
+        true
+      ],
+      [
+        "Sailor pie",
+        53,
+        40,
+        0,
+        true
+      ],
+      [
+        "Sailor sleep",
+        55,
+        42,
+        0,
+        true
+      ],
+      [
+        "Sailor islands",
+        54,
+        46,
+        0,
+        true
+      ],
+      [
+        "Sailor repairs",
+        56,
+        45,
+        0,
+        true
+      ],
+      [
+        "Sailor mate",
+        50,
+        40,
+        0,
+        true
+      ],
+      [
+        "Sailor nell",
+        26,
+        49,
+        0,
+        true
+      ],
+      [
+        "Sailor oren",
+        43,
+        42,
+        0,
+        true
+      ],
+      [
+        "Island captain",
+        55,
+        49,
+        0,
+        true
+      ],
+      [
+        "Demo prop:cargo",
+        35,
+        38,
+        0,
+        true
+      ],
+      [
+        "Demo prop:cargo",
+        48,
+        39,
+        0,
+        true
+      ],
+      [
+        "Demo prop:cargo",
+        51,
+        41,
+        0,
+        true
+      ],
+      [
+        "Demo prop:board",
+        51,
+        38,
+        0,
+        true
+      ],
+      [
+        "Demo prop:ledger",
+        36,
+        41,
+        0,
+        true
+      ],
+      [
+        "Demo prop:memorial",
+        19,
+        40,
+        0,
+        true
+      ]
+    ]
+  },
+  {
+    "id": 113,
+    "name": "Dockside Museum",
+    "width": 30,
+    "height": 24,
+    "targets": [
+      [
+        "Attendant",
+        8,
+        16,
+        0,
+        true
+      ],
+      [
+        "Sabre exhibit",
+        15,
+        8,
+        0,
+        true
+      ],
+      [
+        "Museum case:Harbour bell",
+        7,
+        7,
+        0,
+        true
+      ],
+      [
+        "Museum case:Sounding weights",
+        22,
+        7,
+        0,
+        true
+      ],
+      [
+        "Museum case:Ceramic fragments",
+        22,
+        14,
+        0,
+        true
+      ],
+      [
+        "Museum case:Shipping ledger",
+        7,
+        12,
+        0,
+        true
+      ],
+      [
+        "Visitor",
+        18,
+        12,
+        0,
+        true
+      ],
+      [
+        "Door",
+        14,
+        21,
+        1,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 114,
+    "name": "Your Room",
+    "width": 29,
+    "height": 25,
+    "targets": [
+      [
+        "Slide tile",
+        7,
+        20,
+        1,
+        false
+      ],
+      [
+        "Slide tile",
+        3,
+        9,
+        1,
+        false
+      ],
+      [
+        "Slide tile",
+        3,
+        3,
+        1,
+        false
+      ],
+      [
+        "Slide tile",
+        9,
+        3,
+        1,
+        false
+      ],
+      [
+        "Slide tile",
+        9,
+        7,
+        1,
+        false
+      ],
+      [
+        "Slide tile",
+        17,
+        7,
+        1,
+        false
+      ],
+      [
+        "Slide tile",
+        17,
+        5,
+        1,
+        false
+      ],
+      [
+        "Round patch",
+        9,
+        16,
+        1,
+        false
+      ],
+      [
+        "Round patch",
+        4,
+        10,
+        1,
+        false
+      ],
+      [
+        "Round patch",
+        7,
+        11,
+        1,
+        false
+      ],
+      [
+        "Round patch",
+        16,
+        3,
+        1,
+        false
+      ],
+      [
+        "Round patch",
+        22,
+        6,
+        1,
+        false
+      ],
+      [
+        "Room:NATU",
+        24,
+        5,
+        0,
+        false
+      ],
+      [
+        "Game rules",
+        3,
+        19,
+        0,
+        false
+      ],
+      [
+        "Opening",
+        2,
+        23,
+        3,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 115,
+    "name": "Your Room",
+    "width": 16,
+    "height": 14,
+    "targets": [
+      [
+        "Dream bed",
+        3,
+        4,
+        0,
+        false
+      ],
+      [
+        "Dream bed",
+        3,
+        5,
+        0,
+        false
+      ],
+      [
+        "Dream bed",
+        3,
+        6,
+        0,
+        false
+      ],
+      [
+        "Dream bed",
+        4,
+        4,
+        0,
+        false
+      ],
+      [
+        "Dream bed",
+        4,
+        5,
+        0,
+        false
+      ],
+      [
+        "Dream bed",
+        4,
+        6,
+        0,
+        false
+      ],
+      [
+        "Dream book cupboard",
+        8,
+        4,
+        0,
+        false
+      ],
+      [
+        "Dream book cupboard",
+        8,
+        5,
+        0,
+        false
+      ],
+      [
+        "Dream book cupboard",
+        9,
+        4,
+        0,
+        false
+      ],
+      [
+        "Dream book cupboard",
+        9,
+        5,
+        0,
+        false
+      ],
+      [
+        "Dream chair",
+        8,
+        6,
+        0,
+        false
+      ],
+      [
+        "Dream shelf",
+        11,
+        4,
+        0,
+        false
+      ],
+      [
+        "Dream shelf",
+        11,
+        5,
+        0,
+        false
+      ],
+      [
+        "Dream shelf",
+        12,
+        4,
+        0,
+        false
+      ],
+      [
+        "Dream shelf",
+        12,
+        5,
+        0,
+        false
+      ],
+      [
+        "Dream window",
+        6,
+        3,
+        0,
+        false
+      ],
+      [
+        "Dream window",
+        7,
+        3,
+        0,
+        false
+      ],
+      [
+        "Dream clock",
+        13,
+        3,
+        0,
+        false
+      ],
+      [
+        "Dream book",
+        3,
+        8,
+        0,
+        false
+      ],
+      [
+        "Dream lamp",
+        3,
+        9,
+        0,
+        false
+      ],
+      [
+        "Dream plant",
+        12,
+        9,
+        0,
+        false
+      ],
+      [
+        "Dream plant",
+        12,
+        10,
+        0,
+        false
+      ],
+      [
+        "Dream rug",
+        5,
+        9,
+        0,
+        false
+      ],
+      [
+        "Dream exit",
+        7,
+        12,
+        1,
+        false
+      ],
+      [
+        "Dream exit",
+        8,
+        12,
+        1,
+        false
+      ],
+      [
+        "Room:NATU",
+        10,
+        8,
+        0,
+        false
+      ],
+      [
+        "Opening",
+        2,
+        11,
+        3,
+        false
+      ]
+    ]
+  },
+  {
+    "id": 116,
+    "name": "Your Room, Again",
+    "width": 30,
+    "height": 26,
+    "targets": [
+      [
+        "Folded reading tooth",
+        12,
+        22,
+        0,
+        false
+      ],
+      [
+        "Folded reading snow",
+        26,
+        15,
+        0,
+        false
+      ],
+      [
+        "Folded reading cradle",
+        9,
+        11,
+        0,
+        false
+      ],
+      [
+        "Folded reading voice",
+        19,
+        6,
+        0,
+        false
+      ],
+      [
+        "Folded empty_bed",
+        4,
+        17,
+        0,
+        false
+      ],
+      [
+        "Folded chair",
+        8,
+        16,
+        0,
+        false
+      ],
+      [
+        "Folded plant",
+        26,
+        21,
+        0,
+        false
+      ],
+      [
+        "Folded cupboard",
+        12,
+        5,
+        0,
+        false
+      ],
+      [
+        "Folded bed",
+        24,
+        4,
+        0,
+        false
+      ],
+      [
+        "Folded bed",
+        25,
+        4,
+        0,
+        false
+      ],
+      [
+        "Folded bed",
+        24,
+        5,
+        0,
+        false
+      ],
+      [
+        "Folded bed",
+        25,
+        5,
+        0,
+        false
+      ],
+      [
+        "Folded bed",
+        24,
+        6,
+        0,
+        false
+      ],
+      [
+        "Folded bed",
+        25,
+        6,
+        0,
+        false
+      ],
+      [
+        "Folded stairs",
+        6,
+        24,
+        1,
+        false
+      ],
+      [
+        "Folded stairs",
+        7,
+        24,
+        1,
+        false
+      ],
+      [
+        "Opening",
+        2,
+        23,
+        3,
+        false
+      ]
+    ]
+  }
+]

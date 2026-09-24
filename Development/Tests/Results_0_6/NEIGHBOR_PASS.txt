@@ -1,0 +1,1 @@
+PASS: old 0.3 native save; pie/meal/robbery; south transfer/wild; three trainer wins; movement triggers/overheard dialogue; necklace return/glint; same companion identity; native trainer loss reaches astral before autoheal. Test input and HP resets isolate staging, not balance.

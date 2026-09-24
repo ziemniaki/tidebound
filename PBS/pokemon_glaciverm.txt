@@ -1,0 +1,51 @@
+﻿# Regional Wurmple branches. Nivalora final evolution is appended below.
+[GLACIVERM]
+Name = Glaciverm
+Types = ICE,BUG
+BaseStats = 75,105,110,40,40,65
+GenderRatio = Female50Percent
+GrowthRate = Medium
+BaseExp = 145
+EVs = DEFENSE,2
+CatchRate = 75
+Happiness = 50
+Abilities = TECHNICIAN
+Moves = 0,BUGBITE,1,TACKLE,1,STRINGSHOT,1,POWDERSNOW,10,ICESHARD,13,BIND,16,ICEFANG,20,FIRSTIMPRESSION,24,COIL,28,PINMISSILE,32,IRONDEFENSE,36,ICICLESPEAR,40,XSCISSOR,44,ICICLECRASH,48,LUNGE
+TutorMoves = BUGBITE,ICEFANG,IRONDEFENSE,PROTECT,ENDURE,FACADE,SUBSTITUTE,SLEEPTALK,SNORE,ICEBEAM,BLIZZARD,XSCISSOR
+EggGroups = Bug
+HatchSteps = 3840
+Height = 1.8
+Weight = 24.0
+Color = Blue
+Shape = Serpentine
+Habitat = Forest
+Category = Frost Coil
+Pokedex = It coils its long body beneath roots. Overlapping plates of frozen chitin protect it while it waits to strike at anything that steps too close.
+Generation = 0
+Flags = DefaultForm_0
+
+[FROSTCOON]
+Name = Frostcoon
+Types = BUG,ICE
+BaseStats = 65,35,95,15,55,85
+GenderRatio = Female50Percent
+GrowthRate = Medium
+BaseExp = 95
+EVs = DEFENSE,2
+CatchRate = 120
+Happiness = 50
+Abilities = SHELLARMOR
+Moves = 0,SPIKES,1,HARDEN,1,STRINGSHOT,10,WISH,13,STUNSPORE,16,RAINDANCE,19,PROTECT,22,LIFEDEW,25,STICKYWEB,28,SLEEPPOWDER,31,HAIL,34,AURORAVEIL,38,REFLECT,42,LIGHTSCREEN,46,SAFEGUARD,50,BATONPASS,54,WIDEGUARD
+TutorMoves = PROTECT,ENDURE,SUBSTITUTE,SAFEGUARD,LIGHTSCREEN,REFLECT,HAIL,RAINDANCE,IRONDEFENSE,HELPINGHAND
+EggGroups = Bug
+HatchSteps = 3840
+Height = 0.7
+Weight = 12.0
+Color = Blue
+Shape = Head
+Habitat = Forest
+Category = Frozen Silk
+Pokedex = It seals itself in silk glazed with frost. Even when its shell lies perfectly still, a faint scratching can be heard from within.
+Generation = 0
+Flags = DefaultForm_0
+Evolutions = NIVALORA,Level,55

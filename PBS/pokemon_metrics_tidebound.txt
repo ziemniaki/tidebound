@@ -1,0 +1,13 @@
+[MOONKERN]
+BackSprite = 0,0
+FrontSprite = 0,10
+FrontSpriteAltitude = 6
+ShadowX = 0
+ShadowSize = 0
+
+[MOONFLORA]
+BackSprite = 0,0
+FrontSprite = 0,18
+FrontSpriteAltitude = 6
+ShadowX = 0
+ShadowSize = 0

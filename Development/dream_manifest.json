@@ -1,0 +1,34 @@
+{
+  "map": 115,
+  "start": [
+    7,
+    8
+  ],
+  "wick": [
+    10,
+    8
+  ],
+  "loop_tiles": [
+    [
+      7,
+      12
+    ],
+    [
+      8,
+      12
+    ]
+  ],
+  "object_names": [
+    "bed",
+    "cupboard",
+    "chair",
+    "shelf",
+    "window",
+    "clock",
+    "book",
+    "lamp",
+    "plant",
+    "rug"
+  ],
+  "events": 27
+}

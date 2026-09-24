@@ -14,8 +14,6 @@ Arrow keys move; Enter interacts; Esc opens the menu. Save manually. Existing Ti
 
 The eastern-pier captain’s invitation to Psyduck Island marks the demo’s end. You can continue exploring afterward; the voyage and island are future content.
 
-**Migration status:** The complete current project and Mac demo are available in the release assets. The main documentation is browsable below. Importing the remaining individual source/assets into this Git tree is pending explicit approval of the one-time import operation. Until then, use Tidebound_Project.zip for the complete working project.
-
 ## Project navigation
 
 | Path | Purpose |

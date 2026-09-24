@@ -1,0 +1,41 @@
+﻿# Tidebound story items, never healing supplies.
+
+#-------------------------------
+[TIDEBOUNDPIE]
+Name = Homemade Pie
+NamePlural = Homemade Pie
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Consumable = false
+Description = A homemade pie on a ceramic plate painted with two blue reeds. A thank-you for you and Mother.
+
+#-------------------------------
+[TIDEBOUNDPLATE]
+Name = Blue-Reed Plate
+NamePlural = Blue-Reed Plate
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Consumable = false
+Description = An ordinary ceramic plate, washed and dried. Two blue reeds decorate its rim. Return it to the oil seller.
+
+#-------------------------------
+[TIDEBOUNDNECKLACE]
+Name = Pearl Necklace
+NamePlural = Pearl Necklace
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Consumable = false
+Description = A small pearl necklace recovered from the thieves. The oil seller is waiting for it.
+
+#-------------------------------
+[TIDEBOUNDREEDCHARM]
+Name = Blue-Reed Keepsake
+NamePlural = Blue-Reed Keepsake
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Consumable = false
+Description = A small ceramic charm painted with two blue reeds. A gift from the oil seller, to keep.

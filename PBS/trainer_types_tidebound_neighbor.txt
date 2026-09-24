@@ -1,0 +1,28 @@
+﻿# Temporary stock art; no final Team Abyss uniform is established.
+
+#-------------------------------
+[TBLOCALYOUTH]
+Name = Local Thief
+Gender = Male
+BaseMoney = 0
+SkillLevel = 0
+BattleBGM = Tidebound Stillness
+VictoryBGM = Tidebound Stillness
+
+#-------------------------------
+[TBLOCALYOUTH2]
+Name = Local Thief
+Gender = Male
+BaseMoney = 0
+SkillLevel = 0
+BattleBGM = Tidebound Stillness
+VictoryBGM = Tidebound Stillness
+
+#-------------------------------
+[TBABYSSRUNNER]
+Name = Abyss Runner
+Gender = Male
+BaseMoney = 0
+SkillLevel = 0
+BattleBGM = Tidebound Stillness
+VictoryBGM = Tidebound Stillness

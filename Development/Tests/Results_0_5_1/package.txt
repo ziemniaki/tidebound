@@ -1,0 +1,1 @@
+PASS: 7530 bundled game files match source; runtime/dependencies unchanged; Mac bundle 0.5.1/6; executable permission and font fix retained; document copies agree.
