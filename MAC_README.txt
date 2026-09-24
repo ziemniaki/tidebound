@@ -1,5 +1,9 @@
 TIDEBOUND - THE KEEPER'S LIGHT
-Opening 0.8.0 | Native Intel Mac app | Target: macOS Monterey 12.7.5
+Opening 0.8.1 | Native Intel Mac app | Target: macOS Monterey 12.7.5
+
+0.8.1: Aipom replaces Caterpie in northern forest grass. New southern-road
+Ekans are gray Normal/Dark, with matching Arbok at level 22 and Dark moves
+in place of Poison moves. Existing ordinary companions retain their form.
 
 1. Unzip this download on your Mac.
 2. Drag Tidebound.app to Applications, or another normal folder you own.
@@ -41,7 +45,7 @@ A Windows save is not automatically transferred between computers.
 
 Checked here: all starter choices, save migration, map connections and actual
 engine rendering on Linux. The same Mac runtime is retained. You confirmed that
-0.4 works on your Mac; this workspace cannot run macOS, so 0.8.0 still needs your
+0.4 works on your Mac; this workspace cannot run macOS, so 0.8.1 still needs your
 on-device check. If an error appears, send its exact text or a screenshot and
 keep the save.
 

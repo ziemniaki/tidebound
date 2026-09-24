@@ -1,6 +1,6 @@
 # Tidebound — The Keeper's Light
 
-Demo 1 **0.8.0** · Pokémon Essentials **21.1**
+Demo 1 **0.8.1** · Pokémon Essentials **21.1**
 
 ## Demo 1 / 0.8.0 — 23 September 2026
 
@@ -20,7 +20,7 @@ where losing a battle can lead somewhere other than home.
 
 ## Start
 
-Mac: unzip Tidebound_Mac_0.8.0.zip, move Tidebound.app to Applications and
+Mac: unzip Tidebound_Mac_0.8.1.zip, move Tidebound.app to Applications and
 Control-click > Open for its first launch. See MAC_README.txt if Monterey asks
 for an Open Anyway action. No Codex, Wine or Windows installation is needed.
 
@@ -28,7 +28,7 @@ Windows: unzip the maintained project and open Game.exe inside Tidebound_Prototy
 Keep its Data, Audio, Graphics, Fonts and runtime files together.
 
 Press Return, then New Game. The Mac app includes its game files internally.
-The editable project and game bible are in Tidebound_Project.zip.
+The editable project and game bible are in Tidebound_Project_0.8.1.zip.
 
 Use the arrow keys to move and **Enter** to interact. **Esc** opens the menu or
 backs out. Use **F1** to view or change the launcher's key bindings. Save from

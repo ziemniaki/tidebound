@@ -4,7 +4,7 @@
 
 
 **Guide version:** 2.26, 24 September 2026  
-**Project baseline:** Demo 1 / 0.8.0, Pokémon Essentials 21.1  
+**Project baseline:** Demo 1 / 0.8.1, Pokémon Essentials 21.1  
 **Status:** existing game, continuing development; do not start over.
 
 Place this file in the game project root, beside `Game.rxproj`, `Game.ini`, and
@@ -1219,7 +1219,7 @@ Continue preserves existing party, inventory and quest flags. Updated map data r
 Run rebuild_maps.py, rebuild_whyduck_data.py, rebuild_scripts.py and validate_maps.py with rubymarshal/Pillow installed. Tests/demo_native.rb is a disposable native test driver, not release code. See validation_demo_080.md for completed checks and platform limits. Later content, including Psyduck Island and the museum heist, remains unimplemented.
 
 
-## Unreleased — regional Ekans / Arbok (24 September 2026)
+## 0.8.1 — regional Ekans / Arbok (24 September 2026)
 
 `rebuild_snake_data.py` creates form 1 of both species, Normal/Dark, and replaces
 all Poison moves across level-up, tutor and egg pools (including Coil). Run it
@@ -1232,4 +1232,4 @@ initial moves. It does not migrate already-owned ordinary snakes or add Arbok to
 encounter tables. Native evolution retains form 1; never add DefaultForm_0 here.
 `Tests/regional_snakes.cjs` uses actual Essentials objects for encounter hooks,
 learnsets, evolution, ordinary-form isolation and save preservation. Run after
-Tests/prepare_reference.py and npm ci. Release 0.8.0 ZIPs remain unchanged.
+Tests/prepare_reference.py and npm ci. Packaged in 0.8.1 (Mac bundle build 35); release 0.8.0 ZIPs remain unchanged.

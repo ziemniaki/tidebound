@@ -1,7 +1,7 @@
 # Tidebound: original project code. Internal codename; no final game title chosen.
 # Pure Ruby domain model. No maps, rendering, or Essentials globals required.
 module Tidebound
-  VERSION = "0.8.0"
+  VERSION = "0.8.1"
 
   module Config
     # Prototype tuning values, not settled design decisions.
