@@ -82,7 +82,7 @@ return so the save can continue. The borrowed guide cannot leave the astral map.
 Each fire restores full HP and PP once every 15 real minutes. Cooldowns are
 independent and saved. Rest does not cure poison or other status conditions.
 Five berry trees provide two Oran or Sitrus Berries each and regrow in one hour.
-Tall grass contains forest bugs or coastal Zigzagoon, Sunkern and Ekans;
+Tall grass contains Aipom, Weedle and regional Wurmple in the forest, or coastal Zigzagoon, Sunkern and Ekans;
 ordinary paths remain safe from random encounters. There are no Centres or healing shops on
 these maps. Ordinary manual saves are supported; loading an older save can still
 roll back losses. An enforced autosave policy is not part of this prototype.

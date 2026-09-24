@@ -2,6 +2,10 @@
 
 Demo 1 / 0.8.0 · Bible 1.27 · Guide 2.25 · 23 September 2026
 
+## Unreleased — 24 September 2026
+
+Northern forest (The Listening Wood, map 103): Aipom replaces Caterpie in tall grass at the same 45% encounter weight and levels 3–5. Weedle (40%) and regional Wurmple (15%) remain. The encounter generator, PBS and compiled data agree. Existing companions and saves are unchanged. This source update is not yet included in the published 0.8.0 Mac/project ZIPs.
+
 ## Demo 1 / 0.8.0 — 23 September 2026
 
 The opening caption now adds “Take it for a little walk, 100 steps.” This is wording only: guide Natu to the bed as before; no step counter was added. Pokémon losing their HP are described as having died, including field poison, while the existing battle and astral mechanics are retained.
