@@ -1,0 +1,1 @@
+PASS: native map109 renders both clutter maze and sofa area.

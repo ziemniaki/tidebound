@@ -1,6 +1,10 @@
 # Current project status
 
-Demo 1 / 0.8.2 · Bible 1.29 · Guide 2.27 · 25 September 2026
+Demo 1 / 0.8.3 · Bible 1.29 · Guide 2.28 · 25 September 2026
+
+## Demo 1 / 0.8.3 — squat atmosphere
+
+Map109 is now cold, pale and neglected: boarded windows, peeling walls, damp floorboards, torn pallet mattresses, battered sofa, broken crates and an open locker. Warm lamps, neat rugs and domestic shelving are removed. All collision masks, event positions and quest mechanics are preserved. Art uses private cloned atlas tiles; the lighthouse keeps its original appearance. Map magic26092502 refreshes old map caches. Mac build37, same runtime and save directory. See Development/validation_hideout_atmosphere.md. GitHub release publication is pending; last verified published release is 0.8.1.
 
 ## Demo 1 / 0.8.2 — 25 September 2026
 

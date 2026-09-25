@@ -443,6 +443,8 @@ module Tidebound
       indoor = [101, 104, 106, 107, 109, 110, 111, 113, 114, 115, 116].include?($game_map.map_id)
       tone = if $game_map.map_id == 116
                Tone.new(-20, -30, -12, 25)
+             elsif $game_map.map_id == 109
+               Tone.new(-35, -32, -25, 95)
              elsif [110,111].include?($game_map.map_id)
                Tone.new(-38, -38, -30, 65)
              elsif indoor

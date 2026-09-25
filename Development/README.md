@@ -227,3 +227,7 @@ Build additions: demo_maps.py / demo_art.py / 022_DemoLaunch.rb; run rebuild_why
 
 
 0.8.2: hideout_room.py regenerates map109 through lighthouse_interiors.py. 023_Hideout.rb owns the guarded sofa, isolated rune-console minigame and boss/cache handoff. Rebuild maps/scripts and run validate_maps.py plus Tests/native_domain.cjs. Tests/hideout_native.rb is a disposable graphical driver; keep it outside release Scripts. See validation_hideout.md.
+
+## 0.8.3 — neglected squat atmosphere
+
+hideout_room.py replaces map109's domestic furnishings with code-drawn pallet mattresses, broken crates/locker, torn sofa, battered wash trough and improvised bench. Windows are boarded; no household lamp or neat rug remains. Floorboards and limewash are damp and cracked. The final palette pass clones tiles instead of recolouring shared entries, protecting every lighthouse room. 004_Opening.rb gives map109 a dedicated Tone(-35,-32,-25,95). Collision masks and event positions are unchanged. Map magic26092502 refreshes existing saves. Mac build37. Native screenshots and focused validation are in HideoutEvidence_083 and validation_hideout_atmosphere.md. No new lore or quest changes.

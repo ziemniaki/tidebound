@@ -72,6 +72,11 @@ module HideoutNativeCheck
     return if @hideout_test || !$player || pbMapInterpreterRunning? || $game_temp.message_window_showing
     @hideout_test=true
     h=Tidebound::Hideout;n=Tidebound::NeighborQuest
+    if ENV['TB_HIDEOUT_ATMOSPHERE']=='1'
+      $game_player.moveto(8,10);shot('squat-west')
+      $game_player.moveto(16,5);shot('squat-sofa')
+      File.write('ATMOSPHERE_NATIVE_PASS.txt','PASS: native map109 renders both clutter maze and sofa area.');exit
+    end
     if ENV['TB_HIDEOUT_CACHE']=='1'
       n.q[:runner_won]=true;n.q[:second_won]=true
       h.actor.character_name='trainer_CAMPER'
