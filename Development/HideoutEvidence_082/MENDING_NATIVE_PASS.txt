@@ -1,0 +1,1 @@
+PASS: final artwork, full minigame controls and exit, all sprites and bitmaps disposed.

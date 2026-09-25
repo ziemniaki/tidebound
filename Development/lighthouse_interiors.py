@@ -192,6 +192,7 @@ for m in [bedroom,home,lantern,basement,vault]:
 exec((DEV/'psychic_maze.py').read_text())
 exec((DEV/'dream_room.py').read_text())
 exec((DEV/'folded_room.py').read_text())
+exec((DEV/'hideout_room.py').read_text())
 
 sets=loads((GAME/'Data/Tilesets.rxdata').read_bytes())
 id=next((i for i,t in enumerate(sets) if t and t.attributes.get('@name')=='Tidebound Lighthouse'),len(sets))
@@ -206,5 +207,5 @@ for key in ['@passages','@priorities','@terrain_tags']:
 if id==len(sets):sets.append(ts)
 else:sets[id]=ts
 (GAME/'Data/Tilesets.rxdata').write_bytes(writes(sets))
-for m in [bedroom,home,lantern,basement,vault,maze,dream,folded]:m.tileset=id
+for m in [bedroom,home,lantern,basement,vault,maze,dream,folded,hideout]:m.tileset=id
 (DEV/'lighthouse_manifest.json').write_text(json.dumps({'maps':[101,104,107,110,111],'tileset':id,'tiles':len(interior_tiles),'revision':1},indent=2))

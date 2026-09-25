@@ -2,7 +2,7 @@
 
 ## Game bible
 
-**Version 1.28 | 24 September 2026**  
+**Version 1.29 | 25 September 2026**
 **Creative direction: Wojciech Krzyżanowski**  
 **Working title: Tidebound | Full story spoilers**
 
@@ -10,7 +10,7 @@ A solitary Pokémon journey through a wounded coastal land, where the sea keeps 
 
 This is the consolidated creative record for the whole game. It expands and supersedes the short design record dated 8 September 2026. It preserves established decisions, outlines a playable narrative, and identifies what still needs invention. It describes the intended game, not a claim that these chapters have already been built.
 
-**Current playable milestone: 0.7.20, Natu's dark prelude before the two false bedrooms.** This revision implements the previously reserved lighthouse cellar/vault and the first dock-city museum hall. Earlier statements reserving those spaces describe the 0.6 necklace milestone and are superseded for this limited visit. The museum heist, the sabre's magical use and the final confrontation remain future content.
+**Current playable milestone: Demo 1 / 0.8.2, revised youngster hideout.** This revision implements the previously reserved lighthouse cellar/vault and the first dock-city museum hall. Earlier statements reserving those spaces describe the 0.6 necklace milestone and are superseded for this limited visit. The museum heist, the sabre's magical use and the final confrontation remain future content.
 
 ### How to read this document
 
@@ -714,7 +714,7 @@ Much later, recovery of or access to the sabre connects to healed Water/Grass Su
 2. Return the oil to Mother and share the pie. She recognises the cooking without explaining how. A remaining household Pokémon moves closer to the food. She washes the empty plate. The player retains it for return. The lamp lesson remains available in its existing order.
 3. Returning the plate to the shop triggers two boys bursting out and fleeing south. The seller's short, unsuccessful chase exposes his aching legs. He notices the plate and thanks the child before asking, neighbour to neighbour, for help recovering a pearl necklace.
 4. Follow the south coast road. Optional wild Pokémon precede the first thief. He recognises the lighthouse child, lies badly and battles. After defeat he accidentally admits the other boy has the necklace, then runs.
-5. Farther south, the second boy enters an old storehouse. The player overhears several criminals discussing resale, boxes, pearls, petty hierarchy and buyers at the docks. The runner and second thief can be defeated; the player recovers the necklace.
+5. Farther south, the second boy enters an old storehouse that the youths use as a messy home. After overhearing petty resale talk, the player navigates a short maze of rubbish and laundry. Bram challenges them when they approach Ivo, who is playing on a sofa. Ivo demands a victory in his game before discussing the necklace. Its unexpectedly gruesome Pokemon body horror interrupts the otherwise comic scene. After the player wins, he angrily demands a Pokemon battle anyway. Defeat brings a modest admission of wrongdoing. He walks to the cupboard, retrieves the necklace and hands it over. See section 31 for implementation choices.
 6. Return it to the seller. Only now does he explain that his wife wore it on important and ordinary days. His grief is restrained. A single pearl briefly catches unusual light; he explains it as something pearls do.
 7. Wondering where to keep it, he mentions the museum down at the docks, dismisses it as too important for this personal object, then casually suggests Ellie's huge lighthouse vault. He puts the necklace away. No vault purpose or museum quest is revealed.
 
@@ -1369,3 +1369,16 @@ Whyduck retains Psyduck's rounded duck body, beak, feet and tail, with a calm pe
 **Confirmed next destination.** Psyduck Island is the intended next playable destination after the dock city. An eastern-pier captain offers passage. Accepting the invitation marks the end of Demo 1 and lets the player continue exploring the current region. No voyage or island map is implemented. The island's geography, inhabitants, story, exact place in the regional numbering and final name remain open. Do not turn a sailor's casual observation about its ducks into authoritative supernatural lore.
 
 **Ecology adjustment.** The South Coast Road has a visible Tidebound Psyduck in addition to its grass encounters. Its evolution into Whyduck is now level 16, superseding level 33 for the regional form only. The approved appearance, stats and moves remain unchanged.
+
+
+## 31. The youngsters' hideout and the game within the game
+
+**Confirmed direction, 25 September 2026.** Rebuild the storehouse as the boys' lived-in home: beds, sofa, a basin full of dishes, discarded food, laundry, garbage and resale goods. The mess forms a small navigable maze. The local boss sits on the sofa playing a console game. Another boy challenges the approaching protagonist to keep them from interrupting him; this is the first battle inside the hideout. The boss demands that the protagonist beat his game before revealing the necklace's location. The minigame must be an abrupt, haunting, gruesome, Pokemon-themed body-horror surprise, with modest difficulty. After losing, he breaks his promise and demands a Pokemon battle. Only after that defeat does he acknowledge his wrongdoing, lead the protagonist to the necklace and hand it over. The seller's restrained grief and subsequent vault visit remain unchanged.
+
+**Prototype implementation.** Ivo, the second thief, fills the local boss role; Bram guards his sofa. Their existing battle teams and levels remain. A wooden rune-powered console, glass display and corded handpiece reconcile the requested gaming scene with the established past-like setting. This does not introduce advanced electronic technology generally.
+
+The fictional game opens as **Pet House**, then reveals **The Mending**. Guide a tiny pale figure through an opened, breathing, Chansey-like body. Three Natu shapes lie within sutured sacs. Stand beside each and loosen its stitch, then leave through the northern mouth. Slow contractions return the figure to the entrance but preserve released nests. Escape leaves the minigame without quest progress; retry is free. The horror belongs to the boys' game: no actual party Pokemon are harmed, taken, healed or resurrected. A completed game stays completed if the subsequent trainer battle is lost.
+
+**Narrative boundary.** This is an explicitly approved early tonal rupture. It establishes neither an actual astral journey nor any explanation of the sea, Mother's ritual, the pearls or the sabre. The game's author and its relationship, if any, to wider mythology remain open. The youths remain small-time, immature thieves; their possession of this game does not make them omniscient or supernatural. Ivo's apology does not automatically absolve the theft or imply that the old seller has forgiven him.
+
+**Persistence.** Existing completed-necklace saves stay completed. A save after beating the earlier version of Ivo can collect the necklace without replaying new prerequisites. A full Key Items pocket delays only collection. Existing save identity, party and battle-loss rules remain intact.

@@ -1,6 +1,10 @@
 # Current project status
 
-Demo 1 / 0.8.1 · Bible 1.28 · Guide 2.26 · 24 September 2026
+Demo 1 / 0.8.2 · Bible 1.29 · Guide 2.27 · 25 September 2026
+
+## Demo 1 / 0.8.2 — 25 September 2026
+
+Map109 is now the youths' untidy home and a short clutter maze. Approaching the sofa triggers Bram's battle. Ivo demands victory in a rune-console game: Pet House becomes The Mending, a compact body-horror exploration puzzle. Winning persists through a later boss-battle loss. After his own defeat, Ivo admits the theft, walks to a cupboard and hands over the necklace. Full-bag retries and older completed saves are supported. The real party is untouched by the minigame. All other maps, species and necklace/vault progression remain. See Development/validation_hideout.md.
 
 ## Demo 1 / 0.8.1 — 24 September 2026
 

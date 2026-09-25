@@ -378,7 +378,7 @@ exec((DEV/'demo_maps.py').read_text())
 def build():
     for m in MAPS:m.save()
     system=loads((GAME/'Data/System.rxdata').read_bytes())
-    system.attributes.update({'@start_map_id':115,'@start_x':7,'@start_y':8,'@magic_number':26092301})
+    system.attributes.update({'@start_map_id':115,'@start_x':7,'@start_y':8,'@magic_number':26092501})
     (GAME/'Data/System.rxdata').write_bytes(writes(system))
     infos=loads((GAME/'Data/MapInfos.rxdata').read_bytes())
     metadata=loads((GAME/'Data/map_metadata.dat').read_bytes())

@@ -1,6 +1,6 @@
 # Tidebound — The Keeper's Light
 
-Demo 1 **0.8.1** · Pokémon Essentials **21.1**
+Demo 1 **0.8.2** · Pokémon Essentials **21.1**
 
 ## Demo 1 / 0.8.0 — 23 September 2026
 
@@ -20,7 +20,7 @@ where losing a battle can lead somewhere other than home.
 
 ## Start
 
-Mac: unzip Tidebound_Mac_0.8.1.zip, move Tidebound.app to Applications and
+Mac: unzip Tidebound_Mac_0.8.2.zip, move Tidebound.app to Applications and
 Control-click > Open for its first launch. See MAC_README.txt if Monterey asks
 for an Open Anyway action. No Codex, Wine or Windows installation is needed.
 
@@ -28,7 +28,7 @@ Windows: unzip the maintained project and open Game.exe inside Tidebound_Prototy
 Keep its Data, Audio, Graphics, Fonts and runtime files together.
 
 Press Return, then New Game. The Mac app includes its game files internally.
-The editable project and game bible are in Tidebound_Project_0.8.1.zip.
+The editable project and game bible are in Tidebound_Project_0.8.2.zip.
 
 Use the arrow keys to move and **Enter** to interact. **Esc** opens the menu or
 backs out. Use **F1** to view or change the launcher's key bindings. Save from
@@ -248,3 +248,8 @@ Earlier milestone 0.7.18: New Game began in a false ordinary bedroom. Inspect it
 0.7.23: Whyduck now has hand-drawn open-skull green brain, a penguin-like confident stance and outstretched arms in front/back, shiny and icon artwork.
 
 0.7.24: Approved Whyduck artwork: a pink brain, original Psyduck eye, hand and bill pixels, down-left gaze and a mirrored casting pose. Other gameplay is unchanged.
+
+
+## Revised hideout
+
+During the necklace pursuit, enter the old storehouse on the south road. Follow the gaps through the rubbish and approach the sofa. Defeat Bram, speak to Ivo, and accept his game. Arrows move; Enter loosens a nearby stitch; Escape leaves. Free all three nests, then reach the northern mouth. Contractions preserve released nests. After winning, defeat Ivo in a Pokemon battle and receive the necklace by the cupboard. The minigame never affects your actual party. Existing finished quests remain finished; start a separate new journey if you want to replay that story.

@@ -1,0 +1,1 @@
+PASS: actual NPC and player routes from all four approach tiles; collision restored; unique necklace.

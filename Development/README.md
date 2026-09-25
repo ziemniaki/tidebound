@@ -224,3 +224,6 @@ Speak to the captain at the end of the eastern pier about **Psyduck Island**. Ac
 Continue preserves existing party, inventory and quest flags. Updated map data reloads on old saves; a player standing where a new dock actor was placed is moved to a nearby clear tile. New Game is required to see the opening caption. The previous 99 starting Rare Candies remain available for evolution testing; this release does not remove user-requested supplies. Keep a backup before overwriting a save with a new journey.
 
 Build additions: demo_maps.py / demo_art.py / 022_DemoLaunch.rb; run rebuild_whyduck_data.py for the level16 evolution. See AGENTS.md and validation_demo_080.md.
+
+
+0.8.2: hideout_room.py regenerates map109 through lighthouse_interiors.py. 023_Hideout.rb owns the guarded sofa, isolated rune-console minigame and boss/cache handoff. Rebuild maps/scripts and run validate_maps.py plus Tests/native_domain.cjs. Tests/hideout_native.rb is a disposable graphical driver; keep it outside release Scripts. See validation_hideout.md.

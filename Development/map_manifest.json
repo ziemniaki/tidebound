@@ -700,109 +700,109 @@
     "height": 18,
     "targets": [
       [
-        "Crate goods",
-        4,
+        "Clutter",
         5,
+        12,
         0,
         true
       ],
       [
-        "Crate goods",
-        5,
-        5,
-        0,
-        true
-      ],
-      [
-        "Crate goods",
-        6,
-        5,
-        0,
-        true
-      ],
-      [
-        "Crate goods",
-        4,
-        6,
-        0,
-        true
-      ],
-      [
-        "Crate goods",
-        5,
-        6,
-        0,
-        true
-      ],
-      [
-        "Crate goods",
-        16,
-        5,
-        0,
-        true
-      ],
-      [
-        "Crate goods",
-        17,
-        5,
-        0,
-        true
-      ],
-      [
-        "Crate goods",
-        17,
-        6,
-        0,
-        true
-      ],
-      [
-        "Crate goods",
+        "Clutter",
         7,
-        13,
+        12,
         0,
         true
       ],
       [
-        "Crate goods",
-        8,
+        "Clutter",
+        9,
+        12,
+        0,
+        true
+      ],
+      [
+        "Clutter",
+        11,
+        12,
+        0,
+        true
+      ],
+      [
+        "Clutter",
         13,
+        12,
+        0,
+        true
+      ],
+      [
+        "Clutter",
+        15,
+        12,
+        0,
+        true
+      ],
+      [
+        "Clutter",
+        17,
+        12,
+        0,
+        true
+      ],
+      [
+        "Clutter",
+        19,
+        12,
+        0,
+        true
+      ],
+      [
+        "Clutter",
+        7,
+        8,
+        0,
+        true
+      ],
+      [
+        "Clutter",
+        10,
+        8,
         0,
         true
       ],
       [
         "Abyss runner",
-        11,
-        9,
-        0,
-        true
-      ],
-      [
-        "Necklace thief",
-        14,
+        13,
         7,
         0,
         true
       ],
       [
+        "Necklace thief",
+        16,
+        4,
+        0,
+        true
+      ],
+      [
         "Abyss packer",
-        17,
+        18,
         11,
         0,
         true
       ],
       [
         "Abyss lookout",
-        5,
-        10,
+        3,
+        9,
         0,
         true
       ],
       [
         "Dispatch slip",
-        16,
-        8,
+        12,
+        4,
         0,
-        false
+        true
       ],
       [
         "Arrival",
@@ -816,6 +816,34 @@
         11,
         16,
         1,
+        true
+      ],
+      [
+        "Sofa approach",
+        14,
+        9,
+        1,
+        false
+      ],
+      [
+        "Sofa approach",
+        15,
+        9,
+        1,
+        false
+      ],
+      [
+        "Rune console",
+        15,
+        6,
+        0,
+        false
+      ],
+      [
+        "Unwashed dishes",
+        19,
+        5,
+        0,
         false
       ]
     ]

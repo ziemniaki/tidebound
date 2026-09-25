@@ -1,5 +1,8 @@
 TIDEBOUND - THE KEEPER'S LIGHT
-Opening 0.8.1 | Native Intel Mac app | Target: macOS Monterey 12.7.5
+Opening 0.8.2 | Native Intel Mac app | Target: macOS Monterey 12.7.5
+
+0.8.2: The hideout now has a clutter maze, a guarded sofa and an eerie
+rune-console minigame before Ivo's battle and necklace handoff.
 
 0.8.1: Aipom replaces Caterpie in northern forest grass. New southern-road
 Ekans are gray Normal/Dark, with matching Arbok at level 22 and Dark moves
@@ -45,7 +48,7 @@ A Windows save is not automatically transferred between computers.
 
 Checked here: all starter choices, save migration, map connections and actual
 engine rendering on Linux. The same Mac runtime is retained. You confirmed that
-0.4 works on your Mac; this workspace cannot run macOS, so 0.8.1 still needs your
+0.4 works on your Mac; this workspace cannot run macOS, so 0.8.2 still needs your
 on-device check. If an error appears, send its exact text or a screenshot and
 keep the save.
 

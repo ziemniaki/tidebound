@@ -92,6 +92,8 @@ puts "PASS: actual Essentials Pokemon/Move/Owner/Player objects; capture copy, i
  run(fs.readFileSync(path.join(dev,'010_FieldDetails.rb'),'utf8').split('# The generated maps')[0],'field domain rules');
  run(fs.readFileSync(path.join(__dirname,'opening_flow.rb'),'utf8'),'opening flow');
  run(fs.readFileSync(path.join(__dirname,'neighbor_flow.rb'),'utf8'),'neighbor flow');
+ run(fs.readFileSync(path.join(dev,'023_Hideout.rb'),'utf8'),'hideout');
+ run(fs.readFileSync(path.join(__dirname,'hideout_flow.rb'),'utf8'),'hideout flow');
  // RubyVM compiler checks event bodies and custom integration, no graphics needed.
  for(const file of fs.readdirSync(dev).filter(x=>/^\d{3}_.*\.rb$/.test(x))){const code=fs.readFileSync(path.join(dev,file),'utf8');run(`RubyVM::InstructionSequence.compile(${JSON.stringify(Buffer.from(code).toString('base64'))}.unpack1("m0"),${JSON.stringify(file)})`,file+' syntax');}
  const events=JSON.parse(fs.readFileSync(path.join(dev,'event_scripts.json'),'utf8'));
