@@ -1,9 +1,9 @@
 # Verified builds and releases
 
 The current workflow produces one universal Mac ZIP (native `x86_64` and `arm64`),
-a Windows x64 player ZIP, and an editable project ZIP. `release.json`
+a Windows x64 player ZIP, a Linux x86_64 player ZIP, and an editable project ZIP. `release.json`
 defines the package version, Mac build number and pinned runtime archive/source
-hashes, including all three existing Windows native binaries. The existing 0.8.4 release is not replaced by this tooling change.
+hashes, including all three existing Windows native binaries. Existing release downloads are not replaced by tooling changes; publish a new version to distribute these updates.
 
 ## Developer commands
 
@@ -48,6 +48,27 @@ manifest is included as `BUILD.json` inside the ZIP. Packaging checks pinned
 runtime hashes and x64 PE headers, all copied files, and an extraction roundtrip.
 It uses the same staging/no-overwrite rules as the Mac package and accepts
 `--allow-dirty` only for a local preview.
+
+For a Linux-only package, on any development host:
+
+```sh
+python Development/package_linux.py ../linux-candidate
+```
+
+On Linux x86_64 with the libraries in `LINUX_README.txt` installed:
+
+```sh
+python Development/verify_artifacts.py ../linux-candidate
+python Development/Tests/linux_runtime_smoke.py ../linux-candidate/Tidebound_Linux_0.8.5_x86_64.zip ../smoke-linux
+```
+
+The Linux ZIP bundles the unchanged upstream executable, lib64, Ruby stdlib,
+game files, a working-directory-aware `Tidebound.sh`, matching engine source,
+license and provenance. `LINUX_BUILD.json` records architecture, source/runtime
+hashes, baseline glibc and every packaged file; the same manifest is in the ZIP.
+Packaging verifies ELF architecture, content hashes and executable permissions
+through extraction. The runtime targets x86_64 Ubuntu 22.04/24.04 (glibc 2.35+),
+with system libraries documented in the player README. This is not an AppImage.
 
 Use `--arch x86_64` on an Intel Mac. Choose new output paths each time. A release
 build requires a clean Git checkout and records its exact commit. For a local
@@ -121,10 +142,15 @@ This is a maintainer policy, not newly configured branch protection.
 The Actions UI also provides `Requested verification` with a PR number (including
 for forks), and `Full verification` for a selected branch/tag or explicit commit.
 Use the requested workflow when a PR commit status is needed. Full runs include
-Linux regeneration, Mac/Windows packaging and ARM Mac/Intel Mac/Windows native
-smoke checks. Tags always invoke the full workflow before drafting a release.
+Linux regeneration, all player packages, ARM Mac/Intel Mac/Windows native
+smoke checks and Linux native smoke on Ubuntu 22.04 and 24.04. Tags always invoke the full workflow before drafting a release.
 Main pushes only run quick checks, avoiding an automatic duplicate full matrix.
 Actions are pinned to reviewed commits; build jobs never get release credentials.
+
+The comment handler uses trusted workflow definitions from main. When changing
+workflow definitions themselves, also dispatch Full verification on the reviewed
+PR branch to exercise the new definitions before merging; `/verify` intentionally
+does not execute PR-controlled workflows with status-writing credentials.
 
 For the next release:
 
@@ -136,7 +162,7 @@ For the next release:
 3. Tag the merged commit with the matching version, e.g. `v0.8.5`, and push the tag
    to the original repository. Do not retag or reuse `v0.8.4`.
 4. `Prepare release` requires the tag to match the config and its commit to be
-   in `main`'s history. It reruns the build and all three native platform checks.
+   in `main`'s history. It reruns the build and all native platform checks.
    Only then does a separate job get `contents: write` and upload a **draft**
    GitHub release. The publisher rechecks checksums and the remote tag's commit.
 5. Review the attached downloads and notes, then publish the draft in GitHub.
@@ -170,6 +196,11 @@ publisher is retired; `finish_pond_release.py` is retained only as historical co
   compatibility. Normal local smoke uses the machine's system graphics/audio.
   The unchanged Windows binaries have pinned hashes, but no verified matching source/build recipe
   is available in this repository. See `Runtime/Windows/PROVENANCE.md`.
+- Linux smoke verifies the shipped launcher from outside the game directory on
+  Ubuntu 22.04 and 24.04 using Xvfb, Mesa software rendering and null OpenAL audio.
+  It checks all ELF dependencies with `ldd`, isolates HOME/XDG save paths and
+  records boot/data/save/render results. Hardware audio/input, Wayland, other
+  distributions and ARM Linux remain unverified.
 - Runtime updates need an explicit provenance/hash review and all native platforms
   revalidated.
 

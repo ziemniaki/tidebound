@@ -74,7 +74,7 @@ jobs:
           cache-dependency-path: Development/Tests/package-lock.json
       - run: python -m pip install -r requirements-dev.txt
       - run: npm ci --prefix Development/Tests --ignore-scripts
-      - name: Stage and verify Mac, Windows and editable project archives
+      - name: Stage and verify Mac, Windows, Linux and editable project archives
         run: python Development/build_release.py "$RUNNER_TEMP/candidate"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -160,6 +160,48 @@ jobs:
         if: always()
         with:
           name: native-smoke-windows-x64
+          path: ${{ runner.temp }}/smoke/
+          if-no-files-found: warn
+          retention-days: 14
+
+  native-linux:
+    needs: package
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Install documented runtime libraries and CI display
+        run: |
+          sudo apt-get update
+          if [ "$(lsb_release -rs)" = '22.04' ]; then alsa=libasound2; else alsa=libasound2t64; fi
+          sudo apt-get install -y "$alsa" libpulse0 libgomp1 zlib1g libffi8 libyaml-0-2 libcrypt1 libbsd0 libmd0 libgl1 libegl1 xvfb xauth
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: tidebound-release-candidate
+          path: ${{ runner.temp }}/candidate/
+      - run: python Development/verify_artifacts.py "$RUNNER_TEMP/candidate"
+      - name: Run native Linux player smoke
+        env:
+          ALSOFT_DRIVERS: 'null'
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python Development/Tests/linux_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Linux_*_x86_64.zip "$RUNNER_TEMP/smoke"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: native-smoke-linux-${{ matrix.os }}
           path: ${{ runner.temp }}/smoke/
           if-no-files-found: warn
           retention-days: 14

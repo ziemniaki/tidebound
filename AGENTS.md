@@ -1283,6 +1283,15 @@ The central obelisk requires later Surf. Pond water has StillWater terrain and p
 pond_map.py runs after demo_maps.py and generates024_PondGeometry.rb plus a compact road-only atlas. 025_Pond.rb handles pond encounters, optional battles, item and migration. Grass tile391 is preserved. Tests/pond_geometry.py verifies the island is unreachable on foot and reachable with Surf; validate_maps.py explicitly excludes the future-Surf obelisk. All other15 maps remain unchanged. The recovery recipe is now historical; do not apply it again. See Development/validation_pond.md.
 
 
+## Linux player builds
+
+`Development/package_linux.py` packages the pinned upstream Ubuntu 22.04 x86_64
+runtime; matching source, license, hashes and launcher are included. Native CI
+uses Ubuntu 22.04/24.04 with isolated save paths; audio/GPU/input still need manual
+target-machine checks. Preserve the existing game/save data. See LINUX_README.txt,
+Runtime/Linux/PROVENANCE.md and Development/RELEASING.md. Future releases include
+Linux artifacts; existing tags/downloads are not rewritten.
+
 ## On-demand CI verification
 
 PR/main pushes run quick Linux checks. Before merging a change, request full

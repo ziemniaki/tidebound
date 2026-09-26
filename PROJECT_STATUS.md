@@ -2,13 +2,24 @@
 
 Demo 1 / 0.8.5 · Bible 1.30 · Guide 2.30 · 26 September 2026
 
+## Linux player packaging
+
+The source now packages a Linux x86_64 player ZIP from the same pinned mkxp-z
+826929e source as Mac, using upstream's Ubuntu 22.04 artifact. Packaging preserves
+native bytes, pins the archive hash, verifies ELF architecture/executable bits,
+and includes source/license/provenance. The full workflow includes native smoke
+on Ubuntu 22.04 and 24.04 with isolated HOME/XDG saves and software graphics/audio.
+Release drafts require these gates and include LINUX_BUILD.json and checksums.
+The system-library requirements and remaining manual desktop/GPU/audio checks are
+in LINUX_README.txt. Existing 0.8.5 assets and game data are unchanged; a new release
+is required to distribute the Linux player and the Mac extraction correction.
+
 ## CI optimization
 
 PR and main pushes run quick Linux checks. Full packaging/regeneration/native
 verification is requested by maintainers using `/verify` or manual dispatch and
 is attached to the exact PR commit; tags always run the full matrix. The trusted
-request/report jobs are separated from read-only build jobs. Linux player
-packaging is tracked separately in issue #6.
+request/report jobs are separated from read-only build jobs. Linux player packaging is included in full verification.
 
 ## Mac ZIP extraction fix — after 0.8.5
 
