@@ -184,10 +184,10 @@ module Tidebound
       pbMessage("Pookie shakes the sea air from her coat. Wick hops down to greet you; Maku sets his box aside.")
       pbMessage("Mother: There you are. Both of you.")
       pbMessage("She counts your fingers with her thumb, then catches herself and lets go.")
-      mother
+      Interactions.mother
     end
 
-    def outside_seller
+    def unlock_shop
       unless flags[:oil_requested]
         pbMessage("Seller: Locked myself out again. Never mind me, little one. Enjoy your morning.")
         return
@@ -212,7 +212,7 @@ module Tidebound
       end
     end
 
-    def shop_door
+    def enter_shop
       if flags[:shop_unlocked]
         travel(106, 8, 10, 8)
       else

@@ -68,13 +68,13 @@ module QuestNativeCheck
     raise 'old companion lost' unless $player.party.first.species==:MAKUHITA
     original_id=Tidebound.identity($player.party.first)
     File.write('NATIVE_PARTY.txt',$player.party.map { |p| [p.name,p.level,p.hp,p.moves.map(&:id)] }.inspect)
-    o.travel(106,8,7);o.oil_seller
+    o.travel(106,8,7);Tidebound::Interactions.oil_seller
     raise 'legacy pie' unless n.stage==:pie && $bag.has?(n::PIE)
     quest_shot('pie');quest_save('pie')
-    o.travel(101,12,8);o.mother
+    o.travel(101,12,8);Tidebound::Interactions.mother
     raise 'meal' unless n.stage==:plate && $tb_meal_shot && $bag.has?(n::PLATE)
     quest_shot('after-meal');quest_save('plate')
-    o.travel_coast(21,12);o.shop_door
+    o.travel_coast(21,12);Tidebound::Interactions.shop_door
     raise 'robbery' unless n.stage==:pursuit && !$bag.has?(n::PLATE)
     quest_shot('robbery-end')
     o.travel_coast(30,30);quest_step('down');raise 'south door' unless $game_map.map_id==108
@@ -91,7 +91,7 @@ module QuestNativeCheck
     $player.party.each(&:heal);$tb_battle_label='runner';Tidebound::Hideout.guard;raise 'runner' unless n.q[:runner_won]
     $player.party.each(&:heal);$tb_battle_label='second';Tidebound::Hideout.boss
     raise 'necklace' unless n.stage==:necklace && $bag.has?(n::NECKLACE)
-    quest_save('necklace');o.travel(106,7,6);o.oil_seller
+    quest_save('necklace');o.travel(106,7,6);Tidebound::Interactions.oil_seller
     raise 'return/glint' unless n.stage==:complete && !$bag.has?(n::NECKLACE) && $tb_pearl_shot
     raise 'identity replaced' unless Tidebound.identity($player.party.first)==original_id
     quest_shot('complete');quest_save('complete')

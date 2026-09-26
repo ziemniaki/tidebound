@@ -74,19 +74,19 @@ o=Tidebound::Opening
   check(o.household_pets.size==2 && $bag.quantity(:POKEBALL)==8 && o.flags[:oil_requested],"selection supplies/oil")
   o::HOUSE_PETS.each_key { |s| o.house_pet(s) }
   check($player.party.size==1 && $bag.quantity(:POKEBALL)==8,"duplicate starter/supplies")
-  o.travel_coast(21,12);o.shop_door;check($game_map.map_id==102,"shop unlocked early")
-  o.outside_seller;check(o.flags[:keys_requested],"keys quest absent")
-  o.oil_seller;check(!o.flags[:oil_collected],"oil outside")
+  o.travel_coast(21,12);Tidebound::Interactions.shop_door;check($game_map.map_id==102,"shop unlocked early")
+  Tidebound::Interactions.outside_seller;check(o.flags[:keys_requested],"keys quest absent")
+  Tidebound::Interactions.oil_seller;check(!o.flags[:oil_collected],"oil outside")
   o.forest_gate; check($game_map.map_id==103,"forest requires lamp")
   o.forest_keys;o.forest_keys
   check($bag.quantity(:TIDEBOUNDOILKEYS)==1,"missing/duplicate keys")
   check(GameData::Item.get(:TIDEBOUNDOILKEYS).is_key_item?,"not a Key Item")
   roundtrip;check($bag.has?(:TIDEBOUNDOILKEYS),"keys not saved")
-  o.travel_coast(21,12);o.outside_seller
+  o.travel_coast(21,12);Tidebound::Interactions.outside_seller
   check(o.flags[:shop_unlocked] && !$bag.has?(:TIDEBOUNDOILKEYS),"unlock exchange")
-  o.outside_seller;check(!o.flags[:oil_collected],"oil without entering")
-  o.shop_door;check($game_map.map_id==106,"shop didn't open")
-  o.oil_seller;o.travel(101,10,12);o.mother;o.main_lamp
+  Tidebound::Interactions.outside_seller;check(!o.flags[:oil_collected],"oil without entering")
+  Tidebound::Interactions.shop_door;check($game_map.map_id==106,"shop didn't open")
+  Tidebound::Interactions.oil_seller;o.travel(101,10,12);Tidebound::Interactions.mother;o.main_lamp
   check(o.flags[:lamp_lit],"oil/lamp continuation")
   puts "PASS: #{species}; #{index==1 ? 'optional pier' : 'no pier'}; 99/100 steps, return, identity, keys/save/unlock/oil."
 end

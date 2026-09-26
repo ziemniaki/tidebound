@@ -24,12 +24,12 @@ module FieldView
     o=Tidebound::Opening;v=Tidebound::VaultVisit;n=Tidebound::NeighborQuest
     id=Tidebound.identity($player.party.first)
     n.q[:stage]=:complete
-    o.travel(106,8,8);o.oil_seller
+    o.travel(106,8,8);Tidebound::Interactions.oil_seller
     raise 'gift/departure' unless v.q[:gift] && $bag.quantity(v::GIFT)==1 && $game_map.map_id==102
     o.travel(106,8,10);raise 'seller duplicate' unless o.actor('Oil seller').opacity==0
     o.travel(101,12,8);shot('hall')
     raise 'seller home' unless o.actor('Seller at home').opacity==255
-    o.mother
+    Tidebound::Interactions.mother
     raise 'stairs or mother duplicate' unless v.q[:open] && o.actor('Mother').opacity==0
     v.stairs;shot('cellar');v.vault_door
     10.times { update;Graphics.update };shot('vault')
@@ -44,7 +44,7 @@ module FieldView
     raise 'museum' unless v.q[:museum]
     o.travel(101,12,8);raise 'mother return' unless o.actor('Mother').opacity==255
     o.travel(106,8,8);raise 'seller return' unless o.actor('Oil seller').opacity==255
-    o.oil_seller
+    Tidebound::Interactions.oil_seller
     raise 'duplicate gift' unless $bag.quantity(v::GIFT)==1
     raise 'pet identity' unless Tidebound.identity($player.party.first)==id
     File.write('VAULT_PASS.txt','PASS: saved companion, gift/departure, NPC exclusivity, stairs/vault dialogue, persisted state, docks/night/museum/sabre, NPC return, no duplicate reward.')

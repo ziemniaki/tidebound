@@ -64,9 +64,9 @@ module TideboundRenderedResume
       raise "home without dog" unless o.flags[:walk_state]==:at_pier
       o.travel(102,44,20);o.pookie;o.travel(101,10,12);o.home_arrival
       o.house_pet(:MAKUHITA)
-      o.travel(102,21,12);o.shop_door
+      o.travel(102,21,12);Tidebound::Interactions.shop_door
       raise "closed shop" unless $game_map.map_id==102
-      o.outside_seller;o.forest_gate
+      Tidebound::Interactions.outside_seller;o.forest_gate
       # Use the actual adjacent action event to collect the keys.
       $game_player.moveto(14,12);$game_player.turn_up
       event=o.actor("Shop keys")
@@ -75,12 +75,12 @@ module TideboundRenderedResume
       15.times { Graphics.update; Input.update; update }
       raise "key event missing item" unless $bag.has?(:TIDEBOUNDOILKEYS)
       raise "key save" unless Game.save("keys.rxdata")
-      o.travel(102,21,12);o.outside_seller
+      o.travel(102,21,12);Tidebound::Interactions.outside_seller
       seller=o.actor("Seller outside")
       raise "seller entry" unless [seller.x,seller.y]==[21,11] && seller.opacity==0 && seller.through
-      o.shop_door;o.oil_seller
+      Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller
       b=Graphics.snap_to_bitmap;b.to_file("oil-shop.png");b.dispose
-      o.travel(101,10,12);o.mother;o.travel(104,6,9);o.main_lamp
+      o.travel(101,10,12);Tidebound::Interactions.mother;o.travel(104,6,9);o.main_lamp
       raise "lamp continuation" unless o.flags[:lamp_lit]
       raise "final save" unless Game.save("opening-complete.rxdata")
       b=Graphics.snap_to_bitmap;b.to_file("lamp.png");b.dispose
@@ -91,7 +91,7 @@ module TideboundRenderedResume
       raise "resume following" unless Followers.get(o::POOKIE_FOLLOWER)
     when "keys"
       raise "key item lost" unless $bag.has?(:TIDEBOUNDOILKEYS) && GameData::Item.get(:TIDEBOUNDOILKEYS).is_key_item?
-      o.travel(102,21,12);o.outside_seller;o.shop_door;o.oil_seller
+      o.travel(102,21,12);Tidebound::Interactions.outside_seller;Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller
       raise "key continuation" unless o.flags[:shop_unlocked] && o.flags[:oil_collected] && !$bag.has?(:TIDEBOUNDOILKEYS)
     when "legacy"
       raise "legacy party reset" unless $player.party.first.species==:MAKUHITA && o.household_pets.size==2

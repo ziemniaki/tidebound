@@ -106,25 +106,4 @@ module Tidebound::VaultVisit
     end
   end
 end
-module Tidebound::VaultOpeningHooks
-  def oil_seller
-    if Tidebound::NeighborQuest.stage==:complete && !Tidebound::VaultVisit.q[:gift]
-      Tidebound::VaultVisit.reward
-    else
-      super
-      Tidebound::VaultVisit.reward if Tidebound::NeighborQuest.stage==:complete && !Tidebound::VaultVisit.q[:gift]
-    end
-  end
-  def mother
-    v=Tidebound::VaultVisit
-    if v.q[:gift] && !v.q[:open];v.mother
-    elsif v.q[:museum];pbMessage('Mother: Did you find the museum? Good. I am glad you went.');
-    else;super;end
-  end
-end
-Tidebound::Opening.singleton_class.prepend(Tidebound::VaultOpeningHooks)
-module Tidebound::VaultHints
-  def hint; Tidebound::VaultVisit.hint || super; end
-end
-Tidebound::NeighborQuest.singleton_class.prepend(Tidebound::VaultHints)
 EventHandlers.add(:on_new_spriteset_map,:tidebound_vault_actors,proc { |_s,_v| Tidebound::VaultVisit.sync })

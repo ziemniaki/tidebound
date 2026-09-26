@@ -14,15 +14,15 @@ def setBattleRule(*rules);$quest_rules=rules;end
 n=Tidebound::NeighborQuest;o=Tidebound::Opening;h=Tidebound::Hideout
 [:NATU,:MAKUHITA,:POOCHYENA].each do |species|
   new_opening;walk;$choices=[true];o.house_pet(species)
-  o.flags[:shop_unlocked]=true;o.travel(106,8,10);o.oil_seller;o.oil_seller
+  o.flags[:shop_unlocked]=true;o.travel(106,8,10);Tidebound::Interactions.oil_seller;Tidebound::Interactions.oil_seller
   check(n.stage==:pie && $bag.quantity(n::PIE)==1,'pie absent/duplicated')
   [n::PIE,n::PLATE,n::NECKLACE].each do |i|
     d=GameData::Item.get(i);check(d.is_key_item? && d.field_use==0 && d.battle_use==0,'healing/key item')
   end
-  roundtrip;o.travel(101,10,12);o.mother
+  roundtrip;o.travel(101,10,12);Tidebound::Interactions.mother
   check(o.flags[:oil_returned] && n.stage==:plate && $bag.has?(n::PLATE) && !$bag.has?(n::PIE),'meal')
-  o.mother;check($bag.quantity(n::PLATE)==1,'repeat meal');o.main_lamp;roundtrip
-  o.travel_coast(21,12);o.shop_door
+  Tidebound::Interactions.mother;check($bag.quantity(n::PLATE)==1,'repeat meal');o.main_lamp;roundtrip
+  o.travel_coast(21,12);Tidebound::Interactions.shop_door
   check(n.stage==:pursuit && !$bag.has?(n::PLATE),'robbery')
   n.robbery;roundtrip;n.south_gate;check($game_map.map_id==108,'south door')
   $quest_outcome=2;n.first_thief
@@ -39,15 +39,15 @@ n=Tidebound::NeighborQuest;o=Tidebound::Opening;h=Tidebound::Hideout
   check(!n.q[:hideout_game_won] && !n.q[:second_won], 'cancelled minigame advances')
   $hideout_result=true;h.boss
   check(n.stage==:necklace && n.q[:hideout_game_won] && $bag.quantity(n::NECKLACE)==1,'recovery')
-  h.boss;roundtrip;o.travel(106,8,10);o.oil_seller
+  h.boss;roundtrip;o.travel(106,8,10);Tidebound::Interactions.oil_seller
   check(n.stage==:complete && !$bag.has?(n::NECKLACE),'return')
-  o.oil_seller;roundtrip
+  Tidebound::Interactions.oil_seller;roundtrip
   check([n::PIE,n::PLATE,n::NECKLACE].none? { |i|$bag.has?(i) },'duplicated rewards')
   check(o.flags[:lamp_lit] && o.household_pets.size==2,'old progress reset')
   puts "PASS: #{species} whole quest; saved stages; trainer loss/draw/retry; unique items; preserved household."
 end
 new_opening;o.flags.merge!({:opening_revision=>4,:coast_revision=>5,:starter_chosen=>:MAKUHITA,:walk_state=>:complete,:hall_talk=>true,:oil_requested=>true,:oil_collected=>true,:oil_returned=>true,:lamp_lit=>true,:shop_unlocked=>true})
-o.travel(106,8,10);o.oil_seller;check(n.stage==:pie && o.flags[:lamp_lit] && o.flags[:coast_revision]==5,'old oil save')
+o.travel(106,8,10);Tidebound::Interactions.oil_seller;check(n.stage==:pie && o.flags[:lamp_lit] && o.flags[:coast_revision]==5,'old oil save')
 class PokemonBag
   alias quest_original_add add
   def add(item,*args);return false if item==$quest_reject_item;quest_original_add(item,*args);end

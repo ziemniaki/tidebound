@@ -70,11 +70,11 @@ module TideboundCoastCheck
     o.travel_coast(52,20);o.pookie;o.travel(101,10,12);o.home_arrival
     raise 'return home' unless o.flags[:walk_state]==:complete
     o.house_pet(:NATU)
-    o.travel_coast(21,12);o.outside_seller;o.forest_gate
+    o.travel_coast(21,12);Tidebound::Interactions.outside_seller;o.forest_gate
     raise 'forest gate' unless $game_map.map_id==103
-    o.forest_keys;o.travel_coast(21,12);o.outside_seller
+    o.forest_keys;o.travel_coast(21,12);Tidebound::Interactions.outside_seller
     raise 'seller entry' unless [o.actor('Seller outside').x,o.actor('Seller outside').y]==o.coast_xy(21,11)
-    o.shop_door;o.oil_seller;o.travel(101,10,12);o.mother;o.travel(104,6,9);o.main_lamp
+    Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller;o.travel(101,10,12);Tidebound::Interactions.mother;o.travel(104,6,9);o.main_lamp
     o.travel_coast(53,20);o.pier
     raise 'Lapras scene' unless o.flags[:lapras_glimpsed] && !o.lapras_visible && $tb_lapras_shot
     x,y=o.camera_position($game_player.x,$game_player.y)

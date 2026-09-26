@@ -99,7 +99,7 @@ module Tidebound
       end
     end
 
-    def mother
+    def mother_dialogue
       migrate_opening!
       unless flags[:hall_talk]
         hall_talk
@@ -180,7 +180,7 @@ module Tidebound
         pbMessage("For now, there is a little walk to take together.")
         return
       end
-      mother unless flags[:choice_explained]
+      Interactions.mother unless flags[:choice_explained]
       flags[:choice_explained] = true
       return unless pbConfirmMessage("Ask #{pet.name}, the #{pet.speciesName}, to come with you?")
       # Keep this individual, including identity and stats, rather than rolling a new one.
@@ -191,10 +191,10 @@ module Tidebound
       $bag.add(:POKEBALL, 8)
       pbMessage("#{pet.name} settles beside you. This time, you are going together.")
       pbMessage("Mother gives you eight Poké Balls, wrapped in a clean handkerchief.")
-      mother
+      Interactions.mother
     end
 
-    def oil_seller
+    def collect_oil
       unless $game_map.map_id == 106 && flags[:shop_unlocked]
         pbMessage("The bottle is inside the locked shop.")
         return
@@ -249,8 +249,8 @@ module Tidebound
                  "Bring the oil home."
                elsif !flags[:lamp_lit]
                  "Tend the great lamp upstairs, just as Mother showed you."
-               elsif defined?(Tidebound::NeighborQuest) && Tidebound::NeighborQuest.hint
-                 Tidebound::NeighborQuest.hint
+               elsif Tidebound::Interactions.hint
+                 Tidebound::Interactions.hint
                elsif !flags[:fire_found]
                  "A traveller has lit a fire in the forest."
                else

@@ -232,29 +232,5 @@ module Tidebound
       end
     end
   end
-  module NeighborOpeningHooks
-    def oil_seller
-      case NeighborQuest.stage
-      when :necklace then NeighborQuest.return_necklace
-      when :plate then travel_coast(21,12); NeighborQuest.robbery
-      when :pursuit then pbMessage("Seller: South, along the coast road. But please take care of yourself.")
-      when :complete
-        pbMessage("Seller: I made another pie. Too much again, naturally.")
-        pbMessage("Seller: Next time, bring your mother. We'll use my plates here.")
-      else
-        super; NeighborQuest.offer_pie if $game_map.map_id==106
-      end
-    end
-    def mother; super; NeighborQuest.meal if flags[:oil_returned]; end
-    def shop_door
-      if NeighborQuest.stage==:plate && $bag.has?(NeighborQuest::PLATE); NeighborQuest.robbery
-      else; super; end
-    end
-    def outside_seller
-      if NeighborQuest.stage==:plate && $bag.has?(NeighborQuest::PLATE); NeighborQuest.robbery
-      else; super; end
-    end
-  end
-  Opening.singleton_class.prepend(NeighborOpeningHooks)
 end
 EventHandlers.add(:on_new_spriteset_map,:tidebound_neighbor_actors,proc { |_s,_v| Tidebound::NeighborQuest.sync_actors })

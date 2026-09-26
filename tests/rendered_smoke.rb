@@ -68,17 +68,17 @@ module TideboundRenderedSmoke
     tb_shot("family-choice")
     o.house_pet(:MAKUHITA)
     raise "starter identity/party" unless $player.party.first.species==:MAKUHITA && o.household_pets.size==2
-    o.travel(102,21,12);o.shop_door
+    o.travel(102,21,12);Tidebound::Interactions.shop_door
     raise "shop early" unless $game_map.map_id==102
-    o.outside_seller;tb_shot("locked-shop")
+    Tidebound::Interactions.outside_seller;tb_shot("locked-shop")
     o.forest_gate;o.forest_keys
     raise "no bag keys" unless $bag.has?(:TIDEBOUNDOILKEYS)
     raise "keys save failed" unless Game.save("keys.rxdata")
     tb_shot("forest-keys")
-    o.travel(102,21,12);o.outside_seller
+    o.travel(102,21,12);Tidebound::Interactions.outside_seller
     raise "seller not hidden" unless o.actor("Seller outside").opacity==0 && o.actor("Seller outside").through
-    o.shop_door;o.oil_seller;tb_shot("oil-shop")
-    o.travel(101,10,12);o.mother
+    Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller;tb_shot("oil-shop")
+    o.travel(101,10,12);Tidebound::Interactions.mother
     o.travel(104,6,9);o.main_lamp;tb_shot("lamp")
     raise "lamp failed" unless o.flags[:lamp_lit]
     raise "final save failed" unless Game.save("opening-complete.rxdata")

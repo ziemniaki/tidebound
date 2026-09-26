@@ -37,7 +37,7 @@ module DocksTest
     raise 'hidden thief solid' unless e.through && e.opacity==0
     raise 'hideout not passable immediately' unless $game_player.passable?(35,42,8)
     step('up');raise 'hideout did not enter' unless $game_map.map_id==109
-    n.q[:stage]=:complete;o.travel(106,8,8);o.oil_seller
+    n.q[:stage]=:complete;o.travel(106,8,8);Tidebound::Interactions.oil_seller
     raise 'seller reward' unless v.q[:gift]
     e=o.actor('Seller outside')
     raise 'hidden seller solid' unless e.through && e.opacity==0
