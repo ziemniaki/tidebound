@@ -25,3 +25,8 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "tidebound_dev"
 module-root = "tools"
+
+[dependency-groups]
+docs = [
+    "reportlab==5.0.1",
+]

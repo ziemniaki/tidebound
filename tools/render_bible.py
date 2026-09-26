@@ -1,5 +1,7 @@
 from pathlib import Path
 import re
+import argparse
+from document_fonts import resolve_fonts
 from html import escape
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, KeepTogether, CondPageBreak
 from reportlab.platypus.tableofcontents import TableOfContents
@@ -11,14 +13,12 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 
 ROOT=Path(__file__).resolve().parent.parent / "specs"
-OUT=ROOT/'game-design.pdf'
+parser=argparse.ArgumentParser(description='Render the game specification as a PDF.')
+parser.add_argument('--output',type=Path,default=ROOT/'game-design.pdf')
+OUT=parser.parse_args().output
 TEXT=(ROOT/'game-design.md').read_text()
-fontroot=Path('/usr/share/fonts/truetype/liberation')
-for name,file in [('Body','LiberationSerif-Regular.ttf'),('Body-Bold','LiberationSerif-Bold.ttf'),
-                  ('Body-Italic','LiberationSerif-Italic.ttf'),('Body-BoldItalic','LiberationSerif-BoldItalic.ttf')]:
-    pdfmetrics.registerFont(TTFont(name, str(fontroot/file)))
-for name,file in [('Head','DejaVuSans.ttf'),('Head-Bold','DejaVuSans-Bold.ttf')]:
-    pdfmetrics.registerFont(TTFont(name, '/usr/share/fonts/truetype/dejavu/'+file))
+for name,path in resolve_fonts().items():
+    pdfmetrics.registerFont(TTFont(name, str(path)))
 pdfmetrics.registerFontFamily('Body',normal='Body',bold='Body-Bold',italic='Body-Italic',boldItalic='Body-BoldItalic')
 pdfmetrics.registerFontFamily('Head',normal='Head',bold='Head-Bold',italic='Head',boldItalic='Head-Bold')
 navy=colors.HexColor('#142C37'); teal=colors.HexColor('#306565'); grey=colors.HexColor('#657477')
