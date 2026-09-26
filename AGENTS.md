@@ -1283,6 +1283,14 @@ The central obelisk requires later Surf. Pond water has StillWater terrain and p
 pond_map.py runs after demo_maps.py and generates024_PondGeometry.rb plus a compact road-only atlas. 025_Pond.rb handles pond encounters, optional battles, item and migration. Grass tile391 is preserved. Tests/pond_geometry.py verifies the island is unreachable on foot and reachable with Surf; validate_maps.py explicitly excludes the future-Surf obelisk. All other15 maps remain unchanged. The recovery recipe is now historical; do not apply it again. See Development/validation_pond.md.
 
 
+## On-demand CI verification
+
+PR/main pushes run quick Linux checks. Before merging a change, request full
+verification with an exact `/verify` PR comment (repository write permission
+required) or Actions > Requested verification > PR number. The green Full
+verification status must match the current PR head; new commits need a new run.
+Release tags always run the complete matrix. See Development/RELEASING.md.
+
 ## 0.8.5 — verified Mac and Windows packaging
 
 Post-release packaging correction: Archive Utility normalizes Unicode filenames,

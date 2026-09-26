@@ -2,6 +2,14 @@
 
 Demo 1 / 0.8.5 · Bible 1.30 · Guide 2.30 · 26 September 2026
 
+## CI optimization
+
+PR and main pushes run quick Linux checks. Full packaging/regeneration/native
+verification is requested by maintainers using `/verify` or manual dispatch and
+is attached to the exact PR commit; tags always run the full matrix. The trusted
+request/report jobs are separated from read-only build jobs. Linux player
+packaging is tracked separately in issue #6.
+
 ## Mac ZIP extraction fix — after 0.8.5
 
 A browser-downloaded 0.8.5 ZIP matched its release checksum, but Archive Utility
