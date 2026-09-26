@@ -1336,3 +1336,13 @@ playtesting remain manual. Release tags prepare drafts after all gates pass.
 The only embedded game-source changes from 0.8.4 are the displayed version in
 Settings and `Tidebound::VERSION`. Preserve all maps/assets, event IDs, quest and
 save schemas, and the `Tidebound_Opening_0_2` save directory. Bible1.30 is unchanged.
+
+## Mac installed-app launch checks
+
+The 0.8.5 build40 download can report missing Scripts.rxdata when macOS launches
+it under App Translocation in /private/var/folders. The archive is intact;
+install Tidebound.app in Applications. This is a pinned-runtime limitation,
+not fixed by the Unicode/signature correction. mac_runtime_smoke.py now launches
+a disposable installed app through Launch Services from / and isolates saves.
+That gate does not prove downloaded/quarantined launch works. Preserve this
+limitation until an upstream/runtime fix is reproduced under translocation.

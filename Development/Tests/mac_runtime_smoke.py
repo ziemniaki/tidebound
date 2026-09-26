@@ -2,9 +2,9 @@
 from pathlib import Path
 import argparse
 import json
-import os
 import platform
 import plistlib
+import re
 import shutil
 import subprocess
 import sys
@@ -49,7 +49,6 @@ def smoke(archive, output, arch):
             end = text.rfind('}')
             if end < 0:
                 raise ValueError('Missing launch configuration object')
-            import re
             text = re.sub(r'"dataPathApp"\s*:\s*"[^"]+"', '"dataPathApp": "' + namespace + '"', text)
             config.write_text(text, encoding='utf-8')
             archive_path = game / 'Data/Scripts.rxdata'
@@ -62,11 +61,21 @@ def smoke(archive, output, arch):
             sign_app(app)
             info = plistlib.loads((app / 'Contents/Info.plist').read_bytes())
             executable = app / 'Contents/MacOS' / info['CFBundleExecutable']
-            env = dict(os.environ, TIDEBOUND_SMOKE_REPORT=str(output.resolve() / 'native-smoke.rxdata'),
-                       TIDEBOUND_SMOKE_SCREENSHOT=str(output.resolve() / 'native-smoke.png'))
-            with (output / 'engine.log').open('w') as log:
-                subprocess.run(['arch', '-' + arch, str(executable)], cwd=game, env=env,
-                               stdout=log, stderr=subprocess.STDOUT, timeout=60, check=True)
+            # Exercise a normal installed-app launch through Launch Services.
+            # Starting the executable with cwd=game hid bundle launch problems.
+            command = ['open', '-n', '-W', '--arch', arch,
+                       '--stdout', str(output.resolve() / 'engine.log'),
+                       '--stderr', str(output.resolve() / 'engine-stderr.log'),
+                       '--env', 'TIDEBOUND_SMOKE_REPORT=' + str(output.resolve() / 'native-smoke.rxdata'),
+                       '--env', 'TIDEBOUND_SMOKE_SCREENSHOT=' + str(output.resolve() / 'native-smoke.png'),
+                       str(app)]
+            try:
+                subprocess.run(command, cwd='/', timeout=60, check=True)
+            finally:
+                # open is a launcher; terminating it alone leaves an app with a
+                # modal error alive. Match only this unique disposable bundle.
+                subprocess.run(['pkill', '-KILL', '-f', '^' + re.escape(str(executable)) + '$'],
+                               check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             result = read_report(output)
             if not result.get('passed'):
                 raise RuntimeError(result.get('error', 'Native smoke did not pass'))
@@ -75,6 +84,7 @@ def smoke(archive, output, arch):
             if not (output / 'native-smoke.png').is_file():
                 raise RuntimeError('Native rendering evidence was not produced')
             result['architecture'] = arch
+            result['launch_method'] = 'Launch Services (installed app, working directory /)'
             (output / 'native-smoke.json').write_text(json.dumps(result, indent=2) + '\n')
             print('PASS: native', arch, 'engine, game data, save roundtrip and graphics')
     finally:

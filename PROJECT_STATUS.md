@@ -1,5 +1,21 @@
 # Current project status
 
+## Published 0.8.5 and Mac launch diagnosis — 26 September 2026
+
+Published v0.8.5 from c0394fb with exactly three player ZIPs: universal Mac,
+Windows x64 and Linux x86_64. All platform gates passed and uploaded digests
+matched the candidate. The refresh metadata PATCH needed an explicit tag_name;
+without it GitHub reset the draft to an untagged placeholder after upload.
+
+A browser download of Mac build40 reproduced the scripts-loading error while
+running from App Translocation. Scripts.rxdata is present and its signature is
+valid. The installed app in Applications starts successfully; a Launch Services
+smoke passed engine/data loading, save roundtrip and graphics on local ARM.
+The pinned runtime still does not support translocated launch. CI now exercises
+normal installed-app launch through Launch Services, without pre-setting the
+game working directory; it does not claim to test quarantine or notarization.
+Game bytes and the established save namespace remain unchanged.
+
 Demo 1 / 0.8.5 · Bible 1.30 · Guide 2.30 · 26 September 2026
 
 ## 0.8.5 draft refresh — Mac build40
