@@ -22,9 +22,12 @@ Map builders return independent in-memory areas. `maps/compiler.py` declares
 composition explicitly: base areas, connections, landscape, interiors and harbor/
 pond decoration. Painters own their tile atlases and caches; area modules receive
 only the maps and painters they use. Imports never load or write game assets.
-The compiler constructs in a temporary workspace, checks every arrival, transfer
-and interaction, then publishes changed outputs. Failed validation leaves the
-checkout unchanged.
+Full rebuild generates maps, content, art and scripts in a temporary workspace,
+then validates and publishes changed outputs. Failed generation/validation leaves
+the checkout unchanged; publication errors roll back replaced files. This protects
+ordinary I/O failures, not process termination midway through publication. Rebuild
+after an interrupted publication. A failed rollback retains a reported recovery
+directory rather than discarding the backups.
 
 ## Python operations
 

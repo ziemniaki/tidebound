@@ -7,7 +7,7 @@ of an existing form does not require changing its gameplay definition.
 
 ## Find the owner before replacing a PNG
 
-`tools/tidebound_dev/content/species_compiler.py::export_art` runs on full rebuild.
+`tools/tidebound_dev/art/compiler.py::build` runs on full rebuild.
 It regenerates Frostcoon, snakes and Whyduck, copies Psyduck base art to form 1,
 and copies `FROSTCOON_EVOLUTION` to Nivalora. It also overwrites mapped cries.
 Editing these destinations alone will be undone. Change their source/recipe.

@@ -52,7 +52,7 @@ build dependencies in the existing plan. Do not add a task graph framework.
 it, then runs the plan against copied native databases. The first build succeeds
 and the resulting encounter refers to the new species.
 
-### A3 — P2: species generation publishes data before artwork can fail
+### A3 — Implemented: stage the full rebuild before publishing
 
 Evidence: [species_compiler.py](../../tools/tidebound_dev/content/species_compiler.py),
 `build` writes both databases and PBS, then calls `export_art`. Full rebuild also
@@ -68,8 +68,11 @@ before publishing its declared output set. Separate data compilation from art
 export so failure ownership is visible. Define what happens if publication itself
 fails rather than promising an atomic multi-file operation without implementing it.
 
-**Acceptance:** a missing source PNG/cry leaves previously playable outputs intact;
-the next successful build needs no manual cleanup. One focused failure test suffices.
+**Verified:** failure tests cover a late artwork error, rollback after a mid-publish
+I/O error, removal of newly published files and successful retry without cleanup.
+Data compilation and art export are separate operations. Full rebuild validates a
+disposable result before publishing; rollback failure retains the recovery path.
+Process termination is explicitly not claimed to be crash-atomic.
 
 ### A4 — P2: one new map requires edits to several unrelated policy tables
 

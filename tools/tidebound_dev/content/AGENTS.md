@@ -64,5 +64,6 @@ return false. Advance reward state only after successful delivery, as existing
 quest flows do. Test a full bag when adding a one-time reward.
 
 [Inspected Essentials methods](../../../docs/essentials-contracts.md).
-Current species export is not transactional: an art failure can leave updated
-PBS/data. Fix the input and rebuild successfully; don't continue from a failed run.
+Full rebuild stages maps, content, art and scripts before publishing. Generation
+failure leaves live outputs intact; publication errors roll back changed files.
+A killed process is not an atomic transaction: rebuild successfully before playing.

@@ -66,7 +66,7 @@ class RebuildDependenciesTests(unittest.TestCase):
                 "fields": {"Name": "New bird"},
             }
             patches.enter_context(patch.object(species_compiler, "SPECIES", definitions))
-            patches.enter_context(patch.object(species_compiler, "export_art"))
+            patches.enter_context(patch.object(pipeline.art, "build"))
             patches.enter_context(
                 patch.object(
                     encounters,
