@@ -3,8 +3,8 @@
 **Repository handoff — 24 September 2026:** use `Development/REPOSITORY_WORKFLOW.md` for the new GitHub workflow. Initial import is current Demo 1 / 0.8.0 only. Migration is complete and verified at source commit `19780315bf4227f24ab9b5ccdf6d8ee54b6e773e`. GitHub `ziemniaki/tidebound` is authoritative. Older statements below about ZIP-only logistics are historical and superseded. Do not depend on conversation memory.
 
 
-**Guide version:** 2.29, 26 September 2026
-**Project baseline:** Demo 1 / 0.8.4, Pokémon Essentials 21.1
+**Guide version:** 2.30, 26 September 2026
+**Project baseline:** Demo 1 / 0.8.5, Pokémon Essentials 21.1
 **Status:** existing game, continuing development; do not start over.
 
 Place this file in the game project root, beside `Game.rxproj`, `Game.ini`, and
@@ -342,7 +342,7 @@ The configured save-directory name is `Tidebound_Opening_0_2`. Do not change it
 incidentally while updating a title: saves can appear lost when the directory
 changes. Keep a copy of a working save before investigating compatibility.
 
-Release version and `Tidebound::VERSION` are both 0.7.13. The global state schema
+Release version and `Tidebound::VERSION` are both 0.8.5. The global state schema
 remains 1; the opening's additive migration uses story opening_revision 4.
 
 ## 7. Build and map-editing discipline
@@ -1281,3 +1281,17 @@ Map108 now has a substantial pond clearing. The existing level8 Psyduck moves to
 The central obelisk requires later Surf. Pond water has StillWater terrain and player-only Surf passage; no HM or badge is awarded. Its origin, inscription, purpose and future reward remain open. Older saves on new obstacles/water/islet move once to26,52. Map magic26092503; Mac0.8.4/build38; same runtime, font fix and save identity.
 
 pond_map.py runs after demo_maps.py and generates024_PondGeometry.rb plus a compact road-only atlas. 025_Pond.rb handles pond encounters, optional battles, item and migration. Grass tile391 is preserved. Tests/pond_geometry.py verifies the island is unreachable on foot and reachable with Surf; validate_maps.py explicitly excludes the future-Surf obelisk. All other15 maps remain unchanged. The recovery recipe is now historical; do not apply it again. See Development/validation_pond.md.
+
+
+## 0.8.5 — verified Mac and Windows packaging
+
+This release changes packaging and developer workflows only. Mac build39 is
+universal Intel/Apple Silicon; the Windows x64 player ZIP retains the existing
+executable and DLLs. Native CI covers boot, compiled data, Pokemon/state disk
+persistence and rendering on all three platforms. Hosted Windows uses CI-only
+Mesa software graphics and silent OpenAL; real audio/GPU behavior and Monterey
+playtesting remain manual. Release tags prepare drafts after all gates pass.
+
+The only embedded game-source changes from 0.8.4 are the displayed version in
+Settings and `Tidebound::VERSION`. Preserve all maps/assets, event IDs, quest and
+save schemas, and the `Tidebound_Opening_0_2` save directory. Bible1.30 is unchanged.

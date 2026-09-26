@@ -1,6 +1,21 @@
 # Current project status
 
-Demo 1 / 0.8.4 · Bible 1.30 · Guide 2.29 · 26 September 2026
+Demo 1 / 0.8.5 · Bible 1.30 · Guide 2.30 · 26 September 2026
+
+## 0.8.5 — release preparation
+
+Version0.8.5 / Mac build39 packages the verified build-workflow changes from
+PR #2. Deliverables are the universal Mac player ZIP, Windows x64 player ZIP,
+editable project, provenance manifests and checksums. This is a packaging release:
+gameplay, maps, assets and save identity are unchanged from 0.8.4. Only the embedded
+Settings and Tidebound version constants change in the game script archive.
+
+The version update must pass CI before it is merged and tagged. The tag workflow
+then reruns the gates and prepares an unpublished draft; inspect GitHub Releases
+for the current publication status. Full gameplay, audio/controller behavior and
+Monterey target-machine checks remain manual. The evidence below records the
+preceding tooling work; its historical version and publication statements are not
+claims about the 0.8.5 release.
 
 ## Windows player packaging — development branch
 

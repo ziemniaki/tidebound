@@ -25,7 +25,7 @@ On a Mac with Xcode command-line tools installed:
 
 ```sh
 python Development/build_release.py ../candidate
-python Development/Tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.4_universal.zip ../smoke-arm64 --arch arm64
+python Development/Tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.5_universal.zip ../smoke-arm64 --arch arm64
 ```
 
 For a Windows-only package, on any development host:
@@ -38,7 +38,7 @@ On Windows x64, test that archive using:
 
 ```powershell
 python Development/verify_artifacts.py ../windows-candidate
-python Development/Tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.4_x64.zip ../smoke-windows
+python Development/Tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.5_x64.zip ../smoke-windows
 ```
 
 The Windows ZIP contains the unchanged `Game.exe`, Ruby/zlib DLLs, game assets,
@@ -85,7 +85,7 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
 The Mac and Windows smoke tests share `Tests/native_runtime_smoke.rb`. Each
 extracts a disposable copy, changes only that copy's Main entry and
 save namespace, re-signs the Mac test copy, and removes its unique save directory
-afterward. Fixtures never enter published archives. The Mac test uses the caller's
+afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test uses the caller's
 build directory: local testing found the runtime's PhysFS loader failed to resolve
 game data under macOS's `/var/folders` temporary location.
 
