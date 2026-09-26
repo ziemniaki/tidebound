@@ -2,6 +2,21 @@
 
 Demo 1 / 0.8.5 · Bible 1.30 · Guide 2.30 · 26 September 2026
 
+## Mac ZIP extraction fix — after 0.8.5
+
+A browser-downloaded 0.8.5 ZIP matched its release checksum, but Archive Utility
+changed the Unicode spelling of `Routé 1.mid`, invalidating the app's sealed
+resource signature. Python/ditto extraction preserved that spelling, so earlier
+CI and local checks missed the failure. Packaging now normalizes bundle filenames
+to NFD before signing and repeats that normalization during ZIP verification.
+Game files retain their bytes; no saves, gameplay or runtime code change.
+Developer ID signing/notarization remain separate, unresolved distribution work.
+The existing 0.8.5 tag and release assets are not replaced by this source fix.
+Validation: 30 tooling tests pass; a rebuilt universal preview retains a valid
+strict signature for both architectures after extraction with the actual macOS
+Archive Utility. Native ARM boot/data/save/render smoke also passes on the local
+Apple Silicon Mac. This verifies extraction integrity, not notarization approval.
+
 ## 0.8.5 — release preparation
 
 Version0.8.5 / Mac build39 packages the verified build-workflow changes from

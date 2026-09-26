@@ -11,6 +11,7 @@ import plistlib
 import shutil
 import stat
 import tempfile
+import unicodedata
 import zipfile
 
 from mac_runtime import inspect_runtime, sign_app
@@ -65,9 +66,38 @@ def archive_tree(folder, destination):
             raise ValueError('Built ZIP failed its integrity check')
 
 
-def game_hashes(folder):
-    return {p.relative_to(folder).as_posix(): sha256(p)
-            for p in sorted(folder.rglob('*')) if p.is_file()}
+def game_hashes(folder, normalization=None):
+    hashes = {}
+    for path in sorted(folder.rglob('*')):
+        if path.is_file():
+            name = path.relative_to(folder).as_posix()
+            if normalization:
+                name = unicodedata.normalize(normalization, name)
+            if name in hashes:
+                raise ValueError('Unicode-equivalent game paths: ' + name)
+            hashes[name] = sha256(path)
+    return hashes
+
+
+def normalize_bundle_names(app):
+    """Use decomposed names before signing, matching Finder's ZIP extraction.
+
+    Code signatures compare filename bytes, even on normalization-insensitive
+    APFS. An NFC filename such as Rout\u00e9 1.mid otherwise becomes an invalid
+    sealed resource when Archive Utility extracts it as Route\u0301 1.mid.
+    """
+    paths = list(app.rglob('*'))
+    seen = set()
+    for path in paths:
+        name = unicodedata.normalize('NFD', path.relative_to(app).as_posix())
+        if name in seen:
+            raise ValueError('Unicode-equivalent bundle paths: ' + name)
+        seen.add(name)
+    # Rename children before their parents so all original paths stay usable.
+    for path in sorted(paths, key=lambda p: len(p.parts), reverse=True):
+        name = unicodedata.normalize('NFD', path.name)
+        if name != path.name:
+            path.rename(path.with_name(name))
 
 
 def build(output, root=ROOT, allow_dirty=False):
@@ -99,12 +129,12 @@ def build(output, root=ROOT, allow_dirty=False):
         expected = {}
         for name in GAME_DIRS:
             if (root / name).exists():
-                expected.update({name + '/' + p: h for p, h in game_hashes(root / name).items()})
+                expected.update({name + '/' + p: h for p, h in game_hashes(root / name, 'NFC').items()})
                 shutil.copytree(root / name, target / name)
         for name in GAME_FILES:
             expected[name] = sha256(root / name)
             shutil.copy2(root / name, target / name)
-        if game_hashes(target) != expected:
+        if game_hashes(target, 'NFC') != expected:
             raise ValueError('Packaged game files differ from source')
         plist_path = contents / 'Info.plist'
         plist = plistlib.loads(plist_path.read_bytes())
@@ -119,6 +149,9 @@ def build(output, root=ROOT, allow_dirty=False):
         shutil.copy2(root / 'Runtime/macOS/PROVENANCE.md', contents / 'Resources/RUNTIME_SOURCE.md')
         source = root / config['runtime_source']
         shutil.copy2(source, stage / source.name)
+        normalize_bundle_names(app)
+        if game_hashes(target, 'NFC') != expected:
+            raise ValueError('Filename normalization changed game files')
         sign_app(app)
         manifest = {'version': config['version'], 'mac_build': config['mac_build'],
                     'source': revision, 'runtime_commit': config['runtime_commit'],
@@ -134,7 +167,10 @@ def build(output, root=ROOT, allow_dirty=False):
         unpacked.mkdir()
         extract_bundle(archive, unpacked)
         roundtrip_app = unpacked / stage.name / 'Tidebound.app'
-        if game_hashes(roundtrip_app / 'Contents/Game') != expected:
+        # Reproduce Archive Utility's filename normalization before checking the
+        # original signature; our Python extractor alone preserves ZIP spelling.
+        normalize_bundle_names(roundtrip_app)
+        if game_hashes(roundtrip_app / 'Contents/Game', 'NFC') != expected:
             raise ValueError('ZIP roundtrip changed game files')
         from mac_runtime import run
         run('codesign', '--verify', '--deep', '--strict', '--all-architectures', str(roundtrip_app))

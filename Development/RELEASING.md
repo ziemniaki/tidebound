@@ -71,7 +71,17 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
 4. The assembled app receives an ad-hoc signature, nested code first. The upstream
    root-level license is preserved under `Contents/Resources` so the complete
    bundle can be signed. Verification covers all architectures and is repeated
-   after a ZIP extraction roundtrip.
+   after a ZIP extraction roundtrip. Bundle filenames use decomposed Unicode
+   (NFD) before signing, matching Archive Utility. The roundtrip applies that
+   normalization again before verifying the original signature; Python ZIP
+   extraction alone missed the `Routé 1.mid` signature failure in 0.8.5.
+   Mac game-hash manifest keys use NFC for comparison with source filenames;
+   asset bytes are unchanged.
+   For release review, also expand a fresh ZIP with macOS Archive Utility and
+   run `codesign --verify --deep --strict --all-architectures` on that app before
+   launching it. This catches extraction problems separately from Gatekeeper
+   trust policy. Apple documents this Unicode issue in
+   [Resolving Gatekeeper Problems](https://developer.apple.com/forums/thread/706379).
 5. Every packaged game file matches its source hash. The project ZIP comes from
    the exact clean Git commit. `BUILD.json` records the source commit, runtime
    provenance, architectures, signing status, dependency report and game hashes.
