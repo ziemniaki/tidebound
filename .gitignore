@@ -8,11 +8,15 @@ errorlog.txt
 __pycache__/
 *.pyc
 node_modules/
+.venv/
+Development/Tests/engine_reference/
+Development/Tests/engine-reference-*/
 .env
 .env.*
 *.pem
 *.key
 Mac_Build/
+/build/
 release/
 releases/
 Tidebound_Project.zip

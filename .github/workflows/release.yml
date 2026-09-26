@@ -1,0 +1,65 @@
+name: Prepare release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-tag:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require a matching version tag on main's history
+        env:
+          RELEASE_REF: ${{ github.ref }}
+        run: |
+          python - <<'PY'
+          import json, os, subprocess
+          version = json.load(open('release.json'))['version']
+          if os.environ['RELEASE_REF'] != 'refs/tags/v' + version:
+              raise SystemExit('Run this workflow on the version tag declared in release.json')
+          subprocess.run(['git', 'merge-base', '--is-ancestor', 'HEAD', 'origin/main'], check=True)
+          PY
+
+  build:
+    needs: validate-tag
+    uses: ./.github/workflows/verify.yml
+
+  draft:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: tidebound-release-candidate
+          path: candidate
+      - name: Verify artifacts before uploading
+        working-directory: candidate
+        run: sha256sum -c SHA256SUMS.txt
+      - name: Create an unpublished release; never overwrite an existing one
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo 'Release already exists; refusing to overwrite it.'
+            exit 1
+          fi
+          test "$(gh api "repos/$GH_REPO/commits/$RELEASE_TAG" --jq .sha)" = "$SOURCE_SHA"
+          gh release create "$RELEASE_TAG" candidate/*.zip candidate/BUILD.json candidate/WINDOWS_BUILD.json candidate/SHA256SUMS.txt candidate/RELEASE_NOTES.md \
+            --verify-tag --draft --title "Tidebound $RELEASE_TAG" --notes-file candidate/RELEASE_NOTES.md

@@ -1,5 +1,47 @@
 # Editing this prototype
 
+## Fresh-clone setup and checks
+
+Use Python 3.12 or 3.13 and Node.js 24.14.1 (pinned in `.node-version`).
+CI uses that same Node version; Node 22.23.2 crashed in the Ruby/WASM tests
+on both hosted Linux and macOS runners. From the repository root on
+macOS/Linux (select your installed Python version when creating the environment):
+
+```sh
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements-dev.txt
+npm ci --prefix Development/Tests --ignore-scripts
+.venv/bin/python Development/verify.py
+```
+
+On Windows, use `py -3.12 -m venv .venv` and replace `.venv/bin/python` with
+`.venv\Scripts\python.exe`. Python and Node are development tools only.
+The pinned Pillow version supports the sprite generators' `get_flattened_data`
+API. Optional audio regeneration separately needs NumPy/ffmpeg; bible PDF
+regeneration needs ReportLab and the fonts named in `render_bible.py`.
+
+`verify.py` runs build-tool regressions, map/source agreement, maze and pond
+geometry, core/adapter tests, native-object quest/save tests and regional-snake
+tests. It refreshes ignored engine references and extracts current event scripts
+to a temporary file; it does not rebuild or rewrite tracked game files. Run
+without Python `-O` or `PYTHONOPTIMIZE`. PR CI uses the same command on Linux and
+macOS. This is headless coverage, not a Monterey or Windows graphical playtest.
+
+`validate_maps.py` is read-only by default. To deliberately refresh the tracked
+event report after a map edit, run:
+
+```sh
+.venv/bin/python Development/validate_maps.py --event-scripts Development/event_scripts.json
+```
+
+## Source and rebuild ownership
+
+For isolated regeneration, universal Intel/Apple Silicon Mac and Windows x64 packages, native
+smoke checks and tag-driven draft releases, use [RELEASING.md](RELEASING.md).
+`release.json` owns package metadata and pinned runtime input hashes. Mac builds
+now require macOS signing tools; historical Linux/standard-library-only packaging
+instructions below describe the old unsigned packager.
+
 The numbered Ruby files are the authoritative custom source. They are already
 embedded in `../Data/Scripts.rxdata`, immediately before Main. Do not also copy
 them into Plugins: that would load them twice.
@@ -18,7 +60,7 @@ validator checks generated connections; it is not a live graphical playtest.
 layouts, and overwrites edits made to those sixteen maps in the editor. It leaves
 the stock demo maps intact. It also sets the opening start position.
 
-Build prerequisites: Python 3, `rubymarshal==1.2.10`, Pillow. The optional audio
+Build prerequisites are pinned in `requirements-dev.txt`. The optional audio
 script also requires NumPy and ffmpeg. The game itself does not need Python.
 
 Typical source workflow:
@@ -28,9 +70,19 @@ python rebuild_maps.py
 python rebuild_opening_items.py
 python rebuild_neighbor_data.py
 python rebuild_field_data.py
+python rebuild_regional_data.py
 python rebuild_scripts.py
-python validate_maps.py
+python validate_maps.py --event-scripts event_scripts.json
 ```
+
+Run this sequence from `Development/` with the virtual environment active.
+Only rebuild maps when intentionally changing generated geometry; numbered Ruby
+changes need `rebuild_scripts.py` and verification, not a full map rebuild.
+Review generated diffs before committing. PNG compression can vary between
+platforms/library versions even when decoded pixels match. Generators still
+write multiple files in place; use a clean branch or disposable checkout when
+testing a full rebuild. See [the DX/reliability review](DX_RELIABILITY_REVIEW.md)
+for the remaining follow-up work.
 
 `Tests` contains the Ruby mechanic suite and the headless native-object smoke
 harness. Read its README for their scope and execution instructions.
@@ -54,8 +106,9 @@ Tests/opening_flow.rb covers the sequence and saves; rendered_smoke.rb is a
 TEST-ONLY injection for a disposable engine copy, never a release script.
 The Mac config's fontHeightReporting must remain 1 to prevent clipped letters.
 
-Use `python3 Development/package_mac.py /path/to/new-output-folder` from the
-project root to build a matching native app. Read Runtime/macOS/PROVENANCE.md.
+Use `python Development/build_release.py /path/to/new-output-folder` on macOS
+from a clean project root for verified candidates. Read RELEASING.md and
+Runtime/macOS/PROVENANCE.md.
 
 Coast 0.5: 007_Coast.rb adds layout helpers, save translation and gentle camera
 staging. Map 102 uses a (24,20) offset inside CoastMap. Event and checkpoint

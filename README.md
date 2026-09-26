@@ -14,6 +14,13 @@ The southern pond adds three optional fishermen, Psyduck/Aipom/Sunkern grass, th
 
 ## Project navigation
 
+For development, start with [fresh-clone setup and verification](Development/README.md).
+The [DX and reliability review](Development/DX_RELIABILITY_REVIEW.md) records
+verified findings, the initial tooling fixes, and remaining priorities.
+The [build and release guide](Development/RELEASING.md) covers universal Mac
+packages, native Intel/ARM smoke checks and automated draft releases. Existing
+published downloads remain unchanged until a new version is released.
+
 | Path | Purpose |
 | --- | --- |
 | [AGENTS.md](AGENTS.md) | Instructions for continuing development |
@@ -32,3 +39,6 @@ This repository begins with the current 0.8.0 snapshot only. Earlier game releas
 Native Linux rendering, both hideout battles, minigame controls, quest/save and package checks passed. The 0.8.4 Mac package still needs its Monterey playtest. See [the current validation report](Development/validation_hideout.md).
 
 Unofficial fan project. See [CREDITS.md](CREDITS.md) and the runtime’s provenance/license files for attribution. This repository does not grant rights to Pokémon or other third-party assets.
+
+Windows player ZIPs and native Windows CI are documented with the Mac builds in
+[Development/RELEASING.md](Development/RELEASING.md).

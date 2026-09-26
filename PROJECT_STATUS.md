@@ -2,6 +2,60 @@
 
 Demo 1 / 0.8.4 · Bible 1.30 · Guide 2.29 · 26 September 2026
 
+## Windows player packaging — development branch
+
+The release candidate now includes a dedicated Windows x64 player ZIP. Its
+executable and DLLs are unchanged and pinned by hash; staging verifies x64 PE
+headers, copied files, and ZIP extraction. The package excludes development/editor
+files and includes launch instructions, credits and provenance. A Windows Server
+2022 CI job verifies downloaded checksums and runs the shared native boot/data/save/
+render fixture with an isolated save directory. Hosted Windows results are recorded
+in [PR #2 checks](https://github.com/ziemniaki/tidebound/pull/2/checks); the prior Mac
+evidence below remains separate.
+No game data, save namespace or runtime binaries are changed.
+
+## Universal Mac builds and release workflow — development branch
+
+`release.json` pins package metadata and runtime hashes. Packaging now stages a
+universal Intel/Apple Silicon app on macOS, signs it ad hoc, verifies both native
+architectures/dependencies, checks all game files, and verifies the ZIP roundtrip
+before exposing output. `build_release.py` requires a clean commit and adds the
+editable project, source manifest and checksums. `check_rebuild.py` regenerates
+assets in isolation and compares binary data and decoded PNG pixels.
+
+The reusable CI workflow prepares artifacts and requires native ARM/Intel smoke
+tests. Matching version tags on main's history prepare draft GitHub releases;
+the pond-specific publisher is retired. Hosted verification, regeneration,
+universal packaging and native smoke on ARM macOS 14 / Intel macOS 15 passed
+in [run 36245127653](https://github.com/ziemniaki/tidebound/actions/runs/36245127653)
+(commit `a14f1b9`). Tag-driven draft publication remains unexercised; no release
+or tag was created or replaced.
+
+Local evidence: 22 build-tool regressions and all existing headless suites pass;
+isolated regeneration matches. The universal Mac preview passes signing and
+archive checks. Its native ARM smoke passes on an Apple M1 Pro / macOS 26.1 with
+Ruby 3.1.3 and Metal, including compiled data, actual Pokemon/state disk save
+roundtrip and font rendering. Hosted Intel native smoke also passes. Full gameplay
+and Monterey 12.7.5 controls/audio/save testing remain separate gates. See RELEASING.md under
+Development for the commands and exact scope. Runtime code and game version remain
+unchanged; signatures and package layout are updated.
+
+## Development tooling review — 26 September 2026
+
+The DX/reliability branch adds pinned Python development dependencies, a single
+headless verification command and read-only PR CI on Linux/macOS. The script
+rebuilder now rejects duplicate plugin installation before writes; archive
+validation detects duplicate, stale or misplaced custom scripts; reference
+extraction removes stale numeric filenames. Map validation no longer rewrites
+the tracked event report by default.
+
+Local checks pass: 11 tooling regressions, 30 core/adapter tests, native-object
+quest/save and regional-snake suites, all 16 maps, maze and pond geometry, and
+compilation of 25 custom scripts / 272 event bodies. These are automated headless
+checks, not a new native graphical or Monterey playtest. Gameplay, saves, release
+version and compiled game data are unchanged. See
+`Development/DX_RELIABILITY_REVIEW.md` for evidence and remaining priorities.
+
 ## 0.8.4 — southern pond, 26 September 2026
 
 Map108 now has a substantial pond clearing. The existing level8 Psyduck moves to19,62 and retains shoreduck_gone. Local pond grass: Psyduck40% level8-11, regional Sunkern35% level8-10, Aipom25% level8-11. Northern road encounters are unchanged. Three optional fishermen remember victories and use the existing astral-loss adapter: Toma (Magikarp9/Goldeen10), Ida (Wooper10/Poliwag11), Renzo (Barboach12). An Oran tree uses existing two-berry regrowth. The hidden western path ends in a one-time Mystic Water with full-bag retry.

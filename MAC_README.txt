@@ -1,5 +1,6 @@
 TIDEBOUND - THE KEEPER'S LIGHT
-Opening 0.8.4 | Native Intel Mac app | Target: macOS Monterey 12.7.5
+Opening 0.8.4 | Universal native Mac app: Intel and Apple Silicon
+Primary Intel playtest target: macOS Monterey 12.7.5
 
 0.8.4: Explore the pond at the south end of the South Coast Road, with three
 optional fishermen, Psyduck, local grass, an Oran tree and a hidden path.
@@ -12,10 +13,11 @@ in place of Poison moves. Existing ordinary companions retain their form.
 1. Unzip this download on your Mac.
 2. Drag Tidebound.app to Applications, or another normal folder you own.
 3. Control-click Tidebound.app, choose Open, then confirm Open if prompted.
-   This is an unsigned development build. If Monterey blocks the first launch,
+   This development build is ad-hoc signed but not notarized. If Monterey blocks the first launch,
    use System Preferences > Security & Privacy > General > Open Anyway for
    Tidebound. There is no need to disable Gatekeeper or change system settings
-   globally. Subsequent launches use an ordinary double-click.
+   globally. On newer macOS, Open Anyway is in System Settings > Privacy & Security.
+   Subsequent launches use an ordinary double-click.
 4. Press Return, then Continue. Existing saves retain progress; New Game starts the maze.
    Choose New Game only if you want to replay the whole introduction.
 
@@ -47,11 +49,10 @@ app, normally under ~/Library/Application Support/Tidebound_Opening_0_2/.
 Replacing the app does not replace that folder. Keep Game.rxdata and its backup.
 A Windows save is not automatically transferred between computers.
 
-Checked here: all starter choices, save migration, map connections and actual
-engine rendering on Linux. The same Mac runtime is retained. You confirmed that
-0.4 works on your Mac; this workspace cannot run macOS, so 0.8.4 still needs your
-on-device check. If an error appears, send its exact text or a screenshot and
-keep the save.
+Automated checks cover game rules, saved objects, map connections and package
+integrity. Native smoke checks are separate from a full playthrough; Monterey
+controls, audio and save/load still need the target Mac check. If an error
+appears, keep its exact text and your save.
 
 The runtime is mkxp-z 2.4.2/826929e with bundled Ruby 3.1. Its source and license
 are included. Upstream credits and game credits remain in the game data.
