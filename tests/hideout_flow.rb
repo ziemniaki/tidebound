@@ -1,14 +1,4 @@
 # Native Pokemon/bag/save objects, staged battle outcomes; no graphics claims.
-module Tidebound::Hideout
-  class << self
-    alias real_play play
-    def play;$hideout_plays=($hideout_plays||0)+1;$hideout_result;end
-  end
-end
-class OpeningEvent
-  attr_accessor :character_name
-  def turn_toward_player;end
-end
 def hideout_setup
   new_opening
   $player.party=[Pokemon.new(:NATU,7,$player)]

@@ -1,5 +1,6 @@
 """Regression checks for build failures that can hide drift or alter a checkout."""
 from pathlib import Path
+import json
 import shutil
 import subprocess
 import sys
@@ -141,7 +142,9 @@ class CommandChecks(unittest.TestCase):
         (self.game / "Data/Scripts.rxdata").write_bytes(writes([entry("New", "# current")]))
         result = self.command("Tests/prepare_reference.py")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual([path.name for path in ref.iterdir()], ["000_New.rb"])
+        self.assertEqual(sorted(path.name for path in ref.iterdir()), ["000_New.rb", "index.json"])
+        self.assertEqual(json.loads((ref / "index.json").read_text()),
+                             [{"name": "New", "key": "New", "file": "000_New.rb"}])
         self.assertEqual((ref / "000_New.rb").read_text(), "# current")
 
     def test_failed_reference_decode_preserves_previous_extraction(self):

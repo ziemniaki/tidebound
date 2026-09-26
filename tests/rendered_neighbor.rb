@@ -88,8 +88,8 @@ module QuestNativeCheck
     o.travel(108,28,43);quest_step('right');raise 'witness' unless n.q[:hideout_seen]
     o.travel(108,35,42);quest_step('up');raise 'hideout' unless $game_map.map_id==109 && n.q[:heard]
     quest_shot('hideout')
-    $player.party.each(&:heal);$tb_battle_label='runner';n.runner;raise 'runner' unless n.q[:runner_won]
-    $player.party.each(&:heal);$tb_battle_label='second';n.second_thief
+    $player.party.each(&:heal);$tb_battle_label='runner';Tidebound::Hideout.guard;raise 'runner' unless n.q[:runner_won]
+    $player.party.each(&:heal);$tb_battle_label='second';Tidebound::Hideout.boss
     raise 'necklace' unless n.stage==:necklace && $bag.has?(n::NECKLACE)
     quest_save('necklace');o.travel(106,7,6);o.oil_seller
     raise 'return/glint' unless n.stage==:complete && !$bag.has?(n::NECKLACE) && $tb_pearl_shot

@@ -158,13 +158,6 @@ module Tidebound::Hideout
   end
 end
 
-# Existing callers/tests/save events retain the old public entry points.
-module TideboundHideoutQuest
-  def runner; Tidebound::Hideout.guard; end
-  def second_thief; Tidebound::Hideout.boss; end
-  def overhear; Tidebound::Hideout.arrival; end
-end
-Tidebound::NeighborQuest.singleton_class.prepend(TideboundHideoutQuest)
 EventHandlers.add(:on_new_spriteset_map,:tidebound_hideout,proc { |_s,_v|
   Tidebound::Hideout.migrate;Tidebound::Hideout.sync
 })

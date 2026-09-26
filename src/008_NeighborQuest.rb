@@ -188,44 +188,6 @@ module Tidebound
       end
       witness_hideout; Opening.travel(109,11,14,8)
     end
-    def overhear
-      Opening.erase_autorun
-      return if q[:heard] || stage!=:pursuit
-      say("You stop behind a stack of crates. Nobody has noticed the door.",
-          "Runner: Boss said no more taking things from houses.","Boy: It wasn't a house. It was a shop.","Runner: That's not what he meant.",
-          "Packer: How much do pearls go for?","Boy: Depends.","Packer: On what?","Boy: ...the pearl?",
-          "Runner: Just give it to the people at the docks. They buy anything from the coast.",
-          "Lookout: Are we getting a proper Team Abyss job next time?","Runner: You're getting a broom. You spilled the packing again.")
-      q[:heard]=true
-    end
-    def runner
-      overhear unless q[:heard]
-      if q[:runner_won] || stage!=:pursuit
-        say("Runner: Fine. Speak to the boy. I'm not taking another fall for his pockets."); return
-      end
-      say("Runner: Who left the door-- Oh.","Runner: This is a private business. Very private. Out you go.")
-      return unless battle(:runner)==1
-      q[:runner_won]=true
-      say("Runner: All right! You can have your argument with him.","Runner: I'm meant to count boxes. That's the entire job.")
-    end
-    def second_thief
-      if [:necklace,:complete].include?(stage)
-        say("Boy: I don't have anything else of his. You can stop looking at my pockets."); return
-      end
-      unless q[:runner_won]
-        say("Runner: Leave him. You want something from here, you talk to me first."); return
-      end
-      unless q[:second_won]
-        say("Boy: Toma said you'd go home!","Boy: You can't just follow people around taking back the things they've taken!")
-        return unless battle(:second)==1
-        q[:second_won]=true
-      end
-      unless $bag.add(NECKLACE,1)
-        say("Boy: There's no room in your bag. I'll put it on this crate. I'm not fighting you for it again."); return
-      end
-      q[:stage]=:necklace
-      say("He untangles a pearl necklace from the lining of his pocket.","Boy: Here. Take it. Stupid clasp kept catching on everything anyway.","You wrap the Pearl Necklace carefully and put it in the Key Items pocket.")
-    end
     def packer; say("Packer: If I put 'assorted' on every box, I can't label one wrong. Can I?"); end
     def lookout; say("Lookout: I told them we should sell things we actually own.","Lookout: Apparently that isn't the idea."); end
     def rest

@@ -11,7 +11,7 @@ class TrainerBattle
   end
 end
 def setBattleRule(*rules);$quest_rules=rules;end
-n=Tidebound::NeighborQuest;o=Tidebound::Opening
+n=Tidebound::NeighborQuest;o=Tidebound::Opening;h=Tidebound::Hideout
 [:NATU,:MAKUHITA,:POOCHYENA].each do |species|
   new_opening;walk;$choices=[true];o.house_pet(species)
   o.flags[:shop_unlocked]=true;o.travel(106,8,10);o.oil_seller;o.oil_seller
@@ -31,13 +31,15 @@ n=Tidebound::NeighborQuest;o=Tidebound::Opening
   check($quest_rules.include?('canLose') && $quest_rules.include?('noMoney'),'rules');roundtrip
   point=Tidebound.return_to_living!;o.travel(*point);o.travel(108,26,23)
   $quest_outcome=1;n.first_thief;check(n.q[:first_won],'first win');roundtrip
-  n.witness_hideout;n.hideout_door;n.overhear;check(n.q[:heard] && $game_map.map_id==109,'hideout')
-  n.second_thief;check(!n.q[:second_won],'skipped runner')
-  $quest_outcome=5;n.runner;check(!n.q[:runner_won] && n.stage==:pursuit,'draw advances')
+  n.witness_hideout;n.hideout_door;h.arrival;check(n.q[:heard] && $game_map.map_id==109,'hideout')
+  $quest_outcome=0;h.boss;check(!n.q[:runner_won] && !n.q[:second_won],'cancelled guard advances')
+  $quest_outcome=5;h.guard;check(!n.q[:runner_won] && n.stage==:pursuit,'draw advances')
   point=Tidebound.return_to_living!;o.travel(*point);o.travel(109,11,14)
-  $quest_outcome=1;n.runner;n.second_thief
-  check(n.stage==:necklace && $bag.quantity(n::NECKLACE)==1,'recovery')
-  n.second_thief;roundtrip;o.travel(106,8,10);o.oil_seller
+  $quest_outcome=1;h.guard;$hideout_result=false;h.boss
+  check(!n.q[:hideout_game_won] && !n.q[:second_won], 'cancelled minigame advances')
+  $hideout_result=true;h.boss
+  check(n.stage==:necklace && n.q[:hideout_game_won] && $bag.quantity(n::NECKLACE)==1,'recovery')
+  h.boss;roundtrip;o.travel(106,8,10);o.oil_seller
   check(n.stage==:complete && !$bag.has?(n::NECKLACE),'return')
   o.oil_seller;roundtrip
   check([n::PIE,n::PLATE,n::NECKLACE].none? { |i|$bag.has?(i) },'duplicated rewards')
@@ -53,6 +55,6 @@ end
 o.travel(101,10,12);$quest_reject_item=n::PLATE;n.meal
 check(n.stage==:pie && $bag.has?(n::PIE),'full bag consumes pie')
 $quest_reject_item=nil;n.meal;n.q.merge!({:stage=>:pursuit,:runner_won=>true,:second_won=>true})
-$quest_reject_item=n::NECKLACE;n.second_thief;check(n.stage==:pursuit && n.q[:second_won],'earned item lost')
-$quest_reject_item=nil;n.second_thief;check(n.stage==:necklace && $bag.quantity(n::NECKLACE)==1,'item retry')
+$quest_reject_item=n::NECKLACE;h.boss;check(n.stage==:pursuit && n.q[:second_won],'earned item lost')
+$quest_reject_item=nil;h.boss;check(n.stage==:necklace && $bag.quantity(n::NECKLACE)==1,'item retry')
 puts 'PASS: completed-oil legacy save, full-bag meal rollback and necklace retry without rebattle.'
