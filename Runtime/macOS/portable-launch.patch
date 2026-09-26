@@ -1,0 +1,102 @@
+--- a/src/filesystem/filesystemImplApple.mm
++++ b/src/filesystem/filesystemImplApple.mm
+@@ -11,6 +11,7 @@
+ #import <SDL_filesystem.h>
+ 
+ #import "filesystemImpl.h"
++#include "portablePathApple.h"
+ #import "util/exception.h"
+ 
+ #define PATHTONS(str) [NSFileManager.defaultManager stringWithFileSystemRepresentation:str length:strlen(str)]
+@@ -51,13 +52,7 @@
+ 
+ std::string filesystemImpl::normalizePath(const char *path, bool preferred, bool absolute) {
+     @autoreleasepool {
+-        NSString *nspath = [NSURL fileURLWithPath: PATHTONS(path)].URLByStandardizingPath.path;
+-        NSString *pwd = [NSString stringWithFormat:@"%@/", NSFileManager.defaultManager.currentDirectoryPath];
+-        if (!absolute) {
+-            nspath = [nspath stringByReplacingOccurrencesOfString:pwd withString:@""];
+-        }
+-        nspath = [nspath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+-        return std::string(NSTOPATH(nspath));
++        return portableGamePath(path, absolute);
+     }
+ }
+ 
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -237,6 +237,14 @@
+     }
+ 
+ #ifndef WORKDIR_CURRENT
++#ifdef __APPLE__
++    // Bundle paths can exceed 512 bytes after relocation or App Translocation.
++    const std::string dataDir = mkxp_fs::getDefaultGameRoot();
++    if (!mkxp_fs::setCurrentDirectory(dataDir.c_str())) {
++        showInitError("Unable to open the bundled game directory: " + dataDir);
++        return 1;
++    }
++#else
+     char dataDir[512]{};
+ #if defined(__linux__)
+     char *tmp{};
+@@ -249,6 +257,7 @@
+         strncpy(dataDir, mkxp_fs::getDefaultGameRoot().c_str(), sizeof(dataDir));
+     }
+     mkxp_fs::setCurrentDirectory(dataDir);
++#endif
+ #endif
+     
+     /* now we load the config */
+@@ -368,22 +377,7 @@
+       return 0;
+     }
+     
+-#ifdef MKXPZ_BUILD_XCODE
+-    {
+-        std::string downloadsPath = "/Users/" + mkxp_sys::getUserName() + "/Downloads";
+-        
+-        if (mkxp_fs::getCurrentDirectory().find(downloadsPath) == 0) {
+-            showInitError(conf.game.title +
+-                          " cannot run from the Downloads directory.\n\n" +
+-                          "Please move the application to the Applications folder (or anywhere else) " +
+-                          "and try again.");
+-#ifdef MKXPZ_STEAM
+-            STEAMSHIM_deinit();
+-#endif
+-            return 0;
+-        }
+-    }
+-#endif
++// A self-contained app also runs from Downloads and App Translocation.
+     
+ #if defined(MKXPZ_BUILD_XCODE)
+ #define DEBUG_FSELECT_MSG "Select the folder from which to load game files. This is the folder containing the game's INI."
+--- /dev/null
++++ b/src/filesystem/portablePathApple.h
+@@ -0,0 +1,25 @@
++// Keep relative game paths relative: NSURL standardization can disagree with
++// getcwd about /var versus /private/var (App Translocation) and Unicode spelling.
++#pragma once
++#import <Foundation/Foundation.h>
++#include "ghc/filesystem.hpp"
++#include <algorithm>
++
++inline std::string portableGamePath(const char *path, bool absolute) {
++    namespace fs = ghc::filesystem;
++    std::string separators(path);
++    std::replace(separators.begin(), separators.end(), '\\', '/');
++    fs::path result(separators);
++    if (absolute && result.is_relative()) {
++        result = fs::current_path() / result;
++    } else if (!absolute && result.is_absolute()) {
++        // Retain support for absolute paths inside the game directory. Resolve
++        // aliases on both sides, and strip only a complete directory prefix.
++        auto relative = fs::weakly_canonical(result).lexically_relative(fs::canonical(fs::current_path()));
++        if (!relative.empty() && *relative.begin() != "..") result = relative;
++    }
++    std::string normalized = result.lexically_normal().string();
++    NSString *native = [NSFileManager.defaultManager stringWithFileSystemRepresentation:normalized.c_str()
++                                                                               length:normalized.size()];
++    return std::string([NSFileManager.defaultManager fileSystemRepresentationWithPath:native]);
++}

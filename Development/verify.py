@@ -30,6 +30,8 @@ def main():
     with tempfile.TemporaryDirectory(prefix="tidebound-verify-") as temp:
         events = str(Path(temp) / "event_scripts.json")
         run(sys.executable, "-m", "unittest", "discover", "-s", "Development/Tests", "-p", "test_*.py")
+        if sys.platform == 'darwin':
+            run(sys.executable, 'Development/Tests/mac_path_normalization.py')
         run(sys.executable, "Development/validate_maps.py", "--event-scripts", events)
         run(sys.executable, "Development/Tests/maze_graph.py")
         run(sys.executable, "Development/Tests/pond_geometry.py")

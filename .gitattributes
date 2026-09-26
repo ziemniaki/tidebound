@@ -8,3 +8,5 @@
 *.dll binary
 *.exe binary
 *.pdf binary
+# Patch context preserves whitespace from the pinned upstream source.
+Runtime/macOS/*.patch whitespace=-blank-at-eol

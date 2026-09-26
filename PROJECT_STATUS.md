@@ -1,5 +1,22 @@
 # Current project status
 
+## 0.8.6 — portable launches
+
+Rebuilt the pinned Mac engine with a focused source patch: relative asset paths
+remain relative, Downloads is permitted, and bundle paths are no longer truncated
+to 512 bytes. The original Ruby, ANGLE, FluidSynth and standard library are kept.
+The dependency lock and rebuild script record reproducible inputs.
+
+Local Apple Silicon tests passed ordinary, temporary, Downloads, long-path and
+actual read-only App Translocation launches, including compiled plugins/data,
+rendering and saves outside the app. Windows and Linux smoke tests relocate the
+package into a Unicode path and start from another directory; Linux additionally
+uses a symbolic-link launcher and a read-only game tree. Hosted verification and
+publication status must be checked on GitHub; 0.8.5 is already published and is
+not replaced. Gameplay and save schemas are unchanged; only displayed game
+version strings change in Scripts.rxdata. Player archives use optional README.txt.
+
+
 ## Published 0.8.5 and Mac launch diagnosis — 26 September 2026
 
 Published v0.8.5 from c0394fb with exactly three player ZIPs: universal Mac,

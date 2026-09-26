@@ -1,9 +1,10 @@
 TIDEBOUND - THE KEEPER'S LIGHT
-Opening 0.8.5 | Mac build40 | Universal native Mac app: Intel and Apple Silicon
+Opening 0.8.6 | Mac build41 | Universal native Mac app: Intel and Apple Silicon
 Primary Intel playtest target: macOS Monterey 12.7.5
 
-0.8.5: Verified universal Intel/Apple Silicon packaging, checksums and native
-smoke tests. Build40 fixes accented-filename signature failures after unzipping. Gameplay and save compatibility are unchanged from 0.8.4.
+0.8.6: Launch from any permitted location, including Downloads and macOS App
+Translocation. Spaces, Unicode names and long folder paths are supported.
+The previous Unicode/signature fix is retained. Saves stay outside the app.
 
 0.8.4: Explore the pond at the south end of the South Coast Road, with three
 optional fishermen, Psyduck, local grass, an Oran tree and a hidden path.
@@ -13,20 +14,11 @@ The central obelisk is reserved for later Surf.
 Ekans are gray Normal/Dark, with matching Arbok at level 22 and Dark moves
 in place of Poison moves. Existing ordinary companions retain their form.
 
-1. Unzip this download on your Mac.
-2. Drag Tidebound.app to Applications, or another normal folder you own.
-3. Control-click Tidebound.app, choose Open, then confirm Open if prompted.
-   This development build is ad-hoc signed but not notarized. If Monterey blocks the first launch,
-   use System Preferences > Security & Privacy > General > Open Anyway for
-   Tidebound. There is no need to disable Gatekeeper or change system settings
-   globally. On newer macOS, Open Anyway may appear in System Settings > Privacy & Security.
-   If macOS says the app is damaged and offers no Open Anyway, report the exact
-   archive version. The original 0.8.5 Mac build39 ZIP had an accented-filename problem
-   with Archive Utility; build40 fixes it. A matching ZIP checksum alone does
-   not establish that an extracted app still has a valid signature.
-   Subsequent launches use an ordinary double-click.
-4. Press Return, then Continue. Existing saves retain progress; New Game starts the maze.
-   Choose New Game only if you want to replay the whole introduction.
+Open Tidebound.app after extracting it. Moving it to Applications is optional.
+Keep the app bundle intact. This build is ad-hoc signed but not notarized, so
+macOS may still require first-launch approval under Privacy & Security.
+
+Press Return, then Continue for an existing save or New Game to begin.
 
 Everything needed to play is inside the app. No Codex app, Wine, Windows,
 Homebrew, Python or RPG Maker installation is needed.

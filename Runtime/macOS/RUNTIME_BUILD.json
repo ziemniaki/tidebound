@@ -1,0 +1,11 @@
+{
+  "source": "87f70b4738a78fd66630312c795e760f59def7fcff0dfe12c2d50bd7ec65e21b",
+  "template": "b065fd4f5ea77a5b8f8dc736842e55349d7b344b7c2438b175e9cb589d5476fb",
+  "patch": "1546d6f9f2faae902d96bc90eb403ea3d030cd4a4970f48562225e764d606776",
+  "dependencies": "ca16386ade8ac876fb0f1b2840dbf7639f7ddc97c247f36e7715151ed286f53c",
+  "toolchain": "Xcode 26.2\nBuild version 17C52",
+  "artifacts": {
+    "mkxp-z-826929e-portable1.zip": "9df250b6f720201be2f0c19e33889992bc4467ecc77a9d8d2e6b450cb50d19ad",
+    "mkxp-z-826929e-portable1-source.tar.gz": "f21396819b9479ad7b33f061702f0e5e9c46f49edb4cc37f17842d3c11320708"
+  }
+}

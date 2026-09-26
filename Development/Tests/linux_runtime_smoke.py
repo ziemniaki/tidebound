@@ -31,7 +31,7 @@ def smoke(archive, output):
     if save_dir.exists():
         raise FileExistsError('Refusing to reuse an existing save namespace')
     try:
-        with tempfile.TemporaryDirectory(prefix='tidebound-smoke-', dir=output.parent) as temp:
+        with tempfile.TemporaryDirectory(prefix='Tidebound é 日本 ', dir=output.parent) as temp:
             root = Path(temp)
             extract_bundle(archive, root)
             games = list(root.glob('*/Tidebound.sh'))
@@ -49,6 +49,7 @@ def smoke(archive, output):
                     log.write(name + '\n' + dependencies + '\n')
                 if 'not found' in dependencies:
                     raise RuntimeError('Missing Linux runtime dependency: ' + name)
+            game = game.rename(root / 'Relocated game é 日本')
             config = game / 'mkxp.json'
             text, count = re.subn(r'"dataPathApp"\s*:\s*"[^"]+"',
                                  '"dataPathApp": "' + namespace + '"', config.read_text(encoding='utf-8'))
@@ -62,13 +63,17 @@ def smoke(archive, output):
                 raise ValueError('Expected exactly one Main entry')
             main[0][2] = zlib.compress(Path(__file__).with_name('native_runtime_smoke.rb').read_bytes())
             scripts.write_bytes(writes(entries))
+            shortcut = root / 'Launch Tidebound é 日本'
+            shortcut.symlink_to(game / 'Tidebound.sh')
+            for path in [*game.rglob('*'), game]:
+                path.chmod(path.stat().st_mode & ~0o222)
             env = dict(os.environ, HOME=str(save_dir), XDG_DATA_HOME=str(save_dir / 'data'),
                        XDG_CONFIG_HOME=str(save_dir / 'config'), TIDEBOUND_SMOKE_REPORT=str(output / 'native-smoke.rxdata'),
                        TIDEBOUND_SMOKE_SCREENSHOT=str(output / 'native-smoke.png'))
             try:
                 with (output / 'engine.log').open('w') as log:
                     # Start outside the game folder to exercise the shipped launcher.
-                    subprocess.run([str(game / 'Tidebound.sh')], cwd=root, env=env,
+                    subprocess.run([str(shortcut)], cwd=root, env=env,
                                    stdout=log, stderr=subprocess.STDOUT, timeout=90, check=True)
             finally:
                 for directory, label in ((game, 'game'), (save_dir, 'save')):
@@ -78,6 +83,8 @@ def smoke(archive, output):
             result = read_report(output)
             if not result.get('passed'):
                 raise RuntimeError(result.get('error', 'Native smoke did not pass'))
+            if result['game_directory_writable']:
+                raise RuntimeError('Relocated Linux game was not read-only during the smoke')
             if not Path(result['save_directory']).resolve().is_relative_to(save_dir.resolve()) or namespace not in result['save_directory']:
                 raise RuntimeError('Smoke test did not use its isolated save namespace')
             if not (output / 'native-smoke.png').is_file():

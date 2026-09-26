@@ -3,8 +3,8 @@
 **Repository handoff — 24 September 2026:** use `Development/REPOSITORY_WORKFLOW.md` for the new GitHub workflow. Initial import is current Demo 1 / 0.8.0 only. Migration is complete and verified at source commit `19780315bf4227f24ab9b5ccdf6d8ee54b6e773e`. GitHub `ziemniaki/tidebound` is authoritative. Older statements below about ZIP-only logistics are historical and superseded. Do not depend on conversation memory.
 
 
-**Guide version:** 2.30, 26 September 2026
-**Project baseline:** Demo 1 / 0.8.5, Pokémon Essentials 21.1
+**Guide version:** 2.31, 26 September 2026
+**Project baseline:** Demo 1 / 0.8.6, Pokémon Essentials 21.1
 **Status:** existing game, continuing development; do not start over.
 
 Place this file in the game project root, beside `Game.rxproj`, `Game.ini`, and
@@ -1346,3 +1346,21 @@ not fixed by the Unicode/signature correction. mac_runtime_smoke.py now launches
 a disposable installed app through Launch Services from / and isolates saves.
 That gate does not prove downloaded/quarantined launch works. Preserve this
 limitation until an upstream/runtime fix is reproduced under translocation.
+
+## 0.8.6 — portable runtime launches (supersedes the installation workaround)
+
+Runtime/macOS/portable-launch.patch fixes relative asset paths under /var and
+App Translocation, removes the Downloads ban and the Mac bundle-path buffer
+limit. Rebuild with Development/rebuild_mac_runtime.py using the dependency lock;
+keep the original four dylibs and Ruby standard library. New input archives and
+hashes live in release.json. Do not silently change dependency revisions.
+
+Mac smoke tests must pass all locations, including an actual read-only App
+Translocation mount. Only disposable test copies receive an approved-quarantine
+attribute; never ship that test attribute or change global security settings.
+This proves file loading after approval, not notarization. Windows/Linux tests
+start relocated Unicode-named packages from outside the game folder. Linux
+also tests a symbolic-link entry point and read-only game data. Saves use the
+existing user-data namespace. Main fixtures run the normal plugin/compiler boot
+steps and save outside the app. Never reinstate an Applications-only requirement
+or READ_ME_FIRST packaging as a substitute for these tests.

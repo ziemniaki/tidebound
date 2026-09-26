@@ -1,11 +1,11 @@
 {
-  "version": "0.8.5",
-  "mac_build": "40",
+  "version": "0.8.6",
+  "mac_build": "41",
   "runtime_commit": "826929eeb3ebc4b887c011604919217a790770f4",
-  "runtime_archive": "Runtime/macOS/mkxp-z-826929e.zip",
-  "runtime_sha256": "b065fd4f5ea77a5b8f8dc736842e55349d7b344b7c2438b175e9cb589d5476fb",
-  "runtime_source": "Runtime/macOS/mkxp-z-826929e-source.tar.gz",
-  "runtime_source_sha256": "87f70b4738a78fd66630312c795e760f59def7fcff0dfe12c2d50bd7ec65e21b",
+  "runtime_archive": "Runtime/macOS/mkxp-z-826929e-portable1.zip",
+  "runtime_sha256": "9df250b6f720201be2f0c19e33889992bc4467ecc77a9d8d2e6b450cb50d19ad",
+  "runtime_source": "Runtime/macOS/mkxp-z-826929e-portable1-source.tar.gz",
+  "runtime_source_sha256": "f21396819b9479ad7b33f061702f0e5e9c46f49edb4cc37f17842d3c11320708",
   "architectures": [
     "x86_64",
     "arm64"
@@ -18,5 +18,7 @@
   "linux_runtime_archive": "Runtime/Linux/mkxp-z-826929e-ubuntu22.04-x86_64.zip",
   "linux_runtime_sha256": "9feba61c70aa63e98ca87678002dc6eb4cbda2fca09c2e1a63122fd332979053",
   "linux_architecture": "x86_64",
-  "linux_glibc_minimum": "2.35"
+  "linux_glibc_minimum": "2.35",
+  "runtime_patch": "Runtime/macOS/portable-launch.patch",
+  "runtime_patch_sha256": "1546d6f9f2faae902d96bc90eb403ea3d030cd4a4970f48562225e764d606776"
 }

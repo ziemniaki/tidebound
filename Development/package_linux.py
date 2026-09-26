@@ -12,7 +12,7 @@ from package_mac import GAME_DIRS, GAME_FILES, archive_tree, extract_bundle, gam
 from release_tools import ROOT, SAVE_DIRECTORY, check_sources, sha256, source_revision
 
 RUNTIME_ENTRIES = ('mkxp-z.x86_64', 'lib64', 'stdlib', 'LICENSE.mkxp-z-with-https.txt')
-LAUNCHER = '#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./mkxp-z.x86_64 "$@"\n'
+LAUNCHER = '#!/bin/sh\nset -eu\nlauncher=$(readlink -f -- "$0")\ncd -- "$(dirname -- "$launcher")"\nexec ./mkxp-z.x86_64 "$@"\n'
 
 
 def inspect_runtime(runtime):
@@ -76,7 +76,7 @@ def build(output, root=ROOT, allow_dirty=False):
                 copy(root / name, name)
         for name in (*GAME_FILES, 'CREDITS.md'):
             copy(root / name, name)
-        copy(root / 'LINUX_README.txt', 'READ_ME_FIRST.txt')
+        copy(root / 'LINUX_README.txt', 'README.txt')
         copy(root / 'Runtime/Linux/PROVENANCE.md', 'RUNTIME_SOURCE.md')
         copy(root / config['runtime_source'], Path(config['runtime_source']).name)
         (stage / 'Tidebound.sh').write_text(LAUNCHER, encoding='utf-8')
