@@ -4,10 +4,11 @@ A Pokémon fangame about companionship, loss, and a haunted coast that never see
 daylight. Begin with a bird in a dream, return to a lighthouse home, and follow
 an ordinary errand toward the harbour.
 
-Built with Pokémon Essentials 21.1 and mkxp-z. **Demo 1 is playable; the full
-story is still in development.**
+Built with Pokémon Essentials 21.1 and mkxp-z.
 
-![The lighthouse at night](docs/history/evidence/DemoEvidence_080/demo-lighthouse.png)
+<p align="center">
+  <img src="docs/history/evidence/DemoEvidence_080/demo-lighthouse.png" alt="The lighthouse at night">
+</p>
 
 ## Play
 
@@ -16,7 +17,7 @@ for macOS (Intel or Apple Silicon), Windows x64, or Linux x86_64.
 No development tools are needed. The demo includes the lighthouse opening,
 coastal quests, hideout and southern pond; Psyduck Island is its endpoint.
 
-## Work on the game
+## Development
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and
 [Git](https://git-scm.com/downloads), then:
@@ -41,11 +42,11 @@ uv run doctor      # inspect your local setup
 [Development guide](docs/development.md) · [Working with an agent](docs/maintainer.md)
 · [Architecture](docs/architecture.md) · [Releasing](docs/releasing.md)
 
-## Find your way around
+## Project structure
 
 | Directory | What belongs here |
 | --- | --- |
-| [`specs/`](specs/game-design.md) | Game design and creative decisions — story spoilers |
+| [`specs/`](specs/game-design.md) | Game design and creative decisions |
 | [`docs/`](docs/README.md) | Development, playtesting, releases and current status |
 | `src/` | Custom Ruby gameplay and presentation |
 | `game/` | RPG Maker project, compiled data, PBS definitions and playable assets |
@@ -61,7 +62,6 @@ Agents start with [AGENTS.md](AGENTS.md). Contributors should read the
 
 Report bugs through [GitHub Issues](https://github.com/ziemniaki/tidebound/issues),
 including the game version, operating system and steps to reproduce.
-Creative direction: Wojciech Krzyżanowski ([ziemniaki](https://github.com/ziemniaki)).
 
 Unofficial fan project. [Credits and third-party attribution](docs/credits.md)
 apply; this repository does not grant rights to Pokémon or other third-party assets.
