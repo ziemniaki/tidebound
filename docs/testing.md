@@ -51,7 +51,26 @@ The developer-workflow check also builds a local player and verifies its separat
 save configuration. Real desktop audio, hardware graphics, controls and complete
 gameplay remain manual checks; record them separately from smoke results.
 
-Older feature-specific Ruby drivers still await consolidation into the supported
-native scenario runner during the refactoring. They are not part of the current
-automatic gate and may require obsolete fixtures. Git history preserves retired
-reports and one-time recovery scripts.
+## Native scenarios
+
+The platform launchers accept `--scenario runtime|world|species|all` (default
+`all`). They prepare a disposable player from a package, replace only its Main
+entry, assign a unique save namespace and remove the test saves afterward.
+No existing player save or manually prepared engine directory is required.
+
+```sh
+uv run python tests/mac_runtime_smoke.py /path/to/Tidebound_Mac_0.8.6_universal.zip /tmp/tidebound-scenes --arch arm64 --location ordinary --scenario world
+uv run python tests/windows_runtime_smoke.py C:/build/Tidebound_Windows_0.8.6_x64.zip C:/build/scenes --scenario all
+uv run python tests/linux_runtime_smoke.py /tmp/Tidebound_Linux_0.8.6_x86_64.zip /tmp/tidebound-scenes --scenario all
+```
+
+`runtime` exercises initialization and the native save/schema boundary. `world`
+adds fresh-game scene captures of home, coast, forest, lighthouse, vault, docks
+and pond, plus a real Game.save/Game.load roundtrip. `species` recompiles the
+current checkout's PBS with Essentials in the isolated save directory, compares
+species attributes and loads custom normal/shiny front/back artwork. Use a
+package built from the same checkout. Linux CI runs under Xvfb.
+
+Evidence includes `native-smoke.json`, engine logs and PNG captures. The old
+feature-specific drivers and historic saved-game fixture makers are retired;
+current quest behavior is covered by the production-composition suites above.

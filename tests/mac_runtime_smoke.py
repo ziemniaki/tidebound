@@ -10,17 +10,14 @@ import subprocess
 import sys
 import tempfile
 import uuid
-import zlib
-from rubymarshal.reader import loads
-from rubymarshal.writer import writes
 from smoke_report import read_report
+from native_fixture import prepare, SCENARIOS
 
 from tidebound_dev.runtime.mac import run, sign_app
 from tidebound_dev.packaging.archives import extract_bundle
-from tidebound_dev.release.metadata import parse_runtime_config
 
 
-def smoke(archive, output, arch, location):
+def smoke(archive, output, arch, location, scenario="all"):
     if sys.platform != 'darwin' or platform.machine() != arch:
         raise ValueError(f'This smoke test requires a native {arch} macOS runner')
     if output.exists():
@@ -50,24 +47,7 @@ def smoke(archive, output, arch, location):
             game = app / 'Contents/Game'
             # Preserve launch settings and use the normal native script loader.
             # Only this disposable copy receives a test Main and save namespace.
-            config = game / 'mkxp.json'
-            text = config.read_text(encoding='utf-8')
-            end = text.rfind('}')
-            if end < 0:
-                raise ValueError('Missing launch configuration object')
-            text, count = re.subn(r'"dataPathApp"\s*:\s*"[^"]+"', '"dataPathApp": "' + namespace + '"', text)
-            if count != 1:
-                raise ValueError('Expected exactly one save namespace setting before launch')
-            if parse_runtime_config(text).get('dataPathApp') != namespace:
-                raise ValueError('Save namespace was not isolated before launch')
-            config.write_text(text, encoding='utf-8')
-            archive_path = game / 'Data/Scripts.rxdata'
-            entries = loads(archive_path.read_bytes())
-            main = [entry for entry in entries if entry[1] == 'Main']
-            if len(main) != 1:
-                raise ValueError('Expected exactly one Main entry')
-            main[0][2] = zlib.compress(Path(__file__).with_name('native_runtime_smoke.rb').read_bytes())
-            archive_path.write_bytes(writes(entries))
+            prepare(game, namespace, scenario)
             # Unique bundle identity also gives timeout cleanup an exact target
             # after macOS relocates the app to an unpredictable mount point.
             test_name = 'Tidebound-' + uuid.uuid4().hex + '.app'
@@ -128,6 +108,7 @@ if __name__ == '__main__':
     parser.add_argument('--arch', choices=['arm64', 'x86_64'], required=True)
     locations = ['ordinary', 'temporary', 'downloads', 'long-path', 'translocated']
     parser.add_argument('--location', choices=['all', *locations], default='all')
+    parser.add_argument('--scenario', choices=SCENARIOS, default='all')
     args = parser.parse_args()
     for location in locations if args.location == 'all' else [args.location]:
-        smoke(args.archive, args.output / location, args.arch, location)
+        smoke(args.archive, args.output / location, args.arch, location, args.scenario)

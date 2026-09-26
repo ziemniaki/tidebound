@@ -40,6 +40,7 @@ begin
   end
   raise "unsupported save was rewritten" unless File.binread(format_path) == old_bytes
   File.delete(format_path)
+  NativeScenarios.run(TIDEBOUND_NATIVE_SCENARIO, File.dirname(report))
   bitmap = Bitmap.new(320, 96)
   bitmap.font.name = "Power Green"
   bitmap.font.size = 24

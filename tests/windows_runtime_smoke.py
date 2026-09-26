@@ -10,16 +10,13 @@ import subprocess
 import sys
 import tempfile
 import uuid
-import zlib
-from rubymarshal.reader import loads
-from rubymarshal.writer import writes
 from smoke_report import read_report
+from native_fixture import prepare, SCENARIOS
 
 from tidebound_dev.packaging.archives import extract_bundle, game_hashes
-from tidebound_dev.release.metadata import parse_runtime_config
 
 
-def smoke(archive, output):
+def smoke(archive, output, scenario="all"):
     if sys.platform != 'win32' or platform.machine().lower() not in ('amd64', 'x86_64'):
         raise ValueError('This smoke test requires a native Windows x64 runner')
     if output.exists():
@@ -44,21 +41,7 @@ def smoke(archive, output):
             if actual != manifest['files_sha256']:
                 raise ValueError('Extracted Windows game differs from build manifest')
             game = game.rename(root / 'Relocated game é 日本')
-            config = game / 'mkxp.json'
-            text, count = re.subn(r'"dataPathApp"\s*:\s*"[^"]+"',
-                                 '"dataPathApp": "' + namespace + '"', config.read_text(encoding='utf-8'))
-            if count != 1:
-                raise ValueError('Expected one save namespace setting')
-            if parse_runtime_config(text).get('dataPathApp') != namespace:
-                raise ValueError('Save namespace was not isolated before launch')
-            config.write_text(text, encoding='utf-8')
-            scripts = game / 'Data/Scripts.rxdata'
-            entries = loads(scripts.read_bytes())
-            main = [entry for entry in entries if entry[1] == 'Main']
-            if len(main) != 1:
-                raise ValueError('Expected exactly one Main entry')
-            main[0][2] = zlib.compress(Path(__file__).with_name('native_runtime_smoke.rb').read_bytes())
-            scripts.write_bytes(writes(entries))
+            prepare(game, namespace, scenario)
             env = dict(os.environ, TIDEBOUND_SMOKE_REPORT=str(output / 'native-smoke.rxdata'),
                        TIDEBOUND_SMOKE_SCREENSHOT=str(output / 'native-smoke.png'))
             try:
@@ -106,5 +89,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('archive', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--scenario', choices=SCENARIOS, default='all')
     args = parser.parse_args()
-    smoke(args.archive, args.output)
+    smoke(args.archive, args.output, args.scenario)

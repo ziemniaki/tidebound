@@ -444,14 +444,15 @@ frameworks and a broad asset purge until a specific need justifies them.
 | R3 | Implemented | Dead hideout methods removed; shared NPC dispatch is explicit; current quest and interaction suites pass |
 | R4 | Implemented | Shared VM loader, named engine entries, whole-script registrations, full archive composition before integration scenarios |
 | R7 | Implemented | Nested source paths, checked load manifest, whole generated Ruby files, explicit validated engine patches; full isolated regeneration passes |
-| R6 | In progress | One schema boundary replaces migrations; headless save tests pass; obsolete native fixtures still need replacement |
+| R6 | Implemented | One schema boundary replaces migrations; native current-save roundtrip and rejection preserve disk bytes; historic fixtures removed |
 | R9–R10 | Implemented, native matrix pending | Shared atomic packaging pipeline and platform adapters; direct development staging; failure, archive safety and isolated-save tests pass |
 | R14 | Implemented | Retired history and recovery tools removed; active README image retained in `docs/images/`; local documentation links checked |
 | R1 | Implemented | Import-without-I/O, independent area construction and failed-validation isolation tests pass; full regeneration preserves data and PNG pixels |
-| R2 | Implemented, native PBS check pending | One compiler, family definitions, explicit art exports; headless/native-object and isolated-regeneration suites pass; compiled attributes preserved apart from backlink ordering |
+| R2 | Implemented | One compiler, family definitions, explicit art exports; headless/native-object and isolated-regeneration suites pass; native Essentials PBS compilation preserves species rules; custom normal/shiny front/back art loads |
 | R8 | Implemented | Installed operation modules, one callable rebuild plan, no generator subprocess chain or path mutation; public build and full isolated checks pass |
 | R5 | Implemented | Shared state, named generated map/actor registry, neutral world and encounter operations; feature-independence and full regeneration tests pass |
-| R11–R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
+| R11 | Implemented | Shared fixture preparation, named runtime/world/species scenarios, fresh save fixtures; native ARM run and seven scene captures pass |
+| R12–R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
 
 Headless checks and isolated regeneration have passed for the first three completed
 items. This is progress evidence, not final acceptance of the complete refactor.
