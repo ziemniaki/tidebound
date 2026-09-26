@@ -38,6 +38,9 @@ def main():
         subprocess.run([sys.executable, str(stage / 'tools/validate_maps.py'),
                         '--event-scripts', str(stage / 'tools/generated/event_scripts.json')], cwd=stage, check=True)
         differences = [name for name in tracked if not equivalent(ROOT / name, stage / name)]
+        generated = {p.relative_to(stage).as_posix() for p in stage.rglob('*')
+                     if p.is_file() and '__pycache__' not in p.relative_to(stage).parts}
+        differences.extend(sorted(generated - set(tracked)))
         if differences:
             raise SystemExit('Generated assets differ from committed source:\n' + '\n'.join(differences))
     print('PASS: isolated rebuild reproduces tracked data, source and decoded PNG pixels')
