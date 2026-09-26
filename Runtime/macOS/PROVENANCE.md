@@ -1,5 +1,23 @@
 # Native Mac runtime
 
+## Current packaging
+
+The checked-in template and source archives remain unchanged. `release.json`
+pins their SHA-256 values. The template contains both `x86_64` and `arm64` in
+the executable and all four libraries. The current Mac packager validates both
+architectures, deployment targets and bundled dependencies, then ad-hoc signs
+the assembled app and verifies its ZIP roundtrip. It preserves the engine code;
+signature bytes change. The upstream license moves from the bundle root to
+`Contents/Resources/LICENSE.mkxp-z-with-https.txt`; the source archive remains
+beside the app. This is not Developer ID signing or notarization.
+
+See [the release workflow](../../Development/RELEASING.md) for commands and the
+distinction between static inspection, native smoke and target-device playtesting.
+The report below records the original Intel inspection, not the new universal
+package's signatures or ARM test results.
+
+## Historical input provenance
+
 Game release: 0.3.0. Packaging date: 9 September 2026.
 
 - Upstream: https://github.com/mkxp-z/mkxp-z
@@ -32,7 +50,7 @@ https://github.com/mkxp-z/mkxp-z/tree/826929eeb3ebc4b887c011604919217a790770f4
 Rebuild from the maintained project with:
 
 ```sh
-python3 Development/package_mac.py /path/to/new-output-folder
+python3 Development/build_release.py /path/to/new-output-folder
 ```
 
 The complete game is copied into the app at packaging time. Editing the project

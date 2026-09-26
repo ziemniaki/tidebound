@@ -8,6 +8,12 @@ For the complete current suite, follow [fresh-clone setup](../README.md) and run
 environment active. This also runs geometry, build-tool and regional-snake checks
 and supplies freshly extracted event bodies to the Ruby compiler checks.
 
+`test_release_tools.py` covers archive safety, failure cleanup, output preservation,
+release invariants and semantic PNG comparison. `mac_runtime_smoke.py` launches
+a universal package on its host's native architecture, using a disposable app
+copy and unique save namespace. It replaces Main only in that copy; the published
+archive is untouched. See [RELEASING.md](../RELEASING.md) for usage and coverage.
+
 To run individual Ruby harnesses from this folder:
 
 ```

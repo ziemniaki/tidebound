@@ -34,6 +34,12 @@ event report after a map edit, run:
 
 ## Source and rebuild ownership
 
+For isolated regeneration, universal Intel/Apple Silicon Mac packages, native
+smoke checks and tag-driven draft releases, use [RELEASING.md](RELEASING.md).
+`release.json` owns package metadata and pinned runtime input hashes. Mac builds
+now require macOS signing tools; historical Linux/standard-library-only packaging
+instructions below describe the old unsigned packager.
+
 The numbered Ruby files are the authoritative custom source. They are already
 embedded in `../Data/Scripts.rxdata`, immediately before Main. Do not also copy
 them into Plugins: that would load them twice.
@@ -98,8 +104,9 @@ Tests/opening_flow.rb covers the sequence and saves; rendered_smoke.rb is a
 TEST-ONLY injection for a disposable engine copy, never a release script.
 The Mac config's fontHeightReporting must remain 1 to prevent clipped letters.
 
-Use `python3 Development/package_mac.py /path/to/new-output-folder` from the
-project root to build a matching native app. Read Runtime/macOS/PROVENANCE.md.
+Use `python Development/build_release.py /path/to/new-output-folder` on macOS
+from a clean project root for verified candidates. Read RELEASING.md and
+Runtime/macOS/PROVENANCE.md.
 
 Coast 0.5: 007_Coast.rb adds layout helpers, save translation and gentle camera
 staging. Map 102 uses a (24,20) offset inside CoastMap. Event and checkpoint

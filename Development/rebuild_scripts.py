@@ -5,7 +5,9 @@ from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol
 import zlib,json,shutil,re
 from script_archive import reject_plugin_copy, script_name, source_files
+from release_tools import load_release
 DEV=Path(__file__).resolve().parent;GAME=DEV.parent;ROOT=GAME
+version=load_release(GAME)['version']
 reject_plugin_copy(GAME)
 sources=source_files(DEV)
 entries=[e for e in loads((GAME/'Data/Scripts.rxdata').read_bytes()) if not script_name(e[1]).startswith('Tidebound/')]
@@ -16,7 +18,7 @@ for entry in entries:
     name=entry[1].decode('utf-8') if isinstance(entry[1], bytes) else str(entry[1])
     entry[1]=name
     if name=='Settings':
-        code=re.sub(r'GAME_VERSION = "[^"]+"', 'GAME_VERSION = "0.8.4"', code)
+        code=re.sub(r'GAME_VERSION = "[^"]+"', f'GAME_VERSION = "{version}"', code)
         # Keep fixed story lighting rather than computer-clock tint changes.
         code=re.sub(r'TIME_SHADING\s*=\s*(?:true|false)','TIME_SHADING = false',code)
     # Keep mechanics untouched; replace only the two player-facing loss messages.

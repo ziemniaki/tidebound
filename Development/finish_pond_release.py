@@ -92,4 +92,4 @@ def package():
 Existing saves and the refined hideout remain supported. Native Mac runtime unchanged; targets Intel Monterey12.7.5. Mac playtest is still with the player. Build38. Source and archives are verified by the hosted workflow.\n''')
  print('PASS: both release archives match verified source.')
 if __name__=='__main__':
- {'prepare':prepare,'package':package}[sys.argv[1]]()
+ raise SystemExit('Historical pond recovery is retired. Use Development/build_release.py; see Development/RELEASING.md.')

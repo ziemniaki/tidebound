@@ -347,6 +347,14 @@ remains 1; the opening's additive migration uses story opening_revision 4.
 
 ## 7. Build and map-editing discipline
 
+**Build/release update:** `Development/RELEASING.md` now governs packaging.
+`release.json` pins runtime inputs and package versions. The universal Mac package
+is staged and ad-hoc signed on macOS, then tested by native ARM/Intel CI jobs.
+`Development/check_rebuild.py` runs generators in a disposable tracked-file copy.
+Version tags prepare draft releases after all gates; the old pond publisher is
+retired. Older references to a Python-standard-library-only Linux Mac packager
+are superseded. Preserve `Tidebound_Opening_0_2` and the Monterey target.
+
 **Current developer entry point:** follow the fresh-clone setup in
 `Development/README.md`, install `requirements-dev.txt` and the locked Node test
 dependencies, then run `python Development/verify.py` with the virtual environment

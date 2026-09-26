@@ -20,6 +20,8 @@ def main():
         import rubymarshal
     except ImportError:
         raise SystemExit("Install Python dependencies: python -m pip install -r requirements-dev.txt") from None
+    from release_tools import check_sources
+    check_sources(ROOT)
 
     def run(*command, env=None):
         print("+ " + " ".join(map(str, command)), flush=True)

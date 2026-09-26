@@ -2,6 +2,29 @@
 
 Demo 1 / 0.8.4 · Bible 1.30 · Guide 2.29 · 26 September 2026
 
+## Universal Mac builds and release workflow — development branch
+
+`release.json` pins package metadata and runtime hashes. Packaging now stages a
+universal Intel/Apple Silicon app on macOS, signs it ad hoc, verifies both native
+architectures/dependencies, checks all game files, and verifies the ZIP roundtrip
+before exposing output. `build_release.py` requires a clean commit and adds the
+editable project, source manifest and checksums. `check_rebuild.py` regenerates
+assets in isolation and compares binary data and decoded PNG pixels.
+
+The reusable CI workflow prepares artifacts and requires native ARM/Intel smoke
+tests. Matching version tags on main's history prepare draft GitHub releases;
+the pond-specific publisher is retired. These workflows are configured on this
+branch, not yet proven by a hosted run. No existing release/tag was replaced.
+
+Local evidence: 22 build-tool regressions and all existing headless suites pass;
+isolated regeneration matches. The universal Mac preview passes signing and
+archive checks. Its native ARM smoke passes on an Apple M1 Pro / macOS 26.1 with
+Ruby 3.1.3 and Metal, including compiled data, actual Pokemon/state disk save
+roundtrip and font rendering. Native Intel execution, full gameplay and Monterey
+12.7.5 controls/audio/save testing remain separate gates. See RELEASING.md under
+Development for the commands and exact scope. Runtime code and game version remain
+unchanged; signatures and package layout are updated.
+
 ## Development tooling review — 26 September 2026
 
 The DX/reliability branch adds pinned Python development dependencies, a single

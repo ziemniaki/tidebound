@@ -1,0 +1,118 @@
+# Verified builds and releases
+
+The current workflow produces one universal Mac ZIP (native `x86_64` and `arm64`)
+and an editable project ZIP containing the existing Windows runtime. `release.json`
+defines the package version, Mac build number and pinned runtime archive/source
+hashes. The existing 0.8.4 release is not replaced by this tooling change.
+
+## Developer commands
+
+Install the dependencies in [README.md](README.md), then use the virtual
+environment from the repository root:
+
+```sh
+python Development/verify.py
+python Development/check_rebuild.py
+```
+
+The second command copies tracked files to a disposable directory, runs the map,
+item, encounter, regional-species and script generators, and compares their
+outputs. Binary game data must match byte-for-byte; PNGs must have identical
+decoded RGBA pixels. It never runs generators in your checkout. Stage newly
+added build sources before running it so they are included in the tracked copy.
+
+On a Mac with Xcode command-line tools installed:
+
+```sh
+python Development/build_release.py ../candidate
+python Development/Tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.4_universal.zip ../smoke-arm64 --arch arm64
+```
+
+Use `--arch x86_64` on an Intel Mac. Choose new output paths each time. A release
+build requires a clean Git checkout and records its exact commit. For a local
+Mac-only preview of uncommitted changes, use
+`python Development/package_mac.py ../preview --allow-dirty`; the generated
+manifest explicitly marks it dirty. Preview builds are not release candidates.
+
+Mac signing and inspection require macOS (`codesign`, `lipo`, `otool`). Linux can
+run headless and regeneration gates, but no longer produces unsigned Mac release
+packages. Developers do not need Apple certificates for the current ad-hoc build.
+
+## What is verified
+
+1. Embedded Ruby agrees with source and load order; package versions, save
+   namespace and the font-height fix agree; pinned runtime hashes match.
+2. The headless suites and isolated regeneration pass before release packaging.
+3. All five native images contain Intel and ARM slices. Both slices' linked
+   non-system libraries resolve inside the app. Binary deployment targets remain
+   at most macOS 10.13 for Intel and 11.0 for ARM; these are binary metadata, not
+   a claim that every OS version has been playtested.
+4. The assembled app receives an ad-hoc signature, nested code first. The upstream
+   root-level license is preserved under `Contents/Resources` so the complete
+   bundle can be signed. Verification covers all architectures and is repeated
+   after a ZIP extraction roundtrip.
+5. Every packaged game file matches its source hash. The project ZIP comes from
+   the exact clean Git commit. `BUILD.json` records the source commit, runtime
+   provenance, architectures, signing status, dependency report and game hashes.
+   `SHA256SUMS.txt` covers every release file other than itself.
+6. Native smoke checks launch the packaged engine on separate Intel and ARM hosts,
+   load the real engine/custom scripts and compiled data, exercise a native
+   Pokemon/state disk save roundtrip, and render a font/sprite frame through the
+   graphics backend. Logs, JSON results and a screenshot are retained by CI.
+
+The smoke test extracts a disposable copy, changes only that copy's Main entry and
+save namespace, re-signs the test copy, and removes its unique save directory
+afterward. Fixtures never enter published archives. The test uses the caller's
+build directory: local testing found the runtime's PhysFS loader failed to resolve
+game data under macOS's `/var/folders` temporary location.
+
+Packaging occurs inside a temporary sibling directory. The output directory
+appears only after all package checks pass; failed attempts clean up their staging
+files. Existing output paths are rejected. This protects packaging transactions;
+the older individual generators still modify files in place when invoked directly.
+
+## Pull requests and tags
+
+`Verify and build` runs on PRs and main, and can also be run manually. It performs
+headless verification, Linux regeneration, universal packaging on ARM macOS, and
+native smoke tests of that same artifact on ARM and Intel. No PR job has release
+write permission. Actions are pinned to reviewed commits.
+
+For the next release:
+
+1. Update `release.json` and `Tidebound::VERSION` in `Development/001_Core.rb`.
+   Increment `mac_build`, update current player/docs and the build manifest, and
+   rebuild scripts. `rebuild_scripts.py` takes Essentials' version from the config.
+2. Run verification/regeneration and review the resulting source changes in a PR.
+   Merge only after CI passes. Perform the native target-machine playtest separately.
+3. Tag the merged commit with the matching version, e.g. `v0.8.5`, and push the tag
+   to the original repository. Do not retag or reuse `v0.8.4`.
+4. `Prepare release` requires the tag to match the config and its commit to be
+   in `main`'s history. It reruns the build and both native architecture checks.
+   Only then does a separate job get `contents: write` and upload a **draft**
+   GitHub release. The publisher rechecks checksums and the remote tag's commit.
+5. Review the attached downloads and notes, then publish the draft in GitHub.
+   A draft is an unpublished release, not an automatic public announcement.
+
+For a transient workflow failure, rerun on the same tag. If a draft already exists,
+the publisher refuses to overwrite it; inspect that draft rather than silently
+replacing its files. Build artifacts have 14-day retention. The one-time pond
+publisher is retired; `finish_pond_release.py` is retained only as historical code.
+
+## Remaining release gates
+
+- Ad-hoc signing provides local integrity; it does **not** establish an Apple
+  Developer ID or notarization. Public downloads can still show Gatekeeper warnings.
+  Add Developer ID signing/notarization later when the project has the necessary
+  account, certificate and CI secret setup. No security settings are disabled.
+- Native smoke is bounded boot/data/save/render coverage. It does not play through
+  quests, test a real battle or prove audible output/controller behavior.
+- Hosted Intel CI runs macOS 15, not the primary user's Monterey 12.7.5 machine.
+  Keep Monterey launch, controls, audio and save/load as an explicit manual gate.
+- Windows gameplay is retained in the project ZIP but has no native Windows smoke
+  gate yet. Runtime updates need an explicit provenance/hash review and both Mac
+  architectures revalidated.
+
+References: [GitHub runner architectures](https://docs.github.com/en/actions/reference/runners/github-hosted-runners),
+[Apple nested code signing](https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html),
+[GitHub draft/tag release options](https://cli.github.com/manual/gh_release_create).

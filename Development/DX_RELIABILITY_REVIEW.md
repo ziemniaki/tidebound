@@ -43,6 +43,15 @@ platforms.
 
 ## Remaining work, in recommended order
 
+**Build-workflow follow-up on this branch:** isolated regeneration, transactional
+packaging, runtime hash/architecture/dependency checks, universal ad-hoc signing,
+native ARM smoke, and tag-driven draft-release workflows are now implemented.
+The historical publisher is retired. Local native ARM and 22 tooling regression
+checks pass; hosted CI/native Intel execution and full target-machine playtesting
+are still pending. See [RELEASING.md](RELEASING.md). The original priorities below
+remain useful context; direct generator transactions, numeric fixture loading,
+broader gameplay coverage and documentation consolidation are still open.
+
 1. **Make rebuild/release operations transactional (P1/P2).** The preflight fix
    addresses the reproduced plugin failure, but generators still write multiple
    files in place. A later exception can leave a partial build. Stage outputs in

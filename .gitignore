@@ -16,6 +16,7 @@ Development/Tests/engine-reference-*/
 *.pem
 *.key
 Mac_Build/
+/build/
 release/
 releases/
 Tidebound_Project.zip

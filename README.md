@@ -17,6 +17,9 @@ The southern pond adds three optional fishermen, Psyduck/Aipom/Sunkern grass, th
 For development, start with [fresh-clone setup and verification](Development/README.md).
 The [DX and reliability review](Development/DX_RELIABILITY_REVIEW.md) records
 verified findings, the initial tooling fixes, and remaining priorities.
+The [build and release guide](Development/RELEASING.md) covers universal Mac
+packages, native Intel/ARM smoke checks and automated draft releases. Existing
+published downloads remain unchanged until a new version is released.
 
 | Path | Purpose |
 | --- | --- |

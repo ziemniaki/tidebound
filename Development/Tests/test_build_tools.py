@@ -89,8 +89,9 @@ class CommandChecks(unittest.TestCase):
                               cwd=self.game, capture_output=True, text=True)
 
     def test_rebuild_rejects_plugin_before_writing_even_with_optimization(self):
-        for name in ("rebuild_scripts.py", "script_archive.py", "map_manifest.json"):
+        for name in ("rebuild_scripts.py", "script_archive.py", "release_tools.py", "map_manifest.json"):
             shutil.copy2(DEV / name, self.dev / name)
+        shutil.copy2(DEV.parent / "release.json", self.game / "release.json")
         for path in DEV.glob("[0-9][0-9][0-9]_*.rb"):
             shutil.copy2(path, self.dev / path.name)
         paths = ["Data/Scripts.rxdata", "Data/metadata.dat", "Game.ini", "mkxp.json",

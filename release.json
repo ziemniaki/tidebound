@@ -1,0 +1,10 @@
+{
+  "version": "0.8.4",
+  "mac_build": "38",
+  "runtime_commit": "826929eeb3ebc4b887c011604919217a790770f4",
+  "runtime_archive": "Runtime/macOS/mkxp-z-826929e.zip",
+  "runtime_sha256": "b065fd4f5ea77a5b8f8dc736842e55349d7b344b7c2438b175e9cb589d5476fb",
+  "runtime_source": "Runtime/macOS/mkxp-z-826929e-source.tar.gz",
+  "runtime_source_sha256": "87f70b4738a78fd66630312c795e760f59def7fcff0dfe12c2d50bd7ec65e21b",
+  "architectures": ["x86_64", "arm64"]
+}
