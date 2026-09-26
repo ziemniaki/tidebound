@@ -2,9 +2,9 @@
 module Tidebound
   module Opening
     HOUSE_PETS = {
-      :NATU => ["Wick", [:PECK, :LEER, :NIGHTSHADE]],
-      :MAKUHITA => ["Maku", [:TACKLE, :ARMTHRUST, :SANDATTACK, :FORESIGHT]],
-      :POOCHYENA => ["Pookie", [:TACKLE, :HOWL, :SANDATTACK, :BITE]]
+      NATU: ["Wick", %i[PECK LEER NIGHTSHADE]],
+      MAKUHITA: ["Maku", %i[TACKLE ARMTHRUST SANDATTACK FORESIGHT]],
+      POOCHYENA: ["Pookie", %i[TACKLE HOWL SANDATTACK BITE]]
     }.freeze
     module_function
 
@@ -17,7 +17,7 @@ module Tidebound
       return if Tidebound.story[:opening_started]
       Tidebound.story[:opening_started] = true
       Tidebound.story[:psychic_maze] = :active if $game_map.map_id == 114
-      Tidebound.story[:dream_room] = {phase: :sealed, streak: 0} if $game_map.map_id == 115
+      Tidebound.story[:dream_room] = { phase: :sealed, streak: 0 } if $game_map.map_id == 115
       pbChangePlayer(1)
       $player.name = "Ren" # Temporary protagonist name, editable in the journal.
       $player.has_pokedex = false
@@ -42,7 +42,9 @@ module Tidebound
       if $game_map.map_id == 115
         pbMessage("A room. Your room, probably.")
       elsif Tidebound.story[:psychic_maze] == :active
-        pbMessage("You tap twice against the blanket. Somewhere beyond the shelves, Wick taps back.")
+        pbMessage(
+          "You tap twice against the blanket. Somewhere beyond the shelves, Wick taps back."
+        )
         pbMessage("One more game. Find Wick.")
       else
         pbMessage("Wick hops across your blanket. You tap twice; he taps back.")
@@ -65,20 +67,30 @@ module Tidebound
           pbMessage("Mother: A little longer, love. She has been waiting all morning.")
           pbMessage("Pookie's walk: #{Tidebound.story[:walk_steps]}/100 steps outside.")
         else
-          pbMessage("Mother: Pookie is asleep beside the lighthouse. Take her for a little walk around the village.")
+          pbMessage(
+            "Mother: Pookie is asleep beside the lighthouse. Take her for a little walk around the village."
+          )
         end
         return
       end
       unless Tidebound.story[:starter_chosen]
         Tidebound.story[:choice_explained] = true
-        pbMessage("Mother: It isn't safe to travel alone. One of our little family should go with you.")
-        pbMessage("Mother: Wick, Maku, or Pookie. Ask whichever one you want beside you. The others will keep me company.")
+        pbMessage(
+          "Mother: It isn't safe to travel alone. One of our little family should go with you."
+        )
+        pbMessage(
+          "Mother: Wick, Maku, or Pookie. Ask whichever one you want beside you. The others will keep me company."
+        )
         return
       end
       if !Tidebound.story[:oil_requested]
         Tidebound.story[:oil_requested] = true
-        pbMessage("Mother: Before you go far, will you fetch the lamp oil? The little shop beyond the tower keeps a bottle for us.")
-        pbMessage("Mother: There are things I want to teach you while I still can. The light is one of them.")
+        pbMessage(
+          "Mother: Before you go far, will you fetch the lamp oil? The little shop beyond the tower keeps a bottle for us."
+        )
+        pbMessage(
+          "Mother: There are things I want to teach you while I still can. The light is one of them."
+        )
       elsif Tidebound.story[:oil_collected] && !Tidebound.story[:oil_returned]
         Tidebound.story[:oil_returned] = true
         pbMessage("She takes the bottle in both hands. For a moment, neither of you lets go.")
@@ -108,7 +120,9 @@ module Tidebound
         pbMessage("You pour to the line, trim the wick and turn the brass wheel.")
         Tidebound.story[:lamp_lit] = true
         pbMessage("The flame steadies. Beyond the glass, a strip of water becomes silver.")
-        pbMessage("Mother calls from below: That's it, love. Now you know how to bring the light back.")
+        pbMessage(
+          "Mother calls from below: That's it, love. Now you know how to bring the light back."
+        )
       end
     end
 
@@ -116,9 +130,11 @@ module Tidebound
       pet = household_pets[species]
       return unless pet
       description = {
-        :NATU => "Wick tilts his head before you speak, as though he remembers the question.",
-        :MAKUHITA => "Maku leans against your knee. He has always carried the heavy things for Mother.",
-        :POOCHYENA => "Pookie presses her nose into your palm. She will not look at the sea-facing window."
+        NATU: "Wick tilts his head before you speak, as though he remembers the question.",
+        MAKUHITA:
+          "Maku leans against your knee. He has always carried the heavy things for Mother.",
+        POOCHYENA:
+          "Pookie presses her nose into your palm. She will not look at the sea-facing window."
       }
       pbMessage(description[species])
       return if Tidebound.story[:starter_chosen]
@@ -165,43 +181,45 @@ module Tidebound
       choices = ["Read today's page", "Write your name", "Close the book"]
       case pbMessage("A notebook lies open beside the shelf.", choices, -1)
       when 0
-        text = if Tidebound.story[:dream_room] && [:sealed,:wick,:folded].include?(Tidebound.story[:dream_room][:phase])
-                 "The room has not finished with you."
-               elsif Tidebound.story[:psychic_maze] == :active
-                 "Find Wick. Arrows slide, diamonds stop, and circles jump."
-               elsif !Tidebound.story[:bedroom_talk]
-                 "Play with Wick in your room."
-               elsif !Tidebound.story[:hall_talk]
-                 "Mother wants to talk in the main hall."
-               elsif Tidebound.story[:walk_state] == :at_pier
-                 "Pookie is at the end of the pier. Speak to her and bring her home."
-               elsif Tidebound.story[:walk_state] == :following
-                 "Walk Pookie around the village, then go home together: #{Tidebound.story[:walk_steps]}/100 steps."
-               elsif Tidebound.story[:walk_state] != :complete
-                 "Pookie is sleeping outside, beside the lighthouse. Take her for a walk."
-               elsif !Tidebound.story[:starter_chosen]
-                 "Speak to Mother, then choose one of our three household companions."
-               elsif !Tidebound.story[:oil_requested]
-                 "Speak to Mother before setting out."
-               elsif !Tidebound.story[:shop_unlocked] && $bag.has?(:TIDEBOUNDOILKEYS)
-                 "Return the oil-shop keys to the seller outside his shop."
-               elsif Tidebound.story[:keys_requested] && !Tidebound.story[:shop_unlocked]
-                 "Look for the seller's keys among the white flowers in the northern wood."
-               elsif !Tidebound.story[:shop_unlocked]
-                 "Ask the seller outside the oil shop for Mother's bottle."
-               elsif !Tidebound.story[:oil_collected]
-                 "The oil shop is open. Go inside for Mother's bottle."
-               elsif !Tidebound.story[:oil_returned]
-                 "Bring the oil home."
-               elsif !Tidebound.story[:lamp_lit]
-                 "Tend the great lamp upstairs, just as Mother showed you."
-               elsif Tidebound::Interactions.hint
-                 Tidebound::Interactions.hint
-               elsif !Tidebound.story[:fire_found]
-                 "A traveller has lit a fire in the forest."
-               else
-                 "The northern road has fallen. The traveller will wait beside his fire."
-               end
+        text =
+          if Tidebound.story[:dream_room] &&
+               %i[sealed wick folded].include?(Tidebound.story[:dream_room][:phase])
+            "The room has not finished with you."
+          elsif Tidebound.story[:psychic_maze] == :active
+            "Find Wick. Arrows slide, diamonds stop, and circles jump."
+          elsif !Tidebound.story[:bedroom_talk]
+            "Play with Wick in your room."
+          elsif !Tidebound.story[:hall_talk]
+            "Mother wants to talk in the main hall."
+          elsif Tidebound.story[:walk_state] == :at_pier
+            "Pookie is at the end of the pier. Speak to her and bring her home."
+          elsif Tidebound.story[:walk_state] == :following
+            "Walk Pookie around the village, then go home together: #{Tidebound.story[:walk_steps]}/100 steps."
+          elsif Tidebound.story[:walk_state] != :complete
+            "Pookie is sleeping outside, beside the lighthouse. Take her for a walk."
+          elsif !Tidebound.story[:starter_chosen]
+            "Speak to Mother, then choose one of our three household companions."
+          elsif !Tidebound.story[:oil_requested]
+            "Speak to Mother before setting out."
+          elsif !Tidebound.story[:shop_unlocked] && $bag.has?(:TIDEBOUNDOILKEYS)
+            "Return the oil-shop keys to the seller outside his shop."
+          elsif Tidebound.story[:keys_requested] && !Tidebound.story[:shop_unlocked]
+            "Look for the seller's keys among the white flowers in the northern wood."
+          elsif !Tidebound.story[:shop_unlocked]
+            "Ask the seller outside the oil shop for Mother's bottle."
+          elsif !Tidebound.story[:oil_collected]
+            "The oil shop is open. Go inside for Mother's bottle."
+          elsif !Tidebound.story[:oil_returned]
+            "Bring the oil home."
+          elsif !Tidebound.story[:lamp_lit]
+            "Tend the great lamp upstairs, just as Mother showed you."
+          elsif Tidebound::Interactions.hint
+            Tidebound::Interactions.hint
+          elsif !Tidebound.story[:fire_found]
+            "A traveller has lit a fire in the forest."
+          else
+            "The northern road has fallen. The traveller will wait beside his fire."
+          end
         pbMessage(text)
       when 1
         name = pbEnterPlayerName("Your name?", 1, 10, $player.name)
@@ -211,7 +229,9 @@ module Tidebound
 
     def forest_gate
       unless Tidebound.story[:starter_chosen]
-        pbMessage("The northern path is disappearing into mist. There is something to finish at home first.")
+        pbMessage(
+          "The northern path is disappearing into mist. There is something to finish at home first."
+        )
         $game_player.moveto(*Tidebound::World.coast_xy(24, 4))
         $game_player.turn_down
         return
@@ -220,7 +240,7 @@ module Tidebound
     end
 
     def pier
-      if [:following, :at_pier, :running].include?(Tidebound.story[:walk_state])
+      if %i[following at_pier running].include?(Tidebound.story[:walk_state])
         pbMessage("You look where Pookie was looking. There is only dark water.")
         return
       end
@@ -241,15 +261,24 @@ module Tidebound
       unless Tidebound.story[:fire_found]
         Tidebound.story[:fire_found] = true
         pbMessage("Traveller: Come closer. There is room.")
-        pbMessage("Traveller: The northern bridge is gone. I was meant to meet someone on the other side.")
+        pbMessage(
+          "Traveller: The northern bridge is gone. I was meant to meet someone on the other side."
+        )
         pbMessage("Traveller: I'll keep the fire burning. You can wait with me.")
       end
-      choice = pbMessage("A little warmth reaches your hands.", ["Rest", "Ask about the wood", "Leave"], -1)
+      choice =
+        pbMessage(
+          "A little warmth reaches your hands.",
+          ["Rest", "Ask about the wood", "Leave"],
+          -1
+        )
       if choice == 0
         Tidebound::FieldDetails.rest(:wood_fire, [103, 11, 22, 8])
       elsif choice == 1
         pbMessage("Traveller: The birds have come back. They won't go near the pool, though.")
-        pbMessage("Traveller: Something there wears a drowned man's sleeves. Leave it be if you're tired.")
+        pbMessage(
+          "Traveller: Something there wears a drowned man's sleeves. Leave it be if you're tired."
+        )
       end
     end
 
@@ -266,10 +295,14 @@ module Tidebound
         return
       end
       pbMessage("A pale shape lifts its arms beneath the surface.")
-      return unless pbConfirmMessage("It turns towards you and your companion. Face the thing in the water?")
+      unless pbConfirmMessage(
+               "It turns towards you and your companion. Face the thing in the water?"
+             )
+        return
+      end
       foe = Pokemon.new(:FRILLISH, 12)
       foe.moves.clear
-      [:WATERGUN, :NIGHTSHADE, :ABSORB].each { |m| foe.learn_move(m) }
+      %i[WATERGUN NIGHTSHADE ABSORB].each { |m| foe.learn_move(m) }
       result = Tidebound::Encounters.fight(foe)
       if [1, 4].include?(result)
         Tidebound.story[:pool_cleared] = true
@@ -282,7 +315,9 @@ module Tidebound
       pbMessage("You can still see a lantern burning on the other side.")
       unless Tidebound.story[:chapter_end]
         Tidebound.story[:chapter_end] = true
-        pbMessage("The first chapter ends here. You can keep exploring the village and the wood, and save from the menu.")
+        pbMessage(
+          "The first chapter ends here. You can keep exploring the village and the wood, and save from the menu."
+        )
       end
       $game_player.moveto(17, 4)
       $game_player.turn_down
@@ -294,7 +329,7 @@ module Tidebound
       # The arrival message runs once per journey, including after save/reload.
       unless Tidebound.story[:astral_arrival_journey] == Tidebound.state.journey
         Tidebound.story[:astral_arrival_journey] = Tidebound.state.journey
-      pbMessage("No wind. No footsteps.\nNo familiar weight beside you.")
+        pbMessage("No wind. No footsteps.\nNo familiar weight beside you.")
         pbMessage("Somewhere in the fog, a familiar cry answers itself.")
       end
       give_guide
@@ -312,7 +347,9 @@ module Tidebound
       give_guide
       pbMessage("Traveller: You can hear them. That is something.")
       pbMessage("Traveller: This bird will keep you company here. It cannot cross with you.")
-      pbMessage("Find your companions in the fog. Each allows one encounter: catch them before six turns pass. If they faint, you flee, or time runs out, they are lost.")
+      pbMessage(
+        "Find your companions in the fog. Each allows one encounter: catch them before six turns pass. If they faint, you flee, or time runs out, they are lost."
+      )
       pbMessage("Traveller: The way back is behind me. Leave no one you still mean to find.")
     end
 
@@ -321,10 +358,16 @@ module Tidebound
       return unless record && record.status == :waiting
       give_guide
       pbMessage("#{record.pokemon.name} turns at the sound of your voice.")
-      return unless pbConfirmMessage("Reach for #{record.pokemon.name}? There is one encounter, with six turns to catch them. Failure is permanent.")
+      unless pbConfirmMessage(
+               "Reach for #{record.pokemon.name}? There is one encounter, with six turns to catch them. Failure is permanent."
+             )
+        return
+      end
       result = Tidebound.recover_spirit!(record.id)
       if result == :recovered
-        pbMessage("A familiar weight settles against you.\n#{record.pokemon.name} has returned, weak but real.")
+        pbMessage(
+          "A familiar weight settles against you.\n#{record.pokemon.name} has returned, weak but real."
+        )
       else
         pbMessage("For an instant, #{record.pokemon.name} seems to recognize you.")
         pbMessage("Then the shape is gone.")
@@ -334,11 +377,12 @@ module Tidebound
     def return_from_astral
       return unless Tidebound.state.realm == :astral
       remaining = Tidebound.state.waiting_ids.length
-      prompt = if remaining > 0
-                 "#{remaining} #{remaining == 1 ? 'companion still waits' : 'companions still wait'} in the fog. Leaving will lose them permanently. Return to the living shore?"
-               else
-                 "The shore is very far away. Return to it?"
-               end
+      prompt =
+        if remaining > 0
+          "#{remaining} #{remaining == 1 ? "companion still waits" : "companions still wait"} in the fog. Leaving will lose them permanently. Return to the living shore?"
+        else
+          "The shore is very far away. Return to it?"
+        end
       unless pbConfirmMessageSerious(prompt)
         $game_player.moveto(15, 21)
         $game_player.turn_up
@@ -363,11 +407,11 @@ module Tidebound
         choice = pbMessage("The stone remembers.", labels + ["Step away"], -1)
         if choice >= 0 && choice < lost.length
           pkmn = lost[choice].pokemon
-          pbMessage("#{pkmn.name}.\nLevel #{pkmn.level}.\nThere was a time when this name brought them running.")
+          pbMessage(
+            "#{pkmn.name}.\nLevel #{pkmn.level}.\nThere was a time when this name brought them running."
+          )
         end
       end
     end
-
   end
 end
-

@@ -5,8 +5,18 @@ module Tidebound
     # Preserve selected support moves; replace attacks without refilling their PP.
     def support_moves(pokemon)
       learned = pokemon.getMoveList.select { |lv, _| lv <= pokemon.level }.map(&:last)
-      priority = [:SPIKES, :WISH, :STUNSPORE, :PROTECT, :RAINDANCE, :LIFEDEW,
-                  :STICKYWEB, :SLEEPPOWDER, :HAIL, :AURORAVEIL]
+      priority = %i[
+        SPIKES
+        WISH
+        STUNSPORE
+        PROTECT
+        RAINDANCE
+        LIFEDEW
+        STICKYWEB
+        SLEEPPOWDER
+        HAIL
+        AURORAVEIL
+      ]
       candidates = (priority + learned.reverse).uniq.select { |m| learned.include?(m) }
       retained = pokemon.moves.select { |m| GameData::Move.get(m.id).category == 2 }
       used = retained.map(&:id)
@@ -22,7 +32,6 @@ module Tidebound
       pokemon.moves.compact!
       pokemon.learn_move(:STRINGSHOT) if pokemon.moves.empty?
     end
-
   end
 
   module FrostcoonEvolutionMoves

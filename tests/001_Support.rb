@@ -45,16 +45,30 @@ class TestMove
 end
 
 class Pokemon
-  attr_accessor :species, :level, :name, :hp, :totalhp, :status, :moves,
-                :item, :owner, :iv, :ev, :personalID, :form, :egg
+  attr_accessor :species,
+                :level,
+                :name,
+                :hp,
+                :totalhp,
+                :status,
+                :moves,
+                :item,
+                :owner,
+                :iv,
+                :ev,
+                :personalID,
+                :form,
+                :egg
   def initialize(species, level = 5)
     @species, @level, @name = species, level, "Moss"
     @totalhp, @hp, @status = 40, 40, :NONE
     @moves = [TestMove.new(:PECK), TestMove.new(:LEER, 0)]
-    @item, @owner, @personalID = :MYSTICSABRE, {:name => "Keeper", :id => 18}, 12345
-    @iv, @ev, @form, @egg = {:HP => 29}, {:HP => 8}, 1, false
+    @item, @owner, @personalID = :MYSTICSABRE, { name: "Keeper", id: 18 }, 12_345
+    @iv, @ev, @form, @egg = { HP: 29 }, { HP: 8 }, 1, false
   end
-  def egg?; @egg; end
+  def egg?
+    @egg
+  end
   def heal
     @hp, @status = @totalhp, :NONE
     @moves.each { |m| m.pp = m.total_pp }
@@ -63,26 +77,42 @@ end
 
 class TestPlayer
   attr_accessor :party
-  def initialize(party); @party = party; end
-  def able_pokemon_count; @party.count { |p| !p.egg? && p.hp > 0 }; end
+  def initialize(party)
+    @party = party
+  end
+  def able_pokemon_count
+    @party.count { |p| !p.egg? && p.hp > 0 }
+  end
 end
 
 module SaveData
   @registry = {}
   class Value
     attr_reader :save_proc, :load_proc, :new_proc, :reset
-    def ensure_class(klass); @klass = klass; end
-    def save_value(&block); @save_proc = block; end
-    def load_value(&block); @load_proc = block; end
-    def new_game_value(&block); @new_proc = block; end
-    def reset_on_new_game; @reset = true; end
+    def ensure_class(klass)
+      @klass = klass
+    end
+    def save_value(&block)
+      @save_proc = block
+    end
+    def load_value(&block)
+      @load_proc = block
+    end
+    def new_game_value(&block)
+      @new_proc = block
+    end
+    def reset_on_new_game
+      @reset = true
+    end
   end
   def self.register(key, &block)
     value = Value.new
     value.instance_eval(&block)
     @registry[key] = value
   end
-  def self.value(key); @registry.fetch(key); end
+  def self.value(key)
+    @registry.fetch(key)
+  end
 end
 
 module BattleCreationHelperMethods
@@ -98,14 +128,23 @@ class Battle
   def initialize
     @decision, @messages, @stored = 0, [], []
   end
-  def pbStorePokemon(pokemon); @stored << pokemon; end
-  def pbCaptureCalc(pokemon, battler, rate, ball); @received_rate = rate; end
-  def pbEndOfRoundPhase; end
-  def pbDisplay(message); @messages << message; end
+  def pbStorePokemon(pokemon)
+    @stored << pokemon
+  end
+  def pbCaptureCalc(pokemon, battler, rate, ball)
+    @received_rate = rate
+  end
+  def pbEndOfRoundPhase
+  end
+  def pbDisplay(message)
+    @messages << message
+  end
 end
 
 class WildBattle
-  class << self; attr_accessor :outcome, :crash, :capture_mismatch; end
+  class << self
+    attr_accessor :outcome, :crash, :capture_mismatch
+  end
   def self.start_core(*foes)
     if crash
       $player.party[0].hp = 1
@@ -114,7 +153,7 @@ class WildBattle
     result = outcome || 1
     if result == 4
       caught = foes.first
-      caught.owner = {:name => "Engine reassignment"}
+      caught.owner = { name: "Engine reassignment" }
       caught.item = nil
       caught.name = "Engine rename"
       caught.instance_variable_set(:@tidebound_identity, "wrong") if capture_mismatch
@@ -127,6 +166,9 @@ class WildBattle
   end
 end
 
-def setBattleRule(*rules); $test_rules = rules; end
-def _INTL(text); text; end
-
+def setBattleRule(*rules)
+  $test_rules = rules
+end
+def _INTL(text)
+  text
+end

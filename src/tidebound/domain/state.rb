@@ -18,13 +18,25 @@ module Tidebound
     RECOVERY_HP_FRACTION = 0.25
     SPIRIT_CATCH_RATE = 35
     SPIRIT_TURN_LIMIT = 6
-    BLOCKED_ITEMS = [:ANTIDOTE, :FULLHEAL, :FULLRESTORE, :PECHABERRY,
-                     :LUMBERRY, :LAVACOOKIE, :OLDGATEAU, :CASTELIACONE,
-                     :LUMIOSEGALETTE, :SHALOURSABLE, :BIGMALASADA,
-                     :HEALPOWDER, :PEWTERCRUNCHIES].freeze
+    BLOCKED_ITEMS = %i[
+      ANTIDOTE
+      FULLHEAL
+      FULLRESTORE
+      PECHABERRY
+      LUMBERRY
+      LAVACOOKIE
+      OLDGATEAU
+      CASTELIACONE
+      LUMIOSEGALETTE
+      SHALOURSABLE
+      BIGMALASADA
+      HEALPOWDER
+      PEWTERCRUNCHIES
+    ].freeze
   end
 
-  class TransitionError < StandardError; end
+  class TransitionError < StandardError
+  end
 
   def self.copy(value)
     Marshal.load(Marshal.dump(value))
@@ -72,10 +84,10 @@ module Tidebound
       @memorials = []
       @checkpoint = nil
       @story = {
-        :suicune => :unmet,
-        :mystic_sabre => false,
-        :final_demon_defeated => false,
-        :koga_imitation_defeated => false
+        suicune: :unmet,
+        mystic_sabre: false,
+        final_demon_defeated: false,
+        koga_imitation_defeated: false
       }
     end
 
@@ -97,16 +109,16 @@ module Tidebound
       ids = members.map { |p| assign_identity(p) }
       raise TransitionError, "Duplicate companion identity" unless ids.uniq.length == ids.length
       lost_ids = @memorials.map(&:id)
-      raise TransitionError, "A permanently lost companion cannot return" unless (ids & lost_ids).empty?
+      unless (ids & lost_ids).empty?
+        raise TransitionError, "A permanently lost companion cannot return"
+      end
       members
     end
 
     def enter_astral!(party, location)
       members = validate_astral_party!(party)
       next_journey = @journey + 1
-      records = members.map do |p|
-        Soul.new(Tidebound.identity(p), p, location, next_journey)
-      end
+      records = members.map { |p| Soul.new(Tidebound.identity(p), p, location, next_journey) }
       @souls = records
       @journey = next_journey
       @realm = :astral
@@ -123,9 +135,13 @@ module Tidebound
 
     def begin_encounter!(id)
       ensure_astral!
-      raise TransitionError, "Another spirit encounter is active" if @souls.any? { |s| s.status == :engaged }
+      if @souls.any? { |s| s.status == :engaged }
+        raise TransitionError, "Another spirit encounter is active"
+      end
       record = soul(id)
-      raise TransitionError, "This spirit's opportunity is already spent" unless record.status == :waiting
+      unless record.status == :waiting
+        raise TransitionError, "This spirit's opportunity is already spent"
+      end
       # Prepare the copy before spending the encounter opportunity.
       opponent = Tidebound.copy(record.pokemon)
       opponent.heal
@@ -148,7 +164,7 @@ module Tidebound
     def lose!(id, reason = :escaped)
       ensure_astral!
       record = soul(id)
-      unless [:waiting, :engaged].include?(record.status)
+      unless %i[waiting engaged].include?(record.status)
         raise TransitionError, "Spirit is already resolved"
       end
       record.status = :lost
@@ -159,7 +175,9 @@ module Tidebound
 
     def leave_astral!
       ensure_astral!
-      raise TransitionError, "Finish the active encounter first" if @souls.any? { |s| s.status == :engaged }
+      if @souls.any? { |s| s.status == :engaged }
+        raise TransitionError, "Finish the active encounter first"
+      end
       waiting_ids.each { |id| lose!(id, :left_behind) }
       @realm = :living
       true
@@ -187,11 +205,12 @@ module Tidebound
 
     def resolve_suicune!(choice)
       allowed = {
-        :unmet => [:corrupted],
-        :corrupted => [:rescued, :killed],
-        :rescued => [:healed, :lost],
-        :healed => [:lost],
-        :killed => [], :lost => []
+        unmet: [:corrupted],
+        corrupted: %i[rescued killed],
+        rescued: %i[healed lost],
+        healed: [:lost],
+        killed: [],
+        lost: []
       }
       unless allowed.fetch(@story[:suicune]).include?(choice)
         raise TransitionError, "Invalid Suicune story transition"
@@ -212,4 +231,3 @@ module Tidebound
     end
   end
 end
-

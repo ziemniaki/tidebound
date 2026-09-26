@@ -7,7 +7,7 @@ module Tidebound
   end
 
   def self.location
-    {:map_id => $game_map.map_id, :x => $game_player.x, :y => $game_player.y}
+    { map_id: $game_map.map_id, x: $game_player.x, y: $game_player.y }
   end
 
   def self.checkpoint!(map_id, x, y, direction = 2)
@@ -26,7 +26,9 @@ module Tidebound
 
   # Both kinds of living-world battle retain the pre-heal loss snapshot.
   def self.living_battle!
-    raise TransitionError, "Living-world battle requested in astral plane" unless state.realm == :living
+    unless state.realm == :living
+      raise TransitionError, "Living-world battle requested in astral plane"
+    end
     raise TransitionError, "Party needs an able Pokemon" if $player.able_pokemon_count == 0
     raise TransitionError, "Set a resting-fire checkpoint first" unless state.checkpoint
     # Reject unsupported parties before engine cleanup can alter a defeat.
@@ -65,7 +67,9 @@ module Tidebound
   end
 
   def self.recover_spirit!(id)
-    raise TransitionError, "An able guide or companion is required" if $player.able_pokemon_count == 0
+    if $player.able_pokemon_count == 0
+      raise TransitionError, "An able guide or companion is required"
+    end
     original_party = copy($player.party)
     opponent = state.begin_encounter!(id)
     self.battle_context = :spirit
@@ -74,9 +78,7 @@ module Tidebound
     setBattleRule("canLose", "noPartner", "noMoney", "noExp", "single")
     outcome = WildBattle.start_core(opponent)
     # Remove Essentials' defeat auto-heal, if it happened. Only the guide resets.
-    if [2, 5].include?(outcome) && before_cleanup_party
-      $player.party.replace(before_cleanup_party)
-    end
+    $player.party.replace(before_cleanup_party) if [2, 5].include?(outcome) && before_cleanup_party
     if outcome == 4
       unless spirit_capture && identity(spirit_capture) == id
         raise TransitionError, "Engine capture did not match the expected spirit"
@@ -138,9 +140,7 @@ end
 if defined?(BattleCreationHelperMethods)
   module Tidebound::CaptureBeforeCleanup
     def after_battle(outcome, can_lose)
-      if Tidebound.battle_context
-        Tidebound.before_cleanup_party = Tidebound.copy($player.party)
-      end
+      Tidebound.before_cleanup_party = Tidebound.copy($player.party) if Tidebound.battle_context
       super
     end
   end

@@ -2,7 +2,7 @@
 # The Windows runtime omits the JSON library; Python converts this Marshal report.
 report = ENV.fetch("TIDEBOUND_SMOKE_REPORT")
 begin
-  puts "Smoke working directory: #{Dir.pwd}; animations on disk: #{File.exist?('Data/Animations.rxdata')}"
+  puts "Smoke working directory: #{Dir.pwd}; animations on disk: #{File.exist?("Data/Animations.rxdata")}"
   raise "player smoke unexpectedly started in debug mode" if $DEBUG
   MessageTypes.load_default_messages if FileTest.exist?("Data/messages_core.dat")
   PluginManager.runPlugins
@@ -15,23 +15,27 @@ begin
   pokemon.item = :MYSTICWATER
   state = Tidebound::State.new
   identity = state.assign_identity(pokemon)
-  state.enter_astral!([pokemon], { :map_id => 103, :x => 17, :y => 25 })
+  state.enter_astral!([pokemon], { map_id: 103, x: 17, y: 25 })
   state.begin_encounter!(identity)
   recovered = state.recover!(identity)
   save_path = File.join(System.data_directory, "smoke-save.rxdata")
-  raise "save path fell back to the game directory" unless SaveData::FILE_PATH.start_with?(System.data_directory + "/")
+  unless SaveData::FILE_PATH.start_with?(System.data_directory + "/")
+    raise "save path fell back to the game directory"
+  end
   File.binwrite(save_path, Marshal.dump([state, recovered]))
   saved_state, saved_pokemon = Marshal.load(File.binread(save_path))
   raise "native save identity changed" unless Tidebound.identity(saved_pokemon) == identity
   raise "native save lost held item" unless saved_pokemon.item_id == :MYSTICWATER
   raise "native save lost state" unless saved_state.realm == :astral
   format_path = File.join(System.data_directory, "format-check.rxdata")
-  current_bytes = Marshal.dump({ :tidebound => saved_state })
+  current_bytes = Marshal.dump({ tidebound: saved_state })
   File.binwrite(format_path, current_bytes)
-  raise "current schema rejected" unless SaveData.read_from_file(format_path)[:tidebound].schema_version == Tidebound::SAVE_SCHEMA
+  unless SaveData.read_from_file(format_path)[:tidebound].schema_version == Tidebound::SAVE_SCHEMA
+    raise "current schema rejected"
+  end
   old_state = Marshal.load(Marshal.dump(saved_state))
   old_state.instance_variable_set(:@schema_version, 1)
-  old_bytes = Marshal.dump({ :tidebound => old_state })
+  old_bytes = Marshal.dump({ tidebound: old_state })
   File.binwrite(format_path, old_bytes)
   begin
     SaveData.read_from_file(format_path)
@@ -48,19 +52,37 @@ begin
   sprite = Sprite.new
   sprite.bitmap = bitmap
   Graphics.transition(0)
-  10.times { Graphics.update; Input.update }
+  10.times do
+    Graphics.update
+    Input.update
+  end
   shot = Graphics.snap_to_bitmap
   shot.to_file(ENV.fetch("TIDEBOUND_SMOKE_SCREENSHOT"))
   shot.dispose
   sprite.dispose
   bitmap.dispose
-  File.binwrite(report, Marshal.dump({
-    "passed" => true, "ruby" => RUBY_VERSION, "ruby_platform" => RUBY_PLATFORM,
-    "version" => Tidebound::VERSION, "save_directory" => System.data_directory,
-    "game_directory" => Dir.pwd, "game_directory_writable" => File.writable?(Dir.pwd),
-    "checks" => ["load engine and custom scripts", "compiled data", "native Pokemon/state save roundtrip",
-                "save schema rejection preserves disk bytes", "graphics/font rendering", "input initialization"]
-  }))
+  File.binwrite(
+    report,
+    Marshal.dump(
+      {
+        "passed" => true,
+        "ruby" => RUBY_VERSION,
+        "ruby_platform" => RUBY_PLATFORM,
+        "version" => Tidebound::VERSION,
+        "save_directory" => System.data_directory,
+        "game_directory" => Dir.pwd,
+        "game_directory_writable" => File.writable?(Dir.pwd),
+        "checks" => [
+          "load engine and custom scripts",
+          "compiled data",
+          "native Pokemon/state save roundtrip",
+          "save schema rejection preserves disk bytes",
+          "graphics/font rendering",
+          "input initialization"
+        ]
+      }
+    )
+  )
 rescue Exception => error
   File.binwrite(report, Marshal.dump({ "passed" => false, "error" => error.full_message }))
 end

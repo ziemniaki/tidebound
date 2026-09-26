@@ -7,7 +7,7 @@ end
 def fallen_pair(state)
   pair = [Pokemon.new(:NATU), Pokemon.new(:LAPRAS)]
   pair.each { |p| p.hp = 0 }
-  ids = state.enter_astral!(pair, {:map_id => 11, :x => 4, :y => 8})
+  ids = state.enter_astral!(pair, { map_id: 11, x: 4, y: 8 })
   [pair, ids]
 end
 
@@ -27,7 +27,7 @@ T.test("recapture preserves name, owner, IVs, EVs, moves, form and item") do
   foe = state.begin_encounter!(ids[0])
   foe.name, foe.owner, foe.form = "Impostor", {}, 9
   restored = state.recover!(ids[0])
-  [:name, :owner, :iv, :ev, :personalID, :form, :item].each do |field|
+  %i[name owner iv ev personalID form item].each do |field|
     T.equal(pair[0].public_send(field), restored.public_send(field))
   end
   T.equal(ids[0], Tidebound.identity(restored))
@@ -79,7 +79,7 @@ T.test("same companion can survive one death and be lost on the next") do
   state.begin_encounter!(ids[0])
   survivor = state.recover!(ids[0])
   state.leave_astral!
-  state.enter_astral!([survivor], {:map_id => 12})
+  state.enter_astral!([survivor], { map_id: 12 })
   T.equal([ids[0]], state.waiting_ids)
   state.lose!(ids[0])
   T.equal(2, state.memorials.length)
@@ -104,7 +104,8 @@ end
 T.test("nested death, empty parties and eggs are rejected") do
   state = fresh_state
   T.raises(Tidebound::TransitionError) { state.enter_astral!([], {}) }
-  egg = Pokemon.new(:NATU); egg.egg = true
+  egg = Pokemon.new(:NATU)
+  egg.egg = true
   T.raises(Tidebound::TransitionError) { state.enter_astral!([egg], {}) }
   pair, _ = fallen_pair(state)
   T.raises(Tidebound::TransitionError) { state.enter_astral!(pair, {}) }
@@ -131,7 +132,7 @@ T.test("cemetery uses exact lost companions, fills vacancies and preserves archi
   backup = Array.new(6) { Pokemon.new(:XATU, 50) }
   team = state.cemetery_team(backup)
   T.equal(6, team.length)
-  T.equal([:NATU, :LAPRAS, :XATU, :XATU, :XATU, :XATU], team.map(&:species))
+  T.equal(%i[NATU LAPRAS XATU XATU XATU XATU], team.map(&:species))
   T.equal(ids[0], Tidebound.identity(team[0]))
   T.equal(0, state.memorials[0].pokemon.hp)
   team[0].moves[0].pp = 2
@@ -192,4 +193,3 @@ T.test("healing, sabre and final victory are all needed for restoration") do
   state.resolve_suicune!(:lost)
   T.equal(:dark_victory, state.ending)
 end
-

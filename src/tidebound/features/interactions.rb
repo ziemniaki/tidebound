@@ -16,9 +16,9 @@ module Tidebound
         Tidebound::World.travel_coast(21, 12)
         NeighborQuest.robbery
       when :pursuit
-        pbMessage('Seller: South, along the coast road. But please take care of yourself.')
+        pbMessage("Seller: South, along the coast road. But please take care of yourself.")
       when :complete
-        pbMessage('Seller: I made another pie. Too much again, naturally.')
+        pbMessage("Seller: I made another pie. Too much again, naturally.")
         pbMessage("Seller: Next time, bring your mother. We'll use my plates here.")
       else
         Opening.collect_oil
@@ -32,7 +32,7 @@ module Tidebound
       if VaultVisit.q[:gift] && !VaultVisit.q[:open]
         VaultVisit.mother
       elsif VaultVisit.q[:museum]
-        pbMessage('Mother: Did you find the museum? Good. I am glad you went.')
+        pbMessage("Mother: Did you find the museum? Good. I am glad you went.")
       else
         Opening.mother_dialogue
         NeighborQuest.meal if Tidebound.story[:oil_returned]
@@ -40,19 +40,11 @@ module Tidebound
     end
 
     def shop_door
-      if returning_plate?
-        NeighborQuest.robbery
-      else
-        Opening.enter_shop
-      end
+      returning_plate? ? NeighborQuest.robbery : Opening.enter_shop
     end
 
     def outside_seller
-      if returning_plate?
-        NeighborQuest.robbery
-      else
-        Opening.unlock_shop
-      end
+      returning_plate? ? NeighborQuest.robbery : Opening.unlock_shop
     end
 
     def hint

@@ -2,7 +2,18 @@
 module Tidebound::FieldDetails
   FIRE_SECONDS = 15 * 60
   BERRY_SECONDS = 60 * 60
-  EXITS = ['Door', 'Shop door', 'Forest path', 'South path', 'Bedroom exit', 'Storehouse door', 'Cellar stairs', 'Vault doorway', 'Dock city', 'Museum door'].freeze
+  EXITS = [
+    "Door",
+    "Shop door",
+    "Forest path",
+    "South path",
+    "Bedroom exit",
+    "Storehouse door",
+    "Cellar stairs",
+    "Vault doorway",
+    "Dock city",
+    "Museum door"
+  ].freeze
   module_function
 
   def remaining(key, now = Time.now.to_i)
@@ -16,7 +27,9 @@ module Tidebound::FieldDetails
   end
 
   def heal_fire(key, now = Time.now.to_i)
-    raise Tidebound::TransitionError, 'Fire belongs to the living world' unless Tidebound.state.realm == :living
+    unless Tidebound.state.realm == :living
+      raise Tidebound::TransitionError, "Fire belongs to the living world"
+    end
     return false if remaining(key, now) > 0
     party = healable_party
     return false if party.empty?
@@ -31,13 +44,15 @@ module Tidebound::FieldDetails
   def rest(key, checkpoint)
     Tidebound.state.checkpoint = checkpoint
     if heal_fire(key)
-      pbMessage('You settle beside the fire. Your companions recover their HP and PP.')
-      pbMessage('They can recover here again in 15 minutes. Poison and other conditions remain.')
+      pbMessage("You settle beside the fire. Your companions recover their HP and PP.")
+      pbMessage("They can recover here again in 15 minutes. Poison and other conditions remain.")
     elsif healable_party.empty?
-      pbMessage('You warm your hands beside the fire.')
+      pbMessage("You warm your hands beside the fire.")
     else
       minutes = (remaining(key) / 60.0).ceil
-      pbMessage("You warm your hands. Your companions need another #{minutes} minute#{minutes == 1 ? '' : 's'} before this fire can restore them again.")
+      pbMessage(
+        "You warm your hands. Your companions need another #{minutes} minute#{minutes == 1 ? "" : "s"} before this fire can restore them again."
+      )
     end
   end
 
@@ -46,10 +61,14 @@ module Tidebound::FieldDetails
     times = (Tidebound.state.story[:berry_picks] ||= {})
     now = Time.now.to_i
     if times[key] && now - times[key] < BERRY_SECONDS
-      pbMessage('Only unripe berries remain. Let them grow a little longer.')
+      pbMessage("Only unripe berries remain. Let them grow a little longer.")
       return
     end
-    return unless pbConfirmMessage("Ripe #{GameData::Item.get(item).name_plural} hang among the leaves. Pick two?")
+    unless pbConfirmMessage(
+             "Ripe #{GameData::Item.get(item).name_plural} hang among the leaves. Pick two?"
+           )
+      return
+    end
     times[key] = now if pbReceiveItem(item, 2)
   end
 end
@@ -57,7 +76,7 @@ end
 # The generated maps override terrain globally; restore Grass only for its visible tile.
 module Tidebound::FieldTerrain
   def terrain_tag(x, y, count_bridge = false)
-    if [103,108].include?(@map_id) && valid?(x,y) && data[x,y,1] == 391
+    if [103, 108].include?(@map_id) && valid?(x, y) && data[x, y, 1] == 391
       return GameData::TerrainTag.get(:Grass)
     end
     super
@@ -69,7 +88,7 @@ Game_Map.prepend(Tidebound::FieldTerrain)
 # pre-cleanup loss snapshot as the explicitly visible wild Pokemon.
 module Tidebound::GrassBattles
   def start(*args, can_override: false)
-    if can_override && [103,108].include?($game_map.map_id) && Tidebound.state.realm == :living
+    if can_override && [103, 108].include?($game_map.map_id) && Tidebound.state.realm == :living
       result = Tidebound::Encounters.fight(*args)
       return result == :astral ? 2 : result
     end
@@ -77,4 +96,3 @@ module Tidebound::GrassBattles
   end
 end
 WildBattle.singleton_class.prepend(Tidebound::GrassBattles)
-

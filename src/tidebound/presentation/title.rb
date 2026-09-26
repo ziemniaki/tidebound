@@ -1,7 +1,7 @@
 class Scene_TideboundTitle
   def main
     viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
-    viewport.z = 99999
+    viewport.z = 99_999
     backdrop = Sprite.new(viewport)
     backdrop.bitmap = Bitmap.new(Graphics.width, Graphics.height)
     b = backdrop.bitmap
@@ -37,4 +37,3 @@ class Scene_TideboundTitle
     $scene = Scene_DebugIntro.new
   end
 end
-

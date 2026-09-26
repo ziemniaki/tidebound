@@ -1,6 +1,7 @@
 # One supported save format. Historic demo migrations are intentionally retired.
 module Tidebound
-  class UnsupportedSave < StandardError; end
+  class UnsupportedSave < StandardError
+  end
 
   module SaveFormat
     module_function
@@ -10,9 +11,9 @@ module Tidebound
       return data if state.is_a?(State) && state.schema_version == SAVE_SCHEMA
 
       raise UnsupportedSave,
-            'This save belongs to an unsupported Tidebound version. ' \
-            'Open it with its original game version, or start a new game. ' \
-            'The existing save file has not been changed.'
+            "This save belongs to an unsupported Tidebound version. " \
+              "Open it with its original game version, or start a new game. " \
+              "The existing save file has not been changed."
     end
   end
 
