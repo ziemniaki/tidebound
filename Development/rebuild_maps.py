@@ -275,7 +275,7 @@ bedroom.event('Bedroom exit',8,12,'Tidebound::Opening.bedroom_exit',trigger=1)
 class RoadMap(CoastMap):
     OX, OY = 0, 0
     door = Map.door
-road=RoadMap(108,'The South Coast Road',56,68,1,96)
+road=RoadMap(108,'The South Coast Road',56,84,1,96)
 road.polygon([(17,1),(25,1),(25,6),(34,6),(38,11),(40,19),(38,23),(36,27),(40,33),(41,45),(38,55),(33,64),(20,64),(16,59),(13,50),(15,40),(14,32),(17,27),(16,20),(13,16),(14,8)],tile(1,0))
 road.polygon([(14,8),(16,8),(17,16),(19,19),(18,23),(16,20),(13,16)],192)
 road.polygon([(15,31),(17,32),(17,40),(16,49),(19,58),(17,59),(13,50)],192)
@@ -374,11 +374,12 @@ coastal_shoreline(docks)
 exec((DEV/'landscape.py').read_text())
 exec((DEV/'lighthouse_interiors.py').read_text())
 exec((DEV/'demo_maps.py').read_text())
+exec((DEV/'pond_map.py').read_text())
 
 def build():
     for m in MAPS:m.save()
     system=loads((GAME/'Data/System.rxdata').read_bytes())
-    system.attributes.update({'@start_map_id':115,'@start_x':7,'@start_y':8,'@magic_number':26092502})
+    system.attributes.update({'@start_map_id':115,'@start_x':7,'@start_y':8,'@magic_number':26092503})
     (GAME/'Data/System.rxdata').write_bytes(writes(system))
     infos=loads((GAME/'Data/MapInfos.rxdata').read_bytes())
     metadata=loads((GAME/'Data/map_metadata.dat').read_bytes())

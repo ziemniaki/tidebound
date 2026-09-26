@@ -1,3 +1,5 @@
+> Applied by hosted recovery on26 September2026. Do not rerun restore_source.py on this implemented version.
+
 # Pond 0.8.4 recovery checkpoint — 26 September 2026
 
 This is recovered source, NOT a released or currently rebuilt game. The game outside this folder remains verified 0.8.3. Do not merge this branch as a claim that the pond is playable. No new approval is needed to resume the already-authorized pond task.

@@ -22,7 +22,7 @@ for spec in manifest:
   e=ev.attributes;x=e['@x'];y=e['@y'];name=str(e['@name']);page=e['@pages'][0].attributes
   charset=str(page['@graphic'].attributes['@character_name'])
   if charset and not (G/'Graphics/Characters'/f'{charset}.png').exists():fail.append(f'{mid} missing charset {charset}')
-  if page['@trigger']!=3 and name!='Lapras':
+  if page['@trigger']!=3 and name not in ['Lapras','Pond obelisk (Surf)']:
    reachable=(x,y) in seen if page['@trigger']==1 else any((x+dx,y+dy) in seen for dx,dy in [(1,0),(-1,0),(0,1),(0,-1)])
    if not reachable:fail.append(f'{mid} unreachable event {name} at {x},{y}')
   code='\n'.join(str(c.attributes['@parameters'][0]) for c in page['@list'] if c.attributes['@code'] in (355,655))

@@ -3,8 +3,8 @@
 **Repository handoff — 24 September 2026:** use `Development/REPOSITORY_WORKFLOW.md` for the new GitHub workflow. Initial import is current Demo 1 / 0.8.0 only. Migration is complete and verified at source commit `19780315bf4227f24ab9b5ccdf6d8ee54b6e773e`. GitHub `ziemniaki/tidebound` is authoritative. Older statements below about ZIP-only logistics are historical and superseded. Do not depend on conversation memory.
 
 
-**Guide version:** 2.28, 25 September 2026
-**Project baseline:** Demo 1 / 0.8.3, Pokémon Essentials 21.1
+**Guide version:** 2.29, 26 September 2026
+**Project baseline:** Demo 1 / 0.8.4, Pokémon Essentials 21.1
 **Status:** existing game, continuing development; do not start over.
 
 Place this file in the game project root, beside `Game.rxproj`, `Game.ini`, and
@@ -96,8 +96,8 @@ Introduce deeper mechanical changes, unusual scripts, animation and stronger vis
 
 ### Narrative authority and safeguards
 
-`Development/design_bible.md` is the consolidated game bible, version 1.29,
-25 September 2026. Its separate download is `Tidebound_Design_Bible.md`; a reading
+`Development/design_bible.md` is the consolidated game bible, version 1.30,
+26 September 2026. Its separate download is `Tidebound_Design_Bible.md`; a reading
 PDF is also maintained. Keep packaged and separate copies synchronised. Its
 confirmed decisions govern lore; proposals and open questions are not canon.
 Do not treat working names or implementation conveniences as binding facts.
@@ -1250,3 +1250,11 @@ Rebuild maps, scripts, and validate_maps.py. Run Tests/native_domain.cjs (includ
 ## 0.8.3 — neglected squat atmosphere
 
 hideout_room.py replaces map109's domestic furnishings with code-drawn pallet mattresses, broken crates/locker, torn sofa, battered wash trough and improvised bench. Windows are boarded; no household lamp or neat rug remains. Floorboards and limewash are damp and cracked. The final palette pass clones tiles instead of recolouring shared entries, protecting every lighthouse room. 004_Opening.rb gives map109 a dedicated Tone(-35,-32,-25,95). Collision masks and event positions are unchanged. Map magic26092502 refreshes existing saves. Mac build37. Native screenshots and focused validation are in HideoutEvidence_083 and validation_hideout_atmosphere.md. No new lore or quest changes.
+
+## 0.8.4 — southern pond, 26 September 2026
+
+Map108 now has a substantial pond clearing. The existing level8 Psyduck moves to19,62 and retains shoreduck_gone. Local pond grass: Psyduck40% level8-11, regional Sunkern35% level8-10, Aipom25% level8-11. Northern road encounters are unchanged. Three optional fishermen remember victories and use the existing astral-loss adapter: Toma (Magikarp9/Goldeen10), Ida (Wooper10/Poliwag11), Renzo (Barboach12). An Oran tree uses existing two-berry regrowth. The hidden western path ends in a one-time Mystic Water with full-bag retry.
+
+The central obelisk requires later Surf. Pond water has StillWater terrain and player-only Surf passage; no HM or badge is awarded. Its origin, inscription, purpose and future reward remain open. Older saves on new obstacles/water/islet move once to26,52. Map magic26092503; Mac0.8.4/build38; same runtime, font fix and save identity.
+
+pond_map.py runs after demo_maps.py and generates024_PondGeometry.rb plus a compact road-only atlas. 025_Pond.rb handles pond encounters, optional battles, item and migration. Grass tile391 is preserved. Tests/pond_geometry.py verifies the island is unreachable on foot and reachable with Surf; validate_maps.py explicitly excludes the future-Surf obelisk. All other15 maps remain unchanged. The recovery recipe is now historical; do not apply it again. See Development/validation_pond.md.

@@ -1,8 +1,9 @@
 TIDEBOUND - THE KEEPER'S LIGHT
-Opening 0.8.3 | Native Intel Mac app | Target: macOS Monterey 12.7.5
+Opening 0.8.4 | Native Intel Mac app | Target: macOS Monterey 12.7.5
 
-0.8.3: The squat is darker and paler, with boarded windows, torn mattresses,
-broken storage and stained boards. The clutter maze and necklace quest remain.
+0.8.4: Explore the pond at the south end of the South Coast Road, with three
+optional fishermen, Psyduck, local grass, an Oran tree and a hidden path.
+The central obelisk is reserved for later Surf.
 
 0.8.1: Aipom replaces Caterpie in northern forest grass. New southern-road
 Ekans are gray Normal/Dark, with matching Arbok at level 22 and Dark moves
@@ -48,7 +49,7 @@ A Windows save is not automatically transferred between computers.
 
 Checked here: all starter choices, save migration, map connections and actual
 engine rendering on Linux. The same Mac runtime is retained. You confirmed that
-0.4 works on your Mac; this workspace cannot run macOS, so 0.8.3 still needs your
+0.4 works on your Mac; this workspace cannot run macOS, so 0.8.4 still needs your
 on-device check. If an error appears, send its exact text or a screenshot and
 keep the save.
 

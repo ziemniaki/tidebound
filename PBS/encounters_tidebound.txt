@@ -12,3 +12,7 @@ Land,18
     35,SUNKERN,4,6
     15,EKANS,4,6
     10,PSYDUCK,4,6
+PondGrass,18
+    40,PSYDUCK,8,11
+    35,SUNKERN,8,10
+    25,AIPOM,8,11

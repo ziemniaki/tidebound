@@ -528,7 +528,7 @@
     "id": 108,
     "name": "The South Coast Road",
     "width": 56,
-    "height": 68,
+    "height": 84,
     "targets": [
       [
         "Door",
@@ -631,7 +631,7 @@
       [
         "Southern steps",
         26,
-        58,
+        53,
         0,
         false
       ],
@@ -686,8 +686,57 @@
       ],
       [
         "Wild:PSYDUCK:shoreduck",
+        19,
+        62,
+        0,
+        false
+      ],
+      [
+        "Pond fisher toma",
+        25,
+        55,
+        0,
+        true
+      ],
+      [
+        "Pond fisher ida",
+        38,
+        63,
+        0,
+        true
+      ],
+      [
+        "Pond fisher renzo",
+        29,
+        72,
+        0,
+        true
+      ],
+      [
+        "Berry:ORANBERRY",
+        20,
+        54,
+        0,
+        false
+      ],
+      [
+        "Pond hidden cache",
+        13,
+        69,
+        0,
+        false
+      ],
+      [
+        "Pond obelisk (Surf)",
         27,
-        36,
+        61,
+        0,
+        true
+      ],
+      [
+        "Old fishing basket",
+        37,
+        70,
         0,
         false
       ]

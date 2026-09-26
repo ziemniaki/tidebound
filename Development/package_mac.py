@@ -8,7 +8,7 @@ from pathlib import Path
 import hashlib, json, os, plistlib, shutil, stat, sys, zipfile
 
 GAME = Path(__file__).resolve().parent.parent
-VERSION = '0.8.3'
+VERSION = '0.8.4'
 TEMPLATE = GAME / 'Runtime/macOS/mkxp-z-826929e.zip'
 
 def extract_bundle(archive, destination):
@@ -69,7 +69,7 @@ def build(output):
     plist = plistlib.loads(plist_path.read_bytes())
     plist.update(CFBundleName='Tidebound', CFBundleDisplayName='Tidebound',
                  CFBundleIdentifier='game.tidebound.opening',
-                 CFBundleShortVersionString=VERSION, CFBundleVersion='37')
+                 CFBundleShortVersionString=VERSION, CFBundleVersion='38')
     plist_path.write_bytes(plistlib.dumps(plist))
     executable = contents / 'MacOS' / plist['CFBundleExecutable']
     executable.chmod(0o755)

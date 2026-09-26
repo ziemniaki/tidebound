@@ -11,7 +11,7 @@ for entry in entries:
     name=entry[1].decode('utf-8') if isinstance(entry[1], bytes) else str(entry[1])
     entry[1]=name
     if name=='Settings':
-        code=re.sub(r'GAME_VERSION = "[^"]+"', 'GAME_VERSION = "0.8.3"', code)
+        code=re.sub(r'GAME_VERSION = "[^"]+"', 'GAME_VERSION = "0.8.4"', code)
         # Keep fixed story lighting rather than computer-clock tint changes.
         code=re.sub(r'TIME_SHADING\s*=\s*(?:true|false)','TIME_SHADING = false',code)
     # Keep mechanics untouched; replace only the two player-facing loss messages.

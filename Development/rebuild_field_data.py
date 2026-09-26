@@ -12,6 +12,12 @@ for mid,rows in rosters.items():
  key=Symbol(f'{mid}_0')
  enc[key]=RubyObject('GameData::Encounter',{'@id':key,'@map':mid,'@version':0,'@step_chances':{Symbol('Land'):18},'@types':{Symbol('Land'):[[w,Symbol(n),lo,hi] for w,n,lo,hi in rows]},'@pbs_file_suffix':'tidebound'})
  text+=f'#-------------------------------\n[{mid}]\nLand,18\n'+''.join(f'    {w},{n},{lo},{hi}\n' for w,n,lo,hi in rows)
+# Pond-only grass; northern road retains its original encounters.
+pond=[(40,'PSYDUCK',8,11),(35,'SUNKERN',8,10),(25,'AIPOM',8,11)]
+record=enc[Symbol('108_0')].attributes
+record['@step_chances'][Symbol('PondGrass')]=18
+record['@types'][Symbol('PondGrass')]=[[w,Symbol(n),lo,hi] for w,n,lo,hi in pond]
+text+='PondGrass,18\n'+''.join(f'    {w},{n},{lo},{hi}\n' for w,n,lo,hi in pond)
 (G/'Data/encounters.dat').write_bytes(writes(enc))
 (G/'PBS/encounters_tidebound.txt').write_text(text)
 print('Compiled forest Aipom/Weedle/Wurmple and coastal Zigzagoon/Sunkern/Ekans/Psyduck encounters.')

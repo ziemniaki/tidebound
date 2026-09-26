@@ -13,7 +13,7 @@ from reportlab.lib.pagesizes import A4
 ROOT=Path(__file__).resolve().parent
 OUT=ROOT/'design_bible.pdf'
 TEXT=(ROOT/'design_bible.md').read_text()
-fontroot=Path('/opt/codex/runtimes/codex-primary-runtime/dependencies/native/libreoffice-headless/libreoffice/share/fonts/truetype')
+fontroot=Path('/usr/share/fonts/truetype/liberation')
 for name,file in [('Body','LiberationSerif-Regular.ttf'),('Body-Bold','LiberationSerif-Bold.ttf'),
                   ('Body-Italic','LiberationSerif-Italic.ttf'),('Body-BoldItalic','LiberationSerif-BoldItalic.ttf')]:
     pdfmetrics.registerFont(TTFont(name, str(fontroot/file)))
@@ -61,7 +61,7 @@ def cover(canvas,doc):
                  'an excuse to refuse their absence.']:
         canvas.setFont('Body',12);canvas.drawString(55,y,line);y-=20
     canvas.setFillColor(colors.HexColor('#C1D6D4'));canvas.setFont('Head',10)
-    for i,line in enumerate(['Creative direction: Wojciech Krzyżanowski','Version 1.29 / 25 September 2026',
+    for i,line in enumerate(['Creative direction: Wojciech Krzyżanowski','Version 1.30 / 26 September 2026',
                              'Working title / Full story spoilers',
                              'Confirmed decisions, proposals, and intentional mysteries']):
         canvas.drawString(55,155-i*20,line)
@@ -72,7 +72,7 @@ def bodypage(canvas,doc):
     canvas.drawString(52,h-32,'TIDEBOUND  /  GAME BIBLE')
     canvas.setStrokeColor(colors.HexColor('#CED8D5'));canvas.setLineWidth(.5)
     canvas.line(52,h-41,w-52,h-41)
-    canvas.drawString(52,29,'Version 1.29  /  25 September 2026  /  Full story spoilers')
+    canvas.drawString(52,29,'Version 1.30  /  26 September 2026  /  Full story spoilers')
     canvas.drawRightString(w-52,29,str(doc.page));canvas.restoreState()
 
 doc=BibleDoc(str(OUT),pagesize=A4,rightMargin=52,leftMargin=52,topMargin=63,bottomMargin=52,

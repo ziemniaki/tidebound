@@ -2,7 +2,7 @@
 
 ## Game bible
 
-**Version 1.29 | 25 September 2026**
+**Version 1.30 | 26 September 2026**
 **Creative direction: Wojciech Krzyżanowski**  
 **Working title: Tidebound | Full story spoilers**
 
@@ -10,7 +10,7 @@ A solitary Pokémon journey through a wounded coastal land, where the sea keeps 
 
 This is the consolidated creative record for the whole game. It expands and supersedes the short design record dated 8 September 2026. It preserves established decisions, outlines a playable narrative, and identifies what still needs invention. It describes the intended game, not a claim that these chapters have already been built.
 
-**Current playable milestone: Demo 1 / 0.8.2, revised youngster hideout.** This revision implements the previously reserved lighthouse cellar/vault and the first dock-city museum hall. Earlier statements reserving those spaces describe the 0.6 necklace milestone and are superseded for this limited visit. The museum heist, the sabre's magical use and the final confrontation remain future content.
+**Current playable milestone: Demo 1 / 0.8.4, southern pond clearing.** This revision implements the previously reserved lighthouse cellar/vault and the first dock-city museum hall. Earlier statements reserving those spaces describe the 0.6 necklace milestone and are superseded for this limited visit. The museum heist, the sabre's magical use and the final confrontation remain future content.
 
 ### How to read this document
 
@@ -1382,3 +1382,14 @@ The fictional game opens as **Pet House**, then reveals **The Mending**. Guide a
 **Narrative boundary.** This is an explicitly approved early tonal rupture. It establishes neither an actual astral journey nor any explanation of the sea, Mother's ritual, the pearls or the sabre. The game's author and its relationship, if any, to wider mythology remain open. The youths remain small-time, immature thieves; their possession of this game does not make them omniscient or supernatural. Ivo's apology does not automatically absolve the theft or imply that the old seller has forgiven him.
 
 **Persistence.** Existing completed-necklace saves stay completed. A save after beating the earlier version of Ivo can collect the necklace without replaying new prerequisites. A full Key Items pocket delays only collection. Existing save identity, party and battle-loss rules remain intact.
+
+
+## 32. The pond below the South Coast Road
+
+**Confirmed direction.** The southern road opens onto a substantial pond and an inhabited bank. The existing free-roaming Psyduck moves here; Psyduck, Aipom and Sunkern also appear in grass. Fishermen offer optional battles. A healing berry tree and an item beyond a concealed path reward exploration. An obelisk stands on an island accessible only with Surf later.
+
+**Prototype implementation.** Toma, Ida and Renzo share ordinary observations about hooks, nets, bait stolen by Aipom and tending the tree. Their names and teams are provisional choices. They make no supernatural claims. An Oran tree provides HP-restoring berries; a waxed bundle behind the western thicket contains Mystic Water. An already captured or defeated overworld Psyduck remains gone.
+
+**Future boundary.** Surf is not awarded here. The obelisk's origin, inscription, purpose, future quest and reward remain open. This ordinary fishing place must not explain the sea entities.
+
+**Presentation continuity.** The youngsters' squat retains its approved colder, paler interior: boarded windows, torn pallet mattresses and broken storage. Its quest is unchanged.
