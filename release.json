@@ -2,9 +2,9 @@
   "version": "0.8.6",
   "mac_build": "41",
   "runtime_commit": "826929eeb3ebc4b887c011604919217a790770f4",
-  "runtime_archive": "Runtime/macOS/mkxp-z-826929e-portable1.zip",
+  "runtime_archive": "runtime/macOS/mkxp-z-826929e-portable1.zip",
   "runtime_sha256": "9df250b6f720201be2f0c19e33889992bc4467ecc77a9d8d2e6b450cb50d19ad",
-  "runtime_source": "Runtime/macOS/mkxp-z-826929e-portable1-source.tar.gz",
+  "runtime_source": "runtime/macOS/mkxp-z-826929e-portable1-source.tar.gz",
   "runtime_source_sha256": "f21396819b9479ad7b33f061702f0e5e9c46f49edb4cc37f17842d3c11320708",
   "architectures": [
     "x86_64",
@@ -15,10 +15,14 @@
     "x64-msvcrt-ruby310.dll": "e85974d15b60992b4b0da95f0fc1fcdafa682967694345006918a28e411ba78d",
     "zlib1.dll": "4b08bebfac59f1c453668d1742df29fdbe1be195d3d73ab7a8851b9a52d2acfe"
   },
-  "linux_runtime_archive": "Runtime/Linux/mkxp-z-826929e-ubuntu22.04-x86_64.zip",
+  "linux_runtime_archive": "runtime/Linux/mkxp-z-826929e-ubuntu22.04-x86_64.zip",
   "linux_runtime_sha256": "9feba61c70aa63e98ca87678002dc6eb4cbda2fca09c2e1a63122fd332979053",
   "linux_architecture": "x86_64",
   "linux_glibc_minimum": "2.35",
-  "runtime_patch": "Runtime/macOS/portable-launch.patch",
-  "runtime_patch_sha256": "1546d6f9f2faae902d96bc90eb403ea3d030cd4a4970f48562225e764d606776"
+  "runtime_patch": "runtime/macOS/portable-launch.patch",
+  "runtime_patch_sha256": "1546d6f9f2faae902d96bc90eb403ea3d030cd4a4970f48562225e764d606776",
+  "windows_runtime_archive": "runtime/Windows/player.zip",
+  "windows_runtime_archive_sha256": "8cafdd51b28bc1530e91d486e571aad086c397bc49d65da1b1dab43cf8e069a7",
+  "windows_editor_archive": "runtime/Windows/editor-tools.zip",
+  "windows_editor_archive_sha256": "b3463a3d7007c7f4e8b4288e104753d246e8a29940e16511dbca300159441330"
 }

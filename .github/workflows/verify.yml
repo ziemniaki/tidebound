@@ -34,22 +34,21 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: requirements-dev.txt
+          version: '0.12.1'
+          enable-cache: true
+          cache-dependency-glob: uv.lock
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: .node-version
           cache: npm
-          cache-dependency-path: Development/Tests/package-lock.json
-      - run: python -m pip install -r requirements-dev.txt
-      - run: npm ci --prefix Development/Tests --ignore-scripts
-      - run: python Development/verify.py
+          cache-dependency-path: tests/package-lock.json
+      - run: uv sync --locked
+      - run: uv run --locked check
       - name: Rebuild in an isolated copy and compare generated assets
         if: runner.os == 'Linux'
-        run: python Development/check_rebuild.py
+        run: uv run --locked python tools/check_rebuild.py
       - name: Verification must not modify tracked source or game data
         run: git diff --exit-code
 
@@ -62,20 +61,20 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: requirements-dev.txt
+          version: '0.12.1'
+          enable-cache: true
+          cache-dependency-glob: uv.lock
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: .node-version
           cache: npm
-          cache-dependency-path: Development/Tests/package-lock.json
-      - run: python -m pip install -r requirements-dev.txt
-      - run: npm ci --prefix Development/Tests --ignore-scripts
+          cache-dependency-path: tests/package-lock.json
+      - run: uv sync --locked
+      - run: npm ci --prefix tests --ignore-scripts
       - name: Stage and verify Mac, Windows, Linux and editable project archives
-        run: python Development/build_release.py "$RUNNER_TEMP/candidate"
+        run: uv run --locked python tools/build_release.py "$RUNNER_TEMP/candidate"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: tidebound-release-candidate
@@ -101,12 +100,12 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: requirements-dev.txt
-      - run: python -m pip install -r requirements-dev.txt
+          version: '0.12.1'
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - run: uv sync --locked
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: tidebound-release-candidate
@@ -114,10 +113,12 @@ jobs:
       - name: Verify downloaded artifacts
         working-directory: ${{ runner.temp }}/candidate
         run: shasum -a 256 -c SHA256SUMS.txt
+      - name: Build through the developer command
+        run: uv run --locked python tests/dev_workflow_smoke.py
       - name: Run native packaged-engine smoke
         env:
           TEST_ARCH: ${{ matrix.arch }}
-        run: python Development/Tests/mac_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Mac_*_universal.zip "$RUNNER_TEMP/smoke" --arch "$TEST_ARCH"
+        run: uv run --locked python tests/mac_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Mac_*_universal.zip "$RUNNER_TEMP/smoke" --arch "$TEST_ARCH"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
@@ -135,27 +136,29 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: requirements-dev.txt
-      - run: python -m pip install -r requirements-dev.txt
+          version: '0.12.1'
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - run: uv sync --locked
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: tidebound-release-candidate
           path: ${{ runner.temp }}/candidate/
       - name: Verify downloaded artifacts
-        run: python Development/verify_artifacts.py "$env:RUNNER_TEMP/candidate"
+        run: uv run --locked python tools/verify_artifacts.py "$env:RUNNER_TEMP/candidate"
       - name: Prepare pinned software OpenGL for the hosted runner
-        run: ./Development/Tests/setup_windows_ci.ps1
+        run: ./tests/setup_windows_ci.ps1
+      - name: Build through the developer command
+        run: uv run --locked python tests/dev_workflow_smoke.py
       - name: Run native Windows packaged-engine smoke
         env:
           # Hosted Windows has no audio output device. This affects CI only.
           ALSOFT_DRIVERS: 'null'
         run: |
           $archive = Get-Item "$env:RUNNER_TEMP/candidate/Tidebound_Windows_*_x64.zip"
-          python Development/Tests/windows_runtime_smoke.py $archive.FullName "$env:RUNNER_TEMP/smoke"
+          uv run --locked python tests/windows_runtime_smoke.py $archive.FullName "$env:RUNNER_TEMP/smoke"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
@@ -177,12 +180,12 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: requirements-dev.txt
-      - run: python -m pip install -r requirements-dev.txt
+          version: '0.12.1'
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - run: uv sync --locked
       - name: Install documented runtime libraries and CI display
         run: |
           sudo apt-get update
@@ -192,12 +195,14 @@ jobs:
         with:
           name: tidebound-release-candidate
           path: ${{ runner.temp }}/candidate/
-      - run: python Development/verify_artifacts.py "$RUNNER_TEMP/candidate"
+      - run: uv run --locked python tools/verify_artifacts.py "$RUNNER_TEMP/candidate"
+      - name: Build through the developer command
+        run: uv run --locked python tests/dev_workflow_smoke.py
       - name: Run native Linux player smoke
         env:
           ALSOFT_DRIVERS: 'null'
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python Development/Tests/linux_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Linux_*_x86_64.zip "$RUNNER_TEMP/smoke"
+        run: xvfb-run -a uv run --locked python tests/linux_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Linux_*_x86_64.zip "$RUNNER_TEMP/smoke"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:

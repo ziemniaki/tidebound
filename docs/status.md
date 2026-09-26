@@ -1,0 +1,38 @@
+# Current status
+
+**Playable baseline:** Demo 1, version 0.8.6. Pokémon Essentials 21.1, pinned
+mkxp-z runtime; universal Mac, Windows x64 and Linux x86_64 releases.
+
+The demo includes the dream opening, lighthouse family and companion choice,
+oil-shop errand, forest/coastal encounters, necklace pursuit, hideout and Mending
+minigame, vault/museum visit, docks and southern pond. The captain's Psyduck
+Island conversation reaches the demo endpoint.
+
+Island voyage gameplay, later Team Abyss chapters, shrine progression, Dive,
+Koga's settlements, late Suicune/sabre story, cemetery finale and endings remain
+planned. Helpers and concept art do not make those chapters playable. Respect
+the confirmed/proposed/open labels in [the specification](../specs/game-design.md).
+
+## Maintenance baseline
+
+Game files, Ruby source, tools, tests, specifications and documentation have
+separate homes. `uv run play/build/check` is the common entry point, with locked
+Python dependencies. Windows binaries restore from pinned archives. RPG Maker
+XP opens `game/Game.rxproj`; generated maps remain generator-owned.
+
+Released 0.8.6 fixes Mac Downloads/App Translocation and long-path loading.
+CI covers relocated Unicode paths, saves and rendering on both Mac architectures,
+Windows and Ubuntu 22.04/24.04. Mac is ad-hoc signed, not notarized. Smoke tests
+do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtesting.
+
+## Next work
+
+- Playtest the current demo on the maintainer's target machines.
+- Choose the next complete playable milestone with the creative director.
+- Split large gameplay modules by feature when changing that feature; preserve
+  save classes and numeric script loading order.
+- Consider external binary hosting/LFS only with tested automatic restoration.
+  Current runtime archives remain available offline.
+
+Keep this page current and brief. Earlier details and evidence are in
+[history](history/README.md); Git history records new changes.

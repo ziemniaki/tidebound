@@ -1,55 +1,67 @@
 # Tidebound — The Keeper’s Light
 
-**Demo 1 · version 0.8.6 · Pokémon Essentials 21.1**
+A Pokémon fangame about companionship, loss, and a haunted coast that never sees
+daylight. Begin with a bird in a dream, return to a lighthouse home, and follow
+an ordinary errand toward the harbour.
 
-A solitary Pokémon journey through a haunted coastal land. Begin with a bird in a dream, return to a lighthouse home, and follow an ordinary errand toward a working harbour.
+Built with Pokémon Essentials 21.1 and mkxp-z. **Demo 1 is playable; the full
+story is still in development.**
+
+![The lighthouse at night](docs/history/evidence/DemoEvidence_080/demo-lighthouse.png)
 
 ## Play
 
-[GitHub Releases](https://github.com/ziemniaki/tidebound/releases) has one ZIP each
-for Mac (Intel and Apple Silicon), Windows x64 and Linux x86_64.
+[Download the latest release](https://github.com/ziemniaki/tidebound/releases/latest)
+for macOS (Intel or Apple Silicon), Windows x64, or Linux x86_64.
+No development tools are needed. The demo includes the lighthouse opening,
+coastal quests, hideout and southern pond; Psyduck Island is its endpoint.
 
-## Changes in 0.8.6
+## Work on the game
 
-The Mac app runs from Downloads, temporary folders and macOS App Translocation;
-it no longer requires installation in Applications. Packages support relocation
-and paths with spaces or non-ASCII names. Linux launchers also work through
-symbolic links. Existing saves remain in `Tidebound_Opening_0_2`, outside the game.
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and
+[Git](https://git-scm.com/downloads), then:
 
-The Mac app remains ad-hoc signed and not notarized. Linux targets Ubuntu
-22.04/24.04 and may need the libraries listed in [LINUX_README.txt](LINUX_README.txt).
+```sh
+git clone https://github.com/ziemniaki/tidebound.git
+cd tidebound
+uv run play
+```
 
-## Changes in 0.8.4
+This builds and opens a native development copy with **separate development
+saves**. Python dependencies and runtime extraction are handled automatically.
+Mac builds need Xcode command-line tools; Linux needs the documented
+[system libraries](docs/players/linux.txt).
 
-The southern pond adds three optional fishermen, Psyduck/Aipom/Sunkern grass, the relocated visible Psyduck, an Oran tree and a hidden Mystic Water. A central obelisk is reserved for later Surf. The refined squat and its horror minigame remain included. Psyduck Island remains the demo endpoint, not a newly implemented destination.
+```sh
+uv run build       # build without opening the game
+uv run check       # verify changes; requires Node 24.14.1
+uv run doctor      # inspect your local setup
+```
 
-## Project navigation
+[Development guide](docs/development.md) · [Working with an agent](docs/maintainer.md)
+· [Architecture](docs/architecture.md) · [Releasing](docs/releasing.md)
 
-For development, start with [fresh-clone setup and verification](Development/README.md).
-The [DX and reliability review](Development/DX_RELIABILITY_REVIEW.md) records
-verified findings, the initial tooling fixes, and remaining priorities.
-The [build and release guide](Development/RELEASING.md) covers universal Mac
-and Windows/Linux packages, native platform smoke checks and automated draft releases. Existing
-published downloads remain unchanged until a new version is released.
+## Find your way around
 
-| Path | Purpose |
+| Directory | What belongs here |
 | --- | --- |
-| [AGENTS.md](AGENTS.md) | Instructions for continuing development |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current implementation and known limitations |
-| [START_HERE.md](START_HERE.md) | Opening walkthrough — spoilers |
-| [Development/design_bible.md](Development/design_bible.md) | Full game bible — major story spoilers |
-| [Development/design_bible.pdf](Development/design_bible.pdf) | Reading copy of the bible |
-| [Development/README.md](Development/README.md) | Build and editing instructions |
-| [Development/REPOSITORY_WORKFLOW.md](Development/REPOSITORY_WORKFLOW.md) | Repository, releases and handoff rules |
-| Development/ | Editable Ruby scripts, map/data generators, art sources and tests |
-| Data/, PBS/, Graphics/, Audio/ | Current compiled game data, definitions and assets |
-| Runtime/macOS/ | Native runtime template, source and provenance |
+| [`specs/`](specs/game-design.md) | Game design and creative decisions — story spoilers |
+| [`docs/`](docs/README.md) | Development, playtesting, releases and current status |
+| `src/` | Custom Ruby gameplay and presentation |
+| `game/` | RPG Maker project, compiled data, PBS definitions and playable assets |
+| `tools/` | Build commands, map/data generators and packaging |
+| `tests/` | Headless checks and native runtime smoke tests |
+| `assets/` | Editable art sources and export recipes |
+| `runtime/` | Pinned engine inputs, patches and provenance |
 
-This repository begins with the current 0.8.0 snapshot only. Earlier game releases and archived test screenshots are not imported. Source art and tests needed to maintain the current game remain included. Historical design decisions inside the bible are retained for continuity.
+Agents start with [AGENTS.md](AGENTS.md). Contributors should read the
+[current status](docs/status.md) and preserve existing saves and creative direction.
 
-Native Linux rendering, both hideout battles, minigame controls, quest/save and package checks passed. Full Monterey gameplay, controls, audio and save/load remain a manual release check. See [the current validation report](Development/validation_hideout.md).
+## Feedback and credits
 
-Unofficial fan project. See [CREDITS.md](CREDITS.md) and the runtime’s provenance/license files for attribution. This repository does not grant rights to Pokémon or other third-party assets.
+Report bugs through [GitHub Issues](https://github.com/ziemniaki/tidebound/issues),
+including the game version, operating system and steps to reproduce.
+Creative direction: Wojciech Krzyżanowski ([ziemniaki](https://github.com/ziemniaki)).
 
-Windows player ZIPs and native Windows CI are documented with the Mac builds in
-[Development/RELEASING.md](Development/RELEASING.md).
+Unofficial fan project. [Credits and third-party attribution](docs/credits.md)
+apply; this repository does not grant rights to Pokémon or other third-party assets.

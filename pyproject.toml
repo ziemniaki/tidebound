@@ -1,0 +1,23 @@
+[project]
+name = "tidebound-dev"
+version = "0.1.0"
+description = "Local development commands for Tidebound"
+requires-python = ">=3.12,<3.14"
+dependencies = ["rubymarshal==1.2.10", "Pillow==12.3.0"]
+
+[project.scripts]
+tidebound = "tidebound_dev.cli:main"
+build = "tidebound_dev.cli:build"
+play = "tidebound_dev.cli:play"
+check = "tidebound_dev.cli:check"
+rebuild = "tidebound_dev.cli:rebuild"
+doctor = "tidebound_dev.cli:doctor"
+editor = "tidebound_dev.cli:editor"
+
+[build-system]
+requires = ["uv_build==0.12.1"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "tidebound_dev"
+module-root = "tools"
