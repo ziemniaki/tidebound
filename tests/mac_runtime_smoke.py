@@ -55,7 +55,9 @@ def smoke(archive, output, arch, location):
             end = text.rfind('}')
             if end < 0:
                 raise ValueError('Missing launch configuration object')
-            text = re.sub(r'"dataPathApp"\s*:\s*"[^"]+"', '"dataPathApp": "' + namespace + '"', text)
+            text, count = re.subn(r'"dataPathApp"\s*:\s*"[^"]+"', '"dataPathApp": "' + namespace + '"', text)
+            if count != 1:
+                raise ValueError('Expected exactly one save namespace setting before launch')
             config.write_text(text, encoding='utf-8')
             archive_path = game / 'Data/Scripts.rxdata'
             entries = loads(archive_path.read_bytes())
