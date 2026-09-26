@@ -10,24 +10,25 @@ The 0.8.5 release candidate contains:
 
 - `Tidebound_Mac_0.8.5_universal.zip` for Intel and Apple Silicon Macs.
 - `Tidebound_Windows_0.8.5_x64.zip` for Windows x64.
+- `Tidebound_Linux_0.8.5_x86_64.zip` for Ubuntu 22.04/24.04 x86_64.
 - `Tidebound_Project_0.8.5.zip` for the editable project.
 
 Published downloads appear on [GitHub Releases](https://github.com/ziemniaki/tidebound/releases).
 Read `READ_ME_FIRST.txt` inside your platform ZIP before launching. Existing saves
 retain their `Tidebound_Opening_0_2` folder. The Mac app is ad-hoc signed, not notarized.
 
-## Upcoming build support
+## Refreshed 0.8.5 draft
 
-Current source also packages a Linux x86_64 player for Ubuntu 22.04/24.04, with
-native smoke gates and release checksums. It requires the system libraries in
-[LINUX_README.txt](LINUX_README.txt). A new tagged release is needed to make this
-available alongside updated Mac/Windows downloads; existing 0.8.5 assets are unchanged.
+The refreshed candidate uses Mac build40, fixes the accented-filename signature
+failure during Archive Utility extraction, and adds the Linux x86_64 player.
+Linux needs the system libraries in [LINUX_README.txt](LINUX_README.txt).
+The earlier Mac build39 ZIP is superseded when the draft refresh completes;
+check `BUILD.json` and the updated checksums when replacing an older download.
 
 ## Changes in 0.8.5
 
 This is a packaging and build-reliability release. It adds verified universal Mac
-and standalone Windows player downloads, native smoke tests on all three platform
-variants, checksums/build manifests, and automated draft releases. Gameplay, maps,
+and standalone Windows/Linux player downloads, native smoke tests on every supported platform, checksums/build manifests, and automated draft releases. Gameplay, maps,
 assets and save compatibility are unchanged from 0.8.4.
 
 ## Changes in 0.8.4
@@ -40,7 +41,7 @@ For development, start with [fresh-clone setup and verification](Development/REA
 The [DX and reliability review](Development/DX_RELIABILITY_REVIEW.md) records
 verified findings, the initial tooling fixes, and remaining priorities.
 The [build and release guide](Development/RELEASING.md) covers universal Mac
-and Windows packages, native Mac/Windows smoke checks and automated draft releases. Existing
+and Windows/Linux packages, native platform smoke checks and automated draft releases. Existing
 published downloads remain unchanged until a new version is released.
 
 | Path | Purpose |

@@ -2,6 +2,17 @@
 
 Demo 1 / 0.8.5 · Bible 1.30 · Guide 2.30 · 26 September 2026
 
+## 0.8.5 draft refresh — Mac build40
+
+The owner requested an in-place refresh of the still-unpublished 0.8.5 draft.
+Mac build40 includes the Archive Utility filename/signature fix; the candidate
+also includes Linux x86_64 alongside Windows and the editable project. Gameplay,
+Ruby versions and save data are unchanged. The explicit refresh workflow runs
+all native gates, backs up existing assets, checks an expected old tag SHA and
+moves the draft tag to the verified source before replacing its downloads.
+It never publishes and rejects published/immutable releases. Consult GitHub for
+the actual refresh run and current draft state; the sections below are history.
+
 ## Linux player packaging
 
 The source now packages a Linux x86_64 player ZIP from the same pinned mkxp-z
@@ -11,8 +22,7 @@ and includes source/license/provenance. The full workflow includes native smoke
 on Ubuntu 22.04 and 24.04 with isolated HOME/XDG saves and software graphics/audio.
 Release drafts require these gates and include LINUX_BUILD.json and checksums.
 The system-library requirements and remaining manual desktop/GPU/audio checks are
-in LINUX_README.txt. Existing 0.8.5 assets and game data are unchanged; a new release
-is required to distribute the Linux player and the Mac extraction correction.
+in LINUX_README.txt. Existing 0.8.5 assets and game data are unchanged; the owner-authorized draft refresh above distributes the Linux player and Mac extraction correction.
 
 ## CI optimization
 

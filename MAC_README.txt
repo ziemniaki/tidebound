@@ -1,9 +1,9 @@
 TIDEBOUND - THE KEEPER'S LIGHT
-Opening 0.8.5 | Universal native Mac app: Intel and Apple Silicon
+Opening 0.8.5 | Mac build40 | Universal native Mac app: Intel and Apple Silicon
 Primary Intel playtest target: macOS Monterey 12.7.5
 
 0.8.5: Verified universal Intel/Apple Silicon packaging, checksums and native
-smoke tests. Gameplay and save compatibility are unchanged from 0.8.4.
+smoke tests. Build40 fixes accented-filename signature failures after unzipping. Gameplay and save compatibility are unchanged from 0.8.4.
 
 0.8.4: Explore the pond at the south end of the South Coast Road, with three
 optional fishermen, Psyduck, local grass, an Oran tree and a hidden path.
@@ -21,8 +21,9 @@ in place of Poison moves. Existing ordinary companions retain their form.
    Tidebound. There is no need to disable Gatekeeper or change system settings
    globally. On newer macOS, Open Anyway may appear in System Settings > Privacy & Security.
    If macOS says the app is damaged and offers no Open Anyway, report the exact
-   archive version. The original 0.8.5 ZIP has a known accented-filename problem
-   with Archive Utility; a matching ZIP checksum alone does not detect it.
+   archive version. The original 0.8.5 Mac build39 ZIP had an accented-filename problem
+   with Archive Utility; build40 fixes it. A matching ZIP checksum alone does
+   not establish that an extracted app still has a valid signature.
    Subsequent launches use an ordinary double-click.
 4. Press Return, then Continue. Existing saves retain progress; New Game starts the maze.
    Choose New Game only if you want to replay the whole introduction.

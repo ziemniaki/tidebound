@@ -51,6 +51,7 @@ def build_release(output, root=ROOT):
             f"Tidebound {config['version']} (Mac build {config['mac_build']})\n\n"
             f"Source commit: `{source['commit']}`.\n\n"
             "The universal Mac ZIP includes native Intel and Apple Silicon code. "
+            "Mac build40 fixes the accented-filename signature failure after Archive Utility extraction. "
             "It is ad-hoc signed for integrity, not Developer ID signed or notarized. "
             "The Windows x64 player ZIP includes the pinned existing executable and DLLs. The Linux x86_64 player ZIP targets Ubuntu 22.04/24.04 (glibc 2.35+) and requires the system libraries listed in READ_ME_FIRST.txt. The editable project ZIP is available separately.\n\n"
             "Saves keep the Tidebound_Opening_0_2 directory. Read READ_ME_FIRST.txt before launching. "

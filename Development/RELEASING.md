@@ -173,6 +173,29 @@ the publisher refuses to overwrite it; inspect that draft rather than silently
 replacing its files. Build artifacts have 14-day retention. The one-time pond
 publisher is retired; `finish_pond_release.py` is retained only as historical code.
 
+## Explicitly refreshing an unpublished draft
+
+Use Actions > Refresh unpublished draft only when the owner requests replacing
+an existing unpublished candidate. Dispatch on main and provide the current
+remote tag object SHA (`git ls-remote origin refs/tags/v0.8.5`) as the lease.
+Increment the Mac build number for a replacement bundle and merge its metadata
+first. This is how the owner-authorized 0.8.5 build40 refresh is prepared.
+
+The workflow validates draft status and the existing tag, runs the entire build
+and native matrix, and verifies the complete candidate's hashes and source SHA.
+It downloads and verifies every old asset, retaining assets and release/tag
+metadata as `previous-draft-release` for 90 days before making changes. It then
+moves the tag with a force-with-lease push, replaces the assets and notes, and
+verifies GitHub asset digests. The release remains a draft. The Actions token's
+tag push does not recursively trigger another build; the complete build already
+ran as a prerequisite in this workflow.
+
+Published/immutable releases, unexpected tag changes, extra old assets, partial
+candidates and mismatched commits/builds are rejected. Replacement is a sequence
+of API calls, not an atomic transaction: if interrupted after retagging or upload,
+keep the draft unpublished, inspect the backup and run state, then restore or
+complete it explicitly. Normal tag-triggered releases still refuse overwrites.
+
 ## Remaining release gates
 
 - Ad-hoc signing provides local integrity; it does **not** establish an Apple

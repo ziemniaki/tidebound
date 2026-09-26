@@ -1,0 +1,78 @@
+name: Refresh unpublished draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_tag_sha:
+        description: Current tag object SHA (required lease; dispatch on main)
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: refresh-unpublished-draft
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    # Draft release listings require push access; this job only validates.
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_TAG_SHA: ${{ inputs.expected_tag_sha }}
+        run: python Development/refresh_draft.py check
+
+  build:
+    needs: validate
+    uses: ./.github/workflows/verify.yml
+
+  refresh:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXPECTED_TAG_SHA: ${{ inputs.expected_tag_sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: tidebound-release-candidate
+          path: candidate
+      - name: Verify candidate and back up the previous draft
+        run: python Development/refresh_draft.py backup candidate
+      - name: Retain the backup before changing the draft or tag
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: previous-draft-release
+          path: ${{ runner.temp }}/previous-release/
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 0
+      - name: Refresh only the unpublished draft and verify all uploaded assets
+        run: python Development/refresh_draft.py refresh candidate
