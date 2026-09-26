@@ -9,7 +9,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 GENERATORS = ('rebuild_maps.py', 'rebuild_opening_items.py', 'rebuild_neighbor_data.py',
-              'rebuild_field_data.py', 'rebuild_regional_data.py', 'rebuild_scripts.py')
+              'rebuild_field_data.py', 'rebuild_regional_data.py', 'rebuild_scripts.py', 'configure_game.py')
 
 
 def equivalent(before, after):
