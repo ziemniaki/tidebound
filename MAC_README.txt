@@ -1,6 +1,9 @@
 TIDEBOUND - THE KEEPER'S LIGHT
-Opening 0.8.4 | Universal native Mac app: Intel and Apple Silicon
+Opening 0.8.5 | Universal native Mac app: Intel and Apple Silicon
 Primary Intel playtest target: macOS Monterey 12.7.5
+
+0.8.5: Verified universal Intel/Apple Silicon packaging, checksums and native
+smoke tests. Gameplay and save compatibility are unchanged from 0.8.4.
 
 0.8.4: Explore the pond at the south end of the South Coast Road, with three
 optional fishermen, Psyduck, local grass, an Oran tree and a hidden path.
@@ -38,7 +41,7 @@ The notebook records your next step. Text clipping is fixed in this version.
 
 The forest's traveller offers limited rest. The pool contains a dangerous wild
 Pokemon. A full party defeat leads to the astral search for lost companions.
-There are fourteen playable maps, including the south road, vault and dockside museum.
+There are sixteen playable maps, including the south road, vault and dockside museum.
 
 Existing v0.2/v0.3/v0.4 saves retain their companions and progress. They do not receive
 another starter. Start a new game only if you want to replay the revised opening;

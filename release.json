@@ -1,6 +1,6 @@
 {
-  "version": "0.8.4",
-  "mac_build": "38",
+  "version": "0.8.5",
+  "mac_build": "39",
   "runtime_commit": "826929eeb3ebc4b887c011604919217a790770f4",
   "runtime_archive": "Runtime/macOS/mkxp-z-826929e.zip",
   "runtime_sha256": "b065fd4f5ea77a5b8f8dc736842e55349d7b344b7c2438b175e9cb589d5476fb",

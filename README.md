@@ -1,12 +1,27 @@
 # Tidebound — The Keeper’s Light
 
-**Demo 1 · version 0.8.4 · Pokémon Essentials 21.1**
+**Demo 1 · version 0.8.5 · Pokémon Essentials 21.1**
 
 A solitary Pokémon journey through a haunted coastal land. Begin with a bird in a dream, return to a lighthouse home, and follow an ordinary errand toward a working harbour.
 
-## Play version 0.8.4
+## Play version 0.8.5
 
-Download Tidebound_Mac_0.8.4.zip or Tidebound_Project_0.8.4.zip from release v0.8.4. The Mac package targets Intel Monterey12.7.5 using the existing native runtime. Read MAC_README.txt for first-launch help. Existing saves retain their save folder.
+The 0.8.5 release candidate contains:
+
+- `Tidebound_Mac_0.8.5_universal.zip` for Intel and Apple Silicon Macs.
+- `Tidebound_Windows_0.8.5_x64.zip` for Windows x64.
+- `Tidebound_Project_0.8.5.zip` for the editable project.
+
+Published downloads appear on [GitHub Releases](https://github.com/ziemniaki/tidebound/releases).
+Read `READ_ME_FIRST.txt` inside your platform ZIP before launching. Existing saves
+retain their `Tidebound_Opening_0_2` folder. The Mac app is ad-hoc signed, not notarized.
+
+## Changes in 0.8.5
+
+This is a packaging and build-reliability release. It adds verified universal Mac
+and standalone Windows player downloads, native smoke tests on all three platform
+variants, checksums/build manifests, and automated draft releases. Gameplay, maps,
+assets and save compatibility are unchanged from 0.8.4.
 
 ## Changes in 0.8.4
 
@@ -18,7 +33,7 @@ For development, start with [fresh-clone setup and verification](Development/REA
 The [DX and reliability review](Development/DX_RELIABILITY_REVIEW.md) records
 verified findings, the initial tooling fixes, and remaining priorities.
 The [build and release guide](Development/RELEASING.md) covers universal Mac
-packages, native Intel/ARM smoke checks and automated draft releases. Existing
+and Windows packages, native Mac/Windows smoke checks and automated draft releases. Existing
 published downloads remain unchanged until a new version is released.
 
 | Path | Purpose |
@@ -36,7 +51,7 @@ published downloads remain unchanged until a new version is released.
 
 This repository begins with the current 0.8.0 snapshot only. Earlier game releases and archived test screenshots are not imported. Source art and tests needed to maintain the current game remain included. Historical design decisions inside the bible are retained for continuity.
 
-Native Linux rendering, both hideout battles, minigame controls, quest/save and package checks passed. The 0.8.4 Mac package still needs its Monterey playtest. See [the current validation report](Development/validation_hideout.md).
+Native Linux rendering, both hideout battles, minigame controls, quest/save and package checks passed. Full Monterey gameplay, controls, audio and save/load remain a manual release check. See [the current validation report](Development/validation_hideout.md).
 
 Unofficial fan project. See [CREDITS.md](CREDITS.md) and the runtime’s provenance/license files for attribution. This repository does not grant rights to Pokémon or other third-party assets.
 
