@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: Exact commit to verify (defaults to selected branch/tag)
+        description: 40-character commit SHA to verify (defaults to selected branch/tag commit)
         type: string
         required: false
   workflow_call:
@@ -22,7 +22,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - id: commit
+        name: Require one immutable commit for every verification job
+        env:
+          REQUESTED_REF: ${{ inputs.ref || github.sha }}
+        run: |
+          python - <<'PY'
+          import os, re
+          sha = os.environ['REQUESTED_REF']
+          if not re.fullmatch(r'[0-9a-f]{40}', sha):
+              raise SystemExit('Verification requires a full commit SHA; omit ref to use the selected workflow commit.')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'sha={sha}\n')
+          PY
+
   verify:
+    needs: resolve
     strategy:
       fail-fast: false
       matrix:
@@ -32,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ inputs.ref || github.sha }}
+          ref: ${{ needs.resolve.outputs.sha }}
           persist-credentials: false
       - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
@@ -53,13 +73,13 @@ jobs:
         run: git diff --exit-code
 
   package:
-    needs: verify
+    needs: [resolve, verify]
     runs-on: macos-14
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ inputs.ref || github.sha }}
+          ref: ${{ needs.resolve.outputs.sha }}
           persist-credentials: false
       - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
@@ -84,7 +104,7 @@ jobs:
           compression-level: 0
 
   native-mac:
-    needs: package
+    needs: [resolve, package]
     strategy:
       fail-fast: false
       matrix:
@@ -98,7 +118,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ inputs.ref || github.sha }}
+          ref: ${{ needs.resolve.outputs.sha }}
           persist-credentials: false
       - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
@@ -128,13 +148,13 @@ jobs:
           retention-days: 14
 
   native-windows:
-    needs: package
+    needs: [resolve, package]
     runs-on: windows-2022
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ inputs.ref || github.sha }}
+          ref: ${{ needs.resolve.outputs.sha }}
           persist-credentials: false
       - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
@@ -168,7 +188,7 @@ jobs:
           retention-days: 14
 
   native-linux:
-    needs: package
+    needs: [resolve, package]
     strategy:
       fail-fast: false
       matrix:
@@ -178,7 +198,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ inputs.ref || github.sha }}
+          ref: ${{ needs.resolve.outputs.sha }}
           persist-credentials: false
       - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
