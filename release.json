@@ -6,5 +6,13 @@
   "runtime_sha256": "b065fd4f5ea77a5b8f8dc736842e55349d7b344b7c2438b175e9cb589d5476fb",
   "runtime_source": "Runtime/macOS/mkxp-z-826929e-source.tar.gz",
   "runtime_source_sha256": "87f70b4738a78fd66630312c795e760f59def7fcff0dfe12c2d50bd7ec65e21b",
-  "architectures": ["x86_64", "arm64"]
+  "architectures": [
+    "x86_64",
+    "arm64"
+  ],
+  "windows_runtime_sha256": {
+    "Game.exe": "5c75e92fcbb6ec50b9f8fc61913d751a8945d6a1fc69c3017c7b8686b532bf04",
+    "x64-msvcrt-ruby310.dll": "e85974d15b60992b4b0da95f0fc1fcdafa682967694345006918a28e411ba78d",
+    "zlib1.dll": "4b08bebfac59f1c453668d1742df29fdbe1be195d3d73ab7a8851b9a52d2acfe"
+  }
 }

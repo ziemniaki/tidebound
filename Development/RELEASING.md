@@ -1,9 +1,9 @@
 # Verified builds and releases
 
-The current workflow produces one universal Mac ZIP (native `x86_64` and `arm64`)
-and an editable project ZIP containing the existing Windows runtime. `release.json`
+The current workflow produces one universal Mac ZIP (native `x86_64` and `arm64`),
+a Windows x64 player ZIP, and an editable project ZIP. `release.json`
 defines the package version, Mac build number and pinned runtime archive/source
-hashes. The existing 0.8.4 release is not replaced by this tooling change.
+hashes, including all three existing Windows native binaries. The existing 0.8.4 release is not replaced by this tooling change.
 
 ## Developer commands
 
@@ -27,6 +27,27 @@ On a Mac with Xcode command-line tools installed:
 python Development/build_release.py ../candidate
 python Development/Tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.4_universal.zip ../smoke-arm64 --arch arm64
 ```
+
+For a Windows-only package, on any development host:
+
+```sh
+python Development/package_windows.py ../windows-candidate
+```
+
+On Windows x64, test that archive using:
+
+```powershell
+python Development/verify_artifacts.py ../windows-candidate
+python Development/Tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.4_x64.zip ../smoke-windows
+```
+
+The Windows ZIP contains the unchanged `Game.exe`, Ruby/zlib DLLs, game assets,
+configuration, credits and player instructions. It excludes development sources
+and editor tools. `WINDOWS_BUILD.json` records runtime and file hashes; the same
+manifest is included as `BUILD.json` inside the ZIP. Packaging checks pinned
+runtime hashes and x64 PE headers, all copied files, and an extraction roundtrip.
+It uses the same staging/no-overwrite rules as the Mac package and accepts
+`--allow-dirty` only for a local preview.
 
 Use `--arch x86_64` on an Intel Mac. Choose new output paths each time. A release
 build requires a clean Git checkout and records its exact commit. For a local
@@ -55,14 +76,16 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
    the exact clean Git commit. `BUILD.json` records the source commit, runtime
    provenance, architectures, signing status, dependency report and game hashes.
    `SHA256SUMS.txt` covers every release file other than itself.
-6. Native smoke checks launch the packaged engine on separate Intel and ARM hosts,
+6. Native smoke checks launch the packaged engine on separate Intel Mac, ARM Mac
+   and Windows x64 hosts,
    load the real engine/custom scripts and compiled data, exercise a native
    Pokemon/state disk save roundtrip, and render a font/sprite frame through the
    graphics backend. Logs, JSON results and a screenshot are retained by CI.
 
-The smoke test extracts a disposable copy, changes only that copy's Main entry and
-save namespace, re-signs the test copy, and removes its unique save directory
-afterward. Fixtures never enter published archives. The test uses the caller's
+The Mac and Windows smoke tests share `Tests/native_runtime_smoke.rb`. Each
+extracts a disposable copy, changes only that copy's Main entry and
+save namespace, re-signs the Mac test copy, and removes its unique save directory
+afterward. Fixtures never enter published archives. The Mac test uses the caller's
 build directory: local testing found the runtime's PhysFS loader failed to resolve
 game data under macOS's `/var/folders` temporary location.
 
@@ -74,8 +97,8 @@ the older individual generators still modify files in place when invoked directl
 ## Pull requests and tags
 
 `Verify and build` runs on PRs and main, and can also be run manually. It performs
-headless verification, Linux regeneration, universal packaging on ARM macOS, and
-native smoke tests of that same artifact on ARM and Intel. No PR job has release
+headless verification, Linux regeneration, Mac/Windows packaging on ARM macOS, and
+native smoke tests of those artifacts on ARM Mac, Intel Mac and Windows x64. No PR job has release
 write permission. Actions are pinned to reviewed commits.
 
 For the next release:
@@ -88,7 +111,7 @@ For the next release:
 3. Tag the merged commit with the matching version, e.g. `v0.8.5`, and push the tag
    to the original repository. Do not retag or reuse `v0.8.4`.
 4. `Prepare release` requires the tag to match the config and its commit to be
-   in `main`'s history. It reruns the build and both native architecture checks.
+   in `main`'s history. It reruns the build and all three native platform checks.
    Only then does a separate job get `contents: write` and upload a **draft**
    GitHub release. The publisher rechecks checksums and the remote tag's commit.
 5. Review the attached downloads and notes, then publish the draft in GitHub.
@@ -109,9 +132,12 @@ publisher is retired; `finish_pond_release.py` is retained only as historical co
   quests, test a real battle or prove audible output/controller behavior.
 - Hosted Intel CI runs macOS 15, not the primary user's Monterey 12.7.5 machine.
   Keep Monterey launch, controls, audio and save/load as an explicit manual gate.
-- Windows gameplay is retained in the project ZIP but has no native Windows smoke
-  gate yet. Runtime updates need an explicit provenance/hash review and both Mac
-  architectures revalidated.
+- Windows smoke runs on the hosted Windows Server 2022 x64 runner; it does not
+  establish compatibility with every consumer Windows version or GPU. The unchanged
+  Windows binaries have pinned hashes, but no verified matching source/build recipe
+  is available in this repository. See `Runtime/Windows/PROVENANCE.md`.
+- Runtime updates need an explicit provenance/hash review and all native platforms
+  revalidated.
 
 References: [GitHub runner architectures](https://docs.github.com/en/actions/reference/runners/github-hosted-runners),
 [Apple nested code signing](https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html),

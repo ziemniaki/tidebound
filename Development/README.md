@@ -36,7 +36,7 @@ event report after a map edit, run:
 
 ## Source and rebuild ownership
 
-For isolated regeneration, universal Intel/Apple Silicon Mac packages, native
+For isolated regeneration, universal Intel/Apple Silicon Mac and Windows x64 packages, native
 smoke checks and tag-driven draft releases, use [RELEASING.md](RELEASING.md).
 `release.json` owns package metadata and pinned runtime input hashes. Mac builds
 now require macOS signing tools; historical Linux/standard-library-only packaging

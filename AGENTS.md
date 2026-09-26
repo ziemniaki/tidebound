@@ -348,6 +348,10 @@ remains 1; the opening's additive migration uses story opening_revision 4.
 ## 7. Build and map-editing discipline
 
 **Build/release update:** `Development/RELEASING.md` now governs packaging.
+Windows player packages reuse the pinned existing x64 executable/DLLs.
+`Tests/windows_runtime_smoke.py` and the Mac wrapper share
+`Tests/native_runtime_smoke.rb`; inject it only into disposable copies.
+Release CI requires native smoke on Windows x64 and both Mac architectures.
 `release.json` pins runtime inputs and package versions. The universal Mac package
 is staged and ad-hoc signed on macOS, then tested by native ARM/Intel CI jobs.
 `Development/check_rebuild.py` runs generators in a disposable tracked-file copy.

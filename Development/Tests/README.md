@@ -12,7 +12,10 @@ and supplies freshly extracted event bodies to the Ruby compiler checks.
 release invariants and semantic PNG comparison. `mac_runtime_smoke.py` launches
 a universal package on its host's native architecture, using a disposable app
 copy and unique save namespace. It replaces Main only in that copy; the published
-archive is untouched. See [RELEASING.md](../RELEASING.md) for usage and coverage.
+archive is untouched. `windows_runtime_smoke.py` does the corresponding native
+Windows x64 check using the same `native_runtime_smoke.rb` fixture. Windows
+packaging regressions also cover runtime tampering, wrong PE architecture, failure
+cleanup and downloaded artifact corruption. See [RELEASING.md](../RELEASING.md) for usage and coverage.
 
 To run individual Ruby harnesses from this folder:
 

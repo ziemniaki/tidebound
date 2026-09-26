@@ -1,4 +1,4 @@
-# TEST ONLY: replaces Main in an isolated copy of a packaged app.
+# TEST ONLY: replaces Main in an isolated copy of a packaged Mac or Windows game.
 require "json"
 report = ENV.fetch("TIDEBOUND_SMOKE_REPORT")
 begin

@@ -39,3 +39,6 @@ This repository begins with the current 0.8.0 snapshot only. Earlier game releas
 Native Linux rendering, both hideout battles, minigame controls, quest/save and package checks passed. The 0.8.4 Mac package still needs its Monterey playtest. See [the current validation report](Development/validation_hideout.md).
 
 Unofficial fan project. See [CREDITS.md](CREDITS.md) and the runtime’s provenance/license files for attribution. This repository does not grant rights to Pokémon or other third-party assets.
+
+Windows player ZIPs and native Windows CI are documented with the Mac builds in
+[Development/RELEASING.md](Development/RELEASING.md).

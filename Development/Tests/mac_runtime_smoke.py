@@ -56,7 +56,7 @@ def smoke(archive, output, arch):
             main = [entry for entry in entries if entry[1] == 'Main']
             if len(main) != 1:
                 raise ValueError('Expected exactly one Main entry')
-            main[0][2] = zlib.compress(Path(__file__).with_suffix('.rb').read_bytes())
+            main[0][2] = zlib.compress(Path(__file__).with_name('native_runtime_smoke.rb').read_bytes())
             archive_path.write_bytes(writes(entries))
             sign_app(app)
             info = plistlib.loads((app / 'Contents/Info.plist').read_bytes())

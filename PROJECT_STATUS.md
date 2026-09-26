@@ -2,6 +2,17 @@
 
 Demo 1 / 0.8.4 · Bible 1.30 · Guide 2.29 · 26 September 2026
 
+## Windows player packaging — development branch
+
+The release candidate now includes a dedicated Windows x64 player ZIP. Its
+executable and DLLs are unchanged and pinned by hash; staging verifies x64 PE
+headers, copied files, and ZIP extraction. The package excludes development/editor
+files and includes launch instructions, credits and provenance. A Windows Server
+2022 CI job verifies downloaded checksums and runs the shared native boot/data/save/
+render fixture with an isolated save directory. Hosted Windows validation is pending
+for this implementation; the prior Mac evidence below remains separate.
+No game data, save namespace or runtime binaries are changed.
+
 ## Universal Mac builds and release workflow — development branch
 
 `release.json` pins package metadata and runtime hashes. Packaging now stages a
