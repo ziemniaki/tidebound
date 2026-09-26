@@ -12,13 +12,16 @@ GitHub feature. Do not publish the instructions or unused template sections.
 - Compare with the previous public release. For a refreshed draft, also tell
   earlier testers whether they should download it again.
 - Use one flat changelog list, with no New/Improved/Fixed subheadings or other
-  change categories. Prefer 3–7 concrete bullets; keep each short. Put essential
-  launch guidance in a brief paragraph underneath, without another heading.
+  change categories. Prefer 3–7 concrete bullets; keep each short. Mention only
+  compatibility caveats that materially affect playing the game.
 - Describe visible behavior: “Fixed the Mac unzip error” or “Added a southern
   pond to explore.” Explain what changed for the player, not how it was coded.
 - Include save compatibility, real platform limitations, required actions and
   known player-facing problems when they matter. Do not claim a full playtest
   based on smoke checks or hide a known launch restriction.
+- Do not tell players to choose a platform, download, unzip, or read a README.
+  The asset names already identify the downloads. Do not append a generic
+  getting-started paragraph or make reading documentation sound mandatory.
 - Keep unreleased story details and spoilers out of the notes.
 - Do not list CI jobs, refactors, commit IDs, PR numbers, checksums, manifest
   files, dependency versions, test counts or agent activity. Those belong in
@@ -40,6 +43,5 @@ One sentence about the main change for players.
 - **Recognizable problem:** what works correctly now.
 - **Compatibility:** mention only if players need to know.
 
-Choose your platform ZIP below, unzip it, and follow READ_ME_FIRST.txt.
-Add only essential launch actions or limitations here.
+An optional short compatibility caveat, only if it materially affects playing.
 ```

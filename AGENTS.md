@@ -1289,7 +1289,7 @@ Attach only one player ZIP per OS to releases. Keep checksums, provenance
 manifests and the editable project ZIP in CI artifacts. Write the release body
 in root RELEASE_NOTES.md using .github/RELEASE_NOTES_TEMPLATE.md: concise,
 scannable player changes in one flat list (no separate changelog sections),
-plus essential launch guidance, without CI/agent chatter,
+with no generic download/unzip/README instructions or CI/agent chatter,
 commit IDs or generic filler. This is an explicit owner preference.
 
 ## Authorized 0.8.5 draft refresh

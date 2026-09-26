@@ -241,7 +241,8 @@ GitHub also supplies its own source-code archives automatically.
 
 Update the root RELEASE_NOTES.md for each version and follow
 [the release-note template](../.github/RELEASE_NOTES_TEMPLATE.md). Notes are curated
-for players as one flat changelog list, with a short launch-guidance paragraph
-only when needed. Do not split changes into multiple sections. Build logs, commit IDs, dependency details and test counts belong in
+for players as one flat changelog list. Do not split changes into sections or
+append instructions to choose/download/unzip a platform or read a README. Include
+only compatibility caveats that materially affect playing. Build logs, commit IDs, dependency details and test counts belong in
 CI and contributor docs. The builder requires the note heading to match the
 release version and uses this file as the GitHub release body.
