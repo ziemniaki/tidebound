@@ -5,3 +5,15 @@ class Scene_TideboundMending
     $hideout_result != false
   end
 end
+
+Tone = Struct.new(:red, :green, :blue, :gray)
+class HeadlessScreen
+  attr_reader :tone
+  def start_tone_change(tone, _duration)
+    @tone = tone
+  end
+end
+$game_screen = HeadlessScreen.new
+class Game_Map
+  attr_accessor :fog_name, :fog_opacity, :fog_zoom, :fog_sx, :fog_sy, :fog_blend_type
+end

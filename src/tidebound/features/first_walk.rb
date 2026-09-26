@@ -298,7 +298,7 @@ EventHandlers.add(
 )
 EventHandlers.add(:on_frame_update, :tidebound_pookie_scene, proc { Tidebound::Opening.walk_frame })
 EventHandlers.add(
-  :on_new_spriteset_map,
+  :on_enter_map,
   :tidebound_opening_actors,
-  proc { |_spriteset, _viewport| Tidebound::Opening.sync_opening_actors }
+  proc { |_previous_map| Tidebound::Opening.sync_opening_actors }
 )

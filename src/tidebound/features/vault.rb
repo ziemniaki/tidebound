@@ -149,7 +149,7 @@ module Tidebound::VaultVisit
   end
 end
 EventHandlers.add(
-  :on_new_spriteset_map,
+  :on_enter_map,
   :tidebound_vault_actors,
-  proc { |_s, _v| Tidebound::VaultVisit.sync }
+  proc { |_previous_map| Tidebound::VaultVisit.sync }
 )

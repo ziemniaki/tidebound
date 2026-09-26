@@ -387,7 +387,7 @@ module Tidebound
   end
 end
 EventHandlers.add(
-  :on_new_spriteset_map,
+  :on_enter_map,
   :tidebound_neighbor_actors,
-  proc { |_s, _v| Tidebound::NeighborQuest.sync_actors }
+  proc { |_previous_map| Tidebound::NeighborQuest.sync_actors }
 )
