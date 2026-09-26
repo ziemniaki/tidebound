@@ -11,16 +11,20 @@ the engine's expected directory structure intact inside `game/`.
 | Rules, state, identity and recovery | `src/tidebound/domain/state.rb` | `game/Data/Scripts.rxdata` |
 | Essentials save/battle integration | `src/tidebound/engine/battles.rb` | Same script archive |
 | Opening, quests and presentation | `src/tidebound/features/` and `src/tidebound/presentation/` | Same script archive |
-| Map layouts and events | `tools/rebuild_maps.py`, `landscape.py`, `lighthouse_interiors.py`, `vault_maps.py`, `demo_maps.py`, `pond_map.py` and room modules | `game/Data/Map*.rxdata`, tilesets, previews/reports |
+| Map layouts and events | `tools/tidebound_dev/maps/` area builders and painters | `game/Data/Map*.rxdata`, tilesets, previews/reports |
 | Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
 | Species, items, trainers, encounters | `tools/rebuild_*_data.py`, `rebuild_opening_items.py` | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
 | Artwork | `assets/<species>/` sources and export recipes | `game/Graphics/` |
 | Sound | `tools/create_audio.py`, existing attributed assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
-The Python map modules intentionally share a generator namespace. Keep that
-loading order when changing them. Separating their internals into a new map
-format is future work, not part of this directory migration.
+Map builders return independent in-memory areas. `maps/compiler.py` declares
+composition explicitly: base areas, connections, landscape, interiors and harbor/
+pond decoration. Painters own their tile atlases and caches; area modules receive
+only the maps and painters they use. Imports never load or write game assets.
+The compiler constructs in a temporary workspace, checks every arrival, transfer
+and interaction, then publishes changed outputs. Failed validation leaves the
+checkout unchanged.
 
 ## Ruby loading and ownership
 

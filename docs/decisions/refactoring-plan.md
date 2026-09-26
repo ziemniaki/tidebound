@@ -447,7 +447,8 @@ frameworks and a broad asset purge until a specific need justifies them.
 | R6 | In progress | One schema boundary replaces migrations; headless save tests pass; obsolete native fixtures still need replacement |
 | R9–R10 | Implemented, native matrix pending | Shared atomic packaging pipeline and platform adapters; direct development staging; failure, archive safety and isolated-save tests pass |
 | R14 | Implemented | Retired history and recovery tools removed; active README image retained in `docs/images/`; local documentation links checked |
-| R1–R2, R5, R8, R11–R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
+| R1 | Implemented | Import-without-I/O, independent area construction and failed-validation isolation tests pass; full regeneration preserves data and PNG pixels |
+| R2, R5, R8, R11–R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
 
 Headless checks and isolated regeneration have passed for the first three completed
 items. This is progress evidence, not final acceptance of the complete refactor.
