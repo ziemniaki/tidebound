@@ -12,7 +12,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from check_rebuild import equivalent
-from package_mac import archive_tree, build, extract_bundle
+from package_mac import archive_tree, build, extract_bundle, game_hashes, normalize_bundle_names
 from release_tools import ROOT, check_sources, load_release, source_revision
 
 
@@ -62,6 +62,19 @@ class ArchiveSafetyTests(unittest.TestCase):
         self.assertEqual((self.out / 'bundle/alias').read_bytes(), b'runtime')
         self.assertEqual((self.out / 'bundle/engine').stat().st_mode & 0o777, 0o755)
 
+    def test_mac_filenames_survive_archive_utility_normalization(self):
+        folder = self.root / 'bundle'
+        audio = folder / 'Contents/Game/Audio/BGM'
+        audio.mkdir(parents=True)
+        (audio / 'Rout\u00e9 1.mid').write_bytes(b'audio')
+        expected = game_hashes(folder, 'NFC')
+        normalize_bundle_names(folder)
+        archive_tree(folder, self.archive)
+        with zipfile.ZipFile(self.archive) as archive:
+            self.assertIn('bundle/Contents/Game/Audio/BGM/Route\u0301 1.mid', archive.namelist())
+        extract_bundle(self.archive, self.out)
+        self.assertEqual(game_hashes(self.out / 'bundle', 'NFC'), expected)
+
 
 class BuildTransactionTests(unittest.TestCase):
     def setUp(self):
@@ -73,7 +86,8 @@ class BuildTransactionTests(unittest.TestCase):
         self.config = load_release()
         self.config.update(runtime_archive='runtime.zip', runtime_source='source.tar.gz')
         for name in ('Game.ini', 'mkxp.json', 'soundfont.sf2', 'MAC_README.txt', 'CREDITS.md',
-                     'Runtime/macOS/PROVENANCE.md', 'source.tar.gz', 'Data/Scripts.rxdata'):
+                     'Runtime/macOS/PROVENANCE.md', 'source.tar.gz', 'Data/Scripts.rxdata',
+                     'Audio/BGM/Rout\u00e9 1.mid'):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b'fixture')
@@ -107,7 +121,11 @@ class BuildTransactionTests(unittest.TestCase):
         self.assertEqual((self.output / 'keep').read_text(), 'existing release')
 
     def test_successful_transaction_has_only_verified_artifacts(self):
-        with patch('package_mac.sign_app'), patch('mac_runtime.run'):
+        def verify_names_at_signing(app):
+            names = [p.name for p in (app / 'Contents/Game/Audio/BGM').iterdir()]
+            self.assertEqual(names, ['Route\u0301 1.mid'])
+
+        with patch('package_mac.sign_app', side_effect=verify_names_at_signing), patch('mac_runtime.run'):
             result = build(self.output, self.root)
         manifest = json.loads((self.output / 'BUILD.json').read_text())
         self.assertFalse(manifest['source']['dirty'])

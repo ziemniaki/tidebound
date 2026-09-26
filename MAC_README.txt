@@ -19,7 +19,10 @@ in place of Poison moves. Existing ordinary companions retain their form.
    This development build is ad-hoc signed but not notarized. If Monterey blocks the first launch,
    use System Preferences > Security & Privacy > General > Open Anyway for
    Tidebound. There is no need to disable Gatekeeper or change system settings
-   globally. On newer macOS, Open Anyway is in System Settings > Privacy & Security.
+   globally. On newer macOS, Open Anyway may appear in System Settings > Privacy & Security.
+   If macOS says the app is damaged and offers no Open Anyway, report the exact
+   archive version. The original 0.8.5 ZIP has a known accented-filename problem
+   with Archive Utility; a matching ZIP checksum alone does not detect it.
    Subsequent launches use an ordinary double-click.
 4. Press Return, then Continue. Existing saves retain progress; New Game starts the maze.
    Choose New Game only if you want to replay the whole introduction.

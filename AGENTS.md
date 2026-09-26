@@ -1285,6 +1285,12 @@ pond_map.py runs after demo_maps.py and generates024_PondGeometry.rb plus a comp
 
 ## 0.8.5 — verified Mac and Windows packaging
 
+Post-release packaging correction: Archive Utility normalizes Unicode filenames,
+which broke the 0.8.5 signature for `Routé 1.mid`. Normalize staged Mac bundle
+names to NFD before signing, preserve asset bytes, and check the extracted app's
+original signature after the same normalization. Do not treat direct native
+execution as a Gatekeeper/notarization test. See Development/RELEASING.md.
+
 This release changes packaging and developer workflows only. Mac build39 is
 universal Intel/Apple Silicon; the Windows x64 player ZIP retains the existing
 executable and DLLs. Native CI covers boot, compiled data, Pokemon/state disk
