@@ -56,46 +56,46 @@ module QuestNativeCheck
     @quest_checked=true;o=Tidebound::Opening;n=Tidebound::NeighborQuest
     if ENV['TB_NEIGHBOR_RESUME']
       name=ENV['TB_NEIGHBOR_RESUME'];raise 'stage not preserved' unless n.stage==name.to_sym
-      raise 'coast migration' unless o.flags[:coast_revision]==5
+      raise 'coast migration' unless Tidebound.story[:coast_revision]==5
       if name=='pursuit'
-        o.travel(108,26,27);raise 'beaten thief reappeared' unless o.actor('Road thief').opacity==0 && o.actor('Road thief').through
+        Tidebound::World.travel(:road,26,27);raise 'beaten thief reappeared' unless Tidebound::World.actor(:road_thief).opacity==0 && Tidebound::World.actor(:road_thief).through
       elsif name=='plate'
         raise 'plate missing' unless $bag.has?(n::PLATE)
-        o.travel_coast(21,12);raise 'robbers leaked' unless o.actor('Robbery youth one').opacity==0
+        Tidebound::World.travel_coast(21,12);raise 'robbers leaked' unless Tidebound::World.actor(:robbery_youth_one).opacity==0
       end
       quest_shot("resume-#{name}");File.write("RESUME_#{name}_PASS.txt","PASS: complete native save, quest stage, actor visibility and coast revision.\n");exit
     end
     raise 'old companion lost' unless $player.party.first.species==:MAKUHITA
     original_id=Tidebound.identity($player.party.first)
     File.write('NATIVE_PARTY.txt',$player.party.map { |p| [p.name,p.level,p.hp,p.moves.map(&:id)] }.inspect)
-    o.travel(106,8,7);Tidebound::Interactions.oil_seller
+    Tidebound::World.travel(:shop,8,7);Tidebound::Interactions.oil_seller
     raise 'legacy pie' unless n.stage==:pie && $bag.has?(n::PIE)
     quest_shot('pie');quest_save('pie')
-    o.travel(101,12,8);Tidebound::Interactions.mother
+    Tidebound::World.travel(:home,12,8);Tidebound::Interactions.mother
     raise 'meal' unless n.stage==:plate && $tb_meal_shot && $bag.has?(n::PLATE)
     quest_shot('after-meal');quest_save('plate')
-    o.travel_coast(21,12);Tidebound::Interactions.shop_door
+    Tidebound::World.travel_coast(21,12);Tidebound::Interactions.shop_door
     raise 'robbery' unless n.stage==:pursuit && !$bag.has?(n::PLATE)
     quest_shot('robbery-end')
-    o.travel_coast(30,30);quest_step('down');raise 'south door' unless $game_map.map_id==108
+    Tidebound::World.travel_coast(30,30);quest_step('down');raise 'south door' unless $game_map.map_id==108
     raise 'road daylight' unless $game_screen.tone.red==-80 && PBDayNight.isNight?
-    o.travel(108,20,11);quest_shot('road-wilds')
+    Tidebound::World.travel(:road,20,11);quest_shot('road-wilds')
     $player.party.each(&:heal);$tb_battle_label='wild';n.wild(:shoreforager)
     raise "wild did not resolve: realm=#{Tidebound.state.realm}; outcome=#{$game_variables[1]}" unless n.q[:shoreforager_gone]
-    $player.party.each(&:heal);o.travel(108,26,23);$tb_battle_label='first';quest_step('down')
+    $player.party.each(&:heal);Tidebound::World.travel(:road,26,23);$tb_battle_label='first';quest_step('down')
     raise 'thief victory' unless n.q[:first_won] && Tidebound.state.realm==:living
     quest_shot('first-won');quest_save('pursuit')
-    o.travel(108,28,43);quest_step('right');raise 'witness' unless n.q[:hideout_seen]
-    o.travel(108,35,42);quest_step('up');raise 'hideout' unless $game_map.map_id==109 && n.q[:heard]
+    Tidebound::World.travel(:road,28,43);quest_step('right');raise 'witness' unless n.q[:hideout_seen]
+    Tidebound::World.travel(:road,35,42);quest_step('up');raise 'hideout' unless $game_map.map_id==109 && n.q[:heard]
     quest_shot('hideout')
     $player.party.each(&:heal);$tb_battle_label='runner';Tidebound::Hideout.guard;raise 'runner' unless n.q[:runner_won]
     $player.party.each(&:heal);$tb_battle_label='second';Tidebound::Hideout.boss
     raise 'necklace' unless n.stage==:necklace && $bag.has?(n::NECKLACE)
-    quest_save('necklace');o.travel(106,7,6);Tidebound::Interactions.oil_seller
+    quest_save('necklace');Tidebound::World.travel(:shop,7,6);Tidebound::Interactions.oil_seller
     raise 'return/glint' unless n.stage==:complete && !$bag.has?(n::NECKLACE) && $tb_pearl_shot
     raise 'identity replaced' unless Tidebound.identity($player.party.first)==original_id
     quest_shot('complete');quest_save('complete')
-    o.travel(108,26,27)
+    Tidebound::World.travel(:road,26,27)
     $player.party.each { |p|p.hp=1;p.moves.clear;p.learn_move(:SPLASH) };$tb_battle_label='loss'
     result=n.battle(:second)
     raise 'native loss not astral' unless result==:astral && Tidebound.state.realm==:astral && $game_map.map_id==105

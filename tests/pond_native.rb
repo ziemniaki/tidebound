@@ -12,7 +12,7 @@ class Scene_TideboundTitle
   def main
     $data_system.start_map_id=108;$data_system.start_x=26;$data_system.start_y=54
     Game.start_new;$scene=Scene_Map.new;$player.name='Ren'
-    Tidebound::Opening.flags.merge!(opening_started:true,opening_revision:4,coast_revision:5,starter_chosen: :NATU)
+    Tidebound.story.merge!(opening_started:true,opening_revision:4,coast_revision:5,starter_chosen: :NATU)
     Tidebound::NeighborQuest.q.merge!(stage: :pursuit,first_won:true)
     hero=Pokemon.new(:NATU,45);hero.learn_move(:PSYCHIC);hero.moves=[Pokemon::Move.new(:PSYCHIC)]
     $player.party=[hero];Tidebound.state.checkpoint=[108,26,39,8]

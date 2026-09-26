@@ -3,7 +3,7 @@ def hideout_setup
   new_opening
   $player.party=[Pokemon.new(:NATU,7,$player)]
   Tidebound::NeighborQuest.q.merge!(stage: :pursuit,first_won: true,heard: true)
-  Tidebound::Opening.travel(109,11,14)
+  Tidebound::World.travel(:hideout,11,14)
   $game_map.events={1=>OpeningEvent.new('Necklace thief',1,16,4)}
   $quest_outcome=1;$hideout_plays=0;$hideout_result=true
 end
@@ -18,13 +18,13 @@ $hideout_result=true;$quest_outcome=2;h.boss
 check(n.q[:hideout_game_won] && !n.q[:second_won] && Tidebound.state.realm==:astral,'boss loss')
 check(Tidebound.state.souls.last.pokemon.hp==0,'boss loss snapshot')
 roundtrip
-point=Tidebound.return_to_living!;o.travel(*point);o.travel(109,11,14)
+point=Tidebound.return_to_living!;Tidebound::World.travel(*point);Tidebound::World.travel(:hideout,11,14)
 $quest_outcome=1;calls=$hideout_plays;$quest_reject_item=n::NECKLACE;h.boss
 check(n.q[:second_won] && n.stage==:pursuit && calls==$hideout_plays,'win/full bag/replay')
 roundtrip;$quest_reject_item=nil;h.cache
 check(n.stage==:necklace && $bag.quantity(n::NECKLACE)==1,'cache collection')
 h.boss;h.cache;check($bag.quantity(n::NECKLACE)==1,'duplicate necklace')
-o.travel(106,8,10);n.return_necklace
+Tidebound::World.travel(:shop,8,10);n.return_necklace
 check(n.stage==:complete && !$bag.has?(n::NECKLACE),'seller continuation')
 hideout_setup;n.q[:runner_won]=true;n.q[:second_won]=true
 h.boss;check(n.stage==:necklace && $hideout_plays==0,'saved defeated boss replays')

@@ -14,14 +14,14 @@ module InteriorViews
     super
     return if @views_done || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
     @views_done=true;o=Tidebound::Opening;v=Tidebound::VaultVisit
-    o.flags[:walk_state]=:requested;o.travel(107,8,8);view_shot('bedroom')
-    o.flags[:walk_state]=:complete;v.q[:museum]=true
-    o.travel(101,10,8);view_shot('living-room')
-    o.flags[:lamp_lit]=true;o.travel(104,6,6);view_shot('lantern')
-    o.travel(110,13,8);view_shot('cellar')
+    Tidebound.story[:walk_state]=:requested;Tidebound::World.travel(:bedroom,8,8);view_shot('bedroom')
+    Tidebound.story[:walk_state]=:complete;v.q[:museum]=true
+    Tidebound::World.travel(:home,10,8);view_shot('living-room')
+    Tidebound.story[:lamp_lit]=true;Tidebound::World.travel(:lantern,6,6);view_shot('lantern')
+    Tidebound::World.travel(:basement,13,8);view_shot('cellar')
     v.q[:museum]=false;v.q[:open]=true;v.q[:talk]=true
-    o.travel(111,12,10);view_shot('vault')
-    o.travel(111,12,15);view_shot('vault-aisle')
+    Tidebound::World.travel(:vault,12,10);view_shot('vault')
+    Tidebound::World.travel(:vault,12,15);view_shot('vault-aisle')
     File.write('VIEWS_PASS.txt','Six unmodified native engine captures.');exit
   rescue Exception=>e
     raise if e.is_a?(SystemExit) && e.status==0

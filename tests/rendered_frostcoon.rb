@@ -53,7 +53,7 @@ module FrostTest
     end
     before = Marshal.dump(restored); Tidebound::Frostcoon.refresh_loaded
     raise 'repeat migration changed individual' unless before==Marshal.dump(restored)
-    Tidebound::Opening.travel(103,17,25)
+    Tidebound::World.travel(:forest,17,25)
     p = pbGenerateWildPokemon(:WURMPLE,9); p.personalID = 5 << 16
     p.moves.clear; p.learn_move(:TACKLE); p.learn_move(:STRINGSHOT)
     id = Tidebound.state.assign_identity(p)

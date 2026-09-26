@@ -40,15 +40,15 @@ module DreamCheck
  def update
   super
   return if @dream_test || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
-  return unless Tidebound::Opening.flags[:opening_started]
+  return unless Tidebound.story[:opening_started]
   @dream_test=true;o=Tidebound::Opening;d=Tidebound::DreamRoom;m=Tidebound::PsychicMaze
   mode=ENV['TB_DREAM_MODE'] || 'new'
   if ['legacy','complete'].include?(mode)
    raise 'old save entered dream' if d.active? || $game_map.map_id==115
    ids=$player.party.map { |p|Tidebound.identity(p) };candies=$bag.quantity(:RARECANDY)
-   o.travel(107,6,8);frames;o.begin_story
+   Tidebound::World.travel(:bedroom,6,8);frames;o.begin_story
    raise 'old save reset' unless !d.active? && $bag.quantity(:RARECANDY)==candies && ids==$player.party.map { |p|Tidebound.identity(p) }
-   o.travel(115,7,8);frames
+   Tidebound::World.travel(:dream,7,8);frames
    raise 'dream reopened' unless $game_map.map_id==107
   else
    raise 'start initialization' unless $game_map.map_id==115 && d.active? && $player.party.empty? && $bag.quantity(:RARECANDY)==99
@@ -77,11 +77,11 @@ module DreamCheck
    end
    unless mode=='wick'
     $dream_choices=[6];d.bed;frames
-    raise 'Wick appearance' unless d.wick_visible? && !o.actor('Room:NATU').through
+    raise 'Wick appearance' unless d.wick_visible? && !Tidebound::World.actor('Room:NATU').through
     raise 'save wick' unless Game.save('dream-wick.rxdata')
    end
    raise 'wick load' unless d.wick_visible?
-   shot('wick');$game_player.moveto(9,8);$game_player.turn_right;o.actor('Room:NATU').start;frames(40)
+   shot('wick');$game_player.moveto(9,8);$game_player.turn_right;Tidebound::World.actor('Room:NATU').start;frames(40)
    raise 'maze transition' unless $game_map.map_id==114 && at(5,20) && m.active? && d.q[:phase]==:complete
    shot('maze')
    if mode=='wick'
@@ -90,11 +90,11 @@ module DreamCheck
    end
    step('right',2);step('right',2);step('left');step('up',2)
    step('left',6);step('up',6);step('right',6);step('left');step('right')
-   o.actor('Room:NATU').start;frames(40)
-   raise 'normal bedroom' unless $game_map.map_id==107 && o.flags[:bedroom_talk] && !m.active?
+   Tidebound::World.actor('Room:NATU').start;frames(40)
+   raise 'normal bedroom' unless $game_map.map_id==107 && Tidebound.story[:bedroom_talk] && !m.active?
    raise 'Natu changed' unless id==Tidebound.identity(o.household_pets[:NATU]) && $player.party.empty?
    shot('normal-room');$game_player.moveto(8,11);step('down')
-   raise 'hall continuation' unless $game_map.map_id==101 && o.flags[:hall_talk] && o.flags[:walk_state]==:requested
+   raise 'hall continuation' unless $game_map.map_id==101 && Tidebound.story[:hall_talk] && Tidebound.story[:walk_state]==:requested
    raise 'duplicated items' unless $bag.quantity(:RARECANDY)==99
    raise 'save complete' unless Game.save('dream-complete.rxdata')
   end

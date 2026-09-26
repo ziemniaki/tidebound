@@ -13,7 +13,7 @@ module Tidebound
       when :necklace
         NeighborQuest.return_necklace
       when :plate
-        Opening.travel_coast(21, 12)
+        Tidebound::World.travel_coast(21, 12)
         NeighborQuest.robbery
       when :pursuit
         pbMessage('Seller: South, along the coast road. But please take care of yourself.')
@@ -35,7 +35,7 @@ module Tidebound
         pbMessage('Mother: Did you find the museum? Good. I am glad you went.')
       else
         Opening.mother_dialogue
-        NeighborQuest.meal if Opening.flags[:oil_returned]
+        NeighborQuest.meal if Tidebound.story[:oil_returned]
       end
     end
 

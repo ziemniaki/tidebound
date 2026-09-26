@@ -1,16 +1,8 @@
 # Demo 1: additive events, persistent optional encounters, no new plot gate.
 module Tidebound::DemoLaunch
   module_function
-  def flags; Tidebound::Opening.flags[:demo_launch] ||= {}; end
+  def flags; Tidebound.story[:demo_launch] ||= {}; end
   def say(*lines); lines.each { |line| pbMessage(line) }; end
-  def psyduck
-    q=Tidebound::NeighborQuest.q
-    return if q[:shoreduck_gone]
-    return unless pbConfirmMessage("A Psyduck watches the shallows, holding its head. Approach?")
-    return unless Tidebound::NeighborQuest.able?
-    outcome=Tidebound::Opening.fight(:PSYDUCK,8)
-    q[:shoreduck_gone]=true if [1,4].include?(outcome)
-  end
   TALKS={
     ropes: ["Sailor: A rope has a memory. Coil it badly and it'll remind you when you need it most.", "This one remembers three captains. None of them could coil it."],
     keeper: ["Sailor: You're the keeper's child? We look for your mother's light before anything else.", "Tell her the crew of the Little Promise said thank you. She'll say she only turns a handle. Don't believe her."],
@@ -38,12 +30,11 @@ module Tidebound::DemoLaunch
     end
     name,team,invitation,loss=BATTLES.fetch(id)
     return unless pbConfirmMessage(invitation)
-    return unless Tidebound::NeighborQuest.able?
-    foe=NPCTrainer.new(name,:SAILOR);foe.lose_text=loss
-    team.each { |species,level| foe.party << Pokemon.new(species,level,foe) }
+    return unless Tidebound::Encounters.able?
+    foe=Tidebound::Encounters.trainer(:SAILOR, name, loss, team)
     result=Tidebound.trainer!(foe)
     if result==:astral
-      say("The harbour bells fall quiet.");Tidebound::Opening.travel(105,15,21,8)
+      say("The harbour bells fall quiet.");Tidebound::World.travel(:astral,15,21,8)
     elsif result==1
       flags[id]=true;say(loss)
     end

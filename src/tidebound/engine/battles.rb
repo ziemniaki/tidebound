@@ -6,10 +6,6 @@ module Tidebound
     attr_accessor :battle_context, :before_cleanup_party, :spirit_capture
   end
 
-  def self.state
-    $tidebound ||= State.new
-  end
-
   def self.location
     {:map_id => $game_map.map_id, :x => $game_player.x, :y => $game_player.y}
   end

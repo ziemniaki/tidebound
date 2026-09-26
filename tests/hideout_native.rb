@@ -49,7 +49,7 @@ class Scene_TideboundTitle
     $data_system.start_map_id=109;$data_system.start_x=11;$data_system.start_y=14
     Game.start_new;$scene=Scene_Map.new
     $player.name='Ren'
-    Tidebound::Opening.flags.merge!(opening_started:true,opening_revision:4,coast_revision:5,starter_chosen: :NATU)
+    Tidebound.story.merge!(opening_started:true,opening_revision:4,coast_revision:5,starter_chosen: :NATU)
     Tidebound::NeighborQuest.q.merge!(stage: :pursuit,first_won:true)
     hero=Pokemon.new(:NATU,45);hero.learn_move(:PSYCHIC);hero.moves=[Pokemon::Move.new(:PSYCHIC)]
     $player.party=[hero];$bag.add(:POKEBALL,5)

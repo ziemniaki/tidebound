@@ -1,3 +1,4 @@
+from .registry import MAP_NAMES
 """In-memory RPG Maker map, event and tile primitives. Importing writes nothing."""
 import struct
 from rubymarshal.classes import RubyObject, UserDef
@@ -56,7 +57,7 @@ class Map:
         return eid
     def door(self,x,y,destination,dx,dy,d=2):
         self.walk[y][x]=True
-        code=f'Tidebound::Opening.travel_coast({dx}, {dy}, {d})' if destination==102 else f'Tidebound::Opening.travel({destination}, {dx}, {dy}, {d})'
+        code=f'Tidebound::World.travel_coast({dx}, {dy}, {d})' if destination==102 else f'Tidebound::World.travel(:{MAP_NAMES[destination]}, {dx}, {dy}, {d})'
         self.event('Door',x,y,code,trigger=1)
     def serialize(self):
         flat=[v for layer in self.layers for row in layer for v in row]
@@ -109,7 +110,7 @@ class CoastMap(Map):
     def event(self,name,x,y,*args,**kw):return super().event(name,x+self.OX,y+self.OY,*args,**kw)
     def door(self,x,y,destination,dx,dy,d=2):
         self.walk[y+self.OY][x+self.OX]=True
-        self.event('Door',x,y,f'Tidebound::Opening.travel({destination}, {dx}, {dy}, {d})',trigger=1)
+        self.event('Door',x,y,f'Tidebound::World.travel(:{MAP_NAMES[destination]}, {dx}, {dy}, {d})',trigger=1)
     def polygon(self,points,t,walk=True):
         im=Image.new('1',(self.w,self.h));ImageDraw.Draw(im).polygon([(x+self.OX,y+self.OY) for x,y in points],fill=1)
         for yy in range(self.h):

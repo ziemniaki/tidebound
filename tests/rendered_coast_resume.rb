@@ -21,21 +21,21 @@ module TideboundCoastResume
     @coast_resume=true
     o=Tidebound::Opening
     raise 'wrong map' unless $game_map.map_id==102
-    raise 'migration flag' unless o.flags[:coast_revision]==5
+    raise 'migration flag' unless Tidebound.story[:coast_revision]==5
     x,y=$game_player.x,$game_player.y
     raise 'water spawn' unless Tidebound::MAP_PASSAGES[102][y][x]=='1'
-    raise 'distance lost' unless o.flags[:walk_steps]==100
+    raise 'distance lost' unless Tidebound.story[:walk_steps]==100
     raise 'household lost' unless o.household_pets.size==3 && $player.party.empty?
     if $tb_coast_resume=='coast-pier'
-      raise 'pier state' unless o.flags[:walk_state]==:at_pier
-      dog=o.actor('Pookie outside')
-      raise 'pier location' unless [dog.x,dog.y]==o.coast_xy(*o::POOKIE_PIER)
+      raise 'pier state' unless Tidebound.story[:walk_state]==:at_pier
+      dog=Tidebound::World.actor(:pookie_outside)
+      raise 'pier location' unless [dog.x,dog.y]==Tidebound::World.coast_xy(*o::POOKIE_PIER)
       raise 'duplicate follower' if Followers.get(o::POOKIE_FOLLOWER)
       o.pookie
     else
       raise 'follower lost' unless Followers.get(o::POOKIE_FOLLOWER)
       if $tb_coast_resume=='legacy-coast' || $tb_coast_resume=='coast-following' || $tb_coast_resume=='coast-current'
-        raise "wrong translated position #{[x,y]}" unless [x,y]==o.coast_xy(9,17)
+        raise "wrong translated position #{[x,y]}" unless [x,y]==Tidebound::World.coast_xy(9,17)
       end
       follower=Followers.get(o::POOKIE_FOLLOWER)
       raise 'follower outside region' unless follower.x.between?(24,79) && follower.y.between?(23,46)

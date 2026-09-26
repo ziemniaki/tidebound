@@ -40,15 +40,15 @@ module LaprasTest
     end
     p.shiny = false
     before = Marshal.dump($player.pokedex)
-    Tidebound::Opening.travel_coast(53,20)
-    Tidebound::Opening.coast_camera_to(*Tidebound::Opening.coast_xy(55,22))
-    Tidebound::Opening.lapras_visible = true
-    Tidebound::Opening.lapras_alpha = 145
+    Tidebound::World.travel_coast(53,20)
+    Tidebound::World.coast_camera_to(*Tidebound::World.coast_xy(55,22))
+    Tidebound::SeaGlimpse.visible = true
+    Tidebound::SeaGlimpse.alpha = 145
     pbWait(0.5)
     raise 'apparition registered in dex' unless before == Marshal.dump($player.pokedex)
     b = Graphics.snap_to_bitmap; b.to_file('lapras-pier.png'); b.dispose
-    Tidebound::Opening.lapras_visible = false
-    Tidebound::Opening.lapras_alpha = 0
+    Tidebound::SeaGlimpse.visible = false
+    Tidebound::SeaGlimpse.alpha = 0
     $player.party = [p]
     $lapras_battle_test = true
     WildBattle.start_core(Pokemon.new(:LAPRAS_1,10))

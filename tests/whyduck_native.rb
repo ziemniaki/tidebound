@@ -27,7 +27,7 @@ module WhyduckNativeCheck
     raise 'Whyduck backsprite' unless GameData::Species.back_sprite_filename(:WHYDUCK)&.end_with?('WHYDUCK.png')
     old_pokemon=Pokemon.new(:PSYDUCK,33)
     raise 'old save evolution path' unless old_pokemon.check_evolution_on_level_up==:GOLDUCK
-    Tidebound::Opening.travel(108,20,11)
+    Tidebound::World.travel(:road,20,11)
     wild=Pokemon.new(:PSYDUCK,15)
     EventHandlers.trigger(:on_wild_pokemon_created,wild)
     raise 'shore spawn regional' unless wild.form==1 && wild.types==[:WATER,:PSYCHIC]

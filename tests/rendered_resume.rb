@@ -23,12 +23,12 @@ module TideboundRenderedResume
     o=Tidebound::Opening
     case $tb_resume_mode
     when "walking"
-      raise "walk save state" unless o.flags[:walk_steps]==99 && Followers.get(o::POOKIE_FOLLOWER)
+      raise "walk save state" unless Tidebound.story[:walk_steps]==99 && Followers.get(o::POOKIE_FOLLOWER)
       $game_player.move_right
       24.times { Graphics.update; Input.update; update }
-      raise "loaded step progress" unless o.flags[:walk_steps]==100
-      o.travel(101,10,12);o.home_arrival
-      raise "no-pier route blocked" unless o.flags[:walk_state]==:complete && !o.flags[:walk_pier_seen]
+      raise "loaded step progress" unless Tidebound.story[:walk_steps]==100
+      Tidebound::World.travel(:home,10,12);o.home_arrival
+      raise "no-pier route blocked" unless Tidebound.story[:walk_state]==:complete && !Tidebound.story[:walk_pier_seen]
       original=o.household_pets[:POOCHYENA];id=Tidebound.identity(original)
       o.house_pet(:POOCHYENA)
       raise "walked dog changed" unless $player.party.first.equal?(original) && Tidebound.identity($player.party.first)==id
@@ -47,56 +47,56 @@ module TideboundRenderedResume
         end
       end
       o.household_pets[:POOCHYENA]=original
-      o.travel(102,10,16)
+      Tidebound::World.travel(:coast,10,16)
       # Visual-only reset in this disposable test to inspect the sleeping pose.
-      o.flags[:walk_state]=:requested
+      Tidebound.story[:walk_state]=:requested
       5.times { Graphics.update; updateSpritesets }
       b=Graphics.snap_to_bitmap;b.to_file("sleeping-pookie.png");b.dispose
     when "pier_quest"
-      raise "walk fixture" unless o.flags[:walk_steps]==99
-      o.travel(102,33,20)
+      raise "walk fixture" unless Tidebound.story[:walk_steps]==99
+      Tidebound::World.travel(:coast,33,20)
       $game_player.move_right
       30.times { Graphics.update; Input.update; update }
-      raise "pier run" unless o.flags[:walk_state]==:at_pier && o.actor("Pookie outside").x==45
+      raise "pier run" unless Tidebound.story[:walk_state]==:at_pier && Tidebound::World.actor(:pookie_outside).x==45
       raise "save at pier" unless Game.save("pier.rxdata")
       b=Graphics.snap_to_bitmap;b.to_file("pookie-pier.png");b.dispose
-      o.travel(101,10,12);o.home_arrival
-      raise "home without dog" unless o.flags[:walk_state]==:at_pier
-      o.travel(102,44,20);o.pookie;o.travel(101,10,12);o.home_arrival
+      Tidebound::World.travel(:home,10,12);o.home_arrival
+      raise "home without dog" unless Tidebound.story[:walk_state]==:at_pier
+      Tidebound::World.travel(:coast,44,20);o.pookie;Tidebound::World.travel(:home,10,12);o.home_arrival
       o.house_pet(:MAKUHITA)
-      o.travel(102,21,12);Tidebound::Interactions.shop_door
+      Tidebound::World.travel(:coast,21,12);Tidebound::Interactions.shop_door
       raise "closed shop" unless $game_map.map_id==102
       Tidebound::Interactions.outside_seller;o.forest_gate
       # Use the actual adjacent action event to collect the keys.
       $game_player.moveto(14,12);$game_player.turn_up
-      event=o.actor("Shop keys")
+      event=Tidebound::World.actor("Shop keys")
       raise "key event cannot interact" if event.over_trigger?
       event.start
       15.times { Graphics.update; Input.update; update }
       raise "key event missing item" unless $bag.has?(:TIDEBOUNDOILKEYS)
       raise "key save" unless Game.save("keys.rxdata")
-      o.travel(102,21,12);Tidebound::Interactions.outside_seller
-      seller=o.actor("Seller outside")
+      Tidebound::World.travel(:coast,21,12);Tidebound::Interactions.outside_seller
+      seller=Tidebound::World.actor(:seller_outside)
       raise "seller entry" unless [seller.x,seller.y]==[21,11] && seller.opacity==0 && seller.through
       Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller
       b=Graphics.snap_to_bitmap;b.to_file("oil-shop.png");b.dispose
-      o.travel(101,10,12);Tidebound::Interactions.mother;o.travel(104,6,9);o.main_lamp
-      raise "lamp continuation" unless o.flags[:lamp_lit]
+      Tidebound::World.travel(:home,10,12);Tidebound::Interactions.mother;Tidebound::World.travel(:lantern,6,9);o.main_lamp
+      raise "lamp continuation" unless Tidebound.story[:lamp_lit]
       raise "final save" unless Game.save("opening-complete.rxdata")
       b=Graphics.snap_to_bitmap;b.to_file("lamp.png");b.dispose
     when "pier"
-      raise "waiting position" unless o.flags[:walk_state]==:at_pier && o.actor("Pookie outside").x==45
+      raise "waiting position" unless Tidebound.story[:walk_state]==:at_pier && Tidebound::World.actor(:pookie_outside).x==45
       raise "waiting follower duplicate" if Followers.get(o::POOKIE_FOLLOWER)
       o.pookie
       raise "resume following" unless Followers.get(o::POOKIE_FOLLOWER)
     when "keys"
       raise "key item lost" unless $bag.has?(:TIDEBOUNDOILKEYS) && GameData::Item.get(:TIDEBOUNDOILKEYS).is_key_item?
-      o.travel(102,21,12);Tidebound::Interactions.outside_seller;Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller
-      raise "key continuation" unless o.flags[:shop_unlocked] && o.flags[:oil_collected] && !$bag.has?(:TIDEBOUNDOILKEYS)
+      Tidebound::World.travel(:coast,21,12);Tidebound::Interactions.outside_seller;Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller
+      raise "key continuation" unless Tidebound.story[:shop_unlocked] && Tidebound.story[:oil_collected] && !$bag.has?(:TIDEBOUNDOILKEYS)
     when "legacy"
       raise "legacy party reset" unless $player.party.first.species==:MAKUHITA && o.household_pets.size==2
-      raise "legacy progress lost" unless o.flags[:lamp_lit] && o.flags[:starter_chosen] && o.flags[:opening_revision]==4
-      raise "legacy prologue replay" unless o.flags[:walk_state]==:complete && o.flags[:shop_unlocked]
+      raise "legacy progress lost" unless Tidebound.story[:lamp_lit] && Tidebound.story[:starter_chosen] && Tidebound.story[:opening_revision]==4
+      raise "legacy prologue replay" unless Tidebound.story[:walk_state]==:complete && Tidebound.story[:shop_unlocked]
     end
     File.write("RESUME_#{$tb_resume_mode}_PASS.txt", "PASS: full engine load and continuation (#{$tb_resume_mode}).\n")
     exit

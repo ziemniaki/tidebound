@@ -22,7 +22,7 @@ module GlaciTest
     paths = Dir.glob('PBS/pokemon*.txt').reject { |s| s =~ /pokemon_(forms|metrics)/ }
     Compiler.compile_pokemon(*paths)
     Compiler.compile_pokemon_forms(*Dir.glob('PBS/pokemon_forms*.txt'))
-    Tidebound::Opening.travel(103, 17, 25)
+    Tidebound::World.travel(:forest, 17, 25)
     ui = Object.new
     def ui.pbRefresh; end
     def ui.pbUpdate; end

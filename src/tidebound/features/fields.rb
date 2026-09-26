@@ -70,7 +70,7 @@ Game_Map.prepend(Tidebound::FieldTerrain)
 module Tidebound::GrassBattles
   def start(*args, can_override: false)
     if can_override && [103,108].include?($game_map.map_id) && Tidebound.state.realm == :living
-      result = Tidebound::Opening.fight(*args)
+      result = Tidebound::Encounters.fight(*args)
       return result == :astral ? 2 : result
     end
     super
@@ -163,7 +163,7 @@ class TideboundBerryVisual < Sprite
 end
 EventHandlers.add(:on_new_spriteset_map, :tidebound_field_details, proc { |spriteset, viewport|
   map=spriteset.map
-  next unless Tidebound::Opening::MAP_IDS.include?(map.map_id)
+  next unless Tidebound::World::MAP_IDS.include?(map.map_id)
   map.events.each_value do |event|
     spriteset.addUserSprite(TideboundBerryVisual.new(event,viewport,map.map_id)) if event.name.start_with?('Berry:')
     spriteset.addUserSprite(TideboundThreshold.new(event,viewport,map)) if Tidebound::FieldDetails::EXITS.include?(event.name)

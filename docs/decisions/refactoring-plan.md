@@ -450,7 +450,8 @@ frameworks and a broad asset purge until a specific need justifies them.
 | R1 | Implemented | Import-without-I/O, independent area construction and failed-validation isolation tests pass; full regeneration preserves data and PNG pixels |
 | R2 | Implemented, native PBS check pending | One compiler, family definitions, explicit art exports; headless/native-object and isolated-regeneration suites pass; compiled attributes preserved apart from backlink ordering |
 | R8 | Implemented | Installed operation modules, one callable rebuild plan, no generator subprocess chain or path mutation; public build and full isolated checks pass |
-| R5, R11–R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
+| R5 | Implemented | Shared state, named generated map/actor registry, neutral world and encounter operations; feature-independence and full regeneration tests pass |
+| R11–R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
 
 Headless checks and isolated regeneration have passed for the first three completed
 items. This is progress evidence, not final acceptance of the complete refactor.

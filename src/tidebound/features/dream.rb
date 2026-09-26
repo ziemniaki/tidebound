@@ -38,27 +38,27 @@ module Tidebound::DreamRoom
   }.freeze
   class << self;attr_accessor :wick_alpha;end
   module_function
-  def q;Tidebound::Opening.flags[:dream_room] || {};end
+  def q;Tidebound.story[:dream_room] || {};end
   def active?;[:sealed,:wick,:folded].include?(q[:phase]);end
   def wick_visible?;q[:phase]==:wick;end
   def say(*lines);lines.each { |s|pbMessage(s) };end
   def arrival
-    Tidebound::Opening.erase_autorun
-    unless Tidebound::Opening.flags[:opening_started]
+    Tidebound::World.erase_autorun
+    unless Tidebound.story[:opening_started]
       Tidebound::Opening.begin_story
       return
     end
     if q[:phase]==:folded
-      Tidebound::Opening.travel(FOLDED_MAP,*FOLDED_START,8)
+      Tidebound::World.travel(FOLDED_MAP,*FOLDED_START,8)
     elsif !active?
       return_to_journey
     end
   end
   def return_to_journey
     if Tidebound::PsychicMaze.active?
-      Tidebound::Opening.travel(114,5,20,2)
+      Tidebound::World.travel(:maze,5,20,2)
     else
-      Tidebound::Opening.travel(107,6,8,6)
+      Tidebound::World.travel(:bedroom,6,8,6)
     end
   end
   def inspect_object(kind)
@@ -187,10 +187,10 @@ module Tidebound::DreamRoom
     return unless wick_visible? && $game_map.map_id==MAP
     say("Wick opens his beak. The sound comes from behind you.")
     q[:phase]=:folded;q[:folded_streak]=0
-    Tidebound::Opening.travel(FOLDED_MAP,*FOLDED_START,8)
+    Tidebound::World.travel(FOLDED_MAP,*FOLDED_START,8)
   end
   def folded_arrival
-    Tidebound::Opening.erase_autorun
+    Tidebound::World.erase_autorun
     unless q[:phase]==:folded
       return_to_journey
       return
@@ -224,9 +224,9 @@ module Tidebound::DreamRoom
       end
       unless wrong
         q[:phase]=:complete
-        Tidebound::Opening.flags[:psychic_maze]=:active
+        Tidebound.story[:psychic_maze]=:active
         say("The bed remembers being a bed.","Two small taps. This time, from somewhere you can reach.")
-        Tidebound::Opening.travel(114,5,20,2)
+        Tidebound::World.travel(:maze,5,20,2)
         say("Somewhere beyond the shelves, Wick taps back. One more game.")
       end
     end

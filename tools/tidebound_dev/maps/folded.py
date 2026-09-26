@@ -1,3 +1,4 @@
+from .registry import MAPS, ACTORS
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -10,7 +11,7 @@ from .model import Map, RoadMap, tile, table, command, script
 def build(paths, interior):
     """Second false bedroom: a larger, fractured room with a readable winding route."""
     black=interior.itile(Image.new('RGBA',(32,32),(0,0,0,255)))
-    folded=Map(116,'Your Room, Again',30,26,27)
+    folded=Map(MAPS["folded"],'Your Room, Again',30,26,27)
     interior.room(folded,2,4,26,20)
     interior.window(folded,5,2);interior.window(folded,15,2);interior.window(folded,21,2)
     interior.rug(folded,5,20,6,3,(83,66,98,255))

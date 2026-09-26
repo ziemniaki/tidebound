@@ -1,3 +1,4 @@
+from .registry import write_registry
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -10,6 +11,7 @@ from rubymarshal.classes import Symbol
 from .model import obj
 
 def serialize(paths, maps):
+    write_registry(paths.root, maps)
     for m in maps:(paths.game / f'Data/Map{m.id:03}.rxdata').write_bytes(m.serialize())
     system=loads((paths.game/'Data/System.rxdata').read_bytes())
     system.attributes.update({'@start_map_id':115,'@start_x':7,'@start_y':8,'@magic_number':26092503})

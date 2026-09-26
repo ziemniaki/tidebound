@@ -10,7 +10,7 @@ class TideboundBeaconGlow < Sprite
     super
     self.x=5*32-@map.display_x/Game_Map::X_SUBPIXELS
     self.y=2*32-@map.display_y/Game_Map::Y_SUBPIXELS
-    self.visible=!!Tidebound::Opening.flags[:lamp_lit]
+    self.visible=!!Tidebound.story[:lamp_lit]
     self.opacity=235+(Math.sin(System.uptime*1.1)*12).to_i
   end
   def dispose;bitmap.dispose;super;end

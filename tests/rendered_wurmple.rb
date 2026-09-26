@@ -12,7 +12,7 @@ module WurmpleTest
     return if @wurmple_checked || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
     @wurmple_checked = true
     old = Pokemon.new(:WURMPLE, 5)
-    Tidebound::Opening.travel(103, 17, 25)
+    Tidebound::World.travel(:forest, 17, 25)
     p = pbGenerateWildPokemon(:WURMPLE, 5)
     raise 'forest form/type' unless p.form == 1 && p.types == [:BUG, :ICE]
     raise 'old companion changed' unless old.form == 0 && old.types == [:BUG]
@@ -42,7 +42,7 @@ module WurmpleTest
       raise 'undefined evolved form' unless evo.form == 0 && evo.types == [:BUG]
       raise 'evolution identity' unless Tidebound.identity(evo) == id
     end
-    Tidebound::Opening.travel(108, 30, 18)
+    Tidebound::World.travel(:road, 30, 18)
     other = pbGenerateWildPokemon(:WURMPLE, 5)
     raise 'other map' unless other.form == 0 && other.types == [:BUG]
     [false, true].each do |shiny|
@@ -57,7 +57,7 @@ module WurmpleTest
     p.shiny = false
     p.heal
     $player.party = [p]
-    Tidebound::Opening.travel(103, 17, 25)
+    Tidebound::World.travel(:forest, 17, 25)
     $wurmple_battle_test = true
     WildBattle.start_core(:WURMPLE, 5)
   rescue Exception => e

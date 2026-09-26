@@ -1,3 +1,4 @@
+from .registry import MAPS
 from tidebound_dev.paths import ROOT
 from pathlib import Path
 from collections import deque
@@ -40,9 +41,9 @@ def validate(root, event_scripts_output=None, check_scripts=True):
        if not reachable:fail.append(f'{mid} unreachable event {name} at {x},{y}')
       code='\n'.join(str(c.attributes['@parameters'][0]) for c in page['@list'] if c.attributes['@code'] in (355,655))
       if code:event_scripts.append({'name':f'Map{mid}/{name}','code':code})
-      for dest,tx,ty in re.findall(r'Opening.travel\((\d+), (\d+), (\d+)',code):
-       if masks[dest][int(ty)][int(tx)]!='1':fail.append(f'{mid}: blocked transfer to {dest} {tx},{ty}')
-      for tx,ty in re.findall(r'Opening.travel_coast\((\d+), (\d+)',code):
+      for dest,tx,ty in re.findall(r'World.travel\(:([a-z_]+), (\d+), (\d+)',code):
+       if masks[str(MAPS[dest])][int(ty)][int(tx)]!='1':fail.append(f'{mid}: blocked transfer to {dest} {tx},{ty}')
+      for tx,ty in re.findall(r'World.travel_coast\((\d+), (\d+)',code):
        if masks['102'][int(ty)+20][int(tx)+24]!='1':fail.append(f'{mid}: blocked coast transfer')
       count+=1
      bgm=str(m['@bgm'].attributes['@name'])

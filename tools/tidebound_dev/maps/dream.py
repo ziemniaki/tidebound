@@ -1,3 +1,4 @@
+from .registry import MAPS, ACTORS
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -9,7 +10,7 @@ from .model import Map, RoadMap, tile, table, command, script
 
 def build(paths, interior):
     """The false ordinary bedroom, before the one-time psychic maze."""
-    dream=Map(115,'Your Room',16,14,27)
+    dream=Map(MAPS["dream"],'Your Room',16,14,27)
     interior.room(dream,2,4,12,8)
     # Opaque darkness suppresses native water-reflection sprites outside the room.
     black=interior.itile(Image.new('RGBA',(32,32),(0,0,0,255)))

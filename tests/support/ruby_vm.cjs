@@ -67,6 +67,9 @@ end`, 'data bridge');
     const events = JSON.parse(fs.readFileSync(source, 'utf8'));
     for (const event of events) {
       evaluate(`RubyVM::InstructionSequence.compile(${JSON.stringify(event.code)}, ${JSON.stringify(event.name)})`, event.name);
+      for (const match of event.code.matchAll(/\b(Tidebound(?:::[A-Z]\w*)+)\.([a-z_]\w*[!?]?)/g)) {
+        evaluate(`raise "Unknown event API: ${match[1]}.${match[2]}" unless ${match[1]}.respond_to?(:${match[2]})`, event.name);
+      }
     }
     console.log(`Compiled ${events.length} native event bodies.`);
   }

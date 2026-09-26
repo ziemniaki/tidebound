@@ -1,22 +1,23 @@
+from .registry import MAPS, ACTORS
 """Base area definitions; each builder returns an independent map."""
 from .model import Map, CoastMap, RoadMap, tile
 
 def build_home():
-    home=Map(101,'The Keeper\'s House',20,16,3)
+    home=Map(MAPS["home"],'The Keeper\'s House',20,16,3)
     home.rect(2,3,16,11,tile(4,78),walk=True)
     home.rect(2,2,16,2,tile(1,13),walk=False)
     home.stamp(0,0,4,2,2,1);home.stamp(0,0,4,2,6,1);home.stamp(0,0,4,2,10,1);home.stamp(0,0,4,2,14,1)
     home.stamp(0,151,2,2,3,4)
     home.stamp(0,140,3,2,12,4) # domestic furnishings
     home.stamp(6,212,2,2,8,7)
-    home.event('Mother',12,7,'Tidebound::Interactions.mother','NPC 11',blocks=True)
+    home.event(ACTORS["mother"],12,7,'Tidebound::Interactions.mother','NPC 11',blocks=True)
     home.event('Book',4,10,'Tidebound::Opening.journal')
     home.stamp(0,140,3,2,3,8)
     home.event('Opening',2,13,'Tidebound::Opening.home_arrival',trigger=3)
-    home.event('House:NATU',6,5,'Tidebound::Opening.house_pet(:NATU)','Pokemon 01',opacity=0)
-    home.event('House:MAKUHITA',10,9,'Tidebound::Opening.house_pet(:MAKUHITA)','Pokemon 01',opacity=0)
-    home.event('House:POOCHYENA',13,11,'Tidebound::Opening.house_pet(:POOCHYENA)','Pokemon 01',opacity=0)
-    home.event('Crate',10,10,'pbMessage("Bottles wrapped in straw. Maku carries them as carefully as he can.")','Pokemon 01',opacity=0)
+    home.event(ACTORS["house_natu"],6,5,'Tidebound::Opening.house_pet(:NATU)','Pokemon 01',opacity=0)
+    home.event(ACTORS["house_makuhita"],10,9,'Tidebound::Opening.house_pet(:MAKUHITA)','Pokemon 01',opacity=0)
+    home.event(ACTORS["house_poochyena"],13,11,'Tidebound::Opening.house_pet(:POOCHYENA)','Pokemon 01',opacity=0)
+    home.event(ACTORS["crate"],10,10,'pbMessage("Bottles wrapped in straw. Maku carries them as carefully as he can.")','Pokemon 01',opacity=0)
     home.event('Crate spare',12,10,'pbMessage("One of the boxes Maku is helping Mother put away.")','Pokemon 01',opacity=0)
     home.stamp(1,237,2,2,6,3,walk=True)
     home.door(6,3,107,8,10,8)
@@ -30,7 +31,7 @@ def build_home():
     return home
 
 def build_coast():
-    coast=CoastMap(102,'Shiohama',108,88,1,96)
+    coast=CoastMap(MAPS["coast"],'Shiohama',108,88,1,96)
     # The ocean continues far past every reachable camera position.
     coast.polygon([(3,7),(7,5),(12,5),(14,8),(16,12),(14,16),(14,19),(11,22),(6,22),(2,19),(1,13)],tile(2,27))
     coast.polygon([(4,8),(11,7),(13,10),(13,16),(11,20),(5,20),(3,16)],tile(1,0))
@@ -50,8 +51,8 @@ def build_coast():
     coast.door(8,15,101,10,12,8)
     coast.walk[31][45]=True
     coast.event('Shop door',21,11,'Tidebound::Interactions.shop_door',trigger=1)
-    coast.event('Seller outside',22,12,'Tidebound::Interactions.outside_seller','NPC 10')
-    coast.event('Pookie outside',11,16,'Tidebound::Opening.pookie','Pokemon 01',opacity=0)
+    coast.event(ACTORS["seller_outside"],22,12,'Tidebound::Interactions.outside_seller','NPC 10')
+    coast.event(ACTORS["pookie_outside"],11,16,'Tidebound::Opening.pookie','Pokemon 01',opacity=0)
     coast.event('Oil shop sign',23,12,'pbMessage("LAMP OIL. Please ask the seller for assistance.\nA small bottle hangs beside the lettering.")')
     coast.event('Empty house',29,11,'pbMessage("The door has swollen in its frame. Nobody answers.")')
     coast.event('Seated neighbour',31,18,'pbMessage("Young as ever, aren\'t you? I wish I knew your secret.")\npbMessage("Your mother still lights the tower every night. I used to complain that it shone through my curtains.")','NPC 14',blocks=True)
@@ -81,8 +82,8 @@ def build_coast():
     coast.polygon([(28,23),(32,23),(33,28),(32,32),(28,32),(27,28)],tile(2,27))
     coast.path(29,24,3,8,True)
     coast.event('South path',30,31,'Tidebound::NeighborQuest.south_gate',trigger=1)
-    coast.event('Robbery youth one',21,11,'','trainer_YOUNGSTER',opacity=0)
-    coast.event('Robbery youth two',21,12,'','trainer_CAMPER',opacity=0)
+    coast.event(ACTORS["robbery_youth_one"],21,11,'','trainer_YOUNGSTER',opacity=0)
+    coast.event(ACTORS["robbery_youth_two"],21,12,'','trainer_CAMPER',opacity=0)
     coast.event('Coast road sign',31,29,'pbMessage("COAST ROAD - SOUTH. The lettering has been repainted around the rusted nails.")')
 
 
@@ -94,7 +95,7 @@ def build_coast():
     return coast
 
 def build_forest():
-    forest=Map(103,'The Listening Wood',36,30,1,tile(1,0))
+    forest=Map(MAPS["forest"],'The Listening Wood',36,30,1,tile(1,0))
     forest.rect(3,3,30,24,tile(1,0),walk=True)
     forest.rect(16,3,3,24,tile(2,13),walk=True)
     forest.rect(7,20,12,3,tile(2,13),walk=True)
@@ -130,7 +131,7 @@ def build_forest():
     return forest
 
 def build_lantern():
-    lantern=Map(104,'The Lantern Room',14,14,3)
+    lantern=Map(MAPS["lantern"],'The Lantern Room',14,14,3)
     lantern.rect(3,3,8,8,tile(1,81),walk=True)
     lantern.rect(3,2,8,1,tile(1,13),walk=False)
     lantern.event('Main lamp',6,5,'Tidebound::Opening.main_lamp',blocks=True)
@@ -142,7 +143,7 @@ def build_lantern():
     return lantern
 
 def build_astral():
-    astral=Map(105,'Beyond the Shore',32,26,1,tile(1,0))
+    astral=Map(MAPS["astral"],'Beyond the Shore',32,26,1,tile(1,0))
     astral.rect(3,3,26,20,tile(1,0),walk=True)
     astral.rect(14,4,3,19,tile(2,13),walk=True)
     for x,y in [(1,1),(6,1),(22,1),(27,1),(1,8),(1,16),(27,8),(27,17),(5,20),(22,20)]:astral.stamp(0,55,3,3,x,y)
@@ -157,14 +158,14 @@ def build_astral():
     return astral
 
 def build_shop():
-    shop=Map(106,'The Oil Shop',16,14,3)
+    shop=Map(MAPS["shop"],'The Oil Shop',16,14,3)
     shop.rect(2,3,12,9,tile(4,78),walk=True)
     shop.rect(2,2,12,2,tile(1,13),walk=False)
     for x in (2,6,10):shop.stamp(0,0,4,2,x,1)
     shop.stamp(3,140,3,3,3,4)
     shop.stamp(0,140,2,3,10,4)
     shop.stamp(6,212,2,2,10,8)
-    shop.event('Oil seller',7,5,'Tidebound::Interactions.oil_seller','NPC 10',blocks=True)
+    shop.event(ACTORS["oil_seller"],7,5,'Tidebound::Interactions.oil_seller','NPC 10',blocks=True)
     shop.event('Bottles',4,7,'pbMessage("Old glass, washed and washed again. Each bottle has a different name scratched underneath.")')
     shop.event('Old ledger',11,10,'pbMessage("The ledger lies open to a page with very few names.\nYour mother\'s is underlined.")')
     shop.rect(8,12,1,1,tile(4,78),walk=True)
@@ -174,14 +175,14 @@ def build_shop():
     return shop
 
 def build_bedroom():
-    bedroom=Map(107,"Your Room",16,14,3)
+    bedroom=Map(MAPS["bedroom"],"Your Room",16,14,3)
     bedroom.rect(2,4,12,8,tile(4,78),walk=True)
     bedroom.rect(2,2,12,2,tile(1,13),walk=False)
     for x in (2,6,10):bedroom.stamp(0,0,4,2,x,1)
     bedroom.stamp(0,151,2,2,3,4)
     bedroom.stamp(0,140,3,2,10,4)
     bedroom.event('Room:NATU',7,8,'Tidebound::Opening.bedroom_pet','Pokemon 01',opacity=0)
-    bedroom.event('Mother visiting',8,11,'pbMessage("Mother: Downstairs, love.")','NPC 11',opacity=0)
+    bedroom.event(ACTORS["mother_visiting"],8,11,'pbMessage("Mother: Downstairs, love.")','NPC 11',opacity=0)
     bedroom.event('Book',4,9,'Tidebound::Opening.journal')
     bedroom.event('Opening',2,11,'Tidebound::Opening.begin_story',trigger=3)
     bedroom.rect(8,12,1,1,tile(4,78),walk=True)
@@ -191,7 +192,7 @@ def build_bedroom():
     return bedroom
 
 def build_road():
-    road=RoadMap(108,'The South Coast Road',56,84,1,96)
+    road=RoadMap(MAPS["road"],'The South Coast Road',56,84,1,96)
     road.polygon([(17,1),(25,1),(25,6),(34,6),(38,11),(40,19),(38,23),(36,27),(40,33),(41,45),(38,55),(33,64),(20,64),(16,59),(13,50),(15,40),(14,32),(17,27),(16,20),(13,16),(14,8)],tile(1,0))
     road.polygon([(14,8),(16,8),(17,16),(19,19),(18,23),(16,20),(13,16)],192)
     road.polygon([(15,31),(17,32),(17,40),(16,49),(19,58),(17,59),(13,50)],192)
@@ -211,9 +212,9 @@ def build_road():
     road.door(18,4,102,30,30,8)
     road.event('Wild:NATU:shorebird',20,10,'Tidebound::NeighborQuest.wild(:shorebird)','Pokemon 01',opacity=0,move=1)
     road.event('Wild:ZIGZAGOON:shoreforager',22,18,'Tidebound::NeighborQuest.wild(:shoreforager)','Pokemon 01',opacity=0,move=1)
-    road.event('Road thief',26,26,'Tidebound::NeighborQuest.first_thief','trainer_YOUNGSTER')
+    road.event(ACTORS["road_thief"],26,26,'Tidebound::NeighborQuest.first_thief','trainer_YOUNGSTER')
     for x in range(25,28):road.event('Thief crossing',x,24,'Tidebound::NeighborQuest.first_thief',trigger=1)
-    road.event('Running thief',31,43,'Tidebound::NeighborQuest.witness_hideout','trainer_CAMPER',opacity=0)
+    road.event(ACTORS["running_thief"],31,43,'Tidebound::NeighborQuest.witness_hideout','trainer_CAMPER',opacity=0)
     for y in range(42,45):road.event('Storehouse approach',29,y,'Tidebound::NeighborQuest.witness_hideout',trigger=1)
     road.event('Storehouse door',35,41,'Tidebound::NeighborQuest.hideout_door',trigger=1)
     road.event('Road traveller',23,39,'Tidebound::NeighborQuest.rest','NPC 01',blocks=True)
@@ -237,14 +238,14 @@ def build_road():
     return road
 
 def build_hideout():
-    hideout=Map(109,'The Old Storehouse',22,18,3)
+    hideout=Map(MAPS["hideout"],'The Old Storehouse',22,18,3)
     hideout.rect(2,3,18,13,tile(4,78),walk=True)
     hideout.rect(2,2,18,2,tile(1,13),walk=False)
     for x in (2,6,10,14,18):hideout.stamp(0,0,4,2,x,1)
     for x,y in [(4,5),(5,5),(6,5),(4,6),(5,6),(16,5),(17,5),(17,6),(7,13),(8,13)]:
         hideout.event('Crate goods',x,y,'pbMessage("Oil tins, mended nets, a good blanket. Nothing here matches.")','Pokemon 01',opacity=0,blocks=True)
     hideout.event('Abyss runner',11,9,'Tidebound::Hideout.guard','trainer_BURGLAR',blocks=True)
-    hideout.event('Necklace thief',14,7,'Tidebound::Hideout.boss','trainer_CAMPER',blocks=True)
+    hideout.event(ACTORS["necklace_thief"],14,7,'Tidebound::Hideout.boss','trainer_CAMPER',blocks=True)
     hideout.event('Abyss packer',17,11,'Tidebound::NeighborQuest.packer','trainer_BUGCATCHER',blocks=True)
     hideout.event('Abyss lookout',5,10,'Tidebound::NeighborQuest.lookout','trainer_YOUNGSTER',blocks=True)
     hideout.event('Dispatch slip',16,8,'pbMessage("One box: nets. Two boxes: assorted. Three boxes: also assorted. A second hand has underlined: COUNT IT PROPERLY.")')

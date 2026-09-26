@@ -1,6 +1,14 @@
 # Tidebound: original project code. Internal codename; no final game title chosen.
 # Pure Ruby domain model. No maps, rendering, or Essentials globals required.
 module Tidebound
+  def self.state
+    $tidebound ||= State.new
+  end
+
+  def self.story
+    state.story
+  end
+
   VERSION = "0.8.6"
   SAVE_SCHEMA = 2
 

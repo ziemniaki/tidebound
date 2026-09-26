@@ -1,14 +1,14 @@
 # New-game-only hide-and-seek. This never migrates an existing journey into it.
 module Tidebound::PsychicMaze
   module_function
-  def active?; Tidebound::Opening.flags[:psychic_maze] == :active; end
+  def active?; Tidebound.story[:psychic_maze] == :active; end
   def arrival
-    Tidebound::Opening.erase_autorun
-    unless Tidebound::Opening.flags[:opening_started]
+    Tidebound::World.erase_autorun
+    unless Tidebound.story[:opening_started]
       Tidebound::Opening.begin_story
       return
     end
-    Tidebound::Opening.travel(107,6,8,6) unless active?
+    Tidebound::World.travel(:bedroom,6,8,6) unless active?
   end
   def rules
     pbMessage("A scrap of paper: 'Arrows slide. Diamonds stop. Circles jump.'")
@@ -27,7 +27,7 @@ module Tidebound::PsychicMaze
       break unless nx>=0 && ny>=0 && mask[ny] && mask[ny][nx]=='1'
       break if $game_map.events.values.any? { |e| !e.through && e.x==nx && e.y==ny }
       command={2=>PBMoveRoute::DOWN,4=>PBMoveRoute::LEFT,6=>PBMoveRoute::RIGHT,8=>PBMoveRoute::UP}[direction]
-      Tidebound::Opening.animate($game_player,[command])
+      Tidebound::World.animate($game_player,[command])
       break if STOPS.include?([$game_player.x,$game_player.y]) || [$game_player.x,$game_player.y]==point
     end
   ensure
@@ -43,8 +43,8 @@ module Tidebound::PsychicMaze
     return unless active? && $game_map.map_id==MAP
     pbMessage("Wick taps twice against the floor. You tap back. Found you.")
     pbMessage("Mother calls: Ren? Come downstairs, love. We need to talk.")
-    flags=Tidebound::Opening.flags;flags[:psychic_maze]=:complete;flags[:bedroom_talk]=true
-    Tidebound::Opening.travel(107,6,8,6)
+    flags=Tidebound.story;flags[:psychic_maze]=:complete;flags[:bedroom_talk]=true
+    Tidebound::World.travel(:bedroom,6,8,6)
     pbMessage("Your blanket is just where you left it.")
   end
 end

@@ -53,6 +53,9 @@ Build outputs and restored binaries are ignored. Never commit saves or caches.
 Ruby is embedded once in `src/load_order.txt` order, immediately before Essentials' Main.
 Register every new Ruby file in that manifest. Generated Ruby belongs in
 `src/generated/`; generators must never rewrite handwritten source.
+Use `Tidebound.story`, `World` travel/actor operations and `Encounters` for shared
+engine behavior. Keep new map/actor names in `maps/registry.py`; do not make
+unrelated features depend on Opening or NeighborQuest helpers.
 Never install a second copy in `Plugins/Tidebound`. Ignored engine reference
 extractions under `tests/engine_reference/` are inspection copies, not source.
 

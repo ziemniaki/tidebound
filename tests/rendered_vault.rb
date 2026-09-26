@@ -24,26 +24,26 @@ module FieldView
     o=Tidebound::Opening;v=Tidebound::VaultVisit;n=Tidebound::NeighborQuest
     id=Tidebound.identity($player.party.first)
     n.q[:stage]=:complete
-    o.travel(106,8,8);Tidebound::Interactions.oil_seller
+    Tidebound::World.travel(:shop,8,8);Tidebound::Interactions.oil_seller
     raise 'gift/departure' unless v.q[:gift] && $bag.quantity(v::GIFT)==1 && $game_map.map_id==102
-    o.travel(106,8,10);raise 'seller duplicate' unless o.actor('Oil seller').opacity==0
-    o.travel(101,12,8);shot('hall')
-    raise 'seller home' unless o.actor('Seller at home').opacity==255
+    Tidebound::World.travel(:shop,8,10);raise 'seller duplicate' unless Tidebound::World.actor(:oil_seller).opacity==0
+    Tidebound::World.travel(:home,12,8);shot('hall')
+    raise 'seller home' unless Tidebound::World.actor(:seller_at_home).opacity==255
     Tidebound::Interactions.mother
-    raise 'stairs or mother duplicate' unless v.q[:open] && o.actor('Mother').opacity==0
+    raise 'stairs or mother duplicate' unless v.q[:open] && Tidebound::World.actor(:mother).opacity==0
     v.stairs;shot('cellar');v.vault_door
     10.times { update;Graphics.update };shot('vault')
     raise 'dialogue' unless v.q[:talk]
-    raise 'mother vault' unless o.actor('Mother at vault').opacity==255
+    raise 'mother vault' unless Tidebound::World.actor(:mother_at_vault).opacity==255
     save=SaveData.compile_save_hash;File.binwrite('vault-progress.rxdata',Marshal.dump(save))
     raise 'save' unless Marshal.load(File.binread('vault-progress.rxdata'))[:tidebound].story[:vault_visit][:talk]
-    o.travel(108,42,43);v.city_gate;shot('docks')
+    Tidebound::World.travel(:road,42,43);v.city_gate;shot('docks')
     raise 'docks/night' unless $game_map.map_id==112 && $game_screen.tone.red==-80
-    o.travel(112,32,23);shot('museum-front');o.travel(113,14,18);shot('museum')
-    o.travel(113,15,9);v.sabre;shot('sabre')
+    Tidebound::World.travel(:docks,32,23);shot('museum-front');Tidebound::World.travel(:museum,14,18);shot('museum')
+    Tidebound::World.travel(:museum,15,9);v.sabre;shot('sabre')
     raise 'museum' unless v.q[:museum]
-    o.travel(101,12,8);raise 'mother return' unless o.actor('Mother').opacity==255
-    o.travel(106,8,8);raise 'seller return' unless o.actor('Oil seller').opacity==255
+    Tidebound::World.travel(:home,12,8);raise 'mother return' unless Tidebound::World.actor(:mother).opacity==255
+    Tidebound::World.travel(:shop,8,8);raise 'seller return' unless Tidebound::World.actor(:oil_seller).opacity==255
     Tidebound::Interactions.oil_seller
     raise 'duplicate gift' unless $bag.quantity(v::GIFT)==1
     raise 'pet identity' unless Tidebound.identity($player.party.first)==id

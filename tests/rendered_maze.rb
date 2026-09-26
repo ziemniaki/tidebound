@@ -31,12 +31,12 @@ module MazeCheck
  def update
   super
   return if @maze_test || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
-  return unless Tidebound::Opening.flags[:opening_started]
+  return unless Tidebound.story[:opening_started]
   @maze_test=true;o=Tidebound::Opening;m=Tidebound::PsychicMaze;mode=ENV['TB_MAZE_MODE'] || 'new'
   if ['legacy','complete'].include?(mode)
    raise 'old save enters maze' if $game_map.map_id==114 || m.active?
    party=$player.party.map { |p| Tidebound.identity(p) };candies=$bag.quantity(:RARECANDY)
-   o.travel(107,6,8);20.times {Graphics.update;Input.update;update};o.begin_story
+   Tidebound::World.travel(:bedroom,6,8);20.times {Graphics.update;Input.update;update};o.begin_story
    raise 'bedroom/initialization' unless $game_map.map_id==107 && !m.active? && $bag.quantity(:RARECANDY)==candies
    raise 'party changed' unless $player.party.map { |p| Tidebound.identity(p) }==party
    File.write("MAZE_#{mode}_PASS.txt",'PASS: saved journey retains normal bedroom, state, inventory and companion identities.');exit
@@ -66,14 +66,14 @@ module MazeCheck
   step('left',6);step('up',4);shot('pushers');step('up',2);step('right',6);raise 'last slide' unless at(17,3)
   step('left');raise 'goal warp' unless at(22,5)
   step('down');raise 'return from goal' unless at(16,4)
-  step('up');step('right');shot('natu');o.actor('Room:NATU').start
+  step('up');step('right');shot('natu');Tidebound::World.actor('Room:NATU').start
   30.times {Graphics.update;Input.update;update}
-  raise 'completion' unless $game_map.map_id==107 && o.flags[:psychic_maze]==:complete && o.flags[:bedroom_talk]
+  raise 'completion' unless $game_map.map_id==107 && Tidebound.story[:psychic_maze]==:complete && Tidebound.story[:bedroom_talk]
   raise 'identity/party' unless Tidebound.identity(o.household_pets[:NATU])==id && $player.party.empty?
   shot('normal-room');$game_player.moveto(8,11);step('down')
-  raise 'hall' unless $game_map.map_id==101 && o.flags[:hall_talk] && o.flags[:walk_state]==:requested
+  raise 'hall' unless $game_map.map_id==101 && Tidebound.story[:hall_talk] && Tidebound.story[:walk_state]==:requested
   raise 'candies repeated' unless $bag.quantity(:RARECANDY)==99
-  o.travel(101,6,4);step('up');raise 'reentry' unless $game_map.map_id==107 && !m.active?
+  Tidebound::World.travel(:home,6,4);step('up');raise 'reentry' unless $game_map.map_id==107 && !m.active?
   raise 'save complete' unless Game.save('maze-complete.rxdata')
   File.write("MAZE_#{mode}_PASS.txt",'PASS: native new/resumed game; all slides and teleporters; wrong/return pads; Natu identity; Mother call; normal bedroom; hall/Pookie continuation; no duplicate supplies; save.');exit
  rescue Exception=>e

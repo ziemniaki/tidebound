@@ -35,7 +35,7 @@ module BirdSceneCheck
   super
   @checked_phases||={}
   if @phase==:sleep && @time>0.9 && !@checked_phases[:sleep]
-   raise 'early initialization' if Tidebound::Opening.flags[:opening_started]
+   raise 'early initialization' if Tidebound.story[:opening_started]
    test_shot('asleep');@checked_phases[:sleep]=true
   elsif @phase==:eye && @time>2.3 && !@checked_phases[:eye]
    test_shot('eye');@checked_phases[:eye]=true
@@ -56,7 +56,7 @@ module BirdSceneCheck
    $bird_test_direction=@test_route.empty? ? 0 : @test_route.first[0]
   elsif @phase==:arrival && !@checked_phases[:arrival]
    test_shot('bedside');@checked_phases[:arrival]=true
-   raise 'goal/room initialization' unless @cell==Tidebound::BirdPrelude::GOAL && !Tidebound::Opening.flags[:opening_started]
+   raise 'goal/room initialization' unless @cell==Tidebound::BirdPrelude::GOAL && !Tidebound.story[:opening_started]
    File.write('BIRD_SCENE_PASS.txt','PASS: sleep/eye/caption, native input, void collision, dead-end return, bedside approach. No premature room initialization.')
   end
  end
@@ -66,12 +66,12 @@ module BirdRoomCheck
  def update
   super
   return if @bird_checked || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
-  return unless Tidebound::Opening.flags[:opening_started]
+  return unless Tidebound.story[:opening_started]
   @bird_checked=true;mode=ENV['TB_BIRD_MODE'] || 'new';o=Tidebound::Opening
   if mode=='legacy'
-   raise 'replayed prelude' if o.flags[:bird_prelude_seen]
+   raise 'replayed prelude' if Tidebound.story[:bird_prelude_seen]
   else
-   raise 'room transfer' unless $game_map.map_id==115 && o.flags[:bird_prelude_seen] && o.flags[:dream_room][:phase]==:sealed
+   raise 'room transfer' unless $game_map.map_id==115 && Tidebound.story[:bird_prelude_seen] && Tidebound.story[:dream_room][:phase]==:sealed
    raise 'human/supplies/household' unless $bag.quantity(:RARECANDY)==99 && $player.party.empty? && o.household_pets.keys.sort==[:MAKUHITA,:NATU,:POOCHYENA].sort
    raise 'avatar invisible' unless $game_player.opacity==255
    if mode=='new'

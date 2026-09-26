@@ -1,3 +1,4 @@
+from .registry import MAPS, ACTORS
 """Cellar, vault, docks and museum definitions and entrance connections."""
 from .model import Map, RoadMap, tile
 from .dock_details import apply as detail_docks
@@ -6,14 +7,14 @@ def connect(home, road):
     # Add cellar and dock entrances to their owning areas.
     home.stamp(1,237,2,2,3,11,walk=True)
     home.event('Cellar stairs',3,12,'Tidebound::VaultVisit.stairs',trigger=1)
-    home.event('Seller at home',14,12,'pbMessage("Seller: Your mother has a better head for keys than I do.")','NPC 10',opacity=0)
+    home.event(ACTORS["seller_at_home"],14,12,'pbMessage("Seller: Your mother has a better head for keys than I do.")','NPC 10',opacity=0)
     # The city starts immediately beside the existing storehouse.
     road.rect(37,42,8,3,tile(2,27),walk=True)
     road.event('Dock city',44,43,'Tidebound::VaultVisit.city_gate',trigger=1)
     road.event('Dock road sign',42,41,'pbMessage("DOCKS AND MUSEUM - EAST")')
 
 def build_basement():
-    basement=Map(110,'The Lighthouse Cellar',26,20,3)
+    basement=Map(MAPS["basement"],'The Lighthouse Cellar',26,20,3)
     basement.rect(3,4,20,13,tile(1,81),walk=True)
     basement.rect(3,2,20,2,tile(1,13),walk=False)
     for x in range(3,23,4):basement.stamp(0,0,4,2,x,1)
@@ -31,15 +32,15 @@ def build_basement():
     return basement
 
 def build_vault():
-    vault=Map(111,'The Lighthouse Vault',28,22,3)
+    vault=Map(MAPS["vault"],'The Lighthouse Vault',28,22,3)
     vault.rect(3,3,22,16,tile(1,81),walk=True)
     vault.rect(3,2,22,2,tile(1,13),walk=False)
     for x in range(3,24,4):vault.stamp(0,0,4,2,x,1)
     for x in [4,8,19,23]:vault.stamp(0,140,2,3,x,4)
     for x,y in [(5,10),(21,10),(5,15),(21,15)]:
         vault.event('Vault pillar',x,y,'pbMessage("The stone is cold and worn smooth at shoulder height.")',blocks=True)
-    vault.event('Mother at vault',13,8,'pbMessage("Mother: The museum is along the quay. Keep to the lit road, love.")','NPC 11')
-    vault.event('Seller at vault',11,8,'pbMessage("Seller: Tell them I sent you. It will not get you a discount. Entry is free.")','NPC 10')
+    vault.event(ACTORS["mother_at_vault"],13,8,'pbMessage("Mother: The museum is along the quay. Keep to the lit road, love.")','NPC 11')
+    vault.event(ACTORS["seller_at_vault"],11,8,'pbMessage("Seller: Tell them I sent you. It will not get you a discount. Entry is free.")','NPC 10')
     vault.event('Necklace drawer',12,6,'pbMessage("A shallow drawer, now locked. The seller\'s necklace rests inside, wrapped in cloth.")',blocks=True)
     vault.event('Empty bays',20,6,'pbMessage("Numbered shelves. Most are empty. There is space here for much more than one household could need.")')
     vault.event('Cabinet locks',6,6,'pbMessage("Small brass locks. Mother has kept the keys.")')
@@ -52,7 +53,7 @@ def build_vault():
     return vault
 
 def build_docks():
-    docks=RoadMap(112,'The Docks',80,64,1,96)
+    docks=RoadMap(MAPS["docks"],'The Docks',80,64,1,96)
     docks.polygon([(9,15),(62,15),(62,39),(55,44),(16,44),(9,35)],tile(2,27))
     docks.rect(9,26,47,5,tile(2,27),walk=True)
     docks.rect(10,26,3,5,tile(2,13),walk=True)
@@ -61,7 +62,7 @@ def build_docks():
     for yy in range(4):
         for xx,sx in enumerate([4,5,5,5,5,5,6,7]):docks.rect(28+xx,18+yy,1,1,tile(sx,223+yy),z=1,walk=False)
     docks.rect(31,21,1,1,tile(4,226),z=1,walk=True)
-    docks.event('Museum door',31,21,'Tidebound::Opening.travel(113,14,18,8)',trigger=1)
+    docks.event('Museum door',31,21,'Tidebound::World.travel(:museum,14,18,8)',trigger=1)
     docks.event('Museum sign',35,23,'pbMessage("DOCKSIDE MUSEUM. Objects from the coast. Admission free. Please wipe your shoes.")')
     for x,y in [(16,17),(43,17),(53,20)]:docks.stamp(0,227,4,4,x,y)
     for x,y in [(44,30),(45,30),(48,33),(50,33),(18,33)]:
@@ -82,7 +83,7 @@ def build_docks():
     return docks
 
 def build_museum():
-    museum=Map(113,'Dockside Museum',30,24,3)
+    museum=Map(MAPS["museum"],'Dockside Museum',30,24,3)
     museum.rect(3,3,24,18,tile(1,81),walk=True)
     museum.rect(3,2,24,2,tile(1,13),walk=False)
     for x in range(3,27,4):museum.stamp(0,0,4,2,x,1)

@@ -30,28 +30,28 @@ end
 def walk(pier=false)
   o=Tidebound::Opening
   o.bedroom_pet; o.bedroom_exit; o.home_arrival
-  o.travel_coast(8,16); o.pookie
+  Tidebound::World.travel_coast(8,16); o.pookie
   if pier
-    $game_player.moveto(*o.coast_xy(34,20)); walk_step_fixture; o.pier_run
-    check(o.flags[:walk_state]==:at_pier,"dog didn't run")
-    before=o.flags[:walk_steps]; 10.times {walk_step_fixture}
-    check(o.flags[:walk_steps]==before,"unaccompanied steps count")
+    $game_player.moveto(*Tidebound::World.coast_xy(34,20)); walk_step_fixture; o.pier_run
+    check(Tidebound.story[:walk_state]==:at_pier,"dog didn't run")
+    before=Tidebound.story[:walk_steps]; 10.times {walk_step_fixture}
+    check(Tidebound.story[:walk_steps]==before,"unaccompanied steps count")
     roundtrip
-    o.travel(101,10,12); o.home_arrival
-    check(o.flags[:walk_state]==:at_pier,"left dog at pier")
-    o.travel_coast(44,20); o.pookie
+    Tidebound::World.travel(:home,10,12); o.home_arrival
+    check(Tidebound.story[:walk_state]==:at_pier,"left dog at pier")
+    Tidebound::World.travel_coast(44,20); o.pookie
   end
-  $game_player.moveto(*o.coast_xy(8,18))
-  (99-o.flags[:walk_steps]).times { walk_step_fixture }
-  o.travel(101,10,12); o.home_arrival
-  check(o.flags[:walk_state]==:following,"walk completed at 99")
+  $game_player.moveto(*Tidebound::World.coast_xy(8,18))
+  (99-Tidebound.story[:walk_steps]).times { walk_step_fixture }
+  Tidebound::World.travel(:home,10,12); o.home_arrival
+  check(Tidebound.story[:walk_state]==:following,"walk completed at 99")
   5.times {walk_step_fixture}
-  check(o.flags[:walk_steps]==99,"indoor steps count")
-  o.travel_coast(8,18);walk_step_fixture
-  check(o.flags[:walk_steps]==100,"100th step missing")
+  check(Tidebound.story[:walk_steps]==99,"indoor steps count")
+  Tidebound::World.travel_coast(8,18);walk_step_fixture
+  check(Tidebound.story[:walk_steps]==100,"100th step missing")
   roundtrip
-  o.travel(101,10,12); o.home_arrival
-  check(o.flags[:walk_state]==:complete && !Followers.get(o::POOKIE_FOLLOWER),"home completion/follower cleanup")
+  Tidebound::World.travel(:home,10,12); o.home_arrival
+  check(Tidebound.story[:walk_state]==:complete && !Followers.get(o::POOKIE_FOLLOWER),"home completion/follower cleanup")
 end
 
 o=Tidebound::Opening
@@ -65,29 +65,29 @@ o=Tidebound::Opening
   o.house_pet(species); check($player.party.empty?,"early choice")
   o.forest_gate; check($game_map.map_id!=103,"early forest")
   walk(index==1)
-  check(!!o.flags[:walk_pier_seen] == (index==1),"pier was mandatory/repeated")
-  check(!o.flags[:lamp_lit] && !o.flags[:oil_requested],"oil precedes choice")
+  check(!!Tidebound.story[:walk_pier_seen] == (index==1),"pier was mandatory/repeated")
+  check(!Tidebound.story[:lamp_lit] && !Tidebound.story[:oil_requested],"oil precedes choice")
   $choices=[false];o.house_pet(species);check($player.party.empty?,"cancel chose pet")
   chosen=o.household_pets[species]; id=Tidebound.identity(chosen)
   $player.name="Test Ren"; $choices=[true];o.house_pet(species)
   check($player.party==[chosen] && chosen.owner.name=="Test Ren" && Tidebound.identity(chosen)==id,"wrong individual")
-  check(o.household_pets.size==2 && $bag.quantity(:POKEBALL)==8 && o.flags[:oil_requested],"selection supplies/oil")
+  check(o.household_pets.size==2 && $bag.quantity(:POKEBALL)==8 && Tidebound.story[:oil_requested],"selection supplies/oil")
   o::HOUSE_PETS.each_key { |s| o.house_pet(s) }
   check($player.party.size==1 && $bag.quantity(:POKEBALL)==8,"duplicate starter/supplies")
-  o.travel_coast(21,12);Tidebound::Interactions.shop_door;check($game_map.map_id==102,"shop unlocked early")
-  Tidebound::Interactions.outside_seller;check(o.flags[:keys_requested],"keys quest absent")
-  Tidebound::Interactions.oil_seller;check(!o.flags[:oil_collected],"oil outside")
+  Tidebound::World.travel_coast(21,12);Tidebound::Interactions.shop_door;check($game_map.map_id==102,"shop unlocked early")
+  Tidebound::Interactions.outside_seller;check(Tidebound.story[:keys_requested],"keys quest absent")
+  Tidebound::Interactions.oil_seller;check(!Tidebound.story[:oil_collected],"oil outside")
   o.forest_gate; check($game_map.map_id==103,"forest requires lamp")
   o.forest_keys;o.forest_keys
   check($bag.quantity(:TIDEBOUNDOILKEYS)==1,"missing/duplicate keys")
   check(GameData::Item.get(:TIDEBOUNDOILKEYS).is_key_item?,"not a Key Item")
   roundtrip;check($bag.has?(:TIDEBOUNDOILKEYS),"keys not saved")
-  o.travel_coast(21,12);Tidebound::Interactions.outside_seller
-  check(o.flags[:shop_unlocked] && !$bag.has?(:TIDEBOUNDOILKEYS),"unlock exchange")
-  Tidebound::Interactions.outside_seller;check(!o.flags[:oil_collected],"oil without entering")
+  Tidebound::World.travel_coast(21,12);Tidebound::Interactions.outside_seller
+  check(Tidebound.story[:shop_unlocked] && !$bag.has?(:TIDEBOUNDOILKEYS),"unlock exchange")
+  Tidebound::Interactions.outside_seller;check(!Tidebound.story[:oil_collected],"oil without entering")
   Tidebound::Interactions.shop_door;check($game_map.map_id==106,"shop didn't open")
-  Tidebound::Interactions.oil_seller;o.travel(101,10,12);Tidebound::Interactions.mother;o.main_lamp
-  check(o.flags[:lamp_lit],"oil/lamp continuation")
+  Tidebound::Interactions.oil_seller;Tidebound::World.travel(:home,10,12);Tidebound::Interactions.mother;o.main_lamp
+  check(Tidebound.story[:lamp_lit],"oil/lamp continuation")
   puts "PASS: #{species}; #{index==1 ? 'optional pier' : 'no pier'}; 99/100 steps, return, identity, keys/save/unlock/oil."
 end
 

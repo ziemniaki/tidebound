@@ -42,7 +42,7 @@ class Scene_TideboundBirdPrelude
     until @finished
       Graphics.update;Input.update;update
     end
-    Tidebound::Opening.flags[:bird_prelude_seen]=true
+    Tidebound.story[:bird_prelude_seen]=true
     Graphics.freeze
     $game_map.autoplay
     $scene=@return_scene

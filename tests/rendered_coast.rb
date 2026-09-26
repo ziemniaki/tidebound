@@ -13,7 +13,7 @@ module TideboundCoastInput
 end
 Input.singleton_class.prepend(TideboundCoastInput)
 EventHandlers.add(:on_frame_update,:coast_capture_lapras,proc {
-  if Tidebound::Opening.lapras_visible && Tidebound::Opening.lapras_alpha.to_i>=135 && !$tb_lapras_shot
+  if Tidebound::SeaGlimpse.visible && Tidebound::SeaGlimpse.alpha.to_i>=135 && !$tb_lapras_shot
     b=Graphics.snap_to_bitmap;b.to_file('lapras.png');b.dispose;$tb_lapras_shot=true
   end
 })
@@ -33,19 +33,19 @@ module TideboundCoastCheck
     super
     return if @coast_check || !$player || !$game_map || $game_map.map_id!=107
     o=Tidebound::Opening
-    return unless o.flags[:opening_started]
+    return unless Tidebound.story[:opening_started]
     return if pbMapInterpreterRunning? || $game_temp.message_window_showing
     @coast_check=true
     puts 'COAST: start'
     # The unchanged bedroom and hall were rendered in 0.4. Focus on changed coast.
-    o.flags.merge!({:bedroom_talk=>true,:hall_talk=>true,:walk_state=>:requested})
-    o.travel_coast(5,11);shot('lighthouse')
-    o.travel_coast(15,19);shot('causeway')
-    o.travel_coast(28,22);shot('beach')
-    o.travel_coast(10,16);o.pookie
-    o.flags[:walk_steps]=98
+    Tidebound.story.merge!({:bedroom_talk=>true,:hall_talk=>true,:walk_state=>:requested})
+    Tidebound::World.travel_coast(5,11);shot('lighthouse')
+    Tidebound::World.travel_coast(15,19);shot('causeway')
+    Tidebound::World.travel_coast(28,22);shot('beach')
+    Tidebound::World.travel_coast(10,16);o.pookie
+    Tidebound.story[:walk_steps]=98
     coast_step('down');coast_step('left')
-    raise 'walk distance' unless o.flags[:walk_steps]==100 && Followers.get(o::POOKIE_FOLLOWER)
+    raise 'walk distance' unless Tidebound.story[:walk_steps]==100 && Followers.get(o::POOKIE_FOLLOWER)
     raise 'save follower' unless Game.save('coast-following.rxdata')
     data=SaveData.get_data_from_file('coast-following.rxdata')
     data[:tidebound].story.delete(:coast_revision)
@@ -62,22 +62,22 @@ module TideboundCoastCheck
     gp.instance_variable_set(:@x,17);gp.instance_variable_set(:@y,12)
     data[:global_metadata].followers.each { |f| f.x=16;f.y=12 }
     File.binwrite('legacy-water.rxdata',Marshal.dump(data))
-    o.travel_coast(33,20);coast_step('right')
-    raise 'pier run' unless o.flags[:walk_state]==:at_pier && [o.actor('Pookie outside').x,o.actor('Pookie outside').y]==o.coast_xy(*o::POOKIE_PIER)
-    raise 'unseen presence visible' if o.lapras_visible || o.flags[:lapras_glimpsed]
-    o.coast_camera_to(*o.coast_xy(53,20));shot('pier');o.coast_camera_home
+    Tidebound::World.travel_coast(33,20);coast_step('right')
+    raise 'pier run' unless Tidebound.story[:walk_state]==:at_pier && [Tidebound::World.actor(:pookie_outside).x,Tidebound::World.actor(:pookie_outside).y]==Tidebound::World.coast_xy(*o::POOKIE_PIER)
+    raise 'unseen presence visible' if o.lapras_visible || Tidebound.story[:lapras_glimpsed]
+    Tidebound::World.coast_camera_to(*Tidebound::World.coast_xy(53,20));shot('pier');Tidebound::World.coast_camera_home
     raise 'save pier' unless Game.save('coast-pier.rxdata')
-    o.travel_coast(52,20);o.pookie;o.travel(101,10,12);o.home_arrival
-    raise 'return home' unless o.flags[:walk_state]==:complete
+    Tidebound::World.travel_coast(52,20);o.pookie;Tidebound::World.travel(:home,10,12);o.home_arrival
+    raise 'return home' unless Tidebound.story[:walk_state]==:complete
     o.house_pet(:NATU)
-    o.travel_coast(21,12);Tidebound::Interactions.outside_seller;o.forest_gate
+    Tidebound::World.travel_coast(21,12);Tidebound::Interactions.outside_seller;o.forest_gate
     raise 'forest gate' unless $game_map.map_id==103
-    o.forest_keys;o.travel_coast(21,12);Tidebound::Interactions.outside_seller
-    raise 'seller entry' unless [o.actor('Seller outside').x,o.actor('Seller outside').y]==o.coast_xy(21,11)
-    Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller;o.travel(101,10,12);Tidebound::Interactions.mother;o.travel(104,6,9);o.main_lamp
-    o.travel_coast(53,20);o.pier
-    raise 'Lapras scene' unless o.flags[:lapras_glimpsed] && !o.lapras_visible && $tb_lapras_shot
-    x,y=o.camera_position($game_player.x,$game_player.y)
+    o.forest_keys;Tidebound::World.travel_coast(21,12);Tidebound::Interactions.outside_seller
+    raise 'seller entry' unless [Tidebound::World.actor(:seller_outside).x,Tidebound::World.actor(:seller_outside).y]==Tidebound::World.coast_xy(21,11)
+    Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller;Tidebound::World.travel(:home,10,12);Tidebound::Interactions.mother;Tidebound::World.travel(:lantern,6,9);o.main_lamp
+    Tidebound::World.travel_coast(53,20);o.pier
+    raise 'Lapras scene' unless Tidebound.story[:lapras_glimpsed] && !o.lapras_visible && $tb_lapras_shot
+    x,y=Tidebound::World.camera_position($game_player.x,$game_player.y)
     raise 'camera not restored' unless ($game_map.display_x-x).abs<1 && ($game_map.display_y-y).abs<1
     raise 'font config regression' unless File.read('mkxp.json').include?('"fontHeightReporting": 1')
     raise 'save ending' unless Game.save('coast-complete.rxdata')

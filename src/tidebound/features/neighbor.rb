@@ -14,13 +14,11 @@ module Tidebound
       attr_accessor :busy,:meal_visible,:meal_eaten,:pearl_visible,:pearl_glint
     end
     module_function
-    def q; Opening.flags[:neighbor_quest] ||= {}; end
+    def q; Tidebound.story[:neighbor_quest] ||= {}; end
     def stage; q[:stage]; end
-    def actor(name); Opening.actor(name); end
     def say(*lines); lines.each { |s| pbMessage(s) }; end
-    def animate(e,route); Opening.animate(e,route); end
     def hint
-      return nil unless Opening.flags[:oil_collected]
+      return nil unless Tidebound.story[:oil_collected]
       case stage
       when nil then "The oil seller has something else for us. Speak to him inside his shop."
       when :pie then "Share the seller's pie with Mother."
@@ -42,7 +40,7 @@ module Tidebound
       false
     end
     def offer_pie
-      return if stage || !Opening.flags[:oil_collected] || !Opening.flags[:shop_unlocked]
+      return if stage || !Tidebound.story[:oil_collected] || !Tidebound.story[:shop_unlocked]
       unless $bag.add(PIE,1)
         say("Seller: I've a pie for you and your mother, too. Make a little room; I'll keep it here.")
         return
@@ -59,9 +57,9 @@ module Tidebound
       return unless stage==:pie && $bag.has?(PIE) && $game_map.map_id==101
       return unless exchange(PIE,PLATE)
       q[:stage]=:plate; self.busy=true
-      mother=actor("Mother")
+      mother=Tidebound::World.actor(:mother)
       species=Opening.household_pets.key?(:NATU) ? :NATU : :MAKUHITA
-      pet=Opening.household_pets.key?(species) ? actor("House:#{species}") : nil
+      pet=Opening.household_pets.key?(species) ? Tidebound::World.actor(:"house_#{species.to_s.downcase}") : nil
       saved=[mother,pet,$game_player].compact.map { |e| [e,e.x,e.y,e.direction,e.through] }
       say("Mother: Oh. He still makes these?","Mother: I haven't had one in such a long time. Put it here, love. We'll have a little together.")
       pbFadeOutIn do
@@ -71,7 +69,7 @@ module Tidebound
         self.meal_eaten=false; self.meal_visible=true
       end
       say("The crust flakes onto the plate. Mother catches a crumb with her thumb, then gives you the larger slice.")
-      animate(pet,[PBMoveRoute::UP,PBMoveRoute::TURN_UP])
+      Tidebound::World.animate(pet,[PBMoveRoute::UP,PBMoveRoute::TURN_UP])
       if species==:NATU && pet
         say("Wick inches closer. His eyes follow every journey of the fork.","Mother: I see you, little gentleman. There's a crumb with your name on it.")
       elsif pet
@@ -91,18 +89,18 @@ module Tidebound
     def robbery
       return unless stage==:plate && $bag.has?(PLATE) && $game_map.map_id==102
       self.busy=true
-      $game_player.moveto(*Opening.coast_xy(23,14)); $game_player.turn_left
-      one=actor("Robbery youth one"); two=actor("Robbery youth two"); seller=actor("Seller outside")
-      [one,two].compact.each { |e| e.moveto(*Opening.coast_xy(21,11)); e.through=true; e.opacity=255 }
+      $game_player.moveto(*Tidebound::World.coast_xy(23,14)); $game_player.turn_left
+      one=Tidebound::World.actor(:robbery_youth_one); two=Tidebound::World.actor(:robbery_youth_two); seller=Tidebound::World.actor(:seller_outside)
+      [one,two].compact.each { |e| e.moveto(*Tidebound::World.coast_xy(21,11)); e.through=true; e.opacity=255 }
       say("A crash inside the shop. The door bangs open.")
-      animate(one,[PBMoveRoute::CHANGE_SPEED,5,PBMoveRoute::DOWN,PBMoveRoute::DOWN]+[PBMoveRoute::RIGHT]*3+[PBMoveRoute::DOWN]*5)
+      Tidebound::World.animate(one,[PBMoveRoute::CHANGE_SPEED,5,PBMoveRoute::DOWN,PBMoveRoute::DOWN]+[PBMoveRoute::RIGHT]*3+[PBMoveRoute::DOWN]*5)
       say("Boy: Hurry up!","Other boy: I AM hurrying! You try running with pockets!")
       route=[PBMoveRoute::CHANGE_SPEED,5]+[PBMoveRoute::DOWN]*2+[PBMoveRoute::RIGHT]*3+[PBMoveRoute::DOWN]*9+[PBMoveRoute::RIGHT]*6+[PBMoveRoute::DOWN]*8
       pbMoveRoute(two,route) if two
       pbMoveRoute(one,[PBMoveRoute::CHANGE_SPEED,5]+[PBMoveRoute::DOWN]*4+[PBMoveRoute::RIGHT]*6+[PBMoveRoute::DOWN]*8) if one
-      if seller; seller.moveto(*Opening.coast_xy(21,11)); seller.opacity=255; seller.through=true; end
+      if seller; seller.moveto(*Tidebound::World.coast_xy(21,11)); seller.opacity=255; seller.through=true; end
       say("Seller: HEY! GET BACK HERE, YOU LITTLE--")
-      animate(seller,[PBMoveRoute::CHANGE_SPEED,3,PBMoveRoute::DOWN,PBMoveRoute::DOWN,PBMoveRoute::RIGHT])
+      Tidebound::World.animate(seller,[PBMoveRoute::CHANGE_SPEED,3,PBMoveRoute::DOWN,PBMoveRoute::DOWN,PBMoveRoute::RIGHT])
       say("He grips the wall. His next step won't come.","Seller: Oh, damn these legs.")
       deadline=System.uptime+20
       while [one,two].compact.any?(&:move_route_forcing)
@@ -110,7 +108,7 @@ module Tidebound
         pbWait(0.025)
       end
       [one,two].compact.each { |e| e.opacity=0 }
-      animate(seller,[PBMoveRoute::TURN_DOWN])
+      Tidebound::World.animate(seller,[PBMoveRoute::TURN_DOWN])
       say("Seller: ...you brought my plate back.","Seller: Thank you. Here, let me take that.")
       $bag.remove(PLATE,1); q[:stage]=:pursuit
       say("Seller: A pearl necklace. That's what they've taken. Of all the things in there.",
@@ -123,38 +121,25 @@ module Tidebound
     def south_gate
       unless [:pursuit,:necklace,:complete].include?(stage)
         say("The coast road winds south beyond the village. There is something to finish close to home first.")
-        $game_player.moveto(*Opening.coast_xy(30,30)); $game_player.turn_up
+        $game_player.moveto(*Tidebound::World.coast_xy(30,30)); $game_player.turn_up
         return
       end
-      Opening.travel(108,18,5,2)
+      Tidebound::World.travel(:road,18,5,2)
     end
     def wild_visible?(name); !q[(name.split(":").last+"_gone").to_sym]; end
     def wild(id)
       return if q[(id.to_s+"_gone").to_sym]
       species,level=WILDS.fetch(id)
       label=species==:NATU ? "A Natu picks between the wind-bent flowers." : "A Zigzagoon noses through an empty sack."
-      return unless pbConfirmMessage(label+" Approach?") && able?
-      result=Opening.fight(species,level)
+      return unless pbConfirmMessage(label+" Approach?") && Tidebound::Encounters.able?
+      result=Tidebound::Encounters.fight(species,level)
       q[(id.to_s+"_gone").to_sym]=true if [1,4].include?(result)
     end
-    def able?
-      return true if Tidebound.state.realm==:living && $player.able_pokemon_count>0
-      say("Your companions need a little strength before facing anyone. A travelling ninja's fire can help.")
-      false
-    end
-    def trainer(id)
-      type,name,loss,team=ROSTERS.fetch(id); foe=NPCTrainer.new(name,type); foe.lose_text=loss
-      team.each do |species,level,moves|
-        p=Pokemon.new(species,level,foe); p.moves.clear
-        moves.each { |move| p.learn_move(move) }; foe.party << p
-      end
-      foe
-    end
     def battle(id)
-      return 0 unless able?
-      outcome=Tidebound.trainer!(trainer(id))
+      return 0 unless Tidebound::Encounters.able?
+      outcome=Tidebound.trainer!(Tidebound::Encounters.trainer(*ROSTERS.fetch(id)))
       if outcome==:astral
-        say("The sound of the world draws away."); Opening.travel(105,15,21,8)
+        say("The sound of the world draws away."); Tidebound::World.travel(:astral,15,21,8)
       end
       outcome
     end
@@ -164,17 +149,17 @@ module Tidebound
       return unless battle(:first)==1
       q[:first_won]=true
       say("Boy: ...good thing I don't have it.","Boy: I mean-- Look over there!")
-      thief=actor("Road thief"); thief.through=true if thief
-      animate(thief,[PBMoveRoute::CHANGE_SPEED,5,PBMoveRoute::DOWN,PBMoveRoute::DOWN]+[PBMoveRoute::RIGHT]*3)
+      thief=Tidebound::World.actor(:road_thief); thief.through=true if thief
+      Tidebound::World.animate(thief,[PBMoveRoute::CHANGE_SPEED,5,PBMoveRoute::DOWN,PBMoveRoute::DOWN]+[PBMoveRoute::RIGHT]*3)
       thief.opacity=0 if thief
       say("He runs south before you can point out what he just said.")
     end
     def witness_hideout
       return unless stage==:pursuit && q[:first_won] && !q[:hideout_seen]
-      self.busy=true; boy=actor("Running thief")
+      self.busy=true; boy=Tidebound::World.actor(:running_thief)
       if boy; boy.through=true; boy.opacity=255; end
       say("The other boy! He stops at the old storehouse and glances behind him.")
-      animate(boy,[PBMoveRoute::CHANGE_SPEED,4]+[PBMoveRoute::RIGHT]*4+[PBMoveRoute::UP]*2)
+      Tidebound::World.animate(boy,[PBMoveRoute::CHANGE_SPEED,4]+[PBMoveRoute::RIGHT]*4+[PBMoveRoute::UP]*2)
       if boy; boy.opacity=0; boy.through=true; end
       say("A voice inside: Shut that door! You're letting the packing blow about!")
       q[:hideout_seen]=true
@@ -186,7 +171,7 @@ module Tidebound
         say("The door is barred inside. Someone is still coming down the road.")
         $game_player.moveto(35,42); $game_player.turn_down; return
       end
-      witness_hideout; Opening.travel(109,11,14,8)
+      witness_hideout; Tidebound::World.travel(:hideout,11,14,8)
     end
     def packer; say("Packer: If I put 'assorted' on every box, I can't label one wrong. Can I?"); end
     def lookout; say("Lookout: I told them we should sell things we actually own.","Lookout: Apparently that isn't the idea."); end
@@ -220,15 +205,15 @@ module Tidebound
     def sync_actors
       return if self.busy
       if $game_map.map_id==102
-        ["Robbery youth one","Robbery youth two"].each do |name|
-          e=actor(name); next unless e; e.opacity=0; e.through=true
+        [:robbery_youth_one,:robbery_youth_two].each do |name|
+          e=Tidebound::World.actor(name); next unless e; e.opacity=0; e.through=true
         end
       elsif $game_map.map_id==108
-        e=actor("Road thief")
+        e=Tidebound::World.actor(:road_thief)
         if e
           visible=stage==:pursuit && !q[:first_won]; e.opacity=visible ? 255 : 0; e.through=!visible
         end
-        e=actor("Running thief"); if e; e.opacity=0; e.through=true; end
+        e=Tidebound::World.actor(:running_thief); if e; e.opacity=0; e.through=true; end
       end
     end
   end

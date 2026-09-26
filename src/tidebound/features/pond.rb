@@ -2,7 +2,14 @@
 GameData::EncounterType.register(id: :PondGrass, type: :land, trigger_chance: 18)
 module Tidebound::Pond
   module_function
-  def flags; Tidebound::Opening.flags[:pond] ||= {}; end
+  def flags; Tidebound.story[:pond] ||= {}; end
+  def psyduck
+    return if flags[:shoreduck_gone]
+    return unless pbConfirmMessage("A Psyduck watches the shallows, holding its head. Approach?")
+    return unless Tidebound::Encounters.able?
+    outcome=Tidebound::Encounters.fight(:PSYDUCK,8)
+    flags[:shoreduck_gone]=true if [1,4].include?(outcome)
+  end
   def here?; $game_map && $game_map.map_id==108; end
   def water?(x,y); Tidebound::PondGeometry::WATER.include?([x,y]); end
   def say(*lines); lines.each { |line| pbMessage(line) }; end
@@ -24,12 +31,11 @@ module Tidebound::Pond
     name,team,invite,defeat,after=FISHERS.fetch(id)
     return say(after) if flags[id]
     return unless pbConfirmMessage(invite)
-    return unless Tidebound::NeighborQuest.able?
-    foe=NPCTrainer.new(name,:FISHERMAN);foe.lose_text=defeat
-    team.each { |species,level| foe.party<<Pokemon.new(species,level,foe) }
+    return unless Tidebound::Encounters.able?
+    foe=Tidebound::Encounters.trainer(:FISHERMAN, name, defeat, team)
     result=Tidebound.trainer!(foe)
     if result==:astral
-      Tidebound::Opening.travel(105,15,21,8)
+      Tidebound::World.travel(:astral,15,21,8)
     elsif result==1
       flags[id]=true;say(defeat,after)
     end

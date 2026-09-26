@@ -27,17 +27,17 @@ class TideboundCompanionSprite < PokemonIconSprite
     elsif @house_species
       self.visible = !!Tidebound::Opening.household_pets[@house_species]
       if @outside_dog
-        self.visible &&= [:not_started, :requested, :running, :at_pier].include?(Tidebound::Opening.flags[:walk_state])
+        self.visible &&= [:not_started, :requested, :running, :at_pier].include?(Tidebound.story[:walk_state])
       elsif @map_event.name == "Room:NATU"
-        self.visible &&= Tidebound::Opening.flags[:walk_state] != :complete
+        self.visible &&= Tidebound.story[:walk_state] != :complete
         self.visible &&= Tidebound::DreamRoom.wick_visible? if @map_event.map_id == 115
       elsif @house_species != :MAKUHITA
-        self.visible &&= Tidebound::Opening.flags[:walk_state] == :complete
+        self.visible &&= Tidebound.story[:walk_state] == :complete
       end
       self.opacity = 255
       self.opacity = Tidebound::DreamRoom.wick_alpha || 255 if @map_event.map_id == 115 && @house_species == :NATU
     else
-      self.visible = @map_event.name.count(":") > 1 ? Tidebound::NeighborQuest.wild_visible?(@map_event.name) : !Tidebound::Opening.flags[:wood_bird_gone]
+      self.visible = @map_event.name.count(":") > 1 ? (@map_event.name.end_with?(":shoreduck") ? !Tidebound::Pond.flags[:shoreduck_gone] : Tidebound::NeighborQuest.wild_visible?(@map_event.name)) : !Tidebound.story[:wood_bird_gone]
       self.opacity = 255
     end
     @map_event.through = !self.visible unless @map_event.move_route_forcing
@@ -77,7 +77,7 @@ class TideboundLampSprite < Sprite
     self.y = @map_event.screen_y
     self.z = @map_event.screen_z
     self.opacity = 230 + (Math.sin(System.uptime * (@fire ? 8 : 1.2)) * 20).to_i
-    self.opacity = 145 if @map_event.name == "Main lamp" && !Tidebound::Opening.flags[:lamp_lit]
+    self.opacity = 145 if @map_event.name == "Main lamp" && !Tidebound.story[:lamp_lit]
   end
 
   def dispose
@@ -102,11 +102,11 @@ class TideboundLaprasSprite < PokemonIconSprite
   end
   def update
     super
-    self.visible = !!Tidebound::Opening.lapras_visible
+    self.visible = !!Tidebound::SeaGlimpse.visible
     self.x = @map_event.screen_x
     self.y = @map_event.screen_y + (Math.sin(System.uptime) * 4).to_i
     self.z = @map_event.screen_z
-    self.opacity = Tidebound::Opening.lapras_alpha.to_i
+    self.opacity = Tidebound::SeaGlimpse.alpha.to_i
   end
   def dispose
     super
@@ -116,7 +116,7 @@ end
 
 EventHandlers.add(:on_new_spriteset_map, :tidebound_event_sprites,
   proc { |spriteset, viewport|
-    next unless Tidebound::Opening::MAP_IDS.include?(spriteset.map.map_id)
+    next unless Tidebound::World::MAP_IDS.include?(spriteset.map.map_id)
     spriteset.addUserSprite(TideboundPookieFollowerSprite.new(viewport))
     spriteset.map.events.each_value do |event|
       sprite = case event.name
@@ -186,7 +186,7 @@ class TideboundPookieFollowerSprite < PokemonIconSprite
   def update
     super
     follower = Followers.get(Tidebound::Opening::POOKIE_FOLLOWER)
-    self.visible = !!(follower && Tidebound::Opening.flags[:walk_state] == :following)
+    self.visible = !!(follower && Tidebound.story[:walk_state] == :following)
     return unless self.visible
     follower.opacity = 0 # Native movement/save object; our icon supplies its art.
     self.x = follower.screen_x
@@ -224,7 +224,7 @@ class TideboundPropSprite < Sprite
     self.y = @map_event.screen_y
     self.z = @map_event.screen_z
     if @key
-      self.visible = !Tidebound::Opening.flags[:keys_collected] && !Tidebound::Opening.flags[:shop_unlocked]
+      self.visible = !Tidebound.story[:keys_collected] && !Tidebound.story[:shop_unlocked]
       @map_event.through = !self.visible
       self.opacity = 205 + (Math.sin(System.uptime * 3) * 50).to_i
     elsif !@map_event.move_route_forcing
@@ -250,7 +250,7 @@ class TideboundSleepSprite < Sprite
   end
   def update
     super
-    self.visible = [:not_started, :requested].include?(Tidebound::Opening.flags[:walk_state])
+    self.visible = [:not_started, :requested].include?(Tidebound.story[:walk_state])
     self.x = @map_event.screen_x + 5
     self.y = @map_event.screen_y - 42 + (Math.sin(System.uptime) * 2).to_i
     self.z = @map_event.screen_z + 1
@@ -306,3 +306,12 @@ class TideboundCoastProp < Sprite
     super
   end
 end
+
+EventHandlers.add(:on_new_spriteset_map,:tidebound_coast_props,
+  proc { |spriteset,viewport|
+    next unless [102,108,110,112].include?(spriteset.map.map_id)
+    spriteset.map.events.each_value do |event|
+      next unless event.name.start_with?("Coast lamp:") || ["Sea glass","Tide bell","Mooring rope"].include?(event.name)
+      spriteset.addUserSprite(TideboundCoastProp.new(event,viewport))
+    end
+  })

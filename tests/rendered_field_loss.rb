@@ -23,7 +23,7 @@ module FieldView
     @fields_checked=true
     p=$player.party.first;id=Tidebound.identity(p)
     p.hp=1
-    Tidebound::Opening.travel(108,30,18)
+    Tidebound::World.travel(:road,30,18)
     outcome=WildBattle.start(:EKANS,100,can_override:true)
     raise 'did not lose' unless outcome==2 && Tidebound.state.realm==:astral && $game_map.map_id==105
     soul=Tidebound.state.souls.first

@@ -21,7 +21,7 @@ module TideboundRenderedSmoke
   def update
     super
     return if @tb_smoke_started || !$player || !$game_map || $game_map.map_id != 107
-    return unless Tidebound::Opening.flags[:opening_started]
+    return unless Tidebound.story[:opening_started]
     return if pbMapInterpreterRunning? || $game_temp.message_window_showing
     @tb_smoke_started = true
     o=Tidebound::Opening
@@ -33,54 +33,54 @@ module TideboundRenderedSmoke
     puts "RENDERED: transferred hall"
     # Native transfer starts the main hall's autorun. Let the interpreter finish.
     10.times { Graphics.update; Input.update; update }
-    raise "hall scene missing" unless o.flags[:hall_talk]
+    raise "hall scene missing" unless Tidebound.story[:hall_talk]
     tb_shot("hall")
-    o.travel(102,10,16);o.pookie
+    Tidebound::World.travel(:coast,10,16);o.pookie
     $game_player.moveto(8,18)
     $tb_no_auto_input=true
     # Real successful walking; no direct calls to the quest's counter.
     49.times { tb_step("right"); tb_step("left") }
-    raise "98 actual steps #{o.flags[:walk_steps]}" unless o.flags[:walk_steps]==98
+    raise "98 actual steps #{Tidebound.story[:walk_steps]}" unless Tidebound.story[:walk_steps]==98
     # Turns are not movement; a wall bump also must not count.
     $game_player.turn_up; $game_player.turn_down
     $game_player.moveto(10,14);$game_player.move_left
     24.times { Graphics.update; Input.update; update }
-    raise "turn/wall counted" unless o.flags[:walk_steps]==98
+    raise "turn/wall counted" unless Tidebound.story[:walk_steps]==98
     $game_player.moveto(8,18);tb_step("right")
-    raise "99th step" unless o.flags[:walk_steps]==99
+    raise "99th step" unless Tidebound.story[:walk_steps]==99
     tb_shot("pookie-following")
     raise "follower not moving" unless Followers.get(o::POOKIE_FOLLOWER).x.between?(7,9)
     raise "following save failed" unless Game.save("walking.rxdata")
     $tb_no_auto_input=false
-    o.travel(101,10,12);o.home_arrival
-    raise "early home completes" unless o.flags[:walk_state]==:following
+    Tidebound::World.travel(:home,10,12);o.home_arrival
+    raise "early home completes" unless Tidebound.story[:walk_state]==:following
     # Optional pier encounter comes from an actual step into the trigger area.
-    o.travel(102,33,20)
+    Tidebound::World.travel(:coast,33,20)
     tb_step("right")
-    raise "pier scene failed" unless o.flags[:walk_state]==:at_pier && o.actor("Pookie outside").x==45
+    raise "pier scene failed" unless Tidebound.story[:walk_state]==:at_pier && Tidebound::World.actor(:pookie_outside).x==45
     tb_shot("pookie-pier")
     raise "pier save failed" unless Game.save("pier.rxdata")
-    o.travel(101,10,12);o.home_arrival
-    raise "abandoned Pookie completed walk" unless o.flags[:walk_state]==:at_pier
-    o.travel(102,44,20);o.pookie
-    o.travel(101,10,12);o.home_arrival
-    raise "walk not complete" unless o.flags[:walk_state]==:complete
+    Tidebound::World.travel(:home,10,12);o.home_arrival
+    raise "abandoned Pookie completed walk" unless Tidebound.story[:walk_state]==:at_pier
+    Tidebound::World.travel(:coast,44,20);o.pookie
+    Tidebound::World.travel(:home,10,12);o.home_arrival
+    raise "walk not complete" unless Tidebound.story[:walk_state]==:complete
     tb_shot("family-choice")
     o.house_pet(:MAKUHITA)
     raise "starter identity/party" unless $player.party.first.species==:MAKUHITA && o.household_pets.size==2
-    o.travel(102,21,12);Tidebound::Interactions.shop_door
+    Tidebound::World.travel(:coast,21,12);Tidebound::Interactions.shop_door
     raise "shop early" unless $game_map.map_id==102
     Tidebound::Interactions.outside_seller;tb_shot("locked-shop")
     o.forest_gate;o.forest_keys
     raise "no bag keys" unless $bag.has?(:TIDEBOUNDOILKEYS)
     raise "keys save failed" unless Game.save("keys.rxdata")
     tb_shot("forest-keys")
-    o.travel(102,21,12);Tidebound::Interactions.outside_seller
-    raise "seller not hidden" unless o.actor("Seller outside").opacity==0 && o.actor("Seller outside").through
+    Tidebound::World.travel(:coast,21,12);Tidebound::Interactions.outside_seller
+    raise "seller not hidden" unless Tidebound::World.actor(:seller_outside).opacity==0 && Tidebound::World.actor(:seller_outside).through
     Tidebound::Interactions.shop_door;Tidebound::Interactions.oil_seller;tb_shot("oil-shop")
-    o.travel(101,10,12);Tidebound::Interactions.mother
-    o.travel(104,6,9);o.main_lamp;tb_shot("lamp")
-    raise "lamp failed" unless o.flags[:lamp_lit]
+    Tidebound::World.travel(:home,10,12);Tidebound::Interactions.mother
+    Tidebound::World.travel(:lantern,6,9);o.main_lamp;tb_shot("lamp")
+    raise "lamp failed" unless Tidebound.story[:lamp_lit]
     raise "final save failed" unless Game.save("opening-complete.rxdata")
     File.write("RENDERED_PASS.txt", "PASS: native bedroom/hall scenes, actual 99/100 walking, wall/turn exclusion, optional pier run, family choice, bag keys, moving seller, oil/lamp, full saves.\n")
     puts File.read("RENDERED_PASS.txt")

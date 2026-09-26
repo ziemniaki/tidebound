@@ -4,7 +4,7 @@ module Tidebound::Hideout
   def q; Tidebound::NeighborQuest.q; end
   def say(*s); Tidebound::NeighborQuest.say(*s); end
   def active?; Tidebound::NeighborQuest.stage==:pursuit; end
-  def actor; Tidebound::Opening.actor('Necklace thief'); end
+  def actor; Tidebound::World.actor(:necklace_thief); end
   def sync
     return unless $game_map && $game_map.map_id==109
     e=actor;return unless e
@@ -15,7 +15,7 @@ module Tidebound::Hideout
     e.turn_down unless seated
   end
   def arrival
-    sync;Tidebound::Opening.erase_autorun
+    sync;Tidebound::World.erase_autorun
     return unless active? && !q[:heard]
     say('You step around a bowl with something growing in it.',
         'Bram: Boss said no more taking things from houses.',
@@ -32,7 +32,7 @@ module Tidebound::Hideout
   end
   def guard
     return say('Bram: He lost. Twice. I would leave him alone for a bit.') unless active? && !q[:runner_won]
-    return unless Tidebound::NeighborQuest.able?
+    return unless Tidebound::Encounters.able?
     say('Bram: Whoa. Quiet. He is playing.',
         'Bram: Last time somebody stood in front of the glass, he made us start from the beginning.',
         'Bram: You want to bother him? Get past me first.')
@@ -87,7 +87,7 @@ module Tidebound::Hideout
       else
         say('Ivo: Yes, yes. You beat the game. You still have to beat me.')
       end
-      return unless Tidebound::NeighborQuest.able?
+      return unless Tidebound::Encounters.able?
       e=actor
       if e
         e.character_name='trainer_CAMPER';e.instance_variable_set(:@direction_fix,false)
@@ -112,7 +112,7 @@ module Tidebound::Hideout
     # The short route crosses a possible player interaction tile. Restore
     # collision afterward; never leave an invisible or through door blocker.
     through=e.through;e.through=true
-    Tidebound::Opening.animate(e,[PBMoveRoute::DOWN,PBMoveRoute::LEFT,
+    Tidebound::World.animate(e,[PBMoveRoute::DOWN,PBMoveRoute::LEFT,
       PBMoveRoute::LEFT,PBMoveRoute::LEFT,PBMoveRoute::UP,PBMoveRoute::TURN_LEFT])
   ensure
     if e
@@ -140,7 +140,7 @@ module Tidebound::Hideout
     until todo.empty?
       cell,route=todo.shift
       if cell==[13,5]
-        Tidebound::Opening.animate($game_player,route+[PBMoveRoute::TURN_UP]);return
+        Tidebound::World.animate($game_player,route+[PBMoveRoute::TURN_UP]);return
       end
       directions.each do |dx,dy,command|
         x=cell[0]+dx;y=cell[1]+dy;p=[x,y]

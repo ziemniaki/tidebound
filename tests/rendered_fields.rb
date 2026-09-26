@@ -36,10 +36,10 @@ module FieldView
     raise '900s boundary' unless f.heal_fire(:wood_fire,1900)
     raise 'other timer changed' unless f.remaining(:road_fire,1900)==100
     raise 'identity' unless Tidebound.identity(p)==id
-    o.travel_coast(8,16);shot('lighthouse')
-    o.travel_coast(22,12);shot('shop')
-    o.travel(103,17,25);shot('wood-exit')
-    o.travel(103,9,18);shot('wood-grass')
+    Tidebound::World.travel_coast(8,16);shot('lighthouse')
+    Tidebound::World.travel_coast(22,12);shot('shop')
+    Tidebound::World.travel(:forest,17,25);shot('wood-exit')
+    Tidebound::World.travel(:forest,9,18);shot('wood-grass')
     raise 'grass tag' unless $game_map.terrain_tag(6,16).land_wild_encounters
     raise 'safe path' if $game_map.terrain_tag(17,20).land_wild_encounters
     e=GameData::Encounter.get(103);raise 'forest roster' unless e.types[:Land]==[[45,:AIPOM,3,5],[40,:WEEDLE,3,5],[15,:WURMPLE,3,5]]
@@ -47,11 +47,11 @@ module FieldView
     raise 'berry pickup' unless $bag.quantity(:ORANBERRY)==before+2
     f.berry(103,12,19,:ORANBERRY)
     raise 'duplicate berry' unless $bag.quantity(:ORANBERRY)==before+2
-    o.travel(108,30,18);shot('road-grass')
+    Tidebound::World.travel(:road,30,18);shot('road-grass')
     raise 'road roster' unless GameData::Encounter.get(108).types[:Land]==[[40,:ZIGZAGOON,4,6],[35,:SUNKERN,4,6],[15,:EKANS,4,6],[10,:PSYDUCK,4,6]]
     raise 'grass disabled' unless $PokemonEncounters.encounter_possible_here?
-    o.travel(108,26,40);shot('road-fire');o.travel(108,35,42);shot('storehouse')
-    p.heal;o.travel(103,7,17)
+    Tidebound::World.travel(:road,26,40);shot('road-fire');Tidebound::World.travel(:road,35,42);shot('storehouse')
+    p.heal;Tidebound::World.travel(:forest,7,17)
     raise 'forest grass disabled' unless $PokemonEncounters.encounter_possible_here?
     # Test the actual step encounter path; make only the trigger deterministic.
     def $PokemonEncounters.encounter_triggered?(*args);true;end

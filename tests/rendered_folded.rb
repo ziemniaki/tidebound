@@ -69,14 +69,14 @@ module FoldedCheck
  def update
   super
   return if @folded_test || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
-  return unless Tidebound::Opening.flags[:opening_started]
+  return unless Tidebound.story[:opening_started]
   @folded_test=true;o=Tidebound::Opening;d=Tidebound::DreamRoom;m=Tidebound::PsychicMaze
   mode=ENV['TB_FOLDED_MODE'] || 'new'
   if ['legacy','complete'].include?(mode)
    ids=$player.party.map { |p|Tidebound.identity(p) };candies=$bag.quantity(:RARECANDY)
    raise 'old save active' if d.active?
-   o.travel(115,7,8);frames;raise 'reopened first room' unless $game_map.map_id==107
-   o.travel(116,7,22);frames;raise 'reopened second room' unless $game_map.map_id==107
+   Tidebound::World.travel(:dream,7,8);frames;raise 'reopened first room' unless $game_map.map_id==107
+   Tidebound::World.travel(:folded,7,22);frames;raise 'reopened second room' unless $game_map.map_id==107
    raise 'old save reset' unless $bag.quantity(:RARECANDY)==candies && ids==$player.party.map { |p|Tidebound.identity(p) }
   else
    id=Tidebound.identity(o.household_pets[:NATU])
@@ -96,9 +96,9 @@ module FoldedCheck
      $tb_choices=[1,2,0,0];d.bed;raise 'short sleep' unless d.q[:phase]==:sealed && at(4,7)
      $tb_choices=[-1];d.bed;raise 'cancel bed' unless at(4,7)
      $tb_choices=[6];d.bed;frames
-     raise 'wick' unless d.wick_visible? && !o.actor('Room:NATU').through
+     raise 'wick' unless d.wick_visible? && !Tidebound::World.actor('Room:NATU').through
     end
-    o.actor('Room:NATU').start;frames(40)
+    Tidebound::World.actor('Room:NATU').start;frames(40)
     raise 'second arrival' unless $game_map.map_id==116 && d.q[:phase]==:folded && at(7,22)
     shot('second-start')
     if mode=='oldroom'
@@ -127,10 +127,10 @@ module FoldedCheck
    if mode=='new'
     step('right',2);step('right',2);step('left');step('up',2)
     step('left',6);step('up',6);step('right',6);step('left');step('right')
-    o.actor('Room:NATU').start;frames(40)
-    raise 'normal bedroom' unless $game_map.map_id==107 && !m.active? && o.flags[:bedroom_talk]
+    Tidebound::World.actor('Room:NATU').start;frames(40)
+    raise 'normal bedroom' unless $game_map.map_id==107 && !m.active? && Tidebound.story[:bedroom_talk]
     $game_player.moveto(8,11);step('down')
-    raise 'hall' unless $game_map.map_id==101 && o.flags[:hall_talk] && o.flags[:walk_state]==:requested
+    raise 'hall' unless $game_map.map_id==101 && Tidebound.story[:hall_talk] && Tidebound.story[:walk_state]==:requested
     raise 'save complete' unless Game.save('folded-complete.rxdata')
    end
   end

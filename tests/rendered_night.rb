@@ -29,17 +29,17 @@ module TideboundNightView
       t=Time.local(2026,9,10,hour)
       raise 'daylight leak' unless PBDayNight.isNight?(t) && !PBDayNight.isDay?(t) && !PBDayNight.isMorning?(t) && !PBDayNight.isAfternoon?(t) && !PBDayNight.isEvening?(t) && PBDayNight.getShade==0
     end
-    o.travel_coast(5,11);night_shot('lighthouse')
+    Tidebound::World.travel_coast(5,11);night_shot('lighthouse')
     raise 'coast not night' unless $game_screen.tone.red==-80
-    o.travel_coast(28,22);night_shot('beach')
-    o.travel_coast(53,20);night_shot('pier')
-    o.travel(103,17,25);night_shot('forest')
+    Tidebound::World.travel_coast(28,22);night_shot('beach')
+    Tidebound::World.travel_coast(53,20);night_shot('pier')
+    Tidebound::World.travel(:forest,17,25);night_shot('forest')
     raise 'forest not night' unless $game_screen.tone.red==-80
-    o.travel(101,10,12);night_shot('home')
+    Tidebound::World.travel(:home,10,12);night_shot('home')
     raise 'interior lost lamplight' unless $game_screen.tone.red==-8
-    o.travel(105,15,21)
+    Tidebound::World.travel(:astral,15,21)
     raise 'astral changed' unless $game_screen.tone.red==-55 && $game_screen.tone.gray==160
-    o.travel(103,17,25)
+    Tidebound::World.travel(:forest,17,25)
     $tb_night_capture_battle=true
     WildBattle.start_core(:NATU,4)
   rescue Exception => e

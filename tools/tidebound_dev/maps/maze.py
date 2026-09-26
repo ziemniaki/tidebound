@@ -1,3 +1,4 @@
+from .registry import MAPS, ACTORS
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -9,7 +10,7 @@ from .model import Map, RoadMap, tile, table, command, script
 
 def build(paths, interior):
     """Small one-time opening puzzle; invoked before lighthouse atlas serialization."""
-    maze=Map(114,'Your Room',29,25,27)
+    maze=Map(MAPS["maze"],'Your Room',29,25,27)
     # Opaque void also occludes the engine's below-map water-reflection sprite.
     void=interior.itile(Image.new('RGBA',(32,32),(0,0,0,255)))
     maze.layers[0]=[[void]*maze.w for _ in range(maze.h)]

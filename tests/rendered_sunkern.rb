@@ -17,7 +17,7 @@ module SunkernTest
     super
     return if @sunkern_checked || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
     @sunkern_checked=true;o=Tidebound::Opening
-    o.travel(108,30,18);p=pbGenerateWildPokemon(:SUNKERN,5)
+    Tidebound::World.travel(:road,30,18);p=pbGenerateWildPokemon(:SUNKERN,5)
     raise 'regional type' unless p.form==1 && p.types==[:GRASS,:DARK]
     raise 'early moves' unless p.moves.map(&:id)==[:ABSORB,:GROWTH,:PAYBACK]
     raise 'base stats changed' unless p.baseStats.values.all? { |x| x==30 }
@@ -33,7 +33,7 @@ module SunkernTest
     p.shiny=false;p.name='Little Reed';p.item=:ORANBERRY
     restored=Marshal.load(Marshal.dump(p))
     raise 'save roundtrip' unless restored.form==1 && restored.name==p.name && restored.personalID==p.personalID && restored.item_id==:ORANBERRY
-    o.travel(103,17,25)
+    Tidebound::World.travel(:forest,17,25)
     raise 'form changed outside road' unless restored.form==1
     raise 'ordinary form overwritten' unless pbGenerateWildPokemon(:SUNKERN,5).form==0
     restored.level=24
@@ -46,7 +46,7 @@ module SunkernTest
     raise 'spirit form lost' unless foe.form==1
     recovered=s.recover!(soul.id)
     raise 'recovery lost form or moves' unless recovered.form==1 && recovered.moves.map(&:id)==[:ABSORB,:GROWTH,:PAYBACK]
-    o.travel(108,30,18);recovered.heal;$player.party=[recovered]
+    Tidebound::World.travel(:road,30,18);recovered.heal;$player.party=[recovered]
     $sunkern_battle=true;WildBattle.start_core(:SUNKERN,5)
   rescue Exception=>e
     raise if e.is_a?(SystemExit) && e.status==0

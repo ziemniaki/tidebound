@@ -26,7 +26,7 @@ def decorate(paths, coast, docks, road):
 
     # A visible, stationary duck at a clear roadside pool approach. Static event avoids
     # wandering into grass battle triggers or hiding in existing scenery.
-    road.event('Wild:PSYDUCK:shoreduck',27,36,'Tidebound::DemoLaunch.psyduck','Pokemon 01',opacity=0)
+    road.event('Wild:PSYDUCK:shoreduck',27,36,'Tidebound::Pond.psyduck','Pokemon 01',opacity=0)
     for x,y in [(27,36),(26,36),(27,35),(27,37)]:
         road.layers[1][y][x]=0;road.layers[2][y][x]=0;road.walk[y][x]=True
 

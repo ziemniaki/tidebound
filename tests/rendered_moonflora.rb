@@ -16,7 +16,7 @@ module FloraTest
   def update
     super
     return if @flora_checked || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
-    @flora_checked=true;o=Tidebound::Opening;o.travel(108,30,18)
+    @flora_checked=true;o=Tidebound::Opening;Tidebound::World.travel(:road,30,18)
     p=pbGenerateWildPokemon(:SUNKERN,13);p.name='Little Reed';p.item=:ORANBERRY
     id=Tidebound.state.assign_identity(p);pid=p.personalID
     ui=Object.new
@@ -41,7 +41,7 @@ module FloraTest
     s=Tidebound::State.new;copy.hp=0;s.enter_astral!([copy],{map_id:108,x:30,y:18})
     raise 'spirit' unless s.begin_encounter!(id).species==:MOONFLORA
     raise 'recovery' unless s.recover!(id).species==:MOONFLORA
-    o.travel(103,17,25);normal=pbGenerateWildPokemon(:SUNKERN,20)
+    Tidebound::World.travel(:forest,17,25);normal=pbGenerateWildPokemon(:SUNKERN,20)
     raise 'stock changed' unless normal.form==0 && normal.check_evolution_on_use_item(:SUNSTONE)==:SUNFLORA
     raise 'family' unless GameData::Species.get(:MOONFLORA).get_previous_species==:MOONKERN && GameData::Species.get(:MOONFLORA).get_baby_species==:SUNKERN
     [false,true].each do |shiny|
@@ -52,7 +52,7 @@ module FloraTest
     end
     p.shiny=false
     raise 'icon' unless GameData::Species.icon_filename_from_pokemon(p).include?('MOONFLORA')
-    o.travel(108,30,18);p.heal;$flora_battle=true;WildBattle.start_core(:MOONFLORA,20)
+    Tidebound::World.travel(:road,30,18);p.heal;$flora_battle=true;WildBattle.start_core(:MOONFLORA,20)
   rescue Exception=>e
     raise if e.is_a?(SystemExit) && e.status==0
     File.write('MOONFLORA_FAIL.txt',e.full_message);exit(1)

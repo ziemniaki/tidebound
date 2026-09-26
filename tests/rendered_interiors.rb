@@ -40,39 +40,39 @@ module InteriorCheck
     # Reconstruct the pre-choice household for geometry/animation only.
     pets=o.household_pets.dup
     o.household_pets[:MAKUHITA]=Pokemon.new(:MAKUHITA,7)
-    o.flags[:bedroom_talk]=false;o.flags[:walk_state]=:not_started
-    o.travel(107,6,8);shot('bedroom');o.bedroom_pet
-    raise 'bedroom talk' unless o.flags[:bedroom_talk] && o.actor('Mother visiting').y==11
-    o.flags[:hall_talk]=false;$game_player.moveto(8,11);step('down')
-    raise "bedroom stair/hall scene: #{$game_map.map_id}, #{$game_player.x}, #{$game_player.y}, #{o.flags[:hall_talk]}" unless $game_map.map_id==101 && o.flags[:hall_talk]
-    raise 'Maku/crate staging' unless o.actor('House:MAKUHITA').y==10 && o.actor('Crate').x==11
-    o.flags[:walk_state]=:complete;shot('living-room')
-    o.travel(101,6,4);step('up');raise 'up bedroom stair' unless $game_map.map_id==107
+    Tidebound.story[:bedroom_talk]=false;Tidebound.story[:walk_state]=:not_started
+    Tidebound::World.travel(:bedroom,6,8);shot('bedroom');o.bedroom_pet
+    raise 'bedroom talk' unless Tidebound.story[:bedroom_talk] && Tidebound::World.actor(:mother_visiting).y==11
+    Tidebound.story[:hall_talk]=false;$game_player.moveto(8,11);step('down')
+    raise "bedroom stair/hall scene: #{$game_map.map_id}, #{$game_player.x}, #{$game_player.y}, #{Tidebound.story[:hall_talk]}" unless $game_map.map_id==101 && Tidebound.story[:hall_talk]
+    raise 'Maku/crate staging' unless Tidebound::World.actor(:house_makuhita).y==10 && Tidebound::World.actor(:crate).x==11
+    Tidebound.story[:walk_state]=:complete;shot('living-room')
+    Tidebound::World.travel(:home,6,4);step('up');raise 'up bedroom stair' unless $game_map.map_id==107
     $game_player.moveto(8,11);step('down');raise 'down bedroom stair' unless $game_map.map_id==101
-    o.travel(101,17,4);step('up');raise "up lantern stair: #{$game_map.map_id}, #{$game_player.x}, #{$game_player.y}" unless $game_map.map_id==104
-    o.flags[:lamp_lit]=false;shot('lantern-unlit')
-    o.flags[:oil_returned]=true;o.main_lamp;shot('lantern-lit')
-    raise 'lamp flag' unless o.flags[:lamp_lit]
+    Tidebound::World.travel(:home,17,4);step('up');raise "up lantern stair: #{$game_map.map_id}, #{$game_player.x}, #{$game_player.y}" unless $game_map.map_id==104
+    Tidebound.story[:lamp_lit]=false;shot('lantern-unlit')
+    Tidebound.story[:oil_returned]=true;o.main_lamp;shot('lantern-lit')
+    raise 'lamp flag' unless Tidebound.story[:lamp_lit]
     $game_player.moveto(6,10);step('down');raise 'down lantern stair' unless $game_map.map_id==101
     # Real meal scene retains table coordinates and pet route.
     o.household_pets.replace(pets);n.q[:stage]=:pie;$bag.add(n::PIE)
-    o.travel(101,12,8);n.meal
+    Tidebound::World.travel(:home,12,8);n.meal
     raise 'meal/plate' unless n.stage==:plate && $bag.has?(n::PLATE) && $interior_meal_shot
     n.q[:stage]=:complete;v.q[:gift]=true;v.q[:open]=false;v.q[:talk]=false
-    o.travel(101,12,8);v.mother
-    raise 'Mother route' unless v.q[:open] && o.actor('Mother').x==3 && o.actor('Mother').y==11
+    Tidebound::World.travel(:home,12,8);v.mother
+    raise 'Mother route' unless v.q[:open] && Tidebound::World.actor(:mother).x==3 && Tidebound::World.actor(:mother).y==11
     $game_player.moveto(4,12);step('left');raise 'cellar stair' unless $game_map.map_id==110
     $game_player.moveto(12,10);shot('cellar')
     $game_player.moveto(6,13);step('down');raise 'cellar return' unless $game_map.map_id==101
     step('left');raise 'cellar reentry' unless $game_map.map_id==110
-    o.travel(110,17,5);v.vault_door
+    Tidebound::World.travel(:basement,17,5);v.vault_door
     12.times {Graphics.update;Input.update;update}
     raise 'vault conversation' unless v.q[:talk] && $game_player.y==10
     shot('vault');$game_player.moveto(12,17);step('down')
     raise 'vault return' unless $game_map.map_id==110
     # Old saves on now-solid furniture are relocated, not reset.
     [[107,3,5],[101,8,7],[104,6,4],[110,10,4],[111,4,3]].each do |id,x,y|
-      o.travel(id,x,y);o.flags[:landscape_revisions].delete(id)
+      Tidebound::World.travel(id,x,y);Tidebound.story[:landscape_revisions].delete(id)
       Tidebound::Landscape.safe_arrival
       raise "unsafe old save #{id}" unless Tidebound::MAP_PASSAGES[id][$game_player.y][$game_player.x]=='1'
     end

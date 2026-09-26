@@ -52,10 +52,19 @@ sorting, controls the order. `tools/tidebound_dev/scripts/archive.py` rejects mi
 unlisted, out-of-order or stale sources and a competing `Plugins/Tidebound` copy.
 
 `src/tidebound/domain/state.rb` owns the engine-independent rules;
-`engine/battles.rb` adapts native objects and save/battle hooks. Feature modules own
+`engine/battles.rb` adapts native battle objects. `Tidebound.story` is the shared
+state root; each feature owns its state transitions. `world/navigation.rb` owns
+travel and actor movement, `world/atmosphere.rb` owns map lighting/passages, and
+`engine/encounters.rb` owns shared party checks and encounter construction. Feature modules own
 story behavior. Shared NPC interactions are dispatched explicitly in
 `features/interactions.rb`; features do not prepend into one another. Engine
 adapters can still prepend into Essentials interfaces.
+
+Map and actor names are declared in `maps/registry.py` and compiled to
+`src/generated/world_registry.rb`. Python builders use that catalog, and Ruby
+calls `World.travel(:road, ...)` or `World.actor(:mother)` instead of repeating
+map IDs or event display names. Regeneration validates the named maps/actors;
+headless integration verifies generated event calls against the loaded public API.
 
 Generated Ruby is confined to `src/generated/`. Maze, pond and collision data are
 whole generated files, never patches inside handwritten source. Necessary stock

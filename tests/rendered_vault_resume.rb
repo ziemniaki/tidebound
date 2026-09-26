@@ -23,12 +23,12 @@ module FieldView
     @fields_checked=true
     o=Tidebound::Opening;v=Tidebound::VaultVisit
     raise 'saved vault visit' unless v.q[:gift] && v.q[:open] && v.q[:talk] && $bag.quantity(v::GIFT)==1
-    raise 'saved NPCs' unless o.actor('Mother at vault').opacity==255 && o.actor('Seller at vault').opacity==255
-    o.travel(110,17,6);shot('iron-door')
+    raise 'saved NPCs' unless Tidebound::World.actor(:mother_at_vault).opacity==255 && Tidebound::World.actor(:seller_at_vault).opacity==255
+    Tidebound::World.travel(:basement,17,6);shot('iron-door')
     v.q[:talk]=false;v.vault_door
     10.times { update;Graphics.update };shot('vault-conversation')
     raise 'walk up' unless $game_player.y==10 && v.q[:talk]
-    o.travel(112,32,23);shot('museum-front')
+    Tidebound::World.travel(:docks,32,23);shot('museum-front')
     File.write('VAULT_RESUME_PASS.txt','PASS: actual engine save reload, keepsake and actor state; revised walk-up dialogue and museum doorway.')
     exit
   rescue Exception=>e

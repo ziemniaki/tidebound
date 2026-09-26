@@ -64,7 +64,7 @@ module NivaTest
     raise 'branches' unless a.check_evolution_on_level_up==:GLACIVERM && b.check_evolution_on_level_up==:FROSTCOON
     stock=Pokemon.new(:WURMPLE,7);stock.personalID=5<<16
     raise 'stock' unless stock.check_evolution_on_level_up==:CASCOON
-    Tidebound::Opening.travel(103,17,25);p.shiny=false;p.heal;$niva_battle=true
+    Tidebound::World.travel(:forest,17,25);p.shiny=false;p.heal;$niva_battle=true
     WildBattle.start_core(:NIVALORA,55)
   rescue Exception=>e
     raise if e.is_a?(SystemExit) && e.status==0

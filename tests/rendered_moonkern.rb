@@ -17,7 +17,7 @@ module MoonTest
   def update
     super
     return if @moon_checked || !$player || !$game_map || pbMapInterpreterRunning? || $game_temp.message_window_showing
-    @moon_checked=true;o=Tidebound::Opening;o.travel(108,30,18)
+    @moon_checked=true;o=Tidebound::Opening;Tidebound::World.travel(:road,30,18)
     p=pbGenerateWildPokemon(:SUNKERN,13);p.name='Little Reed';p.item=:ORANBERRY
     id=Tidebound.state.assign_identity(p);pid=p.personalID
     raise 'early evolution' if p.check_evolution_on_level_up
@@ -44,7 +44,7 @@ module MoonTest
     raise 'evolution move' unless p.hasMove?(:HEX)
     raise 'abilities' unless [:INSOMNIA,:INFILTRATOR,:CURSEDBODY].include?(p.ability_id)
     raise 'regional Sun Stone path retained' if pbGenerateWildPokemon(:SUNKERN,24).check_evolution_on_use_item(:SUNSTONE)
-    o.travel(103,17,25);normal=pbGenerateWildPokemon(:SUNKERN,24)
+    Tidebound::World.travel(:forest,17,25);normal=pbGenerateWildPokemon(:SUNKERN,24)
     raise 'ordinary Sunkern changed' unless normal.form==0 && normal.check_evolution_on_use_item(:SUNSTONE)==:SUNFLORA && !normal.check_evolution_on_level_up
     copy=Marshal.load(Marshal.dump(p))
     raise 'save species/identity' unless copy.species==:MOONKERN && copy.form==0 && copy.personalID==pid && copy.hasMove?(:HEX)
@@ -60,7 +60,7 @@ module MoonTest
     p.shiny=false
     raise 'icon' unless GameData::Species.icon_filename_from_pokemon(p).include?('MOONKERN')
     raise 'family' unless GameData::Species.get(:MOONKERN).get_previous_species==:SUNKERN
-    o.travel(108,30,18);p.heal;$moon_battle=true
+    Tidebound::World.travel(:road,30,18);p.heal;$moon_battle=true
     WildBattle.start_core(:MOONKERN,24)
   rescue Exception=>e
     raise if e.is_a?(SystemExit) && e.status==0

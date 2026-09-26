@@ -3,10 +3,14 @@ tidebound/domain/state.rb
 tidebound/engine/battles.rb
 tidebound/engine/saves.rb
 generated/map_passages.rb
+generated/world_registry.rb
+tidebound/world/navigation.rb
+tidebound/world/atmosphere.rb
+tidebound/engine/encounters.rb
 tidebound/features/opening.rb
 tidebound/presentation/overworld.rb
 tidebound/features/first_walk.rb
-tidebound/world/coast.rb
+tidebound/features/lapras.rb
 tidebound/features/neighbor.rb
 tidebound/presentation/neighbor.rb
 tidebound/features/fields.rb
