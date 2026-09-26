@@ -79,7 +79,7 @@ module Tidebound
       id
     end
 
-    def enter_astral!(party, location)
+    def validate_astral_party!(party)
       raise TransitionError, "Already in the astral plane" unless @realm == :living
       members = party.reject { |p| Tidebound.borrowed?(p) }
       raise TransitionError, "No companions to recover" if members.empty?
@@ -89,6 +89,11 @@ module Tidebound
       raise TransitionError, "Duplicate companion identity" unless ids.uniq.length == ids.length
       lost_ids = @memorials.map(&:id)
       raise TransitionError, "A permanently lost companion cannot return" unless (ids & lost_ids).empty?
+      members
+    end
+
+    def enter_astral!(party, location)
+      members = validate_astral_party!(party)
       next_journey = @journey + 1
       records = members.map do |p|
         Soul.new(Tidebound.identity(p), p, location, next_journey)
