@@ -23,7 +23,7 @@ added build sources before running it so they are included in the tracked copy.
 On a Mac with Xcode command-line tools installed:
 
 ```sh
-uv run python tools/build_release.py ../candidate
+uv run python -m tidebound_dev.release.candidates ../candidate
 uv run python tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.6_universal.zip ../smoke-arm64 --arch arm64
 ```
 
@@ -36,7 +36,7 @@ uv run tidebound package windows ../windows-candidate
 On Windows x64, test that archive using:
 
 ```powershell
-uv run python tools/verify_artifacts.py ../windows-candidate
+uv run python -m tidebound_dev.release.artifacts ../windows-candidate
 uv run python tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.6_x64.zip ../smoke-windows
 ```
 
@@ -57,7 +57,7 @@ uv run tidebound package linux ../linux-candidate
 On Linux x86_64 with the libraries in `docs/players/linux.txt` installed:
 
 ```sh
-uv run python tools/verify_artifacts.py ../linux-candidate
+uv run python -m tidebound_dev.release.artifacts ../linux-candidate
 uv run python tests/linux_runtime_smoke.py ../linux-candidate/Tidebound_Linux_0.8.6_x86_64.zip ../smoke-linux
 ```
 

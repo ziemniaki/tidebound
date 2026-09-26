@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse
 import re
 
-from release_tools import sha256
+from tidebound_dev.release.metadata import sha256
 
 
 def verify(folder):

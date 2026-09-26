@@ -73,10 +73,12 @@ No development command commits, pushes, merges or publishes.
 
 ## Less common work
 
-Run a tool with `uv run python tools/<name>.py` or a test with
-`uv run python tests/<name>.py`. Optional audio/PDF regeneration has separate
+Reusable tools live in the installed `tidebound_dev` package. The everyday commands
+call the same operations as CI; `pipeline.py` owns the full rebuild sequence.
+Run a diagnostic module with `uv run python -m tidebound_dev.<module>` or a
+standalone test with `uv run python tests/<name>.py`. Optional audio/PDF regeneration has separate
 dependencies. For the game specification PDF, run
-`uv run --group docs python tools/render_bible.py`; use `--output /path/to/preview.pdf`
+`uv run --group docs python -m tidebound_dev.documents.specification`; use `--output /path/to/preview.pdf`
 to render a preview. macOS/Windows use Times New Roman and Arial; Linux needs
 Liberation Serif and DejaVu Sans (`fonts-liberation` and `fonts-dejavu-core` on Ubuntu).
 Audio generation needs NumPy and ffmpeg. Rebuilding the Mac engine is separate from

@@ -17,8 +17,8 @@ tests/engine-reference-*/
 *.key
 Mac_Build/
 /build/
-release/
-releases/
+/release/
+/releases/
 Tidebound_Project.zip
 Tidebound_Mac_*.zip
 # Pinned runtime archives stay tracked; restored loose binaries do not.

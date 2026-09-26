@@ -3,8 +3,12 @@ import sys
 import unittest
 from unittest.mock import Mock
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from ci_verify_request import requested_sha
+import importlib.util
+
+spec = importlib.util.spec_from_file_location('verify_request', Path(__file__).resolve().parents[1] / '.github/scripts/verify_request.py')
+verify_request = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(verify_request)
+requested_sha = verify_request.requested_sha
 
 
 class VerifyRequestTests(unittest.TestCase):

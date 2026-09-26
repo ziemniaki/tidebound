@@ -4,8 +4,8 @@ import sys
 import tempfile
 import unittest
 from unittest.mock import patch
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from create_audio import encode_loop
+
+from tidebound_dev.art.audio import encode_loop
 
 
 class AudioPublicationTests(unittest.TestCase):
@@ -16,7 +16,7 @@ class AudioPublicationTests(unittest.TestCase):
             def fail(command, **kwargs):
                 Path(command[-1]).write_bytes(b'partial encoder output')
                 raise subprocess.CalledProcessError(1, command)
-            with patch('create_audio.subprocess.run', side_effect=fail), self.assertRaises(subprocess.CalledProcessError):
+            with patch('tidebound_dev.art.audio.subprocess.run', side_effect=fail), self.assertRaises(subprocess.CalledProcessError):
                 encode_loop(b'\0' * 16, output, 22050)
             self.assertEqual(output.read_bytes(), b'original playable loop')
             self.assertEqual(list(Path(tmp).iterdir()), [output])
@@ -28,7 +28,7 @@ class AudioPublicationTests(unittest.TestCase):
             def encode(command, **kwargs):
                 self.assertEqual(output.read_bytes(), b'old loop')
                 Path(command[-1]).write_bytes(b'complete encoded loop')
-            with patch('create_audio.subprocess.run', side_effect=encode):
+            with patch('tidebound_dev.art.audio.subprocess.run', side_effect=encode):
                 encode_loop(b'\0' * 16, output, 22050)
             self.assertEqual(output.read_bytes(), b'complete encoded loop')
             self.assertEqual(list(Path(tmp).iterdir()), [output])

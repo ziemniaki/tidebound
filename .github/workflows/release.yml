@@ -61,9 +61,8 @@ jobs:
           uv run --locked python - <<'PY'
           import os, sys
           from pathlib import Path
-          sys.path.insert(0, 'tools')
           from refresh_draft import validate_candidate
-          from release_tools import load_release
+          from tidebound_dev.release.metadata import load_release
           config = load_release()
           validate_candidate(Path('candidate'), config['version'], os.environ['SOURCE_SHA'], config['mac_build'])
           PY

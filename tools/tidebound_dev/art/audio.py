@@ -1,4 +1,5 @@
 """Regenerate ambient loops with NumPy and ffmpeg; preserve old audio on failure."""
+from tidebound_dev.paths import ROOT
 from pathlib import Path
 import subprocess
 import tempfile
@@ -24,7 +25,7 @@ def encode_loop(pcm, output, sample_rate):
 
 def main():
     import numpy as np
-    out = Path(__file__).resolve().parent.parent / 'game/Audio/BGM'
+    out = ROOT / 'game/Audio/BGM'
     sr=22050;seconds=32;n=sr*seconds;t=np.arange(n)/sr
     rng=np.random.default_rng(260908)
     for name,notes,noiselevel in [('Tidebound Shore',[146.832,220.0,261.626,329.628],.07),('Tidebound Stillness',[110,164.814,220,246.942],.025)]:

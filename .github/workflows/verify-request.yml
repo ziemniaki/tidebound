@@ -35,7 +35,7 @@ jobs:
       - id: request
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python tools/ci_verify_request.py request
+        run: python .github/scripts/verify_request.py request
 
   build:
     needs: authorize
@@ -62,4 +62,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           VERIFIED_SHA: ${{ needs.authorize.outputs.sha }}
           VERIFY_RESULT: ${{ needs.build.result }}
-        run: python tools/ci_verify_request.py report
+        run: python .github/scripts/verify_request.py report

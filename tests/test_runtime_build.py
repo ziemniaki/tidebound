@@ -6,9 +6,8 @@ import tarfile
 import tempfile
 import unittest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from rebuild_mac_runtime import SOURCE, PATCH, run
-from release_tools import ROOT, load_release
+from tidebound_dev.runtime.build_mac import SOURCE, PATCH, run
+from tidebound_dev.release.metadata import ROOT, load_release
 
 
 class RuntimeBuildTests(unittest.TestCase):

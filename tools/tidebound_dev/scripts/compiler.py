@@ -1,13 +1,14 @@
 """Embed the manifest's Ruby files and the explicit Essentials adaptations."""
+from tidebound_dev.paths import ROOT
 from pathlib import Path
 import zlib
 
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 
-from engine_patches import patch_engine
-from script_archive import reject_plugin_copy, script_name, source_files, source_name
-from release_tools import load_release
+from tidebound_dev.scripts.patches import patch_engine
+from tidebound_dev.scripts.archive import reject_plugin_copy, script_name, source_files, source_name
+from tidebound_dev.release.metadata import load_release
 
 
 def rebuild(root):
@@ -29,4 +30,4 @@ def rebuild(root):
 
 
 if __name__ == '__main__':
-    rebuild(Path(__file__).resolve().parent.parent)
+    rebuild(ROOT)

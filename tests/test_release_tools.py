@@ -10,14 +10,13 @@ import zipfile
 
 from PIL import Image
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from check_rebuild import equivalent
+from tidebound_dev.files import equivalent
 from functools import partial
 from tidebound_dev.packaging.archives import archive_tree, extract_bundle, game_hashes
 from tidebound_dev.packaging.mac import normalize_bundle_names
 from tidebound_dev.packaging.pipeline import build as package
 build = partial(package, "mac")
-from release_tools import ROOT, check_sources, load_release, source_revision
+from tidebound_dev.release.metadata import ROOT, check_sources, load_release, source_revision
 
 
 class ArchiveSafetyTests(unittest.TestCase):
@@ -106,7 +105,7 @@ class BuildTransactionTests(unittest.TestCase):
             patcher = patch(('tidebound_dev.packaging.mac.' if name == 'inspect_runtime' else 'tidebound_dev.packaging.pipeline.') + name, return_value=value)
             patcher.start()
             self.addCleanup(patcher.stop)
-        patcher = patch('subprocess.run')
+        patcher = patch('tidebound_dev.packaging.pipeline.validate')
         patcher.start()
         self.addCleanup(patcher.stop)
 
@@ -169,19 +168,19 @@ class BuildTransactionTests(unittest.TestCase):
 
 class ReleaseInvariantTests(unittest.TestCase):
     def test_dirty_release_is_rejected(self):
-        with patch('release_tools.subprocess.check_output', return_value=' M Game.ini\n'):
+        with patch('tidebound_dev.release.metadata.subprocess.check_output', return_value=' M Game.ini\n'):
             with self.assertRaisesRegex(ValueError, 'clean checkout'):
                 source_revision()
 
     def test_runtime_hash_mismatch_is_rejected(self):
-        with patch('release_tools.sha256', return_value='0' * 64):
+        with patch('tidebound_dev.release.metadata.sha256', return_value='0' * 64):
             with self.assertRaisesRegex(ValueError, 'provenance hash'):
                 check_sources()
 
     def test_release_version_must_match_embedded_game(self):
         config = load_release()
         config['version'] = '9.9.9'
-        with patch('release_tools.load_release', return_value=config):
+        with patch('tidebound_dev.release.metadata.load_release', return_value=config):
             with self.assertRaisesRegex(ValueError, 'Version mismatch'):
                 check_sources()
 

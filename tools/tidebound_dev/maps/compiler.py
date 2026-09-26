@@ -60,8 +60,8 @@ def construct(paths):
 
 def build(root):
     # Keep authored input untouched until every map and transfer validates.
-    from check_rebuild import equivalent
-    from validate_maps import validate
+    from tidebound_dev.files import equivalent
+    from tidebound_dev.maps.validate import validate
     with tempfile.TemporaryDirectory(prefix='tidebound-maps-') as temp:
         paths = BuildPaths(Path(temp))
         shutil.copytree(root / 'game', paths.game)

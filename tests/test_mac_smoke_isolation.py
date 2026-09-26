@@ -5,7 +5,6 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 import mac_runtime_smoke as smoke
 
 

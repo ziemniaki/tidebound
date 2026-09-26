@@ -2,7 +2,7 @@
 import plistlib
 import unicodedata
 
-from mac_runtime import inspect_runtime, sign_app, run
+from tidebound_dev.runtime.mac import inspect_runtime, sign_app, run
 from .archives import copy_verified, extract_bundle, game_hashes
 from .model import Player
 

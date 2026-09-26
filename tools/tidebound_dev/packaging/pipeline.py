@@ -7,7 +7,8 @@ import subprocess
 import sys
 import tempfile
 
-from release_tools import ROOT, SAVE_DIRECTORY, check_sources, sha256, source_revision
+from tidebound_dev.release.metadata import ROOT, SAVE_DIRECTORY, check_sources, sha256, source_revision
+from tidebound_dev.maps.validate import validate
 from . import linux, mac, windows
 from .archives import archive_tree, copy_game, copy_verified, extract_bundle, game_hashes
 
@@ -52,7 +53,7 @@ def build(platform, output, root=ROOT, allow_dirty=False, development=False):
         raise FileExistsError('Choose a new output directory; existing builds are never overwritten')
     config = check_sources(root)
     revision = source_revision(root, allow_dirty)
-    subprocess.run([sys.executable, str(root / 'tools/validate_maps.py')], cwd=root, check=True)
+    validate(root)
     adapter = PLATFORMS[platform]
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.tidebound-package-', dir=output.parent) as temp:

@@ -7,14 +7,13 @@ import unittest
 from unittest.mock import patch
 import zipfile
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from functools import partial
 from tidebound_dev.packaging.linux import inspect_runtime
 from tidebound_dev.packaging.pipeline import build as package
 build = partial(package, "linux")
 from tidebound_dev.packaging.archives import extract_bundle
-from release_tools import sha256
-from verify_artifacts import verify
+from tidebound_dev.release.metadata import sha256
+from tidebound_dev.release.artifacts import verify
 
 
 class LinuxReleaseTests(unittest.TestCase):
@@ -51,7 +50,7 @@ class LinuxReleaseTests(unittest.TestCase):
             patcher = patch(('tidebound_dev.packaging.linux.' if name == 'windows_runtime' else 'tidebound_dev.packaging.pipeline.') + name, return_value=value)
             patcher.start()
             self.addCleanup(patcher.stop)
-        patcher = patch('tidebound_dev.packaging.pipeline.subprocess.run')
+        patcher = patch('tidebound_dev.packaging.pipeline.validate')
         patcher.start()
         self.addCleanup(patcher.stop)
 

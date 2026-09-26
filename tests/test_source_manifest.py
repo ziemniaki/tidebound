@@ -4,9 +4,8 @@ import sys
 import tempfile
 import unittest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from script_archive import source_files
-from engine_patches import patch_engine
+from tidebound_dev.scripts.archive import source_files
+from tidebound_dev.scripts.patches import patch_engine
 import zlib
 
 

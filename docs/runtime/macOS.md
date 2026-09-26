@@ -17,7 +17,7 @@ source archive contains the matching engine source, patch and dependency lock.
 Rebuild on a Mac with Xcode and autoconf, automake, libtool, cmake and pkg-config:
 
 ```sh
-python tools/rebuild_mac_runtime.py /tmp/tidebound-runtime-build ../runtime-output
+python -m tidebound_dev.runtime.build_mac /tmp/tidebound-runtime-build ../runtime-output
 ```
 
 The work directory must not contain spaces because the upstream dependency
@@ -65,7 +65,7 @@ https://github.com/mkxp-z/mkxp-z/tree/826929eeb3ebc4b887c011604919217a790770f4
 Rebuild from the maintained project with:
 
 ```sh
-python3 tools/build_release.py /path/to/new-output-folder
+uv run python -m tidebound_dev.release.candidates /path/to/new-output-folder
 ```
 
 The complete game is copied into the app at packaging time. Editing the project

@@ -4,9 +4,8 @@ import sys
 import tempfile
 import unittest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from refresh_draft import validate_candidate, validate_draft
-from release_tools import sha256
+from tidebound_dev.release.refresh_draft import validate_candidate, validate_draft
+from tidebound_dev.release.metadata import sha256
 
 
 class DraftRefreshTests(unittest.TestCase):

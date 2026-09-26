@@ -6,7 +6,7 @@ import stat
 import unicodedata
 import zipfile
 
-from release_tools import sha256
+from tidebound_dev.release.metadata import sha256
 
 GAME_DIRS = ('Data', 'Audio', 'Graphics', 'Fonts', 'Plugins')
 GAME_FILES = ('Game.ini', 'mkxp.json', 'soundfont.sf2')

@@ -1,8 +1,9 @@
+from tidebound_dev.paths import ROOT
 from pathlib import Path
 from collections import deque
 from rubymarshal.reader import loads
 import argparse,json,re,struct
-from script_archive import validate_archive
+from tidebound_dev.scripts.archive import validate_archive
 
 
 def validate(root, event_scripts_output=None, check_scripts=True):
@@ -65,4 +66,4 @@ if __name__ == '__main__':
     parser=argparse.ArgumentParser(description='Check maps and embedded source without rewriting game data.')
     parser.add_argument('--event-scripts',type=Path,help='Explicit destination for extracted event scripts')
     args=parser.parse_args()
-    validate(Path(__file__).resolve().parents[1], args.event_scripts)
+    validate(ROOT, args.event_scripts)

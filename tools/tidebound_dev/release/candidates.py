@@ -8,7 +8,9 @@ import tempfile
 import zipfile
 
 from tidebound_dev.packaging.pipeline import build
-from release_tools import ROOT, check_sources, sha256, source_revision
+from tidebound_dev.checks.verify import main as verify
+from tidebound_dev.checks.rebuild import main as check_rebuild
+from tidebound_dev.release.metadata import ROOT, check_sources, sha256, source_revision
 
 
 def build_release(output, root=ROOT):
@@ -17,8 +19,8 @@ def build_release(output, root=ROOT):
         raise FileExistsError('Release output already exists; refusing to overwrite it')
     config = check_sources(root)
     source = source_revision(root)
-    subprocess.run([sys.executable, str(root / 'tools/verify.py')], cwd=root, check=True)
-    subprocess.run([sys.executable, str(root / 'tools/check_rebuild.py')], cwd=root, check=True)
+    verify(root)
+    check_rebuild(root)
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.tidebound-release-', dir=output.parent) as temp:
         artifacts = Path(temp) / 'artifacts'

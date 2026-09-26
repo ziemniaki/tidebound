@@ -3,7 +3,7 @@ from pathlib import Path
 import struct
 import tempfile
 
-from release_tools import sha256
+from tidebound_dev.release.metadata import sha256
 from .archives import copy_verified, extract_bundle
 from .model import Player
 

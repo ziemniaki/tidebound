@@ -5,7 +5,7 @@ import tempfile
 import zipfile
 from filelock import FileLock
 
-from release_tools import sha256
+from tidebound_dev.release.metadata import sha256
 
 
 def unpack_pinned(root, config, key):

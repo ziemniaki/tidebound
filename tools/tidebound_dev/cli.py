@@ -13,18 +13,12 @@ import sys
 import time
 import uuid
 
-ROOT = Path(__file__).resolve().parents[2]
-GENERATORS = ('rebuild_maps.py', 'rebuild_opening_items.py', 'rebuild_neighbor_data.py',
-              'rebuild_field_data.py', 'rebuild_regional_data.py', 'rebuild_scripts.py', 'configure_game.py')
+from tidebound_dev.paths import ROOT
 
 
 def run(*args, cwd=ROOT):
     print('+ ' + ' '.join(map(str, args)), flush=True)
     subprocess.run(list(map(str, args)), cwd=cwd, check=True)
-
-
-def python(script, *args):
-    run(sys.executable, ROOT / script, *args)
 
 
 def test_dependencies():
@@ -55,8 +49,9 @@ def host_platform():
 def development_build(target):
     if target == 'mac' and sys.platform != 'darwin':
         raise ValueError('Mac builds require macOS and Xcode command-line tools.')
-    python('tools/rebuild_scripts.py')
-    sys.path.insert(0, str(ROOT / 'tools'))
+    from .pipeline import rebuild
+    rebuild(ROOT)
+
     from .packaging.pipeline import build, DEV_SAVES
     output = ROOT / '.build/dev' / (time.strftime('%Y%m%d-%H%M%S-') + uuid.uuid4().hex[:8])
     launcher = build(target, output, allow_dirty=True, development=True)
@@ -67,9 +62,9 @@ def development_build(target):
 def open_editor():
     if sys.platform != 'win32':
         raise ValueError('RPG Maker XP requires Windows. Use uv run play for native Mac/Linux playtesting.')
-    sys.path.insert(0, str(ROOT / 'tools'))
-    from release_tools import load_release, sha256
-    from runtime_inputs import windows_runtime, unpack_pinned
+
+    from tidebound_dev.release.metadata import load_release, sha256
+    from tidebound_dev.runtime.inputs import windows_runtime, unpack_pinned
     config = load_release()
     sources = [windows_runtime(ROOT, config), unpack_pinned(ROOT, config, 'windows_editor_archive')]
     for source in sources:
@@ -102,19 +97,19 @@ def dispatch(command, argv):
             else:
                 run(launcher, cwd=launcher.parent)
     elif command == 'package':
-        sys.path.insert(0, str(ROOT / 'tools'))
+
         from .packaging.pipeline import build
         build(args.platform, args.output, allow_dirty=args.allow_dirty)
     elif command == 'check':
         test_dependencies()
-        python('tools/verify.py')
+        from .checks.verify import main as verify
+        verify(ROOT)
         if args.all:
-            python('tools/check_rebuild.py')
+            from .checks.rebuild import main as check_rebuild
+            check_rebuild(ROOT)
     elif command == 'rebuild':
-        for script in GENERATORS if args.all else ('rebuild_scripts.py',):
-            python('tools/' + script)
-        if args.all:
-            python('tools/validate_maps.py', '--event-scripts', ROOT / 'tools/generated/event_scripts.json')
+        from .pipeline import rebuild
+        rebuild(ROOT, full=args.all)
     elif command == 'doctor':
         print('Checkout:', ROOT)
         print('Python:', platform.python_version())

@@ -10,8 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from runtime_inputs import unpack_pinned
+from tidebound_dev.runtime.inputs import unpack_pinned
 from tidebound_dev.packaging.pipeline import development_settings, DEV_SAVES
 
 
@@ -48,7 +47,7 @@ class RuntimeRestorationTests(unittest.TestCase):
             self.assertNotEqual(Path(path).name, config['runtime_sha256'],
                                 'a healthy published cache was removed')
             return original(path, *args, **kwargs)
-        with patch('runtime_inputs.shutil.rmtree', side_effect=remove), ThreadPoolExecutor(max_workers=8) as pool:
+        with patch('tidebound_dev.runtime.inputs.shutil.rmtree', side_effect=remove), ThreadPoolExecutor(max_workers=8) as pool:
             results = list(pool.map(restore, range(8)))
         self.assertEqual(len(set(results)), 1)
         self.assertEqual((results[0] / 'Game.exe').read_bytes(), b'pinned binary')

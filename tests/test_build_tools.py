@@ -11,8 +11,8 @@ import zlib
 from rubymarshal.writer import writes
 
 DEV = Path(__file__).resolve().parents[1] / "tools"
-sys.path.insert(0, str(DEV))
-from script_archive import validate_archive, source_files
+
+from tidebound_dev.scripts.archive import validate_archive, source_files
 
 
 def entry(name, code=""):
@@ -91,12 +91,15 @@ class CommandChecks(unittest.TestCase):
         (self.game / "Data").mkdir(parents=True)
 
     def command(self, script, *flags):
-        return subprocess.run([sys.executable, *flags, str(self.root / "tests" / script.removeprefix("Tests/") if script.startswith("Tests/") else self.dev / script)],
-                              cwd=self.game, capture_output=True, text=True)
+        if script == 'rebuild_scripts.py':
+            command = [sys.executable, *flags, '-c',
+                       'import sys; from pathlib import Path; from tidebound_dev.scripts.compiler import rebuild; rebuild(Path(sys.argv[1]))',
+                       str(self.root)]
+        else:
+            command = [sys.executable, *flags, str(self.root / 'tests' / script.removeprefix('Tests/'))]
+        return subprocess.run(command, cwd=self.game, capture_output=True, text=True)
 
     def test_rebuild_rejects_plugin_before_writing_even_with_optimization(self):
-        for name in ("rebuild_scripts.py", "script_archive.py", "release_tools.py", "engine_patches.py"):
-            shutil.copy2(DEV / name, self.dev / name)
         shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
         shutil.copytree(DEV.parent / "src", self.src, dirs_exist_ok=True)
         paths = ["Data/Scripts.rxdata", "Data/metadata.dat", "Game.ini", "mkxp.json",
@@ -116,8 +119,6 @@ class CommandChecks(unittest.TestCase):
         self.assertEqual(before, {name: (self.game / name).read_bytes() for name in paths})
 
     def test_script_only_rebuild_preserves_editor_data_without_map_outputs(self):
-        for name in ("rebuild_scripts.py", "script_archive.py", "release_tools.py", "engine_patches.py"):
-            shutil.copy2(DEV / name, self.dev / name)
         shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
         (self.src / "load_order.txt").write_text("001_Core.rb\n")
         (self.src / "001_Core.rb").write_text("# current custom source\n")

@@ -18,8 +18,7 @@ class MapValidationTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.game = self.root / 'game'
-        for name in ('tools/validate_maps.py', 'tools/script_archive.py',
-                     'tools/generated/collisions.json', 'tools/generated/map_manifest.json',
+        for name in ('tools/generated/collisions.json', 'tools/generated/map_manifest.json',
                      'tools/generated/maze_manifest.json', 'game/Data/Scripts.rxdata',
                      'game/Data/map_metadata.dat'):
             dest = self.root / name
@@ -48,7 +47,7 @@ class MapValidationTests(unittest.TestCase):
 
     def validate(self, optimized=False):
         return subprocess.run([sys.executable, *(['-O'] if optimized else []),
-                               self.root / 'tools/validate_maps.py'], capture_output=True, text=True)
+                               '-c', 'import sys; from pathlib import Path; from tidebound_dev.maps.validate import validate; validate(Path(sys.argv[1]))', str(self.root)], capture_output=True, text=True)
 
     def test_intact_fixture_passes_with_or_without_optimization(self):
         for optimized in (False, True):

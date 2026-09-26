@@ -5,9 +5,9 @@ import json
 import re
 import subprocess
 
-from script_archive import validate_archive
+from tidebound_dev.scripts.archive import validate_archive
 
-ROOT = Path(__file__).resolve().parent.parent
+from tidebound_dev.paths import ROOT
 SAVE_DIRECTORY = "Tidebound_Opening_0_2"
 
 

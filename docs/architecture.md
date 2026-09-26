@@ -15,7 +15,7 @@ the engine's expected directory structure intact inside `game/`.
 | Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
 | Species, items, trainers, encounters | `tools/tidebound_dev/content/`, item/encounter builders | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
 | Artwork | `assets/<species>/` sources and export recipes | `game/Graphics/` |
-| Sound | `tools/create_audio.py`, existing attributed assets | `game/Audio/` |
+| Sound | `tools/tidebound_dev/art/audio.py`, existing attributed assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
 Map builders return independent in-memory areas. `maps/compiler.py` declares
@@ -26,10 +26,19 @@ The compiler constructs in a temporary workspace, checks every arrival, transfer
 and interaction, then publishes changed outputs. Failed validation leaves the
 checkout unchanged.
 
+## Python operations
+
+`tools/tidebound_dev/` is an installed Python package. `cli.py` parses commands;
+`pipeline.py` is the single rebuild plan used by local development and isolated
+regeneration. `scripts/`, `maps/`, `content/`, `art/`, `runtime/`, `packaging/` and
+`release/` own callable operations. They accept explicit roots when operating on
+a disposable copy. Modules do not modify `sys.path` or launch other generator
+scripts. The standalone GitHub comment dispatcher is in `.github/scripts/`.
+
 ## Regional data
 
-`content/species.py` defines forms, species and sprite metrics using PBS field
-names. `content/species_compiler.py` resolves templates, derives evolution
+`content/plants.py`, `insects.py` and `coastal.py` define forms, species and sprite
+metrics using PBS field names; `content/species.py` is the combined catalog. `content/species_compiler.py` resolves templates, derives evolution
 backlinks, validates references, then writes each database once. PBS text and
 native attributes come from the same fields. Add a definition instead of another
 executable builder. Artwork exports in `art/` are explicit functions; source
@@ -37,9 +46,9 @@ images remain in `assets/`.
 
 ## Ruby loading and ownership
 
-`tools/rebuild_scripts.py` embeds the files listed in `src/load_order.txt`
+`tools/tidebound_dev/scripts/compiler.py` embeds the files listed in `src/load_order.txt`
 immediately before Essentials' Main. The manifest, not filenames or directory
-sorting, controls the order. `tools/script_archive.py` rejects missing, duplicate,
+sorting, controls the order. `tools/tidebound_dev/scripts/archive.py` rejects missing, duplicate,
 unlisted, out-of-order or stale sources and a competing `Plugins/Tidebound` copy.
 
 `src/tidebound/domain/state.rb` owns the engine-independent rules;
@@ -50,7 +59,7 @@ adapters can still prepend into Essentials interfaces.
 
 Generated Ruby is confined to `src/generated/`. Maze, pond and collision data are
 whole generated files, never patches inside handwritten source. Necessary stock
-engine modifications are declared and checked in `tools/engine_patches.py`.
+engine modifications are declared and checked in `tools/tidebound_dev/scripts/patches.py`.
 
 `tests/prepare_reference.py` extracts stock engine code into an ignored inspection
 directory. Editing that extraction does not change the game. Stock scripts and

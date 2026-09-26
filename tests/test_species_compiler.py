@@ -9,7 +9,6 @@ from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol as S
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from tidebound_dev.content.species import SPECIES
 from tidebound_dev.content.species_compiler import compile_records, native_field
 

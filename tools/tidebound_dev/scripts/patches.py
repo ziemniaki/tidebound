@@ -2,7 +2,7 @@
 import re
 import zlib
 
-from script_archive import script_name
+from tidebound_dev.scripts.archive import script_name
 
 
 LITERAL_PATCHES = {

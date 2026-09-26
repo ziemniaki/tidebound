@@ -7,7 +7,6 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from tidebound_dev import maps
 from tidebound_dev.maps import areas, compiler
 
@@ -44,7 +43,7 @@ class MapBuilderTests(unittest.TestCase):
 
             with patch.object(compiler, 'construct', return_value=[]), \
                  patch.object(compiler, 'serialize', side_effect=failed_output), \
-                 patch('validate_maps.validate', side_effect=ValueError('blocked transfer')):
+                 patch('tidebound_dev.maps.validate.validate', side_effect=ValueError('blocked transfer')):
                 with self.assertRaisesRegex(ValueError, 'blocked transfer'):
                     compiler.build(root)
             self.assertEqual(original.read_bytes(), b'original')

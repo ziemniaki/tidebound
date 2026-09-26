@@ -2,8 +2,8 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from document_fonts import resolve_fonts
+
+from tidebound_dev.documents.fonts import resolve_fonts
 
 
 class DocumentFontTests(unittest.TestCase):

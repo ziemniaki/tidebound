@@ -6,33 +6,34 @@ import subprocess
 import sys
 import tempfile
 
-ROOT = Path(__file__).resolve().parent.parent
+from tidebound_dev.paths import ROOT
 
 
-def main():
+def main(root=ROOT):
     if sys.flags.optimize or os.environ.get("PYTHONOPTIMIZE", "0") not in ("", "0"):
         raise SystemExit("Run verification without -O/PYTHONOPTIMIZE; geometry checks use assertions.")
     if not shutil.which("node"):
         raise SystemExit("Node.js is required. See docs/development.md for setup.")
-    if not (ROOT / "tests/node_modules/@ruby/3.2-wasm-wasi").is_dir():
+    if not (root / "tests/node_modules/@ruby/3.2-wasm-wasi").is_dir():
         raise SystemExit("Install test dependencies: npm ci --prefix tests --ignore-scripts")
     try:
         import rubymarshal
     except ImportError:
         raise SystemExit("Install Python dependencies: uv sync --locked") from None
-    from release_tools import check_sources
-    check_sources(ROOT)
+    from tidebound_dev.release.metadata import check_sources
+    check_sources(root)
 
     def run(*command, env=None):
         print("+ " + " ".join(map(str, command)), flush=True)
-        subprocess.run(command, cwd=ROOT, env=env, check=True)
+        subprocess.run(command, cwd=root, env=env, check=True)
 
     with tempfile.TemporaryDirectory(prefix="tidebound-verify-") as temp:
         events = str(Path(temp) / "event_scripts.json")
         run(sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py")
         if sys.platform == 'darwin':
             run(sys.executable, 'tests/mac_path_normalization.py')
-        run(sys.executable, "tools/validate_maps.py", "--event-scripts", events)
+        from tidebound_dev.maps.validate import validate
+        validate(root, Path(events))
         run(sys.executable, "tests/maze_graph.py")
         run(sys.executable, "tests/pond_geometry.py")
         run(sys.executable, "tests/prepare_reference.py")

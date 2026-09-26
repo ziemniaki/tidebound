@@ -6,8 +6,8 @@ import re
 import subprocess
 import sys
 
-from release_tools import load_release, sha256
-from verify_artifacts import verify
+from tidebound_dev.release.metadata import load_release, sha256
+from tidebound_dev.release.artifacts import verify
 
 
 def command(*args):

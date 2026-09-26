@@ -1,8 +1,8 @@
 """Windows x64 layout and pinned PE image verification."""
 import struct
 
-from release_tools import sha256
-from runtime_inputs import windows_runtime
+from tidebound_dev.release.metadata import sha256
+from tidebound_dev.runtime.inputs import windows_runtime
 from .archives import copy_verified
 from .model import Player
 

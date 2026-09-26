@@ -15,10 +15,9 @@ from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from smoke_report import read_report
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from mac_runtime import run, sign_app
+from tidebound_dev.runtime.mac import run, sign_app
 from tidebound_dev.packaging.archives import extract_bundle
-from release_tools import parse_runtime_config
+from tidebound_dev.release.metadata import parse_runtime_config
 
 
 def smoke(archive, output, arch, location):
