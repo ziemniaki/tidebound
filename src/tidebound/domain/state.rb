@@ -2,6 +2,7 @@
 # Pure Ruby domain model. No maps, rendering, or Essentials globals required.
 module Tidebound
   VERSION = "0.8.6"
+  SAVE_SCHEMA = 2
 
   module Config
     # Prototype tuning values, not settled design decisions.
@@ -55,7 +56,7 @@ module Tidebound
     attr_accessor :checkpoint
 
     def initialize
-      @schema_version = 1
+      @schema_version = SAVE_SCHEMA
       @realm = :living
       @journey = 0
       @next_identity = 1

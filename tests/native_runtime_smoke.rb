@@ -25,6 +25,21 @@ begin
   raise "native save identity changed" unless Tidebound.identity(saved_pokemon) == identity
   raise "native save lost held item" unless saved_pokemon.item_id == :MYSTICWATER
   raise "native save lost state" unless saved_state.realm == :astral
+  format_path = File.join(System.data_directory, "format-check.rxdata")
+  current_bytes = Marshal.dump({ :tidebound => saved_state })
+  File.binwrite(format_path, current_bytes)
+  raise "current schema rejected" unless SaveData.read_from_file(format_path)[:tidebound].schema_version == Tidebound::SAVE_SCHEMA
+  old_state = Marshal.load(Marshal.dump(saved_state))
+  old_state.instance_variable_set(:@schema_version, 1)
+  old_bytes = Marshal.dump({ :tidebound => old_state })
+  File.binwrite(format_path, old_bytes)
+  begin
+    SaveData.read_from_file(format_path)
+    raise "unsupported schema accepted"
+  rescue Tidebound::UnsupportedSave
+  end
+  raise "unsupported save was rewritten" unless File.binread(format_path) == old_bytes
+  File.delete(format_path)
   bitmap = Bitmap.new(320, 96)
   bitmap.font.name = "Power Green"
   bitmap.font.size = 24
@@ -43,7 +58,7 @@ begin
     "version" => Tidebound::VERSION, "save_directory" => System.data_directory,
     "game_directory" => Dir.pwd, "game_directory_writable" => File.writable?(Dir.pwd),
     "checks" => ["load engine and custom scripts", "compiled data", "native Pokemon/state save roundtrip",
-                "graphics/font rendering", "input initialization"]
+                "save schema rejection preserves disk bytes", "graphics/font rendering", "input initialization"]
   }))
 rescue Exception => error
   File.binwrite(report, Marshal.dump({ "passed" => false, "error" => error.full_message }))

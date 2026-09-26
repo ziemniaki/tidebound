@@ -25,6 +25,9 @@ CI covers relocated Unicode paths, saves and rendering on both Mac architectures
 Windows and Ubuntu 22.04/24.04. Mac is ad-hoc signed, not notarized. Smoke tests
 do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtesting.
 
+The refactoring branch introduces save schema 2 and retires earlier demo
+migrations. Published 0.8.6 remains unchanged; its saves require that release.
+
 ## Next work
 
 - Playtest the current demo on the maintainer's target machines.

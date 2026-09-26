@@ -58,10 +58,15 @@ Release saves use `Tidebound_Opening_0_2`. Development player copies use
 `Tidebound_Development`. Both live in the OS user-data directory, outside the
 checkout and app. The base editor project retains the release namespace.
 
-`TideboundSaveState = Tidebound::State` supports Essentials' symbol-based class
-validation. Keep existing class names, schema, Pokémon identities, forms, owner,
-personal IDs, moves, held items, quest keys and event IDs unless an explicit
-migration preserves them. An empty party is not evidence of a new game.
+Current saves use `Tidebound::SAVE_SCHEMA` (schema 2 in the refactored development
+build). `engine/saves.rb` rejects other schemas before conversion or loading;
+existing files are never rewritten by that rejection. Pre-refactor 0.8.6 saves
+require the original release. New development games initialize current state
+directly, without historical opening/map/species migrations.
+
+`TideboundSaveState = Tidebound::State` remains the native SaveData class
+registration. Preserve current Pokémon identities, forms, owner, personal IDs,
+moves, held items and quest state. An empty party is not evidence of a new game.
 
 The loss adapter snapshots the party before Essentials' cleanup heals it.
 Recovery restores the archived individual, not a replacement capture. Avoid

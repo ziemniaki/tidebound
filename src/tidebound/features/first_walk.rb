@@ -1,4 +1,4 @@
-# Opening revision 4. Story flags and native follower data survive ordinary saves.
+# The household walk and companion choice.
 module Tidebound
   module Opening
     POOKIE_FOLLOWER = "Tidebound Pookie"
@@ -47,7 +47,6 @@ module Tidebound
 
     def home_arrival
       erase_autorun
-      migrate_opening!
       unless flags[:opening_started]
         travel(107, 6, 8, 6)
         return
@@ -239,7 +238,6 @@ module Tidebound
 
     def sync_opening_actors
       return unless MAP_IDS.include?($game_map.map_id)
-      migrate_opening!
       seller = actor("Seller outside")
       if seller
         seller.opacity = flags[:shop_unlocked] ? 0 : 255

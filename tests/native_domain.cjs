@@ -11,7 +11,7 @@ const { createHarness } = require('./support/ruby_vm.cjs');
   h.ruby('tests/support/scene_services.rb');
   for (const suite of [
     'actual_pokemon_roundtrip', 'regional_evolution_thresholds', 'field_encounter_rosters',
-    'opening_flow', 'neighbor_flow', 'hideout_flow', 'landscape_flow', 'interaction_flow'
+    'opening_flow', 'neighbor_flow', 'hideout_flow', 'save_format', 'interaction_flow'
   ]) h.ruby(`tests/${suite}.rb`);
   h.compileEvents();
   h.finish();

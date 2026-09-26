@@ -9,8 +9,6 @@ def hideout_setup
 end
 h=Tidebound::Hideout;n=Tidebound::NeighborQuest;o=Tidebound::Opening
 hideout_setup
-h.migrate;check([$game_player.x,$game_player.y]==[11,14],'migration entry')
-$game_player.moveto(4,10);h.migrate;check($game_player.x==4,'repeated migration')
 $quest_outcome=0;$game_player.moveto(14,9);h.approach
 check(!n.q[:runner_won] && $game_player.y==10 && $hideout_plays==0,'guard skipped on abort')
 $quest_outcome=1;h.approach;check(n.q[:runner_won],'guard win')
@@ -29,8 +27,8 @@ h.boss;h.cache;check($bag.quantity(n::NECKLACE)==1,'duplicate necklace')
 o.travel(106,8,10);n.return_necklace
 check(n.stage==:complete && !$bag.has?(n::NECKLACE),'seller continuation')
 hideout_setup;n.q[:runner_won]=true;n.q[:second_won]=true
-h.boss;check(n.stage==:necklace && $hideout_plays==0,'legacy defeated boss replays')
-puts 'PASS: guard/abort; minigame cancel/win; astral boss loss; saved win skips replay; full-bag/cache retry; unique necklace; seller return; legacy defeated boss.'
+h.boss;check(n.stage==:necklace && $hideout_plays==0,'saved defeated boss replays')
+puts 'PASS: guard/abort; minigame cancel/win; astral boss loss; saved win skips replay; full-bag/cache retry; unique necklace; seller return; saved defeated boss.'
 
 g=Tidebound::Mending::Game.new
 def mending_walk(g,goal)

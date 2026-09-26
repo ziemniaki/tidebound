@@ -18,26 +18,6 @@ module Tidebound
       Tidebound.state.story
     end
 
-    # Migrate by story revision, never by party size: an empty party may be grief.
-    def migrate_opening!
-      return unless flags[:opening_started]
-      revision = flags[:opening_revision]
-      return if revision && revision >= 4
-      unless revision
-        flags[:legacy_companion] = true
-        flags[:starter_chosen] = true
-        flags[:lamp_lit] = true if flags[:oil_returned]
-      end
-      # Existing journeys keep all companions, losses and errand progress.
-      # The new childhood scene is for new games; never reset an old save.
-      flags[:opening_revision] = 4
-      flags[:bedroom_talk] = true
-      flags[:hall_talk] = true
-      flags[:walk_state] = :complete
-      flags[:walk_steps] = 100
-      flags[:shop_unlocked] = true
-    end
-
     def household_pets
       flags[:household_pets] ||= {}
     end
@@ -59,13 +39,10 @@ module Tidebound
 
     def begin_story
       erase_autorun
-      migrate_opening!
       return if flags[:opening_started]
       flags[:opening_started] = true
       flags[:psychic_maze] = :active if $game_map.map_id == 114
       flags[:dream_room] = {phase: :sealed, streak: 0} if $game_map.map_id == 115
-      flags[:coast_revision] = 5
-      flags[:opening_revision] = 4
       pbChangePlayer(1)
       $player.name = "Ren" # Temporary protagonist name, editable in the journal.
       $player.has_pokedex = false
@@ -100,7 +77,6 @@ module Tidebound
     end
 
     def mother_dialogue
-      migrate_opening!
       unless flags[:hall_talk]
         hall_talk
         return
@@ -133,12 +109,7 @@ module Tidebound
         pbMessage("She takes the bottle in both hands. For a moment, neither of you lets go.")
         pbMessage("Mother: Thank you. Come, you should know how to tend it yourself.")
         pbMessage("She shows you the measure on the bottle and how to trim the wick.")
-        if flags[:legacy_companion]
-          flags[:lamp_lit] = true
-          pbMessage("Mother: That should last until morning. Mind your footing in the wood.")
-        else
-          pbMessage("Mother: Take it upstairs to the great lamp. Only that one, please.")
-        end
+        pbMessage("Mother: Take it upstairs to the great lamp. Only that one, please.")
       elsif flags[:oil_returned] && !flags[:lamp_lit]
         pbMessage("Mother: The great lamp, upstairs. Pour to the line, then turn the brass wheel.")
       elsif flags[:lamp_lit]
@@ -436,10 +407,8 @@ module Tidebound
     end
 
     def atmosphere
-      migrate_coast!
       return unless MAP_IDS.include?($game_map.map_id)
       astral = $game_map.map_id == 105
-      migrate_opening!
       indoor = [101, 104, 106, 107, 109, 110, 111, 113, 114, 115, 116].include?($game_map.map_id)
       tone = if $game_map.map_id == 116
                Tone.new(-20, -30, -12, 25)

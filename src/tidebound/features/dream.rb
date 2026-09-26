@@ -313,11 +313,3 @@ module Tidebound::DreamRoom
     Input.update
   end
 end
-# Refresh only the edited dream map in old saves; never reset unrelated map events.
-module TideboundDreamMapRefresh
-  def load_map
-    $map_factory.setup(115) if $map_factory && $map_factory.map.map_id==115
-    super
-  end
-end
-Game.singleton_class.prepend(TideboundDreamMapRefresh)

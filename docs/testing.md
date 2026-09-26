@@ -12,7 +12,7 @@ files first so the tracked-file copy includes them.
 | --- | --- |
 | Python `test_*.py` | Packaging safety, provenance, failure cleanup, workflow authorization and developer commands |
 | `tests/run.cjs` | Domain and battle-adapter rules with test doubles |
-| `tests/native_domain.cjs` | Actual Essentials Pokémon, owner, bag and SaveData objects; all starters, quest branches, retries and old-save migration |
+| `tests/native_domain.cjs` | Actual Essentials Pokémon, owner, bag and SaveData objects; all starters, quest branches, retries and current-save/schema rejection |
 | `tests/regional_snakes.cjs` | Native species/forms, move inheritance, evolution and save preservation |
 | Geometry checks | Walkable arrivals/interactions, maze routes and Surf-only pond island |
 | Native platform smoke | Packaged engine startup, compiled data, actual save roundtrip, graphics/fonts and input initialization |

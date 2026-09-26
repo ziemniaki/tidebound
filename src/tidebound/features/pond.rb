@@ -1,4 +1,4 @@
-# Recovered source: optional pond area. Not embedded until the resume recipe runs.
+# The southern pond: fishing battles, water terrain and optional items.
 GameData::EncounterType.register(id: :PondGrass, type: :land, trigger_chance: 18)
 module Tidebound::Pond
   module_function
@@ -39,16 +39,6 @@ module Tidebound::Pond
     say('Behind the roots, something has been wrapped in old waxed cloth.')
     flags[:cache]=true if pbReceiveItem(:MYSTICWATER)
   end
-  def safe_arrival
-    return unless here?
-    return if flags[:revision]==1
-    x=$game_player.x;y=$game_player.y
-    mask=Tidebound::MAP_PASSAGES[108]
-    if y>=48 && (mask[y].nil? || mask[y][x]!='1' || Tidebound::PondGeometry::ISLAND.include?([x,y]))
-      $game_player.moveto(26,52)
-    end
-    flags[:revision]=1
-  end
 end
 module Tidebound::PondEncounters
   def encounter_type
@@ -71,6 +61,3 @@ module Tidebound::PondTerrain
   end
 end
 Game_Map.prepend(Tidebound::PondTerrain)
-EventHandlers.add(:on_frame_update,:tidebound_pond_arrival,proc {
-  Tidebound::Pond.safe_arrival if $scene.is_a?(Scene_Map) && $game_player
-})

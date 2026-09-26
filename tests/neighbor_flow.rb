@@ -46,8 +46,8 @@ n=Tidebound::NeighborQuest;o=Tidebound::Opening;h=Tidebound::Hideout
   check(o.flags[:lamp_lit] && o.household_pets.size==2,'old progress reset')
   puts "PASS: #{species} whole quest; saved stages; trainer loss/draw/retry; unique items; preserved household."
 end
-new_opening;o.flags.merge!({:opening_revision=>4,:coast_revision=>5,:starter_chosen=>:MAKUHITA,:walk_state=>:complete,:hall_talk=>true,:oil_requested=>true,:oil_collected=>true,:oil_returned=>true,:lamp_lit=>true,:shop_unlocked=>true})
-o.travel(106,8,10);Tidebound::Interactions.oil_seller;check(n.stage==:pie && o.flags[:lamp_lit] && o.flags[:coast_revision]==5,'old oil save')
+new_opening;o.flags.merge!({:starter_chosen=>:MAKUHITA,:walk_state=>:complete,:hall_talk=>true,:oil_requested=>true,:oil_collected=>true,:oil_returned=>true,:lamp_lit=>true,:shop_unlocked=>true})
+o.travel(106,8,10);Tidebound::Interactions.oil_seller;check(n.stage==:pie && o.flags[:lamp_lit],'completed oil quest')
 class PokemonBag
   alias quest_original_add add
   def add(item,*args);return false if item==$quest_reject_item;quest_original_add(item,*args);end
@@ -57,4 +57,4 @@ check(n.stage==:pie && $bag.has?(n::PIE),'full bag consumes pie')
 $quest_reject_item=nil;n.meal;n.q.merge!({:stage=>:pursuit,:runner_won=>true,:second_won=>true})
 $quest_reject_item=n::NECKLACE;h.boss;check(n.stage==:pursuit && n.q[:second_won],'earned item lost')
 $quest_reject_item=nil;h.boss;check(n.stage==:necklace && $bag.quantity(n::NECKLACE)==1,'item retry')
-puts 'PASS: completed-oil legacy save, full-bag meal rollback and necklace retry without rebattle.'
+puts 'PASS: completed-oil save, full-bag meal rollback and necklace retry without rebattle.'

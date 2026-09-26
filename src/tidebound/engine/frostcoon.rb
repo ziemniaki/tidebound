@@ -1,5 +1,4 @@
-# Refresh cached values in previously owned provisional Frostcoon, once.
-# Revision 2 adds the support moveset; keep HP, status, items and identity.
+# Apply the current support moveset when a Wurmple evolves into Frostcoon.
 module Tidebound
   module Frostcoon
     module_function
@@ -24,51 +23,14 @@ module Tidebound
       pokemon.learn_move(:STRINGSHOT) if pokemon.moves.empty?
     end
 
-    def refresh(pokemon)
-      return unless pokemon && pokemon.species == :FROSTCOON
-      revision = pokemon.instance_variable_get(:@tidebound_frostcoon_revision).to_i
-      return if revision >= 2
-      if revision < 1
-        hp = pokemon.hp
-        pokemon.ability = nil if pokemon.ability_id == :SHEDSKIN
-        pokemon.calc_stats
-        pokemon.hp = [hp, pokemon.totalhp].min
-      end
-      support_moves(pokemon)
-      pokemon.instance_variable_set(:@tidebound_frostcoon_revision, 2)
-    end
-
-    def refresh_loaded
-      $player.party.each { |p| refresh(p) } if $player
-      if $PokemonStorage
-        $PokemonStorage.maxBoxes.times do |box|
-          $PokemonStorage.maxPokemon(box).times { |slot| refresh($PokemonStorage[box, slot]) }
-        end
-      end
-      if $tidebound
-        ($tidebound.souls + $tidebound.memorials).each { |s| refresh(s.pokemon) }
-      end
-    end
   end
 
-  module FrostcoonSaveRefresh
-    def load_all_values(*args)
-      result = super
-      Tidebound::Frostcoon.refresh_loaded
-      result
-    end
-  end
-end
-SaveData.singleton_class.prepend(Tidebound::FrostcoonSaveRefresh)
-
-module Tidebound
   module FrostcoonEvolutionMoves
     def species=(value)
       previous_species = species
       result = super
       if previous_species != :FROSTCOON && species == :FROSTCOON
         Tidebound::Frostcoon.support_moves(self)
-        instance_variable_set(:@tidebound_frostcoon_revision, 2)
       end
       result
     end

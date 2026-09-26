@@ -58,21 +58,6 @@ module Tidebound::DemoLaunch
         "Thank you for playing Tidebound - Demo 1.\nThe journey to Psyduck Island continues in a future chapter.",
         "You can keep exploring and save your journey. Speak to the captain again whenever you like.")
   end
-  def safe_position
-    return unless $game_map && [108,112].include?($game_map.map_id)
-    key=[:map_revision,$game_map.map_id]
-    return if flags[key]==1
-    mask=Tidebound::MAP_PASSAGES[$game_map.map_id]
-    x=$game_player.x;y=$game_player.y
-    occupied=$game_map.events.values.reject(&:through).map { |e| [e.x,e.y] }
-    if !mask[y] || mask[y][x]!='1' || occupied.include?([x,y])
-      choices=[]
-      mask.each_with_index { |row,yy| row.each_char.with_index { |v,xx| choices<<[xx,yy] if v=='1' && !occupied.include?([xx,yy]) } }
-      spot=choices.min_by { |xx,yy| [(xx-x).abs+(yy-y).abs,yy,xx] }
-      $game_player.moveto(*spot) if spot
-    end
-    flags[key]=1
-  end
 end
 
 # Authored pixel props use world coordinates and the same night tone as the map.
@@ -97,7 +82,4 @@ EventHandlers.add(:on_new_spriteset_map,:tidebound_demo_props,proc { |s,v|
   s.map.events.each_value do |event|
     s.addUserSprite(TideboundDemoProp.new(event,v)) if event.name.start_with?('Demo prop:')
   end
-})
-EventHandlers.add(:on_frame_update,:tidebound_demo_arrival,proc {
-  Tidebound::DemoLaunch.safe_position if $scene.is_a?(Scene_Map) && $game_player
 })

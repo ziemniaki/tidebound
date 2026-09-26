@@ -1,4 +1,4 @@
-# Storehouse revision: preserve the original quest stages and trainer victories.
+# Storehouse quest, guard battle and Mending minigame.
 module Tidebound::Hideout
   module_function
   def q; Tidebound::NeighborQuest.q; end
@@ -14,15 +14,8 @@ module Tidebound::Hideout
     e.moveto(13,4) unless seated
     e.turn_down unless seated
   end
-  def migrate
-    return unless $game_map && $game_map.map_id==109
-    return if q[:hideout_revision]==1
-    # An old save may be beyond the new guard line or inside a rubbish pile.
-    # Use the clear arrival once; preserve all quest, party and bag data.
-    $game_player.moveto(11,14);q[:hideout_revision]=1
-  end
   def arrival
-    migrate;sync;Tidebound::Opening.erase_autorun
+    sync;Tidebound::Opening.erase_autorun
     return unless active? && !q[:heard]
     say('You step around a bowl with something growing in it.',
         'Bram: Boss said no more taking things from houses.',
@@ -159,7 +152,7 @@ module Tidebound::Hideout
 end
 
 EventHandlers.add(:on_new_spriteset_map,:tidebound_hideout,proc { |_s,_v|
-  Tidebound::Hideout.migrate;Tidebound::Hideout.sync
+  Tidebound::Hideout.sync
 })
 
 # A fictional game inside the game. Its state never touches real Pokemon.

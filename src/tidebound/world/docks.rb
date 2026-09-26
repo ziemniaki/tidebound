@@ -14,18 +14,6 @@ module Tidebound::DockDetails
     # Native blue panes; grey frames, mullions, walls and door panels are excluded.
     c.alpha>0 && c.blue>=180 && c.green>c.red+25 && c.blue>c.green+25
   end
-  def safe_dock_position
-    return unless $game_map.map_id==112 && $game_player && !Tidebound::Opening.flags[:dock_revision]
-    mask=Tidebound::MAP_PASSAGES[112];x=$game_player.x;y=$game_player.y
-    occupied=$game_map.events.values.reject(&:through).map { |e| [e.x,e.y] }
-    unless mask[y] && mask[y][x]=='1' && !occupied.include?([x,y])
-      choices=[]
-      mask.each_with_index { |row,yy| row.each_char.with_index { |v,xx| choices<<[xx,yy] if v=='1' && !occupied.include?([xx,yy]) } }
-      spot=choices.min_by { |xx,yy| [(xx-x).abs+(yy-y).abs,yy,xx] }
-      $game_player.moveto(*spot) if spot
-    end
-    Tidebound::Opening.flags[:dock_revision]=1
-  end
 end
 class TideboundWindowPane < Sprite
   attr_reader :pane_pixels
@@ -107,7 +95,6 @@ EventHandlers.add(:on_new_spriteset_map,:tidebound_dock_details,proc { |spritese
   next unless [102,108,112].include?(map.map_id)
   spriteset.addUserSprite(TideboundWindowLights.new(map))
   if map.map_id==112
-    Tidebound::DockDetails.safe_dock_position
     map.events.each_value { |e| spriteset.addUserSprite(TideboundQuayProp.new(e,viewport)) if ['Dock boat','Dock bollard','Dock nets','Dock stall'].include?(e.name) }
   end
 })

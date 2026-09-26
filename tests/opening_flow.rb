@@ -91,31 +91,6 @@ o=Tidebound::Opening
   puts "PASS: #{species}; #{index==1 ? 'optional pier' : 'no pier'}; 99/100 steps, return, identity, keys/save/unlock/oil."
 end
 
-# 0.2 and 0.3 migrations, including an empty party after death.
-[nil,3].each do |revision|
-  [false,true].each do |chosen|
-    new_opening
-    old_pet=o.household_pets[:NATU]
-    $player.party << old_pet if chosen || revision.nil?
-    o.household_pets.delete(:NATU) if chosen
-    o.flags[:opening_revision]=revision
-    o.flags[:starter_chosen]=:NATU if chosen
-    o.flags[:oil_collected]=true
-    o.migrate_opening!
-    check(o.flags[:walk_state]==:complete && o.flags[:shop_unlocked] && o.flags[:oil_collected],"migration progress")
-    if chosen || revision.nil?
-      check($player.party==[old_pet],"legacy companion changed")
-    else
-      $choices=[true];o.house_pet(:POOCHYENA)
-      check($player.party.size==1,"old empty party cannot choose")
-    end
-    Tidebound.state.enter_astral!($player.party,{:map_id=>103});$player.party.clear
-    o.flags[:opening_revision]=revision;o.migrate_opening!
-    check($player.party.empty? && Tidebound.state.waiting_ids.size==1,"loss reset")
-  end
-end
-puts "PASS: 0.2/0.3 migration, preserved oil, existing/unselected companions and astral losses."
-
 new_opening;walk
 $choices=[true];o.house_pet(:MAKUHITA)
 o.forest_gate;$choices=[0];o.fire

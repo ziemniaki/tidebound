@@ -25,26 +25,6 @@ module Tidebound
       result = candidates.min
       result ? result[1, 2] : coast_xy(8, 16)
     end
-    def migrate_coast!
-      return unless flags[:opening_started]
-      return if flags[:coast_revision].to_i >= 5
-      $PokemonGlobal.followers.each do |data|
-        next unless data.current_map_id == 102
-        data.x += COAST_OFFSET[0]
-        data.y += COAST_OFFSET[1]
-      end
-      $game_temp.followers = nil
-      if $game_map.map_id == 102
-        $game_player.moveto(*safe_coast_position(*coast_xy($game_player.x, $game_player.y)))
-        $PokemonGlobal.followers.each do |data|
-          next unless data.current_map_id == 102
-          mask = Tidebound::MAP_PASSAGES[102]
-          next if mask[data.y] && mask[data.y][data.x] == "1"
-          data.x, data.y = $game_player.x, $game_player.y
-        end
-      end
-      flags[:coast_revision] = 5
-    end
     def camera_position(x, y)
       w = Graphics.width.to_f / Game_Map::TILE_WIDTH
       h = Graphics.height.to_f / Game_Map::TILE_HEIGHT

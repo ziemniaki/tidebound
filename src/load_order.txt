@@ -1,6 +1,7 @@
 # Archive embedding order. Paths are relative to src/.
 tidebound/domain/state.rb
 tidebound/engine/battles.rb
+tidebound/engine/saves.rb
 generated/map_passages.rb
 tidebound/features/opening.rb
 tidebound/presentation/overworld.rb
@@ -14,7 +15,6 @@ tidebound/presentation/vault.rb
 tidebound/world/docks.rb
 tidebound/engine/regional_forms.rb
 tidebound/engine/frostcoon.rb
-tidebound/engine/landscape.rb
 tidebound/presentation/lighthouse.rb
 generated/maze_geometry.rb
 tidebound/features/maze.rb
