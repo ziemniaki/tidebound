@@ -1,5 +1,5 @@
 # Code-drawn household props in the same style as the existing lamps/crates.
-class TideboundMealProp < Sprite
+class TideboundMealProp < Tidebound::Presentation::OwnedSprite
   def initialize(viewport)
     super(viewport); self.bitmap=Bitmap.new(32,20); self.ox=16; self.oy=10
     @eaten=nil; update
@@ -19,12 +19,10 @@ class TideboundMealProp < Sprite
         [12,18].each { |x| b.fill_rect(x,8,2,2,Color.new(112,77,58)) }
       end
     end
-    self.x=9*32+8-($game_map.display_x/Game_Map::X_SUBPIXELS)
-    self.y=8*32-($game_map.display_y/Game_Map::Y_SUBPIXELS); self.z=150
+    position_at_tile($game_map, 9, 8, dx: 8); self.z=150
   end
-  def dispose; self.bitmap&.dispose; super; end
 end
-class TideboundPearlProp < Sprite
+class TideboundPearlProp < Tidebound::Presentation::OwnedSprite
   def initialize(event,viewport)
     super(viewport); @event=event; self.bitmap=Bitmap.new(24,16)
     [[2,4],[4,8],[8,10],[12,10],[16,8],[18,4]].each do |x,y|
@@ -35,11 +33,10 @@ class TideboundPearlProp < Sprite
   def update
     super
     q=Tidebound::NeighborQuest; self.visible=!!q.pearl_visible
-    self.x=@event.screen_x; self.y=@event.screen_y-14; self.z=@event.screen_z+1; self.opacity=190
+    position_at_event(@event, dy: -14, dz: 1); self.opacity=190
     v=(28*q.pearl_glint.to_f).to_i
     self.bitmap.fill_rect(12,10,2,2,Color.new(206+v,211+v,201+v))
   end
-  def dispose; self.bitmap&.dispose; super; end
 end
 EventHandlers.add(:on_new_spriteset_map,:tidebound_neighbor_props,proc { |s,v|
   if s.map.map_id==101

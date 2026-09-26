@@ -8,12 +8,16 @@ tidebound/world/navigation.rb
 tidebound/world/atmosphere.rb
 tidebound/engine/encounters.rb
 tidebound/features/opening.rb
+tidebound/presentation/sprites.rb
+tidebound/features/actors.rb
+tidebound/presentation/title.rb
 tidebound/presentation/overworld.rb
 tidebound/features/first_walk.rb
 tidebound/features/lapras.rb
 tidebound/features/neighbor.rb
 tidebound/presentation/neighbor.rb
 tidebound/features/fields.rb
+tidebound/presentation/fields.rb
 tidebound/features/vault.rb
 tidebound/presentation/vault.rb
 tidebound/world/docks.rb
@@ -26,6 +30,7 @@ tidebound/features/dream.rb
 tidebound/features/prelude.rb
 tidebound/engine/audio.rb
 tidebound/features/docks.rb
+tidebound/presentation/docks.rb
 tidebound/features/hideout.rb
 generated/pond_geometry.rb
 tidebound/features/pond.rb

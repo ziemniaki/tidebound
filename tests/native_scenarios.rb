@@ -85,6 +85,7 @@ module NativeScenarios
     save_path = File.join(System.data_directory, 'world-current.rxdata')
     raise 'Fresh world save failed' unless Game.save(save_path)
     bytes = File.binread(save_path)
+    $scene.dispose
     SaveData.mark_values_as_unloaded
     Game.load(SaveData.get_data_from_file(save_path))
     raise 'Current world save changed during load' unless File.binread(save_path) == bytes

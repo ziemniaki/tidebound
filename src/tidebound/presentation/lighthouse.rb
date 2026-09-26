@@ -1,6 +1,6 @@
 # The beacon housing belongs to the map; only its lit lens is a runtime overlay.
 # The glow shares the map viewport, scroll position and existing lamp quest flag.
-class TideboundBeaconGlow < Sprite
+class TideboundBeaconGlow < Tidebound::Presentation::OwnedSprite
   def initialize(map,viewport)
     super(viewport);@map=map
     self.bitmap=Bitmap.new('Graphics/Pictures/Tidebound_Beacon_Glow')
@@ -8,12 +8,10 @@ class TideboundBeaconGlow < Sprite
   end
   def update
     super
-    self.x=5*32-@map.display_x/Game_Map::X_SUBPIXELS
-    self.y=2*32-@map.display_y/Game_Map::Y_SUBPIXELS
+    position_at_tile(@map, 5, 2)
     self.visible=!!Tidebound.story[:lamp_lit]
     self.opacity=235+(Math.sin(System.uptime*1.1)*12).to_i
   end
-  def dispose;bitmap.dispose;super;end
 end
 EventHandlers.add(:on_new_spriteset_map,:tidebound_beacon,proc { |spriteset,viewport|
   spriteset.addUserSprite(TideboundBeaconGlow.new(spriteset.map,viewport)) if spriteset.map.map_id==104

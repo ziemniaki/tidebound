@@ -38,7 +38,7 @@ def main(root=ROOT):
         run(sys.executable, "tests/pond_geometry.py")
         run(sys.executable, "tests/prepare_reference.py")
         env = dict(os.environ, TIDEBOUND_EVENT_SCRIPTS=events)
-        for script in ("run.cjs", "native_domain.cjs", "regional_snakes.cjs"):
+        for script in ("run.cjs", "native_domain.cjs", "regional_snakes.cjs", "presentation_support.cjs"):
             run("node", "tests/" + script, env=env)
     print("PASS: headless verification complete. Native graphical playtesting is separate.")
 

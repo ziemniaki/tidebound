@@ -125,3 +125,14 @@ layout, signing and executable permissions. Development settings are applied
 before signing; development builds publish the player directly. Release builds
 add ZIP roundtrip verification and provenance manifests in an atomic transaction. Release package checks and
 provenance are described in [releasing](releasing.md).
+
+## Presentation and actor state
+
+`features/actors.rb` synchronizes companion/key/crate collision during map updates,
+independent of sprite creation. Its visibility rules are shared by the renderers.
+Forced movement routes retain their collision ownership until the route finishes.
+
+Code-drawn props inherit `Presentation::OwnedSprite`: it disposes the owned bitmap
+exactly once and only disposes a viewport when explicitly owned. Native Pokémon
+icons keep Essentials' resource lifecycle and share only the positioning mixin.
+Drawing remains in focused presentation modules, including fields, docks and title.

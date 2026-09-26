@@ -452,7 +452,8 @@ frameworks and a broad asset purge until a specific need justifies them.
 | R8 | Implemented | Installed operation modules, one callable rebuild plan, no generator subprocess chain or path mutation; public build and full isolated checks pass |
 | R5 | Implemented | Shared state, named generated map/actor registry, neutral world and encounter operations; feature-independence and full regeneration tests pass |
 | R11 | Implemented | Shared fixture preparation, named runtime/world/species scenarios, fresh save fixtures; native ARM run and seven scene captures pass |
-| R12–R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
+| R12 | Implemented | Owned bitmap/viewport and positioning tests; collision updates without rendering; native seven-scene comparison passes |
+| R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
 
 Headless checks and isolated regeneration have passed for the first three completed
 items. This is progress evidence, not final acceptance of the complete refactor.

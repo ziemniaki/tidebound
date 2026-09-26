@@ -1,5 +1,5 @@
 # Native-size temporary pixel props. No supernatural effects on the public sabre.
-class TideboundArchiveProp < Sprite
+class TideboundArchiveProp < Tidebound::Presentation::OwnedSprite
   def initialize(event, viewport)
     super(viewport);@event=event
     self.bitmap=Bitmap.new(96,112);self.ox=48;self.oy=104
@@ -33,9 +33,8 @@ class TideboundArchiveProp < Sprite
     update
   end
   def update
-    super;self.x=@event.screen_x;self.y=@event.screen_y;self.z=@event.screen_z
+    super;position_at_event(@event)
   end
-  def dispose;bitmap.dispose;super;end
 end
 EventHandlers.add(:on_new_spriteset_map,:tidebound_archive_props,proc { |spriteset,viewport|
   spriteset.map.events.each_value do |e|

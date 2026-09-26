@@ -1,6 +1,7 @@
 # Stock Pokemon art is used deliberately as a temporary gameplay reference.
 # Regional artwork is selected through each Pokemon's stored form.
 class TideboundCompanionSprite < PokemonIconSprite
+  include Tidebound::Presentation::Position
   def initialize(event, viewport)
     @map_event = event
     @house_species = event.name.match?(/^(House|Room):/) ? event.name.split(":").last.to_sym : nil
@@ -19,35 +20,21 @@ class TideboundCompanionSprite < PokemonIconSprite
 
   def update
     super
+    self.visible = Tidebound::Actors.visible?(@map_event)
     if @spirit_index
-      record = Tidebound.state.souls[@spirit_index]
-      self.visible = !!(record && record.status == :waiting && Tidebound.state.realm == :astral)
       self.opacity = 165 + (Math.sin(System.uptime * 2) * 30).to_i
       self.color = Color.new(140, 188, 214, 100)
-    elsif @house_species
-      self.visible = !!Tidebound::Opening.household_pets[@house_species]
-      if @outside_dog
-        self.visible &&= [:not_started, :requested, :running, :at_pier].include?(Tidebound.story[:walk_state])
-      elsif @map_event.name == "Room:NATU"
-        self.visible &&= Tidebound.story[:walk_state] != :complete
-        self.visible &&= Tidebound::DreamRoom.wick_visible? if @map_event.map_id == 115
-      elsif @house_species != :MAKUHITA
-        self.visible &&= Tidebound.story[:walk_state] == :complete
-      end
+    else
       self.opacity = 255
       self.opacity = Tidebound::DreamRoom.wick_alpha || 255 if @map_event.map_id == 115 && @house_species == :NATU
-    else
-      self.visible = @map_event.name.count(":") > 1 ? (@map_event.name.end_with?(":shoreduck") ? !Tidebound::Pond.flags[:shoreduck_gone] : Tidebound::NeighborQuest.wild_visible?(@map_event.name)) : !Tidebound.story[:wood_bird_gone]
-      self.opacity = 255
     end
-    @map_event.through = !self.visible unless @map_event.move_route_forcing
     self.x = @map_event.screen_x
     self.y = @map_event.screen_y + (@spirit_index ? (Math.sin(System.uptime * 1.4) * 3).to_i : 0)
     self.z = @map_event.screen_z
   end
 end
 
-class TideboundLampSprite < Sprite
+class TideboundLampSprite < Tidebound::Presentation::OwnedSprite
   def initialize(event, viewport)
     super(viewport)
     @map_event = event
@@ -73,20 +60,15 @@ class TideboundLampSprite < Sprite
 
   def update
     super
-    self.x = @map_event.screen_x
-    self.y = @map_event.screen_y
-    self.z = @map_event.screen_z
+    position_at_event(@map_event)
     self.opacity = 230 + (Math.sin(System.uptime * (@fire ? 8 : 1.2)) * 20).to_i
     self.opacity = 145 if @map_event.name == "Main lamp" && !Tidebound.story[:lamp_lit]
   end
 
-  def dispose
-    self.bitmap.dispose
-    super
-  end
 end
 
 class TideboundLaprasSprite < PokemonIconSprite
+  include Tidebound::Presentation::Position
   def initialize(event, viewport)
     @map_event = event
     # Like the local lamps, its faint light survives the map's strong night tint.
@@ -110,7 +92,7 @@ class TideboundLaprasSprite < PokemonIconSprite
   end
   def dispose
     super
-    @ghost_viewport.dispose
+    @ghost_viewport.dispose unless @ghost_viewport.disposed?
   end
 end
 
@@ -132,48 +114,9 @@ EventHandlers.add(:on_new_spriteset_map, :tidebound_event_sprites,
   }
 )
 
-class Scene_TideboundTitle
-  def main
-    viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
-    viewport.z = 99999
-    backdrop = Sprite.new(viewport)
-    backdrop.bitmap = Bitmap.new(Graphics.width, Graphics.height)
-    b = backdrop.bitmap
-    b.fill_rect(0, 0, Graphics.width, Graphics.height, Color.new(12, 20, 30))
-    b.fill_rect(0, 205, Graphics.width, Graphics.height - 205, Color.new(18, 34, 44))
-    9.times { |i| b.fill_rect(0, 210 + i * 21, Graphics.width, 1, Color.new(24, 42, 52)) }
-    b.fill_rect(368, 132, 26, 97, Color.new(31, 43, 50))
-    b.fill_rect(362, 125, 38, 8, Color.new(44, 51, 55))
-    b.fill_rect(371, 115, 20, 12, Color.new(232, 208, 156))
-    b.fill_rect(365, 108, 32, 6, Color.new(62, 62, 59))
-    pbSetSystemFont(b)
-    b.font.size = 40
-    b.font.color = Color.new(225, 220, 206)
-    b.draw_text(42, 75, 320, 55, "TIDEBOUND")
-    b.font.size = 20
-    b.font.color = Color.new(159, 177, 182)
-    b.draw_text(44, 129, 300, 32, "The keeper's light")
-    b.font.size = 18
-    b.draw_text(44, 320, 420, 32, "Press Enter")
-    b.font.size = 14
-    b.draw_text(44, 350, 400, 24, "Demo 1 | #{Tidebound::VERSION}  |  An unofficial fan project")
-    pbBGMPlay("Tidebound Shore", 80, 100)
-    Graphics.transition(20)
-    loop do
-      Graphics.update
-      Input.update
-      break if Input.trigger?(Input::USE)
-    end
-    Graphics.freeze
-    backdrop.bitmap.dispose
-    backdrop.dispose
-    viewport.dispose
-    $scene = Scene_DebugIntro.new
-  end
-end
-
 # A visual copy only: the household individual is never healed or rerolled here.
 class TideboundPookieFollowerSprite < PokemonIconSprite
+  include Tidebound::Presentation::Position
   def initialize(viewport)
     original = Tidebound::Opening.household_pets[:POOCHYENA]
     pokemon = original ? Tidebound.copy(original) : Pokemon.new(:POOCHYENA, 7)
@@ -189,13 +132,11 @@ class TideboundPookieFollowerSprite < PokemonIconSprite
     self.visible = !!(follower && Tidebound.story[:walk_state] == :following)
     return unless self.visible
     follower.opacity = 0 # Native movement/save object; our icon supplies its art.
-    self.x = follower.screen_x
-    self.y = follower.screen_y
-    self.z = follower.screen_z
+    position_at_event(follower)
   end
 end
 
-class TideboundPropSprite < Sprite
+class TideboundPropSprite < Tidebound::Presentation::OwnedSprite
   def initialize(event, viewport)
     super(viewport)
     @map_event = event
@@ -220,26 +161,17 @@ class TideboundPropSprite < Sprite
 
   def update
     super
-    self.x = @map_event.screen_x
-    self.y = @map_event.screen_y
-    self.z = @map_event.screen_z
+    position_at_event(@map_event)
     if @key
-      self.visible = !Tidebound.story[:keys_collected] && !Tidebound.story[:shop_unlocked]
-      @map_event.through = !self.visible
+      self.visible = Tidebound::Actors.visible?(@map_event)
       self.opacity = 205 + (Math.sin(System.uptime * 3) * 50).to_i
-    elsif !@map_event.move_route_forcing
-      @map_event.through = false
     end
   end
 
-  def dispose
-    self.bitmap.dispose
-    super
-  end
 end
 
 
-class TideboundSleepSprite < Sprite
+class TideboundSleepSprite < Tidebound::Presentation::OwnedSprite
   def initialize(event, viewport)
     super(viewport)
     @map_event = event
@@ -255,14 +187,10 @@ class TideboundSleepSprite < Sprite
     self.y = @map_event.screen_y - 42 + (Math.sin(System.uptime) * 2).to_i
     self.z = @map_event.screen_z + 1
   end
-  def dispose
-    self.bitmap.dispose
-    super
-  end
 end
 
 # Tiny native pixel props share the map's 32px grid and stock-art scale.
-class TideboundCoastProp < Sprite
+class TideboundCoastProp < Tidebound::Presentation::OwnedSprite
   def initialize(event, viewport)
     super(viewport)
     @map_event=event
@@ -299,11 +227,7 @@ class TideboundCoastProp < Sprite
   end
   def update
     super
-    self.x=@map_event.screen_x;self.y=@map_event.screen_y;self.z=@map_event.screen_z
-  end
-  def dispose
-    self.bitmap.dispose
-    super
+    position_at_event(@map_event)
   end
 end
 
