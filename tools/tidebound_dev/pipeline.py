@@ -12,8 +12,9 @@ def rebuild(root=ROOT, full=False):
         maps(root)
         opening_items.build(root)
         quest_data.build(root)
-        encounters.build(root)
+        # Encounters validate their species IDs against the newly compiled catalog.
         species_compiler.build(root)
+        encounters.build(root)
     scripts(root)
     if full:
         configure.build(root)

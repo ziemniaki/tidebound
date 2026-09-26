@@ -35,7 +35,7 @@ inside existing native runs; no additional platform/path jobs.
 **Acceptance:** a new declared species is included without editing a second roster;
 removing its required PNG or changing an omitted authored field fails the check.
 
-### A2 — P2: the rebuild plan consumes species before producing them
+### A2 — Implemented: produce species before their encounter consumers
 
 Evidence: [pipeline.py](../../tools/tidebound_dev/pipeline.py), `rebuild`;
 [encounters.py](../../tools/tidebound_dev/content/encounters.py), `build`.
@@ -48,8 +48,9 @@ stock species and do not exercise it.
 **Change:** put species production before consumers, documenting the few actual
 build dependencies in the existing plan. Do not add a task graph framework.
 
-**Acceptance:** one rebuild from a base copy succeeds when a new custom species
-and its encounter are introduced together; no preparatory build is required.
+**Verified:** a focused test adds a previously absent species and a roster using
+it, then runs the plan against copied native databases. The first build succeeds
+and the resulting encounter refers to the new species.
 
 ### A3 — P2: species generation publishes data before artwork can fail
 

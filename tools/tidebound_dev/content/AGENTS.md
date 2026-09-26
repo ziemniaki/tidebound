@@ -55,10 +55,8 @@ source of truth. Species PNGs follow the [asset workflow](../../../assets/AGENTS
   `src/tidebound/engine/regional_forms.rb`. Land/PondGrass activation also depends
   on `features/fields.rb` / `features/pond.rb` terrain and trigger code. A roster
   entry alone does not make encounters happen on a generated map.
-- The full pipeline currently builds encounters **before** custom species.
-  A roster naming a brand-new custom species can fail its existence check on the
-  first build. Fix the dependency order with a focused test when needed; do not
-  claim “run rebuild twice” as a supported workflow.
+- The full pipeline compiles species before encounter rosters. Keep this order:
+  encounter validation must see newly added species in the same build.
 
 Items/quest rewards use `opening_items.py` and `quest_data.py` for PBS/native data.
 A successful item definition does not guarantee a reward fits: `$bag.add` can
