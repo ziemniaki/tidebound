@@ -11,8 +11,9 @@ GitHub feature. Do not publish the instructions or unused template sections.
   useful change in one short sentence, then make the rest easy to scan.
 - Compare with the previous public release. For a refreshed draft, also tell
   earlier testers whether they should download it again.
-- Use **New**, **Improved**, **Fixed**, and **Before you play** only when needed.
-  Omit empty categories. Prefer 3–7 concrete bullets overall; keep each short.
+- Use one flat changelog list, with no New/Improved/Fixed subheadings or other
+  change categories. Prefer 3–7 concrete bullets; keep each short. Put essential
+  launch guidance in a brief paragraph underneath, without another heading.
 - Describe visible behavior: “Fixed the Mac unzip error” or “Added a southern
   pond to explore.” Explain what changed for the player, not how it was coded.
 - Include save compatibility, real platform limitations, required actions and
@@ -35,17 +36,10 @@ GitHub feature. Do not publish the instructions or unused template sections.
 
 One sentence about the main change for players.
 
-## New
-
 - **Concrete feature:** what players can now do.
-
-## Fixed
-
 - **Recognizable problem:** what works correctly now.
-
-## Before you play
-
-- Only essential compatibility information or actions players need to take.
+- **Compatibility:** mention only if players need to know.
 
 Choose your platform ZIP below, unzip it, and follow READ_ME_FIRST.txt.
+Add only essential launch actions or limitations here.
 ```

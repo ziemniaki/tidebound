@@ -29,7 +29,7 @@
   "save_directory": "Tidebound_Opening_0_2",
   "checks": "Development/validation_pond.md",
   "sha256": {
-    "AGENTS.md": "be35a3d9b9de979fb7c2cdfd46fb46c81b8cc4fc820130db0f80df8ef65e61b2",
+    "AGENTS.md": "60f7e59db92ebc5fe62a2cdbf793ed7d5ce8ac904fd6bab6c1678adb506c9985",
     "Audio/BGM/Tidebound Shore.ogg": "129cfe207fff4d312f474e0120cd14378d9789bf154e4586e7aeb8e7f98d843c",
     "Audio/BGM/Tidebound Stillness.ogg": "6f58a42a2014d8e74015abc3c931bbbed574f8ddd9fbdbc20d702210c3af31cb",
     "Audio/SE/Cries/WHYDUCK.ogg": "be238a97e9e6f9f3f60b5f0a63a8f48a5e6df30bc38cbd0dc43e64033a4dd722",
@@ -214,7 +214,7 @@
     "release.json": "de091e24672d2cf5887f319f312aa4e5531cc2070462d287d4d311166c458d68",
     "Development/refresh_draft.py": "aa07665d433ae4fdbd087c65d3ce070dfbbf0b402af94d5fa2c394e7c10effaa",
     "Development/Tests/test_refresh_draft.py": "37dc59bb7adb4f99e9c66e86192b24a6b0f5545a13594a351b4d0bc420c8cb9e",
-    "RELEASE_NOTES.md": "bf0670a868acac973f49bccae23f31f9dcaee2eb6767df4a5040e78cbdc0a26b"
+    "RELEASE_NOTES.md": "2fafe02fbc9a57bb4629403bf9e56decd7fa24287ed09f3b1761a1cd6a16fa5d"
   },
   "font_height_reporting": 1,
   "user_confirmed_native_mac_baseline": "0.4.0",

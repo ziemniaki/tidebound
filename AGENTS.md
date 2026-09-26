@@ -1288,7 +1288,8 @@ pond_map.py runs after demo_maps.py and generates024_PondGeometry.rb plus a comp
 Attach only one player ZIP per OS to releases. Keep checksums, provenance
 manifests and the editable project ZIP in CI artifacts. Write the release body
 in root RELEASE_NOTES.md using .github/RELEASE_NOTES_TEMPLATE.md: concise,
-scannable player changes and essential actions, without CI/agent chatter,
+scannable player changes in one flat list (no separate changelog sections),
+plus essential launch guidance, without CI/agent chatter,
 commit IDs or generic filler. This is an explicit owner preference.
 
 ## Authorized 0.8.5 draft refresh
