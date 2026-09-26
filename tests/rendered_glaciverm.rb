@@ -59,7 +59,8 @@ module GlaciTest
       end
       [55, 100].each do |lv|
         check = Marshal.load(Marshal.dump(p)); check.level = lv
-        raise 'unimplemented further evolution' if check.check_evolution_on_level_up
+        expected = target == :FROSTCOON ? :NIVALORA : nil
+        raise 'further evolution' unless check.check_evolution_on_level_up == expected
       end
       copy = Marshal.load(Marshal.dump(p))
       souls = Tidebound::State.new

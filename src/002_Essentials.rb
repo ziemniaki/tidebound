@@ -33,7 +33,8 @@ module Tidebound
     raise TransitionError, "Living-world battle requested in astral plane" unless state.realm == :living
     raise TransitionError, "Party needs an able Pokemon" if $player.able_pokemon_count == 0
     raise TransitionError, "Set a resting-fire checkpoint first" unless state.checkpoint
-    $player.party.each { |p| state.assign_identity(p) }
+    # Reject unsupported parties before engine cleanup can alter a defeat.
+    state.validate_astral_party!($player.party)
     origin = location
     self.battle_context = :living
     self.before_cleanup_party = nil

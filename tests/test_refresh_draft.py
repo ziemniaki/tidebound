@@ -43,6 +43,14 @@ class DraftRefreshTests(unittest.TestCase):
                 validate_candidate(folder, '0.8.5', 'b' * 40, '40')
             with self.assertRaisesRegex(ValueError, 'Mac build'):
                 validate_candidate(folder, '0.8.5', 'a' * 40, '39')
+            extra = folder / 'Tidebound_Mac_extra_universal.zip'
+            extra.write_bytes(b'unexpected player archive')
+            with self.assertRaisesRegex(ValueError, 'complete candidate'):
+                validate_candidate(folder, '0.8.5', 'a' * 40, '40')
+            checksums()
+            with self.assertRaisesRegex(ValueError, 'complete'):
+                validate_candidate(folder, '0.8.5', 'a' * 40, '40')
+            extra.unlink()
             (folder / 'Tidebound_Linux_0.8.5_x86_64.zip').unlink()
             checksums()
             with self.assertRaisesRegex(ValueError, 'complete'):

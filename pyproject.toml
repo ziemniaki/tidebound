@@ -3,7 +3,11 @@ name = "tidebound-dev"
 version = "0.1.0"
 description = "Local development commands for Tidebound"
 requires-python = ">=3.12,<3.14"
-dependencies = ["rubymarshal==1.2.10", "Pillow==12.3.0"]
+dependencies = [
+    "rubymarshal==1.2.10",
+    "Pillow==12.3.0",
+    "filelock==4.0.4",
+]
 
 [project.scripts]
 tidebound = "tidebound_dev.cli:main"
@@ -21,3 +25,8 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "tidebound_dev"
 module-root = "tools"
+
+[dependency-groups]
+docs = [
+    "reportlab==5.0.1",
+]

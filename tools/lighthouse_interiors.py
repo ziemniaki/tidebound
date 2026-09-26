@@ -146,7 +146,7 @@ rug(home,7,6,4,4,(100,76,64,255));prop(home,TABLE,8,7,2,2)
 prop(home,SOFA,4,8,3,2);prop(home,BOOK,4,10,1,1,False);lamp(home,5,10)
 prop(home,PLANT,15,7,1,2);rug(home,14,10,2,2,(87,99,84,255));prop(home,CUPBOARD,16,10,2,2)
 home.rect(10,14,1,1,itile(floor_tile()),walk=True)
-for xx in range(3,13):home.walk[7][xx]=True
+# The room already has a clear corridor around the table; keep its top solid.
 for yy in range(7,12):home.walk[yy][3]=True
 
 room(lantern,3,3,8,8,True)

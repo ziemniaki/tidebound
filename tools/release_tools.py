@@ -31,6 +31,27 @@ def load_release(root=ROOT):
     return config
 
 
+def parse_runtime_config(text):
+    """Parse mkxp JSON comments without treating quoted URLs as comments."""
+    tokens = r'"(?:\\.|[^"\\])*"|//[^\r\n]*|/\*[\s\S]*?\*/'
+    text = re.sub(tokens, lambda m: m[0] if m[0].startswith('"') else ' ', text)
+    # mkxp accepts trailing commas as well as comments. Skip quoted strings so
+    # literal comma/brace text in paths or window titles is never rewritten.
+    text = re.sub(r'"(?:\\.|[^"\\])*"|,\s*(?=[}\]])',
+                  lambda m: m[0] if m[0].startswith('"') else '', text)
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError(f'Duplicate runtime configuration key: {key}')
+            result[key] = value
+        return result
+    config = json.loads(text, object_pairs_hook=unique)
+    if not isinstance(config, dict):
+        raise ValueError('Expected a runtime configuration object')
+    return config
+
+
 def check_sources(root=ROOT):
     config = load_release(root)
     scripts = validate_archive(root / "game", root / "src")
@@ -39,10 +60,10 @@ def check_sources(root=ROOT):
         match = re.search(pattern, scripts[name])
         if not match or match[1] != config["version"]:
             raise ValueError(f"Version mismatch: {name} versus release.json; rebuild scripts")
-    launch = (root / "game/mkxp.json").read_text(encoding="utf-8")
-    if not re.search(r'"dataPathApp"\s*:\s*"' + SAVE_DIRECTORY + r'"', launch):
+    launch = parse_runtime_config((root / "game/mkxp.json").read_text(encoding="utf-8-sig"))
+    if launch.get("dataPathApp") != SAVE_DIRECTORY:
         raise ValueError("The established save-directory identity must be preserved")
-    if not re.search(r'"fontHeightReporting"\s*:\s*1\b', launch):
+    if type(launch.get("fontHeightReporting")) is not int or launch["fontHeightReporting"] != 1:
         raise ValueError("The native font height fix must remain enabled")
     for path_key, hash_key in (("runtime_archive", "runtime_sha256"),
                               ("runtime_source", "runtime_source_sha256"),

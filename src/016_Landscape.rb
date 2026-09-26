@@ -1,13 +1,15 @@
 # Additive landscape save migration; never resets quest, party or inventory data.
 module Tidebound::Landscape
   REVISION = 2
+  MAP_REVISIONS = {101 => 3}.freeze
   ANCHORS = {102=>[32,36],103=>[17,25],108=>[18,5],112=>[11,28],101=>[6,10],104=>[6,9],107=>[6,8],110=>[6,13],111=>[12,15]}.freeze
   module_function
   def safe_arrival
     map=$game_map
     return unless map && $game_player && ANCHORS.key?(map.map_id)
     revisions=(Tidebound::Opening.flags[:landscape_revisions] ||= {})
-    return if revisions[map.map_id].to_i>=REVISION
+    revision=MAP_REVISIONS.fetch(map.map_id, REVISION)
+    return if revisions[map.map_id].to_i>=revision
     mask=Tidebound::MAP_PASSAGES[map.map_id]
     # Only the main connected walkable region is eligible, never an isolated ledge.
     start=ANCHORS[map.map_id];queue=[start];seen={start=>true};i=0
@@ -33,7 +35,7 @@ module Tidebound::Landscape
       data.x,data.y=$game_player.x,$game_player.y;moved=true
     end
     $game_temp.followers=nil if moved
-    revisions[map.map_id]=REVISION
+    revisions[map.map_id]=revision
   end
 end
 EventHandlers.add(:on_new_spriteset_map,:tidebound_landscape_arrival,proc { |_spriteset,_viewport|

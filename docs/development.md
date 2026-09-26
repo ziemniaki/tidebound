@@ -70,7 +70,11 @@ No development command commits, pushes, merges or publishes.
 
 Run a tool with `uv run python tools/<name>.py` or a test with
 `uv run python tests/<name>.py`. Optional audio/PDF regeneration has separate
-dependencies in its source recipes. Rebuilding the Mac engine is separate from
+dependencies. For the game specification PDF, run
+`uv run --group docs python tools/render_bible.py`; use `--output /path/to/preview.pdf`
+to render a preview. macOS/Windows use Times New Roman and Arial; Linux needs
+Liberation Serif and DejaVu Sans (`fonts-liberation` and `fonts-dejavu-core` on Ubuntu).
+Audio generation needs NumPy and ffmpeg. Rebuilding the Mac engine is separate from
 packaging: see [runtime provenance](runtime/macOS.md).
 
 Verified release candidates require a clean checkout and the procedure in

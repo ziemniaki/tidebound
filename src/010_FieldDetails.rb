@@ -11,10 +11,14 @@ module Tidebound::FieldDetails
     [[FIRE_SECONDS - (now - last), 0].max, FIRE_SECONDS].min
   end
 
+  def healable_party
+    $player.party.reject { |p| p.egg? || Tidebound.borrowed?(p) }
+  end
+
   def heal_fire(key, now = Time.now.to_i)
     raise Tidebound::TransitionError, 'Fire belongs to the living world' unless Tidebound.state.realm == :living
     return false if remaining(key, now) > 0
-    party = $player.party.reject { |p| p.egg? || Tidebound.borrowed?(p) }
+    party = healable_party
     return false if party.empty?
     party.each do |p|
       p.hp = p.totalhp
@@ -29,7 +33,7 @@ module Tidebound::FieldDetails
     if heal_fire(key)
       pbMessage('You settle beside the fire. Your companions recover their HP and PP.')
       pbMessage('They can recover here again in 15 minutes. Poison and other conditions remain.')
-    elsif $player.party.empty?
+    elsif healable_party.empty?
       pbMessage('You warm your hands beside the fire.')
     else
       minutes = (remaining(key) / 60.0).ceil

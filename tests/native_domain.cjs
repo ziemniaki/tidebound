@@ -25,7 +25,7 @@ end
  const nums=[0,1,15,100,...Array.from({length:40},(_,i)=>103+i),273,274,275,276,277,286,287,289,290,362,363];
  for(const num of nums){const file=fs.readdirSync(ref).find(x=>x.startsWith(String(num).padStart(3,'0')+'_'));if(file)run(fs.readFileSync(path.join(ref,file),'utf8'),file);}
  for(const file of fs.readdirSync(path.join(root,'game/Data')).filter(x=>x.endsWith('.dat'))){
-  if(['species.dat','species_metrics.dat','moves.dat','abilities.dat','items.dat','types.dat','trainer_types.dat','metadata.dat','player_metadata.dat','map_metadata.dat'].includes(file)){
+  if(['species.dat','species_metrics.dat','moves.dat','abilities.dat','items.dat','types.dat','trainer_types.dat','metadata.dat','player_metadata.dat','map_metadata.dat','encounters.dat'].includes(file)){
    const b64=fs.readFileSync(path.join(root,'game/Data',file)).toString('base64');
    run(`GameData.constants.each do |name|
  c=GameData.const_get(name)
@@ -71,6 +71,21 @@ raise "save lost identity" unless roundtrip.souls.first.id==id
 puts "PASS: actual Essentials Pokemon/Move/Owner/Player objects; capture copy, identity, HP, status, PP and Marshal persistence."
 `, 'actual_pokemon_roundtrip');
 
+ run(`
+raise "early Frostcoon evolution" if Pokemon.new(:FROSTCOON,54).check_evolution_on_level_up
+[55,100].each do |level|
+ raise "missing Nivalora evolution" unless Pokemon.new(:FROSTCOON,level).check_evolution_on_level_up==:NIVALORA
+end
+[:GLACIVERM,:NIVALORA].each do |species|
+ raise "unexpected further evolution" if Pokemon.new(species,100).check_evolution_on_level_up
+end
+puts "PASS: current Frostcoon 54/55 evolution threshold and terminal regional species."
+`, 'regional evolution thresholds');
+ run(`
+raise "forest encounter roster" unless GameData::Encounter.get(103).types[:Land]==[[45,:AIPOM,3,5],[40,:WEEDLE,3,5],[15,:WURMPLE,3,5]]
+raise "road encounter roster" unless GameData::Encounter.get(108).types[:Land]==[[40,:ZIGZAGOON,4,6],[35,:SUNKERN,4,6],[15,:EKANS,4,6],[10,:PSYDUCK,4,6]]
+puts "PASS: current forest and road encounter species, weights and level ranges."
+`, 'field encounter rosters');
  run(fs.readFileSync(path.join(__dirname,'opening_smoke.rb'),'utf8'),'opening fixtures');
  for(const n of [24,25,270,33]) {
   const f=fs.readdirSync(ref).find(x=>x.startsWith(String(n).padStart(3,'0')+'_'));
@@ -94,6 +109,8 @@ puts "PASS: actual Essentials Pokemon/Move/Owner/Player objects; capture copy, i
  run(fs.readFileSync(path.join(__dirname,'neighbor_flow.rb'),'utf8'),'neighbor flow');
  run(fs.readFileSync(path.join(dev,'023_Hideout.rb'),'utf8'),'hideout');
  run(fs.readFileSync(path.join(__dirname,'hideout_flow.rb'),'utf8'),'hideout flow');
+ run(fs.readFileSync(path.join(dev,'016_Landscape.rb'),'utf8'),'landscape');
+ run(fs.readFileSync(path.join(__dirname,'landscape_flow.rb'),'utf8'),'landscape flow');
  // RubyVM compiler checks event bodies and custom integration, no graphics needed.
  for(const file of fs.readdirSync(dev).filter(x=>/^\d{3}_.*\.rb$/.test(x))){const code=fs.readFileSync(path.join(dev,file),'utf8');run(`RubyVM::InstructionSequence.compile(${JSON.stringify(Buffer.from(code).toString('base64'))}.unpack1("m0"),${JSON.stringify(file)})`,file+' syntax');}
  const events=JSON.parse(fs.readFileSync(process.env.TIDEBOUND_EVENT_SCRIPTS || path.join(root,'tools/generated/event_scripts.json'),'utf8'));

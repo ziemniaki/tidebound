@@ -69,7 +69,7 @@ module FrostTest
     raise 'evolution moves' unless p.hasMove?(:HARDEN) && p.hasMove?(:POWDERSNOW)
     [55,100].each do |lv|
       check=Marshal.load(Marshal.dump(p));check.level=lv
-      raise 'premature dragon' if check.check_evolution_on_level_up
+      raise 'Frostcoon evolution' unless check.check_evolution_on_level_up==:NIVALORA
     end
     [false,true].each do |shiny|
       p.shiny=shiny
@@ -104,7 +104,7 @@ module FrostBattle
     raise 'Shell Armor crit protection' unless Battle::AbilityEffects.triggerCriticalCalcFromTarget(:SHELLARMOR,target,user,3)==-1
     12.times { Graphics.update; @scene.pbUpdate }
     b=Graphics.snap_to_bitmap;b.to_file('frostcoon-battle.png');b.dispose
-    File.write('FROSTCOON_PASS.txt','PASS: PBS compilation; authored stats/ability; real old-data party/storage/soul/memorial save refresh; identity/HP/fainted/status/PP/moves/item preserved; migration idempotence; level-10 evolution animation and moves; fixed branch/Everstone; no premature dragon; normal/shiny front/back/icon assets; original and Glaciverm branches; battle rendering; native Shell Armor critical protection; Fire/Rock weaknesses.')
+    File.write('FROSTCOON_PASS.txt','PASS: PBS compilation; authored stats/ability; real old-data party/storage/soul/memorial save refresh; identity/HP/fainted/status/PP/moves/item preserved; migration idempotence; level-10 evolution animation and moves; fixed branch/Everstone; Nivalora evolution at level 55; normal/shiny front/back/icon assets; original and Glaciverm branches; battle rendering; native Shell Armor critical protection; Fire/Rock weaknesses.')
     exit
   rescue Exception => e
     raise if e.is_a?(SystemExit) && e.status==0

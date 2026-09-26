@@ -42,13 +42,13 @@ module FieldView
     o.travel(103,9,18);shot('wood-grass')
     raise 'grass tag' unless $game_map.terrain_tag(6,16).land_wild_encounters
     raise 'safe path' if $game_map.terrain_tag(17,20).land_wild_encounters
-    e=GameData::Encounter.get(103);raise 'forest species' unless e.types[:Land].all? { |r| GameData::Species.get(r[1]).types.include?(:BUG) }
+    e=GameData::Encounter.get(103);raise 'forest roster' unless e.types[:Land]==[[45,:AIPOM,3,5],[40,:WEEDLE,3,5],[15,:WURMPLE,3,5]]
     before=$bag.quantity(:ORANBERRY);f.berry(103,12,19,:ORANBERRY)
     raise 'berry pickup' unless $bag.quantity(:ORANBERRY)==before+2
     f.berry(103,12,19,:ORANBERRY)
     raise 'duplicate berry' unless $bag.quantity(:ORANBERRY)==before+2
     o.travel(108,30,18);shot('road-grass')
-    raise 'road roster' unless GameData::Encounter.get(108).types[:Land].map { |r| r[1] }.sort==[:ZIGZAGOON,:SUNKERN,:EKANS].sort
+    raise 'road roster' unless GameData::Encounter.get(108).types[:Land]==[[40,:ZIGZAGOON,4,6],[35,:SUNKERN,4,6],[15,:EKANS,4,6],[10,:PSYDUCK,4,6]]
     raise 'grass disabled' unless $PokemonEncounters.encounter_possible_here?
     o.travel(108,26,40);shot('road-fire');o.travel(108,35,42);shot('storehouse')
     p.heal;o.travel(103,7,17)

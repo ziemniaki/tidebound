@@ -114,6 +114,25 @@ class CommandChecks(unittest.TestCase):
         self.assertIn("Plugins/Tidebound", result.stderr)
         self.assertEqual(before, {name: (self.game / name).read_bytes() for name in paths})
 
+    def test_script_only_rebuild_preserves_editor_data_without_map_outputs(self):
+        for name in ("rebuild_scripts.py", "script_archive.py", "release_tools.py"):
+            shutil.copy2(DEV / name, self.dev / name)
+        shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
+        (self.src / "001_Core.rb").write_text("# current custom source\n")
+        (self.game / "Data/Scripts.rxdata").write_bytes(writes([
+            entry("Settings", 'GAME_VERSION = "0.0.0"'), entry("Main", "return Scene_Intro.new")]))
+        preserved = ("Game.ini", "mkxp.json", "Data/metadata.dat", "PBS/metadata.txt", "PBS/map_metadata.txt")
+        for name in preserved:
+            dest = self.game / name
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_bytes(b"editor-authored data must remain untouched")
+        result = self.command("rebuild_scripts.py")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        validate_archive(self.game, self.src)
+        for name in preserved:
+            self.assertEqual((self.game / name).read_bytes(), b"editor-authored data must remain untouched")
+        self.assertFalse((self.dev / "generated").exists())
+
     def test_reference_refresh_removes_stale_indices(self):
         shutil.copy2(DEV.parent / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py")
         ref = self.root / "tests/engine_reference"

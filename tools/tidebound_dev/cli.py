@@ -16,7 +16,7 @@ import uuid
 ROOT = Path(__file__).resolve().parents[2]
 DEV_SAVES = 'Tidebound_Development'
 GENERATORS = ('rebuild_maps.py', 'rebuild_opening_items.py', 'rebuild_neighbor_data.py',
-              'rebuild_field_data.py', 'rebuild_regional_data.py', 'rebuild_scripts.py')
+              'rebuild_field_data.py', 'rebuild_regional_data.py', 'rebuild_scripts.py', 'configure_game.py')
 
 
 def run(*args, cwd=ROOT):

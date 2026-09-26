@@ -129,3 +129,16 @@ $choices=[true];o.return_from_astral
 check($game_map.map_id==103 && Tidebound.state.memorials.size==1,"return/loss")
 o.house_pet(:POOCHYENA);check($player.party.size==1,"replacement starter after death")
 puts "PASS: chosen Makuhita loss, rest, guide, real SaveData and no replacement starter."
+
+[:egg, :borrowed].each do |kind|
+  new_opening
+  companion = Pokemon.new(:NATU, 7, $player)
+  companion.steps_to_hatch = 1 if kind == :egg
+  companion.instance_variable_set(:@tidebound_borrowed, true) if kind == :borrowed
+  $player.party = [companion]
+  $messages.clear
+  Tidebound::FieldDetails.rest(:unhealable_test, [101, 6, 10, 2])
+  check($messages == ['You warm your hands beside the fire.'], 'unhealable party reported a cooldown')
+  check(Tidebound::FieldDetails.remaining(:unhealable_test) == 0, 'unhealable rest consumed cooldown')
+end
+puts 'PASS: egg-only and borrowed-only parties do not receive impossible fire cooldown advice.'

@@ -1,7 +1,7 @@
 from pathlib import Path
 from collections import deque
 from rubymarshal.reader import loads
-import argparse,json,re
+import argparse,json,re,struct
 from script_archive import validate_archive
 parser=argparse.ArgumentParser(description='Check maps and embedded source without rewriting game data.')
 parser.add_argument('--event-scripts',type=Path,help='Explicit destination for extracted event scripts')
@@ -15,6 +15,11 @@ fail=[];event_scripts=[];count=0
 for spec in manifest:
  mid=spec['id'];m=loads((G/f'Data/Map{mid:03}.rxdata').read_bytes()).attributes
  mask=masks[str(mid)];w=spec['width'];h=spec['height']
+ raw=m['@data']._dump()
+ if (m['@width'],m['@height'])!=(w,h) or len(mask)!=h or any(len(row)!=w for row in mask):
+  fail.append(f'{mid} map/mask dimensions disagree with manifest');continue
+ if len(raw)<20 or struct.unpack('<5i',raw[:20])!=(3,w,h,3,w*h*3) or len(raw)!=20+w*h*3*2:
+  fail.append(f'{mid} tile table dimensions disagree with manifest');continue
  def walk(x,y):return 0<=x<w and 0<=y<h and mask[y][x]=='1'
  q=deque([spawns[mid][0]]);seen=set(q)
  while q:
@@ -38,17 +43,17 @@ for spec in manifest:
    if masks['102'][int(ty)+20][int(tx)+24]!='1':fail.append(f'{mid}: blocked coast transfer')
   count+=1
  bgm=str(m['@bgm'].attributes['@name'])
- assert (G/'Audio/BGM'/f'{bgm}.ogg').exists(),bgm
+ if not (G/'Audio/BGM'/f'{bgm}.ogg').exists():fail.append(f'{mid} missing BGM {bgm}')
  print(f'Map {mid}: {len(seen)} connected walkable cells; {len(m["@events"])} events')
 metadata=loads((G/'Data/map_metadata.dat').read_bytes())
 for mid in spawns:
  back=str(metadata[mid].attributes['@battle_background'])
  for suffix in ['_bg','_base0','_base1','_message']:
-  assert (G/'Graphics/Battlebacks'/f'{back}{suffix}.png').exists(), (mid,back,suffix)
+  if not (G/'Graphics/Battlebacks'/f'{back}{suffix}.png').exists():fail.append(f'{mid} missing battleback {back}{suffix}')
 coast=masks['102']
-assert len(coast)==88 and len(coast[0])==108
-assert all(9<=x<99 and 7<=y<81 for y,row in enumerate(coast) for x,v in enumerate(row) if v=='1'), 'coast camera margin'
-assert all(coast[y][x]=='0' for y in range(30,55) for x in range(80,108)), 'open sea beyond pier'
+if len(coast)!=88 or len(coast[0])!=108:fail.append('coast dimensions must be 108x88')
+if not all(9<=x<99 and 7<=y<81 for y,row in enumerate(coast) for x,v in enumerate(row) if v=='1'):fail.append('coast camera margin')
+if not all(coast[y][x]=='0' for y in range(30,55) for x in range(80,108)):fail.append('open sea beyond pier')
 if fail:raise RuntimeError('\n'.join(fail))
 if args.event_scripts:args.event_scripts.write_text(json.dumps(event_scripts),encoding='utf-8')
 print(f'PASS: {count} map events; every arrival, door and interaction reachable; script archive matches editable sources.')

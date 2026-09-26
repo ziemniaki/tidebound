@@ -154,4 +154,29 @@ T.test("battle without a return checkpoint is rejected without harming the party
   T.equal(2, $player.party.length)
 end
 
+T.test("unsupported parties are rejected before the battle engine runs") do
+  [:egg, :duplicate, :oversized, :lost].each do |kind|
+    reset_adapter
+    case kind
+    when :egg
+      egg = Pokemon.new(:NATU); egg.egg = true; $player.party << egg
+    when :duplicate
+      Tidebound.state.assign_identity($player.party.first)
+      $player.party = [$player.party.first, Tidebound.copy($player.party.first)]
+    when :oversized
+      $player.party = Array.new(7) { Pokemon.new(:NATU) }
+    when :lost
+      Tidebound.state.enter_astral!($player.party, {})
+      Tidebound.state.leave_astral!
+    end
+    health = $player.party.map(&:hp)
+    started = false
+    T.raises(Tidebound::TransitionError) { Tidebound.living_battle! { started = true; 2 } }
+    T.equal(false, started)
+    T.equal(health, $player.party.map(&:hp))
+    T.equal(:living, Tidebound.state.realm)
+    T.equal(nil, Tidebound.battle_context)
+  end
+end
+
 TestSuite.finish

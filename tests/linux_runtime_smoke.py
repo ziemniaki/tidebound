@@ -17,6 +17,7 @@ from smoke_report import read_report
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from package_mac import extract_bundle, game_hashes
+from release_tools import parse_runtime_config
 
 
 def smoke(archive, output):
@@ -55,6 +56,8 @@ def smoke(archive, output):
                                  '"dataPathApp": "' + namespace + '"', config.read_text(encoding='utf-8'))
             if count != 1:
                 raise ValueError('Expected one save namespace setting')
+            if parse_runtime_config(text).get('dataPathApp') != namespace:
+                raise ValueError('Save namespace was not isolated before launch')
             config.write_text(text, encoding='utf-8')
             scripts = game / 'Data/Scripts.rxdata'
             entries = loads(scripts.read_bytes())

@@ -18,10 +18,13 @@ The ZIP artifact did not retain executable bits, so the player packager sets
 0755 on the engine and the new launch script. That script sets the game working
 directory and invokes the bundled engine without changing global library paths.
 
-Matching engine source is already pinned at
-`runtime/macOS/mkxp-z-826929e-source.tar.gz` (SHA-256
-`87f70b4738a78fd66630312c795e760f59def7fcff0dfe12c2d50bd7ec65e21b`).
+Engine source is pinned at
+`runtime/macOS/mkxp-z-826929e-portable1-source.tar.gz` (SHA-256
+`f21396819b9479ad7b33f061702f0e5e9c46f49edb4cc37f17842d3c11320708`).
 It is included in the Linux player ZIP, together with upstream's license.
+This source snapshot includes Tidebound's portable Mac path patch; that patch
+changes only the macOS implementation. The Linux binary remains the unchanged
+upstream artifact identified above.
 The source's `linux/Makefile`, `linux/vars.sh` and `.github/workflows/autobuild.yml`
 record the upstream dependency/build recipe. Dependency source projects and
 their licenses remain governed by their upstream terms.

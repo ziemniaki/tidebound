@@ -18,6 +18,7 @@ from smoke_report import read_report
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from mac_runtime import run, sign_app
 from package_mac import extract_bundle
+from release_tools import parse_runtime_config
 
 
 def smoke(archive, output, arch, location):
@@ -55,7 +56,11 @@ def smoke(archive, output, arch, location):
             end = text.rfind('}')
             if end < 0:
                 raise ValueError('Missing launch configuration object')
-            text = re.sub(r'"dataPathApp"\s*:\s*"[^"]+"', '"dataPathApp": "' + namespace + '"', text)
+            text, count = re.subn(r'"dataPathApp"\s*:\s*"[^"]+"', '"dataPathApp": "' + namespace + '"', text)
+            if count != 1:
+                raise ValueError('Expected exactly one save namespace setting before launch')
+            if parse_runtime_config(text).get('dataPathApp') != namespace:
+                raise ValueError('Save namespace was not isolated before launch')
             config.write_text(text, encoding='utf-8')
             archive_path = game / 'Data/Scripts.rxdata'
             entries = loads(archive_path.read_bytes())
