@@ -99,7 +99,8 @@ broader gameplay coverage and documentation consolidation are still open.
   dependencies in a disposable checkout. Compiled data, PBS and script archive
   match the baseline; sprite PNG compression differs.
 - Local headless validation: macOS, Python 3.13.2, Node 24.14.1. The CI matrix
-  uses Python 3.12 / Node 22; its remote results are separate from local evidence.
+  uses Python 3.12 / Node 24.14.1; `.node-version` keeps local and hosted
+  Node selection aligned. Node 22.23.2 crashed in hosted Ruby/WASM tests.
 
 This change adds no game mechanic, balance, art, map, save-schema or release-version
 change. Existing runtime binaries and compiled game assets are retained.

@@ -13,15 +13,18 @@ assets in isolation and compares binary data and decoded PNG pixels.
 
 The reusable CI workflow prepares artifacts and requires native ARM/Intel smoke
 tests. Matching version tags on main's history prepare draft GitHub releases;
-the pond-specific publisher is retired. These workflows are configured on this
-branch, not yet proven by a hosted run. No existing release/tag was replaced.
+the pond-specific publisher is retired. Hosted verification, regeneration,
+universal packaging and native smoke on ARM macOS 14 / Intel macOS 15 passed
+in [run 36245127653](https://github.com/ziemniaki/tidebound/actions/runs/36245127653)
+(commit `a14f1b9`). Tag-driven draft publication remains unexercised; no release
+or tag was created or replaced.
 
 Local evidence: 22 build-tool regressions and all existing headless suites pass;
 isolated regeneration matches. The universal Mac preview passes signing and
 archive checks. Its native ARM smoke passes on an Apple M1 Pro / macOS 26.1 with
 Ruby 3.1.3 and Metal, including compiled data, actual Pokemon/state disk save
-roundtrip and font rendering. Native Intel execution, full gameplay and Monterey
-12.7.5 controls/audio/save testing remain separate gates. See RELEASING.md under
+roundtrip and font rendering. Hosted Intel native smoke also passes. Full gameplay
+and Monterey 12.7.5 controls/audio/save testing remain separate gates. See RELEASING.md under
 Development for the commands and exact scope. Runtime code and game version remain
 unchanged; signatures and package layout are updated.
 
