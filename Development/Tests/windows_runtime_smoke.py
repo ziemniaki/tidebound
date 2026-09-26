@@ -59,14 +59,28 @@ def smoke(archive, output):
                        TIDEBOUND_SMOKE_SCREENSHOT=str(output / 'native-smoke.png'))
             try:
                 with (output / 'engine.log').open('w') as log:
-                    subprocess.run([str(game / 'Game.exe')], cwd=game, env=env,
-                                   stdout=log, stderr=subprocess.STDOUT, timeout=90, check=True)
+                    with subprocess.Popen([str(game / 'Game.exe')], cwd=game, env=env,
+                                          stdout=log, stderr=subprocess.STDOUT) as process:
+                        try:
+                            code = process.wait(timeout=90)
+                        except subprocess.TimeoutExpired:
+                            # Preserve a blocking native error dialog before terminating.
+                            try:
+                                from PIL import ImageGrab
+                                ImageGrab.grab().save(output / 'timeout-desktop.png')
+                            except Exception as error:
+                                (output / 'capture-error.txt').write_text(str(error), encoding='utf-8')
+                            finally:
+                                process.kill()
+                                process.wait()
+                            raise
+                        if code:
+                            raise subprocess.CalledProcessError(code, process.args)
             finally:
-                for log in game.glob('*.log'):
-                    shutil.copy2(log, output / ('game-' + log.name))
-                if save_dir.exists():
-                    for log in save_dir.glob('*.log'):
-                        shutil.copy2(log, output / ('save-' + log.name))
+                for directory, label in ((game, 'game'), (save_dir, 'save')):
+                    for pattern in ('*.log', 'errorlog.txt'):
+                        for log in directory.glob(pattern):
+                            shutil.copy2(log, output / (label + '-' + log.name))
             result = json.loads((output / 'native-smoke.json').read_text(encoding='utf-8'))
             if not result.get('passed'):
                 raise RuntimeError(result.get('error', 'Native smoke did not pass'))
@@ -74,7 +88,8 @@ def smoke(archive, output):
                 raise RuntimeError('Smoke test did not use its isolated save namespace')
             if not (output / 'native-smoke.png').is_file():
                 raise RuntimeError('Native rendering evidence was not produced')
-            result.update(architecture='x86_64', platform='windows')
+            result.update(architecture='x86_64', platform='windows',
+                          audio_backend=env.get('ALSOFT_DRIVERS', 'default'))
             (output / 'native-smoke.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
             print('PASS: native Windows x64 engine, game data, save roundtrip and graphics')
     finally:

@@ -137,6 +137,9 @@ jobs:
       - name: Verify downloaded artifacts
         run: python Development/verify_artifacts.py "$env:RUNNER_TEMP/candidate"
       - name: Run native Windows packaged-engine smoke
+        env:
+          # Hosted Windows has no audio output device. This affects CI only.
+          ALSOFT_DRIVERS: 'null'
         run: |
           $archive = Get-Item "$env:RUNNER_TEMP/candidate/Tidebound_Windows_*_x64.zip"
           python Development/Tests/windows_runtime_smoke.py $archive.FullName "$env:RUNNER_TEMP/smoke"

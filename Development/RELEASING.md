@@ -133,7 +133,11 @@ publisher is retired; `finish_pond_release.py` is retained only as historical co
 - Hosted Intel CI runs macOS 15, not the primary user's Monterey 12.7.5 machine.
   Keep Monterey launch, controls, audio and save/load as an explicit manual gate.
 - Windows smoke runs on the hosted Windows Server 2022 x64 runner; it does not
-  establish compatibility with every consumer Windows version or GPU. The unchanged
+  establish compatibility with every consumer Windows version or GPU. That runner
+  has no audio device, so CI sets `ALSOFT_DRIVERS=null` for the test process only;
+  [OpenAL Soft's backend override](https://github.com/kcat/openal-soft/blob/master/docs/env-vars.txt)
+  allows startup without audible output. The distributed configuration is unchanged.
+  The unchanged
   Windows binaries have pinned hashes, but no verified matching source/build recipe
   is available in this repository. See `Runtime/Windows/PROVENANCE.md`.
 - Runtime updates need an explicit provenance/hash review and all native platforms
