@@ -1,4 +1,5 @@
 from .registry import MAP_NAMES
+from . import definitions
 
 """In-memory RPG Maker map, event and tile primitives. Importing writes nothing."""
 import struct
@@ -447,7 +448,7 @@ class Map:
             autoplay_bgm=True,
             bgm=obj(
                 "RPG::AudioFile",
-                name="Tidebound Shore" if self.id == 102 else "Tidebound Stillness",
+                name=definitions.BY_ID[self.id].music,
                 volume=80,
                 pitch=100,
             ),

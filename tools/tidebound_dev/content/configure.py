@@ -1,6 +1,7 @@
 """Update generated launch/metadata defaults during an explicit full rebuild."""
 
 from pathlib import Path
+from ..maps import definitions
 import json
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -54,10 +55,9 @@ def build(root):
     s = p.read_text(encoding="utf-8-sig")
     s = s.split("# TIDEBOUND OPENING MAPS")[0].rstrip() + "\n\n# TIDEBOUND OPENING MAPS\n"
     for m in manifest:
-        s += f"#-------------------------------\n[{m['id']}]\nName = {m['name']}\nShowArea = true\nBattleBack = {'cave1' if m['id'] == 105 else 'field'}\n"
-        if m["id"] == 103:
-            s += "Environment = Forest\n"
-        if m["id"] == 105:
-            s += "Environment = Cave\n"
+        s += f"#-------------------------------\n[{m['id']}]\n"
+        for key, value in definitions.BY_ID[m["id"]].pbs_metadata(m["name"]).items():
+            value = str(value).lower() if isinstance(value, bool) else value
+            s += f"{key} = {value}\n"
     p.write_text(s, encoding="utf-8-sig")
     print("Updated generated launch configuration and game metadata.")

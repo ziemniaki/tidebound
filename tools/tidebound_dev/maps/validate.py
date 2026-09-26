@@ -1,4 +1,5 @@
 from .registry import MAPS
+from . import definitions
 from tidebound_dev.paths import ROOT
 from pathlib import Path
 from collections import deque
@@ -15,24 +16,7 @@ def validate(root, event_scripts_output=None, check_scripts=True):
         validate_archive(G, D.parent / "src")
     masks = json.loads((D / "generated" / "collisions.json").read_text())
     manifest = json.loads((D / "generated" / "map_manifest.json").read_text())
-    spawns = {
-        101: [(6, 10), (10, 12), (16, 4), (6, 4)],
-        102: [(32, 36), (48, 25), (45, 32), (77, 40)],
-        103: [(17, 25), (11, 22)],
-        104: [(6, 9)],
-        105: [(15, 21)],
-        106: [(8, 10)],
-        107: [(6, 8), (8, 10)],
-        108: [(18, 5), (35, 43), (26, 39)],
-        109: [(11, 14)],
-        110: [(6, 13), (17, 5)],
-        111: [(12, 15)],
-        112: [(11, 28), (32, 23)],
-        113: [(14, 18)],
-        114: [(5, 20), (4, 11), (9, 17), (22, 5), (16, 4)],
-        115: [(7, 8), (4, 7), (7, 5), (9, 8)],
-        116: [(7, 22), (25, 7)],
-    }
+    spawns = {mid: definition.arrivals for mid, definition in definitions.BY_ID.items()}
     maze_data = json.loads((D / "generated" / "maze_manifest.json").read_text())
     fail = []
     event_scripts = []

@@ -78,7 +78,7 @@ Data compilation and art export are separate operations. Full rebuild validates 
 disposable result before publishing; rollback failure retains the recovery path.
 Process termination is explicitly not claimed to be crash-atomic.
 
-### A4 — P2: one new map requires edits to several unrelated policy tables
+### A4 — Implemented: consolidate authored map settings
 
 Evidence: [compiler.py](../../tools/tidebound_dev/maps/compiler.py), `construct`;
 [registry.py](../../tools/tidebound_dev/maps/registry.py), `MAPS`;
@@ -97,8 +97,11 @@ between agents adding different areas.
 arrivals, audio and metadata; use it for both encodings and generated Ruby policy.
 Keep the explicit builder composition and named painters. No new map DSL.
 
-**Acceptance:** adding an ordinary indoor map does not require editing separate
-native/PBS/tone decisions; it gets validated entries, music and intentional atmosphere.
+**Verified:** a new-map fixture supplies one definition and receives consistent
+native/PBS metadata, music and generated indoor atmosphere. Arrivals come from
+that same definition. Regenerating the current maps preserves their binaries,
+metadata and preview pixels; only the generated runtime settings and their Ruby
+consumer change.
 
 ### A5 — P2: map validation covers only part of the engine's event model
 

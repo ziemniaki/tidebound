@@ -7,23 +7,22 @@ previews. `registry.py` exports map/actor names to Ruby. Read
 
 ## Add a map
 
-1. Reserve a distinct map ID and symbolic name in `registry.MAPS`. Add a builder
+1. Add a `MapDefinition` in `definitions.DEFINITIONS` with a distinct map ID,
+   symbolic name, arrivals and any non-default music/metadata/atmosphere. Add a builder
    returning `Map` and wire it into `compiler.construct`'s returned list. Decorators
    share atlases: adding an interior also needs the appropriate `save_atlas` input.
    Pass the supplied `BuildPaths`; do not write into the checkout via a global root.
-2. Define entry/exit tiles and add the arrival coordinates to `validate.py::spawns`.
-   Validation currently indexes that table for every map, so registry + builder
-   alone is incomplete. Include a return route and any scripted/conditional arrivals.
+2. Define entry/exit tiles; arrivals in the map definition drive reachability
+   validation. Include a return route and any scripted/conditional arrivals.
 3. Set walkability explicitly while drawing. `Map.walk` becomes `MAP_PASSAGES`.
    On these maps, `world/atmosphere.rb::Passages` replaces tile passage checks and
    returns terrain `None`; RPG Maker tileset flags alone will not create grass,
    Surf water or ledges. Fields and Pond supply specific terrain hooks. A new
    mechanic must account for those hooks, not just paint a grass/water tile.
-4. Review music (`model.Map.serialize`), native map metadata (`serialization.py`),
-   PBS metadata (`content/configure.py`) and runtime tone/fog (`world/atmosphere.rb`).
-   They are currently separate owners; indoor classification is a hardcoded list.
-   Changing `Outdoor` also affects engine day/night and field mechanics. The
-   project's permanent-night policy is not equivalent to merely setting Outdoor.
+4. `MapDefinition` supplies music, native/PBS metadata and runtime atmosphere.
+   Ordinary maps default to the indoor preset. Choose another named preset for
+   outdoor/special scenes. `outdoor` is the Essentials metadata flag; `night`
+   controls Tidebound's permanent-night policy. They are distinct engine concerns.
 5. Format, run `uv run rebuild --all`, stage new source **and** outputs, then
    `uv run check --all`. Inspect `tools/generated/map_<id>_preview.png` and play all
    entrances, exits and interactions. Offline previews approximate rendering;

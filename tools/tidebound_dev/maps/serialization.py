@@ -1,4 +1,5 @@
 from .registry import write_registry
+from . import definitions
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -34,20 +35,7 @@ def serialize(paths, maps):
             scroll_y=240,
         )
         md = loads(writes(template))
-        md.attributes.update(
-            {
-                "@id": m.id,
-                "@real_name": m.name,
-                "@announce_location": True,
-                "@outdoor_map": False,
-                "@battle_background": "field" if m.id != 105 else "cave1",
-                "@battle_environment": Symbol("Forest")
-                if m.id == 103
-                else Symbol("Cave")
-                if m.id == 105
-                else Symbol("None"),
-            }
-        )
+        md.attributes.update({"@id": m.id, **definitions.BY_ID[m.id].native_metadata(m.name)})
         metadata[m.id] = md
     (paths.game / "Data/MapInfos.rxdata").write_bytes(writes(infos))
     (paths.game / "Data/map_metadata.dat").write_bytes(writes(metadata))

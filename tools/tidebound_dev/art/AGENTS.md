@@ -28,8 +28,8 @@ not convert the codec. Do not introduce WMA (unsupported by mkxp-z).
    routes through player volume settings. Calling `Audio.*` directly bypasses
    that integration. Pitch 100 is normal; volume is 0–100. Wrapper fade durations
    are seconds, although lower-level audio calls can use milliseconds.
-3. For map autoplay, change `tools/tidebound_dev/maps/model.py::Map.serialize`
-   (currently it hardcodes Shore on map 102 and Stillness elsewhere). Battle and
+3. For map autoplay, set `music` on its `MapDefinition` in
+   `tools/tidebound_dev/maps/definitions.py`. Battle and
    victory defaults are in `tools/tidebound_dev/content/configure.py`, which writes
    both metadata encodings. Editing the map/PBS output alone is overwritten.
 4. Cries use the base ID for form 0 (`SPECIES.ogg`), `_1` for form 1; missing form

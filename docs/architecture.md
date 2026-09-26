@@ -63,7 +63,9 @@ story behavior. Shared NPC interactions are dispatched explicitly in
 `features/interactions.rb`; features do not prepend into one another. Engine
 adapters can still prepend into Essentials interfaces.
 
-Map and actor names are declared in `maps/registry.py` and compiled to
+Map definitions in `maps/definitions.py` own IDs, arrivals, music, metadata and
+atmosphere. They feed native maps, PBS metadata, validation and generated runtime
+settings. Actor names live in `maps/registry.py`; both compile to
 `src/generated/world_registry.rb`. Python builders use that catalog, and Ruby
 calls `World.travel(:road, ...)` or `World.actor(:mother)` instead of repeating
 map IDs or event display names. Regeneration validates the named maps/actors;

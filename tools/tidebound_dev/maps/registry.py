@@ -2,24 +2,9 @@
 
 import json
 
-MAPS = {
-    "home": 101,
-    "coast": 102,
-    "forest": 103,
-    "lantern": 104,
-    "astral": 105,
-    "shop": 106,
-    "bedroom": 107,
-    "road": 108,
-    "hideout": 109,
-    "basement": 110,
-    "vault": 111,
-    "docks": 112,
-    "museum": 113,
-    "maze": 114,
-    "dream": 115,
-    "folded": 116,
-}
+from .definitions import DEFINITIONS
+
+MAPS = {name: definition.id for name, definition in DEFINITIONS.items()}
 MAP_NAMES = {value: key for key, value in MAPS.items()}
 ACTORS = {
     "mother": "Mother",
@@ -54,5 +39,12 @@ def write_registry(root, maps):
         lines.append(f"    {name} = {{")
         lines.extend(f"      {key}: {json.dumps(value)}," for key, value in records.items())
         lines.append("    }.freeze")
+    lines.append("    MAP_SETTINGS = {")
+    for definition in DEFINITIONS.values():
+        settings = ", ".join(
+            f"{key}: {json.dumps(value)}" for key, value in definition.runtime_settings().items()
+        )
+        lines.append(f"      {definition.id} => {{{settings}}},")
+    lines.append("    }.freeze")
     lines += ["  end", "end", ""]
     (root / "src/generated/world_registry.rb").write_text("\n".join(lines))
