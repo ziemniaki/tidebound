@@ -453,10 +453,12 @@ frameworks and a broad asset purge until a specific need justifies them.
 | R5 | Implemented | Shared state, named generated map/actor registry, neutral world and encounter operations; feature-independence and full regeneration tests pass |
 | R11 | Implemented | Shared fixture preparation, named runtime/world/species scenarios, fresh save fixtures; native ARM run and seven scene captures pass |
 | R12 | Implemented | Owned bitmap/viewport and positioning tests; collision updates without rendering; native seven-scene comparison passes |
-| R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
+| R13 | Implemented | Separate Python/Ruby formatting commits; pinned Ruff and Syntax Tree in `uv run format`; quick checks reject formatting drift |
 
-Headless checks and isolated regeneration have passed for the first three completed
-items. This is progress evidence, not final acceptance of the complete refactor.
+All fourteen implementation items are complete. Headless and isolated-regeneration
+checks pass locally. Fresh native ARM world/PBS/save scenarios pass, with seven
+rendered scenes compared before/after the presentation refactor. The final
+Mac ARM/Intel, Windows and Linux matrix remains required before acceptance.
 
 ### Development build measurement
 

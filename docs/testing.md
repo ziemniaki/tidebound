@@ -1,6 +1,6 @@
 # Testing
 
-Run `uv run check` for the normal headless gate. It checks tooling regressions,
+Run `uv run check` for the normal headless gate. It checks Python/Ruby formatting, tooling regressions,
 map/source agreement, geometry and Ruby domain/native-object suites without
 rewriting tracked game data. `uv run check --all` additionally regenerates in a
 disposable copy and compares binary data and decoded PNG pixels. Stage new source
@@ -14,6 +14,7 @@ files first so the tracked-file copy includes them.
 | `tests/run.cjs` | Domain and battle-adapter rules with test doubles |
 | `tests/native_domain.cjs` | Actual Essentials Pokémon, owner, bag and SaveData objects; all starters, quest branches, retries and current-save/schema rejection |
 | `tests/regional_snakes.cjs` | Native species/forms, move inheritance, evolution and save preservation |
+| `tests/presentation_support.cjs` | Owned bitmap/viewport disposal, positioning and actor collision without sprites |
 | Geometry checks | Walkable arrivals/interactions, maze routes and Surf-only pond island |
 | Native platform smoke | Packaged engine startup, compiled data, actual save roundtrip, graphics/fonts and input initialization |
 

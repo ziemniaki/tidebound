@@ -25,7 +25,8 @@ Run from the checkout with [uv](https://docs.astral.sh/uv/getting-started/instal
 uv run doctor          # inspect prerequisites
 uv run play            # embed Ruby, build a native dev copy, launch it
 uv run build           # build without launching
-uv run check           # tests and map/source agreement; no game regeneration
+uv run format          # format handwritten Python and Ruby
+uv run check           # formatting, tests and map/source agreement; no game regeneration
 uv run rebuild         # embed src/load_order.txt sources in game/Data/Scripts.rxdata
 uv run rebuild --all   # intentionally regenerate maps, data, art and scripts
 uv run check --all     # also compare regeneration in a disposable copy
@@ -81,7 +82,7 @@ masks, not map-authoring sources.
 
 ## Finish a change
 
-Run `uv run check`; use `uv run check --all` for generator/layout changes and
+Run `uv run format` before embedding Ruby, then `uv run check`; use `uv run check --all` for generator/layout changes and
 relevant native checks for packaging or integration. Review generated diffs.
 Distinguish automated evidence from actual playthroughs. Keep
 [docs/status.md](docs/status.md) current without appending a diary.

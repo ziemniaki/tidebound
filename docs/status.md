@@ -27,6 +27,9 @@ do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtestin
 
 The refactoring branch introduces save schema 2 and retires earlier demo
 migrations. Published 0.8.6 remains unchanged; its saves require that release.
+The refactor also introduces explicit map/species compilers, shared player staging,
+a source load manifest, named native scenarios and Python/Ruby formatting checks.
+See [the audit](decisions/refactoring-plan.md) for scope and verification evidence.
 
 ## Next work
 

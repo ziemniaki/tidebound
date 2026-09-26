@@ -1,6 +1,6 @@
 # Development
 
-The normal loop is **edit → `uv run play` → `uv run check`**.
+The normal loop is **edit → `uv run format` → `uv run play` → `uv run check`**.
 Run commands from the checkout; no environment activation or manual runtime
 copying is needed.
 
@@ -33,7 +33,9 @@ installation is not required for normal development.
 | `uv run build` | Same build without launching; prints its path |
 | `uv run build --platform windows` | Cross-package a Windows development copy |
 | `uv run build --platform linux` | Cross-package a Linux x86_64 development copy |
-| `uv run check` | Tooling, geometry, scripts and quest/save tests; no game regeneration |
+| `uv run format` | Format handwritten Python and Ruby |
+| `uv run format --check` | Check formatting without editing |
+| `uv run check` | Formatting, tooling, geometry, scripts and quest/save tests; no game regeneration |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
 | `uv run rebuild` | Embed the Ruby load manifest only |
 | `uv run rebuild --all` | Intentionally regenerate maps, data, art, reports and scripts |
@@ -52,6 +54,13 @@ unsupported and remain usable with their original release; the new reader reject
 them without rewriting their files. Use a fresh development save for this branch.
 Closing the game returns control to `uv run play`. Old `.build/` directories and
 `.cache/` extractions can be deleted when no game is running; neither holds saves.
+
+Formatting uses [Ruff](https://docs.astral.sh/ruff/formatter/) for Python and
+[Syntax Tree](https://github.com/ruby-syntax-tree/syntax_tree) for Ruby. Ruby runs
+in the locked WASM test runtime; formatter libraries are pinned by URL/version
+and SHA-256 in `tests/formatters.lock.json`, then cached under `.cache/formatters/`.
+First formatting/check needs network access. Generated Ruby tables and stock
+engine reference files are excluded. Format before rebuilding the script archive.
 
 ## Editing without losing work
 
