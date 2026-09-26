@@ -1,6 +1,6 @@
 # Current status
 
-**Playable baseline:** Demo 1, version 0.8.6. Pokémon Essentials 21.1, pinned
+**Playable baseline:** Demo 1, version 0.8.7. Pokémon Essentials 21.1, pinned
 mkxp-z runtime; universal Mac, Windows x64 and Linux x86_64 releases.
 
 The demo includes the dream opening, lighthouse family and companion choice,

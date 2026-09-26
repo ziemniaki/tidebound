@@ -61,9 +61,9 @@ entry, assign a unique save namespace and remove the test saves afterward.
 No existing player save or manually prepared engine directory is required.
 
 ```sh
-uv run python tests/mac_runtime_smoke.py /path/to/Tidebound_Mac_0.8.6_universal.zip /tmp/tidebound-scenes --arch arm64 --location ordinary --scenario world
-uv run python tests/windows_runtime_smoke.py C:/build/Tidebound_Windows_0.8.6_x64.zip C:/build/scenes --scenario all
-uv run python tests/linux_runtime_smoke.py /tmp/Tidebound_Linux_0.8.6_x86_64.zip /tmp/tidebound-scenes --scenario all
+uv run python tests/mac_runtime_smoke.py /path/to/Tidebound_Mac_0.8.7_universal.zip /tmp/tidebound-scenes --arch arm64 --location ordinary --scenario world
+uv run python tests/windows_runtime_smoke.py C:/build/Tidebound_Windows_0.8.7_x64.zip C:/build/scenes --scenario all
+uv run python tests/linux_runtime_smoke.py /tmp/Tidebound_Linux_0.8.7_x86_64.zip /tmp/tidebound-scenes --scenario all
 ```
 
 `runtime` exercises initialization and native save roundtrips. `world`

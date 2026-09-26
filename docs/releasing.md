@@ -24,7 +24,7 @@ On a Mac with Xcode command-line tools installed:
 
 ```sh
 uv run python -m tidebound_dev.release.candidates ../candidate
-uv run python tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.6_universal.zip ../smoke-arm64 --arch arm64
+uv run python tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.7_universal.zip ../smoke-arm64 --arch arm64
 ```
 
 For a Windows-only package, on any development host:
@@ -37,7 +37,7 @@ On Windows x64, test that archive using:
 
 ```powershell
 uv run python -m tidebound_dev.release.artifacts ../windows-candidate
-uv run python tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.6_x64.zip ../smoke-windows
+uv run python tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.7_x64.zip ../smoke-windows
 ```
 
 The Windows ZIP contains the unchanged `Game.exe`, Ruby/zlib DLLs, game assets,
@@ -58,7 +58,7 @@ On Linux x86_64 with the libraries in `docs/players/linux.txt` installed:
 
 ```sh
 uv run python -m tidebound_dev.release.artifacts ../linux-candidate
-uv run python tests/linux_runtime_smoke.py ../linux-candidate/Tidebound_Linux_0.8.6_x86_64.zip ../smoke-linux
+uv run python tests/linux_runtime_smoke.py ../linux-candidate/Tidebound_Linux_0.8.7_x86_64.zip ../smoke-linux
 ```
 
 The Linux ZIP bundles the unchanged upstream executable, lib64, Ruby stdlib,
@@ -166,7 +166,7 @@ For the next release:
 
 1. Update `release.json` and `Tidebound::VERSION` in `src/tidebound/domain/state.rb`.
    Increment `mac_build`, update current player/docs, and
-   rebuild scripts. `rebuild_scripts.py` takes Essentials' version from the config.
+   rebuild scripts. The script compiler takes Essentials' version from the config.
 2. Run verification/regeneration and review the resulting source changes in a PR.
    Merge only after CI passes. Perform the native target-machine playtest separately.
 3. Tag the merged commit with a new matching version and push it to the original
