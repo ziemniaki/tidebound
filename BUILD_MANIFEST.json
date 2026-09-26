@@ -29,7 +29,7 @@
   "save_directory": "Tidebound_Opening_0_2",
   "checks": "Development/validation_pond.md",
   "sha256": {
-    "AGENTS.md": "1d91b208368ed85b83f5c2931847941908b91c63ed21c3130ee4ae374ea8ac49",
+    "AGENTS.md": "f83e23c3bf2c9e7fb96b1f8c0e8e3b9103de32c3185dbcc50ae91a2befada092",
     "Audio/BGM/Tidebound Shore.ogg": "129cfe207fff4d312f474e0120cd14378d9789bf154e4586e7aeb8e7f98d843c",
     "Audio/BGM/Tidebound Stillness.ogg": "6f58a42a2014d8e74015abc3c931bbbed574f8ddd9fbdbc20d702210c3af31cb",
     "Audio/SE/Cries/WHYDUCK.ogg": "be238a97e9e6f9f3f60b5f0a63a8f48a5e6df30bc38cbd0dc43e64033a4dd722",
@@ -150,7 +150,7 @@
     "PBS/pokemon_forms_tidebound_psyduck.txt": "46bf7558ce56b2c7ca96bd7047eacc8168195c671e7a6c4a6d088a0d0ab4b0e4",
     "PBS/pokemon_metrics_whyduck.txt": "7facbf615b86ef6c07b37380033741579a7eb9ca916327122c1234fc3479fb38",
     "PBS/pokemon_whyduck.txt": "a2d40910e06171757e1d721d7168a19a563bc53919d428272a2dcd7fe3fe9bde",
-    "PROJECT_STATUS.md": "ebf684e1922ba9dae4d75847bc29a7cfab34869e0684cf379e3146034bbac8b3",
+    "PROJECT_STATUS.md": "11f86bc92bc1c83c228564dc8e96968185ac5247dd2938aa7679148b7521bb3e",
     "README.md": "b995ef34b09a7df5702634733fed8c8a9d7add4e7c3f82760eb50a63be85a086",
     "START_HERE.md": "f2318eb0f6651db1a84c03f1882ea60b7367e949708426e1020d4800b8f2c208",
     "mkxp.json": "53d63c74d511792241ccdbe5b096b4510c00227d3398fabd8c048f0aaa612a8d",
@@ -214,7 +214,7 @@
     "release.json": "de091e24672d2cf5887f319f312aa4e5531cc2070462d287d4d311166c458d68",
     "Development/refresh_draft.py": "58845d277aa565f1df14d29e113a125498404e55712923f832614f74d33e5dbd",
     "Development/Tests/test_refresh_draft.py": "37dc59bb7adb4f99e9c66e86192b24a6b0f5545a13594a351b4d0bc420c8cb9e",
-    "RELEASE_NOTES.md": "0c9d3bf3f6d4c93c0ffdc3056de1746931832a31cc76d401e84ea9e9d41e90c9"
+    "RELEASE_NOTES.md": "fef8c43b7b561a0a5eab378500c4cd9f8d320cd46e754bbe44f940eb12b9e318"
   },
   "font_height_reporting": 1,
   "user_confirmed_native_mac_baseline": "0.4.0",

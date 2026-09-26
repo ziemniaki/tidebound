@@ -116,9 +116,18 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
 The Mac and Windows smoke tests share `Tests/native_runtime_smoke.rb`. Each
 extracts a disposable copy, changes only that copy's Main entry and
 save namespace, re-signs the Mac test copy, and removes its unique save directory
-afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test uses the caller's
-build directory: local testing found the runtime's PhysFS loader failed to resolve
-game data under macOS's `/var/folders` temporary location.
+afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services (`open -n -W`) from `/`, rather
+than starting the engine with its working directory pre-set to the game folder.
+It uses a normal directory outside Downloads, matching an installed app.
+
+The pinned Mac runtime cannot load game files from macOS App Translocation
+under `/private/var/folders`; launching a quarantined download reproduced
+`Unable to load scripts from Data/Scripts.rxdata` despite the file being present.
+Moving the app to Applications is required. The installed build40 app and its
+Launch Services smoke test passed on Apple Silicon. This is an installation
+workaround, not a fix to the upstream loader or a notarization claim. CI does
+not simulate quarantine/translocation. A future runtime fix must test that
+path explicitly; a passing installed-app smoke is insufficient evidence.
 
 Packaging occurs inside a temporary sibling directory. The output directory
 appears only after all package checks pass; failed attempts clean up their staging
