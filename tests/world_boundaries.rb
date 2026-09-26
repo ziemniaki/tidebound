@@ -21,4 +21,5 @@ ensure
   Tidebound.const_set(:Opening, opening)
   Tidebound.const_set(:NeighborQuest, neighbor)
 end
+Tidebound::Opening.sync_opening_actors
 puts 'PASS: named world operations and pond/dock battles work without opening or necklace modules.'

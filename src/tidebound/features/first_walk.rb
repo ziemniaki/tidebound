@@ -220,7 +220,7 @@ module Tidebound
     end
 
     def sync_opening_actors
-      return unless MAP_IDS.include?($game_map.map_id)
+      return unless Tidebound::World::MAP_IDS.include?($game_map.map_id)
       seller = Tidebound::World.actor(:seller_outside)
       if seller
         seller.opacity = Tidebound.story[:shop_unlocked] ? 0 : 255
