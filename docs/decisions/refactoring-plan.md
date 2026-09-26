@@ -445,7 +445,7 @@ frameworks and a broad asset purge until a specific need justifies them.
 | R4 | Implemented | Shared VM loader, named engine entries, whole-script registrations, full archive composition before integration scenarios |
 | R7 | Implemented | Nested source paths, checked load manifest, whole generated Ruby files, explicit validated engine patches; full isolated regeneration passes |
 | R6 | Implemented | One schema boundary replaces migrations; native current-save roundtrip and rejection preserve disk bytes; historic fixtures removed |
-| R9–R10 | Implemented, native matrix pending | Shared atomic packaging pipeline and platform adapters; direct development staging; failure, archive safety and isolated-save tests pass |
+| R9–R10 | Implemented | Shared atomic packaging pipeline and platform adapters; direct development staging; failure, archive safety and isolated-save tests pass |
 | R14 | Implemented | Retired history and recovery tools removed; active README image retained in `docs/images/`; local documentation links checked |
 | R1 | Implemented | Import-without-I/O, independent area construction and failed-validation isolation tests pass; full regeneration preserves data and PNG pixels |
 | R2 | Implemented | One compiler, family definitions, explicit art exports; headless/native-object and isolated-regeneration suites pass; native Essentials PBS compilation preserves species rules; custom normal/shiny front/back art loads |
@@ -458,7 +458,8 @@ frameworks and a broad asset purge until a specific need justifies them.
 All fourteen implementation items are complete. Headless and isolated-regeneration
 checks pass locally. Fresh native ARM world/PBS/save scenarios pass, with seven
 rendered scenes compared before/after the presentation refactor. The final
-Mac ARM/Intel, Windows and Linux matrix remains required before acceptance.
+Mac ARM/Intel, Windows and Linux matrix is the final acceptance gate. Its
+commit-specific result and evidence are recorded in [PR #14](https://github.com/ziemniaki/tidebound/pull/14).
 
 ### Development build measurement
 
