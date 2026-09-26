@@ -137,8 +137,13 @@ publisher is retired; `finish_pond_release.py` is retained only as historical co
   has no audio device, so CI sets `ALSOFT_DRIVERS=null` for the test process only;
   [OpenAL Soft's backend override](https://github.com/kcat/openal-soft/blob/master/docs/env-vars.txt)
   allows startup without audible output. The distributed configuration is unchanged.
-  The unchanged
-  Windows binaries have pinned hashes, but no verified matching source/build recipe
+  Its system OpenGL driver reports only 1.1, below the engine's 2.0 minimum.
+  `Tests/setup_windows_ci.ps1` downloads [Mesa 26.2.1](https://github.com/pal1000/mesa-dist-win/releases/tag/26.2.1),
+  verifies its pinned SHA-256 and selects llvmpipe through the test process's
+  environment. Mesa stays in the runner temporary directory and never enters
+  player packages. The screenshot proves software rendering, not hardware GPU
+  compatibility. Normal local smoke uses the machine's system graphics/audio.
+  The unchanged Windows binaries have pinned hashes, but no verified matching source/build recipe
   is available in this repository. See `Runtime/Windows/PROVENANCE.md`.
 - Runtime updates need an explicit provenance/hash review and all native platforms
   revalidated.

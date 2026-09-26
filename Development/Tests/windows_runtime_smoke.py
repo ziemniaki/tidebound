@@ -89,7 +89,8 @@ def smoke(archive, output):
             if not (output / 'native-smoke.png').is_file():
                 raise RuntimeError('Native rendering evidence was not produced')
             result.update(architecture='x86_64', platform='windows',
-                          audio_backend=env.get('ALSOFT_DRIVERS', 'default'))
+                          audio_backend=env.get('ALSOFT_DRIVERS', 'default'),
+                          graphics_driver=env.get('GALLIUM_DRIVER', 'system'))
             (output / 'native-smoke.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
             print('PASS: native Windows x64 engine, game data, save roundtrip and graphics')
     finally:

@@ -136,6 +136,8 @@ jobs:
           path: ${{ runner.temp }}/candidate/
       - name: Verify downloaded artifacts
         run: python Development/verify_artifacts.py "$env:RUNNER_TEMP/candidate"
+      - name: Prepare pinned software OpenGL for the hosted runner
+        run: ./Development/Tests/setup_windows_ci.ps1
       - name: Run native Windows packaged-engine smoke
         env:
           # Hosted Windows has no audio output device. This affects CI only.
