@@ -1,20 +1,35 @@
 # Native Mac runtime
 
-## Current packaging
+## Current packaging — portable1
 
-The checked-in template and source archives remain unchanged. `release.json`
-pins their SHA-256 values. The template contains both `x86_64` and `arm64` in
-the executable and all four libraries. The current Mac packager validates both
-architectures, deployment targets and bundled dependencies, then ad-hoc signs
-the assembled app and verifies its ZIP roundtrip. It preserves the engine code;
-signature bytes change. The upstream license moves from the bundle root to
-`Contents/Resources/LICENSE.mkxp-z-with-https.txt`; the source archive remains
-beside the app. This is not Developer ID signing or notarization.
+The upstream base remains `826929eeb3ebc4b887c011604919217a790770f4`.
+`portable-launch.patch` changes Mac path resolution, removes the Downloads
+restriction and replaces the 512-byte bundle-path buffer. The rebuilt template
+replaces only `Contents/MacOS/Z-universal`; all four upstream dylibs and Ruby
+standard-library files remain byte-for-byte unchanged. Gameplay is not patched.
 
-See [the release workflow](../../Development/RELEASING.md) for commands and the
-distinction between static inspection, native smoke and target-device playtesting.
-The report below records the original Intel inspection, not the new universal
-package's signatures or ARM test results.
+`dependencies.lock.json` pins the engine build's dependencies, including the
+SDL_image vendor snapshots. `RUNTIME_BUILD.json` records the source/template,
+patch and lock hashes, Xcode version and resulting archive hashes. The patched
+source archive contains the matching engine source, patch and dependency lock.
+`release.json` pins the distributable runtime and source archives.
+
+Rebuild on a Mac with Xcode and autoconf, automake, libtool, cmake and pkg-config:
+
+```sh
+python Development/rebuild_mac_runtime.py /tmp/tidebound-runtime-build ../runtime-output
+```
+
+The work directory must not contain spaces because the upstream dependency
+makefiles do not quote their build paths. This restriction applies to rebuilding
+the engine, not to running the game. Build downloads and compiler output stay
+under that directory. The command does not install developer tools for you.
+
+Packaging validates Intel and ARM slices, deployment targets and dependencies,
+then normalizes bundle names and signs the assembled game ad hoc. Native tests
+exercise Downloads, temporary and long Unicode paths, and real read-only App
+Translocation on both architectures. Test quarantine approval is applied only
+to disposable fixtures; it is not distributed. This is not notarization.
 
 ## Historical input provenance
 

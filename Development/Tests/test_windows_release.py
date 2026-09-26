@@ -54,7 +54,7 @@ class WindowsReleaseTests(unittest.TestCase):
             prefix = 'Tidebound_Windows_1.2.3_x64/'
             names = {name.removeprefix(prefix) for name in z.namelist()}
             self.assertIn('Data/Scripts.rxdata', names)
-            self.assertIn('READ_ME_FIRST.txt', names)
+            self.assertIn('README.txt', names)
             self.assertFalse(any(name.startswith(('Development/', '.venv/')) for name in names))
             for name in RUNTIME_FILES:
                 self.assertEqual(z.read(prefix + name), (self.root / name).read_bytes())

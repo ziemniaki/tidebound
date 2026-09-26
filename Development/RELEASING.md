@@ -25,7 +25,7 @@ On a Mac with Xcode command-line tools installed:
 
 ```sh
 python Development/build_release.py ../candidate
-python Development/Tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.5_universal.zip ../smoke-arm64 --arch arm64
+python Development/Tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.6_universal.zip ../smoke-arm64 --arch arm64
 ```
 
 For a Windows-only package, on any development host:
@@ -38,7 +38,7 @@ On Windows x64, test that archive using:
 
 ```powershell
 python Development/verify_artifacts.py ../windows-candidate
-python Development/Tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.5_x64.zip ../smoke-windows
+python Development/Tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.6_x64.zip ../smoke-windows
 ```
 
 The Windows ZIP contains the unchanged `Game.exe`, Ruby/zlib DLLs, game assets,
@@ -59,7 +59,7 @@ On Linux x86_64 with the libraries in `LINUX_README.txt` installed:
 
 ```sh
 python Development/verify_artifacts.py ../linux-candidate
-python Development/Tests/linux_runtime_smoke.py ../linux-candidate/Tidebound_Linux_0.8.5_x86_64.zip ../smoke-linux
+python Development/Tests/linux_runtime_smoke.py ../linux-candidate/Tidebound_Linux_0.8.6_x86_64.zip ../smoke-linux
 ```
 
 The Linux ZIP bundles the unchanged upstream executable, lib64, Ruby stdlib,
@@ -116,18 +116,20 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
 The Mac and Windows smoke tests share `Tests/native_runtime_smoke.rb`. Each
 extracts a disposable copy, changes only that copy's Main entry and
 save namespace, re-signs the Mac test copy, and removes its unique save directory
-afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services (`open -n -W`) from `/`, rather
-than starting the engine with its working directory pre-set to the game folder.
-It uses a normal directory outside Downloads, matching an installed app.
+afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services from `/`, using ordinary,
+temporary, Downloads and long Unicode paths. Its final case applies an
+already-approved quarantine attribute to a disposable fixture, then requires
+that the reported path is an actual App Translocation mount and is read-only.
+This checks location independence after approval, not Gatekeeper acceptance.
+The fixture includes the normal plugin/compiler boot steps and saves through
+the existing user-data directory, never inside the app. Windows and Linux
+fixtures are moved to Unicode paths and launched from another directory.
+Linux additionally uses a symbolic-link launcher and a read-only game tree.
 
-The pinned Mac runtime cannot load game files from macOS App Translocation
-under `/private/var/folders`; launching a quarantined download reproduced
-`Unable to load scripts from Data/Scripts.rxdata` despite the file being present.
-Moving the app to Applications is required. The installed build40 app and its
-Launch Services smoke test passed on Apple Silicon. This is an installation
-workaround, not a fix to the upstream loader or a notarization claim. CI does
-not simulate quarantine/translocation. A future runtime fix must test that
-path explicitly; a passing installed-app smoke is insufficient evidence.
+The pinned `portable1` Mac runtime fixes the earlier translocation failure;
+installation in Applications is optional. Its source patch and dependency lock
+are described in [runtime provenance](../Runtime/macOS/PROVENANCE.md). The Mac
+source gate also compiles and tests the actual patched path-normalization helper.
 
 Packaging occurs inside a temporary sibling directory. The output directory
 appears only after all package checks pass; failed attempts clean up their staging

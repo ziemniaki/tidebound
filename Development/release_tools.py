@@ -24,7 +24,7 @@ def load_release(root=ROOT):
         raise ValueError("release.json: mac_build must be a positive integer string")
     if config["architectures"] != ["x86_64", "arm64"]:
         raise ValueError("The supported Mac artifact is universal: x86_64 and arm64")
-    for key in ("runtime_archive", "runtime_source"):
+    for key in ("runtime_archive", "runtime_source", "runtime_patch"):
         path = Path(config[key])
         if path.is_absolute() or ".." in path.parts:
             raise ValueError(f"Unsafe runtime path: {path}")
@@ -48,7 +48,8 @@ def check_sources(root=ROOT):
     if not re.search(r'"fontHeightReporting"\s*:\s*1\b', launch):
         raise ValueError("The native font height fix must remain enabled")
     for path_key, hash_key in (("runtime_archive", "runtime_sha256"),
-                              ("runtime_source", "runtime_source_sha256")):
+                              ("runtime_source", "runtime_source_sha256"),
+                              ("runtime_patch", "runtime_patch_sha256")):
         if sha256(root / config[path_key]) != config[hash_key]:
             raise ValueError(f"Runtime provenance hash mismatch: {config[path_key]}")
     return config

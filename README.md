@@ -1,34 +1,23 @@
 # Tidebound — The Keeper’s Light
 
-**Demo 1 · version 0.8.5 · Pokémon Essentials 21.1**
+**Demo 1 · version 0.8.6 · Pokémon Essentials 21.1**
 
 A solitary Pokémon journey through a haunted coastal land. Begin with a bird in a dream, return to a lighthouse home, and follow an ordinary errand toward a working harbour.
 
-## Play version 0.8.5
+## Play
 
-The 0.8.5 release candidate contains:
+[GitHub Releases](https://github.com/ziemniaki/tidebound/releases) has one ZIP each
+for Mac (Intel and Apple Silicon), Windows x64 and Linux x86_64.
 
-- `Tidebound_Mac_0.8.5_universal.zip` for Intel and Apple Silicon Macs.
-- `Tidebound_Windows_0.8.5_x64.zip` for Windows x64.
-- `Tidebound_Linux_0.8.5_x86_64.zip` for Ubuntu 22.04/24.04 x86_64.
+## Changes in 0.8.6
 
-Published downloads appear on [GitHub Releases](https://github.com/ziemniaki/tidebound/releases).
-Read `READ_ME_FIRST.txt` inside your platform ZIP before launching. Existing saves
-retain their `Tidebound_Opening_0_2` folder. The Mac app is ad-hoc signed, not notarized.
+The Mac app runs from Downloads, temporary folders and macOS App Translocation;
+it no longer requires installation in Applications. Packages support relocation
+and paths with spaces or non-ASCII names. Linux launchers also work through
+symbolic links. Existing saves remain in `Tidebound_Opening_0_2`, outside the game.
 
-## Refreshed 0.8.5 draft
-
-The refreshed candidate uses Mac build40, fixes the accented-filename signature
-failure during Archive Utility extraction, and adds the Linux x86_64 player.
-Linux needs the system libraries in [LINUX_README.txt](LINUX_README.txt).
-The earlier Mac build39 ZIP is superseded when the draft refresh completes;
-download the refreshed Mac ZIP if you previously downloaded build39.
-
-## Changes in 0.8.5
-
-This is a packaging and build-reliability release. It adds verified universal Mac
-and standalone Windows/Linux player downloads, native smoke tests on every supported platform, checksums/build manifests, and automated draft releases. Gameplay, maps,
-assets and save compatibility are unchanged from 0.8.4.
+The Mac app remains ad-hoc signed and not notarized. Linux targets Ubuntu
+22.04/24.04 and may need the libraries listed in [LINUX_README.txt](LINUX_README.txt).
 
 ## Changes in 0.8.4
 

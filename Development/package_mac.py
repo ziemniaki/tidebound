@@ -144,7 +144,7 @@ def build(output, root=ROOT, allow_dirty=False):
                      LSMinimumSystemVersionByArchitecture={'x86_64': '10.13', 'arm64': '11.0'})
         plist_path.write_bytes(plistlib.dumps(plist))
         (contents / 'MacOS' / plist['CFBundleExecutable']).chmod(0o755)
-        shutil.copy2(root / 'MAC_README.txt', stage / 'READ_ME_FIRST.txt')
+        shutil.copy2(root / 'MAC_README.txt', stage / 'README.txt')
         shutil.copy2(root / 'CREDITS.md', stage / 'CREDITS.md')
         shutil.copy2(root / 'Runtime/macOS/PROVENANCE.md', contents / 'Resources/RUNTIME_SOURCE.md')
         source = root / config['runtime_source']
@@ -156,6 +156,7 @@ def build(output, root=ROOT, allow_dirty=False):
         manifest = {'version': config['version'], 'mac_build': config['mac_build'],
                     'source': revision, 'runtime_commit': config['runtime_commit'],
                     'runtime_sha256': config['runtime_sha256'],
+                    'runtime_patch_sha256': config['runtime_patch_sha256'],
                     'architectures': config['architectures'], 'signing': 'ad-hoc', 'notarized': False,
                     'save_directory_name': SAVE_DIRECTORY, 'game_sha256': expected,
                     'native_images': report}

@@ -1,7 +1,7 @@
-Tidebound 0.8.5 - Windows x64
+Tidebound 0.8.6 - Windows x64
 
-This release adds a dedicated Windows player package. Gameplay and save
-compatibility are unchanged from 0.8.4.
+The player folder can be moved, including to paths with spaces or Unicode names.
+Gameplay and save compatibility are unchanged.
 
 Extract the entire ZIP, then open Game.exe inside the extracted folder.
 Keep Game.exe, both DLLs, Game.ini, mkxp.json, soundfont.sf2 and the game

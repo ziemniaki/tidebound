@@ -5,12 +5,12 @@ Requires a graphical Linux desktop, x86_64 CPU, glibc 2.35 or newer, and an
 OpenGL-capable graphics driver. Ubuntu 22.04 and 24.04 are the initial test
 targets. ARM Linux, Steam Deck controls and other distributions are not verified.
 
-1. Extract the complete ZIP into a normal folder you own.
+1. Extract the complete ZIP into a folder from which applications may execute.
 2. On Ubuntu, install the runtime libraries if they are missing:
    sudo apt install libpulse0 libgomp1 zlib1g libffi8 libyaml-0-2 libcrypt1 libbsd0 libmd0 libgl1 libegl1
    Ubuntu 22.04 also needs libasound2; Ubuntu 24.04 uses libasound2t64.
    Use your distribution's normal graphics drivers and desktop audio service.
-3. Run ./Tidebound.sh in the extracted folder. No Wine, Python or Ruby install
+3. Run Tidebound.sh, directly or through a symbolic link. No Wine, Python or Ruby install
    is required. If your extractor discarded permissions, run:
    chmod +x Tidebound.sh mkxp-z.x86_64
 4. Press Return, then Continue for an existing save or New Game to begin.

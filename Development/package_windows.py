@@ -55,7 +55,7 @@ def build(output, root=ROOT, allow_dirty=False):
         for name in (*GAME_FILES, *RUNTIME_FILES, 'CREDITS.md'):
             expected[name] = sha256(root / name)
             shutil.copy2(root / name, stage / name)
-        for source, dest in (('WINDOWS_README.txt', 'READ_ME_FIRST.txt'),
+        for source, dest in (('WINDOWS_README.txt', 'README.txt'),
                              ('Runtime/Windows/PROVENANCE.md', 'RUNTIME_SOURCE.md')):
             expected[dest] = sha256(root / source)
             shutil.copy2(root / source, stage / dest)

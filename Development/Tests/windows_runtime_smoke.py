@@ -31,7 +31,7 @@ def smoke(archive, output):
     if save_dir.exists():
         raise FileExistsError('Refusing to reuse an existing save namespace')
     try:
-        with tempfile.TemporaryDirectory(prefix='tidebound-smoke-', dir=output.parent) as temp:
+        with tempfile.TemporaryDirectory(prefix='Tidebound é 日本 ', dir=output.parent) as temp:
             root = Path(temp)
             extract_bundle(archive, root)
             games = list(root.glob('*/Game.exe'))
@@ -43,6 +43,7 @@ def smoke(archive, output):
             actual.pop('BUILD.json')
             if actual != manifest['files_sha256']:
                 raise ValueError('Extracted Windows game differs from build manifest')
+            game = game.rename(root / 'Relocated game é 日本')
             config = game / 'mkxp.json'
             text, count = re.subn(r'"dataPathApp"\s*:\s*"[^"]+"',
                                  '"dataPathApp": "' + namespace + '"', config.read_text(encoding='utf-8'))
@@ -60,7 +61,7 @@ def smoke(archive, output):
                        TIDEBOUND_SMOKE_SCREENSHOT=str(output / 'native-smoke.png'))
             try:
                 with (output / 'engine.log').open('w') as log:
-                    with subprocess.Popen([str(game / 'Game.exe')], cwd=game, env=env,
+                    with subprocess.Popen([str(game / 'Game.exe')], cwd=root, env=env,
                                           stdout=log, stderr=subprocess.STDOUT) as process:
                         try:
                             code = process.wait(timeout=90)
