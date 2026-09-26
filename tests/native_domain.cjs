@@ -71,6 +71,16 @@ raise "save lost identity" unless roundtrip.souls.first.id==id
 puts "PASS: actual Essentials Pokemon/Move/Owner/Player objects; capture copy, identity, HP, status, PP and Marshal persistence."
 `, 'actual_pokemon_roundtrip');
 
+ run(`
+raise "early Frostcoon evolution" if Pokemon.new(:FROSTCOON,54).check_evolution_on_level_up
+[55,100].each do |level|
+ raise "missing Nivalora evolution" unless Pokemon.new(:FROSTCOON,level).check_evolution_on_level_up==:NIVALORA
+end
+[:GLACIVERM,:NIVALORA].each do |species|
+ raise "unexpected further evolution" if Pokemon.new(species,100).check_evolution_on_level_up
+end
+puts "PASS: current Frostcoon 54/55 evolution threshold and terminal regional species."
+`, 'regional evolution thresholds');
  run(fs.readFileSync(path.join(__dirname,'opening_smoke.rb'),'utf8'),'opening fixtures');
  for(const n of [24,25,270,33]) {
   const f=fs.readdirSync(ref).find(x=>x.startsWith(String(n).padStart(3,'0')+'_'));
