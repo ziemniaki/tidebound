@@ -1,4 +1,7 @@
 from pathlib import Path
+import os
+import re
+import textwrap
 import json
 import plistlib
 import stat
@@ -217,6 +220,20 @@ class BuildTransactionTests(unittest.TestCase):
 
 
 class ReleaseInvariantTests(unittest.TestCase):
+    def test_publisher_validation_step_uses_installed_tools(self):
+        workflow = (ROOT / ".github/workflows/release.yml").read_text()
+        step = workflow.split("name: Verify artifacts before uploading", 1)[1]
+        script = re.search(r"python - <<'PY'\n(.*?)^\s*PY$", step, re.S | re.M)[1]
+        config = load_release()
+        with (
+            patch.dict(os.environ, {"SOURCE_SHA": "a" * 40}),
+            patch("tidebound_dev.release.refresh_draft.validate_candidate") as validate,
+        ):
+            exec(compile(textwrap.dedent(script), "release-publisher", "exec"), {})
+        validate.assert_called_once_with(
+            Path("candidate"), config["version"], "a" * 40, config["mac_build"]
+        )
+
     def test_dirty_release_is_rejected(self):
         with patch(
             "tidebound_dev.release.metadata.subprocess.check_output", return_value=" M Game.ini\n"

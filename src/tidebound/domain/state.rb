@@ -9,7 +9,7 @@ module Tidebound
     state.story
   end
 
-  VERSION = "0.8.6"
+  VERSION = "0.8.7"
 
   module Config
     # Prototype tuning values, not settled design decisions.
