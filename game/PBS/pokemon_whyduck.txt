@@ -1,4 +1,4 @@
-﻿# Regional Psyduck evolution. Build via tools/rebuild_whyduck_data.py.
+﻿# Generated from tidebound_dev.content species definitions.
 [WHYDUCK]
 Name = Whyduck
 Types = WATER,PSYCHIC

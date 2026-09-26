@@ -3,9 +3,7 @@
 Every pixel position and alpha value is preserved, including both icon frames.
 Run standalone or via rebuild_glaciverm_data.py to keep rebuilds reproducible.
 """
-from pathlib import Path
 from PIL import Image
-G = Path(__file__).resolve().parents[2] / "game"
 PALETTES = {
  'Front': {(238,238,230):(231,249,255),(222,213,230):(179,228,248),
            (189,189,205):(121,189,224),(172,172,180):(92,159,197),
@@ -21,12 +19,15 @@ PALETTES = {
            (120,120,120):(87,154,194),(96,96,88):(54,105,145),
            (64,64,64):(25,50,72),(240,96,80):(248,216,79)}
 }
-for folder,palette in PALETTES.items():
- original=Image.open(G/'Graphics/Pokemon'/folder/'SILCOON.png').convert('RGBA')
- assert set(palette).issubset({p[:3] for p in original.getdata() if p[3]})
- edited=original.copy()
- edited.putdata([(*palette.get(p[:3],p[:3]),p[3]) if p[3] else p for p in original.getdata()])
- assert edited.getchannel('A').tobytes()==original.getchannel('A').tobytes()
- edited.save(G/'Graphics/Pokemon'/folder/'FROSTCOON.png')
- if folder!='Icons':edited.save(G/'Graphics/Pokemon'/(folder+' shiny')/'FROSTCOON.png')
-print('Frostcoon front/back/shiny/icon: frozen-silk blue palette, golden eye; native geometry retained.')
+
+def generate(game):
+    G = game
+    for folder,palette in PALETTES.items():
+     original=Image.open(G/'Graphics/Pokemon'/folder/'SILCOON.png').convert('RGBA')
+     assert set(palette).issubset({p[:3] for p in original.getdata() if p[3]})
+     edited=original.copy()
+     edited.putdata([(*palette.get(p[:3],p[:3]),p[3]) if p[3] else p for p in original.getdata()])
+     assert edited.getchannel('A').tobytes()==original.getchannel('A').tobytes()
+     edited.save(G/'Graphics/Pokemon'/folder/'FROSTCOON.png')
+     if folder!='Icons':edited.save(G/'Graphics/Pokemon'/(folder+' shiny')/'FROSTCOON.png')
+    print('Frostcoon front/back/shiny/icon: frozen-silk blue palette, golden eye; native geometry retained.')

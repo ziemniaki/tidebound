@@ -3,9 +3,7 @@
 Two pink hemispheres grow through an opened skull; wings arc for a spell.
 80x80 and 64x32 source grids are scaled exactly 2x without filtering.
 """
-from pathlib import Path
 from PIL import Image, ImageDraw
-P=Path(__file__).resolve().parents[2] / "game"/'Graphics/Pokemon'
 O=(56,42,49,255); GAP=(66,40,58,255); LIP=(134,86,73,255)
 BONE=(255,238,189,255); Y=(255,213,74,255); HI=(255,232,135,255)
 SHADE=(230,164,82,255); MID=(222,180,82,255)
@@ -169,8 +167,9 @@ def icon_frame(d,ox,bob=0):
     d.line(shift([(18,8),(18,11),(17,12),(19,14)]),fill=GO,width=1)
     d.line(shift([(20,9),(22,10),(21,12),(23,13)]),fill=GD,width=1)
     d.point((ox+12,9+bob),fill=GH)
-def save():
-    hand=Image.open(Path(__file__).parent/'pieces'/'psyduck_hand.png').convert('RGBA')
+def generate(game, pieces):
+    P = game / "Graphics/Pokemon"
+    hand=Image.open(pieces/'psyduck_hand.png').convert('RGBA')
     point_left=hand.transpose(Image.Transpose.ROTATE_90)
     point_right=hand.transpose(Image.Transpose.ROTATE_270)
     for folder,draw in [('Front',front),('Back',back)]:
@@ -181,11 +180,11 @@ def save():
             if folder=='Front':
                 tag='_shiny' if alt else ''
                 for side,dest in (('left',(28,33)),('right',(40,33))):
-                    eye=Image.open(Path(__file__).parent/'pieces'/
+                    eye=Image.open(pieces/
                                    ('psyduck_eye_'+side+tag+'.png')).convert('RGBA')
                     sprite.alpha_composite(eye,dest)
                 beak_file='psyduck_beak_shiny.png' if alt else 'psyduck_beak.png'
-                beak=Image.open(Path(__file__).parent/'pieces'/beak_file).convert('RGBA')
+                beak=Image.open(pieces/beak_file).convert('RGBA')
                 # The original bill rests just left and below the midpoint
                 # between the eyes; do not redraw or scale its source pixels.
                 sprite.alpha_composite(beak,(26,41))
@@ -199,9 +198,8 @@ def save():
             sprite.resize((160,160),Image.Resampling.NEAREST).save(target)
     icon=Image.new('RGBA',(64,32));d=ImageDraw.Draw(icon)
     icon_frame(d,0);icon_frame(d,32,1)
-    icon_beak=Image.open(Path(__file__).parent/'pieces'/'psyduck_icon_beak.png').convert('RGBA')
+    icon_beak=Image.open(pieces/'psyduck_icon_beak.png').convert('RGBA')
     icon.alpha_composite(icon_beak,(10,20))
     icon.alpha_composite(icon_beak,(42,21))
     icon.resize((128,64),Image.Resampling.NEAREST).save(P/'Icons/WHYDUCK.png')
     print('Whyduck sprite draft: pink brain, Psyduck palms and webbed feet.')
-save()

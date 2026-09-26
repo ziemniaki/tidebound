@@ -3,10 +3,8 @@
 Run from any directory with Pillow. Ordinary form-0 assets remain the source.
 Shiny regional sprites use the same provisional gray palette, not stock purple.
 """
-from pathlib import Path
 from PIL import Image
 
-G = Path(__file__).resolve().parents[2] / "game"
 PALETTES = {
     ('EKANS', 'Front'): {
         (90,16,74):(52,54,57), (123,49,106):(78,81,84),
@@ -31,15 +29,18 @@ for species in ('EKANS', 'ARBOK'):
         (144,120,200):(112,115,118), (192,160,200):(169,172,175),
     }
 
-for (species, folder), palette in PALETTES.items():
-    source = G / 'Graphics/Pokemon' / folder / (species + '.png')
-    original = Image.open(source).convert('RGBA')
-    pixels = list(original.getdata())
-    assert set(palette).issubset({p[:3] for p in pixels if p[3]})
-    edited = original.copy()
-    edited.putdata([(*palette.get(p[:3], p[:3]), p[3]) if p[3] else p for p in pixels])
-    assert edited.getchannel('A').tobytes() == original.getchannel('A').tobytes()
-    edited.save(source.with_name(species + '_1.png'))
-    if folder in ('Front', 'Back'):
-        edited.save(G / 'Graphics/Pokemon' / (folder + ' shiny') / (species + '_1.png'))
-    print(species, folder, 'palette only; silhouette, details and alpha retained')
+
+def generate(game):
+    G = game
+    for (species, folder), palette in PALETTES.items():
+        source = G / 'Graphics/Pokemon' / folder / (species + '.png')
+        original = Image.open(source).convert('RGBA')
+        pixels = list(original.getdata())
+        assert set(palette).issubset({p[:3] for p in pixels if p[3]})
+        edited = original.copy()
+        edited.putdata([(*palette.get(p[:3], p[:3]), p[3]) if p[3] else p for p in pixels])
+        assert edited.getchannel('A').tobytes() == original.getchannel('A').tobytes()
+        edited.save(source.with_name(species + '_1.png'))
+        if folder in ('Front', 'Back'):
+            edited.save(G / 'Graphics/Pokemon' / (folder + ' shiny') / (species + '_1.png'))
+        print(species, folder, 'palette only; silhouette, details and alpha retained')

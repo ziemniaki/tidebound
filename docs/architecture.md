@@ -13,7 +13,7 @@ the engine's expected directory structure intact inside `game/`.
 | Opening, quests and presentation | `src/tidebound/features/` and `src/tidebound/presentation/` | Same script archive |
 | Map layouts and events | `tools/tidebound_dev/maps/` area builders and painters | `game/Data/Map*.rxdata`, tilesets, previews/reports |
 | Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
-| Species, items, trainers, encounters | `tools/rebuild_*_data.py`, `rebuild_opening_items.py` | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
+| Species, items, trainers, encounters | `tools/tidebound_dev/content/`, item/encounter builders | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
 | Artwork | `assets/<species>/` sources and export recipes | `game/Graphics/` |
 | Sound | `tools/create_audio.py`, existing attributed assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
@@ -25,6 +25,15 @@ only the maps and painters they use. Imports never load or write game assets.
 The compiler constructs in a temporary workspace, checks every arrival, transfer
 and interaction, then publishes changed outputs. Failed validation leaves the
 checkout unchanged.
+
+## Regional data
+
+`content/species.py` defines forms, species and sprite metrics using PBS field
+names. `content/species_compiler.py` resolves templates, derives evolution
+backlinks, validates references, then writes each database once. PBS text and
+native attributes come from the same fields. Add a definition instead of another
+executable builder. Artwork exports in `art/` are explicit functions; source
+images remain in `assets/`.
 
 ## Ruby loading and ownership
 

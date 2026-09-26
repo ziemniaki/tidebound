@@ -55,4 +55,4 @@ No image generation was used for this regional form. Cry inherits Lapras.
 
 Frostcoon (0.7.10): manually specified palette edit of included Silcoon front,
 back and icon sprites. Original asset attribution remains applicable. Recipe:
-assets/Frostcoon/recolour.py. No image generation; cry reuses Silcoon.
+tools/tidebound_dev/art/frostcoon.py. No image generation; cry reuses Silcoon.

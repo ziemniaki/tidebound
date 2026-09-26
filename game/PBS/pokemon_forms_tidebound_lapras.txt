@@ -1,4 +1,4 @@
-﻿# The pale pier apparition. Other fields inherit ordinary Lapras.
+﻿# Generated from tidebound_dev.content species definitions.
 [LAPRAS,1]
 FormName = Tidebound
 Types = WATER,GHOST

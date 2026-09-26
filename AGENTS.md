@@ -44,7 +44,7 @@ Build outputs and restored binaries are ignored. Never commit saves or caches.
 | Game vision, canon, unresolved design | `specs/game-design.md` |
 | Custom Ruby, dialogue, state and presentation | `src/tidebound/`; embedding order in `src/load_order.txt` |
 | Generated map layouts/events | `tools/tidebound_dev/maps/` area builders and painters |
-| Generated species/items/encounters | `tools/rebuild_*_data.py`; then `game/PBS` and `game/Data` outputs |
+| Generated species/items/encounters | `tools/tidebound_dev/content/` and item/encounter builders; then `game/PBS` and `game/Data` outputs |
 | Source artwork and export recipes | `assets/<species>/`; exports in `game/Graphics/` |
 | Engine project and required game data | `game/`; `game/Game.rxproj` opens in RPG Maker XP |
 | Runtime inputs and patches | `runtime/`, pinned by `release.json` |

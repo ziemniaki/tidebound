@@ -1,4 +1,4 @@
-﻿# Regional Wurmple. Native personality split, both branches at level 10.
+﻿# Generated from tidebound_dev.content species definitions.
 [WURMPLE,1]
 FormName = Tidebound
 Types = BUG,ICE
