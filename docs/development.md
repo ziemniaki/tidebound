@@ -38,7 +38,7 @@ installation is not required for normal development.
 | `uv run check` | Formatting, tooling, geometry, scripts and quest/save tests; no game regeneration |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
 | `uv run rebuild` | Embed the Ruby load manifest only |
-| `uv run rebuild --all` | Intentionally regenerate maps, data, art, reports and scripts |
+| `uv run rebuild --all` | Regenerate maps, data, pipeline-owned art, reports and scripts |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
 | `uv run editor` | On Windows, restore ignored helpers and open `game/Game.rxproj` |
 
@@ -76,6 +76,19 @@ Ordinary `play` rebuilds scripts, not map geometry.
 Keep compiled data checked in: stock Essentials inputs cannot all be rebuilt
 from the custom generators. Review generated diffs alongside source changes.
 No development command commits, pushes, merges or publishes.
+
+## Authoring workflows
+
+The scoped guides explain the source files, engine contracts and checks for
+[gameplay](../src/AGENTS.md), [maps](../tools/tidebound_dev/maps/AGENTS.md),
+[species/forms](../tools/tidebound_dev/content/AGENTS.md),
+[Pokémon artwork](../assets/AGENTS.md) and [sound](../tools/tidebound_dev/art/AGENTS.md).
+They apply to human development as well as agents.
+
+Full rebuild regenerates only the art recipes wired into the pipeline. Other
+checked-in PNGs and ambient audio remain inputs; changing their source atlases
+requires their actual exporter. `check --all` cannot detect drift in a recipe it
+does not run. See the artwork guide before replacing an exported file.
 
 ## Less common work
 
