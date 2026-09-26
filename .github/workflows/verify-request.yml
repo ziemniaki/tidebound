@@ -1,0 +1,65 @@
+name: Requested verification
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Open pull request number to verify
+        type: string
+        required: true
+
+permissions: {}
+
+concurrency:
+  group: requested-${{ github.event.issue.number || inputs.pr }}
+  cancel-in-progress: false
+
+jobs:
+  authorize:
+    if: github.event_name == 'workflow_dispatch' || (github.event.issue.pull_request && github.event.comment.body == '/verify')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+      statuses: write
+    outputs:
+      sha: ${{ steps.request.outputs.sha }}
+    steps:
+      # This checkout is the trusted workflow revision, never the PR head.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - id: request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python Development/ci_verify_request.py request
+
+  build:
+    needs: authorize
+    if: needs.authorize.outputs.sha != ''
+    permissions:
+      contents: read
+    uses: ./.github/workflows/verify.yml
+    with:
+      ref: ${{ needs.authorize.outputs.sha }}
+
+  report:
+    needs: [authorize, build]
+    if: always() && needs.authorize.outputs.sha != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      statuses: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          VERIFIED_SHA: ${{ needs.authorize.outputs.sha }}
+          VERIFY_RESULT: ${{ needs.build.result }}
+        run: python Development/ci_verify_request.py report

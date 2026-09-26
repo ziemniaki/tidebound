@@ -106,10 +106,25 @@ the older individual generators still modify files in place when invoked directl
 
 ## Pull requests and tags
 
-`Verify and build` runs on PRs and main, and can also be run manually. It performs
-headless verification, Linux regeneration, Mac/Windows packaging on ARM macOS, and
-native smoke tests of those artifacts on ARM Mac, Intel Mac and Windows x64. No PR job has release
-write permission. Actions are pinned to reviewed commits.
+`Quick checks` runs Linux headless verification and tooling/game tests on every
+PR update and main push. It does not package players, regenerate all assets or
+start native Mac/Windows jobs.
+
+For full verification, a collaborator with write permission comments exactly
+`/verify` on an open PR. The trusted `Requested verification` workflow resolves
+that PR's current head SHA, runs the complete reusable workflow with read-only
+repository access, and posts a `Full verification` commit status linking the run.
+The authorization/reporting jobs never execute PR code. Review the status on the
+latest commit before merging: pushing another commit requires another request.
+This is a maintainer policy, not newly configured branch protection.
+
+The Actions UI also provides `Requested verification` with a PR number (including
+for forks), and `Full verification` for a selected branch/tag or explicit commit.
+Use the requested workflow when a PR commit status is needed. Full runs include
+Linux regeneration, Mac/Windows packaging and ARM Mac/Intel Mac/Windows native
+smoke checks. Tags always invoke the full workflow before drafting a release.
+Main pushes only run quick checks, avoiding an automatic duplicate full matrix.
+Actions are pinned to reviewed commits; build jobs never get release credentials.
 
 For the next release:
 
