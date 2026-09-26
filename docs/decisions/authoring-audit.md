@@ -12,7 +12,7 @@ These are specific extension/verification gaps, not a reason for another framewo
 
 ## Findings
 
-### A1 — P2: native species checks can accept missing/wrong artwork
+### A1 — Implemented: derive native coverage from the content catalog
 
 Evidence: [native_scenarios.rb](../../tests/native_scenarios.rb),
 `species_snapshot` and `species`; Essentials `Species_files#check_graphic_file`.
@@ -32,8 +32,12 @@ Compare the supported authored fields and metrics, and assert exact resolved pat
 for required assets, allowing explicitly declared reuse. Keep one species scenario
 inside existing native runs; no additional platform/path jobs.
 
-**Acceptance:** a new declared species is included without editing a second roster;
-removing its required PNG or changing an omitted authored field fails the check.
+**Verified:** inventory tests include a new declared species without a second roster.
+The native ARM scenario compares every custom species/metric attribute except PBS
+bookkeeping and non-evolving backlinks, and checks exact sprite/icon/cry paths.
+Disposable native fault probes reject a removed shiny sprite despite normal-art
+fallback, and reject altered front-sprite metrics. Catalog merges also reject
+duplicate IDs instead of silently replacing a definition.
 
 ### A2 — Implemented: produce species before their encounter consumers
 

@@ -19,10 +19,10 @@ stage new files before running it.
 - Engine doubles are explicit in `support/`. A double can establish a state
   transition; it cannot establish real event scheduling, sprite ownership, sound,
   or native platform behavior. Do not stub away the engine operation under test.
-- For species, `native_scenarios.rb` compares selected attributes before/after
-  real Essentials PBS compilation. Its roster and art list are currently explicit;
-  new species are not automatically covered. Bitmap loading can succeed through
-  fallback to `000`: assert the resolved path when testing required artwork.
+- For species, `native_scenarios.rb` consumes the catalog-derived `NativeContent`
+  fixture and compares native attributes/metrics before and after real PBS
+  compilation. It checks exact sprite/icon/cry resolution, so a bitmap returned
+  through fallback to `000` cannot pass required-art verification.
 - Native fixtures replace Main and isolate saves only in disposable players.
   Never place their driver in `src/load_order.txt` or edit player saves to set up a
   test. A package and its checkout/PBS inputs must represent the same changes.

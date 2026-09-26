@@ -69,8 +69,11 @@ uv run python tests/linux_runtime_smoke.py /tmp/Tidebound_Linux_0.8.7_x86_64.zip
 `runtime` exercises initialization and native save roundtrips. `world`
 adds fresh-game scene captures of home, coast, forest, lighthouse, vault, docks
 and pond, plus a real Game.save/Game.load roundtrip. `species` recompiles the
-current checkout's PBS with Essentials in the isolated save directory, compares
-species attributes and loads custom normal/shiny front/back artwork. Use a
+current checkout's PBS with Essentials in the isolated save directory, compares all custom species and metric attributes (excluding PBS provenance and
+non-evolving family backlinks), and checks exact normal/shiny front/back/icon/cry
+paths. Its roster is derived from authored catalogs; deliberate cry/icon reuse is
+explicit in `content/verification.py`. Missing art cannot pass through base or
+placeholder fallback. Use a
 package built from the same checkout. Linux CI runs under Xvfb.
 
 Evidence includes `native-smoke.json`, engine logs and PNG captures. The old

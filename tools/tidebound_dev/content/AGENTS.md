@@ -8,7 +8,7 @@ source of truth. Species PNGs follow the [asset workflow](../../../assets/AGENTS
 
 1. Add a record to the relevant family module (`plants`, `insects`, `coastal`), or
    add a cohesive family module and include it in `species.py`. Catalog merges
-   currently overwrite duplicate keys silently: reserve/check IDs across modules.
+   reject duplicate IDs across modules.
 2. Use `SPECIES` for a new base species and `SPECIES_1` for form 1 in Python keys.
    PBS uses `[SPECIES]` / `[SPECIES,1]`; runtime objects retain base `species` plus
    `form`. `inherit` selects the native template, `file` the generated PBS stem,
@@ -29,10 +29,12 @@ source of truth. Species PNGs follow the [asset workflow](../../../assets/AGENTS
    “copy this existing cry during rebuild”; don't add an alias over an original
    custom cry. Form artwork/cry fallback can hide missing files.
 6. Format, `uv run rebuild --all`, stage additions, then `uv run check --all`.
-   Extend `tests/native_scenarios.rb::species_snapshot` and art coverage for new
-   content: today's scenario uses fixed species/field lists and omits metrics.
-   Run the native species scenario when altering definitions/compiler behavior;
-   check exact asset resolution and the changed attributes beyond its current list.
+   Native verification derives its roster from the catalog and compares all native
+   species/metric attributes except PBS source bookkeeping and non-evolving family
+   backlinks. It checks exact front/back/shiny/icon/cry resolution. Deliberate form
+   cry reuse is declared in `verification.CRY_REUSE`; normal/shiny party icons share
+   the declared normal icon path. New species require their own assets by default.
+   Run the native species scenario when altering definitions/compiler behavior.
 
 ## Data, form and encounter contracts
 

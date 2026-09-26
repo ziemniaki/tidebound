@@ -8,6 +8,7 @@ import zlib
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from tidebound_dev.release.metadata import parse_runtime_config
+from tidebound_dev.content.verification import inventory
 
 SCENARIOS = ("runtime", "world", "species", "all")
 
@@ -41,5 +42,6 @@ def prepare(game, namespace, scenario="all"):
     encoded = writes(entries)
     if scenario in ("species", "all"):
         shutil.copytree(tests.parent / "game/PBS", game / "NativePBS")
+        (game / "NativeContent.rxdata").write_bytes(writes(inventory()))
     config.write_text(text, encoding="utf-8")
     scripts.write_bytes(encoded)

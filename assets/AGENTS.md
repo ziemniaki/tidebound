@@ -43,8 +43,9 @@ Some recipes use ImageMagick's `convert`, shell or local fonts. Do not assume
    for shiny is an explicit art decision, not evidence of a shiny design.
 6. Run the actual exporter, then full rebuild if its outputs are pipeline-owned;
    stage source and outputs before `check --all`. Inspect front/back in battle and
-   icons in the party screen. Native `species` currently checks a fixed roster;
-   add new content to that scenario rather than assuming automatic coverage.
+   icons in the party screen. Native `species` derives its roster from content definitions and checks exact
+   resolved paths, icon layout and cries. Declare deliberate cry reuse in
+   `content/verification.py`; missing artwork cannot pass via a placeholder.
    Record provenance/credit in `docs/credits.md` when adding outside assets.
 
 For cries, use [audio workflow](../tools/tidebound_dev/art/AGENTS.md). Resolver and icon-frame
