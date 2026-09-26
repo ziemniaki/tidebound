@@ -1,11 +1,13 @@
 """Exercise the map validator against disposable compiled-map fixtures."""
 from pathlib import Path
 import shutil
+import struct
 import subprocess
 import sys
 import tempfile
 import unittest
 from rubymarshal.reader import loads
+from rubymarshal.writer import writes
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -59,3 +61,28 @@ class MapValidationTests(unittest.TestCase):
             result = self.validate(optimized)
             self.assertNotEqual(result.returncode, 0, result.stdout)
             self.assertIn('missing BGM', result.stderr)
+
+    def test_serialized_map_and_tile_table_dimensions_must_match_manifest(self):
+        path = self.game / 'Data/Map101.rxdata'
+        original = path.read_bytes()
+        for changed in ('width', 'table', 'mask'):
+            with self.subTest(changed=changed):
+                record = loads(original)
+                if changed == 'width':
+                    record.attributes['@width'] -= 1
+                elif changed == 'table':
+                    table = record.attributes['@data']
+                    raw = table._dump()
+                    header = list(struct.unpack('<5i', raw[:20]))
+                    header[1] -= 1
+                    table._load(struct.pack('<5i', *header) + raw[20:])
+                else:
+                    import json
+                    masks = self.root / 'tools/generated/collisions.json'
+                    data = json.loads(masks.read_text())
+                    data['101'][0] = data['101'][0][:-1]
+                    masks.write_text(json.dumps(data))
+                path.write_bytes(writes(record))
+                result = self.validate()
+                self.assertNotEqual(result.returncode, 0, result.stdout)
+                self.assertIn('dimensions', result.stderr)

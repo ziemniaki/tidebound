@@ -1,7 +1,7 @@
 from pathlib import Path
 from collections import deque
 from rubymarshal.reader import loads
-import argparse,json,re
+import argparse,json,re,struct
 from script_archive import validate_archive
 parser=argparse.ArgumentParser(description='Check maps and embedded source without rewriting game data.')
 parser.add_argument('--event-scripts',type=Path,help='Explicit destination for extracted event scripts')
@@ -15,6 +15,11 @@ fail=[];event_scripts=[];count=0
 for spec in manifest:
  mid=spec['id'];m=loads((G/f'Data/Map{mid:03}.rxdata').read_bytes()).attributes
  mask=masks[str(mid)];w=spec['width'];h=spec['height']
+ raw=m['@data']._dump()
+ if (m['@width'],m['@height'])!=(w,h) or len(mask)!=h or any(len(row)!=w for row in mask):
+  fail.append(f'{mid} map/mask dimensions disagree with manifest');continue
+ if len(raw)<20 or struct.unpack('<5i',raw[:20])!=(3,w,h,3,w*h*3) or len(raw)!=20+w*h*3*2:
+  fail.append(f'{mid} tile table dimensions disagree with manifest');continue
  def walk(x,y):return 0<=x<w and 0<=y<h and mask[y][x]=='1'
  q=deque([spawns[mid][0]]);seen=set(q)
  while q:
