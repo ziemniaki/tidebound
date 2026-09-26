@@ -2,7 +2,9 @@
 
 ## Fresh-clone setup and checks
 
-Use Python 3.12 or 3.13 and Node.js 22 or 24. From the repository root on
+Use Python 3.12 or 3.13 and Node.js 24.14.1 (pinned in `.node-version`).
+CI uses that same Node version; Node 22.23.2 crashed in the Ruby/WASM tests
+on both hosted Linux and macOS runners. From the repository root on
 macOS/Linux (select your installed Python version when creating the environment):
 
 ```sh
