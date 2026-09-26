@@ -6,6 +6,9 @@ import shutil
 import tempfile
 import unittest
 import zipfile
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from runtime_inputs import unpack_pinned
@@ -31,6 +34,24 @@ class RuntimeRestorationTests(unittest.TestCase):
         (restored / 'Game.exe').write_bytes(b'local corruption')
         self.assertEqual(unpack_pinned(self.root, config, 'runtime'), restored)
         self.assertEqual((restored / 'Game.exe').read_bytes(), b'pinned binary')
+
+    def test_concurrent_first_restores_never_delete_a_published_cache(self):
+        config = self.archive()
+        start = Barrier(8)
+        def restore(_):
+            start.wait(timeout=10)
+            result = unpack_pinned(self.root, config, 'runtime')
+            self.assertEqual((result / 'Game.exe').read_bytes(), b'pinned binary')
+            return result
+        original = shutil.rmtree
+        def remove(path, *args, **kwargs):
+            self.assertNotEqual(Path(path).name, config['runtime_sha256'],
+                                'a healthy published cache was removed')
+            return original(path, *args, **kwargs)
+        with patch('runtime_inputs.shutil.rmtree', side_effect=remove), ThreadPoolExecutor(max_workers=8) as pool:
+            results = list(pool.map(restore, range(8)))
+        self.assertEqual(len(set(results)), 1)
+        self.assertEqual((results[0] / 'Game.exe').read_bytes(), b'pinned binary')
 
     def test_changed_archive_is_rejected_before_restoring(self):
         config = self.archive()
