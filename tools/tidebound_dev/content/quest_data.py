@@ -43,6 +43,28 @@ def build(root):
             "SHOALSHELL",
         )
     )
+    rows.extend(
+        [
+            (
+                "TBDOCKCANVAS",
+                "Dry Canvas",
+                "A dry canvas bundle for Ada, the dockside sailmaker.",
+                "SILKSCARF",
+            ),
+            (
+                "TBDOCKLETTER",
+                "Sealed Letter",
+                "A letter from Eda to her father Tomas. The seal is still intact.",
+                "AIRMAIL",
+            ),
+            (
+                "TBDOCKMEALS",
+                "Covered Bowls",
+                "Mara's basket of bowls for Tomas, Lio and Sen. Return the empty bowls afterward.",
+                "LEFTOVERS",
+            ),
+        ]
+    )
     for ident, name, desc, icon in rows:
         data = clone(items[Symbol("TIDEBOUNDOILKEYS")])
         data.attributes.update(
@@ -90,4 +112,4 @@ def build(root):
         )
     (G / "PBS/trainer_types_tidebound_neighbor.txt").write_text(text, encoding="utf-8-sig")
     (G / "Data/trainer_types.dat").write_bytes(writes(types))
-    print("Built four quest Key Items and three trainer classes.")
+    print("Built seven quest Key Items and three trainer classes.")

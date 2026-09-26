@@ -113,6 +113,14 @@ module NativeScenarios
       Tidebound::World.travel(name, x, y)
       capture(output, name)
     end
+    Tidebound::World.travel(:docks, 68, 26)
+    capture(output, :quay_ring)
+    ticket = Tidebound::QuayRing.offer
+    raise "Empty ring challenge" if ticket[:team].empty?
+    trainer = Tidebound::QuayRing.challenger(ticket)
+    unless trainer.party.all? { |p| p.moves.any? { |m| m.power > 0 } }
+      raise "Ring opponent lacks moves"
+    end
     save_path = File.join(System.data_directory, "world-current.rxdata")
     raise "Fresh world save failed" unless Game.save(save_path)
     bytes = File.binread(save_path)

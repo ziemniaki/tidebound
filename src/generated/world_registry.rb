@@ -20,6 +20,13 @@ module Tidebound
       folded: 116,
     }.freeze
     ACTORS = {
+      ring_bookkeeper: "Ring bookkeeper",
+      sailmaker: "Sailmaker Ada",
+      dock_courier: "Courier Ivo",
+      retired_tomas: "Retired Tomas",
+      dock_cook: "Cook Mara",
+      lamplighter: "Lamplighter Lio",
+      netmender: "Netmender Sen",
       mother: "Mother",
       mother_visiting: "Mother visiting",
       mother_at_vault: "Mother at vault",

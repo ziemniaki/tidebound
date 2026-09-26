@@ -6,6 +6,7 @@ import shutil
 import tempfile
 
 from . import areas, vault, landscape, lighthouse, maze, dream, folded, hideout, harbor, pond
+from . import dock_life
 from .interior import InteriorPainter
 from .landscape_painter import LandscapePalette
 from .serialization import serialize
@@ -68,6 +69,7 @@ def construct(paths):
     )
     harbor.decorate(paths, coast, docks, road)
     pond.decorate(paths, palette, road)
+    dock_life.decorate(paths, docks)
     return [
         home,
         coast,

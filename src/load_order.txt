@@ -34,3 +34,6 @@ tidebound/features/hideout.rb
 generated/pond_geometry.rb
 tidebound/features/pond.rb
 tidebound/features/interactions.rb
+tidebound/features/dock_life.rb
+tidebound/features/quay_ring.rb
+tidebound/presentation/quay_ring.rb
