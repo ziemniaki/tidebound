@@ -14,8 +14,8 @@ verification yourself; deliver a playable result and a short explanation.
 3. For narrative, art or mechanics decisions, consult
    [specs/game-design.md](specs/game-design.md). Confirmed decisions govern;
    proposals, working names and intentionally unresolved mysteries are not canon.
-4. Update current documentation in place. Keep this file short. Historical
-   reports in `docs/history/` are evidence, not current instructions.
+4. Update current documentation in place. Keep this file short. Git history
+   preserves retired code and instructions; do not restore them as active guidance.
 
 ## Everyday commands
 

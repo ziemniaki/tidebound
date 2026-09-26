@@ -1,1 +1,0 @@
-[["Mallow", 7, 28, [:TACKLE, :ARMTHRUST, :SANDATTACK, :FORESIGHT]]]

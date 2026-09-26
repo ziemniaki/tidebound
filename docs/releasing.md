@@ -181,7 +181,7 @@ For the next release:
 For a transient workflow failure, rerun on the same tag. If a draft already exists,
 the publisher refuses to overwrite it; inspect that draft rather than silently
 replacing its files. Build artifacts have 14-day retention. The one-time pond
-publisher is retired; `finish_pond_release.py` is retained only as historical code.
+publisher is retired and available only in Git history.
 
 ## Explicitly refreshing an unpublished draft
 

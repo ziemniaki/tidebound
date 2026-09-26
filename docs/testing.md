@@ -51,6 +51,7 @@ The developer-workflow check also builds a local player and verifies its separat
 save configuration. Real desktop audio, hardware graphics, controls and complete
 gameplay remain manual checks; record them separately from smoke results.
 
-Older feature-specific Ruby drivers and [historical reports](history/README.md)
-remain useful references. Some use old coordinates or require retained save
-fixtures; they are not all part of the current automatic gate.
+Older feature-specific Ruby drivers still await consolidation into the supported
+native scenario runner during the refactoring. They are not part of the current
+automatic gate and may require obsolete fixtures. Git history preserves retired
+reports and one-time recovery scripts.

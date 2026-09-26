@@ -15,6 +15,3 @@
 
 Platform notes: [Mac](players/mac.txt), [Windows](players/windows.txt),
 [Linux](players/linux.txt). These are also included in player ZIPs.
-
-[Historical records](history/README.md) preserve old decisions and evidence.
-Their paths, commands and platform limitations may be obsolete.

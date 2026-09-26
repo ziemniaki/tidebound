@@ -1,6 +1,6 @@
 # Refactoring audit and plan
 
-Status: proposed implementation plan. Audit completed 2026-09-26 against
+Status: implementation in progress in PR #14. Audit completed 2026-09-26 against
 `0f6a91a9d8d1d939f0c2e7cd3927af3b41073539` (main after PR #13).
 
 The main problem is implicit ownership and execution order. Moving files alone
@@ -436,3 +436,15 @@ Start with PR 1. The corrected integration baseline makes deletion and larger
 reorganization verifiable. Then the map/compiler work removes the largest hidden
 dependency cluster. Defer engine replacement, new environment managers, cache
 frameworks and a broad asset purge until a specific need justifies them.
+
+## Implementation status
+
+| Finding | State | Evidence |
+| --- | --- | --- |
+| R3 | Implemented | Dead hideout methods removed; shared NPC dispatch is explicit; current quest and interaction suites pass |
+| R4 | Implemented | Shared VM loader, named engine entries, whole-script registrations, full archive composition before integration scenarios |
+| R7 | Implemented | Nested source paths, checked load manifest, whole generated Ruby files, explicit validated engine patches; full isolated regeneration passes |
+| R1–R2, R5–R6, R8–R14 | Pending | Tracked in PR #14; implementation and final native verification remain required |
+
+Headless checks and isolated regeneration have passed for the first three completed
+items. This is progress evidence, not final acceptance of the complete refactor.

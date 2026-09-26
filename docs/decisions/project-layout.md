@@ -22,7 +22,7 @@ while local players had no common build/launch command.
 - Put the main specification and species/quest specifications in `specs/`.
   Put operational, platform, art and runtime documentation in `docs/`.
 - Keep a small root `AGENTS.md` that routes agents to authoritative sources and
-  states invariants. Preserve old records under `docs/history/`, explicitly
+  states invariants. The refactoring supersedes the archive-in-tree policy: preserve old records in Git history, explicitly
   marked historical; do not silently delete accepted creative decisions.
 - Write the README for a first-time visitor: what the game is, a real screenshot,
   a play link, a short development quickstart, navigation, help and attribution.

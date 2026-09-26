@@ -37,5 +37,5 @@ migrations. Published 0.8.6 remains unchanged; its saves require that release.
 - Consider external binary hosting/LFS only with tested automatic restoration.
   Current runtime archives remain available offline.
 
-Keep this page current and brief. Earlier details and evidence are in
-[history](history/README.md); Git history records new changes.
+Keep this page current and brief. Git history preserves retired implementations
+and earlier verification evidence.
