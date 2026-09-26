@@ -2,6 +2,22 @@
 
 Demo 1 / 0.8.4 · Bible 1.30 · Guide 2.29 · 26 September 2026
 
+## Development tooling review — 26 September 2026
+
+The DX/reliability branch adds pinned Python development dependencies, a single
+headless verification command and read-only PR CI on Linux/macOS. The script
+rebuilder now rejects duplicate plugin installation before writes; archive
+validation detects duplicate, stale or misplaced custom scripts; reference
+extraction removes stale numeric filenames. Map validation no longer rewrites
+the tracked event report by default.
+
+Local checks pass: 11 tooling regressions, 30 core/adapter tests, native-object
+quest/save and regional-snake suites, all 16 maps, maze and pond geometry, and
+compilation of 25 custom scripts / 272 event bodies. These are automated headless
+checks, not a new native graphical or Monterey playtest. Gameplay, saves, release
+version and compiled game data are unchanged. See
+`Development/DX_RELIABILITY_REVIEW.md` for evidence and remaining priorities.
+
 ## 0.8.4 — southern pond, 26 September 2026
 
 Map108 now has a substantial pond clearing. The existing level8 Psyduck moves to19,62 and retains shoreduck_gone. Local pond grass: Psyduck40% level8-11, regional Sunkern35% level8-10, Aipom25% level8-11. Northern road encounters are unchanged. Three optional fishermen remember victories and use the existing astral-loss adapter: Toma (Magikarp9/Goldeen10), Ida (Wooper10/Poliwag11), Renzo (Barboach12). An Oran tree uses existing two-berry regrowth. The hidden western path ends in a one-time Mystic Water with full-bag retry.

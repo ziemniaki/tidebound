@@ -4,8 +4,13 @@ from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol
 import zlib,json,shutil,re
+from script_archive import reject_plugin_copy, script_name, source_files
 DEV=Path(__file__).resolve().parent;GAME=DEV.parent;ROOT=GAME
-entries=[e for e in loads((GAME/'Data/Scripts.rxdata').read_bytes()) if not str(e[1]).startswith('Tidebound/')]
+reject_plugin_copy(GAME)
+sources=source_files(DEV)
+entries=[e for e in loads((GAME/'Data/Scripts.rxdata').read_bytes()) if not script_name(e[1]).startswith('Tidebound/')]
+if sum(script_name(e[1])=='Main' for e in entries)!=1:
+    raise ValueError('Script archive must contain exactly one Main entry')
 for entry in entries:
     code=zlib.decompress(entry[2]).decode('utf-8-sig')
     name=entry[1].decode('utf-8') if isinstance(entry[1], bytes) else str(entry[1])
@@ -24,7 +29,7 @@ for entry in entries:
     entry[2]=zlib.compress(code.encode('utf-8'),9)
 main_index=next(i for i,e in enumerate(entries) if str(e[1])=='Main')
 custom=[]
-for i,p in enumerate(sorted(DEV.glob('[0-9][0-9][0-9]_*.rb'))):
+for i,p in enumerate(sources):
     custom.append([260908100+i,'Tidebound/'+p.stem,zlib.compress(p.read_bytes(),9)])
 entries[main_index:main_index]=custom
 (GAME/'Data/Scripts.rxdata').write_bytes(writes(entries))
@@ -46,6 +51,4 @@ for m in json.loads((DEV/'map_manifest.json').read_text()):
     if m['id']==103:s+='Environment = Forest\n'
     if m['id']==105:s+='Environment = Cave\n'
 p.write_text(s,encoding='utf-8-sig')
-# Plugin compilation is unrelated; no duplicate copy of Tidebound in Plugins.
-assert not (GAME/'Plugins/Tidebound').exists()
 print(f'Embedded {len(custom)} Tidebound scripts into {len(entries)} entries; updated launch/save configuration and PBS.')

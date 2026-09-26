@@ -347,6 +347,17 @@ remains 1; the opening's additive migration uses story opening_revision 4.
 
 ## 7. Build and map-editing discipline
 
+**Current developer entry point:** follow the fresh-clone setup in
+`Development/README.md`, install `requirements-dev.txt` and the locked Node test
+dependencies, then run `python Development/verify.py` with the virtual environment
+active. This is also the PR CI gate. It does not rebuild tracked game data.
+`validate_maps.py` is read-only unless `--event-scripts PATH` explicitly requests
+an event report. After intentional map edits, refresh the tracked report using
+`--event-scripts Development/event_scripts.json` from the repository root.
+Duplicate/custom script ordering and the competing `Plugins/Tidebound` load path
+are rejected; the rebuilder checks the plugin conflict before writing files.
+Historical version sections below are context, not additional setup steps.
+
 Use a project-local Python environment if dependencies need installation. The
 rebuild tools require Python 3, `rubymarshal==1.2.10`, and Pillow. Optional audio
 regeneration also requires NumPy and ffmpeg. Python and Node are development

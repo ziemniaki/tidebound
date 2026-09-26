@@ -3,18 +3,31 @@
 These exercise code and project data. They do not create a game window or prove
 that the Windows rendering, controls and full battle UI work.
 
-From this folder, with Node.js and Python available:
+For the complete current suite, follow [fresh-clone setup](../README.md) and run
+`python Development/verify.py` from the repository root with the virtual
+environment active. This also runs geometry, build-tool and regional-snake checks
+and supplies freshly extracted event bodies to the Ruby compiler checks.
+
+To run individual Ruby harnesses from this folder:
 
 ```
-npm ci
+npm ci --ignore-scripts
 python prepare_reference.py
 node run.cjs
 node native_domain.cjs
+node regional_snakes.cjs
 ```
 
 Python preparation requires `rubymarshal==1.2.10`. The Node dependencies pin an
 official Ruby 3.2 WASM runtime. The supplied Windows game uses Ruby 3.1; our custom
 scripts use syntax available in both. No Node dependencies are needed to play.
+
+`engine_reference/` is an ignored, disposable extraction. Refreshing replaces
+the previous extraction so old numeric filenames cannot survive an archive
+change. These harnesses still select stock engine scripts by numeric position;
+review those selections whenever updating the engine. Direct `native_domain.cjs`
+uses the tracked event report unless `TIDEBOUND_EVENT_SCRIPTS` specifies a fresh
+extraction; prefer `verify.py` for the complete gate.
 
 `run.cjs`: 30 tests for the domain model and battle adapter. Battle outcomes and
 other engine services use test doubles. Covers death, one encounter, capture,

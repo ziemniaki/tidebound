@@ -14,6 +14,10 @@ The southern pond adds three optional fishermen, Psyduck/Aipom/Sunkern grass, th
 
 ## Project navigation
 
+For development, start with [fresh-clone setup and verification](Development/README.md).
+The [DX and reliability review](Development/DX_RELIABILITY_REVIEW.md) records
+verified findings, the initial tooling fixes, and remaining priorities.
+
 | Path | Purpose |
 | --- | --- |
 | [AGENTS.md](AGENTS.md) | Instructions for continuing development |

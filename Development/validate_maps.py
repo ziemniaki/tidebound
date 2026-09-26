@@ -1,8 +1,13 @@
 from pathlib import Path
 from collections import deque
 from rubymarshal.reader import loads
-import json,re,zlib
+import argparse,json,re
+from script_archive import validate_archive
+parser=argparse.ArgumentParser(description='Check maps and embedded source without rewriting game data.')
+parser.add_argument('--event-scripts',type=Path,help='Explicit destination for extracted event scripts')
+args=parser.parse_args()
 D=Path(__file__).resolve().parent;G=D.parent;ROOT=G
+validate_archive(G,D)
 masks=json.loads((D/'collisions.json').read_text());manifest=json.loads((D/'map_manifest.json').read_text())
 spawns={101:[(6,10),(10,12),(16,4),(6,4)],102:[(32,36),(48,25),(45,32),(77,40)],103:[(17,25),(11,22)],104:[(6,9)],105:[(15,21)],106:[(8,10)],107:[(6,8),(8,10)],108:[(18,5),(35,43),(26,39)],109:[(11,14)],110:[(6,13),(17,5)],111:[(12,15)],112:[(11,28),(32,23)],113:[(14,18)],114:[(5,20),(4,11),(9,17),(22,5),(16,4)],115:[(7,8),(4,7),(7,5),(9,8)],116:[(7,22),(25,7)]}
 maze_data=json.loads((D/'maze_manifest.json').read_text())
@@ -35,19 +40,15 @@ for spec in manifest:
  bgm=str(m['@bgm'].attributes['@name'])
  assert (G/'Audio/BGM'/f'{bgm}.ogg').exists(),bgm
  print(f'Map {mid}: {len(seen)} connected walkable cells; {len(m["@events"])} events')
-(D/'event_scripts.json').write_text(json.dumps(event_scripts))
 metadata=loads((G/'Data/map_metadata.dat').read_bytes())
 for mid in spawns:
  back=str(metadata[mid].attributes['@battle_background'])
  for suffix in ['_bg','_base0','_base1','_message']:
   assert (G/'Graphics/Battlebacks'/f'{back}{suffix}.png').exists(), (mid,back,suffix)
-entries=loads((G/'Data/Scripts.rxdata').read_bytes());scripts={str(e[1]):zlib.decompress(e[2]).decode('utf-8-sig') for e in entries}
-assert len([n for n in scripts if n.startswith('Tidebound/')] )==len(list(D.glob('[0-9][0-9][0-9]_*.rb')))
-for p in D.glob('[0-9][0-9][0-9]_*.rb'):assert scripts['Tidebound/'+p.stem]==p.read_text()
-assert scripts['Main'].count('Scene_TideboundTitle')==1
 coast=masks['102']
 assert len(coast)==88 and len(coast[0])==108
 assert all(9<=x<99 and 7<=y<81 for y,row in enumerate(coast) for x,v in enumerate(row) if v=='1'), 'coast camera margin'
 assert all(coast[y][x]=='0' for y in range(30,55) for x in range(80,108)), 'open sea beyond pier'
 if fail:raise RuntimeError('\n'.join(fail))
+if args.event_scripts:args.event_scripts.write_text(json.dumps(event_scripts),encoding='utf-8')
 print(f'PASS: {count} map events; every arrival, door and interaction reachable; script archive matches editable sources.')

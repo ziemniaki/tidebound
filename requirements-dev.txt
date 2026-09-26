@@ -1,0 +1,3 @@
+# Verified development dependencies; the shipped game does not use Python.
+rubymarshal==1.2.10
+Pillow==12.3.0

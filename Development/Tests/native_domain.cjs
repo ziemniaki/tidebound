@@ -96,7 +96,7 @@ puts "PASS: actual Essentials Pokemon/Move/Owner/Player objects; capture copy, i
  run(fs.readFileSync(path.join(__dirname,'hideout_flow.rb'),'utf8'),'hideout flow');
  // RubyVM compiler checks event bodies and custom integration, no graphics needed.
  for(const file of fs.readdirSync(dev).filter(x=>/^\d{3}_.*\.rb$/.test(x))){const code=fs.readFileSync(path.join(dev,file),'utf8');run(`RubyVM::InstructionSequence.compile(${JSON.stringify(Buffer.from(code).toString('base64'))}.unpack1("m0"),${JSON.stringify(file)})`,file+' syntax');}
- const events=JSON.parse(fs.readFileSync(path.join(dev,'event_scripts.json'),'utf8'));
+ const events=JSON.parse(fs.readFileSync(process.env.TIDEBOUND_EVENT_SCRIPTS || path.join(dev,'event_scripts.json'),'utf8'));
  for(const ev of events)run(`RubyVM::InstructionSequence.compile(${JSON.stringify(Buffer.from(ev.code).toString('base64'))}.unpack1("m0"),${JSON.stringify(ev.name)})`,ev.name+' syntax');
  run(`puts "PASS: ${fs.readdirSync(dev).filter(x=>/^\d{3}_.*\.rb$/.test(x)).length} custom scripts and ${events.length} native event scripts compile."; $stdout.flush; $stderr.flush`,'done');
 })().catch(e=>{console.error(String(e));process.exitCode=1});
