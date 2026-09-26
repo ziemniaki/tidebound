@@ -109,6 +109,8 @@ puts "PASS: current forest and road encounter species, weights and level ranges.
  run(fs.readFileSync(path.join(__dirname,'neighbor_flow.rb'),'utf8'),'neighbor flow');
  run(fs.readFileSync(path.join(dev,'023_Hideout.rb'),'utf8'),'hideout');
  run(fs.readFileSync(path.join(__dirname,'hideout_flow.rb'),'utf8'),'hideout flow');
+ run(fs.readFileSync(path.join(dev,'016_Landscape.rb'),'utf8'),'landscape');
+ run(fs.readFileSync(path.join(__dirname,'landscape_flow.rb'),'utf8'),'landscape flow');
  // RubyVM compiler checks event bodies and custom integration, no graphics needed.
  for(const file of fs.readdirSync(dev).filter(x=>/^\d{3}_.*\.rb$/.test(x))){const code=fs.readFileSync(path.join(dev,file),'utf8');run(`RubyVM::InstructionSequence.compile(${JSON.stringify(Buffer.from(code).toString('base64'))}.unpack1("m0"),${JSON.stringify(file)})`,file+' syntax');}
  const events=JSON.parse(fs.readFileSync(process.env.TIDEBOUND_EVENT_SCRIPTS || path.join(root,'tools/generated/event_scripts.json'),'utf8'));
