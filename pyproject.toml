@@ -17,6 +17,7 @@ check = "tidebound_dev.cli:check"
 rebuild = "tidebound_dev.cli:rebuild"
 doctor = "tidebound_dev.cli:doctor"
 editor = "tidebound_dev.cli:editor"
+format = "tidebound_dev.formatting:main"
 
 [build-system]
 requires = ["uv_build==0.12.1"]
@@ -27,6 +28,15 @@ module-name = "tidebound_dev"
 module-root = "tools"
 
 [dependency-groups]
+dev = [
+    "ruff==0.16.9",
+]
 docs = [
     "reportlab==5.0.1",
 ]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+include = ["tools/**/*.py", "tests/**/*.py", ".github/scripts/*.py"]
+extend-exclude = ["tests/engine_reference"]

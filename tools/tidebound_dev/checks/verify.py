@@ -20,6 +20,8 @@ def main(root=ROOT):
         import rubymarshal
     except ImportError:
         raise SystemExit("Install Python dependencies: uv sync --locked") from None
+    from tidebound_dev.formatting import format_sources
+    format_sources(root, check=True)
     from tidebound_dev.release.metadata import check_sources
     check_sources(root)
 

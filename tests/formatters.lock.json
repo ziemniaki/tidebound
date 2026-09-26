@@ -1,0 +1,51 @@
+[
+  {
+    "name": "syntax_tree",
+    "version": "6.3.0",
+    "sha256": "56e25a9692c798ec94c5442fe94c5e94af76bef91edc8bb02052cbdecf35f13d",
+    "url": "https://rubygems.org/downloads/syntax_tree-6.3.0.gem",
+    "format": "gem"
+  },
+  {
+    "name": "prettier_print",
+    "version": "1.2.1",
+    "sha256": "a72838b5f23facff21f90a5423cdcdda19e4271092b41f4ea7f50b83929e6ff9",
+    "url": "https://rubygems.org/downloads/prettier_print-1.2.1.gem",
+    "format": "gem"
+  },
+  {
+    "name": "pp",
+    "version": "0.6.4",
+    "sha256": "dfcb0fce700c41456265922884f9fe195d7fbb0674a3578e6c0f69588e82b570",
+    "url": "https://rubygems.org/downloads/pp-0.6.4.gem",
+    "format": "gem"
+  },
+  {
+    "name": "prettyprint",
+    "version": "0.2.0",
+    "sha256": "2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193",
+    "url": "https://rubygems.org/downloads/prettyprint-0.2.0.gem",
+    "format": "gem"
+  },
+  {
+    "name": "set",
+    "version": "1.1.2",
+    "sha256": "ca33a60d202e788041d94a5d4c12315b1639875576f1a266f3a10913646d8ef1",
+    "url": "https://rubygems.org/downloads/set-1.1.2.gem",
+    "format": "gem"
+  },
+  {
+    "name": "rubygems-update",
+    "version": "3.4.22",
+    "sha256": "dedab68acfef164f6d29257bb8d01bd6df1430ce4c0c3cf5b198aa211881d849",
+    "url": "https://rubygems.org/downloads/rubygems-update-3.4.22.gem",
+    "format": "gem"
+  },
+  {
+    "name": "ripper-core.rb",
+    "version": "ruby-3.2.2",
+    "sha256": "408d8db229fb48572a75230b989984eedc107fd34ae2d1a7c5ea1bbe19ec9bb2",
+    "url": "https://raw.githubusercontent.com/ruby/ruby/v3_2_2/ext/ripper/lib/ripper/core.rb",
+    "format": "ruby"
+  }
+]
