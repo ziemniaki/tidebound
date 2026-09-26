@@ -164,7 +164,7 @@ For the next release:
 4. `Prepare release` requires the tag to match the config and its commit to be
    in `main`'s history. It reruns the build and all native platform checks.
    Only then does a separate job get `contents: write` and upload a **draft**
-   GitHub release. The publisher rechecks checksums and the remote tag's commit.
+   GitHub release with only the three player ZIPs attached. The publisher rechecks checksums and the remote tag's commit.
 5. Review the attached downloads and notes, then publish the draft in GitHub.
    A draft is an unpublished release, not an automatic public announcement.
 
@@ -172,6 +172,30 @@ For a transient workflow failure, rerun on the same tag. If a draft already exis
 the publisher refuses to overwrite it; inspect that draft rather than silently
 replacing its files. Build artifacts have 14-day retention. The one-time pond
 publisher is retired; `finish_pond_release.py` is retained only as historical code.
+
+## Explicitly refreshing an unpublished draft
+
+Use Actions > Refresh unpublished draft only when the owner requests replacing
+an existing unpublished candidate. Dispatch on main and provide the current
+remote tag object SHA (`git ls-remote origin refs/tags/v0.8.5`) as the lease.
+Increment the Mac build number for a replacement bundle and merge its metadata
+first. This is how the owner-authorized 0.8.5 build40 refresh is prepared.
+
+The workflow validates draft status and the existing tag, runs the entire build
+and native matrix, and verifies the complete candidate's hashes and source SHA.
+It downloads and verifies every old asset, retaining assets and release/tag
+metadata as `previous-draft-release` for 90 days before making changes. It then
+moves the tag with a force-with-lease push, uploads the three player ZIPs, removes
+backed-up technical/project attachments, replaces the notes, and
+verifies GitHub asset digests. The release remains a draft. The Actions token's
+tag push does not recursively trigger another build; the complete build already
+ran as a prerequisite in this workflow.
+
+Published/immutable releases, unexpected tag changes, extra old assets, partial
+candidates and mismatched commits/builds are rejected. Replacement is a sequence
+of API calls, not an atomic transaction: if interrupted after retagging or upload,
+keep the draft unpublished, inspect the backup and run state, then restore or
+complete it explicitly. Normal tag-triggered releases still refuse overwrites.
 
 ## Remaining release gates
 
@@ -207,3 +231,18 @@ publisher is retired; `finish_pond_release.py` is retained only as historical co
 References: [GitHub runner architectures](https://docs.github.com/en/actions/reference/runners/github-hosted-runners),
 [Apple nested code signing](https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html),
 [GitHub draft/tag release options](https://cli.github.com/manual/gh_release_create).
+
+## Release presentation
+
+The release page has one player ZIP per OS: universal Mac, Windows x64 and Linux
+x86_64. SHA256SUMS, build manifests, the editable project ZIP and the Markdown
+notes file remain inside the verified CI candidate, not separate release assets.
+GitHub also supplies its own source-code archives automatically.
+
+Update the root RELEASE_NOTES.md for each version and follow
+[the release-note template](../.github/RELEASE_NOTES_TEMPLATE.md). Notes are curated
+for players as one flat changelog list. Do not split changes into sections or
+append instructions to choose/download/unzip a platform or read a README. Include
+only compatibility caveats that materially affect playing. Build logs, commit IDs, dependency details and test counts belong in
+CI and contributor docs. The builder requires the note heading to match the
+release version and uses this file as the GitHub release body.
