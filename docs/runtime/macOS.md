@@ -27,8 +27,8 @@ under that directory. The command does not install developer tools for you.
 
 Packaging validates Intel and ARM slices, deployment targets and dependencies,
 then normalizes bundle names and signs the assembled game ad hoc. Native tests
-exercise Downloads, temporary and long Unicode paths, and real read-only App
-Translocation on both architectures. Test quarantine approval is applied only
+run one real read-only App Translocation launch per architecture. Downloads,
+temporary and long Unicode paths remain opt-in diagnostics. Test quarantine approval is applied only
 to disposable fixtures; it is not distributed. This is not notarization.
 
 ## Historical input provenance

@@ -41,8 +41,9 @@ the Node harness uses Ruby 3.2 WASM.
 ## Native builds
 
 Use the [release guide](releasing.md) for exact archive smoke commands. Mac tests
-run on Intel and ARM in ordinary, temporary, Downloads, long Unicode and actual
-read-only App Translocation locations. Windows starts a relocated Unicode-named
+run one actual read-only App Translocation launch on Intel and one on ARM.
+Other locations are available with `--location`; `--location all` is an opt-in
+diagnostic for runtime path changes. Windows starts a relocated Unicode-named
 package from outside its game folder. Linux adds a symlink launcher and read-only
 game tree on Ubuntu 22.04/24.04.
 

@@ -112,13 +112,13 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
    Pokemon/state disk save roundtrip, and render a font/sprite frame through the
    graphics backend. Logs, JSON results and a screenshot are retained by CI.
 
-The Mac and Windows smoke tests share `Tests/native_runtime_smoke.rb`. Each
+The Mac and Windows smoke tests share `tests/native_runtime_smoke.rb`. Each
 extracts a disposable copy, changes only that copy's Main entry and
 save namespace, re-signs the Mac test copy, and removes its unique save directory
-afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services from `/`, using ordinary,
-temporary, Downloads and long Unicode paths. Its final case applies an
-already-approved quarantine attribute to a disposable fixture, then requires
+afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services from `/`, with one read-only App Translocation case per architecture in CI. It applies
+an already-approved quarantine attribute to a disposable fixture, then requires
 that the reported path is an actual App Translocation mount and is read-only.
+Other locations are opt-in diagnostics (`--location` or `--location all`).
 This checks location independence after approval, not Gatekeeper acceptance.
 The fixture includes the normal plugin/compiler boot steps and saves through
 the existing user-data directory, never inside the app. Windows and Linux

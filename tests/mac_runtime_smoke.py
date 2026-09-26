@@ -139,7 +139,7 @@ if __name__ == "__main__":
     parser.add_argument("output", type=Path)
     parser.add_argument("--arch", choices=["arm64", "x86_64"], required=True)
     locations = ["ordinary", "temporary", "downloads", "long-path", "translocated"]
-    parser.add_argument("--location", choices=["all", *locations], default="all")
+    parser.add_argument("--location", choices=["all", *locations], default="translocated")
     parser.add_argument("--scenario", choices=SCENARIOS, default="all")
     args = parser.parse_args()
     for location in locations if args.location == "all" else [args.location]:

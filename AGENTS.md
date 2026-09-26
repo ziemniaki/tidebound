@@ -98,6 +98,6 @@ Published tags/assets are immutable. Releases contain exactly three player ZIPs
 are one concise flat list: no download instructions, README-first directions,
 platform-selection section, agent chatter or generic filler.
 
-Mac tests cover Downloads, long Unicode paths and actual read-only App
-Translocation on both architectures. Only disposable fixtures receive approved
+Mac CI runs one read-only App Translocation launch per architecture. Other
+locations are opt-in diagnostics; do not expand routine CI into a path matrix. Only disposable fixtures receive approved
 quarantine attributes; never alter global security settings or ship test flags.
