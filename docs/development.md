@@ -37,11 +37,13 @@ installation is not required for normal development.
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
 | `uv run rebuild` | Embed the Ruby load manifest only |
 | `uv run rebuild --all` | Intentionally regenerate maps, data, art, reports and scripts |
+| `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
 | `uv run editor` | On Windows, restore ignored helpers and open `game/Game.rxproj` |
 
 `uv run build` is the game command. `uv build` builds a Python package, not
 Tidebound. `uv run tidebound --help` lists the commands.
 
+Development builds stage the native player directly, without making a release ZIP.
 Builds go into unique ignored `.build/dev/` directories. Development players use
 `Tidebound_Development` saves, shared between development builds. Release saves
 stay in `Tidebound_Opening_0_2`; installed release apps are not replaced.

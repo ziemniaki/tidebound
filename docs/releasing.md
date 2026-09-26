@@ -30,7 +30,7 @@ uv run python tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.6_univer
 For a Windows-only package, on any development host:
 
 ```sh
-uv run python tools/package_windows.py ../windows-candidate
+uv run tidebound package windows ../windows-candidate
 ```
 
 On Windows x64, test that archive using:
@@ -51,7 +51,7 @@ It uses the same staging/no-overwrite rules as the Mac package and accepts
 For a Linux-only package, on any development host:
 
 ```sh
-uv run python tools/package_linux.py ../linux-candidate
+uv run tidebound package linux ../linux-candidate
 ```
 
 On Linux x86_64 with the libraries in `docs/players/linux.txt` installed:
@@ -72,7 +72,7 @@ with system libraries documented in the player README. This is not an AppImage.
 Use `--arch x86_64` on an Intel Mac. Choose new output paths each time. A release
 build requires a clean Git checkout and records its exact commit. For a local
 Mac-only preview of uncommitted changes, use
-`uv run python tools/package_mac.py ../preview --allow-dirty`; the generated
+`uv run tidebound package mac ../preview --allow-dirty`; the generated
 manifest explicitly marks it dirty. Preview builds are not release candidates.
 
 Mac signing and inspection require macOS (`codesign`, `lipo`, `otool`). Linux can

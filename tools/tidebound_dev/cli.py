@@ -14,7 +14,6 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
-DEV_SAVES = 'Tidebound_Development'
 GENERATORS = ('rebuild_maps.py', 'rebuild_opening_items.py', 'rebuild_neighbor_data.py',
               'rebuild_field_data.py', 'rebuild_regional_data.py', 'rebuild_scripts.py', 'configure_game.py')
 
@@ -53,48 +52,14 @@ def host_platform():
     raise ValueError('Playable builds support macOS Intel/ARM, Windows x64 and Linux x86_64.')
 
 
-def development_settings(game):
-    path = game / 'mkxp.json'
-    text, count = re.subn(r'("dataPathApp"\s*:\s*)"[^"]+"',
-                         lambda m: m[1] + json.dumps(DEV_SAVES), path.read_text(encoding='utf-8'))
-    if count != 1:
-        raise ValueError('Expected exactly one save directory setting; refusing unsafe development build')
-    path.write_text(text, encoding='utf-8')
-
-
 def development_build(target):
     if target == 'mac' and sys.platform != 'darwin':
         raise ValueError('Mac builds require macOS and Xcode command-line tools.')
     python('tools/rebuild_scripts.py')
-    # Reuse the verified release packagers; alter only a disposable extracted copy.
     sys.path.insert(0, str(ROOT / 'tools'))
-    from package_mac import extract_bundle
-    from importlib import import_module
+    from .packaging.pipeline import build, DEV_SAVES
     output = ROOT / '.build/dev' / (time.strftime('%Y%m%d-%H%M%S-') + uuid.uuid4().hex[:8])
-    output.mkdir(parents=True)
-    archive = import_module('package_' + target).build(output / 'package', allow_dirty=True)
-    extract_bundle(archive, output / 'player')
-    folder, = (output / 'player').iterdir()
-    if target == 'mac':
-        app = folder / 'Tidebound.app'
-        development_settings(app / 'Contents/Game')
-        plist_path = app / 'Contents/Info.plist'
-        plist = plistlib.loads(plist_path.read_bytes())
-        plist.update(CFBundleIdentifier='game.tidebound.development', CFBundleName='Tidebound Dev', CFBundleDisplayName='Tidebound Dev')
-        plist_path.write_bytes(plistlib.dumps(plist))
-        from mac_runtime import sign_app
-        sign_app(app)
-        launcher = app
-    else:
-        development_settings(folder)
-        launcher = folder / ('Game.exe' if target == 'windows' else 'Tidebound.sh')
-    # The release package/manifests remain an intact preview. The playable copy is
-    # explicitly development-only and has no stale release hash manifest.
-    (folder / 'BUILD.json').unlink()
-    manifest = {'kind': 'development', 'platform': target, 'save_directory': DEV_SAVES,
-                'launcher': str(launcher), 'source_commit': subprocess.check_output(
-                    ['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()}
-    (folder / 'DEVELOPMENT.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    launcher = build(target, output, allow_dirty=True, development=True)
     print(f'\nReady: {launcher}\nDevelopment saves: {DEV_SAVES}', flush=True)
     return launcher
 
@@ -121,6 +86,10 @@ def dispatch(command, argv):
     if command in ('build', 'play'):
         if command == 'build':
             parser.add_argument('--platform', choices=('mac', 'windows', 'linux'), help='Defaults to this computer')
+    elif command == 'package':
+        parser.add_argument('platform', choices=('mac', 'windows', 'linux'))
+        parser.add_argument('output', type=Path)
+        parser.add_argument('--allow-dirty', action='store_true')
     elif command in ('check', 'rebuild'):
         parser.add_argument('--all', action='store_true', help='Also regenerate maps/data' if command == 'rebuild' else 'Also verify isolated regeneration')
     args = parser.parse_args(argv)
@@ -132,6 +101,10 @@ def dispatch(command, argv):
                 run('open', '-n', '-W', launcher)
             else:
                 run(launcher, cwd=launcher.parent)
+    elif command == 'package':
+        sys.path.insert(0, str(ROOT / 'tools'))
+        from .packaging.pipeline import build
+        build(args.platform, args.output, allow_dirty=args.allow_dirty)
     elif command == 'check':
         test_dependencies()
         python('tools/verify.py')
@@ -173,7 +146,7 @@ def editor(): entry('editor')
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('build', 'play', 'check', 'rebuild', 'doctor', 'editor'))
+    parser.add_argument('command', choices=('build', 'play', 'check', 'rebuild', 'doctor', 'editor', 'package'))
     args, rest = parser.parse_known_args()
     sys.argv = [sys.argv[0], *rest]
     entry(args.command)

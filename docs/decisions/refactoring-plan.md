@@ -444,7 +444,21 @@ frameworks and a broad asset purge until a specific need justifies them.
 | R3 | Implemented | Dead hideout methods removed; shared NPC dispatch is explicit; current quest and interaction suites pass |
 | R4 | Implemented | Shared VM loader, named engine entries, whole-script registrations, full archive composition before integration scenarios |
 | R7 | Implemented | Nested source paths, checked load manifest, whole generated Ruby files, explicit validated engine patches; full isolated regeneration passes |
-| R1–R2, R5–R6, R8–R14 | Pending | Tracked in PR #14; implementation and final native verification remain required |
+| R6 | In progress | One schema boundary replaces migrations; headless save tests pass; obsolete native fixtures still need replacement |
+| R9–R10 | Implemented, native matrix pending | Shared atomic packaging pipeline and platform adapters; direct development staging; failure, archive safety and isolated-save tests pass |
+| R14 | Implemented | Retired history and recovery tools removed; active README image retained in `docs/images/`; local documentation links checked |
+| R1–R2, R5, R8, R11–R13 | Pending | Tracked in PR #14; implementation and final native verification remain required |
 
 Headless checks and isolated regeneration have passed for the first three completed
 items. This is progress evidence, not final acceptance of the complete refactor.
+
+### Development build measurement
+
+On the same Apple Silicon Mac (macOS Darwin 25.1.0), two successful
+`uv run build --platform mac` runs took 19.995 and 19.575 seconds before shared
+staging, then 6.185 and 5.841 seconds after it (roughly 70% less elapsed time).
+Both measurements used cached Python dependencies and checked-in runtime archives;
+neither includes game launch. The new path copies the same payload and verifies
+the runtime, isolates development saves before signing, and avoids creating,
+round-tripping, extracting and re-signing a release archive. This is a local
+measurement, not a timing guarantee for other machines.

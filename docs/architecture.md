@@ -12,11 +12,11 @@ the engine's expected directory structure intact inside `game/`.
 | Essentials save/battle integration | `src/tidebound/engine/battles.rb` | Same script archive |
 | Opening, quests and presentation | `src/tidebound/features/` and `src/tidebound/presentation/` | Same script archive |
 | Map layouts and events | `tools/rebuild_maps.py`, `landscape.py`, `lighthouse_interiors.py`, `vault_maps.py`, `demo_maps.py`, `pond_map.py` and room modules | `game/Data/Map*.rxdata`, tilesets, previews/reports |
-| Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, generated section of `018_PsychicMaze.rb`, `024_PondGeometry.rb` |
+| Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
 | Species, items, trainers, encounters | `tools/rebuild_*_data.py`, `rebuild_opening_items.py` | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
 | Artwork | `assets/<species>/` sources and export recipes | `game/Graphics/` |
 | Sound | `tools/create_audio.py`, existing attributed assets | `game/Audio/` |
-| Engine packaging | `tools/package_*.py`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
+| Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
 The Python map modules intentionally share a generator namespace. Keep that
 loading order when changing them. Separating their internals into a new map
@@ -89,6 +89,8 @@ files are ignored; source archives remain tracked for offline reproducibility.
 This changes placement, not existing Git history or repository download size.
 
 Keep game logic separate from developer commands in `tools/tidebound_dev/`.
-The CLI delegates to the same packagers used by CI, then configures only the
-disposable development copy with isolated saves. Release package checks and
+The CLI and CI share one player staging pipeline. Platform adapters own runtime
+layout, signing and executable permissions. Development settings are applied
+before signing; development builds publish the player directly. Release builds
+add ZIP roundtrip verification and provenance manifests in an atomic transaction. Release package checks and
 provenance are described in [releasing](releasing.md).

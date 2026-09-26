@@ -12,7 +12,11 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from check_rebuild import equivalent
-from package_mac import archive_tree, build, extract_bundle, game_hashes, normalize_bundle_names
+from functools import partial
+from tidebound_dev.packaging.archives import archive_tree, extract_bundle, game_hashes
+from tidebound_dev.packaging.mac import normalize_bundle_names
+from tidebound_dev.packaging.pipeline import build as package
+build = partial(package, "mac")
 from release_tools import ROOT, check_sources, load_release, source_revision
 
 
@@ -99,15 +103,41 @@ class BuildTransactionTests(unittest.TestCase):
         for name, value in [('check_sources', self.config),
                             ('source_revision', {'commit': 'a' * 40, 'dirty': False}),
                             ('inspect_runtime', [])]:
-            patcher = patch('package_mac.' + name, return_value=value)
+            patcher = patch(('tidebound_dev.packaging.mac.' if name == 'inspect_runtime' else 'tidebound_dev.packaging.pipeline.') + name, return_value=value)
             patcher.start()
             self.addCleanup(patcher.stop)
         patcher = patch('subprocess.run')
         patcher.start()
         self.addCleanup(patcher.stop)
 
+    def test_development_player_skips_archive_and_isolates_saves(self):
+        config = self.root / 'game/mkxp.json'
+        original = '{"dataPathApp": "Tidebound_Opening_0_2"}'
+        config.write_text(original)
+        with patch('tidebound_dev.packaging.pipeline.archive_tree', side_effect=AssertionError('development ZIP')), patch('tidebound_dev.packaging.mac.sign_app'):
+            launcher = build(self.output, self.root, allow_dirty=True, development=True)
+        self.assertTrue(launcher.exists())
+        folder = launcher.parent
+        game = launcher / 'Contents/Game' if launcher.suffix == '.app' else folder
+        self.assertIn('Tidebound_Development', (game / 'mkxp.json').read_text())
+        self.assertEqual(config.read_text(), original)
+        self.assertFalse((folder / 'BUILD.json').exists())
+        self.assertEqual(list(self.output.rglob('*.zip')), [])
+        manifest = json.loads((folder / 'DEVELOPMENT.json').read_text())
+        self.assertEqual(manifest['launcher'], str(launcher))
+        self.assertEqual(manifest['save_directory'], 'Tidebound_Development')
+
+    def test_source_change_never_publishes_a_player(self):
+        with patch('tidebound_dev.packaging.pipeline.source_revision', side_effect=[
+            {'commit': 'a' * 40, 'dirty': False},
+            {'commit': 'b' * 40, 'dirty': False},
+        ]), patch('tidebound_dev.packaging.mac.sign_app'), patch('tidebound_dev.packaging.mac.run'):
+            with self.assertRaisesRegex(ValueError, 'Source changed'):
+                build(self.output, self.root)
+        self.assertFalse(self.output.exists())
+
     def test_failed_signing_never_exposes_partial_release(self):
-        with patch('package_mac.sign_app', side_effect=RuntimeError('signing failed')):
+        with patch('tidebound_dev.packaging.mac.sign_app', side_effect=RuntimeError('signing failed')):
             with self.assertRaisesRegex(RuntimeError, 'signing failed'):
                 build(self.output, self.root)
         self.assertFalse(self.output.exists())
@@ -125,7 +155,7 @@ class BuildTransactionTests(unittest.TestCase):
             names = [p.name for p in (app / 'Contents/Game/Audio/BGM').iterdir()]
             self.assertEqual(names, ['Route\u0301 1.mid'])
 
-        with patch('package_mac.sign_app', side_effect=verify_names_at_signing), patch('mac_runtime.run'):
+        with patch('tidebound_dev.packaging.mac.sign_app', side_effect=verify_names_at_signing), patch('tidebound_dev.packaging.mac.run'):
             result = build(self.output, self.root)
         manifest = json.loads((self.output / 'BUILD.json').read_text())
         self.assertFalse(manifest['source']['dirty'])

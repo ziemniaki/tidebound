@@ -12,7 +12,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from runtime_inputs import unpack_pinned
-from tidebound_dev.cli import development_settings, DEV_SAVES
+from tidebound_dev.packaging.pipeline import development_settings, DEV_SAVES
 
 
 class RuntimeRestorationTests(unittest.TestCase):

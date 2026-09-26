@@ -16,7 +16,7 @@ from rubymarshal.writer import writes
 from smoke_report import read_report
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from package_mac import extract_bundle, game_hashes
+from tidebound_dev.packaging.archives import extract_bundle, game_hashes
 from release_tools import parse_runtime_config
 
 

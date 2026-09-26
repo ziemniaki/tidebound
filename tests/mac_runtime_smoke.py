@@ -17,7 +17,7 @@ from smoke_report import read_report
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from mac_runtime import run, sign_app
-from package_mac import extract_bundle
+from tidebound_dev.packaging.archives import extract_bundle
 from release_tools import parse_runtime_config
 
 

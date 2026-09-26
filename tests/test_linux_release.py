@@ -8,8 +8,11 @@ from unittest.mock import patch
 import zipfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from package_linux import build, inspect_runtime
-from package_mac import extract_bundle
+from functools import partial
+from tidebound_dev.packaging.linux import inspect_runtime
+from tidebound_dev.packaging.pipeline import build as package
+build = partial(package, "linux")
+from tidebound_dev.packaging.archives import extract_bundle
 from release_tools import sha256
 from verify_artifacts import verify
 
@@ -45,12 +48,38 @@ class LinuxReleaseTests(unittest.TestCase):
             path.write_bytes(b'fixture')
         for name, value in [('check_sources', self.config),
                             ('source_revision', {'commit': 'a' * 40, 'dirty': False})]:
-            patcher = patch('package_linux.' + name, return_value=value)
+            patcher = patch(('tidebound_dev.packaging.linux.' if name == 'windows_runtime' else 'tidebound_dev.packaging.pipeline.') + name, return_value=value)
             patcher.start()
             self.addCleanup(patcher.stop)
-        patcher = patch('package_linux.subprocess.run')
+        patcher = patch('tidebound_dev.packaging.pipeline.subprocess.run')
         patcher.start()
         self.addCleanup(patcher.stop)
+
+    def test_development_player_skips_archive_and_isolates_saves(self):
+        config = self.root / 'game/mkxp.json'
+        original = '{"dataPathApp": "Tidebound_Opening_0_2"}'
+        config.write_text(original)
+        with patch('tidebound_dev.packaging.pipeline.archive_tree', side_effect=AssertionError('development ZIP')):
+            launcher = build(self.output, self.root, allow_dirty=True, development=True)
+        self.assertTrue(launcher.exists())
+        folder = launcher.parent
+        game = launcher / 'Contents/Game' if launcher.suffix == '.app' else folder
+        self.assertIn('Tidebound_Development', (game / 'mkxp.json').read_text())
+        self.assertEqual(config.read_text(), original)
+        self.assertFalse((folder / 'BUILD.json').exists())
+        self.assertEqual(list(self.output.rglob('*.zip')), [])
+        manifest = json.loads((folder / 'DEVELOPMENT.json').read_text())
+        self.assertEqual(manifest['launcher'], str(launcher))
+        self.assertEqual(manifest['save_directory'], 'Tidebound_Development')
+
+    def test_source_change_never_publishes_a_player(self):
+        with patch('tidebound_dev.packaging.pipeline.source_revision', side_effect=[
+            {'commit': 'a' * 40, 'dirty': False},
+            {'commit': 'b' * 40, 'dirty': False},
+        ]):
+            with self.assertRaisesRegex(ValueError, 'Source changed'):
+                build(self.output, self.root)
+        self.assertFalse(self.output.exists())
 
     def test_player_archive_preserves_runtime_game_and_launch_permissions(self):
         archive = build(self.output, self.root)
@@ -85,11 +114,11 @@ class LinuxReleaseTests(unittest.TestCase):
             inspect_runtime(runtime)
 
     def test_incomplete_runtime_never_exposes_a_release(self):
-        with patch('package_linux.inspect_runtime', side_effect=ValueError('missing library')):
+        with patch('tidebound_dev.packaging.linux.inspect_runtime', side_effect=ValueError('missing library')):
             with self.assertRaisesRegex(ValueError, 'missing library'):
                 build(self.output, self.root)
         self.assertFalse(self.output.exists())
-        self.assertEqual(list(self.base.glob('.tidebound-linux-*')), [])
+        self.assertEqual(list(self.base.glob('.tidebound-package-*')), [])
 
 
 if __name__ == '__main__':

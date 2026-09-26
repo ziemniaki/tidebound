@@ -7,9 +7,7 @@ import sys
 import tempfile
 import zipfile
 
-from package_mac import build
-from package_windows import build as build_windows
-from package_linux import build as build_linux
+from tidebound_dev.packaging.pipeline import build
 from release_tools import ROOT, check_sources, sha256, source_revision
 
 
@@ -24,14 +22,14 @@ def build_release(output, root=ROOT):
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.tidebound-release-', dir=output.parent) as temp:
         artifacts = Path(temp) / 'artifacts'
-        build(artifacts, root=root)
+        build('mac', artifacts, root=root)
         windows = Path(temp) / 'windows'
-        build_windows(windows, root=root)
+        build('windows', windows, root=root)
         for file in windows.iterdir():
             if file.name != 'SHA256SUMS.txt':
                 file.rename(artifacts / file.name)
         linux = Path(temp) / 'linux'
-        build_linux(linux, root=root)
+        build('linux', linux, root=root)
         for file in linux.iterdir():
             if file.name != 'SHA256SUMS.txt':
                 file.rename(artifacts / file.name)

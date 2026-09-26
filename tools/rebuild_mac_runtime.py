@@ -16,7 +16,7 @@ import tarfile
 import tempfile
 
 from mac_runtime import inspect_runtime
-from package_mac import archive_tree, extract_bundle
+from tidebound_dev.packaging.archives import archive_tree, extract_bundle
 from release_tools import ROOT, sha256
 
 SOURCE = ROOT / 'runtime/macOS/mkxp-z-826929e-source.tar.gz'

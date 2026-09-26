@@ -8,7 +8,10 @@ from unittest.mock import patch
 import zipfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from package_windows import RUNTIME_FILES, build, inspect_runtime
+from functools import partial
+from tidebound_dev.packaging.windows import RUNTIME_FILES, inspect_runtime
+from tidebound_dev.packaging.pipeline import build as package
+build = partial(package, "windows")
 from release_tools import sha256
 from verify_artifacts import verify
 from smoke_report import read_report
@@ -41,12 +44,38 @@ class WindowsReleaseTests(unittest.TestCase):
             file.write_bytes(b'fixture')
         for name, value in [('windows_runtime', self.root), ('check_sources', self.config),
                             ('source_revision', {'commit': 'a' * 40, 'dirty': False})]:
-            patcher = patch('package_windows.' + name, return_value=value)
+            patcher = patch(('tidebound_dev.packaging.windows.' if name == 'windows_runtime' else 'tidebound_dev.packaging.pipeline.') + name, return_value=value)
             patcher.start()
             self.addCleanup(patcher.stop)
-        patcher = patch('package_windows.subprocess.run')
+        patcher = patch('tidebound_dev.packaging.pipeline.subprocess.run')
         patcher.start()
         self.addCleanup(patcher.stop)
+
+    def test_development_player_skips_archive_and_isolates_saves(self):
+        config = self.root / 'game/mkxp.json'
+        original = '{"dataPathApp": "Tidebound_Opening_0_2"}'
+        config.write_text(original)
+        with patch('tidebound_dev.packaging.pipeline.archive_tree', side_effect=AssertionError('development ZIP')):
+            launcher = build(self.output, self.root, allow_dirty=True, development=True)
+        self.assertTrue(launcher.exists())
+        folder = launcher.parent
+        game = launcher / 'Contents/Game' if launcher.suffix == '.app' else folder
+        self.assertIn('Tidebound_Development', (game / 'mkxp.json').read_text())
+        self.assertEqual(config.read_text(), original)
+        self.assertFalse((folder / 'BUILD.json').exists())
+        self.assertEqual(list(self.output.rglob('*.zip')), [])
+        manifest = json.loads((folder / 'DEVELOPMENT.json').read_text())
+        self.assertEqual(manifest['launcher'], str(launcher))
+        self.assertEqual(manifest['save_directory'], 'Tidebound_Development')
+
+    def test_source_change_never_publishes_a_player(self):
+        with patch('tidebound_dev.packaging.pipeline.source_revision', side_effect=[
+            {'commit': 'a' * 40, 'dirty': False},
+            {'commit': 'b' * 40, 'dirty': False},
+        ]):
+            with self.assertRaisesRegex(ValueError, 'Source changed'):
+                build(self.output, self.root)
+        self.assertFalse(self.output.exists())
 
     def test_player_zip_excludes_development_files_and_preserves_runtime(self):
         archive = build(self.output, self.root)
@@ -78,11 +107,11 @@ class WindowsReleaseTests(unittest.TestCase):
             inspect_runtime(self.root, self.config)
 
     def test_failed_zip_verification_cleans_staging(self):
-        with patch('package_windows.extract_bundle', side_effect=ValueError('bad ZIP')):
+        with patch('tidebound_dev.packaging.pipeline.extract_bundle', side_effect=ValueError('bad ZIP')):
             with self.assertRaisesRegex(ValueError, 'bad ZIP'):
                 build(self.output, self.root)
         self.assertFalse(self.output.exists())
-        self.assertEqual(list(self.base.glob('.tidebound-windows-*')), [])
+        self.assertEqual(list(self.base.glob('.tidebound-package-*')), [])
 
     def test_existing_release_is_preserved(self):
         self.output.mkdir()
