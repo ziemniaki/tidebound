@@ -8,32 +8,67 @@ the engine's expected directory structure intact inside `game/`.
 
 | Area | Source | Generated/runtime output |
 | --- | --- | --- |
-| Rules, state, identity and recovery | `src/001_Core.rb` | `game/Data/Scripts.rxdata` |
-| Essentials save/battle integration | `src/002_Essentials.rb` | Same script archive |
-| Opening, quests and presentation | Numbered `src/004_*.rb` through `025_*.rb` | Same script archive |
-| Map layouts and events | `tools/rebuild_maps.py`, `landscape.py`, `lighthouse_interiors.py`, `vault_maps.py`, `demo_maps.py`, `pond_map.py` and room modules | `game/Data/Map*.rxdata`, tilesets, previews/reports |
-| Maze/pond/passage geometry | Map generators | `src/003_MapPassages.rb`, generated section of `018_PsychicMaze.rb`, `024_PondGeometry.rb` |
-| Species, items, trainers, encounters | `tools/rebuild_*_data.py`, `rebuild_opening_items.py` | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
+| Rules, state, identity and recovery | `src/tidebound/domain/state.rb` | `game/Data/Scripts.rxdata` |
+| Essentials save/battle integration | `src/tidebound/engine/battles.rb` | Same script archive |
+| Opening, quests and presentation | `src/tidebound/features/` and `src/tidebound/presentation/` | Same script archive |
+| Map layouts and events | `tools/tidebound_dev/maps/` area builders and painters | `game/Data/Map*.rxdata`, tilesets, previews/reports |
+| Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
+| Species, items, trainers, encounters | `tools/tidebound_dev/content/`, item/encounter builders | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
 | Artwork | `assets/<species>/` sources and export recipes | `game/Graphics/` |
-| Sound | `tools/create_audio.py`, existing attributed assets | `game/Audio/` |
-| Engine packaging | `tools/package_*.py`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
+| Sound | `tools/tidebound_dev/art/audio.py`, existing attributed assets | `game/Audio/` |
+| Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
-The Python map modules intentionally share a generator namespace. Keep that
-loading order when changing them. Separating their internals into a new map
-format is future work, not part of this directory migration.
+Map builders return independent in-memory areas. `maps/compiler.py` declares
+composition explicitly: base areas, connections, landscape, interiors and harbor/
+pond decoration. Painters own their tile atlases and caches; area modules receive
+only the maps and painters they use. Imports never load or write game assets.
+The compiler constructs in a temporary workspace, checks every arrival, transfer
+and interaction, then publishes changed outputs. Failed validation leaves the
+checkout unchanged.
+
+## Python operations
+
+`tools/tidebound_dev/` is an installed Python package. `cli.py` parses commands;
+`pipeline.py` is the single rebuild plan used by local development and isolated
+regeneration. `scripts/`, `maps/`, `content/`, `art/`, `runtime/`, `packaging/` and
+`release/` own callable operations. They accept explicit roots when operating on
+a disposable copy. Modules do not modify `sys.path` or launch other generator
+scripts. The standalone GitHub comment dispatcher is in `.github/scripts/`.
+
+## Regional data
+
+`content/plants.py`, `insects.py` and `coastal.py` define forms, species and sprite
+metrics using PBS field names; `content/species.py` is the combined catalog. `content/species_compiler.py` resolves templates, derives evolution
+backlinks, validates references, then writes each database once. PBS text and
+native attributes come from the same fields. Add a definition instead of another
+executable builder. Artwork exports in `art/` are explicit functions; source
+images remain in `assets/`.
 
 ## Ruby loading and ownership
 
-`tools/rebuild_scripts.py` inserts all numbered `src/*.rb` in filename order
-immediately before Essentials' Main entry. The game reads the compiled archive.
-`tools/script_archive.py` rejects duplicate, out-of-order or stale custom entries
-and a competing `Plugins/Tidebound` installation.
+`tools/tidebound_dev/scripts/compiler.py` embeds the files listed in `src/load_order.txt`
+immediately before Essentials' Main. The manifest, not filenames or directory
+sorting, controls the order. `tools/tidebound_dev/scripts/archive.py` rejects missing, duplicate,
+unlisted, out-of-order or stale sources and a competing `Plugins/Tidebound` copy.
 
-`001_Core` keeps game rules independent from the engine; `002_Essentials` adapts
-native objects and battle/save hooks. Later numbered modules group opening,
-coast, neighbour, vault, regional species, presentation and dream/hideout/pond
-content. Extend focused modules as features grow. Do not rename persistent Ruby
-classes merely to make filenames cleaner.
+`src/tidebound/domain/state.rb` owns the engine-independent rules;
+`engine/battles.rb` adapts native battle objects. `Tidebound.story` is the shared
+state root; each feature owns its state transitions. `world/navigation.rb` owns
+travel and actor movement, `world/atmosphere.rb` owns map lighting/passages, and
+`engine/encounters.rb` owns shared party checks and encounter construction. Feature modules own
+story behavior. Shared NPC interactions are dispatched explicitly in
+`features/interactions.rb`; features do not prepend into one another. Engine
+adapters can still prepend into Essentials interfaces.
+
+Map and actor names are declared in `maps/registry.py` and compiled to
+`src/generated/world_registry.rb`. Python builders use that catalog, and Ruby
+calls `World.travel(:road, ...)` or `World.actor(:mother)` instead of repeating
+map IDs or event display names. Regeneration validates the named maps/actors;
+headless integration verifies generated event calls against the loaded public API.
+
+Generated Ruby is confined to `src/generated/`. Maze, pond and collision data are
+whole generated files, never patches inside handwritten source. Necessary stock
+engine modifications are declared and checked in `tools/tidebound_dev/scripts/patches.py`.
 
 `tests/prepare_reference.py` extracts stock engine code into an ignored inspection
 directory. Editing that extraction does not change the game. Stock scripts and
@@ -54,10 +89,13 @@ Release saves use `Tidebound_Opening_0_2`. Development player copies use
 `Tidebound_Development`. Both live in the OS user-data directory, outside the
 checkout and app. The base editor project retains the release namespace.
 
-`TideboundSaveState = Tidebound::State` supports Essentials' symbol-based class
-validation. Keep existing class names, schema, Pokémon identities, forms, owner,
-personal IDs, moves, held items, quest keys and event IDs unless an explicit
-migration preserves them. An empty party is not evidence of a new game.
+Tidebound uses Essentials' normal SaveData serialization without a custom version
+or compatibility gate. New games initialize current state directly; historic
+opening/map/species migrations are retired.
+
+`TideboundSaveState = Tidebound::State` remains the native SaveData class
+registration. Preserve current Pokémon identities, forms, owner, personal IDs,
+moves, held items and quest state. An empty party is not evidence of a new game.
 
 The loss adapter snapshots the party before Essentials' cleanup heals it.
 Recovery restores the archived individual, not a replacement capture. Avoid
@@ -80,6 +118,19 @@ files are ignored; source archives remain tracked for offline reproducibility.
 This changes placement, not existing Git history or repository download size.
 
 Keep game logic separate from developer commands in `tools/tidebound_dev/`.
-The CLI delegates to the same packagers used by CI, then configures only the
-disposable development copy with isolated saves. Release package checks and
+The CLI and CI share one player staging pipeline. Platform adapters own runtime
+layout, signing and executable permissions. Development settings are applied
+before signing; development builds publish the player directly. Release builds
+add ZIP roundtrip verification and provenance manifests in an atomic transaction. Release package checks and
 provenance are described in [releasing](releasing.md).
+
+## Presentation and actor state
+
+`features/actors.rb` synchronizes companion/key/crate collision during map updates,
+independent of sprite creation. Its visibility rules are shared by the renderers.
+Forced movement routes retain their collision ownership until the route finishes.
+
+Code-drawn props inherit `Presentation::OwnedSprite`: it disposes the owned bitmap
+exactly once and only disposes a viewport when explicitly owned. Native Pokémon
+icons keep Essentials' resource lifecycle and share only the positioning mixin.
+Drawing remains in focused presentation modules, including fields, docks and title.

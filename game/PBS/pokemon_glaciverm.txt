@@ -1,4 +1,4 @@
-﻿# Regional Wurmple branches. Nivalora final evolution is appended below.
+﻿# Generated from tidebound_dev.content species definitions.
 [GLACIVERM]
 Name = Glaciverm
 Types = ICE,BUG

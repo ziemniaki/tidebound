@@ -25,14 +25,20 @@ CI covers relocated Unicode paths, saves and rendering on both Mac architectures
 Windows and Ubuntu 22.04/24.04. Mac is ad-hoc signed, not notarized. Smoke tests
 do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtesting.
 
+Historic demo migrations are retired. Saves use the normal Essentials reader
+and serializer, without custom save versioning.
+The refactor also introduces explicit map/species compilers, shared player staging,
+a source load manifest, named native scenarios and Python/Ruby formatting checks.
+See [the audit](decisions/refactoring-plan.md) for scope and verification evidence.
+
 ## Next work
 
 - Playtest the current demo on the maintainer's target machines.
 - Choose the next complete playable milestone with the creative director.
 - Split large gameplay modules by feature when changing that feature; preserve
-  save classes and numeric script loading order.
+  current save state and the explicit source manifest order.
 - Consider external binary hosting/LFS only with tested automatic restoration.
   Current runtime archives remain available offline.
 
-Keep this page current and brief. Earlier details and evidence are in
-[history](history/README.md); Git history records new changes.
+Keep this page current and brief. Git history preserves retired implementations
+and earlier verification evidence.

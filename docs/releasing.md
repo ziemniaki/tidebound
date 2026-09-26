@@ -23,20 +23,20 @@ added build sources before running it so they are included in the tracked copy.
 On a Mac with Xcode command-line tools installed:
 
 ```sh
-uv run python tools/build_release.py ../candidate
+uv run python -m tidebound_dev.release.candidates ../candidate
 uv run python tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.6_universal.zip ../smoke-arm64 --arch arm64
 ```
 
 For a Windows-only package, on any development host:
 
 ```sh
-uv run python tools/package_windows.py ../windows-candidate
+uv run tidebound package windows ../windows-candidate
 ```
 
 On Windows x64, test that archive using:
 
 ```powershell
-uv run python tools/verify_artifacts.py ../windows-candidate
+uv run python -m tidebound_dev.release.artifacts ../windows-candidate
 uv run python tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.6_x64.zip ../smoke-windows
 ```
 
@@ -51,13 +51,13 @@ It uses the same staging/no-overwrite rules as the Mac package and accepts
 For a Linux-only package, on any development host:
 
 ```sh
-uv run python tools/package_linux.py ../linux-candidate
+uv run tidebound package linux ../linux-candidate
 ```
 
 On Linux x86_64 with the libraries in `docs/players/linux.txt` installed:
 
 ```sh
-uv run python tools/verify_artifacts.py ../linux-candidate
+uv run python -m tidebound_dev.release.artifacts ../linux-candidate
 uv run python tests/linux_runtime_smoke.py ../linux-candidate/Tidebound_Linux_0.8.6_x86_64.zip ../smoke-linux
 ```
 
@@ -72,7 +72,7 @@ with system libraries documented in the player README. This is not an AppImage.
 Use `--arch x86_64` on an Intel Mac. Choose new output paths each time. A release
 build requires a clean Git checkout and records its exact commit. For a local
 Mac-only preview of uncommitted changes, use
-`uv run python tools/package_mac.py ../preview --allow-dirty`; the generated
+`uv run tidebound package mac ../preview --allow-dirty`; the generated
 manifest explicitly marks it dirty. Preview builds are not release candidates.
 
 Mac signing and inspection require macOS (`codesign`, `lipo`, `otool`). Linux can
@@ -112,13 +112,13 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
    Pokemon/state disk save roundtrip, and render a font/sprite frame through the
    graphics backend. Logs, JSON results and a screenshot are retained by CI.
 
-The Mac and Windows smoke tests share `Tests/native_runtime_smoke.rb`. Each
+The Mac and Windows smoke tests share `tests/native_runtime_smoke.rb`. Each
 extracts a disposable copy, changes only that copy's Main entry and
 save namespace, re-signs the Mac test copy, and removes its unique save directory
-afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services from `/`, using ordinary,
-temporary, Downloads and long Unicode paths. Its final case applies an
-already-approved quarantine attribute to a disposable fixture, then requires
+afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services from `/`, with one read-only App Translocation case per architecture in CI. It applies
+an already-approved quarantine attribute to a disposable fixture, then requires
 that the reported path is an actual App Translocation mount and is read-only.
+Other locations are opt-in diagnostics (`--location` or `--location all`).
 This checks location independence after approval, not Gatekeeper acceptance.
 The fixture includes the normal plugin/compiler boot steps and saves through
 the existing user-data directory, never inside the app. Windows and Linux
@@ -164,7 +164,7 @@ does not execute PR-controlled workflows with status-writing credentials.
 
 For the next release:
 
-1. Update `release.json` and `Tidebound::VERSION` in `src/001_Core.rb`.
+1. Update `release.json` and `Tidebound::VERSION` in `src/tidebound/domain/state.rb`.
    Increment `mac_build`, update current player/docs, and
    rebuild scripts. `rebuild_scripts.py` takes Essentials' version from the config.
 2. Run verification/regeneration and review the resulting source changes in a PR.
@@ -181,7 +181,7 @@ For the next release:
 For a transient workflow failure, rerun on the same tag. If a draft already exists,
 the publisher refuses to overwrite it; inspect that draft rather than silently
 replacing its files. Build artifacts have 14-day retention. The one-time pond
-publisher is retired; `finish_pond_release.py` is retained only as historical code.
+publisher is retired and available only in Git history.
 
 ## Explicitly refreshing an unpublished draft
 

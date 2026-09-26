@@ -1,4 +1,4 @@
-﻿# Regional shore Psyduck. All other fields inherit the ordinary form.
+﻿# Generated from tidebound_dev.content species definitions.
 [PSYDUCK,1]
 FormName = Tidebound
 Types = WATER,PSYCHIC

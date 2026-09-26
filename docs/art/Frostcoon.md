@@ -1,6 +1,7 @@
 # Frostcoon art
 
-Run uv run python assets/Frostcoon/recolour.py from the repository root.
+Run `uv run rebuild --all` to reproduce the regional data and artwork.
+The palette recipe lives in `tools/tidebound_dev/art/frostcoon.py`.
 Inputs are unchanged Graphics/Pokemon/{Front,Back,Icons}/SILCOON.png.
 Outputs are FROSTCOON.png in those folders and normal-equivalent shiny front/back.
 Battle canvases 160x160; two-frame icon strip 128x64. Every source pixel position

@@ -1,4 +1,5 @@
-﻿[NIVALORA]
+﻿# Generated from tidebound_dev.content species definitions.
+[NIVALORA]
 Name = Nivalora
 Types = ICE,DRAGON
 BaseStats = 100,45,65,145,130,115

@@ -14,8 +14,8 @@ verification yourself; deliver a playable result and a short explanation.
 3. For narrative, art or mechanics decisions, consult
    [specs/game-design.md](specs/game-design.md). Confirmed decisions govern;
    proposals, working names and intentionally unresolved mysteries are not canon.
-4. Update current documentation in place. Keep this file short. Historical
-   reports in `docs/history/` are evidence, not current instructions.
+4. Update current documentation in place. Keep this file short. Git history
+   preserves retired code and instructions; do not restore them as active guidance.
 
 ## Everyday commands
 
@@ -25,8 +25,9 @@ Run from the checkout with [uv](https://docs.astral.sh/uv/getting-started/instal
 uv run doctor          # inspect prerequisites
 uv run play            # embed Ruby, build a native dev copy, launch it
 uv run build           # build without launching
-uv run check           # tests and map/source agreement; no game regeneration
-uv run rebuild         # embed src/*.rb in game/Data/Scripts.rxdata
+uv run format          # format handwritten Python and Ruby
+uv run check           # formatting, tests and map/source agreement; no game regeneration
+uv run rebuild         # embed src/load_order.txt sources in game/Data/Scripts.rxdata
 uv run rebuild --all   # intentionally regenerate maps, data, art and scripts
 uv run check --all     # also compare regeneration in a disposable copy
 ```
@@ -42,15 +43,20 @@ Build outputs and restored binaries are ignored. Never commit saves or caches.
 | Change | Authoritative files |
 | --- | --- |
 | Game vision, canon, unresolved design | `specs/game-design.md` |
-| Custom Ruby, dialogue, state and presentation | Numbered `src/*.rb` |
-| Generated map layouts/events | `tools/rebuild_maps.py` and its map modules |
-| Generated species/items/encounters | `tools/rebuild_*_data.py`; then `game/PBS` and `game/Data` outputs |
+| Custom Ruby, dialogue, state and presentation | `src/tidebound/`; embedding order in `src/load_order.txt` |
+| Generated map layouts/events | `tools/tidebound_dev/maps/` area builders and painters |
+| Generated species/items/encounters | `tools/tidebound_dev/content/` and item/encounter builders; then `game/PBS` and `game/Data` outputs |
 | Source artwork and export recipes | `assets/<species>/`; exports in `game/Graphics/` |
 | Engine project and required game data | `game/`; `game/Game.rxproj` opens in RPG Maker XP |
 | Runtime inputs and patches | `runtime/`, pinned by `release.json` |
 | Tooling and workflow | `tools/`, `tests/`, `.github/workflows/`, `docs/` |
 
-Ruby is embedded once, in numeric order, immediately before Essentials' Main.
+Ruby is embedded once in `src/load_order.txt` order, immediately before Essentials' Main.
+Register every new Ruby file in that manifest. Generated Ruby belongs in
+`src/generated/`; generators must never rewrite handwritten source.
+Use `Tidebound.story`, `World` travel/actor operations and `Encounters` for shared
+engine behavior. Keep new map/actor names in `maps/registry.py`; do not make
+unrelated features depend on Opening or NeighborQuest helpers.
 Never install a second copy in `Plugins/Tidebound`. Ignored engine reference
 extractions under `tests/engine_reference/` are inspection copies, not source.
 
@@ -62,9 +68,11 @@ masks, not map-authoring sources.
 
 ## Preserve the game
 
-- Preserve Pokémon objects, identities, held items, quest flags, event IDs and
-  save class names. Schema changes need migrations; an empty party can mean an
-  unresolved astral journey. Never reset saves to hide an error.
+- Preserve current Pokémon objects, identities, held items and quest state. An
+  empty party can mean an unresolved astral journey. The refactoring explicitly
+  permits dropping historic save compatibility. Do not add save schema versions,
+  compatibility gates or feature-local migration chains. Never delete player save files or reset
+  current saves to hide errors.
 - Preserve `TideboundSaveState`, the release save namespace and
   `fontHeightReporting: 1`. Battle losses snapshot companions before Essentials
   heals them. Only won trainer battles advance victory flags.
@@ -74,7 +82,7 @@ masks, not map-authoring sources.
 
 ## Finish a change
 
-Run `uv run check`; use `uv run check --all` for generator/layout changes and
+Run `uv run format` before embedding Ruby, then `uv run check`; use `uv run check --all` for generator/layout changes and
 relevant native checks for packaging or integration. Review generated diffs.
 Distinguish automated evidence from actual playthroughs. Keep
 [docs/status.md](docs/status.md) current without appending a diary.
@@ -90,6 +98,6 @@ Published tags/assets are immutable. Releases contain exactly three player ZIPs
 are one concise flat list: no download instructions, README-first directions,
 platform-selection section, agent chatter or generic filler.
 
-Mac tests cover Downloads, long Unicode paths and actual read-only App
-Translocation on both architectures. Only disposable fixtures receive approved
+Mac CI runs one read-only App Translocation launch per architecture. Other
+locations are opt-in diagnostics; do not expand routine CI into a path matrix. Only disposable fixtures receive approved
 quarantine attributes; never alter global security settings or ship test flags.

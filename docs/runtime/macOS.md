@@ -17,7 +17,7 @@ source archive contains the matching engine source, patch and dependency lock.
 Rebuild on a Mac with Xcode and autoconf, automake, libtool, cmake and pkg-config:
 
 ```sh
-python tools/rebuild_mac_runtime.py /tmp/tidebound-runtime-build ../runtime-output
+python -m tidebound_dev.runtime.build_mac /tmp/tidebound-runtime-build ../runtime-output
 ```
 
 The work directory must not contain spaces because the upstream dependency
@@ -27,8 +27,8 @@ under that directory. The command does not install developer tools for you.
 
 Packaging validates Intel and ARM slices, deployment targets and dependencies,
 then normalizes bundle names and signs the assembled game ad hoc. Native tests
-exercise Downloads, temporary and long Unicode paths, and real read-only App
-Translocation on both architectures. Test quarantine approval is applied only
+run one real read-only App Translocation launch per architecture. Downloads,
+temporary and long Unicode paths remain opt-in diagnostics. Test quarantine approval is applied only
 to disposable fixtures; it is not distributed. This is not notarization.
 
 ## Historical input provenance
@@ -65,7 +65,7 @@ https://github.com/mkxp-z/mkxp-z/tree/826929eeb3ebc4b887c011604919217a790770f4
 Rebuild from the maintained project with:
 
 ```sh
-python3 tools/build_release.py /path/to/new-output-folder
+uv run python -m tidebound_dev.release.candidates /path/to/new-output-folder
 ```
 
 The complete game is copied into the app at packaging time. Editing the project

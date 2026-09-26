@@ -68,7 +68,7 @@ jobs:
       - run: uv run --locked check
       - name: Rebuild in an isolated copy and compare generated assets
         if: runner.os == 'Linux'
-        run: uv run --locked python tools/check_rebuild.py
+        run: uv run --locked python -m tidebound_dev.checks.rebuild
       - name: Verification must not modify tracked source or game data
         run: git diff --exit-code
 
@@ -94,7 +94,7 @@ jobs:
       - run: uv sync --locked
       - run: npm ci --prefix tests --ignore-scripts
       - name: Stage and verify Mac, Windows, Linux and editable project archives
-        run: uv run --locked python tools/build_release.py "$RUNNER_TEMP/candidate"
+        run: uv run --locked python -m tidebound_dev.release.candidates "$RUNNER_TEMP/candidate"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: tidebound-release-candidate
@@ -138,7 +138,7 @@ jobs:
       - name: Run native packaged-engine smoke
         env:
           TEST_ARCH: ${{ matrix.arch }}
-        run: uv run --locked python tests/mac_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Mac_*_universal.zip "$RUNNER_TEMP/smoke" --arch "$TEST_ARCH"
+        run: uv run --locked python tests/mac_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Mac_*_universal.zip "$RUNNER_TEMP/smoke" --arch "$TEST_ARCH" --location translocated
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
@@ -167,7 +167,7 @@ jobs:
           name: tidebound-release-candidate
           path: ${{ runner.temp }}/candidate/
       - name: Verify downloaded artifacts
-        run: uv run --locked python tools/verify_artifacts.py "$env:RUNNER_TEMP/candidate"
+        run: uv run --locked python -m tidebound_dev.release.artifacts "$env:RUNNER_TEMP/candidate"
       - name: Prepare pinned software OpenGL for the hosted runner
         run: ./tests/setup_windows_ci.ps1
       - name: Build through the developer command
@@ -215,7 +215,7 @@ jobs:
         with:
           name: tidebound-release-candidate
           path: ${{ runner.temp }}/candidate/
-      - run: uv run --locked python tools/verify_artifacts.py "$RUNNER_TEMP/candidate"
+      - run: uv run --locked python -m tidebound_dev.release.artifacts "$RUNNER_TEMP/candidate"
       - name: Build through the developer command
         run: uv run --locked python tests/dev_workflow_smoke.py
       - name: Run native Linux player smoke

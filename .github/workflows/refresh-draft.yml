@@ -35,7 +35,7 @@ jobs:
       - env:
           GH_TOKEN: ${{ github.token }}
           EXPECTED_TAG_SHA: ${{ inputs.expected_tag_sha }}
-        run: uv run --locked python tools/refresh_draft.py check
+        run: uv run --locked python -m tidebound_dev.release.refresh_draft check
 
   build:
     needs: validate
@@ -65,7 +65,7 @@ jobs:
           name: tidebound-release-candidate
           path: candidate
       - name: Verify candidate and back up the previous draft
-        run: uv run --locked python tools/refresh_draft.py backup candidate
+        run: uv run --locked python -m tidebound_dev.release.refresh_draft backup candidate
       - name: Retain the backup before changing the draft or tag
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -75,4 +75,4 @@ jobs:
           retention-days: 90
           compression-level: 0
       - name: Refresh only the unpublished draft and verify all uploaded assets
-        run: uv run --locked python tools/refresh_draft.py refresh candidate
+        run: uv run --locked python -m tidebound_dev.release.refresh_draft refresh candidate

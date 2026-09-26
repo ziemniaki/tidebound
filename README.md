@@ -7,7 +7,7 @@ an ordinary errand toward the harbour.
 Built with Pokémon Essentials 21.1 and mkxp-z.
 
 <p align="center">
-  <img src="docs/history/evidence/DemoEvidence_080/demo-lighthouse.png" alt="The lighthouse at night">
+  <img src="docs/images/lighthouse.png" alt="The lighthouse at night">
 </p>
 
 ## Play

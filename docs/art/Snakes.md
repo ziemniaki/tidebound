@@ -2,7 +2,7 @@
 
 User-authorized manual recolor: gray scales, unchanged native pixel shapes and
 alpha. Yellow/orange details, eyes, belly bands and Arbok hood markings remain.
-Run `uv run python tools/rebuild_snake_data.py` to reproduce data and art.
+Run `uv run rebuild --all` to reproduce data and art.
 Normal and provisional shiny regional sprites share this palette.
 
 Both forms are Normal/Dark. Stats/abilities are unchanged. Ekans evolves at 22.
