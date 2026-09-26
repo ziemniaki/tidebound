@@ -61,5 +61,5 @@ jobs:
             exit 1
           fi
           test "$(gh api "repos/$GH_REPO/commits/$RELEASE_TAG" --jq .sha)" = "$SOURCE_SHA"
-          gh release create "$RELEASE_TAG" candidate/*.zip candidate/BUILD.json candidate/WINDOWS_BUILD.json candidate/LINUX_BUILD.json candidate/SHA256SUMS.txt candidate/RELEASE_NOTES.md \
+          gh release create "$RELEASE_TAG" candidate/Tidebound_Mac_*_universal.zip candidate/Tidebound_Windows_*_x64.zip candidate/Tidebound_Linux_*_x86_64.zip \
             --verify-tag --draft --title "Tidebound $RELEASE_TAG" --notes-file candidate/RELEASE_NOTES.md

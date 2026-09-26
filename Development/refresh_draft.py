@@ -33,6 +33,11 @@ def asset_snapshot(release):
     return sorted((a['id'], a['name'], a['size'], a.get('digest')) for a in release['assets'])
 
 
+def player_archives(folder, version):
+    return [folder / f'Tidebound_{platform}_{version}_{arch}.zip' for platform, arch in
+            (('Mac', 'universal'), ('Windows', 'x64'), ('Linux', 'x86_64'))]
+
+
 def check(repo, tag, expected):
     pages = json.loads(command('gh', 'api', '--paginate', '--slurp', f'repos/{repo}/releases?per_page=100'))
     matches = [r for page in pages for r in page if r['tag_name'] == tag]
@@ -102,14 +107,21 @@ def main(mode, folder=None):
     subprocess.run(['gh', 'auth', 'setup-git'], check=True)
     subprocess.run(['git', 'push', f'--force-with-lease=refs/tags/{tag}:{expected}',
                     'origin', f'{source}:refs/tags/{tag}'], check=True)
+    players = player_archives(folder, config['version'])
     subprocess.run(['gh', 'release', 'upload', tag, '--repo', repo, '--clobber',
-                    *[str(p) for p in sorted(folder.iterdir())]], check=True)
+                    *[str(p) for p in players]], check=True)
+    # Technical artifacts stay in CI. Remove their old release attachments only
+    # after all replacement player downloads have uploaded successfully.
+    for asset in previous['assets']:
+        if asset['name'] not in {p.name for p in players}:
+            subprocess.run(['gh', 'api', '--method', 'DELETE',
+                            f"repos/{repo}/releases/assets/{asset['id']}"], check=True)
     api(f"repos/{repo}/releases/{release['id']}", {
         'draft': True, 'target_commitish': source,
         'body': (folder / 'RELEASE_NOTES.md').read_text()})
     current, _ = check(repo, tag, source)
     actual = {a['name']: a.get('digest') for a in current['assets']}
-    hashes = {p.name: 'sha256:' + sha256(p) for p in folder.iterdir()}
+    hashes = {p.name: 'sha256:' + sha256(p) for p in players}
     if actual != hashes:
         raise ValueError('Refreshed draft assets do not match the verified candidate')
     with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:

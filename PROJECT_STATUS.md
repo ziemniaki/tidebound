@@ -6,7 +6,9 @@ Demo 1 / 0.8.5 · Bible 1.30 · Guide 2.30 · 26 September 2026
 
 The owner requested an in-place refresh of the still-unpublished 0.8.5 draft.
 Mac build40 includes the Archive Utility filename/signature fix; the candidate
-also includes Linux x86_64 alongside Windows and the editable project. Gameplay,
+also includes Linux x86_64 alongside Windows and the editable project. Release
+pages attach only the three player ZIPs, with curated notes from RELEASE_NOTES.md;
+technical metadata and the editable project remain in CI artifacts. Gameplay,
 Ruby versions and save data are unchanged. The explicit refresh workflow runs
 all native gates, backs up existing assets, checks an expected old tag SHA and
 moves the draft tag to the verified source before replacing its downloads.

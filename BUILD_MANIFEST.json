@@ -29,7 +29,7 @@
   "save_directory": "Tidebound_Opening_0_2",
   "checks": "Development/validation_pond.md",
   "sha256": {
-    "AGENTS.md": "688ffd7ddbe7321b6d1f0c1f8d587bee41fec11b8d75d40743baa0320ccd9327",
+    "AGENTS.md": "be35a3d9b9de979fb7c2cdfd46fb46c81b8cc4fc820130db0f80df8ef65e61b2",
     "Audio/BGM/Tidebound Shore.ogg": "129cfe207fff4d312f474e0120cd14378d9789bf154e4586e7aeb8e7f98d843c",
     "Audio/BGM/Tidebound Stillness.ogg": "6f58a42a2014d8e74015abc3c931bbbed574f8ddd9fbdbc20d702210c3af31cb",
     "Audio/SE/Cries/WHYDUCK.ogg": "be238a97e9e6f9f3f60b5f0a63a8f48a5e6df30bc38cbd0dc43e64033a4dd722",
@@ -150,8 +150,8 @@
     "PBS/pokemon_forms_tidebound_psyduck.txt": "46bf7558ce56b2c7ca96bd7047eacc8168195c671e7a6c4a6d088a0d0ab4b0e4",
     "PBS/pokemon_metrics_whyduck.txt": "7facbf615b86ef6c07b37380033741579a7eb9ca916327122c1234fc3479fb38",
     "PBS/pokemon_whyduck.txt": "a2d40910e06171757e1d721d7168a19a563bc53919d428272a2dcd7fe3fe9bde",
-    "PROJECT_STATUS.md": "608d5e6f5824e3b5d6c40419c9bf7691292e65c15f32938226cf44dfcd093cff",
-    "README.md": "d90ba2ea0c0edf0a649051d289b58bbd34b6af3913707e87d3ea9ec47935b2f5",
+    "PROJECT_STATUS.md": "ebf684e1922ba9dae4d75847bc29a7cfab34869e0684cf379e3146034bbac8b3",
+    "README.md": "b995ef34b09a7df5702634733fed8c8a9d7add4e7c3f82760eb50a63be85a086",
     "START_HERE.md": "f2318eb0f6651db1a84c03f1882ea60b7367e949708426e1020d4800b8f2c208",
     "mkxp.json": "53d63c74d511792241ccdbe5b096b4510c00227d3398fabd8c048f0aaa612a8d",
     "Development/DemoEvidence_080/demo-western-ship.png": "c72847126e86659125af98ba1cff690567c75c24633e0d5c725d6ffa4d9dd714",
@@ -212,8 +212,9 @@
     "LINUX_README.txt": "62fed946611602c114c9373f7e0f583b6acdcdef5a099c02f5f90ad6ecbc87f7",
     "Runtime/Linux/PROVENANCE.md": "e1b7afabfa940d5782cadf801c75a679c876ecc6bb2146e7e267e7f26e3e5aff",
     "release.json": "de091e24672d2cf5887f319f312aa4e5531cc2070462d287d4d311166c458d68",
-    "Development/refresh_draft.py": "95df3c413d46155ea6a694f0b306bb51a82884dc24b204cb14d835b3e53e5bcf",
-    "Development/Tests/test_refresh_draft.py": "37dc59bb7adb4f99e9c66e86192b24a6b0f5545a13594a351b4d0bc420c8cb9e"
+    "Development/refresh_draft.py": "aa07665d433ae4fdbd087c65d3ce070dfbbf0b402af94d5fa2c394e7c10effaa",
+    "Development/Tests/test_refresh_draft.py": "37dc59bb7adb4f99e9c66e86192b24a6b0f5545a13594a351b4d0bc420c8cb9e",
+    "RELEASE_NOTES.md": "bf0670a868acac973f49bccae23f31f9dcaee2eb6767df4a5040e78cbdc0a26b"
   },
   "font_height_reporting": 1,
   "user_confirmed_native_mac_baseline": "0.4.0",

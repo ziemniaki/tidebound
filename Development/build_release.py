@@ -47,16 +47,10 @@ def build_release(output, root=ROOT):
                     raise ValueError(f'Project ZIP differs from checkout: {name}')
         if source_revision(root) != source:
             raise ValueError('Source changed while the release was being built')
-        (artifacts / 'RELEASE_NOTES.md').write_text(
-            f"Tidebound {config['version']} (Mac build {config['mac_build']})\n\n"
-            f"Source commit: `{source['commit']}`.\n\n"
-            "The universal Mac ZIP includes native Intel and Apple Silicon code. "
-            "Mac build40 fixes the accented-filename signature failure after Archive Utility extraction. "
-            "It is ad-hoc signed for integrity, not Developer ID signed or notarized. "
-            "The Windows x64 player ZIP includes the pinned existing executable and DLLs. The Linux x86_64 player ZIP targets Ubuntu 22.04/24.04 (glibc 2.35+) and requires the system libraries listed in READ_ME_FIRST.txt. The editable project ZIP is available separately.\n\n"
-            "Saves keep the Tidebound_Opening_0_2 directory. Read READ_ME_FIRST.txt before launching. "
-            "Automated native smoke checks on Linux x86_64, Windows x64, Intel Mac and Apple Silicon are not a complete playthrough or an Intel Monterey playtest.\n",
-            encoding='utf-8')
+        notes = (root / 'RELEASE_NOTES.md').read_text(encoding='utf-8')
+        if not notes.startswith('# Tidebound ' + config['version'] + '\n'):
+            raise ValueError('Player-facing release notes must match release.json')
+        (artifacts / 'RELEASE_NOTES.md').write_text(notes, encoding='utf-8')
         files = sorted(p for p in artifacts.iterdir() if p.name != 'SHA256SUMS.txt')
         (artifacts / 'SHA256SUMS.txt').write_text(
             ''.join(sha256(p) + '  ' + p.name + '\n' for p in files), encoding='utf-8')
