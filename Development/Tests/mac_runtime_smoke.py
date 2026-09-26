@@ -13,6 +13,7 @@ import uuid
 import zlib
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
+from smoke_report import read_report
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from mac_runtime import run, sign_app
@@ -61,12 +62,12 @@ def smoke(archive, output, arch):
             sign_app(app)
             info = plistlib.loads((app / 'Contents/Info.plist').read_bytes())
             executable = app / 'Contents/MacOS' / info['CFBundleExecutable']
-            env = dict(os.environ, TIDEBOUND_SMOKE_REPORT=str(output.resolve() / 'native-smoke.json'),
+            env = dict(os.environ, TIDEBOUND_SMOKE_REPORT=str(output.resolve() / 'native-smoke.rxdata'),
                        TIDEBOUND_SMOKE_SCREENSHOT=str(output.resolve() / 'native-smoke.png'))
             with (output / 'engine.log').open('w') as log:
                 subprocess.run(['arch', '-' + arch, str(executable)], cwd=game, env=env,
                                stdout=log, stderr=subprocess.STDOUT, timeout=60, check=True)
-            result = json.loads((output / 'native-smoke.json').read_text())
+            result = read_report(output)
             if not result.get('passed'):
                 raise RuntimeError(result.get('error', 'Native smoke did not pass'))
             if namespace not in result['save_directory']:

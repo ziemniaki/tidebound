@@ -13,6 +13,7 @@ import uuid
 import zlib
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
+from smoke_report import read_report
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from package_mac import extract_bundle, game_hashes
@@ -55,7 +56,7 @@ def smoke(archive, output):
                 raise ValueError('Expected exactly one Main entry')
             main[0][2] = zlib.compress(Path(__file__).with_name('native_runtime_smoke.rb').read_bytes())
             scripts.write_bytes(writes(entries))
-            env = dict(os.environ, TIDEBOUND_SMOKE_REPORT=str(output / 'native-smoke.json'),
+            env = dict(os.environ, TIDEBOUND_SMOKE_REPORT=str(output / 'native-smoke.rxdata'),
                        TIDEBOUND_SMOKE_SCREENSHOT=str(output / 'native-smoke.png'))
             try:
                 with (output / 'engine.log').open('w') as log:
@@ -81,7 +82,7 @@ def smoke(archive, output):
                     for pattern in ('*.log', 'errorlog.txt'):
                         for log in directory.glob(pattern):
                             shutil.copy2(log, output / (label + '-' + log.name))
-            result = json.loads((output / 'native-smoke.json').read_text(encoding='utf-8'))
+            result = read_report(output)
             if not result.get('passed'):
                 raise RuntimeError(result.get('error', 'Native smoke did not pass'))
             if Path(result['save_directory']).resolve() != save_dir.resolve():

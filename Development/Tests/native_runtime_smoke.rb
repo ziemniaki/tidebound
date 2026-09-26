@@ -1,5 +1,5 @@
 # TEST ONLY: replaces Main in an isolated copy of a packaged Mac or Windows game.
-require "json"
+# The Windows runtime omits the JSON library; Python converts this Marshal report.
 report = ENV.fetch("TIDEBOUND_SMOKE_REPORT")
 begin
   puts "Smoke working directory: #{Dir.pwd}; animations on disk: #{File.exist?('Data/Animations.rxdata')}"
@@ -32,13 +32,13 @@ begin
   shot.dispose
   sprite.dispose
   bitmap.dispose
-  File.write(report, JSON.pretty_generate({
-    :passed => true, :ruby => RUBY_VERSION, :ruby_platform => RUBY_PLATFORM,
-    :version => Tidebound::VERSION, :save_directory => System.data_directory,
-    :checks => ["load engine and custom scripts", "compiled data", "native Pokemon/state save roundtrip",
+  File.binwrite(report, Marshal.dump({
+    "passed" => true, "ruby" => RUBY_VERSION, "ruby_platform" => RUBY_PLATFORM,
+    "version" => Tidebound::VERSION, "save_directory" => System.data_directory,
+    "checks" => ["load engine and custom scripts", "compiled data", "native Pokemon/state save roundtrip",
                 "graphics/font rendering", "input initialization"]
   }))
 rescue Exception => error
-  File.write(report, JSON.pretty_generate({ :passed => false, :error => error.full_message }))
+  File.binwrite(report, Marshal.dump({ "passed" => false, "error" => error.full_message }))
 end
 exit
