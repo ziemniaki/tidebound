@@ -9,8 +9,8 @@ __pycache__/
 *.pyc
 node_modules/
 .venv/
-Development/Tests/engine_reference/
-Development/Tests/engine-reference-*/
+tests/engine_reference/
+tests/engine-reference-*/
 .env
 .env.*
 *.pem
@@ -21,4 +21,16 @@ release/
 releases/
 Tidebound_Project.zip
 Tidebound_Mac_*.zip
-# Runtime/macOS archives are required source/build inputs, so stay tracked.
+# Pinned runtime archives stay tracked; restored loose binaries do not.
+*.exe
+*.dll
+/.build/
+/.cache/
+/dist/
+*.egg-info/
+/game/animmaker.txt
+/game/extendtext.txt
+/game/knownpoint.bmp
+/game/selpoint.bmp
+/game/townmapgen.html
+/game/Essentials Docs Wiki.URL

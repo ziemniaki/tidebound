@@ -1,0 +1,24 @@
+Tidebound — Mac (Intel and Apple Silicon)
+
+Open Tidebound.app after extraction. The app can stay in Downloads or another
+folder; moving it to Applications is optional. Keep the app bundle intact.
+No Python, Wine or RPG Maker installation is needed to play.
+
+The app is ad-hoc signed, not notarized. macOS may require first-launch approval
+under Privacy & Security. Do not disable system security to run it.
+
+Controls: arrows to move; Return to interact/confirm; Esc or X for menu/back.
+Fn-F1 opens key bindings on keyboards that reserve F1 for brightness.
+Save through the in-game menu.
+
+Saves live outside the app:
+~/Library/Application Support/Tidebound_Opening_0_2/
+Replacing the app leaves this folder intact. Back up an existing save before
+starting and saving a new game. Saves do not transfer between computers by themselves.
+
+For a problem, report the release version, macOS version, Intel/Apple Silicon,
+exact error text and steps to reproduce at github.com/ziemniaki/tidebound/issues.
+Keep your save when reporting a gameplay problem.
+
+Unofficial Pokémon fan project. CREDITS.md and the bundled runtime license/source
+retain third-party attribution. Native launch checks are not a full playthrough.

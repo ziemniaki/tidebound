@@ -1,6 +1,6 @@
 # Writing player-facing release notes
 
-Use this guide when updating the root `RELEASE_NOTES.md`. The release builder
+Use this guide when updating the `docs/release-notes.md`. The release builder
 copies that reviewed file into the candidate; GitHub displays it as the release
 body. This template is contributor guidance, not an automatically interpreted
 GitHub feature. Do not publish the instructions or unused template sections.

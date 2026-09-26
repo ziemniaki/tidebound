@@ -1,4 +1,4 @@
-* text=auto
+* text=auto eol=lf
 *.rxdata binary
 *.dat binary
 *.png binary
@@ -9,4 +9,4 @@
 *.exe binary
 *.pdf binary
 # Patch context preserves whitespace from the pinned upstream source.
-Runtime/macOS/*.patch whitespace=-blank-at-eol
+runtime/macOS/*.patch whitespace=-blank-at-eol
