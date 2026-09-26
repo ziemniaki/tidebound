@@ -9,8 +9,9 @@ executable and DLLs are unchanged and pinned by hash; staging verifies x64 PE
 headers, copied files, and ZIP extraction. The package excludes development/editor
 files and includes launch instructions, credits and provenance. A Windows Server
 2022 CI job verifies downloaded checksums and runs the shared native boot/data/save/
-render fixture with an isolated save directory. Hosted Windows validation is pending
-for this implementation; the prior Mac evidence below remains separate.
+render fixture with an isolated save directory. Hosted Windows results are recorded
+in [PR #2 checks](https://github.com/ziemniaki/tidebound/pull/2/checks); the prior Mac
+evidence below remains separate.
 No game data, save namespace or runtime binaries are changed.
 
 ## Universal Mac builds and release workflow — development branch

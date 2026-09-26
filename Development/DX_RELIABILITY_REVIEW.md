@@ -53,6 +53,12 @@ Tag-driven publication and full target-machine playtesting remain unexercised. S
 remain useful context; direct generator transactions, numeric fixture loading,
 broader gameplay coverage and documentation consolidation are still open.
 
+The Windows follow-up adds a dedicated x64 player ZIP, hash/PE validation of the
+existing runtime, complete package checksums, and a native Windows CI gate using
+the same Ruby fixture as both Mac architectures. The existing Windows binaries
+are retained; their matching source build recipe remains an explicit provenance
+gap. Hosted results are attached to PR #2.
+
 1. **Make rebuild/release operations transactional (P1/P2).** The preflight fix
    addresses the reproduced plugin failure, but generators still write multiple
    files in place. A later exception can leave a partial build. Stage outputs in
