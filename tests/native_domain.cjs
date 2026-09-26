@@ -25,7 +25,7 @@ end
  const nums=[0,1,15,100,...Array.from({length:40},(_,i)=>103+i),273,274,275,276,277,286,287,289,290,362,363];
  for(const num of nums){const file=fs.readdirSync(ref).find(x=>x.startsWith(String(num).padStart(3,'0')+'_'));if(file)run(fs.readFileSync(path.join(ref,file),'utf8'),file);}
  for(const file of fs.readdirSync(path.join(root,'game/Data')).filter(x=>x.endsWith('.dat'))){
-  if(['species.dat','species_metrics.dat','moves.dat','abilities.dat','items.dat','types.dat','trainer_types.dat','metadata.dat','player_metadata.dat','map_metadata.dat'].includes(file)){
+  if(['species.dat','species_metrics.dat','moves.dat','abilities.dat','items.dat','types.dat','trainer_types.dat','metadata.dat','player_metadata.dat','map_metadata.dat','encounters.dat'].includes(file)){
    const b64=fs.readFileSync(path.join(root,'game/Data',file)).toString('base64');
    run(`GameData.constants.each do |name|
  c=GameData.const_get(name)
@@ -81,6 +81,11 @@ end
 end
 puts "PASS: current Frostcoon 54/55 evolution threshold and terminal regional species."
 `, 'regional evolution thresholds');
+ run(`
+raise "forest encounter roster" unless GameData::Encounter.get(103).types[:Land]==[[45,:AIPOM,3,5],[40,:WEEDLE,3,5],[15,:WURMPLE,3,5]]
+raise "road encounter roster" unless GameData::Encounter.get(108).types[:Land]==[[40,:ZIGZAGOON,4,6],[35,:SUNKERN,4,6],[15,:EKANS,4,6],[10,:PSYDUCK,4,6]]
+puts "PASS: current forest and road encounter species, weights and level ranges."
+`, 'field encounter rosters');
  run(fs.readFileSync(path.join(__dirname,'opening_smoke.rb'),'utf8'),'opening fixtures');
  for(const n of [24,25,270,33]) {
   const f=fs.readdirSync(ref).find(x=>x.startsWith(String(n).padStart(3,'0')+'_'));
