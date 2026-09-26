@@ -89,11 +89,9 @@ Release saves use `Tidebound_Opening_0_2`. Development player copies use
 `Tidebound_Development`. Both live in the OS user-data directory, outside the
 checkout and app. The base editor project retains the release namespace.
 
-Current saves use `Tidebound::SAVE_SCHEMA` (schema 2 in the refactored development
-build). `engine/saves.rb` rejects other schemas before conversion or loading;
-existing files are never rewritten by that rejection. Pre-refactor 0.8.6 saves
-require the original release. New development games initialize current state
-directly, without historical opening/map/species migrations.
+Tidebound uses Essentials' normal SaveData serialization without a custom version
+or compatibility gate. New games initialize current state directly; historic
+opening/map/species migrations are retired.
 
 `TideboundSaveState = Tidebound::State` remains the native SaveData class
 registration. Preserve current Pokémon identities, forms, owner, personal IDs,

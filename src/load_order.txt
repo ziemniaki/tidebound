@@ -1,7 +1,6 @@
 # Archive embedding order. Paths are relative to src/.
 tidebound/domain/state.rb
 tidebound/engine/battles.rb
-tidebound/engine/saves.rb
 generated/map_passages.rb
 generated/world_registry.rb
 tidebound/world/navigation.rb

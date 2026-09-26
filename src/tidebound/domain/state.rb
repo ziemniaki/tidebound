@@ -10,7 +10,6 @@ module Tidebound
   end
 
   VERSION = "0.8.6"
-  SAVE_SCHEMA = 2
 
   module Config
     # Prototype tuning values, not settled design decisions.
@@ -72,11 +71,10 @@ module Tidebound
   end
 
   class State
-    attr_reader :schema_version, :realm, :journey, :souls, :memorials, :story
+    attr_reader :realm, :journey, :souls, :memorials, :story
     attr_accessor :checkpoint
 
     def initialize
-      @schema_version = SAVE_SCHEMA
       @realm = :living
       @journey = 0
       @next_identity = 1

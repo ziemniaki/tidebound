@@ -12,7 +12,7 @@ files first so the tracked-file copy includes them.
 | --- | --- |
 | Python `test_*.py` | Packaging safety, provenance, failure cleanup, workflow authorization and developer commands |
 | `tests/run.cjs` | Domain and battle-adapter rules with test doubles |
-| `tests/native_domain.cjs` | Actual Essentials Pokémon, owner, bag and SaveData objects; all starters, quest branches, retries and current-save/schema rejection |
+| `tests/native_domain.cjs` | Actual Essentials Pokémon, owner, bag and SaveData objects; all starters, quest branches, retries and save roundtrips |
 | `tests/regional_snakes.cjs` | Native species/forms, move inheritance, evolution and save preservation |
 | `tests/presentation_support.cjs` | Owned bitmap/viewport disposal, positioning and actor collision without sprites |
 | Geometry checks | Walkable arrivals/interactions, maze routes and Surf-only pond island |
@@ -65,7 +65,7 @@ uv run python tests/windows_runtime_smoke.py C:/build/Tidebound_Windows_0.8.6_x6
 uv run python tests/linux_runtime_smoke.py /tmp/Tidebound_Linux_0.8.6_x86_64.zip /tmp/tidebound-scenes --scenario all
 ```
 
-`runtime` exercises initialization and the native save/schema boundary. `world`
+`runtime` exercises initialization and native save roundtrips. `world`
 adds fresh-game scene captures of home, coast, forest, lighthouse, vault, docks
 and pond, plus a real Game.save/Game.load roundtrip. `species` recompiles the
 current checkout's PBS with Essentials in the isolated save directory, compares

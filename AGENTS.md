@@ -70,8 +70,8 @@ masks, not map-authoring sources.
 
 - Preserve current Pokémon objects, identities, held items and quest state. An
   empty party can mean an unresolved astral journey. The refactoring explicitly
-  permits dropping historic save compatibility: use one supported-version boundary,
-  not feature-local migration chains. Never delete player save files or reset
+  permits dropping historic save compatibility. Do not add save schema versions,
+  compatibility gates or feature-local migration chains. Never delete player save files or reset
   current saves to hide errors.
 - Preserve `TideboundSaveState`, the release save namespace and
   `fontHeightReporting: 1`. Battle losses snapshot companions before Essentials

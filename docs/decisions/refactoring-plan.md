@@ -165,14 +165,13 @@ species data from old 0.7 releases. These are real legacy obligations, rather th
 requirements of current story mechanics.
 
 **Refactor:** remove pre-refactor save conversion paths and tests that exist only
-to prove them. Define one explicit supported save version for the new structure;
-reject an incompatible save clearly instead of trying to interpret it as current
-state. Do not delete existing save files. Initialize fresh games directly with
+to prove them. Use Essentials' normal serialization without custom save schema
+versions or compatibility gates. Do not delete existing save files. Initialize fresh games directly with
 the current state model. Separate Frostcoon's current evolution behavior from its
 old-species refresh code before deleting the refresh module.
 
-**Done when:** new saves round-trip correctly and unsupported versions have one
-clear boundary; feature methods no longer carry historical revision branches.
+**Done when:** new saves round-trip correctly; feature methods no longer carry
+historical revision branches or custom save-version checks.
 No new migration layer is introduced merely to preserve obsolete internals.
 
 ### R7 — Medium: generated data, handwritten source and engine patches share a boundary
@@ -419,7 +418,7 @@ flowchart LR
 | 3 | Replace regional script chain with definitions and common writers (R2) | Compiled data equivalence, native species/evolution checks, PBS compiler agreement |
 | 4 | Extract shared player staging/packaging and smoke preparation; simplify local play (R9–R11) | All native platforms, signing/relocation checks, failure cleanup, measured local build comparison |
 | 5 | Explicit Ruby manifest and generated directory; world/feature ownership and interaction dispatch (R7, R5, remaining R3) | Same complete source composition in game/tests; current game flows and native startup/render checks |
-| 6 | Remove unsupported save compatibility and old fixtures; deduplicate sprite support (R6, R12) | Current-save roundtrip, explicit version boundary, rendered scene comparison and disposal checks |
+| 6 | Remove unsupported save compatibility and old fixtures; deduplicate sprite support (R6, R12) | Current-save roundtrip, rendered scene comparison and disposal checks |
 
 R13 accompanies the relevant modules in separate formatting commits. R14 is an
 independent deletion-only cleanup after its incoming links are updated. Each PR
@@ -444,7 +443,7 @@ frameworks and a broad asset purge until a specific need justifies them.
 | R3 | Implemented | Dead hideout methods removed; shared NPC dispatch is explicit; current quest and interaction suites pass |
 | R4 | Implemented | Shared VM loader, named engine entries, whole-script registrations, full archive composition before integration scenarios |
 | R7 | Implemented | Nested source paths, checked load manifest, whole generated Ruby files, explicit validated engine patches; full isolated regeneration passes |
-| R6 | Implemented | One schema boundary replaces migrations; native current-save roundtrip and rejection preserve disk bytes; historic fixtures removed |
+| R6 | Implemented | Historic migrations and fixtures removed; normal Essentials serialization, no custom save-version gate; native save roundtrips pass |
 | R9–R10 | Implemented | Shared atomic packaging pipeline and platform adapters; direct development staging; failure, archive safety and isolated-save tests pass |
 | R14 | Implemented | Retired history and recovery tools removed; active README image retained in `docs/images/`; local documentation links checked |
 | R1 | Implemented | Import-without-I/O, independent area construction and failed-validation isolation tests pass; full regeneration preserves data and PNG pixels |

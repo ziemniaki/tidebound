@@ -49,9 +49,6 @@ Development builds stage the native player directly, without making a release ZI
 Builds go into unique ignored `.build/dev/` directories. Development players use
 `Tidebound_Development` saves, shared between development builds. Release saves
 stay in `Tidebound_Opening_0_2`; installed release apps are not replaced.
-The refactored development build accepts save schema 2. Earlier demo saves are
-unsupported and remain usable with their original release; the new reader rejects
-them without rewriting their files. Use a fresh development save for this branch.
 Closing the game returns control to `uv run play`. Old `.build/` directories and
 `.cache/` extractions can be deleted when no game is running; neither holds saves.
 
