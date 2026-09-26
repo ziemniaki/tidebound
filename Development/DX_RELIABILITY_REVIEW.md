@@ -45,10 +45,11 @@ platforms.
 
 **Build-workflow follow-up on this branch:** isolated regeneration, transactional
 packaging, runtime hash/architecture/dependency checks, universal ad-hoc signing,
-native ARM smoke, and tag-driven draft-release workflows are now implemented.
+native ARM/Intel smoke, and tag-driven draft-release workflows are now implemented.
 The historical publisher is retired. Local native ARM and 22 tooling regression
-checks pass; hosted CI/native Intel execution and full target-machine playtesting
-are still pending. See [RELEASING.md](RELEASING.md). The original priorities below
+checks pass. Hosted Linux/macOS verification, universal packaging, and native
+ARM/Intel smoke passed in [run 36245127653](https://github.com/ziemniaki/tidebound/actions/runs/36245127653).
+Tag-driven publication and full target-machine playtesting remain unexercised. See [RELEASING.md](RELEASING.md). The original priorities below
 remain useful context; direct generator transactions, numeric fixture loading,
 broader gameplay coverage and documentation consolidation are still open.
 
