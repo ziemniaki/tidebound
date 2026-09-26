@@ -29,7 +29,13 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y fonts-liberation fonts-dejavu-core
       - name: Restore and verify pond source
-        run: python Development/finish_pond_release.py prepare
+        run: |
+          if test -f Development/025_Pond.rb; then
+            python Development/validate_maps.py
+            python Development/Tests/pond_geometry.py
+          else
+            python Development/finish_pond_release.py prepare
+          fi
       - name: Save completed source on build branch
         run: |
           git config user.name "Tidebound Build"
@@ -37,17 +43,20 @@ jobs:
           git add -u
           git add Development/024_PondGeometry.rb Development/025_Pond.rb Development/pond_map.py Development/pond_manifest.json Development/Tests/pond_geometry.py Development/Tests/pond_native.rb Development/validation_pond.md Graphics/Tilesets/TideboundPond.png
           git diff --cached --check
-          git commit -m "Rebuild and verify southern pond 0.8.4 on hosted runner"
-          git push origin HEAD:build/pond-0.8.4
+          if ! git diff --cached --quiet; then
+            git commit -m "Rebuild and verify southern pond 0.8.4 on hosted runner"
+            git push origin HEAD:build/pond-0.8.4
+          fi
       - name: Build and verify distributions
         run: python Development/finish_pond_release.py package
+      - name: Stage downloadable artifacts
+        run: |
+          mkdir -p "$RUNNER_TEMP/pond-release"
+          cp ../pond-release/*.zip ../pond-release/SHA256SUMS.txt ../pond-release/RELEASE_NOTES.md "$RUNNER_TEMP/pond-release/"
       - uses: actions/upload-artifact@v4
         with:
           name: Tidebound-0.8.4-verified
-          path: |
-            ../pond-release/*.zip
-            ../pond-release/SHA256SUMS.txt
-            ../pond-release/RELEASE_NOTES.md
+          path: ${{ runner.temp }}/pond-release
           retention-days: 90
           if-no-files-found: error
           compression-level: 0
