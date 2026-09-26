@@ -7,7 +7,7 @@ begin
   MessageTypes.load_default_messages if FileTest.exist?("Data/messages_core.dat")
   PluginManager.runPlugins
   Compiler.main
-  game/Game.initialize
+  Game.initialize
   Game.set_up_system
   raise "unexpected Ruby version" unless RUBY_VERSION.start_with?("3.1.")
   $player = Player.new("Build smoke", :POKEMONTRAINER_Red)

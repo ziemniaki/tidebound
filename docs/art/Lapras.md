@@ -1,6 +1,6 @@
 # Tidebound Lapras sprite recipe
 
-Run `python3 assets/Lapras/edit_sprites.py` from the project root.
+Run `uv run python assets/Lapras/edit_sprites.py` from the project root.
 Inputs: unchanged Graphics/Pokemon/{Front,Back,Icons}/LAPRAS.png.
 Outputs: LAPRAS_1.png in Front, Back, Front shiny, Back shiny and Icons.
 Battle canvases 160x160; two-frame icon strip 128x64. Logical pixels are 2x2.

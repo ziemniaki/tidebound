@@ -79,7 +79,7 @@ module TideboundCoastCheck
     raise 'Lapras scene' unless o.flags[:lapras_glimpsed] && !o.lapras_visible && $tb_lapras_shot
     x,y=o.camera_position($game_player.x,$game_player.y)
     raise 'camera not restored' unless ($game_map.display_x-x).abs<1 && ($game_map.display_y-y).abs<1
-    raise 'font config regression' unless File.read('game/mkxp.json').include?('"fontHeightReporting": 1')
+    raise 'font config regression' unless File.read('mkxp.json').include?('"fontHeightReporting": 1')
     raise 'save ending' unless Game.save('coast-complete.rxdata')
     File.write('COAST_PASS.txt',"PASS: native coastline, walking, invisible pier reaction/camera, follower saves, keys/shop transfers and fading Lapras scene.\n")
     exit

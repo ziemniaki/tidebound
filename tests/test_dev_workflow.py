@@ -1,6 +1,8 @@
 from pathlib import Path
 import hashlib
 import sys
+import subprocess
+import shutil
 import tempfile
 import unittest
 import zipfile
@@ -44,6 +46,20 @@ class RuntimeRestorationTests(unittest.TestCase):
 
 
 class DevelopmentSaveTests(unittest.TestCase):
+    def test_legacy_native_fixture_refuses_the_relocated_checkout(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            tests = root / 'tests'
+            tests.mkdir()
+            script = tests / 'prepare_native_neighbor.py'
+            shutil.copy2(Path(__file__).with_name(script.name), script)
+            output = root / 'disposable'
+            result = subprocess.run([sys.executable, '-O', script, root / 'runtime', output],
+                                    capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('outside the project', result.stderr)
+            self.assertFalse(output.exists())
+
     def test_only_disposable_config_gets_separate_saves(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

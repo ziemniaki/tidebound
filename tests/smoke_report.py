@@ -6,6 +6,10 @@ from rubymarshal.reader import loads
 
 def read_report(output):
     def plain(value):
+        # Ruby exceptions can be ASCII-8BIT strings even when their message is
+        # UTF-8. Preserve the failure instead of hiding it behind a JSON error.
+        if isinstance(value, bytes):
+            return value.decode('utf-8', errors='replace')
         if isinstance(value, RubyString):
             return str(value)
         if isinstance(value, dict):

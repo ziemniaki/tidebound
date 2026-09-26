@@ -1,6 +1,6 @@
 # Frostcoon art
 
-Run python3 assets/Frostcoon/recolour.py from the game root.
+Run uv run python assets/Frostcoon/recolour.py from the repository root.
 Inputs are unchanged Graphics/Pokemon/{Front,Back,Icons}/SILCOON.png.
 Outputs are FROSTCOON.png in those folders and normal-equivalent shiny front/back.
 Battle canvases 160x160; two-frame icon strip 128x64. Every source pixel position

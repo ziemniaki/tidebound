@@ -10,4 +10,4 @@ Outputs use WURMPLE_1.png. Front/back are 160x160; icon is 128x64. Shiny views
 share the pale-blue palette provisionally. No new generated art is used.
 Retain the original project Pokemon sprite attribution in docs/credits.md.
 
-Run: python3 assets/Wurmple/recolour.py
+Run: uv run python assets/Wurmple/recolour.py

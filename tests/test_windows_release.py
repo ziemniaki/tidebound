@@ -112,6 +112,15 @@ class WindowsReleaseTests(unittest.TestCase):
         self.assertEqual(result, {'passed': False, 'error': 'Pokémon failure', 'checks': ['font rendering']})
         self.assertEqual(json.loads((self.base / 'native-smoke.json').read_text()), result)
 
+    def test_binary_encoded_native_exception_reports_the_real_failure(self):
+        from rubymarshal.writer import writes
+        message = 'Main: undefined method — Pokémon'.encode('utf-8')
+        payload = {'passed': False, 'error': message}
+        (self.base / 'native-smoke.rxdata').write_bytes(writes(payload))
+        result = read_report(self.base)
+        self.assertFalse(result['passed'])
+        self.assertEqual(result['error'], message.decode('utf-8'))
+
 
 if __name__ == '__main__':
     unittest.main()

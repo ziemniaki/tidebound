@@ -12,7 +12,7 @@ approved_front.png is the approved original; rear_source.png is the matching
 rear-view draft made with the built-in image tool. No front design regeneration.
 export.py reproducibly crops transparent fringes, samples and applies a shared
 palette that explicitly retains gold eye accents, cream muzzle and blue shading.
-Run: python3 assets/FrostcoonEvolution/export.py (requires Pillow).
+Run: uv run python assets/FrostcoonEvolution/export.py (requires Pillow).
 
 Installed at Graphics/Pokemon/{Front,Back,Front shiny,Back shiny,Icons}/
 FROSTCOON_EVOLUTION.png. This is an ART identifier only, not a registered species.
