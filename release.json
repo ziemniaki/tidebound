@@ -14,5 +14,9 @@
     "Game.exe": "5c75e92fcbb6ec50b9f8fc61913d751a8945d6a1fc69c3017c7b8686b532bf04",
     "x64-msvcrt-ruby310.dll": "e85974d15b60992b4b0da95f0fc1fcdafa682967694345006918a28e411ba78d",
     "zlib1.dll": "4b08bebfac59f1c453668d1742df29fdbe1be195d3d73ab7a8851b9a52d2acfe"
-  }
+  },
+  "linux_runtime_archive": "Runtime/Linux/mkxp-z-826929e-ubuntu22.04-x86_64.zip",
+  "linux_runtime_sha256": "9feba61c70aa63e98ca87678002dc6eb4cbda2fca09c2e1a63122fd332979053",
+  "linux_architecture": "x86_64",
+  "linux_glibc_minimum": "2.35"
 }

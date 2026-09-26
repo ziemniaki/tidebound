@@ -9,6 +9,7 @@ import zipfile
 
 from package_mac import build
 from package_windows import build as build_windows
+from package_linux import build as build_linux
 from release_tools import ROOT, check_sources, sha256, source_revision
 
 
@@ -29,6 +30,11 @@ def build_release(output, root=ROOT):
         for file in windows.iterdir():
             if file.name != 'SHA256SUMS.txt':
                 file.rename(artifacts / file.name)
+        linux = Path(temp) / 'linux'
+        build_linux(linux, root=root)
+        for file in linux.iterdir():
+            if file.name != 'SHA256SUMS.txt':
+                file.rename(artifacts / file.name)
         project = artifacts / ('Tidebound_Project_' + config['version'] + '.zip')
         subprocess.run(['git', '-C', str(root), 'archive', '--format=zip',
                         '--prefix=Tidebound_Prototype/', '--output=' + str(project), source['commit']], check=True)
@@ -46,9 +52,9 @@ def build_release(output, root=ROOT):
             f"Source commit: `{source['commit']}`.\n\n"
             "The universal Mac ZIP includes native Intel and Apple Silicon code. "
             "It is ad-hoc signed for integrity, not Developer ID signed or notarized. "
-            "The Windows x64 player ZIP includes the pinned existing executable and DLLs. The editable project ZIP is available separately.\n\n"
+            "The Windows x64 player ZIP includes the pinned existing executable and DLLs. The Linux x86_64 player ZIP targets Ubuntu 22.04/24.04 (glibc 2.35+) and requires the system libraries listed in READ_ME_FIRST.txt. The editable project ZIP is available separately.\n\n"
             "Saves keep the Tidebound_Opening_0_2 directory. Read READ_ME_FIRST.txt before launching. "
-            "Automated native smoke checks on Windows x64, Intel Mac and Apple Silicon are not a complete playthrough or an Intel Monterey playtest.\n",
+            "Automated native smoke checks on Linux x86_64, Windows x64, Intel Mac and Apple Silicon are not a complete playthrough or an Intel Monterey playtest.\n",
             encoding='utf-8')
         files = sorted(p for p in artifacts.iterdir() if p.name != 'SHA256SUMS.txt')
         (artifacts / 'SHA256SUMS.txt').write_text(

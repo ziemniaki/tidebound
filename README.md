@@ -16,6 +16,13 @@ Published downloads appear on [GitHub Releases](https://github.com/ziemniaki/tid
 Read `READ_ME_FIRST.txt` inside your platform ZIP before launching. Existing saves
 retain their `Tidebound_Opening_0_2` folder. The Mac app is ad-hoc signed, not notarized.
 
+## Upcoming build support
+
+Current source also packages a Linux x86_64 player for Ubuntu 22.04/24.04, with
+native smoke gates and release checksums. It requires the system libraries in
+[LINUX_README.txt](LINUX_README.txt). A new tagged release is needed to make this
+available alongside updated Mac/Windows downloads; existing 0.8.5 assets are unchanged.
+
 ## Changes in 0.8.5
 
 This is a packaging and build-reliability release. It adds verified universal Mac
