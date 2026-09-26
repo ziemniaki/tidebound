@@ -65,3 +65,20 @@ Tidebound::Mending::NESTS.each_with_index do |cell,i|
 end
 mending_walk(g,Tidebound::Mending::EXIT);check(g.won?,'exit not won')
 puts 'PASS: minigame walls, all reachable nests, three-release exit gate, contraction preserves progress.'
+
+# Exercise the real scene update with display and input doubles.
+module Input
+  BACK = 1 unless const_defined?(:BACK)
+  def self.trigger?(key); key == BACK; end
+end
+scene = Scene_TideboundMending.allocate
+scene.instance_variable_set(:@time, 10.0)
+scene.instance_variable_set(:@finish_time, 9.9)
+scene.instance_variable_set(:@title_cleared, true)
+scene.instance_variable_set(:@veil, Struct.new(:opacity).new(0))
+def scene.draw; end
+check(scene.update(0.01) != false, 'BACK discarded a completed Mending game')
+check(scene.update(2.4) == true, 'completed Mending game did not return success')
+scene.instance_variable_set(:@finish_time, nil)
+check(scene.update(0.01) == false, 'BACK no longer cancels an unfinished Mending game')
+puts 'PASS: Mending completion survives BACK during its victory animation.'

@@ -327,13 +327,13 @@ class Scene_TideboundMending
     @title.clear unless @title_cleared
     @title_cleared=true;@veil.opacity=[255-((@time-3)*150).to_i,0].max
     return nil if @time<4.8
-    return false if Input.trigger?(Input::BACK)
     if @finish_time
       @caption='They are light enough to carry now.'
       draw
       return true if @time-@finish_time>2.3
       return nil
     end
+    return false if Input.trigger?(Input::BACK)
     if @time>=@next_move
       d={2=>[0,1],4=>[-1,0],6=>[1,0],8=>[0,-1]}[Input.dir4]
       if d && @game.move(*d);@next_move=@time+0.14;end
