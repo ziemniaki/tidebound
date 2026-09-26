@@ -1,4 +1,5 @@
 """Shared, fail-closed release metadata and source checks."""
+
 from pathlib import Path
 import hashlib
 import json
@@ -8,6 +9,7 @@ import subprocess
 from tidebound_dev.scripts.archive import validate_archive
 
 from tidebound_dev.paths import ROOT
+
 SAVE_DIRECTORY = "Tidebound_Opening_0_2"
 
 
@@ -34,29 +36,34 @@ def load_release(root=ROOT):
 def parse_runtime_config(text):
     """Parse mkxp JSON comments without treating quoted URLs as comments."""
     tokens = r'"(?:\\.|[^"\\])*"|//[^\r\n]*|/\*[\s\S]*?\*/'
-    text = re.sub(tokens, lambda m: m[0] if m[0].startswith('"') else ' ', text)
+    text = re.sub(tokens, lambda m: m[0] if m[0].startswith('"') else " ", text)
     # mkxp accepts trailing commas as well as comments. Skip quoted strings so
     # literal comma/brace text in paths or window titles is never rewritten.
-    text = re.sub(r'"(?:\\.|[^"\\])*"|,\s*(?=[}\]])',
-                  lambda m: m[0] if m[0].startswith('"') else '', text)
+    text = re.sub(
+        r'"(?:\\.|[^"\\])*"|,\s*(?=[}\]])', lambda m: m[0] if m[0].startswith('"') else "", text
+    )
+
     def unique(pairs):
         result = {}
         for key, value in pairs:
             if key in result:
-                raise ValueError(f'Duplicate runtime configuration key: {key}')
+                raise ValueError(f"Duplicate runtime configuration key: {key}")
             result[key] = value
         return result
+
     config = json.loads(text, object_pairs_hook=unique)
     if not isinstance(config, dict):
-        raise ValueError('Expected a runtime configuration object')
+        raise ValueError("Expected a runtime configuration object")
     return config
 
 
 def check_sources(root=ROOT):
     config = load_release(root)
     scripts = validate_archive(root / "game", root / "src")
-    for name, pattern in (("Tidebound/domain/state", r'VERSION\s*=\s*"([^"]+)"'),
-                          ("Settings", r'GAME_VERSION\s*=\s*"([^"]+)"')):
+    for name, pattern in (
+        ("Tidebound/domain/state", r'VERSION\s*=\s*"([^"]+)"'),
+        ("Settings", r'GAME_VERSION\s*=\s*"([^"]+)"'),
+    ):
         match = re.search(pattern, scripts[name])
         if not match or match[1] != config["version"]:
             raise ValueError(f"Version mismatch: {name} versus release.json; rebuild scripts")
@@ -65,9 +72,11 @@ def check_sources(root=ROOT):
         raise ValueError("The established save-directory identity must be preserved")
     if type(launch.get("fontHeightReporting")) is not int or launch["fontHeightReporting"] != 1:
         raise ValueError("The native font height fix must remain enabled")
-    for path_key, hash_key in (("runtime_archive", "runtime_sha256"),
-                              ("runtime_source", "runtime_source_sha256"),
-                              ("runtime_patch", "runtime_patch_sha256")):
+    for path_key, hash_key in (
+        ("runtime_archive", "runtime_sha256"),
+        ("runtime_source", "runtime_source_sha256"),
+        ("runtime_patch", "runtime_patch_sha256"),
+    ):
         if sha256(root / config[path_key]) != config[hash_key]:
             raise ValueError(f"Runtime provenance hash mismatch: {config[path_key]}")
     return config
@@ -76,7 +85,10 @@ def check_sources(root=ROOT):
 def source_revision(root=ROOT, allow_dirty=False):
     def git(*args):
         return subprocess.check_output(["git", "-C", str(root), *args], text=True).strip()
+
     dirty = bool(git("status", "--porcelain", "--untracked-files=normal"))
     if dirty and not allow_dirty:
-        raise ValueError("Release packaging requires a clean checkout; commit changes or use --allow-dirty for a local preview")
+        raise ValueError(
+            "Release packaging requires a clean checkout; commit changes or use --allow-dirty for a local preview"
+        )
     return {"commit": git("rev-parse", "HEAD"), "dirty": dirty}

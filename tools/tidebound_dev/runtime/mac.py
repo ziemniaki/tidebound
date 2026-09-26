@@ -1,4 +1,5 @@
 """Inspect every native image and sign the assembled universal app on macOS."""
+
 from pathlib import Path
 import re
 import subprocess
@@ -26,7 +27,9 @@ def native_images(app):
 
 def inspect_runtime(app, architectures):
     if sys.platform != "darwin":
-        raise RuntimeError("Mac packaging requires macOS with Xcode command-line tools (lipo, otool, codesign)")
+        raise RuntimeError(
+            "Mac packaging requires macOS with Xcode command-line tools (lipo, otool, codesign)"
+        )
     images = native_images(app)
     if len(images) != 5:
         raise ValueError(f"Expected the five pinned runtime images, found {len(images)}")
@@ -37,8 +40,11 @@ def inspect_runtime(app, architectures):
             raise ValueError(f"Incomplete universal runtime: {path}: {arches}")
         for arch in architectures:
             commands = run("otool", "-arch", arch, "-l", str(path))
-            minimum = re.search(r"cmd LC_BUILD_VERSION\n\s+cmdsize \d+\n\s+platform \d+\n\s+minos ([\d.]+)|"
-                                r"cmd LC_VERSION_MIN_MACOSX\n\s+cmdsize \d+\n\s+version ([\d.]+)", commands)
+            minimum = re.search(
+                r"cmd LC_BUILD_VERSION\n\s+cmdsize \d+\n\s+platform \d+\n\s+minos ([\d.]+)|"
+                r"cmd LC_VERSION_MIN_MACOSX\n\s+cmdsize \d+\n\s+version ([\d.]+)",
+                commands,
+            )
             if not minimum:
                 raise ValueError(f"Missing deployment target: {path} {arch}")
             version = next(group for group in minimum.groups() if group)
@@ -53,15 +59,33 @@ def inspect_runtime(app, architectures):
                 deps.append(dep)
                 if dep.startswith(("/System/Library/", "/usr/lib/")):
                     continue
-                bases = {"@rpath/": app / "Contents/Frameworks",
-                         "@loader_path/": path.parent,
-                         "@executable_path/": app / "Contents/MacOS"}
-                resolved = next(((base / dep[len(prefix):]).resolve() for prefix, base in bases.items()
-                                 if dep.startswith(prefix)), None)
-                if resolved is None or not resolved.is_relative_to(app.resolve()) or not resolved.exists():
+                bases = {
+                    "@rpath/": app / "Contents/Frameworks",
+                    "@loader_path/": path.parent,
+                    "@executable_path/": app / "Contents/MacOS",
+                }
+                resolved = next(
+                    (
+                        (base / dep[len(prefix) :]).resolve()
+                        for prefix, base in bases.items()
+                        if dep.startswith(prefix)
+                    ),
+                    None,
+                )
+                if (
+                    resolved is None
+                    or not resolved.is_relative_to(app.resolve())
+                    or not resolved.exists()
+                ):
                     raise ValueError(f"Unbundled native dependency: {path}: {dep}")
-            report.append({"file": path.relative_to(app).as_posix(), "arch": arch,
-                           "minimum_macos": version, "dependencies": deps})
+            report.append(
+                {
+                    "file": path.relative_to(app).as_posix(),
+                    "arch": arch,
+                    "minimum_macos": version,
+                    "dependencies": deps,
+                }
+            )
     return report
 
 

@@ -1,4 +1,5 @@
 """Decode native smoke evidence without requiring Ruby's optional JSON library."""
+
 import json
 from rubymarshal.classes import RubyString
 from rubymarshal.reader import loads
@@ -9,7 +10,7 @@ def read_report(output):
         # Ruby exceptions can be ASCII-8BIT strings even when their message is
         # UTF-8. Preserve the failure instead of hiding it behind a JSON error.
         if isinstance(value, bytes):
-            return value.decode('utf-8', errors='replace')
+            return value.decode("utf-8", errors="replace")
         if isinstance(value, RubyString):
             return str(value)
         if isinstance(value, dict):
@@ -18,6 +19,6 @@ def read_report(output):
             return [plain(item) for item in value]
         return value
 
-    result = plain(loads((output / 'native-smoke.rxdata').read_bytes()))
-    (output / 'native-smoke.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+    result = plain(loads((output / "native-smoke.rxdata").read_bytes()))
+    (output / "native-smoke.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     return result

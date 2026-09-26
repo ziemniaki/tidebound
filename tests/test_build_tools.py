@@ -1,4 +1,5 @@
 """Regression checks for build failures that can hide drift or alter a checkout."""
+
 from pathlib import Path
 import json
 import shutil
@@ -30,9 +31,12 @@ class ArchiveChecks(unittest.TestCase):
         (self.dev / "001_Core.rb").write_text("module Tidebound; end\n")
         (self.dev / "002_Adapter.rb").write_text("# adapter\n")
         (self.dev / "load_order.txt").write_text("001_Core.rb\n002_Adapter.rb\n")
-        self.entries = [entry("Settings"), entry("Tidebound/001_Core", "module Tidebound; end\n"),
-                        entry("Tidebound/002_Adapter", "# adapter\n"),
-                        entry("Main", "return Scene_TideboundTitle.new")]
+        self.entries = [
+            entry("Settings"),
+            entry("Tidebound/001_Core", "module Tidebound; end\n"),
+            entry("Tidebound/002_Adapter", "# adapter\n"),
+            entry("Main", "return Scene_TideboundTitle.new"),
+        ]
 
     def validate(self):
         (self.game / "Data/Scripts.rxdata").write_bytes(writes(self.entries))
@@ -91,19 +95,33 @@ class CommandChecks(unittest.TestCase):
         (self.game / "Data").mkdir(parents=True)
 
     def command(self, script, *flags):
-        if script == 'rebuild_scripts.py':
-            command = [sys.executable, *flags, '-c',
-                       'import sys; from pathlib import Path; from tidebound_dev.scripts.compiler import rebuild; rebuild(Path(sys.argv[1]))',
-                       str(self.root)]
+        if script == "rebuild_scripts.py":
+            command = [
+                sys.executable,
+                *flags,
+                "-c",
+                "import sys; from pathlib import Path; from tidebound_dev.scripts.compiler import rebuild; rebuild(Path(sys.argv[1]))",
+                str(self.root),
+            ]
         else:
-            command = [sys.executable, *flags, str(self.root / 'tests' / script.removeprefix('Tests/'))]
+            command = [
+                sys.executable,
+                *flags,
+                str(self.root / "tests" / script.removeprefix("Tests/")),
+            ]
         return subprocess.run(command, cwd=self.game, capture_output=True, text=True)
 
     def test_rebuild_rejects_plugin_before_writing_even_with_optimization(self):
         shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
         shutil.copytree(DEV.parent / "src", self.src, dirs_exist_ok=True)
-        paths = ["Data/Scripts.rxdata", "Data/metadata.dat", "Game.ini", "mkxp.json",
-                 "PBS/metadata.txt", "PBS/map_metadata.txt"]
+        paths = [
+            "Data/Scripts.rxdata",
+            "Data/metadata.dat",
+            "Game.ini",
+            "mkxp.json",
+            "PBS/metadata.txt",
+            "PBS/map_metadata.txt",
+        ]
         for name in paths:
             dest = self.game / name
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -122,12 +140,23 @@ class CommandChecks(unittest.TestCase):
         shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
         (self.src / "load_order.txt").write_text("001_Core.rb\n")
         (self.src / "001_Core.rb").write_text("# current custom source\n")
-        (self.game / "Data/Scripts.rxdata").write_bytes(writes([
-            entry("Settings", 'GAME_VERSION = "0.0.0"\nTIME_SHADING = true'),
-            entry("Battler_ChangeSelf", '"{1} fainted!"'),
-            entry("Overworld", '"{1} fainted..."'),
-            entry("Main", "return Scene_Intro.new")]))
-        preserved = ("Game.ini", "mkxp.json", "Data/metadata.dat", "PBS/metadata.txt", "PBS/map_metadata.txt")
+        (self.game / "Data/Scripts.rxdata").write_bytes(
+            writes(
+                [
+                    entry("Settings", 'GAME_VERSION = "0.0.0"\nTIME_SHADING = true'),
+                    entry("Battler_ChangeSelf", '"{1} fainted!"'),
+                    entry("Overworld", '"{1} fainted..."'),
+                    entry("Main", "return Scene_Intro.new"),
+                ]
+            )
+        )
+        preserved = (
+            "Game.ini",
+            "mkxp.json",
+            "Data/metadata.dat",
+            "PBS/metadata.txt",
+            "PBS/map_metadata.txt",
+        )
         for name in preserved:
             dest = self.game / name
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -136,11 +165,15 @@ class CommandChecks(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         validate_archive(self.game, self.src)
         for name in preserved:
-            self.assertEqual((self.game / name).read_bytes(), b"editor-authored data must remain untouched")
+            self.assertEqual(
+                (self.game / name).read_bytes(), b"editor-authored data must remain untouched"
+            )
         self.assertFalse((self.dev / "generated").exists())
 
     def test_reference_refresh_removes_stale_indices(self):
-        shutil.copy2(DEV.parent / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py")
+        shutil.copy2(
+            DEV.parent / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py"
+        )
         ref = self.root / "tests/engine_reference"
         ref.mkdir()
         (ref / "000_Old.rb").write_text("# stale engine script")
@@ -148,12 +181,16 @@ class CommandChecks(unittest.TestCase):
         result = self.command("Tests/prepare_reference.py")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(sorted(path.name for path in ref.iterdir()), ["000_New.rb", "index.json"])
-        self.assertEqual(json.loads((ref / "index.json").read_text()),
-                             [{"name": "New", "key": "New", "file": "000_New.rb"}])
+        self.assertEqual(
+            json.loads((ref / "index.json").read_text()),
+            [{"name": "New", "key": "New", "file": "000_New.rb"}],
+        )
         self.assertEqual((ref / "000_New.rb").read_text(), "# current")
 
     def test_failed_reference_decode_preserves_previous_extraction(self):
-        shutil.copy2(DEV.parent / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py")
+        shutil.copy2(
+            DEV.parent / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py"
+        )
         ref = self.root / "tests/engine_reference"
         ref.mkdir()
         (ref / "000_Old.rb").write_text("# previous")

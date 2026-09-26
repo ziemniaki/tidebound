@@ -1,22 +1,37 @@
 """Keep the opening Key Item's PBS and compiled definition in agreement."""
+
 from textwrap import dedent
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol
 
+
 def build(root):
-    G = root / 'game'
-    items=loads((G/'Data/items.dat').read_bytes())
-    key=loads(writes(items[Symbol('TOWNMAP')]))
-    key.attributes.update({'@id':Symbol('TIDEBOUNDOILKEYS'), '@real_name':'Oil-Shop Keys',
-     '@real_name_plural':'Oil-Shop Keys', '@real_portion_name':'', '@real_portion_name_plural':'',
-     '@pocket':8, '@price':0, '@sell_price':0, '@field_use':0, '@battle_use':0,
-     '@flags':['KeyItem'], '@consumable':False,
-     '@real_description':'Old brass keys found beneath white flowers. The oil seller in Shiohama is looking for them.'})
-    items[Symbol('TIDEBOUNDOILKEYS')]=key
-    (G/'Data/items.dat').write_bytes(writes(items))
-    p=G/'PBS/items.txt';s=p.read_text(encoding='utf-8-sig')
-    s=s.split('# TIDEBOUND OPENING ITEMS')[0].rstrip()+dedent('''
+    G = root / "game"
+    items = loads((G / "Data/items.dat").read_bytes())
+    key = loads(writes(items[Symbol("TOWNMAP")]))
+    key.attributes.update(
+        {
+            "@id": Symbol("TIDEBOUNDOILKEYS"),
+            "@real_name": "Oil-Shop Keys",
+            "@real_name_plural": "Oil-Shop Keys",
+            "@real_portion_name": "",
+            "@real_portion_name_plural": "",
+            "@pocket": 8,
+            "@price": 0,
+            "@sell_price": 0,
+            "@field_use": 0,
+            "@battle_use": 0,
+            "@flags": ["KeyItem"],
+            "@consumable": False,
+            "@real_description": "Old brass keys found beneath white flowers. The oil seller in Shiohama is looking for them.",
+        }
+    )
+    items[Symbol("TIDEBOUNDOILKEYS")] = key
+    (G / "Data/items.dat").write_bytes(writes(items))
+    p = G / "PBS/items.txt"
+    s = p.read_text(encoding="utf-8-sig")
+    s = s.split("# TIDEBOUND OPENING ITEMS")[0].rstrip() + dedent("""
 
     # TIDEBOUND OPENING ITEMS
     #-------------------------------
@@ -28,6 +43,6 @@ def build(root):
     Flags = KeyItem
     Consumable = false
     Description = Old brass keys found beneath white flowers. The oil seller in Shiohama is looking for them.
-    ''')
-    p.write_text(s,encoding='utf-8-sig')
-    print('Updated Oil-Shop Keys in PBS and compiled item data.')
+    """)
+    p.write_text(s, encoding="utf-8-sig")
+    print("Updated Oil-Shop Keys in PBS and compiled item data.")
