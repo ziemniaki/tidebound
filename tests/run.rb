@@ -1,6 +1,6 @@
 root = File.expand_path("..", __dir__)
 load File.join(__dir__, "001_Support.rb")
-load File.join(root, "src/001_Core.rb")
-load File.join(root, "src/002_Essentials.rb")
+load File.join(root, "src/tidebound/domain/state.rb")
+load File.join(root, "src/tidebound/engine/battles.rb")
 load File.join(__dir__, "002_CoreTests.rb")
 load File.join(__dir__, "003_AdapterTests.rb")

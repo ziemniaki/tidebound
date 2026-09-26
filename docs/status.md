@@ -30,7 +30,7 @@ do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtestin
 - Playtest the current demo on the maintainer's target machines.
 - Choose the next complete playable milestone with the creative director.
 - Split large gameplay modules by feature when changing that feature; preserve
-  save classes and numeric script loading order.
+  current save state and the explicit source manifest order.
 - Consider external binary hosting/LFS only with tested automatic restoration.
   Current runtime archives remain available offline.
 

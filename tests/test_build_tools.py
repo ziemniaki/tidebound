@@ -12,7 +12,7 @@ from rubymarshal.writer import writes
 
 DEV = Path(__file__).resolve().parents[1] / "tools"
 sys.path.insert(0, str(DEV))
-from script_archive import validate_archive
+from script_archive import validate_archive, source_files
 
 
 def entry(name, code=""):
@@ -29,6 +29,7 @@ class ArchiveChecks(unittest.TestCase):
         (self.game / "Data").mkdir()
         (self.dev / "001_Core.rb").write_text("module Tidebound; end\n")
         (self.dev / "002_Adapter.rb").write_text("# adapter\n")
+        (self.dev / "load_order.txt").write_text("001_Core.rb\n002_Adapter.rb\n")
         self.entries = [entry("Settings"), entry("Tidebound/001_Core", "module Tidebound; end\n"),
                         entry("Tidebound/002_Adapter", "# adapter\n"),
                         entry("Main", "return Scene_TideboundTitle.new")]
@@ -52,7 +53,7 @@ class ArchiveChecks(unittest.TestCase):
 
     def test_wrong_order_is_rejected(self):
         self.entries[1], self.entries[2] = self.entries[2], self.entries[1]
-        with self.assertRaisesRegex(ValueError, "filename order"):
+        with self.assertRaisesRegex(ValueError, "manifest order"):
             self.validate()
 
     def test_stale_source_is_rejected(self):
@@ -62,7 +63,7 @@ class ArchiveChecks(unittest.TestCase):
 
     def test_missing_source_is_rejected(self):
         (self.dev / "002_Adapter.rb").unlink()
-        with self.assertRaisesRegex(ValueError, "exactly once"):
+        with self.assertRaisesRegex(ValueError, "Missing or invalid"):
             self.validate()
 
     def test_duplicate_main_is_rejected(self):
@@ -94,11 +95,10 @@ class CommandChecks(unittest.TestCase):
                               cwd=self.game, capture_output=True, text=True)
 
     def test_rebuild_rejects_plugin_before_writing_even_with_optimization(self):
-        for name in ("rebuild_scripts.py", "script_archive.py", "release_tools.py"):
+        for name in ("rebuild_scripts.py", "script_archive.py", "release_tools.py", "engine_patches.py"):
             shutil.copy2(DEV / name, self.dev / name)
         shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
-        for path in (DEV.parent / "src").glob("[0-9][0-9][0-9]_*.rb"):
-            shutil.copy2(path, self.src / path.name)
+        shutil.copytree(DEV.parent / "src", self.src, dirs_exist_ok=True)
         paths = ["Data/Scripts.rxdata", "Data/metadata.dat", "Game.ini", "mkxp.json",
                  "PBS/metadata.txt", "PBS/map_metadata.txt"]
         for name in paths:
@@ -106,7 +106,7 @@ class CommandChecks(unittest.TestCase):
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(DEV.parent / "game" / name, dest)
         # Make a rebuild observable instead of relying on serializer differences.
-        with (self.src / "001_Core.rb").open("a") as source:
+        with (self.src / "tidebound/domain/state.rb").open("a") as source:
             source.write("\n# unembedded edit\n")
         before = {name: (self.game / name).read_bytes() for name in paths}
         (self.game / "Plugins/Tidebound").mkdir(parents=True)
@@ -116,12 +116,16 @@ class CommandChecks(unittest.TestCase):
         self.assertEqual(before, {name: (self.game / name).read_bytes() for name in paths})
 
     def test_script_only_rebuild_preserves_editor_data_without_map_outputs(self):
-        for name in ("rebuild_scripts.py", "script_archive.py", "release_tools.py"):
+        for name in ("rebuild_scripts.py", "script_archive.py", "release_tools.py", "engine_patches.py"):
             shutil.copy2(DEV / name, self.dev / name)
         shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
+        (self.src / "load_order.txt").write_text("001_Core.rb\n")
         (self.src / "001_Core.rb").write_text("# current custom source\n")
         (self.game / "Data/Scripts.rxdata").write_bytes(writes([
-            entry("Settings", 'GAME_VERSION = "0.0.0"'), entry("Main", "return Scene_Intro.new")]))
+            entry("Settings", 'GAME_VERSION = "0.0.0"\nTIME_SHADING = true'),
+            entry("Battler_ChangeSelf", '"{1} fainted!"'),
+            entry("Overworld", '"{1} fainted..."'),
+            entry("Main", "return Scene_Intro.new")]))
         preserved = ("Game.ini", "mkxp.json", "Data/metadata.dat", "PBS/metadata.txt", "PBS/map_metadata.txt")
         for name in preserved:
             dest = self.game / name

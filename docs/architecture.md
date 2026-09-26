@@ -8,11 +8,11 @@ the engine's expected directory structure intact inside `game/`.
 
 | Area | Source | Generated/runtime output |
 | --- | --- | --- |
-| Rules, state, identity and recovery | `src/001_Core.rb` | `game/Data/Scripts.rxdata` |
-| Essentials save/battle integration | `src/002_Essentials.rb` | Same script archive |
-| Opening, quests and presentation | Numbered `src/004_*.rb` through `025_*.rb` | Same script archive |
+| Rules, state, identity and recovery | `src/tidebound/domain/state.rb` | `game/Data/Scripts.rxdata` |
+| Essentials save/battle integration | `src/tidebound/engine/battles.rb` | Same script archive |
+| Opening, quests and presentation | `src/tidebound/features/` and `src/tidebound/presentation/` | Same script archive |
 | Map layouts and events | `tools/rebuild_maps.py`, `landscape.py`, `lighthouse_interiors.py`, `vault_maps.py`, `demo_maps.py`, `pond_map.py` and room modules | `game/Data/Map*.rxdata`, tilesets, previews/reports |
-| Maze/pond/passage geometry | Map generators | `src/003_MapPassages.rb`, generated section of `018_PsychicMaze.rb`, `024_PondGeometry.rb` |
+| Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, generated section of `018_PsychicMaze.rb`, `024_PondGeometry.rb` |
 | Species, items, trainers, encounters | `tools/rebuild_*_data.py`, `rebuild_opening_items.py` | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
 | Artwork | `assets/<species>/` sources and export recipes | `game/Graphics/` |
 | Sound | `tools/create_audio.py`, existing attributed assets | `game/Audio/` |
@@ -24,16 +24,20 @@ format is future work, not part of this directory migration.
 
 ## Ruby loading and ownership
 
-`tools/rebuild_scripts.py` inserts all numbered `src/*.rb` in filename order
-immediately before Essentials' Main entry. The game reads the compiled archive.
-`tools/script_archive.py` rejects duplicate, out-of-order or stale custom entries
-and a competing `Plugins/Tidebound` installation.
+`tools/rebuild_scripts.py` embeds the files listed in `src/load_order.txt`
+immediately before Essentials' Main. The manifest, not filenames or directory
+sorting, controls the order. `tools/script_archive.py` rejects missing, duplicate,
+unlisted, out-of-order or stale sources and a competing `Plugins/Tidebound` copy.
 
-`001_Core` keeps game rules independent from the engine; `002_Essentials` adapts
-native objects and battle/save hooks. Later numbered modules group opening,
-coast, neighbour, vault, regional species, presentation and dream/hideout/pond
-content. Extend focused modules as features grow. Do not rename persistent Ruby
-classes merely to make filenames cleaner.
+`src/tidebound/domain/state.rb` owns the engine-independent rules;
+`engine/battles.rb` adapts native objects and save/battle hooks. Feature modules own
+story behavior. Shared NPC interactions are dispatched explicitly in
+`features/interactions.rb`; features do not prepend into one another. Engine
+adapters can still prepend into Essentials interfaces.
+
+Generated Ruby is confined to `src/generated/`. Maze, pond and collision data are
+whole generated files, never patches inside handwritten source. Necessary stock
+engine modifications are declared and checked in `tools/engine_patches.py`.
 
 `tests/prepare_reference.py` extracts stock engine code into an ignored inspection
 directory. Editing that extraction does not change the game. Stock scripts and

@@ -28,8 +28,11 @@ node tests/regional_snakes.cjs
 ```
 
 `tests/engine_reference/` is an ignored extraction of the current archive. It is
-not editable source. Native-object harnesses select stock scripts by numeric
-position, which must be reviewed on engine upgrades. Prefer the complete `check`
+not editable source. The shared VM harness resolves stock scripts by name and
+loads complete scripts. Integration scenarios load every custom archive entry in
+production order before exercising story flows. Engine/display services are
+explicit test fixtures; production modules are never split at comments or scraped
+into partial definitions. Prefer the complete `check`
 gate, which supplies fresh event scripts instead of relying on a stale report.
 Custom Ruby must remain compatible with the bundled Ruby 3.1 runtime, even though
 the Node harness uses Ruby 3.2 WASM.

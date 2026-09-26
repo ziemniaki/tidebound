@@ -13,10 +13,30 @@ def reject_plugin_copy(game):
         raise ValueError("Remove Plugins/Tidebound: custom scripts must load only from Data/Scripts.rxdata.")
 
 
-def source_files(dev):
-    files = sorted(dev.glob("[0-9][0-9][0-9]_*.rb"))
-    if not files:
-        raise ValueError(f"No numbered Ruby sources found in {dev}")
+def source_name(path, source_root):
+    name = path.relative_to(source_root).with_suffix('').as_posix()
+    return 'Tidebound/' + name.removeprefix('tidebound/')
+
+
+def source_files(source_root):
+    manifest = source_root / 'load_order.txt'
+    if not manifest.is_file():
+        raise ValueError(f'Missing source manifest: {manifest}')
+    names = [line.strip() for line in manifest.read_text().splitlines()
+             if line.strip() and not line.lstrip().startswith('#')]
+    if not names or len(names) != len(set(names)):
+        raise ValueError('Source manifest must list every file exactly once')
+    files = []
+    for name in names:
+        path = source_root / name
+        if (path.suffix != '.rb' or not path.resolve().is_relative_to(source_root.resolve())
+                or not path.is_file()):
+            raise ValueError(f'Missing or invalid source manifest entry: {name}')
+        files.append(path)
+    if set(files) != set(source_root.rglob('*.rb')):
+        raise ValueError('Source manifest must list every Ruby source exactly once; unlisted files found')
+    if len({source_name(path, source_root) for path in files}) != len(files):
+        raise ValueError('Source manifest produces duplicate archive names')
     return files
 
 
@@ -28,17 +48,17 @@ def validate_archive(game, dev):
     names = [script_name(entry[1]) for entry in entries]
     if names.count("Main") != 1:
         raise ValueError("Script archive must contain exactly one Main entry")
-    expected = ["Tidebound/" + path.stem for path in files]
+    expected = [source_name(path, dev) for path in files]
     actual = [name for name in names if name.startswith("Tidebound/")]
     if actual != expected:
-        raise ValueError("Tidebound entries must match numbered sources exactly once, in filename order")
+        raise ValueError("Tidebound entries must match manifest sources exactly once, in manifest order")
     main = names.index("Main")
     if names[max(0, main - len(expected)):main] != expected:
         raise ValueError("Tidebound entries must be contiguous immediately before Main")
     scripts = {script_name(entry[1]): zlib.decompress(entry[2]).decode("utf-8-sig")
                for entry in entries}
     for path in files:
-        if scripts["Tidebound/" + path.stem] != path.read_text(encoding="utf-8"):
+        if scripts[source_name(path, dev)] != path.read_text(encoding="utf-8"):
             raise ValueError(f"Embedded source differs from {path.name}; run tools/rebuild_scripts.py")
     if scripts["Main"].count("Scene_TideboundTitle") != 1:
         raise ValueError("Main must launch Scene_TideboundTitle exactly once")

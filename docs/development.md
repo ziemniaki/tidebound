@@ -35,7 +35,7 @@ installation is not required for normal development.
 | `uv run build --platform linux` | Cross-package a Linux x86_64 development copy |
 | `uv run check` | Tooling, geometry, scripts and quest/save tests; no game regeneration |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
-| `uv run rebuild` | Embed numbered Ruby source only |
+| `uv run rebuild` | Embed the Ruby load manifest only |
 | `uv run rebuild --all` | Intentionally regenerate maps, data, art, reports and scripts |
 | `uv run editor` | On Windows, restore ignored helpers and open `game/Game.rxproj` |
 
@@ -50,7 +50,7 @@ Closing the game returns control to `uv run play`. Old `.build/` directories and
 
 ## Editing without losing work
 
-Edit numbered `src/*.rb`, then run `uv run play` or `uv run rebuild`. The engine
+Edit `src/tidebound/`, register new files in `src/load_order.txt`, then run `uv run play` or `uv run rebuild`. The engine
 reads `game/Data/Scripts.rxdata`; source edits must be embedded. Never install a
 second plugin copy. See [architecture](architecture.md) for ownership.
 

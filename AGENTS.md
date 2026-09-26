@@ -26,7 +26,7 @@ uv run doctor          # inspect prerequisites
 uv run play            # embed Ruby, build a native dev copy, launch it
 uv run build           # build without launching
 uv run check           # tests and map/source agreement; no game regeneration
-uv run rebuild         # embed src/*.rb in game/Data/Scripts.rxdata
+uv run rebuild         # embed src/load_order.txt sources in game/Data/Scripts.rxdata
 uv run rebuild --all   # intentionally regenerate maps, data, art and scripts
 uv run check --all     # also compare regeneration in a disposable copy
 ```
@@ -42,7 +42,7 @@ Build outputs and restored binaries are ignored. Never commit saves or caches.
 | Change | Authoritative files |
 | --- | --- |
 | Game vision, canon, unresolved design | `specs/game-design.md` |
-| Custom Ruby, dialogue, state and presentation | Numbered `src/*.rb` |
+| Custom Ruby, dialogue, state and presentation | `src/tidebound/`; embedding order in `src/load_order.txt` |
 | Generated map layouts/events | `tools/rebuild_maps.py` and its map modules |
 | Generated species/items/encounters | `tools/rebuild_*_data.py`; then `game/PBS` and `game/Data` outputs |
 | Source artwork and export recipes | `assets/<species>/`; exports in `game/Graphics/` |
@@ -50,7 +50,9 @@ Build outputs and restored binaries are ignored. Never commit saves or caches.
 | Runtime inputs and patches | `runtime/`, pinned by `release.json` |
 | Tooling and workflow | `tools/`, `tests/`, `.github/workflows/`, `docs/` |
 
-Ruby is embedded once, in numeric order, immediately before Essentials' Main.
+Ruby is embedded once in `src/load_order.txt` order, immediately before Essentials' Main.
+Register every new Ruby file in that manifest. Generated Ruby belongs in
+`src/generated/`; generators must never rewrite handwritten source.
 Never install a second copy in `Plugins/Tidebound`. Ignored engine reference
 extractions under `tests/engine_reference/` are inspection copies, not source.
 
@@ -62,9 +64,11 @@ masks, not map-authoring sources.
 
 ## Preserve the game
 
-- Preserve Pokémon objects, identities, held items, quest flags, event IDs and
-  save class names. Schema changes need migrations; an empty party can mean an
-  unresolved astral journey. Never reset saves to hide an error.
+- Preserve current Pokémon objects, identities, held items and quest state. An
+  empty party can mean an unresolved astral journey. The refactoring explicitly
+  permits dropping historic save compatibility: use one supported-version boundary,
+  not feature-local migration chains. Never delete player save files or reset
+  current saves to hide errors.
 - Preserve `TideboundSaveState`, the release save namespace and
   `fontHeightReporting: 1`. Battle losses snapshot companions before Essentials
   heals them. Only won trainer battles advance victory flags.

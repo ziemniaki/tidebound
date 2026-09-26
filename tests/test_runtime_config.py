@@ -13,7 +13,7 @@ class RuntimeConfigTests(unittest.TestCase):
             root = Path(tmp)
             (root / 'game').mkdir()
             (root / 'game/mkxp.json').write_text(text)
-            scripts = {'Tidebound/001_Core': 'VERSION = "0.8.6"', 'Settings': 'GAME_VERSION = "0.8.6"'}
+            scripts = {'Tidebound/domain/state': 'VERSION = "0.8.6"', 'Settings': 'GAME_VERSION = "0.8.6"'}
             config = dict(version='0.8.6', runtime_archive='runtime', runtime_source='source', runtime_patch='patch',
                           runtime_sha256='hash', runtime_source_sha256='hash', runtime_patch_sha256='hash')
             with patch.object(release_tools, 'load_release', return_value=config), patch.object(release_tools, 'validate_archive', return_value=scripts), patch.object(release_tools, 'sha256', return_value='hash'):

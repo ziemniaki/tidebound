@@ -55,7 +55,7 @@ def parse_runtime_config(text):
 def check_sources(root=ROOT):
     config = load_release(root)
     scripts = validate_archive(root / "game", root / "src")
-    for name, pattern in (("Tidebound/001_Core", r'VERSION\s*=\s*"([^"]+)"'),
+    for name, pattern in (("Tidebound/domain/state", r'VERSION\s*=\s*"([^"]+)"'),
                           ("Settings", r'GAME_VERSION\s*=\s*"([^"]+)"')):
         match = re.search(pattern, scripts[name])
         if not match or match[1] != config["version"]:

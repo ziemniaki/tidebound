@@ -164,7 +164,7 @@ does not execute PR-controlled workflows with status-writing credentials.
 
 For the next release:
 
-1. Update `release.json` and `Tidebound::VERSION` in `src/001_Core.rb`.
+1. Update `release.json` and `Tidebound::VERSION` in `src/tidebound/domain/state.rb`.
    Increment `mac_build`, update current player/docs, and
    rebuild scripts. `rebuild_scripts.py` takes Essentials' version from the config.
 2. Run verification/regeneration and review the resulting source changes in a PR.

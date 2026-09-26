@@ -393,7 +393,7 @@ def build():
     collisions={str(m.id):[''.join('1' if b else '0' for b in row) for row in m.walk] for m in MAPS}
     (DEV / 'generated' / 'collisions.json').write_text(json.dumps(collisions,indent=2))
     ruby='module Tidebound\n  MAP_PASSAGES = {\n'+''.join(f'    {k} => {json.dumps(v)},\n' for k,v in collisions.items())+'  }\nend\n'
-    (DEV.parent / 'src' / '003_MapPassages.rb').write_text(ruby)
+    (DEV.parent / 'src' / 'generated/map_passages.rb').write_text(ruby)
     for m in MAPS:m.render()
     (DEV / 'generated' / 'map_manifest.json').write_text(json.dumps([{'id':m.id,'name':m.name,'width':m.w,'height':m.h,'targets':m.targets} for m in MAPS],indent=2))
     print('Built',len(MAPS),'native maps and collision masks')
