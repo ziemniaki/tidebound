@@ -117,7 +117,9 @@ def main(mode, folder=None):
             subprocess.run(['gh', 'api', '--method', 'DELETE',
                             f"repos/{repo}/releases/assets/{asset['id']}"], check=True)
     api(f"repos/{repo}/releases/{release['id']}", {
-        'draft': True, 'target_commitish': source,
+        # GitHub can reset a draft to an untagged placeholder when changing
+        # target_commitish unless tag_name is explicitly preserved in the PATCH.
+        'tag_name': tag, 'draft': True, 'target_commitish': source,
         'body': (folder / 'RELEASE_NOTES.md').read_text()})
     current, _ = check(repo, tag, source)
     actual = {a['name']: a.get('digest') for a in current['assets']}

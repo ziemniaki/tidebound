@@ -212,7 +212,7 @@
     "LINUX_README.txt": "62fed946611602c114c9373f7e0f583b6acdcdef5a099c02f5f90ad6ecbc87f7",
     "Runtime/Linux/PROVENANCE.md": "e1b7afabfa940d5782cadf801c75a679c876ecc6bb2146e7e267e7f26e3e5aff",
     "release.json": "de091e24672d2cf5887f319f312aa4e5531cc2070462d287d4d311166c458d68",
-    "Development/refresh_draft.py": "aa07665d433ae4fdbd087c65d3ce070dfbbf0b402af94d5fa2c394e7c10effaa",
+    "Development/refresh_draft.py": "58845d277aa565f1df14d29e113a125498404e55712923f832614f74d33e5dbd",
     "Development/Tests/test_refresh_draft.py": "37dc59bb7adb4f99e9c66e86192b24a6b0f5545a13594a351b4d0bc420c8cb9e",
     "RELEASE_NOTES.md": "0c9d3bf3f6d4c93c0ffdc3056de1746931832a31cc76d401e84ea9e9d41e90c9"
   },
