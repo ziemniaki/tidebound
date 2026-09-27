@@ -1,7 +1,6 @@
 """A malformed save setting must fail before a native fixture can launch."""
 
 from pathlib import Path
-import sys
 import tempfile
 import unittest
 from unittest.mock import patch

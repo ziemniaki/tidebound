@@ -3,11 +3,8 @@
 from pathlib import Path
 import argparse
 import hashlib
-import json
 import os
 import platform
-import plistlib
-import re
 import shutil
 import subprocess
 import sys

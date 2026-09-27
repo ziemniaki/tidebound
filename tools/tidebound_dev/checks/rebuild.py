@@ -3,10 +3,8 @@
 from pathlib import Path
 import shutil
 import subprocess
-import sys
 import tempfile
 
-from PIL import Image
 
 from tidebound_dev.paths import ROOT
 from tidebound_dev.files import equivalent

@@ -1,11 +1,9 @@
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-import copy
 import json
-import struct
 
-from .model import Map, RoadMap, tile, table, command, script
+from .model import tile, table, command, script
 from .shoreline import coastal_shoreline
 
 
@@ -58,16 +56,6 @@ def decorate(paths, palette, road):
             ) + [command(0)]
         elif road.actor_settings.get(a["@id"], {}).get("role") == "shore_duck":
             a["@x"], a["@y"] = 19, 62
-    road.targets = [
-        (
-            e.attributes["@name"],
-            e.attributes["@x"],
-            e.attributes["@y"],
-            e.attributes["@pages"][0].attributes["@trigger"],
-            t[4],
-        )
-        for e, t in zip(road.events.values(), road.targets)
-    ]
     for key, x, y, direction in [("toma", 25, 55, 2), ("ida", 38, 63, 4), ("renzo", 29, 72, 8)]:
         eid = road.event(
             "Pond fisher " + key,

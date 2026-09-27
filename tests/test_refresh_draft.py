@@ -1,6 +1,5 @@
 from pathlib import Path
 import json
-import sys
 import tempfile
 import unittest
 

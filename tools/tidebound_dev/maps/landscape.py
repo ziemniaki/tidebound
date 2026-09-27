@@ -1,11 +1,10 @@
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-import copy
 import json
 import struct
 
-from .model import Map, RoadMap, tile, table, command, script
+from .model import tile, table
 import math
 from collections import deque
 from .shoreline import shoreline
@@ -13,7 +12,7 @@ from .shoreline import shoreline
 
 def decorate(paths, palette, coast, forest, road, docks):
     # LISTENING WOOD: the path threads three groves, a key clearing, pool and camp.
-    palette.clear_nature(forest, True)
+    palette.clear_nature(forest)
     f = palette.painter(forest)
     f.reserve(12, 7, 5, 6)
     f.reserve(7, 19, 8, 5)

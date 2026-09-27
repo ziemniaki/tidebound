@@ -35,6 +35,18 @@ with patch("PIL.Image.open", side_effect=AssertionError("image read during impor
         self.assertNotEqual(first.serialize(), second.serialize())
         self.assertTrue(second.events)
 
+    def test_landscape_protects_relocated_events_without_a_shadow_position_list(self):
+        from tidebound_dev.maps.model import Map
+        from tidebound_dev.maps.landscape_painter import Landscape
+
+        area = Map(101, "Room", 10, 10, 1)
+        event_id = area.event("Object", 2, 2, "", blocks=True)
+        area.events[event_id].attributes["@x"] = 6
+        landscape = Landscape(area, None)
+        self.assertIn((6, 2), landscape.protected)
+        self.assertNotIn((2, 2), landscape.protected)
+        self.assertTrue(area.targets[0][-1])  # Relocation preserves authored collision intent.
+
     def test_validation_failure_does_not_publish_any_generated_files(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

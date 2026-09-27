@@ -1,12 +1,8 @@
-from .registry import MAPS, ACTORS
+from .registry import MAPS
 from PIL import Image, ImageDraw
-from rubymarshal.reader import loads
-from rubymarshal.writer import writes
-import copy
 import json
-import struct
 
-from .model import Map, RoadMap, tile, table, command, script
+from .model import Map
 
 
 def build(paths, interior):

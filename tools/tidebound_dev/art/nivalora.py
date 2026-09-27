@@ -40,19 +40,18 @@ def reduce(source, max_size):
 
 
 def generate(game, assets):
-    G, A = game, assets
     for face, source in [("Front", "approved_front.png"), ("Back", "rear_source.png")]:
-        small = reduce(A / source, (72, 72))
+        small = reduce(assets / source, (72, 72))
         double = small.resize((small.width * 2, small.height * 2), Image.Resampling.NEAREST)
         frame = Image.new("RGBA", (160, 160))
         frame.paste(
             double, ((160 - double.width) // 2, 8 if face == "Front" else 160 - double.height)
         )
         for directory in [face, face + " shiny"]:
-            frame.save(G / f"Graphics/Pokemon/{directory}/FROSTCOON_EVOLUTION.png")
-    small = reduce(A / "approved_front.png", (28, 28))
+            frame.save(game / f"Graphics/Pokemon/{directory}/NIVALORA.png")
+    small = reduce(assets / "approved_front.png", (28, 28))
     icon = small.resize((small.width * 2, small.height * 2), Image.Resampling.NEAREST)
     sheet = Image.new("RGBA", (128, 64))
     for x, y in [(0, 6), (64, 4)]:
         sheet.paste(icon, (x + (64 - icon.width) // 2, y))
-    sheet.save(G / "Graphics/Pokemon/Icons/FROSTCOON_EVOLUTION.png")
+    sheet.save(game / "Graphics/Pokemon/Icons/NIVALORA.png")

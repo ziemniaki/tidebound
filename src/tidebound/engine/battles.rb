@@ -10,11 +10,6 @@ module Tidebound
     { map_id: $game_map.map_id, x: $game_player.x, y: $game_player.y }
   end
 
-  def self.checkpoint!(map_id, x, y, direction = 2)
-    state.rest!($player.party)
-    state.checkpoint = [map_id, x, y, direction]
-  end
-
   # The map event must perform Transfer Player after an :astral return value.
   def self.wild!(*foes)
     living_battle! { WildBattle.start_core(*foes) }

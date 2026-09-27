@@ -7,7 +7,6 @@ class TideboundCompanionSprite < PokemonIconSprite
     actor = Tidebound::Actors.info(event)
     @house_species =
       %w[house room outside_dog].include?(actor["role"]) ? actor.fetch("species").to_sym : nil
-    @outside_dog = actor["role"] == "outside_dog"
     @spirit_index = actor["index"]
     record = @spirit_index.nil? ? nil : Tidebound.state.souls[@spirit_index]
     original = @house_species ? Tidebound::Opening.household_pets[@house_species] : record&.pokemon

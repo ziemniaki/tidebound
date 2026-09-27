@@ -1,7 +1,6 @@
 """Regression coverage for regional template resolution and family relationships."""
 
 from pathlib import Path
-import sys
 import unittest
 from unittest.mock import patch
 import importlib
@@ -26,9 +25,6 @@ class SpeciesCompilerTests(unittest.TestCase):
             for module in (
                 "content.species",
                 "content.species_compiler",
-                "art.frostcoon",
-                "art.snakes",
-                "art.whyduck",
             ):
                 importlib.reload(importlib.import_module("tidebound_dev." + module))
 

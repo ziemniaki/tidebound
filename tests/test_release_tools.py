@@ -5,7 +5,6 @@ import textwrap
 import json
 import plistlib
 import stat
-import sys
 import tempfile
 import unittest
 from unittest.mock import patch

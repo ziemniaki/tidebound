@@ -2,7 +2,7 @@
 
 These builders own maps 101–116. `compiler.construct` composes their areas and
 painters; `serialization.serialize` writes RPG Maker maps, metadata, masks and
-previews. `registry.py` exports map/actor names to Ruby. Read
+previews. `registry.py` exports map/actor identities and roles to Ruby. Read
 [src/AGENTS.md](../../../src/AGENTS.md) for the gameplay side of an event.
 
 ## Add a map
@@ -70,6 +70,7 @@ previews. `registry.py` exports map/actor names to Ruby. Read
   `opening_flow.rb`, `neighbor_flow.rb` and `hideout_flow.rb`; dream/folded-room
   arrival/retry/return branches are in `world_boundaries.rb`.
 
-[Engine evidence](../../../docs/essentials-contracts.md) and
-[audit follow-ups](../../../docs/decisions/authoring-audit.md) describe the current
-limits. Do not expand every builder into a generic map framework to add one area.
+[Engine evidence](../../../docs/essentials-contracts.md) describes the inspected
+contracts. `Map.targets` derives current event coordinates; painters can relocate
+an event without resynchronizing a second position list. `blocking_events` retains
+authored collision intent when a painter redraws the floor.

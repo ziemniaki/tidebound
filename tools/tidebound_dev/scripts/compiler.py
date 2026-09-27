@@ -1,7 +1,6 @@
 """Embed the manifest's Ruby files and the explicit Essentials adaptations."""
 
 from tidebound_dev.paths import ROOT
-from pathlib import Path
 import zlib
 
 from rubymarshal.reader import loads

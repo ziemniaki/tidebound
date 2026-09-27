@@ -7,7 +7,6 @@ import tempfile
 import shutil
 from contextlib import ExitStack
 from rubymarshal.reader import loads
-from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol
 from unittest.mock import patch
 

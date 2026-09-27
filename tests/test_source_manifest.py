@@ -1,7 +1,6 @@
 """The manifest is authoritative; missing and undiscovered sources must fail."""
 
 from pathlib import Path
-import sys
 import tempfile
 import unittest
 

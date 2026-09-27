@@ -401,7 +401,7 @@ class Map:
         self.layers[0] = [[floor] * w for _ in range(h)]
         self.walk = [[False] * w for _ in range(h)]
         self.events = {}
-        self.targets = []
+        self.blocking_events = set()
         self.transfers = []
         self.actor_settings = {}
 
@@ -482,8 +482,22 @@ class Map:
         )
         if blocks:
             self.walk[y][x] = False
-        self.targets.append((name, x, y, trigger, blocks))
+            self.blocking_events.add(eid)
         return eid
+
+    @property
+    def targets(self):
+        """Current event positions; painters must not maintain a second copy."""
+        return [
+            (
+                event.attributes["@name"],
+                event.attributes["@x"],
+                event.attributes["@y"],
+                event.attributes["@pages"][0].attributes["@trigger"],
+                event_id in self.blocking_events,
+            )
+            for event_id, event in self.events.items()
+        ]
 
     def door(self, x, y, destination, dx, dy, d=2, name="Door", *, cue="south"):
         """Source uses this area's coordinates; destinations are always absolute."""

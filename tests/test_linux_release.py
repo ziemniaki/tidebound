@@ -1,7 +1,6 @@
 from pathlib import Path
 import json
 import struct
-import sys
 import tempfile
 import unittest
 from unittest.mock import patch

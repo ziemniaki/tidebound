@@ -3,10 +3,9 @@
 - [Maintainer workflow](maintainer.md): ask for a change, try it, review it.
 - [Development](development.md): setup, commands and editor support.
 - [Architecture](architecture.md): ownership, generated data and save invariants.
-- [Authoring audit](decisions/authoring-audit.md): current structural gaps and focused follow-ups.
 - [Essentials contracts](essentials-contracts.md): inspected engine APIs and versioned sources.
-- [Completed refactoring](decisions/refactoring-plan.md): the work shipped in 0.8.7.
 - [Current status](status.md): what is playable and what remains planned.
+- [Artwork](artwork.md): editable sources, exporters and approved visual details.
 - [Testing](testing.md): headless and native checks.
 - [Releasing](releasing.md): checks, tags, draft review and publication.
 - [Repository workflow](repository-workflow.md): branches, PRs and handoffs.

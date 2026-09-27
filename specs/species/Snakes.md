@@ -1,9 +1,6 @@
-# Tidebound Ekans / Arbok
+# Regional Ekans and Arbok
 
-User-authorized manual recolor: gray scales, unchanged native pixel shapes and
-alpha. Yellow/orange details, eyes, belly bands and Arbok hood markings remain.
-Run `uv run rebuild --all` to reproduce data and art.
-Normal and provisional shiny regional sprites share this palette.
+Gray scales preserve the native pixel shapes, eyes, belly bands and hood markings.
 
 Both forms are Normal/Dark. Stats/abilities are unchanged. Ekans evolves at 22.
 Level-up move levels stay unchanged. Every Poison-type move is replaced, including
