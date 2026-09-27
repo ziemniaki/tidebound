@@ -25,8 +25,8 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
    Use `World.travel`, `World.actor` and `Encounters` at engine boundaries. Check
    their actual return values. New shared operations belong in `world/` or
    `engine/`, not in an unrelated story chapter.
-4. Format, rebuild, then `uv run check`. Map-event edits also require full rebuild
-   and `check --all`. Add the relevant branch to a production-composition scenario;
+4. Format, run `uv run build --compile-only`, then `uv run check`. Map-event edits
+   also need `check --all`. Add the relevant branch to a production-composition scenario;
    play the interaction, interruption/retry and map re-entry when applicable.
 
 ## Engine contracts that are easy to miss

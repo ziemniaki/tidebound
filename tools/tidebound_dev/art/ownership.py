@@ -97,7 +97,9 @@ def publish(root, owners):
 def validate(root):
     expected, _ = inventory(root)
     if recorded(root) != expected:
-        raise ValueError("Asset ownership changed; run uv run rebuild and stage the outputs")
+        raise ValueError(
+            "Asset ownership changed; run uv run build --compile-only and stage the outputs"
+        )
     missing = [name for name in expected if not (root / name).is_file()]
     if missing:
         raise ValueError("Missing generated assets:\n" + "\n".join(missing))

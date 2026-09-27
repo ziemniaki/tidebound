@@ -97,4 +97,4 @@ def prepare(root, expected):
 
 def validate(root):
     if recorded(root) != inventory(root):
-        raise ValueError("Content ownership changed; run uv run rebuild")
+        raise ValueError("Content ownership changed; run uv run build --compile-only")

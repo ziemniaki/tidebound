@@ -51,8 +51,14 @@ def parser():
     cli = argparse.ArgumentParser(prog="tidebound", description=__doc__)
     commands = cli.add_subparsers(dest="command", required=True)
     build = commands.add_parser("build", help="Stage a development player")
-    build.add_argument(
+    build_options = build.add_mutually_exclusive_group()
+    build_options.add_argument(
         "--platform", choices=("mac", "windows", "linux"), help="Defaults to this computer"
+    )
+    build_options.add_argument(
+        "--compile-only",
+        action="store_true",
+        help="Update the game and editor checkpoint without packaging a player",
     )
     play = commands.add_parser("play", help="Build and launch a development player")
     play.add_argument(
@@ -64,7 +70,6 @@ def parser():
     preview.add_argument("asset", help="Asset selector, e.g. pokemon/WHYDUCK or props/moored_ship")
     check = commands.add_parser("check", help="Verify the compiled game")
     check.add_argument("--all", action="store_true", help="Also verify isolated regeneration")
-    commands.add_parser("rebuild", help="Compile all authored maps, content, assets and scripts")
     package = commands.add_parser("package", help="Package one native player")
     package.add_argument("platform", choices=("mac", "windows", "linux"))
     package.add_argument("output", type=Path)
@@ -77,6 +82,12 @@ def parser():
 
 
 def execute(args):
+    if args.command == "build" and args.compile_only:
+        from .pipeline import rebuild
+
+        rebuild(ROOT)
+        print(f"Compiled project: {ROOT / 'game'}", flush=True)
+        return
     if args.command in ("build", "play", "preview"):
         target = getattr(args, "platform", None) or host_platform()
         launcher = development_build(
@@ -95,10 +106,6 @@ def execute(args):
         from .checks import verify
 
         verify(ROOT, full=args.all)
-    elif args.command == "rebuild":
-        from .pipeline import rebuild
-
-        rebuild(ROOT)
     elif args.command == "editor":
         from .maps.editor import import_changes
 
@@ -136,10 +143,6 @@ def preview():
 
 def check():
     main(["check", *sys.argv[1:]])
-
-
-def rebuild():
-    main(["rebuild", *sys.argv[1:]])
 
 
 def editor():

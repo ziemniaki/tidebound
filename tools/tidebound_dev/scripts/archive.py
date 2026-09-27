@@ -73,7 +73,9 @@ def validate_archive(game, dev):
     }
     for path in files:
         if scripts[source_name(path, dev)] != path.read_text(encoding="utf-8"):
-            raise ValueError(f"Embedded source differs from {path.name}; run uv run rebuild")
+            raise ValueError(
+                f"Embedded source differs from {path.name}; run uv run build --compile-only"
+            )
     if scripts["Main"].count("Scene_TideboundTitle") != 1:
         raise ValueError("Main must launch Scene_TideboundTitle exactly once")
     return scripts

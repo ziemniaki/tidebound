@@ -134,7 +134,7 @@ source gate also compiles and tests the actual patched path-normalization helper
 
 Packaging occurs inside a temporary sibling directory. The output directory
 appears only after all package checks pass; failed attempts clean up their staging
-files. Existing output paths are rejected. Local content generation uses `uv run rebuild` and writes directly to the
+files. Existing output paths are rejected. Local content generation uses `uv run build --compile-only` and writes directly to the
 checkout.
 
 ## Pull requests and tags

@@ -31,7 +31,7 @@ The integer anchor is placed at the event and may lie outside the image. Optiona
 integer `z` fixes the layer. To reuse another prop's pixels, use `"image": "dock_boat"`
 and omit the local PNG; reuse must point directly to a bundle owning its image.
 Map events declare `{"role": "prop", "asset": "dock_boat"}` in their map's
-`actor_settings`; rebuild with `--all`.
+`actor_settings`; compile with `uv run build --compile-only`.
 An image does not set collision, and filenames do not select gameplay behavior.
 
 Static props share `presentation/props.rb`; flicker and quest transitions stay

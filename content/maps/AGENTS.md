@@ -68,7 +68,7 @@ in RPG Maker and import it using the linked editor workflow; no scaffold is need
 Procedural tools may write these same files as a one-time authoring operation.
 Their output is ordinary editable content; generators are never a build dependency.
 
-Run `uv run play` to compile and play; `uv run rebuild` exports without
+Run `uv run play` to compile and play; `uv run build --compile-only` exports without
 launching. Inspect `.build/maps/map_<id>_preview.png`, then verify entrances,
 interactions and collision in the player. Stage sources/exports and run
 `uv run check --all`. Previews do not establish event scheduling or gameplay.

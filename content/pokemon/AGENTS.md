@@ -34,7 +34,7 @@ live in the same folder. Naming/ownership: [architecture](../../docs/architectur
    (`Front`, `Back`, `Icons`) to `[[source_rgb, target_rgb], ...]` replacements.
    Missing expected colours fail export. Preview all frames, then inspect battle
    and party composition; form fallback can hide missing assets.
-6. Format, `uv run rebuild`, stage additions, then `uv run check --all`.
+6. Format, `uv run build --compile-only`, stage additions, then `uv run check --all`.
    Native verification derives its roster from the catalog and compares all native
    species/metric attributes except PBS source bookkeeping and non-evolving family
    backlinks. It checks exact front/back/shiny/icon/cry resolution. Cry exports and native expectations share the asset catalog; normal/shiny party

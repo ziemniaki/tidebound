@@ -45,7 +45,7 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run format --check` | Check formatting without editing |
 | `uv run check` | Formatting, tooling, geometry, scripts and quest/save tests; no game regeneration |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
-| `uv run rebuild` | Regenerate maps, data, pipeline-owned art, reports and scripts |
+| `uv run build --compile-only` | Compile the project and checkpoint it without packaging a player |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
 | `uv run editor import` | Import saved map/tileset edits into authored files; works on every platform |
 
@@ -69,7 +69,7 @@ engine reference files are excluded. Format before rebuilding the script archive
 
 ## Editing without losing work
 
-Edit `src/tidebound/`, register new files in `src/load_order.txt`, then run `uv run play` or `uv run rebuild`. The engine
+Edit `src/tidebound/`, register new files in `src/load_order.txt`, then run `uv run play` or `uv run build --compile-only`. The engine
 reads `game/Data/Scripts.rxdata`; source edits must be embedded. Never install a
 second plugin copy. See [architecture](architecture.md) for ownership.
 
@@ -78,8 +78,8 @@ second plugin copy. See [architecture](architecture.md) for ownership.
 The everyday Mac workflow is agent/source edits followed by `uv run play`, with
 `--from` for a declared starting state. RPG Maker is optional; builds never launch it.
 
-1. `uv run play`, `uv run build` and `uv run rebuild` all compile the authored game
-   and automatically record the exported map/tileset state after success.
+1. `uv run build` (optionally `--compile-only`) or `uv run play` compiles the game
+   and automatically records the exported map/tileset state after success.
 2. For visual map editing, open `game/Game.rxproj` manually in RPG Maker XP on
    a compatible Windows environment. Edit and **save**, then close the editor.
 3. Run `uv run editor import`. Tiles, events (including all pages/routes), map
@@ -118,7 +118,7 @@ and uses the project/release save namespace. No editor installation is needed fo
 JSON authoring, importing saved project files or native Mac/Linux playtesting.
 
 Full regeneration writes directly to tracked files. If it fails, fix the reported
-error and rerun `uv run rebuild` before playing. Review the generated diff
+error and rerun `uv run build --compile-only` before playing. Review the generated diff
 in Git; `uv run check --all` verifies reproducibility in a disposable copy.
 
 Keep compiled data checked in: stock Essentials inputs cannot all be rebuilt
@@ -180,7 +180,7 @@ species catalogs and shared NPC dispatch. Individual map layouts belong in
 Include source and generated outputs in the PR. When combining work, resolve
 source first, then regenerate once. For compiled binary conflicts, use a
 known common baseline, apply the combined source, then run `uv run format`,
-`uv run rebuild` and `uv run check --all`. Never choose one branch's archive
+`uv run build --compile-only` and `uv run check --all`. Never choose one branch's archive
 wholesale: that can discard another feature. Stock data and supplied editor/asset
 edits need their own reconciliation. Never regenerate in another agent's active
 checkout. Handoffs name the branch/commit, checks and remaining work.
