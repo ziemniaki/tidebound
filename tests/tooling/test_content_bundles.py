@@ -24,6 +24,9 @@ class ContentBundleTests(unittest.TestCase):
     def test_unexportable_names_and_audio_formats_fail_before_generation(self):
         for name in (
             "audio/music/theme.mid",
+            "ui/theme.ogg",
+            "effects/unused.json",
+            "ui/nested/image.png",
             "audio/BGM/theme.ogg",
             "audio/muisc/theme.ogg",
             "actors/ivo/walk.png",

@@ -82,6 +82,9 @@ def validate_names(root):
         if path.is_file() and category in roles:
             if len(relative.parts) != 3 or path.name not in roles[category]:
                 raise ValueError(f"{relative}: expected bundle files {sorted(roles[category])}")
+        if path.is_file() and category in {"ui", "effects", "tilesets"}:
+            if path.suffix != ".png" or (category != "tilesets" and len(relative.parts) != 2):
+                raise ValueError(f"{relative}: expected an approved PNG in {category}/")
         if category == "audio" and len(relative.parts) > 1:
             if relative.parts[1] not in AUDIO or (
                 path.is_file() and (len(relative.parts) != 3 or path.suffix != ".ogg")

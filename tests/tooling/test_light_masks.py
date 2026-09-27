@@ -13,7 +13,7 @@ class LightMaskTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             for directory in (
-                "content/tilesets/Outside",
+                "content/tilesets/outside",
                 "game/Graphics/Pictures/Tidebound",
                 "src/generated",
             ):
