@@ -5,10 +5,10 @@ StartMoney = 0
 StartItemStorage = 
 Home = 101,6,10,2
 StorageCreator = Bill
-WildBattleBGM = Tidebound Stillness
-TrainerBattleBGM = Tidebound Stillness
-WildVictoryBGM = Tidebound Stillness
-TrainerVictoryBGM = Tidebound Stillness
+WildBattleBGM = stillness
+TrainerBattleBGM = stillness
+WildVictoryBGM = stillness
+TrainerVictoryBGM = stillness
 SurfBGM = Surfing
 BicycleBGM = Bicycle
 #-------------------------------

@@ -1,0 +1,71 @@
+{
+  "id": 102,
+  "atmosphere": "night",
+  "origin": [24, 20],
+  "entrances": {
+    "from_home": [32, 36, 2],
+    "from_forest": [48, 25, 2],
+    "from_shop": [45, 32, 2],
+    "shore": [77, 40, 2],
+    "from_road": [54, 50, 8]
+  },
+  "name": "Shiohama",
+  "actor_settings": {
+    "1": {
+      "cue": "north"
+    },
+    "2": {
+      "cue": "south"
+    },
+    "3": {
+      "key": "seller_outside",
+      "role": "npc"
+    },
+    "4": {
+      "key": "pookie_outside",
+      "role": "outside_dog",
+      "species": "POOCHYENA"
+    },
+    "9": {
+      "role": "lapras"
+    },
+    "10": {
+      "role": "prop",
+      "asset": "tide_bell"
+    },
+    "11": {
+      "cue": "north"
+    },
+    "13": {
+      "role": "prop",
+      "asset": "sea_glass"
+    },
+    "14": {
+      "role": "coast_lamp"
+    },
+    "15": {
+      "role": "coast_lamp"
+    },
+    "16": {
+      "role": "prop",
+      "asset": "mooring_rope"
+    },
+    "17": {
+      "cue": "south"
+    },
+    "18": {
+      "key": "robbery_youth_one",
+      "role": "npc"
+    },
+    "19": {
+      "key": "robbery_youth_two",
+      "role": "npc"
+    },
+    "21": {
+      "role": "berry"
+    },
+    "22": {
+      "role": "coast_lamp"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": 115,
+  "entrances": {
+    "start": [7, 8, 2],
+    "bed": [4, 7, 2],
+    "books": [7, 5, 2],
+    "door": [9, 8, 2]
+  },
+  "name": "Your Room",
+  "actor_settings": {
+    "26": {
+      "role": "room",
+      "species": "NATU"
+    }
+  }
+}

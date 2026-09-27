@@ -1,7 +1,6 @@
 from ..files import save_png
 from .preview import PreviewRenderer
 from .registry import write_registry
-from . import definitions
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 import json
@@ -42,31 +41,33 @@ def serialize(paths, maps):
         infos[m.id] = obj(
             "RPG::MapInfo",
             name=m.name,
-            parent_id=0,
-            order=m.id,
+            parent_id=m.definition.parent_id,
+            order=m.definition.order or m.id,
             expanded=True,
             scroll_x=320,
             scroll_y=240,
         )
         md = loads(writes(template))
-        md.attributes.update({"@id": m.id, **definitions.BY_ID[m.id].native_metadata(m.name)})
+        md.attributes.update({"@id": m.id, **m.definition.native_metadata(m.name)})
         metadata[m.id] = md
     (paths.game / "Data/MapInfos.rxdata").write_bytes(writes(infos))
     (paths.game / "Data/map_metadata.dat").write_bytes(writes(metadata))
     collisions = {
         str(m.id): ["".join("1" if b else "0" for b in row) for row in m.walk] for m in maps
     }
-    (paths.tools / "generated" / "collisions.json").write_text(json.dumps(collisions, indent=2))
+    (paths.generated / "collisions.json").write_text(json.dumps(collisions, indent=2))
     ruby = (
         "module Tidebound\n  MAP_PASSAGES = {\n"
         + "".join(f"    {k} => {json.dumps(v)},\n" for k, v in collisions.items())
         + "  }\nend\n"
     )
-    (paths.tools.parent / "src" / "generated/map_passages.rb").write_text(ruby)
+    (paths.root / "src" / "generated/map_passages.rb").write_text(ruby)
+    preview_dir = paths.root / ".build/maps"
+    preview_dir.mkdir(parents=True, exist_ok=True)
     previews = PreviewRenderer(paths.game)
     for m in maps:
-        save_png(previews.render(m), paths.tools / "generated" / f"map_{m.id}_preview.png")
-    (paths.tools / "generated" / "map_manifest.json").write_text(
+        save_png(previews.render(m), preview_dir / f"map_{m.id}_preview.png")
+    (paths.generated / "map_manifest.json").write_text(
         json.dumps(
             [
                 {
@@ -74,8 +75,6 @@ def serialize(paths, maps):
                     "name": m.name,
                     "width": m.w,
                     "height": m.h,
-                    "targets": m.targets,
-                    "transfers": m.transfers,
                 }
                 for m in maps
             ],

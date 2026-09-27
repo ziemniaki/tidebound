@@ -1,0 +1,112 @@
+{
+  "species": {
+    "inherit": "SILCOON",
+    "fields": {
+      "Name": "Frostcoon",
+      "Types": ["BUG", "ICE"],
+      "BaseStats": [65, 35, 95, 15, 55, 85],
+      "GenderRatio": "Female50Percent",
+      "GrowthRate": "Medium",
+      "BaseExp": 95,
+      "EVs": [["DEFENSE", 2]],
+      "CatchRate": 120,
+      "Happiness": 50,
+      "Abilities": ["SHELLARMOR"],
+      "Moves": [
+        [0, "SPIKES"],
+        [1, "HARDEN"],
+        [1, "STRINGSHOT"],
+        [10, "WISH"],
+        [13, "STUNSPORE"],
+        [16, "RAINDANCE"],
+        [19, "PROTECT"],
+        [22, "LIFEDEW"],
+        [25, "STICKYWEB"],
+        [28, "SLEEPPOWDER"],
+        [31, "HAIL"],
+        [34, "AURORAVEIL"],
+        [38, "REFLECT"],
+        [42, "LIGHTSCREEN"],
+        [46, "SAFEGUARD"],
+        [50, "BATONPASS"],
+        [54, "WIDEGUARD"]
+      ],
+      "TutorMoves": [
+        "PROTECT",
+        "ENDURE",
+        "SUBSTITUTE",
+        "SAFEGUARD",
+        "LIGHTSCREEN",
+        "REFLECT",
+        "HAIL",
+        "RAINDANCE",
+        "IRONDEFENSE",
+        "HELPINGHAND"
+      ],
+      "EggGroups": ["Bug"],
+      "HatchSteps": 3840,
+      "Height": 0.7,
+      "Weight": 12.0,
+      "Color": "Blue",
+      "Shape": "Head",
+      "Habitat": "Forest",
+      "Category": "Frozen Silk",
+      "Pokedex": "It seals itself in silk glazed with frost. Even when its shell lies perfectly still, a faint scratching can be heard from within.",
+      "Generation": 0,
+      "Flags": ["DefaultForm_0"],
+      "Evolutions": [["NIVALORA", "Level", 55]],
+      "EggMoves": [],
+      "HiddenAbilities": [],
+      "WildItemCommon": [],
+      "WildItemUncommon": [],
+      "WildItemRare": []
+    }
+  },
+  "art": {
+    "cry": "SILCOON",
+    "stock": "SILCOON",
+    "palette": {
+      "Front": [
+        [[238, 238, 230], [231, 249, 255]],
+        [[222, 213, 230], [179, 228, 248]],
+        [[189, 189, 205], [121, 189, 224]],
+        [[172, 172, 180], [92, 159, 197]],
+        [[139, 139, 148], [66, 125, 164]],
+        [[106, 106, 115], [47, 90, 123]],
+        [[24, 24, 24], [22, 43, 62]],
+        [[16, 16, 24], [15, 32, 48]],
+        [[197, 8, 0], [225, 190, 49]],
+        [[246, 106, 98], [255, 233, 122]]
+      ],
+      "Back": [
+        [[236, 238, 228], [231, 249, 255]],
+        [[220, 214, 228], [179, 228, 248]],
+        [[188, 190, 204], [121, 189, 224]],
+        [[172, 174, 180], [92, 159, 197]],
+        [[140, 138, 148], [66, 125, 164]],
+        [[108, 106, 116], [47, 90, 123]],
+        [[28, 26, 28], [22, 43, 62]],
+        [[252, 254, 252], [250, 255, 255]],
+        [[196, 10, 4], [225, 190, 49]]
+      ],
+      "Icons": [
+        [[248, 248, 248], [223, 247, 255]],
+        [[184, 184, 176], [137, 205, 235]],
+        [[120, 120, 120], [87, 154, 194]],
+        [[96, 96, 88], [54, 105, 145]],
+        [[64, 64, 64], [25, 50, 72]],
+        [[240, 96, 80], [248, 216, 79]]
+      ]
+    }
+  },
+  "metrics": {
+    "inherit": "SILCOON",
+    "fields": {
+      "BackSprite": [-2, 0],
+      "FrontSprite": [0, 24],
+      "FrontSpriteAltitude": 0,
+      "ShadowX": 0,
+      "ShadowSize": 2
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": 106,
+  "entrances": {
+    "door": [8, 10, 2]
+  },
+  "name": "The Oil Shop",
+  "actor_settings": {
+    "1": {
+      "key": "oil_seller",
+      "role": "npc"
+    },
+    "4": {
+      "cue": "south"
+    }
+  }
+}

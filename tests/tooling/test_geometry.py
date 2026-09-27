@@ -7,7 +7,7 @@ import unittest
 from rubymarshal.reader import loads
 
 ROOT = Path(__file__).resolve().parents[2]
-GENERATED = ROOT / "tools/generated"
+GENERATED = ROOT / "game/.generated"
 DIRECTIONS = {2: (0, 1), 4: (-1, 0), 6: (1, 0), 8: (0, -1)}
 
 

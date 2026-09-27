@@ -1,0 +1,849 @@
+{
+  "$type": "RPG::Map",
+  "tileset_id": 27,
+  "width": 26,
+  "height": 20,
+  "autoplay_bgm": true,
+  "bgm": {
+    "$type": "RPG::AudioFile",
+    "name": "stillness",
+    "volume": 80,
+    "pitch": 100
+  },
+  "autoplay_bgs": false,
+  "bgs": {
+    "$type": "RPG::AudioFile",
+    "name": "",
+    "volume": 100,
+    "pitch": 100
+  },
+  "encounter_list": [],
+  "encounter_step": 30,
+  "data": {
+    "$type": "Table",
+    "shape": [26, 20, 3],
+    "rows": [
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [2512, 2512, 2512, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2512, 2512, 2512],
+      [2512, 2512, 2512, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2515, 2516, 2458, 2515, 2516, 2517, 2459, 2457, 2517, 2459, 2516, 2517, 2459, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2459, 2457, 2517, 2515, 2457, 2458, 2459, 2516, 2517, 2459, 2516, 2517, 2459, 2457, 2458, 2459, 2457, 2517, 2515, 2457, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2457, 2458, 2459, 2457, 2458, 2515, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2459, 2516, 2517, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2517, 2515, 2457, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2457, 2517, 2515, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2515, 2516, 2458, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2458, 2459, 2457, 2458, 2459, 2457, 2517, 2459, 2457, 2458, 2459, 2516, 2517, 2459, 2457, 2458, 2459, 2516, 2517, 2459, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2517, 2515, 2457, 2458, 2459, 2457, 2517, 2459, 2457, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2457, 2458, 2459, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 2460, 0, 0, 0],
+      [0, 0, 0, 2461, 2461, 2461, 2461, 2461, 2461, 2461, 2461, 2461, 2461, 2461, 2461, 2460, 2461, 2461, 2460, 2461, 2461, 2461, 2461, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2484, 2485, 0, 2484, 2485, 2460, 0, 0, 2460, 0, 2484, 2485, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2486, 2487, 0, 2486, 2487, 0, 0, 0, 0, 0, 2486, 2487, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 2413, 2414, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2484, 2485, 0, 0, 0, 0],
+      [0, 0, 0, 0, 2415, 2416, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2486, 2487, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2508, 2509, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2403, 2510, 0, 0, 2427, 0, 0, 0, 0, 2484, 2485, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2405, 2406, 0, 0, 0, 0, 0, 0, 0, 2486, 2487, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  "events": {
+    "1": {
+      "$type": "RPG::Event",
+      "id": 1,
+      "name": "Door",
+      "x": 6,
+      "y": 14,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 1,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 201,
+              "indent": 0,
+              "parameters": [0, 101, 4, 12, 6, 0]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "$type": "RPG::Event",
+      "id": 2,
+      "name": "Crate cellar",
+      "x": 5,
+      "y": 5,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "Pokemon 01",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 0,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Oil tins and spare glass, wrapped carefully against the damp.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "$type": "RPG::Event",
+      "id": 3,
+      "name": "Crate cellar",
+      "x": 6,
+      "y": 5,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "Pokemon 01",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 0,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Oil tins and spare glass, wrapped carefully against the damp.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "$type": "RPG::Event",
+      "id": 4,
+      "name": "Crate cellar",
+      "x": 8,
+      "y": 6,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "Pokemon 01",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 0,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Oil tins and spare glass, wrapped carefully against the damp.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "$type": "RPG::Event",
+      "id": 5,
+      "name": "Crate cellar",
+      "x": 20,
+      "y": 13,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "Pokemon 01",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 0,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Oil tins and spare glass, wrapped carefully against the damp.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "6": {
+      "$type": "RPG::Event",
+      "id": 6,
+      "name": "Crate cellar",
+      "x": 21,
+      "y": 13,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "Pokemon 01",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 0,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Oil tins and spare glass, wrapped carefully against the damp.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "7": {
+      "$type": "RPG::Event",
+      "id": 7,
+      "name": "Crate cellar",
+      "x": 20,
+      "y": 14,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "Pokemon 01",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 0,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Oil tins and spare glass, wrapped carefully against the damp.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "8": {
+      "$type": "RPG::Event",
+      "id": 8,
+      "name": "Old tools",
+      "x": 6,
+      "y": 11,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"A brush worn down to its wood. A spare lamp spindle. Tools repaired more often than replaced.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "9": {
+      "$type": "RPG::Event",
+      "id": 9,
+      "name": "Vault doorway",
+      "x": 17,
+      "y": 4,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::VaultVisit.vault_door"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "10": {
+      "$type": "RPG::Event",
+      "id": 10,
+      "name": "Vault ironwork",
+      "x": 17,
+      "y": 3,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"The iron door is far thicker than the cellar walls. Mother has left it open.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "11": {
+      "$type": "RPG::Event",
+      "id": 11,
+      "name": "Coast lamp:cellar",
+      "x": 13,
+      "y": 8,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Mother has brought a lamp down.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

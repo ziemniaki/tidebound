@@ -1,0 +1,55 @@
+{
+  "id": 101,
+  "entrances": {
+    "start": [6, 10, 2],
+    "from_coast": [10, 12, 8],
+    "from_lantern": [16, 4, 2],
+    "from_bedroom": [6, 4, 2],
+    "from_basement": [4, 12, 6]
+  },
+  "name": "The Keeper's House",
+  "actor_settings": {
+    "1": {
+      "key": "mother",
+      "role": "npc"
+    },
+    "4": {
+      "key": "house_natu",
+      "role": "house",
+      "species": "NATU"
+    },
+    "5": {
+      "key": "house_makuhita",
+      "role": "house",
+      "species": "MAKUHITA"
+    },
+    "6": {
+      "key": "house_poochyena",
+      "role": "house",
+      "species": "POOCHYENA"
+    },
+    "7": {
+      "key": "crate",
+      "role": "crate"
+    },
+    "8": {
+      "role": "crate"
+    },
+    "9": {
+      "cue": "south"
+    },
+    "10": {
+      "cue": "south"
+    },
+    "11": {
+      "cue": "south"
+    },
+    "12": {
+      "cue": "south"
+    },
+    "13": {
+      "key": "seller_at_home",
+      "role": "npc"
+    }
+  }
+}

@@ -4,17 +4,10 @@ import json
 from pathlib import PurePosixPath
 
 from . import files, pokemon
-from ..maps.atlases import GROUPS
+from ..maps import tilesets
 
-MANIFEST = "tools/generated/assets.json"
-MAP_OUTPUTS = tuple(f"Graphics/Tilesets/{group.texture}.png" for group in GROUPS.values()) + (
-    "Graphics/Tilesets/TideboundPond.png",
-    "Graphics/Tilesets/TideboundVillage.png",
-    "Graphics/Autotiles/Tidebound Shallows.png",
-    "Graphics/Autotiles/Tidebound Open Sea.png",
-    "Graphics/Autotiles/Tidebound Deep Sea.png",
-    "Graphics/Pictures/Tidebound/window_panes.png",
-)
+MANIFEST = "game/.generated/assets.json"
+MAP_OUTPUTS = ("Graphics/Pictures/Tidebound/window_panes.png",)
 
 
 def inventory(root):
@@ -28,7 +21,11 @@ def inventory(root):
         folded.add(name.casefold())
         owners[name] = owner
 
-    for owner, producer in (("files", files.exports), ("pokemon", pokemon.exports)):
+    for owner, producer in (
+        ("files", files.exports),
+        ("pokemon", pokemon.exports),
+        ("tilesets", tilesets.exports),
+    ):
         for export in producer(root):
             register(export.destination, owner)
             exports.append(export)
@@ -62,6 +59,10 @@ def inventory(root):
             raise ValueError(f"Asset source is also a generated output: {source}")
         if not source.is_file():
             raise ValueError(f"Missing asset source: {source}")
+    previous_names = {name.casefold() for name in previous}
+    for name in owners:
+        if name.casefold() not in previous_names and (root / name).exists():
+            raise ValueError(f"Custom asset would overwrite an unowned file: {name}")
     return dict(sorted(owners.items())), exports
 
 
@@ -96,7 +97,9 @@ def publish(root, owners):
 def validate(root):
     expected, _ = inventory(root)
     if recorded(root) != expected:
-        raise ValueError("Asset ownership changed; run uv run rebuild --all and stage the outputs")
+        raise ValueError(
+            "Asset ownership changed; run uv run build --compile-only and stage the outputs"
+        )
     missing = [name for name in expected if not (root / name).is_file()]
     if missing:
         raise ValueError("Missing generated assets:\n" + "\n".join(missing))

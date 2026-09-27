@@ -1,0 +1,43 @@
+{
+  "id": 110,
+  "atmosphere": "vault",
+  "entrances": {
+    "stairs": [6, 13, 2],
+    "vault": [17, 5, 2],
+    "from_vault": [17, 5, 2]
+  },
+  "name": "The Lighthouse Cellar",
+  "actor_settings": {
+    "1": {
+      "cue": "south"
+    },
+    "2": {
+      "role": "crate"
+    },
+    "3": {
+      "role": "crate"
+    },
+    "4": {
+      "role": "crate"
+    },
+    "5": {
+      "role": "crate"
+    },
+    "6": {
+      "role": "crate"
+    },
+    "7": {
+      "role": "crate"
+    },
+    "9": {
+      "cue": "north"
+    },
+    "10": {
+      "role": "prop",
+      "asset": "vault_ironwork"
+    },
+    "11": {
+      "role": "coast_lamp"
+    }
+  }
+}

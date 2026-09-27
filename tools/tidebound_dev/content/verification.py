@@ -3,14 +3,10 @@
 from .species import SPECIES, METRICS
 from .species_compiler import identity
 
-from ..art.pokemon import POKEMON
-
 
 def inventory():
     # Include each form's base so compiler-added family relationships are checked.
     species = sorted(set(SPECIES) | {identity(name)[0] for name in SPECIES})
-    if SPECIES.keys() != POKEMON.keys():
-        raise ValueError(f"Species/art ownership mismatch: {SPECIES.keys() ^ POKEMON.keys()}")
     art = []
     for identifier in SPECIES:
         name, form = identity(identifier)

@@ -13,8 +13,8 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
    `Tidebound.story` for persistent quest state; keep new feature state under a
    feature-specific key. Read the existing owner's state rather than maintaining
    another copy. `features/interactions.rb` owns shared mother/seller dispatch.
-2. Put the short event call in the Python map builder; read the
-   [map workflow](../tools/tidebound_dev/maps/AGENTS.md). A new Ruby method alone
+2. Put the short event call in the authored map event page; read the
+   [map workflow](../content/maps/AGENTS.md). A new Ruby method alone
    does not connect it to a map. Do not override another feature's method to
    change an interaction's priority.
 3. Use `Scenes.run(*events, restore_positions: true) { ... }` for temporary actor
@@ -25,8 +25,8 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
    Use `World.travel`, `World.actor` and `Encounters` at engine boundaries. Check
    their actual return values. New shared operations belong in `world/` or
    `engine/`, not in an unrelated story chapter.
-4. Format, rebuild, then `uv run check`. Map-event edits also require full rebuild
-   and `check --all`. Add the relevant branch to a production-composition scenario;
+4. Format, run `uv run build --compile-only`, then `uv run check`. Map-event edits
+   also need `check --all`. Add the relevant branch to a production-composition scenario;
    play the interaction, interruption/retry and map re-entry when applicable.
 
 ## Engine contracts that are easy to miss
@@ -58,7 +58,7 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
   `reset_on_new_game` matters for a second new game in the same process. Use normal
   Essentials serialization; no new save schema/version mechanism.
 - Pokémon form setters and learnsets have separate side effects; read the
-  [content guide](../tools/tidebound_dev/content/AGENTS.md) before changing forms.
+  [content guide](../content/pokemon/AGENTS.md) before changing forms.
 - Rendered visibility does not establish collision. Features declare availability;
   `world/actors.rb` applies it without knowing quest state. It indexes collision actors once, skips forced
   routes, and applies NPC resting visibility only on map entry or explicit
@@ -67,7 +67,7 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
   don't scan event names or assume an actor exists after a transfer.
 - `Presentation::OwnedSprite` disposes its bitmap and only an explicitly owned
   viewport. Use it for independently loaded/allocated bitmaps, never borrowed/cache-backed
-  images. Static props use approved pictures and anchors in `assets/props.json`;
+  images. Static props use approved pictures and anchors in `content/props/<name>/prop.json`;
   add an asset record and a `prop` event instead of another drawing class. Essentials Pokémon sprite classes own their `AnimatedBitmap` lifecycle;
   reuse `Presentation::Position` without giving a second owner the same bitmap.
 

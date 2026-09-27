@@ -17,29 +17,6 @@ module Tidebound::World
   end
 end
 
-# Passage masks belong only to the opening maps. Character collision,
-# touch/action events and map bounds remain the engine's normal implementations.
-module Tidebound::World::Passages
-  def passable?(x, y, d, self_event = nil)
-    mask = Tidebound::MAP_PASSAGES[@map_id]
-    return super unless mask
-    return valid?(x, y) && mask[y][x] == "1"
-  end
-  def playerPassable?(x, y, d, self_event = nil)
-    return passable?(x, y, d, self_event) if Tidebound::MAP_PASSAGES[@map_id]
-    super
-  end
-  def passableStrict?(x, y, d, self_event = nil)
-    return passable?(x, y, d, self_event) if Tidebound::MAP_PASSAGES[@map_id]
-    super
-  end
-  def terrain_tag(x, y, count_bridge = false)
-    return GameData::TerrainTag.get(:None) if Tidebound::MAP_PASSAGES[@map_id]
-    super
-  end
-end
-Game_Map.prepend(Tidebound::World::Passages)
-
 EventHandlers.add(
   :on_enter_map,
   :tidebound_atmosphere,

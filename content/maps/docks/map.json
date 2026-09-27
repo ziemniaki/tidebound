@@ -1,0 +1,150 @@
+{
+  "id": 112,
+  "atmosphere": "night",
+  "entrances": {
+    "west": [11, 28, 2],
+    "museum": [32, 23, 2],
+    "from_museum": [32, 23, 2]
+  },
+  "name": "The Docks",
+  "actor_settings": {
+    "1": {
+      "cue": "west"
+    },
+    "2": {
+      "cue": "south"
+    },
+    "4": {
+      "role": "crate"
+    },
+    "5": {
+      "role": "crate"
+    },
+    "6": {
+      "role": "crate"
+    },
+    "7": {
+      "role": "crate"
+    },
+    "8": {
+      "role": "crate"
+    },
+    "9": {
+      "role": "coast_lamp"
+    },
+    "10": {
+      "role": "coast_lamp"
+    },
+    "11": {
+      "role": "coast_lamp"
+    },
+    "12": {
+      "role": "coast_lamp"
+    },
+    "13": {
+      "role": "coast_lamp"
+    },
+    "23": {
+      "role": "coast_lamp"
+    },
+    "24": {
+      "role": "coast_lamp"
+    },
+    "25": {
+      "role": "coast_lamp"
+    },
+    "26": {
+      "role": "coast_lamp"
+    },
+    "27": {
+      "role": "coast_lamp"
+    },
+    "28": {
+      "role": "coast_lamp"
+    },
+    "29": {
+      "role": "prop",
+      "asset": "dock_bollard"
+    },
+    "30": {
+      "role": "prop",
+      "asset": "dock_bollard"
+    },
+    "31": {
+      "role": "prop",
+      "asset": "dock_bollard"
+    },
+    "32": {
+      "role": "prop",
+      "asset": "dock_bollard"
+    },
+    "33": {
+      "role": "prop",
+      "asset": "dock_bollard"
+    },
+    "34": {
+      "role": "prop",
+      "asset": "dock_bollard"
+    },
+    "35": {
+      "role": "prop",
+      "asset": "dock_nets"
+    },
+    "36": {
+      "role": "prop",
+      "asset": "dock_nets"
+    },
+    "37": {
+      "role": "prop",
+      "asset": "dock_nets"
+    },
+    "38": {
+      "role": "prop",
+      "asset": "dock_nets"
+    },
+    "39": {
+      "role": "prop",
+      "asset": "dock_boat_left"
+    },
+    "40": {
+      "role": "prop",
+      "asset": "dock_boat"
+    },
+    "41": {
+      "role": "prop",
+      "asset": "dock_stall"
+    },
+    "44": {
+      "role": "prop",
+      "asset": "moored_ship"
+    },
+    "45": {
+      "role": "prop",
+      "asset": "offshore_ship"
+    },
+    "62": {
+      "role": "prop",
+      "asset": "cargo"
+    },
+    "63": {
+      "role": "prop",
+      "asset": "cargo"
+    },
+    "64": {
+      "role": "prop",
+      "asset": "cargo"
+    },
+    "65": {
+      "role": "prop",
+      "asset": "board"
+    },
+    "66": {
+      "role": "prop",
+      "asset": "ledger"
+    },
+    "67": {
+      "role": "prop",
+      "asset": "memorial"
+    }
+  }
+}

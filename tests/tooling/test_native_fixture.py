@@ -53,12 +53,9 @@ class NativeFixtureTests(unittest.TestCase):
 
 
 class ContentInventoryTests(unittest.TestCase):
-    def test_new_species_requires_asset_ownership_and_derives_native_expectations(self):
+    def test_new_species_derives_native_expectations(self):
         with patch.object(verification, "SPECIES", {"NEWBIRD": {}, "NEWBIRD_1": {}}):
-            with self.assertRaisesRegex(ValueError, "ownership mismatch"):
-                verification.inventory()
-            with patch.object(verification, "POKEMON", {"NEWBIRD": None, "NEWBIRD_1": None}):
-                result = verification.inventory()
+            result = verification.inventory()
         self.assertEqual(result["species"], ["NEWBIRD", "NEWBIRD_1"])
         self.assertEqual([entry["id"] for entry in result["art"]], ["NEWBIRD", "NEWBIRD_1"])
         self.assertEqual(

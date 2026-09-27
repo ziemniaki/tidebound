@@ -21,20 +21,10 @@ class TransferTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Blocked"):
             Transfer(101, 0, 0).validate({"101": ["0"]})
 
-    def test_explicit_coast_conversion_leaves_destination_absolute(self):
-        area = model.Map(102, "Coast", 108, 88, 1)
-        eid = area.door(*area.absolute(8, 15), "home", "from_coast", cue="north")
-        event = area.events[eid].attributes
-        self.assertEqual((event["@x"], event["@y"]), (32, 35))
-        self.assertEqual(
-            area.transfers, [dict(event=eid, page=0, map_id=101, x=10, y=12, direction=8)]
-        )
-        self.assertTrue(area.walk[35][32])
-
-    def test_every_page_is_validated_and_direct_transfers_are_rejected(self):
+    def test_every_page_and_native_transfer_destination_is_validated(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            shutil.copytree(ROOT / "tools/generated", root / "tools/generated")
+            shutil.copytree(ROOT / "game/.generated", root / "game/.generated")
             shutil.copytree(ROOT / "game/Data", root / "game/Data")
             for name in ("Graphics", "Audio"):
                 (root / "game" / name).symlink_to(ROOT / "game" / name, target_is_directory=True)
@@ -43,7 +33,7 @@ class TransferTests(unittest.TestCase):
             for kind, expected in (
                 ("charset", "page2 missing charset nonexistent"),
                 ("computed", "page2: undeclared transfer"),
-                ("native", "page2: native Transfer Player"),
+                ("native", "page2: Transfer outside map"),
             ):
                 with self.subTest(kind=kind):
                     area = loads(original)

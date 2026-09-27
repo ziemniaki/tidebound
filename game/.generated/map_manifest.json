@@ -1,0 +1,98 @@
+[
+  {
+    "id": 101,
+    "name": "The Keeper's House",
+    "width": 20,
+    "height": 16
+  },
+  {
+    "id": 102,
+    "name": "Shiohama",
+    "width": 108,
+    "height": 88
+  },
+  {
+    "id": 103,
+    "name": "The Listening Wood",
+    "width": 36,
+    "height": 30
+  },
+  {
+    "id": 104,
+    "name": "The Lantern Room",
+    "width": 14,
+    "height": 14
+  },
+  {
+    "id": 105,
+    "name": "Beyond the Shore",
+    "width": 32,
+    "height": 26
+  },
+  {
+    "id": 106,
+    "name": "The Oil Shop",
+    "width": 16,
+    "height": 14
+  },
+  {
+    "id": 107,
+    "name": "Your Room",
+    "width": 16,
+    "height": 14
+  },
+  {
+    "id": 108,
+    "name": "The South Coast Road",
+    "width": 56,
+    "height": 84
+  },
+  {
+    "id": 109,
+    "name": "The Old Storehouse",
+    "width": 22,
+    "height": 18
+  },
+  {
+    "id": 110,
+    "name": "The Lighthouse Cellar",
+    "width": 26,
+    "height": 20
+  },
+  {
+    "id": 111,
+    "name": "The Lighthouse Vault",
+    "width": 28,
+    "height": 22
+  },
+  {
+    "id": 112,
+    "name": "The Docks",
+    "width": 80,
+    "height": 64
+  },
+  {
+    "id": 113,
+    "name": "Dockside Museum",
+    "width": 30,
+    "height": 24
+  },
+  {
+    "id": 114,
+    "name": "Your Room",
+    "width": 29,
+    "height": 25
+  },
+  {
+    "id": 115,
+    "name": "Your Room",
+    "width": 16,
+    "height": 14
+  },
+  {
+    "id": 116,
+    "name": "Your Room, Again",
+    "width": 30,
+    "height": 26
+  }
+]

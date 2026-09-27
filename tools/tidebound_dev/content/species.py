@@ -1,24 +1,16 @@
-"""One definition catalog for PBS and native data.
+"""Species and sprite metrics come from the same authored Pokémon bundles."""
 
-Forms inherit their ordinary species; new species state a template for unchanged
-engine attributes. Forward evolution rules generate family backlinks.
-"""
+from ..catalog import POKEMON
 
-from . import plants, insects, coastal
-
-
-def combine(attribute):
-    catalog = {}
-    for family in (plants, insects, coastal):
-        records = getattr(family, attribute)
-        duplicates = catalog.keys() & records.keys()
-        if duplicates:
-            raise ValueError(
-                f"Duplicate {attribute} IDs in {family.__name__}: {sorted(duplicates)}"
-            )
-        catalog.update(records)
-    return catalog
-
-
-SPECIES = combine("SPECIES")
-METRICS = combine("METRICS")
+SPECIES = {
+    identifier: {
+        **record["species"],
+        "file": "pokemon_forms_tidebound" if "_" in identifier else "pokemon_tidebound",
+    }
+    for identifier, record in POKEMON.items()
+}
+METRICS = {
+    identifier: {**record["metrics"], "file": "pokemon_metrics_tidebound"}
+    for identifier, record in POKEMON.items()
+    if "metrics" in record
+}

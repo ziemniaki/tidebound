@@ -1,0 +1,33 @@
+{
+  "id": 113,
+  "entrances": {
+    "door": [14, 18, 2],
+    "from_docks": [14, 18, 8]
+  },
+  "name": "Dockside Museum",
+  "actor_settings": {
+    "2": {
+      "role": "prop",
+      "asset": "sabre_exhibit"
+    },
+    "3": {
+      "role": "prop",
+      "asset": "museum_case"
+    },
+    "4": {
+      "role": "prop",
+      "asset": "museum_case"
+    },
+    "5": {
+      "role": "prop",
+      "asset": "museum_case"
+    },
+    "6": {
+      "role": "prop",
+      "asset": "museum_case"
+    },
+    "8": {
+      "cue": "south"
+    }
+  }
+}

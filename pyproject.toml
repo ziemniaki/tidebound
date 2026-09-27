@@ -15,7 +15,6 @@ build = "tidebound_dev.cli:build"
 play = "tidebound_dev.cli:play"
 preview = "tidebound_dev.cli:preview"
 check = "tidebound_dev.cli:check"
-rebuild = "tidebound_dev.cli:rebuild"
 editor = "tidebound_dev.cli:editor"
 format = "tidebound_dev.cli:format"
 
@@ -38,5 +37,5 @@ docs = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-include = ["tools/**/*.py", "tests/**/*.py", ".github/scripts/*.py"]
+include = ["content/**/*.py", "tools/**/*.py", "tests/**/*.py", ".github/scripts/*.py"]
 extend-exclude = ["tests/engine_reference"]

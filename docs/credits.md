@@ -25,14 +25,14 @@ This is an unofficial fan project. Please support the official games.
 
 Tidebound Sunkern (0.7.2): regional sprite edit generated with OpenAI's built-in
 image editing tool from the included Sunkern art. Original sprite attribution
-remains applicable. Approved pixels are in assets/pokemon/SUNKERN_1.
+remains applicable. Approved pixels are in content/pokemon/SUNKERN_1.
 
 Moonkern (0.7.3): built-in OpenAI image generation/editing using Tidebound Sunkern
-as a visual reference. Approved pixels are in assets/pokemon/MOONKERN; concepts are in assets/references/MOONKERN.
+as a visual reference. Approved pixels are in content/pokemon/MOONKERN; concepts are in references/MOONKERN.
 The temporary cry reuses the included Sunkern cry and its existing attribution.
 
 Moonflora (0.7.4): built-in OpenAI image generation/editing using original
-Sunflora as reference. Approved pixels are in assets/pokemon/MOONFLORA; concepts are in assets/references/MOONFLORA.
+Sunflora as reference. Approved pixels are in content/pokemon/MOONFLORA; concepts are in references/MOONFLORA.
 Its temporary cry reuses the included Sunflora cry and its attribution.
 
 
@@ -42,14 +42,14 @@ attribution remains applicable. Recipe: tools/tidebound_dev/art/recolors.py.
 
 
 Glaciverm (0.7.6): original sprite atlas generated with the built-in image tool;
-approved pixels are retained in assets/pokemon/GLACIVERM. Its provisional
+approved pixels are retained in content/pokemon/GLACIVERM. Its provisional
 cry reuses the included Wurmple cry. Frostcoon is a clearly provisional reuse
 of included Silcoon sprites and cry; original asset attribution still applies.
 
 
 Tidebound Lapras (0.7.8): direct palette/pixel edits of the included Lapras
 front, back and icon sprites, explicitly requested by the user. Original asset
-attribution remains applicable. Approved pixels: assets/pokemon/LAPRAS_1.
+attribution remains applicable. Approved pixels: content/pokemon/LAPRAS_1.
 No image generation was used for this regional form. Cry inherits Lapras.
 
 

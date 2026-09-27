@@ -1,9 +1,7 @@
 """One definition for each map's arrivals, music, metadata and atmosphere."""
 
 from dataclasses import dataclass, field
-from pathlib import Path
-import json
-from .atlases import GROUPS
+from ..catalog import bundles
 from rubymarshal.classes import Symbol
 
 ATMOSPHERES = {
@@ -19,14 +17,15 @@ ATMOSPHERES = {
 @dataclass(frozen=True)
 class MapDefinition:
     id: int
-    entrances: dict[str, list[int]]
-    actors: dict = field(default_factory=dict)
-    events: dict[str, int] = field(default_factory=dict)
-    atlas: str | None = None
+    entrances: dict[str, list[int]] = field(default_factory=dict)
+    name: str = ""
+    actor_settings: dict = field(default_factory=dict)
+    retired_event_ids: list[int] = field(default_factory=list)
+    parent_id: int = 0
+    order: int | None = None
     encounters: dict = field(default_factory=dict)
     wild_forms: dict[str, int] = field(default_factory=dict)
     atmosphere: str = "indoor"
-    music: str = "Tidebound Stillness"
     battleback: str = "field"
     environment: str = "None"
     outdoor: bool = False
@@ -34,16 +33,24 @@ class MapDefinition:
     origin: tuple[int, int] = (0, 0)
 
     def __post_init__(self):
-        if self.atlas is not None and self.atlas not in GROUPS:
-            raise ValueError(f"Map {self.id}: unknown atlas group {self.atlas}")
-        if len(set(self.events.values())) != len(self.events) or any(
-            type(i) is not int or i < 1 for i in self.events.values()
+        keys = [v["key"] for v in self.actor_settings.values() if v.get("key")]
+        if len(set(keys)) != len(keys):
+            raise ValueError(f"Map {self.id}: duplicate actor identity")
+        if type(self.id) is not int or self.id < 1:
+            raise ValueError("Map IDs must be positive integers")
+        if len(set(self.retired_event_ids)) != len(self.retired_event_ids) or any(
+            type(i) is not int or i < 1 for i in self.retired_event_ids
         ):
-            raise ValueError(f"Map {self.id}: event IDs must be unique positive integers")
-        if not self.entrances or any(
-            len(p) != 3 or p[2] not in (2, 4, 6, 8) for p in self.entrances.values()
+            raise ValueError(f"Map {self.id}: retired event IDs must be unique positive integers")
+        if any(
+            len(p) != 3
+            or any(type(v) is not int for v in p)
+            or p[0] < 0
+            or p[1] < 0
+            or p[2] not in (2, 4, 6, 8)
+            for p in self.entrances.values()
         ):
-            raise ValueError(f"Map {self.id} needs at least one arrival")
+            raise ValueError(f"Map {self.id}: arrivals require [x, y, direction]")
         if self.atmosphere not in ATMOSPHERES:
             raise ValueError(f"Map {self.id}: unknown atmosphere {self.atmosphere}")
 
@@ -84,11 +91,10 @@ class MapDefinition:
         return {**ATMOSPHERES[self.atmosphere], "night": self.night, "origin": self.origin}
 
 
-# Only declarations are discovered. Builders are imported after the catalog is complete.
-DEFINITIONS = {
-    path.parent.name: MapDefinition(**json.loads(path.read_text()))
-    for path in sorted((Path(__file__).parent / "areas").glob("*/map.json"))
-}
-BY_ID = {definition.id: definition for definition in DEFINITIONS.values()}
-if len(BY_ID) != len(DEFINITIONS):
-    raise ValueError("Map definitions contain duplicate IDs")
+def load(root):
+    definitions = {
+        name: MapDefinition(**record) for name, record in bundles(root, "maps", "map.json").items()
+    }
+    if len({d.id for d in definitions.values()}) != len(definitions):
+        raise ValueError("Map definitions contain duplicate IDs")
+    return definitions

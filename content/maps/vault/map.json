@@ -1,0 +1,41 @@
+{
+  "id": 111,
+  "atmosphere": "vault",
+  "entrances": {
+    "door": [12, 15, 2]
+  },
+  "name": "The Lighthouse Vault",
+  "actor_settings": {
+    "1": {
+      "role": "prop",
+      "asset": "vault_pillar"
+    },
+    "2": {
+      "role": "prop",
+      "asset": "vault_pillar"
+    },
+    "3": {
+      "role": "prop",
+      "asset": "vault_pillar"
+    },
+    "4": {
+      "role": "prop",
+      "asset": "vault_pillar"
+    },
+    "5": {
+      "key": "mother_at_vault",
+      "role": "npc"
+    },
+    "6": {
+      "key": "seller_at_vault",
+      "role": "npc"
+    },
+    "7": {
+      "role": "prop",
+      "asset": "necklace_drawer"
+    },
+    "12": {
+      "cue": "south"
+    }
+  }
+}

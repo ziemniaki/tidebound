@@ -1,0 +1,660 @@
+{
+  "$type": "RPG::Map",
+  "tileset_id": 34,
+  "width": 30,
+  "height": 24,
+  "autoplay_bgm": true,
+  "bgm": {
+    "$type": "RPG::AudioFile",
+    "name": "stillness",
+    "volume": 80,
+    "pitch": 100
+  },
+  "autoplay_bgs": false,
+  "bgs": {
+    "$type": "RPG::AudioFile",
+    "name": "",
+    "volume": 100,
+    "pitch": 100
+  },
+  "encounter_list": [],
+  "encounter_step": 30,
+  "data": {
+    "$type": "Table",
+    "shape": [30, 24, 3],
+    "rows": [
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2392, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2392, 2392, 2392],
+      [2392, 2392, 2392, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 2392, 2392, 2392],
+      [2392, 2392, 2392, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 2394, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2394, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2394, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 2394, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2394, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2394, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 2394, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 1033, 2392, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 0, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 384, 385, 386, 387, 384, 385, 386, 387, 384, 385, 386, 387, 384, 385, 386, 387, 384, 385, 386, 387, 384, 385, 386, 387, 0, 0, 0],
+      [0, 0, 0, 392, 393, 394, 395, 392, 393, 394, 395, 392, 393, 394, 395, 392, 393, 394, 395, 392, 393, 394, 395, 392, 393, 394, 395, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  "events": {
+    "1": {
+      "$type": "RPG::Event",
+      "id": 1,
+      "name": "Attendant",
+      "x": 8,
+      "y": 16,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "NPC 11",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Attendant: Welcome. Take your time. If you have come for the sabre, it is in the middle case.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 655,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Attendant: People ask who made it. I would rather leave the label unfinished than put a guess on it.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "$type": "RPG::Event",
+      "id": 2,
+      "name": "Sabre exhibit",
+      "x": 15,
+      "y": 8,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::VaultVisit.sabre"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "$type": "RPG::Event",
+      "id": 3,
+      "name": "Museum case:Harbour bell",
+      "x": 7,
+      "y": 7,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"A cracked harbour bell. The label lists the names of the people who paid to recast it.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "$type": "RPG::Event",
+      "id": 4,
+      "name": "Museum case:Sounding weights",
+      "x": 22,
+      "y": 7,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Lead sounding weights and a carefully knotted line. An old way of learning how much water lies beneath a boat.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "$type": "RPG::Event",
+      "id": 5,
+      "name": "Museum case:Ceramic fragments",
+      "x": 22,
+      "y": 14,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Fragments of bowls and plates from coastal households. Familiar blue reeds curve across one piece.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "6": {
+      "$type": "RPG::Event",
+      "id": 6,
+      "name": "Museum case:Shipping ledger",
+      "x": 7,
+      "y": 12,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"A shipping ledger, open to a page of ordinary deliveries: lamp oil, flour, cloth.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "7": {
+      "$type": "RPG::Event",
+      "id": 7,
+      "name": "Visitor",
+      "x": 18,
+      "y": 12,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "NPC 10",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Visitor: I came in to get out of the wind. That was a while ago.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "8": {
+      "$type": "RPG::Event",
+      "id": 8,
+      "name": "Door",
+      "x": 14,
+      "y": 21,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 1,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 201,
+              "indent": 0,
+              "parameters": [0, 112, 32, 23, 2, 0]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

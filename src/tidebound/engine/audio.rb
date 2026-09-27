@@ -3,7 +3,7 @@
 # Apply this before Essentials applies the player's music volume preference.
 module Tidebound
   module AudioMix
-    TRACKS = ["Tidebound Shore", "Tidebound Stillness"].freeze
+    TRACKS = %w[shore stillness].freeze
     LEVEL = 80
     module_function
     def volume(name, requested)

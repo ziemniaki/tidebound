@@ -2,9 +2,7 @@
 
 from pathlib import Path
 import argparse
-import os
 import platform
-import shutil
 import subprocess
 import sys
 import time
@@ -38,8 +36,8 @@ def development_build(target, *, preview=None, start=None):
     asset = select(ROOT, preview) if preview else None
     from .scenarios import select as select_scenario
 
-    state = select_scenario(ROOT, start) if start else None
     rebuild(ROOT)
+    state = select_scenario(ROOT, start) if start else None
 
     from .packaging.pipeline import build
 
@@ -49,35 +47,18 @@ def development_build(target, *, preview=None, start=None):
     return launcher
 
 
-def open_editor():
-    if sys.platform != "win32":
-        raise ValueError(
-            "RPG Maker XP requires Windows. Use uv run play for native Mac/Linux playtesting."
-        )
-
-    from tidebound_dev.release.metadata import load_release
-    from tidebound_dev.files import sha256
-    from tidebound_dev.runtime.inputs import windows_runtime, unpack_pinned
-
-    config = load_release()
-    sources = [windows_runtime(ROOT, config), unpack_pinned(ROOT, config, "windows_editor_archive")]
-    for source in sources:
-        for path in source.iterdir():
-            dest = ROOT / "game" / path.name
-            if dest.exists() and sha256(dest) != sha256(path):
-                raise ValueError(
-                    f"Preserving modified local file: {dest}. Move it aside before restoring the editor runtime."
-                )
-            shutil.copy2(path, dest)
-    os.startfile(ROOT / "game/Game.rxproj")
-
-
 def parser():
     cli = argparse.ArgumentParser(prog="tidebound", description=__doc__)
     commands = cli.add_subparsers(dest="command", required=True)
     build = commands.add_parser("build", help="Stage a development player")
-    build.add_argument(
+    build_options = build.add_mutually_exclusive_group()
+    build_options.add_argument(
         "--platform", choices=("mac", "windows", "linux"), help="Defaults to this computer"
+    )
+    build_options.add_argument(
+        "--compile-only",
+        action="store_true",
+        help="Update the game and editor checkpoint without packaging a player",
     )
     play = commands.add_parser("play", help="Build and launch a development player")
     play.add_argument(
@@ -86,24 +67,27 @@ def parser():
         help="Start the full game at a declared state, e.g. neighbor/meal",
     )
     preview = commands.add_parser("preview", help="Build and launch the asset viewer")
-    preview.add_argument("asset", help="Asset selector, e.g. pokemon/WHYDUCK or props/ship1")
-    for name, help in (
-        ("check", "Also verify isolated regeneration"),
-        ("rebuild", "Also regenerate maps, content and artwork"),
-    ):
-        command = commands.add_parser(name)
-        command.add_argument("--all", action="store_true", help=help)
+    preview.add_argument("asset", help="Asset selector, e.g. pokemon/WHYDUCK or props/moored_ship")
+    check = commands.add_parser("check", help="Verify the compiled game")
+    check.add_argument("--all", action="store_true", help="Also verify isolated regeneration")
     package = commands.add_parser("package", help="Package one native player")
     package.add_argument("platform", choices=("mac", "windows", "linux"))
     package.add_argument("output", type=Path)
     package.add_argument("--allow-dirty", action="store_true")
     formatting = commands.add_parser("format", help="Format Python and Ruby")
     formatting.add_argument("--check", action="store_true")
-    commands.add_parser("editor", help="Restore and open the RPG Maker XP project")
+    editor = commands.add_parser("editor", help="Import saved RPG Maker edits into source")
+    editor.add_argument("action", choices=("import",))
     return cli
 
 
 def execute(args):
+    if args.command == "build" and args.compile_only:
+        from .pipeline import rebuild
+
+        rebuild(ROOT)
+        print(f"Compiled project: {ROOT / 'game'}", flush=True)
+        return
     if args.command in ("build", "play", "preview"):
         target = getattr(args, "platform", None) or host_platform()
         launcher = development_build(
@@ -122,12 +106,10 @@ def execute(args):
         from .checks import verify
 
         verify(ROOT, full=args.all)
-    elif args.command == "rebuild":
-        from .pipeline import rebuild
-
-        rebuild(ROOT, full=args.all)
     elif args.command == "editor":
-        open_editor()
+        from .maps.editor import import_changes
+
+        import_changes(ROOT)
     elif args.command == "format":
         from .formatting import format_sources
 
@@ -161,10 +143,6 @@ def preview():
 
 def check():
     main(["check", *sys.argv[1:]])
-
-
-def rebuild():
-    main(["rebuild", *sys.argv[1:]])
 
 
 def editor():

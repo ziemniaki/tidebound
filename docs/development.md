@@ -11,8 +11,7 @@ implements it on a branch, and builds a development player for you to try with
 `uv run play`. Review the behavior and PR before merging. Story decisions belong
 in `specs/`; development instructions belong in `docs/` and scoped `AGENTS.md` files.
 
-If you also edit maps in RPG Maker XP, tell the agent which maps changed before
-regeneration so those edits can be incorporated into their Python source.
+RPG Maker and agents edit the same authored maps through the [editor workflow](#rpg-maker).
 
 ## Setup
 
@@ -38,7 +37,7 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 
 | Command | Result |
 | --- | --- |
-| `uv run play` | Embed current Ruby, build and launch a native development player |
+| `uv run play` | Compile authored maps/content/assets/Ruby and launch a native development player |
 | `uv run build` | Same build without launching; prints its path |
 | `uv run build --platform windows` | Cross-package a Windows development copy |
 | `uv run build --platform linux` | Cross-package a Linux x86_64 development copy |
@@ -46,10 +45,9 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run format --check` | Check formatting without editing |
 | `uv run check` | Formatting, tooling, geometry, scripts and quest/save tests; no game regeneration |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
-| `uv run rebuild` | Export custom assets and embed the Ruby load manifest |
-| `uv run rebuild --all` | Regenerate maps, data, pipeline-owned art, reports and scripts |
+| `uv run build --compile-only` | Compile the project and checkpoint it without packaging a player |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
-| `uv run editor` | On Windows, restore ignored helpers and open `game/Game.rxproj` |
+| `uv run editor import` | Import saved map/tileset edits into authored files; works on every platform |
 
 `uv run build` is the game command. `uv build` builds a Python package, not
 Tidebound. `uv run tidebound --help` lists the commands.
@@ -58,8 +56,9 @@ Development builds stage the native player directly, without making a release ZI
 Builds go into unique ignored `.build/dev/` directories. Development players use
 `Tidebound_Development` saves, shared between development builds. Release saves
 stay in `Tidebound_Opening_0_2`; installed release apps are not replaced.
-Closing the game returns control to `uv run play`. Old `.build/` directories and
-`.cache/` extractions can be deleted when no game is running; neither holds saves.
+Closing the game returns control to `uv run play`. Old `.build/dev/` players and `.cache/` extractions can be deleted when no game is
+running. Preserve `.build/editor.json` until editor changes have been imported;
+it records the comparison point, not a player save.
 
 Formatting uses [Ruff](https://docs.astral.sh/ruff/formatter/) for Python and
 [Syntax Tree](https://github.com/ruby-syntax-tree/syntax_tree) for Ruby. Ruby runs
@@ -70,36 +69,71 @@ engine reference files are excluded. Format before rebuilding the script archive
 
 ## Editing without losing work
 
-Edit `src/tidebound/`, register new files in `src/load_order.txt`, then run `uv run play` or `uv run rebuild`. The engine
+Edit `src/tidebound/`, register new files in `src/load_order.txt`, then run `uv run play` or `uv run build --compile-only`. The engine
 reads `game/Data/Scripts.rxdata`; source edits must be embedded. Never install a
 second plugin copy. See [architecture](architecture.md) for ownership.
 
-RPG Maker XP opens `game/Game.rxproj`. `uv run editor` restores its local runtime
-and optional helpers from pinned archives. The editor edits the real project;
-its own Test Play uses the project's normal save namespace. Use `uv run play`
-for isolated development saves. Generated maps 101–116 must be reconciled with
-their Python generators after direct editor changes. `rebuild --all` overwrites
-those maps; review or commit editor work before intentionally regenerating.
-Ordinary `play` refreshes custom artwork/audio and scripts; it preserves map geometry.
+## RPG Maker
+
+The everyday Mac workflow is agent/source edits followed by `uv run play`, with
+`--from` for a declared starting state. RPG Maker is optional; builds never launch it.
+
+1. `uv run build` (optionally `--compile-only`) or `uv run play` compiles the game
+   and automatically records the exported map/tileset state after success.
+2. For visual map editing, open `game/Game.rxproj` manually in RPG Maker XP on
+   a compatible Windows environment. Edit and **save**, then close the editor.
+3. Run `uv run editor import`. Tiles, events (including all pages/routes), map
+   audio, names/tree placement, custom tileset settings and textures return to
+   `content/`. Review `git diff`, then `uv run play`.
+
+The importer compares editor and source changes against the last export. Edits to
+separate fields merge; conflicting edits to the same field stop before any source
+is written. Resolve that field in source/editor and rerun. Scrolling, expanding a
+map in the editor, and Marshal encoding differences do not create source changes.
+Before exporting, rebuilds compare saved maps against the last build/import
+checkpoint and refuse pending editor edits until imported. Once that check passes, the old
+checkpoint is cleared; a new one is recorded only after compilation and validation
+succeed. Fix failed builds and rebuild before continuing map editing.
+Unsaved editor changes cannot be detected, so always save and close first.
+
+New maps created in RPG Maker become `content/maps/<name>/` bundles on import,
+keeping their native map IDs and tree placement. The name becomes a lower_snake_case
+folder; an existing folder gets the map ID suffix. Renaming a map later changes
+its display name, not its bundle key. Add named playtest entrances and actor roles
+only when needed; ordinary editor transfers work without that extra metadata.
+An unconnected draft map has no reachability starting point, so static interaction
+checks begin once it has an entrance or incoming transfer.
+
+Existing authored maps and custom tilesets round-trip through this workflow.
+Stock maps and other engine databases remain direct native inputs in `game/`;
+review and commit those edits separately. Adding a custom tileset or editing
+its light mask uses the [map guide](../content/maps/AGENTS.md). To remove an entire
+authored map, import pending edits first, remove its source bundle and update its
+references, then rebuild; whole-map deletion in RPG Maker is not imported.
+Do not delete `.build/editor.json` to bypass a conflict.
+
+Use `uv run play` for native playtesting with isolated development saves. XP's
+own Test Play requires extracting `runtime/Windows/player.zip` into `game/` once
+and uses the project/release save namespace. No editor installation is needed for
+JSON authoring, importing saved project files or native Mac/Linux playtesting.
 
 Full regeneration writes directly to tracked files. If it fails, fix the reported
-error and rerun `uv run rebuild --all` before playing. Review the generated diff
+error and rerun `uv run build --compile-only` before playing. Review the generated diff
 in Git; `uv run check --all` verifies reproducibility in a disposable copy.
 
 Keep compiled data checked in: stock Essentials inputs cannot all be rebuilt
-from the custom generators. Review generated diffs alongside source changes.
+from the custom sources. Review generated diffs alongside source changes.
 No development command commits, pushes, merges or publishes.
 
 ## Authoring workflows
 
 The scoped guides explain the source files, engine contracts and checks for
-[gameplay](../src/AGENTS.md), [maps](../tools/tidebound_dev/maps/AGENTS.md),
-[species/forms](../tools/tidebound_dev/content/AGENTS.md),
-[Pokémon artwork](../assets/AGENTS.md) and [sound](../tools/tidebound_dev/art/AGENTS.md).
+[gameplay](../src/AGENTS.md), [maps](../content/maps/AGENTS.md),
+[species/forms](../content/pokemon/AGENTS.md),
+[Pokémon artwork](../content/AGENTS.md) and [sound](../content/audio/AGENTS.md).
 They apply to human development as well as agents.
 
-Ordinary rebuild refreshes the [registered custom assets](artwork.md); full rebuild
-also repacks map tilesets and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
+Rebuild exports [authored custom assets](artwork.md), fixed tilesets, maps and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
 editing a game PNG: generated destinations are replaced by their exporter.
 
 ## Less common work
@@ -141,12 +175,12 @@ The [task table](../AGENTS.md#read-for-your-change) routes to its source owner.
 
 Coordinate changes to `src/load_order.txt`, `maps/compiler.py`, `maps/registry.py`,
 species catalogs and shared NPC dispatch. Individual map layouts belong in
-`maps/areas/<map>/`; another area must not patch their events or geometry.
+`content/maps/<map>/`; another area must not patch their events or geometry.
 
 Include source and generated outputs in the PR. When combining work, resolve
-source first, then regenerate once. For generator-owned binary conflicts, use a
+source first, then regenerate once. For compiled binary conflicts, use a
 known common baseline, apply the combined source, then run `uv run format`,
-`uv run rebuild --all` and `uv run check --all`. Never choose one branch's archive
+`uv run build --compile-only` and `uv run check --all`. Never choose one branch's archive
 wholesale: that can discard another feature. Stock data and supplied editor/asset
 edits need their own reconciliation. Never regenerate in another agent's active
 checkout. Handoffs name the branch/commit, checks and remaining work.
@@ -168,12 +202,12 @@ Edit the approved source, then launch the asset viewer:
 
 ```sh
 uv run preview pokemon/WHYDUCK
-uv run preview characters/Tidebound_Ivo_Seated
-uv run preview props/ship1
+uv run preview actors/ivo
+uv run preview props/moored_ship
 uv run preview items/TIDEBOUNDOILKEYS
 uv run preview trainers/TBLOCALYOUTH
-uv run preview pictures/Tidebound/title
-uv run preview 'audio/BGM/Tidebound Shore'
+uv run preview ui/title
+uv run preview audio/music/shore
 ```
 
 Use exact asset IDs/filenames without extensions. The command refreshes approved
@@ -217,6 +251,6 @@ it; `story` merges only its top-level keys. `":pie"` denotes a Ruby symbol;
 ordinary strings stay text. Map/entrance and species/item references are checked.
 
 State is installed before map callbacks. Declare the flags needed to skip earlier
-autoruns. Edits to starting states need only `play --from`; map/data changes still
-need `uv run rebuild --all`. The starting-state driver is staged only for development;
+autoruns. Use `play --from` after editing either the starting state or game content; it
+rebuilds before resolving map/species/item references. The starting-state driver is staged only for development;
 keep `tools/tidebound_dev/scenarios.rb` out of `src/load_order.txt` and releases.

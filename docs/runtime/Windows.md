@@ -2,12 +2,13 @@
 
 The originals now live in `runtime/Windows/player.zip`. `release.json` pins both
 the archive and the three file hashes. Packaging restores a verified cache under
-`.cache/runtimes/`; `uv run editor` also restores files beside `game/Game.rxproj`.
-Those loose executables and DLLs are ignored. No network download is required.
+`.cache/runtimes/`. Optional RPG Maker Test Play setup is described in the
+[editor workflow](../development.md#rpg-maker). Loose executables and DLLs are
+ignored. No network download is required.
 
 `runtime/Windows/editor-tools.zip` retains the original optional animation/text
 helpers, their instructions, point bitmaps, town-map HTML tool and Essentials wiki
-shortcut. Its archive hash is pinned too. The repository layout changes, but
+shortcut. Extract these optional utilities manually when needed; its archive hash is pinned too. The repository layout changes, but
 binary bytes and Git history are preserved.
 
 The Windows player ZIP reuses `Game.exe`, `x64-msvcrt-ruby310.dll` and

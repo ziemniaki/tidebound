@@ -1,0 +1,17 @@
+{
+  "id": 109,
+  "atmosphere": "hideout",
+  "entrances": {
+    "door": [11, 14, 2]
+  },
+  "name": "The Old Storehouse",
+  "actor_settings": {
+    "12": {
+      "key": "necklace_thief",
+      "role": "npc"
+    },
+    "17": {
+      "cue": "south"
+    }
+  }
+}

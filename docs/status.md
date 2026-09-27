@@ -18,7 +18,7 @@ the confirmed/proposed/open labels in [the specification](../specs/game-design.m
 Game files, Ruby source, tools, tests, specifications and documentation have
 separate homes. `uv run play/build/check` is the common entry point, with locked
 Python dependencies. Windows binaries restore from pinned archives. RPG Maker
-XP opens `game/Game.rxproj`; generated maps remain generator-owned.
+XP opens `game/Game.rxproj`; authored maps round-trip through JSON.
 
 The current release includes the Mac Downloads/App Translocation and long-path fixes.
 CI covers relocated Unicode paths, saves and rendering on both Mac architectures,
@@ -27,7 +27,7 @@ do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtestin
 
 Current authoring uses one rebuild plan, catalog-derived content checks, shared
 map-local declarations, named entrances/stable event IDs, feature-owned actor policies
-and independent atlas groups. Generated content and assets have explicit ownership. `play` refreshes approved assets automatically;
+and fixed editable tilesets. Generated content and assets have explicit ownership. `play` refreshes approved assets automatically;
 `preview` inspects them without entering a game.
 [Declared starting states](development.md#playtest-scenarios) support focused playtesting. Saves use
 the normal Essentials serializer without custom versioning. See

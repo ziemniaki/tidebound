@@ -1,0 +1,42 @@
+{
+  "id": 105,
+  "atmosphere": "astral",
+  "battleback": "cave1",
+  "environment": "Cave",
+  "entrances": {
+    "entry": [15, 21, 2]
+  },
+  "name": "Beyond the Shore",
+  "actor_settings": {
+    "1": {
+      "role": "spirit",
+      "index": 0
+    },
+    "2": {
+      "role": "spirit",
+      "index": 1
+    },
+    "3": {
+      "role": "spirit",
+      "index": 2
+    },
+    "4": {
+      "role": "spirit",
+      "index": 3
+    },
+    "5": {
+      "role": "spirit",
+      "index": 4
+    },
+    "6": {
+      "role": "spirit",
+      "index": 5
+    },
+    "8": {
+      "role": "lamp"
+    },
+    "9": {
+      "role": "lamp"
+    }
+  }
+}

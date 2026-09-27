@@ -16,7 +16,7 @@ module Tidebound::Pond
     $game_map && $game_map.map_id == 108
   end
   def water?(x, y)
-    Tidebound::PondGeometry::WATER.include?([x, y])
+    $game_map.terrain_tag(x, y).id == :StillWater
   end
   def say(*lines)
     lines.each { |line| pbMessage(line) }
@@ -81,25 +81,6 @@ module Tidebound::PondEncounters
   end
 end
 PokemonEncounters.prepend(Tidebound::PondEncounters)
-module Tidebound::PondTerrain
-  def terrain_tag(x, y, count_bridge = false)
-    return GameData::TerrainTag.get(:StillWater) if @map_id == 108 && Tidebound::Pond.water?(x, y)
-    super
-  end
-  def passable?(x, y, d, self_event = nil)
-    if @map_id == 108 && Tidebound::Pond.water?(x, y)
-      return(
-        !!(
-          $PokemonGlobal && $PokemonGlobal.surfing &&
-            (self_event.nil? || self_event == $game_player)
-        )
-      )
-    end
-    super
-  end
-end
-Game_Map.prepend(Tidebound::PondTerrain)
-
 Tidebound::Actors.on_frame("shore_duck") do |_event, _actor|
   !Tidebound::Pond.flags[:shoreduck_gone]
 end

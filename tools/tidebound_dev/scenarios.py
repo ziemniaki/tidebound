@@ -5,7 +5,7 @@ from pathlib import Path
 from rubymarshal.classes import Symbol
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-from .maps.definitions import DEFINITIONS
+from .maps.definitions import load as load_maps
 from .runtime.development import replace_main
 
 FIELDS = {
@@ -42,13 +42,13 @@ def read(path):
     return value
 
 
-def location(value):
+def location(value, definitions):
     if not isinstance(value, list) or len(value) != 2:
         raise ValueError("Location must be [map name, entrance name]")
     name, entrance = value
-    if name not in DEFINITIONS or entrance not in DEFINITIONS[name].entrances:
+    if name not in definitions or entrance not in definitions[name].entrances:
         raise ValueError(f"Unknown map entrance: {value}")
-    return [DEFINITIONS[name].id, *DEFINITIONS[name].entrances[entrance]]
+    return [definitions[name].id, *definitions[name].entrances[entrance]]
 
 
 def select(root, name):
@@ -65,8 +65,9 @@ def select(root, name):
                 raise ValueError("Scenario bases must be standalone (one level only)")
             # Only story merges by top-level key. Other fields replace as a whole.
             spec = {**parent, **spec, "story": {**parent.get("story", {}), **spec.get("story", {})}}
-        spec["arrival"] = location(spec["location"])
-        spec["checkpoint"] = location(spec.get("checkpoint", spec["location"]))
+        definitions = load_maps(root)
+        spec["arrival"] = location(spec["location"], definitions)
+        spec["checkpoint"] = location(spec.get("checkpoint", spec["location"]), definitions)
         player = spec.get("player", {"name": "Ren", "avatar": 1})
         if (
             set(player) != {"name", "avatar"}

@@ -1,0 +1,22 @@
+{
+  "id": 107,
+  "entrances": {
+    "start": [6, 8, 2],
+    "stairs": [8, 10, 2],
+    "from_home": [8, 10, 8]
+  },
+  "name": "Your Room",
+  "actor_settings": {
+    "1": {
+      "role": "room",
+      "species": "NATU"
+    },
+    "2": {
+      "key": "mother_visiting",
+      "role": "npc"
+    },
+    "5": {
+      "cue": "south"
+    }
+  }
+}

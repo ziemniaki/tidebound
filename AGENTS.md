@@ -14,10 +14,11 @@ its source files, engine traps and verification; do not load every guide by defa
 | Task | Guide |
 | --- | --- |
 | Quest, dialogue, battle, save or sprite behavior | [src/AGENTS.md](src/AGENTS.md) |
-| Add/edit a map, actor or transfer | [maps/AGENTS.md](tools/tidebound_dev/maps/AGENTS.md) |
-| Species/form, evolution, item or encounter data | [content/AGENTS.md](tools/tidebound_dev/content/AGENTS.md) |
-| Pokémon, characters, icons, pictures and prop anchors | [assets/AGENTS.md](assets/AGENTS.md) |
-| Asset pipeline, music, sound effect or cry | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
+| Add/edit a map, actor or transfer | [maps/AGENTS.md](content/maps/AGENTS.md) |
+| Species/form, evolution or encounter data | [pokemon/AGENTS.md](content/pokemon/AGENTS.md) |
+| Items, actors, artwork and prop anchors | [content/AGENTS.md](content/AGENTS.md) |
+| Music, sound effect or cry | [audio/AGENTS.md](content/audio/AGENTS.md) |
+| Asset pipeline | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
 | RPG Maker edits or compiled game files | [game/AGENTS.md](game/AGENTS.md) |
 | Start a playthrough from a declared state | [Playtest workflow](docs/development.md#playtest-scenarios) |
 | Add/change tests | [tests/AGENTS.md](tests/AGENTS.md) |
@@ -27,24 +28,24 @@ its source files, engine traps and verification; do not load every guide by defa
 methods and upstream sources. Use the embedded engine as the version authority;
 a tutorial for another Essentials version is not an API contract.
 
+Structure and naming: [architecture](docs/architecture.md#authored-content).
+
 ## Commands and shared outputs
 
 Run from the repository root. uv owns Python dependencies; Node is pinned in
 `.node-version`; gameplay uses bundled Ruby (no system Ruby setup).
 
 ```sh
-uv run play           # refresh assets/Ruby, stage and launch a development player
-uv run build          # same refresh without launch; preserves editor maps/content
+uv run play           # compile authored game, stage and launch a development player
+uv run build          # same compilation without launch
 uv run preview pokemon/WHYDUCK  # inspect one asset without loading a save
 uv run format         # before embedding Ruby
-uv run rebuild        # export custom assets and embed the Ruby load manifest
-uv run rebuild --all  # regenerate maps/content/art, then embed
+uv run build --compile-only # update the compiled project without packaging a player
 uv run check          # headless gate; never regenerates tracked game data
 uv run check --all    # also regenerate in isolation and compare
 ```
 
-Asset/Ruby edits use the default refresh. Maps, packed tilesets, light masks and
-content definitions require `rebuild --all` before play. Stage new sources and
+Both build modes and play use the same complete compilation. Stage new sources and
 outputs before `check --all`: its input set comes from `git ls-files`.
 Setup/editor details: [development](docs/development.md).
 
@@ -58,8 +59,9 @@ agent's binary wholesale. [Integration workflow](docs/development.md#independent
 
 ## Project constraints
 
-- Maps 101–116 are generator-owned. Reconcile direct editor work before full
-  rebuild. `game/Data` also contains irreplaceable stock inputs; never clear it.
+- Maps are authored in `content/maps/`; import saved RPG Maker edits with
+  `uv run editor import` before rebuilding. `game/Data` still contains irreplaceable
+  stock inputs; never clear it.
 - Preserve current Pokémon identity, held items and quest state. An empty party
   may be an astral journey. Do not add save versions, compatibility gates or old
   migration chains. Never delete player saves to make a check pass.

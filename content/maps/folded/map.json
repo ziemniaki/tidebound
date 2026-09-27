@@ -1,0 +1,10 @@
+{
+  "id": 116,
+  "atmosphere": "folded",
+  "entrances": {
+    "stairs": [7, 22, 2],
+    "bed": [25, 7, 2]
+  },
+  "name": "Your Room, Again",
+  "actor_settings": {}
+}

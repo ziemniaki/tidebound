@@ -1,0 +1,17 @@
+{
+  "id": 114,
+  "entrances": {
+    "entry": [5, 20, 2],
+    "west_slide": [4, 11, 2],
+    "east_slide": [9, 17, 2],
+    "exit": [22, 5, 2],
+    "north_slide": [16, 4, 2]
+  },
+  "name": "Your Room",
+  "actor_settings": {
+    "13": {
+      "role": "room",
+      "species": "NATU"
+    }
+  }
+}

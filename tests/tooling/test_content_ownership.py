@@ -16,7 +16,7 @@ class ContentOwnershipTests(unittest.TestCase):
             root = Path(temp)
             (root / "game/Data").mkdir(parents=True)
             (root / "game/PBS").mkdir()
-            (root / "tools/generated").mkdir(parents=True)
+            (root / "game/.generated").mkdir(parents=True)
             database = root / "game/Data/species.dat"
             retired = root / "game/PBS/pokemon_retired.txt"
             retired.write_text("old output")
