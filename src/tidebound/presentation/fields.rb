@@ -1,13 +1,11 @@
 # Tile-anchored cues: thresholds align with masonry, not character sprite feet.
 class TideboundThreshold < Tidebound::Presentation::OwnedSprite
-  attr_reader :tile_anchor, :cue_rect
   def initialize(event, viewport, map)
     @cue_viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     @cue_viewport.z = 1
     super(@cue_viewport, owns_viewport: true)
     @event = event
     @map = map
-    @tile_anchor = [event.x, event.y]
     self.bitmap = Bitmap.new(32, 32)
     self.ox = 0
     self.oy = 0
@@ -15,13 +13,12 @@ class TideboundThreshold < Tidebound::Presentation::OwnedSprite
     north, east, west = cue == "north", cue == "east", cue == "west"
     # Outdoor house triggers on their facade tile use its bottom sill; the
     # lighthouse trigger is one tile below its facade and uses the TOP edge.
-    @cue_rect =
-      east ? [28, 5, 3, 22] : west ? [1, 5, 3, 22] : north ? [5, 1, 22, 3] : [5, 27, 22, 3]
-    bitmap.fill_rect(*@cue_rect, Color.new(176, 166, 137))
+    cue_rect = east ? [28, 5, 3, 22] : west ? [1, 5, 3, 22] : north ? [5, 1, 22, 3] : [5, 27, 22, 3]
+    bitmap.fill_rect(*cue_rect, Color.new(176, 166, 137))
     if east || west
-      bitmap.fill_rect(@cue_rect[0], 7, 1, 18, Color.new(218, 205, 167))
+      bitmap.fill_rect(cue_rect[0], 7, 1, 18, Color.new(218, 205, 167))
     else
-      bitmap.fill_rect(7, @cue_rect[1], 18, 1, Color.new(218, 205, 167))
+      bitmap.fill_rect(7, cue_rect[1], 18, 1, Color.new(218, 205, 167))
     end
     self.opacity = 205
     self.z = 0

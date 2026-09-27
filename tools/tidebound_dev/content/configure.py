@@ -1,6 +1,5 @@
 """Update generated launch/metadata defaults during an explicit full rebuild."""
 
-from pathlib import Path
 from ..maps import definitions
 import json
 from rubymarshal.reader import loads

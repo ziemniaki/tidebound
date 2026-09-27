@@ -1,15 +1,8 @@
-from PIL import Image, ImageDraw
-from rubymarshal.reader import loads
-from rubymarshal.writer import writes
+from PIL import Image
 import copy
-import json
-import struct
 
-from .model import Map, RoadMap, tile, table, command, script
-import math
+from .model import tile
 import random
-from collections import deque
-from .shoreline import shoreline
 
 
 class LandscapePalette:
@@ -50,7 +43,7 @@ class LandscapePalette:
     def art(self, x, y, w=1, h=1):
         return self._native.crop((x * 32, y * 32, (x + w) * 32, (y + h) * 32))
 
-    def clear_nature(self, m, all_forest=False):
+    def clear_nature(self, m):
         for y in range(m.h):
             for x in range(m.w):
                 v = m.layers[1][y][x]

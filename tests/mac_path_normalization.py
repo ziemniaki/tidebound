@@ -4,7 +4,6 @@ from pathlib import Path
 import argparse
 import subprocess
 import tempfile
-import sys
 import tarfile
 
 from tidebound_dev.release.metadata import ROOT, load_release, sha256

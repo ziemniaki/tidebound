@@ -19,10 +19,6 @@ def main(root=ROOT):
         raise SystemExit("Node.js is required. See docs/development.md for setup.")
     if not (root / "tests/node_modules/@ruby/3.2-wasm-wasi").is_dir():
         raise SystemExit("Install test dependencies: npm ci --prefix tests --ignore-scripts")
-    try:
-        import rubymarshal
-    except ImportError:
-        raise SystemExit("Install Python dependencies: uv sync --locked") from None
     from tidebound_dev.formatting import format_sources
 
     format_sources(root, check=True)

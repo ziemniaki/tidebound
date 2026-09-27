@@ -1,7 +1,6 @@
 """Regression coverage for regional template resolution and family relationships."""
 
 from pathlib import Path
-import sys
 import unittest
 from unittest.mock import patch
 import importlib

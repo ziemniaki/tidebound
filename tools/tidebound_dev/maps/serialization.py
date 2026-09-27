@@ -1,14 +1,9 @@
 from .registry import write_registry
 from . import definitions
-from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-import copy
 import json
-import struct
 
-from .model import Map, RoadMap, tile, table, command, script
-from rubymarshal.classes import Symbol
 from .model import obj
 
 

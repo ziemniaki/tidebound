@@ -1,11 +1,8 @@
-from PIL import Image, ImageDraw
+from PIL import Image
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-import copy
-import json
-import struct
 
-from .model import Map, RoadMap, tile, table, command, script
+from .model import tile
 from .harbor_art import generate, wooden_village
 
 

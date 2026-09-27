@@ -2,9 +2,7 @@
 
 from pathlib import Path
 import argparse
-import json
 import subprocess
-import sys
 import tempfile
 import zipfile
 

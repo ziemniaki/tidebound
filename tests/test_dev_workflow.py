@@ -1,7 +1,5 @@
 from pathlib import Path
 import hashlib
-import sys
-import subprocess
 import shutil
 import tempfile
 import unittest

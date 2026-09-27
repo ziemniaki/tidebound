@@ -13,7 +13,7 @@ from rubymarshal.writer import writes
 
 DEV = Path(__file__).resolve().parents[1] / "tools"
 
-from tidebound_dev.scripts.archive import validate_archive, source_files
+from tidebound_dev.scripts.archive import validate_archive
 
 
 def entry(name, code=""):

@@ -1,6 +1,5 @@
 """Quest data. Battle rosters use Essentials NPCTrainer and live in 008."""
 
-from pathlib import Path
 import shutil
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes

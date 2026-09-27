@@ -1,4 +1,3 @@
-from pathlib import Path
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from rubymarshal.classes import RubyObject, Symbol
