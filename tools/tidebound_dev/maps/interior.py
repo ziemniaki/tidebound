@@ -206,27 +206,24 @@ class InteriorPainter:
         self.surface(m, im, x, y)
 
 
-def save_atlas(paths, interior, rooms):
+def save_atlas(paths, interior, rooms, group):
     sets = loads((paths.game / "Data/Tilesets.rxdata").read_bytes())
     id = next(
-        (
-            i
-            for i, t in enumerate(sets)
-            if t and t.attributes.get("@name") == "Tidebound Lighthouse"
-        ),
+        (i for i, t in enumerate(sets) if t and t.attributes.get("@name") == group.name),
         len(sets),
     )
     ts = loads(writes(sets[3]))
-    ts.attributes.update(
-        {"@id": id, "@name": "Tidebound Lighthouse", "@tileset_name": "TideboundLighthouse"}
-    )
+    ts.attributes.update({"@id": id, "@name": group.name, "@tileset_name": group.texture})
     h = interior.I.height + ((len(interior.interior_tiles) + 7) // 8) * 32
-    assert h <= 16384
+    if h > 16384:
+        raise ValueError(
+            f"Atlas {group.name} is {h}px high; split its maps into smaller groups (limit 16384)"
+        )
     atlas = Image.new("RGBA", (256, h))
     atlas.alpha_composite(interior.I)
     for i, im in enumerate(interior.interior_tiles):
         atlas.alpha_composite(im, ((i % 8) * 32, interior.I.height + (i // 8) * 32))
-    save_png(atlas, paths.game / "Graphics/Tilesets/TideboundLighthouse.png")
+    save_png(atlas, paths.game / f"Graphics/Tilesets/{group.texture}.png")
     for key in ["@passages", "@priorities", "@terrain_tags"]:
         raw = ts.attributes[key]._dump()
         size = struct.unpack("<5i", raw[:20])[4]

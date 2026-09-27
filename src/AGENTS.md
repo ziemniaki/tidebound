@@ -5,6 +5,8 @@ order. Edit the manifest when adding a file; dependencies must already be loaded
 when constants, inheritance or hook registration are evaluated. `generated/` is
 written by Python compilers. No second copy in `game/Plugins/Tidebound`.
 
+Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.md).
+
 ## Add a quest or interaction
 
 1. Put the state transition and dialogue in its feature module. Use
@@ -15,7 +17,12 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
    [map workflow](../tools/tidebound_dev/maps/AGENTS.md). A new Ruby method alone
    does not connect it to a map. Do not override another feature's method to
    change an interaction's priority.
-3. Use `World.travel`, `World.actor` and `Encounters` at engine boundaries. Check
+3. Use `Scenes.run(*events, restore_positions: true) { ... }` for temporary actor
+   staging. It owns collision during the scene and restores presentation/camera
+   in `ensure`; inventory and quest progress remain your responsibility. Omit
+   `restore_positions` when the movement should persist. Never use a quest's
+   global busy flag to suppress another feature's actor updates.
+   Use `World.travel`, `World.actor` and `Encounters` at engine boundaries. Check
    their actual return values. New shared operations belong in `world/` or
    `engine/`, not in an unrelated story chapter.
 4. Format, rebuild, then `uv run check`. Map-event edits also require full rebuild
@@ -52,8 +59,8 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
   Essentials serialization; no new save schema/version mechanism.
 - Pokémon form setters and learnsets have separate side effects; read the
   [content guide](../tools/tidebound_dev/content/AGENTS.md) before changing forms.
-- Rendered visibility does not establish collision. `features/actors.rb` owns
-  visibility and collision policy. It indexes collision actors once, skips forced
+- Rendered visibility does not establish collision. Features declare availability;
+  `world/actors.rb` applies it without knowing quest state. It indexes collision actors once, skips forced
   routes, and applies NPC resting visibility only on map entry or explicit
   `Actors.refresh` scene boundaries. Per-frame sync must not hide a cutscene actor. Generated actor roles select policy independently of display
   labels. `World.actor` resolves a registered identity only on its owning map;

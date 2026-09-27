@@ -13,6 +13,7 @@ dependencies = [
 tidebound = "tidebound_dev.cli:main"
 build = "tidebound_dev.cli:build"
 play = "tidebound_dev.cli:play"
+preview = "tidebound_dev.cli:preview"
 check = "tidebound_dev.cli:check"
 rebuild = "tidebound_dev.cli:rebuild"
 editor = "tidebound_dev.cli:editor"

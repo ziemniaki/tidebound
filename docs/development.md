@@ -141,7 +141,7 @@ The [task table](../AGENTS.md#read-for-your-change) routes to its source owner.
 
 Coordinate changes to `src/load_order.txt`, `maps/compiler.py`, `maps/registry.py`,
 species catalogs and shared NPC dispatch. Individual map layouts belong in
-`maps/areas/<map>.py`; another area must not patch their events or geometry.
+`maps/areas/<map>/`; another area must not patch their events or geometry.
 
 Include source and generated outputs in the PR. When combining work, resolve
 source first, then regenerate once. For generator-owned binary conflicts, use a
@@ -164,23 +164,59 @@ References: [uv projects](https://docs.astral.sh/uv/guides/projects/),
 
 ## Asset previews
 
-Edit the approved source, then use the same development command:
+Edit the approved source, then launch the asset viewer:
 
 ```sh
-uv run play --preview pokemon/WHYDUCK
-uv run play --preview characters/Tidebound_Ivo_Seated
-uv run play --preview props/ship1
-uv run play --preview items/TIDEBOUNDOILKEYS
-uv run play --preview trainers/TBLOCALYOUTH
-uv run play --preview pictures/Tidebound/title
-uv run play --preview 'audio/BGM/Tidebound Shore'
+uv run preview pokemon/WHYDUCK
+uv run preview characters/Tidebound_Ivo_Seated
+uv run preview props/ship1
+uv run preview items/TIDEBOUNDOILKEYS
+uv run preview trainers/TBLOCALYOUTH
+uv run preview pictures/Tidebound/title
+uv run preview 'audio/BGM/Tidebound Shore'
 ```
 
-Use exact asset IDs/filenames without extensions. `build --preview` stages the
-same viewer without launching. Pokémon previews show normal/shiny front/back
+Use exact asset IDs/filenames without extensions. The command refreshes approved
+assets and opens the viewer. Pokémon previews show normal/shiny front/back
 sprites and animated icons; character previews animate all four directions.
 Prop crosshairs mark the event anchor. Audio plays through Essentials' wrappers;
 Enter replays it, Esc closes. This is a disposable development player: the preview
 Main never enters a game or loads/writes a player save and never ships in releases.
 Battle positioning metrics, map collisions, lighting and music transitions still
 need inspection in their actual scenes.
+
+## Playtest scenarios
+
+```sh
+uv run play --from neighbor/meal
+```
+
+This starts the **full game** with the declared starting state: location, party,
+bag and story progress. Keep playing, travel, battle and save normally.
+Omitting `--from` opens the normal development title screen. Each `--from` launch
+starts fresh; saves made during it use `Tidebound_Playtest`, a scratch slot separate from normal development and
+release saves. Concurrent playtests share that scratch slot.
+
+Starting states live beside their feature in `src/tidebound/features/<feature>/scenarios/`.
+For example, `neighbor/meal.json` reuses `opening/exploration` and changes only:
+
+```json
+{
+  "base": "opening/exploration",
+  "location": ["home", "from_coast"],
+  "bag": {"TIDEBOUNDPIE": 1},
+  "story": {"neighbor_quest": {"stage": ":pie"}}
+}
+```
+
+Copy [the baseline](../src/tidebound/features/opening/scenarios/exploration.json)
+for the complete format. `party` and `household` contain Pokémon directly, e.g.
+`{"species": "NATU", "level": 12, "item": "MYSTICWATER"}`; `name` and `moves`
+are optional. A base is standalone (no inheritance chains). Other fields replace
+it; `story` merges only its top-level keys. `":pie"` denotes a Ruby symbol;
+ordinary strings stay text. Map/entrance and species/item references are checked.
+
+State is installed before map callbacks. Declare the flags needed to skip earlier
+autoruns. Edits to starting states need only `play --from`; map/data changes still
+need `uv run rebuild --all`. The starting-state driver is staged only for development;
+keep `tools/tidebound_dev/scenarios.rb` out of `src/load_order.txt` and releases.

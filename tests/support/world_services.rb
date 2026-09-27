@@ -126,7 +126,7 @@ def pbWait(seconds)
 end
 
 class OpeningPlayerLocation
-  attr_accessor :direction, :through
+  attr_accessor :direction, :through, :opacity, :move_speed
   def direction
     @direction || 2
   end
@@ -138,7 +138,7 @@ class OpeningPlayerLocation
   end
 end
 class OpeningEvent
-  attr_accessor :direction
+  attr_accessor :direction, :move_speed
   def turn_up
     @direction = 8
   end

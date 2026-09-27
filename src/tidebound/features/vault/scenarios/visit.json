@@ -1,0 +1,19 @@
+{
+  "base": "opening/exploration",
+  "location": [
+    "vault",
+    "door"
+  ],
+  "bag": {
+    "TIDEBOUNDREEDCHARM": 1
+  },
+  "story": {
+    "neighbor_quest": {
+      "stage": ":complete"
+    },
+    "vault_visit": {
+      "gift": true,
+      "open": true
+    }
+  }
+}

@@ -5,8 +5,20 @@ from . import definitions
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 import json
+import hashlib
 
 from .model import obj
+
+
+def map_revision(game):
+    # Essentials compares this native editor field to the copy saved with the
+    # map factory. A changed layout/tileset must reload cached maps on Game.load.
+    digest = hashlib.sha256()
+    paths = sorted((game / "Data").glob("Map[0-9]*.rxdata"))
+    for path in [*paths, game / "Data/Tilesets.rxdata"]:
+        digest.update(path.name.encode())
+        digest.update(path.read_bytes())
+    return int.from_bytes(digest.digest()[:4], "little") & 0x7FFFFFFF
 
 
 def serialize(paths, maps):
@@ -15,7 +27,12 @@ def serialize(paths, maps):
         (paths.game / f"Data/Map{m.id:03}.rxdata").write_bytes(m.serialize())
     system = loads((paths.game / "Data/System.rxdata").read_bytes())
     system.attributes.update(
-        {"@start_map_id": 115, "@start_x": 7, "@start_y": 8, "@magic_number": 26092503}
+        {
+            "@start_map_id": 115,
+            "@start_x": 7,
+            "@start_y": 8,
+            "@magic_number": map_revision(paths.game),
+        }
     )
     (paths.game / "Data/System.rxdata").write_bytes(writes(system))
     infos = loads((paths.game / "Data/MapInfos.rxdata").read_bytes())

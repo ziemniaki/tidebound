@@ -1,0 +1,18 @@
+{
+  "base": "opening/exploration",
+  "location": [
+    "shop",
+    "door"
+  ],
+  "bag": {
+    "TIDEBOUNDNECKLACE": 1
+  },
+  "story": {
+    "neighbor_quest": {
+      "stage": ":necklace",
+      "first_won": true,
+      "heard": true,
+      "second_won": true
+    }
+  }
+}

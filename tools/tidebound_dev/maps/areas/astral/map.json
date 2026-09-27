@@ -1,0 +1,21 @@
+{
+  "id": 105,
+  "atmosphere": "astral",
+  "battleback": "cave1",
+  "environment": "Cave",
+  "entrances": {
+    "entry": [15, 21, 2]
+  },
+  "events": {
+    "Spirit:0@9,7": 1,
+    "Spirit:1@21,8": 2,
+    "Spirit:2@7,15": 3,
+    "Spirit:3@23,16": 4,
+    "Spirit:4@13,5": 5,
+    "Spirit:5@18,19": 6,
+    "Guide@15,20": 7,
+    "Return@15,22": 8,
+    "Ashes@5,12": 9,
+    "Arrival@3,22": 10
+  }
+}

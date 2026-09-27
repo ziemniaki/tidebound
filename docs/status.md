@@ -26,8 +26,10 @@ Windows and Ubuntu 22.04/24.04. Mac is ad-hoc signed, not notarized. Smoke tests
 do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtesting.
 
 Current authoring uses one rebuild plan, catalog-derived content checks, shared
-map settings, explicit transfers/actor roles and one custom asset export plan. `play` refreshes approved assets automatically;
-`play --preview` inspects them without entering a game. Saves use
+map-local declarations, named entrances/stable event IDs, feature-owned actor policies
+and independent atlas groups. Generated content and assets have explicit ownership. `play` refreshes approved assets automatically;
+`preview` inspects them without entering a game.
+[Declared starting states](development.md#playtest-scenarios) support focused playtesting. Saves use
 the normal Essentials serializer without custom versioning. See
 [architecture](architecture.md) for ownership and [development](development.md)
 for the edit/build/check loop and scoped authoring guides.

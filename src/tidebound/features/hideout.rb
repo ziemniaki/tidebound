@@ -144,7 +144,6 @@ module Tidebound::Hideout
   def lead_to_cache
     e = actor
     return unless e
-    Tidebound::NeighborQuest.busy = true
     # The short route crosses a possible player interaction tile. Restore
     # collision afterward; never leave an invisible or through door blocker.
     through = e.through
@@ -167,7 +166,6 @@ module Tidebound::Hideout
       e.instance_variable_set(:@direction_fix, false)
       e.turn_left
     end
-    Tidebound::NeighborQuest.busy = false
   end
   def handoff
     return unless active? && q[:second_won]

@@ -1,0 +1,109 @@
+{
+  "id": 108,
+  "atmosphere": "night",
+  "entrances": {
+    "north": [18, 5, 2],
+    "hideout": [35, 43, 2],
+    "campfire": [26, 39, 2],
+    "from_hideout": [35, 43, 2],
+    "from_docks": [43, 43, 4]
+  },
+  "actors": {
+    "road_thief": {
+      "label": "Road thief"
+    },
+    "running_thief": {
+      "label": "Running thief"
+    }
+  },
+  "events": {
+    "Door@18,4": 1,
+    "Wild:NATU:shorebird@20,10": 2,
+    "Wild:ZIGZAGOON:shoreforager@22,18": 3,
+    "road_thief": 4,
+    "Thief crossing@25,24": 5,
+    "Thief crossing@26,24": 6,
+    "Thief crossing@27,24": 7,
+    "running_thief": 8,
+    "Storehouse approach@29,42": 9,
+    "Storehouse approach@29,43": 10,
+    "Storehouse approach@29,44": 11,
+    "Storehouse door@35,41": 12,
+    "Road traveller@23,39": 13,
+    "Fire@24,40": 14,
+    "Southern steps@26,53": 15,
+    "Torn wrapping@31,34": 16,
+    "Shore flowers@16,10": 17,
+    "Berry:ORANBERRY@21,16": 18,
+    "Berry:SITRUSBERRY@28,38": 19,
+    "Coast lamp:storehouse@33,42": 20,
+    "Dock city@44,43": 21,
+    "Dock road sign@42,41": 22,
+    "Wild:PSYDUCK:shoreduck@19,62": 23,
+    "Pond fisher toma@25,55": 24,
+    "Pond fisher ida@38,63": 25,
+    "Pond fisher renzo@29,72": 26,
+    "Berry:ORANBERRY@20,54": 27,
+    "Pond hidden cache@13,69": 28,
+    "Pond obelisk (Surf)@27,61": 29,
+    "Old fishing basket@37,70": 30
+  },
+  "atlas": "fields",
+  "encounters": {
+    "Land": {
+      "chance": 18,
+      "slots": [
+        [
+          40,
+          "ZIGZAGOON",
+          4,
+          6
+        ],
+        [
+          35,
+          "SUNKERN_1",
+          4,
+          6
+        ],
+        [
+          15,
+          "EKANS_1",
+          4,
+          6
+        ],
+        [
+          10,
+          "PSYDUCK_1",
+          4,
+          6
+        ]
+      ]
+    },
+    "PondGrass": {
+      "chance": 18,
+      "slots": [
+        [
+          40,
+          "PSYDUCK_1",
+          8,
+          11
+        ],
+        [
+          35,
+          "SUNKERN_1",
+          8,
+          10
+        ],
+        [
+          25,
+          "AIPOM",
+          8,
+          11
+        ]
+      ]
+    }
+  },
+  "wild_forms": {
+    "ARBOK": 1
+  }
+}

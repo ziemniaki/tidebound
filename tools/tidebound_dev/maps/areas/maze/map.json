@@ -1,0 +1,28 @@
+{
+  "id": 114,
+  "entrances": {
+    "entry": [5, 20, 2],
+    "west_slide": [4, 11, 2],
+    "east_slide": [9, 17, 2],
+    "exit": [22, 5, 2],
+    "north_slide": [16, 4, 2]
+  },
+  "events": {
+    "Slide tile@7,20": 1,
+    "Slide tile@3,9": 2,
+    "Slide tile@3,3": 3,
+    "Slide tile@9,3": 4,
+    "Slide tile@9,7": 5,
+    "Slide tile@17,7": 6,
+    "Slide tile@17,5": 7,
+    "Round patch@9,16": 8,
+    "Round patch@4,10": 9,
+    "Round patch@7,11": 10,
+    "Round patch@16,3": 11,
+    "Round patch@22,6": 12,
+    "Room:NATU@24,5": 13,
+    "Game rules@3,19": 14,
+    "Opening@2,23": 15
+  },
+  "atlas": "dream"
+}

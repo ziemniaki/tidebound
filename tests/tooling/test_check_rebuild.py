@@ -23,6 +23,9 @@ class GeneratedFileSetTests(unittest.TestCase):
             manifest = root / "tools/generated/assets.json"
             manifest.parent.mkdir(parents=True)
             manifest.write_text(json.dumps({output: "files"}))
+            manifest.with_name("content.json").write_text(
+                json.dumps({"databases": {}, "files": []})
+            )
             subprocess.run(["git", "init", "-q", root], check=True)
             subprocess.run(["git", "-C", root, "add", "."], check=True)
             with (

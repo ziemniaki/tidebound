@@ -1,0 +1,28 @@
+{
+  "id": 116,
+  "atmosphere": "folded",
+  "entrances": {
+    "stairs": [7, 22, 2],
+    "bed": [25, 7, 2]
+  },
+  "events": {
+    "Folded reading tooth@12,22": 1,
+    "Folded reading snow@26,15": 2,
+    "Folded reading cradle@9,11": 3,
+    "Folded reading voice@19,6": 4,
+    "Folded empty_bed@4,17": 5,
+    "Folded chair@8,16": 6,
+    "Folded plant@26,21": 7,
+    "Folded cupboard@12,5": 8,
+    "Folded bed@24,4": 9,
+    "Folded bed@25,4": 10,
+    "Folded bed@24,5": 11,
+    "Folded bed@25,5": 12,
+    "Folded bed@24,6": 13,
+    "Folded bed@25,6": 14,
+    "Folded stairs@6,24": 15,
+    "Folded stairs@7,24": 16,
+    "Opening@2,23": 17
+  },
+  "atlas": "dream"
+}

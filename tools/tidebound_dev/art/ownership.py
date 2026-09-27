@@ -4,11 +4,10 @@ import json
 from pathlib import PurePosixPath
 
 from . import files, pokemon
+from ..maps.atlases import GROUPS
 
 MANIFEST = "tools/generated/assets.json"
-MAP_OUTPUTS = (
-    "Graphics/Tilesets/TideboundLandscape.png",
-    "Graphics/Tilesets/TideboundLighthouse.png",
+MAP_OUTPUTS = tuple(f"Graphics/Tilesets/{group.texture}.png" for group in GROUPS.values()) + (
     "Graphics/Tilesets/TideboundPond.png",
     "Graphics/Tilesets/TideboundVillage.png",
     "Graphics/Autotiles/Tidebound Shallows.png",

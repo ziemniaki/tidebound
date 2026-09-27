@@ -72,6 +72,7 @@ class WindowsReleaseTests(unittest.TestCase):
             patcher.start()
             self.addCleanup(patcher.stop)
         self.enterContext(patch("tidebound_dev.packaging.pipeline.validate_assets"))
+        self.enterContext(patch("tidebound_dev.packaging.pipeline.validate_content"))
         patcher = patch("tidebound_dev.packaging.pipeline.validate")
         patcher.start()
         self.addCleanup(patcher.stop)
@@ -89,6 +90,28 @@ class WindowsReleaseTests(unittest.TestCase):
             manifest = json.loads(z.read(prefix + "BUILD.json"))
             self.assertEqual(set(manifest["files_sha256"]), names - {"BUILD.json"})
         verify(self.output)
+
+    def test_declared_start_uses_scratch_saves_without_changing_source(self):
+        from rubymarshal.writer import writes
+        from tidebound_dev.runtime.config import parse_runtime_config, PLAYTEST_SAVES
+        import zlib
+
+        config = self.root / "game/mkxp.json"
+        config.write_text('{"dataPathApp":"Tidebound_Opening_0_2"}')
+        scripts = self.root / "game/Data/Scripts.rxdata"
+        original = writes([[1, "Main", zlib.compress(b"normal title")]])
+        scripts.write_bytes(original)
+        spec = {"id": "test/state", "location": ["home", "start"]}
+        launcher = build(self.output, self.root, development=True, start=spec)
+        staged = parse_runtime_config((launcher.parent / "mkxp.json").read_text())
+        self.assertEqual(staged["dataPathApp"], PLAYTEST_SAVES)
+        manifest = json.loads((launcher.parent / "DEVELOPMENT.json").read_text())
+        self.assertEqual(manifest["save_directory"], PLAYTEST_SAVES)
+        self.assertTrue((launcher.parent / "Data/Scenario.rxdata").is_file())
+        self.assertEqual(scripts.read_bytes(), original)
+        self.assertEqual(
+            parse_runtime_config(config.read_text())["dataPathApp"], "Tidebound_Opening_0_2"
+        )
 
     def test_mutated_runtime_is_rejected_before_output(self):
         (self.root / "Game.exe").write_bytes(b"changed")

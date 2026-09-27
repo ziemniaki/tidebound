@@ -1,0 +1,47 @@
+{
+  "id": 103,
+  "atmosphere": "night",
+  "environment": "Forest",
+  "entrances": {
+    "south": [17, 25, 2],
+    "campfire": [11, 22, 2]
+  },
+  "events": {
+    "Ninja@9,20": 1,
+    "Fire@10,21": 2,
+    "Wild:NATU@21,13": 3,
+    "Dark pool@27,10": 4,
+    "Shop keys@14,11": 5,
+    "White flowers@14,9": 6,
+    "Northern way@17,3": 7,
+    "Door@17,27": 8,
+    "Berry:ORANBERRY@12,19": 9,
+    "Berry:ORANBERRY@22,9": 10
+  },
+  "atlas": "fields",
+  "encounters": {
+    "Land": {
+      "chance": 18,
+      "slots": [
+        [
+          45,
+          "AIPOM",
+          3,
+          5
+        ],
+        [
+          40,
+          "WEEDLE",
+          3,
+          5
+        ],
+        [
+          15,
+          "WURMPLE_1",
+          3,
+          5
+        ]
+      ]
+    }
+  }
+}

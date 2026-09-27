@@ -4,7 +4,8 @@ from dataclasses import replace
 import unittest
 from unittest.mock import patch
 from tidebound_dev.maps import registry, model
-from tidebound_dev.maps.areas import home
+from tidebound_dev.maps.areas.home import build as home
+from types import SimpleNamespace
 from tidebound_dev.maps.interior import InteriorPainter
 from tidebound_dev.paths import ROOT
 
@@ -14,20 +15,18 @@ class ActorRegistryTests(unittest.TestCase):
         mother = registry.ACTORS["mother"]
         home = model.Map(101, "Home", 3, 3, 1)
         home.event(mother, 1, 1, "")
-        home.event(mother, 2, 1, "")
-        with patch.dict(registry.ACTORS, {"mother": mother}, clear=True):
-            with self.assertRaisesRegex(ValueError, "Duplicate actor identity: mother"):
-                registry.collect_actors([home])
+        with self.assertRaisesRegex(ValueError, "duplicate event identity"):
+            home.event(mother, 2, 1, "")
         with self.assertRaisesRegex(ValueError, "belongs to home"):
             model.Map(102, "Coast", 3, 3, 1).event(mother, 1, 1, "")
 
     def test_label_changes_preserve_identity_role_and_placement(self):
-        original = home.build(InteriorPainter(ROOT / "game"))
+        original = home.build(SimpleNamespace(rooms=InteriorPainter(ROOT / "game")))
         with patch.dict(
             registry.ACTORS,
             {key: replace(value, label="Label " + key) for key, value in registry.ACTORS.items()},
         ):
-            renamed = home.build(InteriorPainter(ROOT / "game"))
+            renamed = home.build(SimpleNamespace(rooms=InteriorPainter(ROOT / "game")))
         self.assertEqual(original.actor_settings, renamed.actor_settings)
         for event_id in original.events:
             old = original.events[event_id].attributes
@@ -54,9 +53,19 @@ class ActorRegistryTests(unittest.TestCase):
         from tidebound_dev.maps.landscape_painter import Landscape
 
         area = model.Map(101, "Room", 10, 10, 1)
-        event_id = area.event("Object", 2, 2, "", blocks=True)
+        with patch.dict(model.definitions.BY_ID[101].events, {"Object@2,2": 999}):
+            event_id = area.event("Object", 2, 2, "", blocks=True)
         area.events[event_id].attributes["@x"] = 6
         landscape = Landscape(area, None)
         self.assertIn((6, 2), landscape.protected)
         self.assertNotIn((2, 2), landscape.protected)
         self.assertTrue(area.targets[0][-1])  # Relocation preserves authored collision intent.
+
+    def test_inserting_an_event_does_not_renumber_existing_events(self):
+        ids = {"one": 7, "two": 12, "inserted": 20}
+        with patch.dict(model.definitions.BY_ID[101].events, ids, clear=True):
+            area = model.Map(101, "Home", 4, 4, 1)
+            for key in ("inserted", "two", "one"):
+                self.assertEqual(area.event("Label", 1, 1, "", key=key), ids[key])
+            with self.assertRaisesRegex(ValueError, "allocate a stable event ID"):
+                area.event("Forgot to allocate", 2, 2, "")

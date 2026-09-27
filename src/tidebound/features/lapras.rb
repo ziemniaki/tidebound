@@ -7,7 +7,7 @@ module Tidebound::SeaGlimpse
   def play
     pbMessage("The rope draws tight.\nThere is no boat at the end of it.")
     pbBGMFade(0.5)
-    Tidebound::World.coast_camera_to(*Tidebound::World.coast_xy(55, 22))
+    Tidebound::World.camera_to(*Tidebound::World.coast_xy(55, 22))
     pbWait(0.65)
     self.alpha = 0
     self.visible = true
@@ -25,7 +25,7 @@ module Tidebound::SeaGlimpse
   ensure
     self.visible = false
     self.alpha = 0
-    Tidebound::World.coast_camera_home if $game_map.map_id == 102
+    Tidebound::World.camera_home if $game_map.map_id == 102
     pbBGMPlay("Tidebound Shore", 80, 100)
   end
 end

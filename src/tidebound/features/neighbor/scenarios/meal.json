@@ -1,0 +1,15 @@
+{
+  "base": "opening/exploration",
+  "location": [
+    "home",
+    "from_coast"
+  ],
+  "bag": {
+    "TIDEBOUNDPIE": 1
+  },
+  "story": {
+    "neighbor_quest": {
+      "stage": ":pie"
+    }
+  }
+}

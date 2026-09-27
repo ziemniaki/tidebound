@@ -18,7 +18,7 @@ const suites = {
     h.ruby('tests/support/scene_services.rb');
     h.ruby('tests/support/story_helpers.rb');
     for (const suite of [
-      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'regional_snakes'
+      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'scenes', 'regional_snakes'
     ]) h.ruby(`tests/gameplay/${suite}.rb`);
     h.compileEvents();
   },
@@ -27,7 +27,6 @@ const suites = {
     h.ruby('tests/support/sprite_services.rb');
     h.ruby('src/tidebound/presentation/sprites.rb');
     h.ruby('src/generated/world_registry.rb');
-    h.ruby('src/tidebound/features/actors.rb');
     h.ruby('tests/gameplay/presentation.rb');
   }
 };

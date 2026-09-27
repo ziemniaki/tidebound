@@ -1,0 +1,56 @@
+{
+  "location": [
+    "home",
+    "from_coast"
+  ],
+  "checkpoint": [
+    "home",
+    "start"
+  ],
+  "player": {
+    "name": "Ren",
+    "avatar": 1
+  },
+  "party": [
+    {
+      "species": "NATU",
+      "level": 12,
+      "name": "Wick",
+      "moves": [
+        "PECK",
+        "LEER",
+        "NIGHTSHADE"
+      ],
+      "item": "MYSTICWATER"
+    }
+  ],
+  "household": [
+    {
+      "species": "MAKUHITA",
+      "level": 7,
+      "name": "Maku"
+    },
+    {
+      "species": "POOCHYENA",
+      "level": 7,
+      "name": "Pookie"
+    }
+  ],
+  "bag": {
+    "POTION": 5,
+    "POKEBALL": 10
+  },
+  "story": {
+    "opening_started": true,
+    "bird_prelude_seen": true,
+    "hall_talk": true,
+    "walk_state": ":complete",
+    "starter_chosen": ":NATU",
+    "oil_requested": true,
+    "keys_collected": true,
+    "shop_unlocked": true,
+    "oil_collected": true,
+    "oil_returned": true,
+    "lamp_lit": true
+  }
+}

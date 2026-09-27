@@ -132,7 +132,7 @@ module Tidebound::DreamRoom
   end
   def return_to_journey
     if Tidebound::PsychicMaze.active?
-      Tidebound::World.travel(:maze, 5, 20, 2)
+      Tidebound::World.travel(:maze, :entry)
     else
       Tidebound::World.travel(:bedroom, 6, 8, 6)
     end
@@ -341,7 +341,7 @@ module Tidebound::DreamRoom
           "The bed remembers being a bed.",
           "Two small taps. This time, from somewhere you can reach."
         )
-        Tidebound::World.travel(:maze, 5, 20, 2)
+        Tidebound::World.travel(:maze, :entry)
         say("Somewhere beyond the shelves, Wick taps back. One more game.")
       end
     end

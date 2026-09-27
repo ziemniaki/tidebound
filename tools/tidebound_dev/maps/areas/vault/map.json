@@ -1,0 +1,30 @@
+{
+  "id": 111,
+  "atmosphere": "vault",
+  "entrances": {
+    "door": [12, 15, 2]
+  },
+  "actors": {
+    "mother_at_vault": {
+      "label": "Mother at vault"
+    },
+    "seller_at_vault": {
+      "label": "Seller at vault"
+    }
+  },
+  "events": {
+    "Vault pillar@5,10": 1,
+    "Vault pillar@21,10": 2,
+    "Vault pillar@5,15": 3,
+    "Vault pillar@21,15": 4,
+    "mother_at_vault": 5,
+    "seller_at_vault": 6,
+    "Necklace drawer@12,6": 7,
+    "Empty bays@20,6": 8,
+    "Cabinet locks@6,6": 9,
+    "Old masonry@23,17": 10,
+    "Arrival@3,18": 11,
+    "Door@12,18": 12
+  },
+  "atlas": "storehouses"
+}

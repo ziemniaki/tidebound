@@ -1,0 +1,39 @@
+{
+  "id": 115,
+  "entrances": {
+    "start": [7, 8, 2],
+    "bed": [4, 7, 2],
+    "books": [7, 5, 2],
+    "door": [9, 8, 2]
+  },
+  "events": {
+    "Dream bed@3,4": 1,
+    "Dream bed@3,5": 2,
+    "Dream bed@3,6": 3,
+    "Dream bed@4,4": 4,
+    "Dream bed@4,5": 5,
+    "Dream bed@4,6": 6,
+    "Dream book cupboard@8,4": 7,
+    "Dream book cupboard@8,5": 8,
+    "Dream book cupboard@9,4": 9,
+    "Dream book cupboard@9,5": 10,
+    "Dream chair@8,6": 11,
+    "Dream shelf@11,4": 12,
+    "Dream shelf@11,5": 13,
+    "Dream shelf@12,4": 14,
+    "Dream shelf@12,5": 15,
+    "Dream window@6,3": 16,
+    "Dream window@7,3": 17,
+    "Dream clock@13,3": 18,
+    "Dream book@3,8": 19,
+    "Dream lamp@3,9": 20,
+    "Dream plant@12,9": 21,
+    "Dream plant@12,10": 22,
+    "Dream rug@5,9": 23,
+    "Dream exit@7,12": 24,
+    "Dream exit@8,12": 25,
+    "Room:NATU@10,8": 26,
+    "Opening@2,11": 27
+  },
+  "atlas": "dream"
+}
