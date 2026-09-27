@@ -1,50 +1,60 @@
-# Asset exporters and audio
+# Asset pipeline and audio
 
-For graphics and source ownership, read [assets/AGENTS.md](../../../assets/AGENTS.md).
-Custom files are approved under `assets/`; stock kit inputs remain under `game/`.
+For approved image layouts and prop authoring, use [assets/AGENTS.md](../../../assets/AGENTS.md).
 
-## Add music, a sound effect or a cry
+## Pipeline ownership
 
-Audio files are player assets. Use Ogg Vorbis (`.ogg`) for new music/ambience and
-WAV or Ogg for effects; these fit the shipped runtimes. A renamed extension does
-not convert the codec. Do not introduce WMA (unsupported by mkxp-z).
+`pipeline.rebuild` calls `compiler.build` for every play/build/rebuild.
+`uv run rebuild --all` also runs map/content compilers. Pipeline entry points:
 
-| Purpose | Destination | Runtime call (path relative to that category) |
-| --- | --- | --- |
-| Music | `game/Audio/BGM/<name>.ogg` | `pbBGMPlay("<name>", volume, pitch)` |
-| Looping ambience | `game/Audio/BGS/<name>.ogg` | `pbBGSPlay("<name>", volume, pitch)` |
-| Short musical cue | `game/Audio/ME/<name>.ogg` | `pbMEPlay("<name>", volume, pitch)` |
-| Sound effect | `game/Audio/SE/<name>.wav` | `pbSEPlay("<name>", volume, pitch)` |
-| Pokémon cry | `game/Audio/SE/Cries/SPECIES_1.ogg` | `GameData::Species.play_cry_from_pokemon(pokemon)` |
+| Change | Owner in this directory |
+| --- | --- |
+| File discovery / stock aliases | `files.py::exports` / `ALIASES` |
+| Pokémon bundle, shiny or cry reuse | `pokemon.py::POKEMON`; palettes in `recolors.py` |
+| File writing / image or audio checks | `export.py::Export.write` |
+| Prop metadata validation / Ruby table | `props.py::load` / `write` |
+| Native preview selection / rendering | `preview.py` / `preview.rb` |
 
-### Workflow
+New files in existing asset categories need no registration; Pokémon need `POKEMON`.
+`files.exports` and `pokemon.exports` supply the same records to writing and
+`ownership.inventory`; do not add a second source/output list. Destinations are
+repository-relative POSIX paths (`game/...`); sources use the supplied root.
+Maps register packed textures in `ownership.MAP_OUTPUTS`. `tools/generated/assets.json`
+is derived: never hand-edit it or use generated exports as recipe inputs.
 
-1. Add the approved playable file with exact case under `assets/audio/<category>/`.
-   Keep optional composition references outside the export directories. Record external provenance in
-   `docs/credits.md`. Avoid duplicate stems with different extensions: resolution
-   chooses an available file, not necessarily the newly added one.
-2. Wire playback into the owning scene. Pass `"Door close"`, not
-   `"Audio/SE/Door close"`, to `pbSEPlay`. The wrapper adds the category path and
-   routes through player volume settings. Calling `Audio.*` directly bypasses
-   that integration. Pitch 100 is normal; volume is 0–100. Wrapper fade durations
-   are seconds, although lower-level audio calls can use milliseconds.
-3. For map autoplay, set `music` on its `MapDefinition` in
-   `tools/tidebound_dev/maps/definitions.py`. Battle and
-   victory defaults are in `tools/tidebound_dev/content/configure.py`, which writes
-   both metadata encodings. Editing the map/PBS output alone is overwritten.
-4. Cries use the base ID for form 0 (`SPECIES.ogg`), `_1` for form 1; missing form
-   cries fall back to the base. Missing cries may produce silence rather than an
-   error. Declare reuse in `art/pokemon.py::POKEMON`. For an original cry, set its cry
-   source to its own ID and add `assets/pokemon/<ID>/cry.ogg`.
-5. Use `uv run play --preview "audio/BGM/<name>"` after replacing an approved source. If changing generated map/content
-   references, run `uv run rebuild --all`, then `uv run check --all`. Listen in the
-   actual scene with normal and reduced player volume, including looping and
-   battle/map transitions where applicable. Headless checks do not hear audio.
+Keep retirement **before** writing replacements: case-only renames can otherwise
+delete fresh files on macOS/Windows. Fix failed builds and rerun; there is no rollback.
+Map references and previews use `props.load`, not separate JSON parsing/validation.
+Verify pipeline changes with `uv run check --all` after staging new files: it removes
+owned exports in an isolated copy and proves they rebuild from source.
 
-`engine/audio.rb` caps only the two existing Tidebound loops; new tracks do not
-inherit that mix automatically. Choose their level by listening alongside them.
-Approved custom audio lives under `assets/audio/<BGM|BGS|ME|SE>/`; export preserves
-its bytes under `game/Audio/`. Composition and encoding happen before approval,
-using the author's preferred tools. Builds do not synthesize or re-encode tracks.
+## Add audio
 
-Engine methods and runtime support: [Essentials contracts](../../../docs/essentials-contracts.md).
+1. Add an approved Ogg Vorbis (`.ogg`) or PCM WAV (`.wav`) under
+   `assets/audio/<BGM|BGS|ME|SE>/`; it exports byte-for-byte. Put working references
+   in `assets/references/`, attribution in `docs/credits.md`. Builds neither synthesize
+   nor re-encode. Renaming an extension does not convert a codec; WMA is unsupported.
+   Avoid duplicate stems/extensions: engine resolution can select the wrong file.
+2. Call the owning scene's wrapper with a category-relative name:
+
+   | Category | Runtime call |
+   | --- | --- |
+   | BGM / music | `pbBGMPlay("name", volume, pitch)` |
+   | BGS / looping ambience | `pbBGSPlay("name", volume, pitch)` |
+   | ME / musical cue | `pbMEPlay("name", volume, pitch)` |
+   | SE / effect | `pbSEPlay("name", volume, pitch)` |
+
+   Pass `"Door close"`, not `"Audio/SE/Door close"`. Wrappers apply player volume;
+   direct `Audio.*` calls bypass it. Volume is 0–100, normal pitch 100; wrapper fades
+   use seconds, while lower-level audio calls can use milliseconds.
+3. Map autoplay belongs to `maps/definitions.py::MapDefinition.music`; battle/victory
+   defaults to `content/configure.py`. Both require `uv run rebuild --all`.
+   For Pokémon cries, follow the bundle declaration in the asset guide and call
+   `GameData::Species.play_cry_from_pokemon(pokemon)`: missing form cries can silently
+   fall back to the base. Preview them with `pokemon/ID`.
+4. Use `uv run play --preview "audio/BGM/<name>"` (substitute the category), then
+   listen in-scene with normal/reduced player volume and relevant loop/transitions.
+   Stage source/exports and run `uv run check --all`; headers cannot prove sound quality.
+
+`src/tidebound/engine/audio.rb` caps only the two existing Tidebound loops; listen
+alongside them when mixing a new track. [Engine contracts](../../../docs/essentials-contracts.md).

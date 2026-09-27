@@ -33,8 +33,9 @@ Static prop and character PNGs are owned by `assets/` and exported by `art/compi
 Map compilation owns packed tilesets and window masks/placements in
 `src/generated/window_lights.rb`. Register any new packed texture output in
 `art/ownership.py::MAP_OUTPUTS`; the generated asset manifest and clean rebuild
-then cover it. Standalone approved files are discovered by their asset directory. Read approved image sources when composing
-tiles; do not export standalone character/prop art from an area builder.
+then cover it. Read approved image sources when composing tiles; standalone files
+are discovered/exported by the asset pipeline. Prop references use `art/props.py::load`
+for shared validation; do not parse a second prop catalog in an area builder.
 
 ## Coordinates, events and actors
 

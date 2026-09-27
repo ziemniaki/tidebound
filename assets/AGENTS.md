@@ -2,7 +2,10 @@
 
 Approved custom sources live here; exported player files live in `game/`.
 `references/` contains concepts and working material, never build inputs.
-[Artwork ownership](../docs/artwork.md) lists the asset types and their owners.
+Edit source → `uv run play --preview <selector>` → stage source and generated
+outputs → `uv run check --all`. Selectors use exact case and no file extension:
+`pokemon/ID`, `characters/NAME`, `trainers/ID`, `items/ID`, `pictures/PATH`,
+`props/KEY`. Pipeline changes: [exporter guide](../tools/tidebound_dev/art/AGENTS.md).
 
 ## Pokémon sprites, forms and icons
 
@@ -14,21 +17,19 @@ Approved custom sources live here; exported player files live in `game/`.
    cry source and whether shiny artwork is distinct. For an original cry, set
    `cry` to the asset's own ID and add `cry.ogg` to its source bundle. `shiny=True` requires
    `front_shiny.png` and `back_shiny.png` (or the stock shiny files when using
-   `stock`); otherwise normal pixels are reused.
-   Party icons currently share normal/shiny artwork. `stock` explicitly reuses
-   stock sprites; the four palette recipes live in `art/recolors.py`.
+   `stock`); otherwise normal pixels are reused. Distinct shiny canvases must match
+   their normal counterparts. Party icons share normal/shiny artwork. `stock`
+   explicitly reuses stock sprites; palette recipes live in `art/recolors.py`.
 3. Icons are a **horizontal strip of square frames**: Essentials takes image
    height as frame width. Our two 64×64 frames make a 128×64 image. A vertical
    strip is not equivalent. Preserve headroom; inspect centering in the party UI.
 4. Stats and placement metrics belong to the [content owner](../tools/tidebound_dev/content/AGENTS.md).
    Do not offset PNGs and `METRICS` blindly together. Debug-editor metric changes
    are overwritten by regeneration.
-5. Run `uv run play --preview pokemon/<ID>` to refresh exports and inspect the
-   asset. Use `uv run rebuild --all` when changing content or maps too. Stage
-   source and outputs before `uv run check --all`.
-   Inspect front/back in battle and icons in the party screen. Native `species`
-   checks exact normal/shiny/form paths and cries: Essentials' fallback to base
-   sprites or `000` must not hide missing custom assets.
+5. Preview front/back, normal/shiny and icons; inspect placement in battle/party.
+   Use `uv run rebuild --all` first when changing content or maps too. Native
+   `species` checks exact art/cry paths: fallback to base sprites or `000` must
+   not hide missing custom assets.
 
 Art replacement of an existing form does not require changing gameplay data.
 Use ordinary image tools or generation to prepare artwork, then approve the final
@@ -56,11 +57,13 @@ belong to the asset owner; interaction and animation remain in Ruby. A painted
 object does not automatically block movement. Map-embedded artwork such as the
 lantern beacon reads approved source pixels when assembling its tileset.
 
-For world props, `assets/props.json` assigns a picture and pixel anchor (the point
-placed at an event's screen coordinates), plus an optional fixed `z` layer.
-Anchors may lie outside the image. Use `Map.event(..., role="prop", asset="<key>")` for static scenery. New pictures
-do not require another role or Ruby class. Map generation rejects unknown asset keys;
-never infer placement from filename prefixes or a special event coordinate.
+For world props, add `"key": {"file": "Tidebound/picture", "anchor": [16, 32]}`
+to `assets/props.json`. `file` is relative to `assets/pictures/`, without `.png`;
+`anchor` is the integer pixel point placed at the event (it may lie outside the
+image). Optional integer `z` fixes the layer; no other fields are accepted.
+Use `Map.event(..., role="prop", asset="key")` for static scenery, then rebuild
+with `--all`. New pictures need no new role or Ruby class. Map generation rejects
+unknown asset keys; placement must not depend on filename prefixes.
 Static props share `presentation/props.rb`; flickering lamps and quest props retain
 their behavior owners. `load_prop` replaces and disposes an independently loaded
 bitmap; do not pass it a shared/cache-owned image. Household pie/plate states are
@@ -75,4 +78,5 @@ blue pixels. Landscape maps select it through `Map.light_mask`. A tileset packer
 must preserve `Map.source_tiles` (packed ID → original ID); otherwise metadata
 would attach to unrelated tiles after packing. The road packer is the example.
 Packed game tilesets are outputs. Shared map painters own packing and map
-composition; approved standalone pictures stay under the asset owner.
+composition; approved standalone pictures stay under the asset owner. Tileset or
+mask edits require `uv run rebuild --all`; ordinary play does not repack maps.
