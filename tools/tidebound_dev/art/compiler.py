@@ -2,7 +2,7 @@
 
 import shutil
 from PIL import Image
-from . import ownership
+from . import ownership, props
 from ..files import save_png
 from .pokemon import POKEMON, frames, cry_source
 from .files import copies, validate_image, validate_audio
@@ -32,4 +32,5 @@ def build(root):
         target = root / f"game/Audio/SE/Cries/{identifier}.ogg"
         if source != target:
             shutil.copy2(source, target)
+    props.build(root)
     ownership.publish(root, owners)

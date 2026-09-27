@@ -40,23 +40,8 @@ class TideboundLampSprite < Tidebound::Presentation::OwnedSprite
   def initialize(event, viewport)
     super(viewport)
     @map_event = event
-    self.bitmap = Bitmap.new(64, 80)
-    self.ox = 32
-    self.oy = 64
     @fire = Tidebound::Actors.role(event) == "fire"
-    if @fire
-      self.bitmap.fill_rect(14, 51, 34, 6, Color.new(69, 51, 44))
-      self.bitmap.fill_rect(22, 47, 30, 6, Color.new(98, 63, 41))
-      self.bitmap.fill_rect(23, 26, 19, 26, Color.new(189, 87, 42))
-      self.bitmap.fill_rect(28, 17, 10, 32, Color.new(224, 147, 68))
-      self.bitmap.fill_rect(31, 34, 7, 17, Color.new(255, 220, 139))
-    else
-      self.bitmap.fill_rect(29, 20, 6, 40, Color.new(66, 68, 77))
-      self.bitmap.fill_rect(20, 16, 24, 22, Color.new(150, 122, 77))
-      self.bitmap.fill_rect(23, 19, 18, 16, Color.new(249, 212, 138))
-      self.bitmap.fill_rect(19, 14, 26, 4, Color.new(80, 80, 90))
-      self.bitmap.fill_rect(24, 60, 16, 4, Color.new(72, 74, 80))
-    end
+    load_prop(Tidebound::Actors.role(event))
     update
   end
 
@@ -152,22 +137,8 @@ class TideboundPropSprite < Tidebound::Presentation::OwnedSprite
   def initialize(event, viewport)
     super(viewport)
     @map_event = event
-    self.bitmap = Bitmap.new(32, 32)
-    self.ox = 16
-    self.oy = 32
     @key = Tidebound::Actors.role(event) == "keys"
-    if @key
-      gold = Color.new(232, 204, 130)
-      self.bitmap.fill_rect(10, 8, 8, 8, gold)
-      self.bitmap.fill_rect(12, 10, 4, 4, Color.new(68, 67, 59))
-      self.bitmap.fill_rect(13, 16, 3, 11, gold)
-      self.bitmap.fill_rect(16, 22, 4, 3, gold)
-    else
-      self.bitmap.fill_rect(2, 7, 28, 24, Color.new(66, 43, 31))
-      self.bitmap.fill_rect(4, 9, 24, 20, Color.new(144, 104, 64))
-      [13, 20, 27].each { |y| self.bitmap.fill_rect(4, y, 24, 2, Color.new(88, 60, 42)) }
-      [7, 23].each { |x| self.bitmap.fill_rect(x, 9, 3, 20, Color.new(185, 142, 88)) }
-    end
+    load_prop(Tidebound::Actors.role(event))
     update
   end
 
@@ -198,62 +169,3 @@ class TideboundSleepSprite < Tidebound::Presentation::OwnedSprite
     self.z = @map_event.screen_z + 1
   end
 end
-
-# Tiny native pixel props share the map's 32px grid and stock-art scale.
-class TideboundCoastProp < Tidebound::Presentation::OwnedSprite
-  def initialize(event, viewport)
-    super(viewport)
-    @map_event = event
-    self.bitmap = Bitmap.new(48, 64)
-    self.ox = 24
-    self.oy = 48
-    dark = Color.new(53, 46, 43)
-    wood = Color.new(125, 94, 65)
-    if Tidebound::Actors.role(event) == "coast_lamp"
-      self.bitmap.fill_rect(6, 4, 36, 36, Color.new(236, 178, 91, 14))
-      self.bitmap.fill_rect(12, 10, 24, 24, Color.new(244, 193, 108, 24))
-      self.bitmap.fill_rect(22, 22, 4, 25, dark)
-      self.bitmap.fill_rect(16, 12, 16, 17, dark)
-      self.bitmap.fill_rect(19, 15, 10, 11, Color.new(240, 187, 101))
-      self.bitmap.fill_rect(22, 16, 4, 8, Color.new(255, 229, 169))
-      self.bitmap.fill_rect(14, 10, 20, 3, wood)
-      self.bitmap.fill_rect(20, 46, 8, 2, wood)
-    elsif Tidebound::Actors.role(event) == "sea_glass"
-      self.bitmap.fill_rect(20, 42, 8, 4, Color.new(54, 111, 100))
-      self.bitmap.fill_rect(22, 40, 6, 3, Color.new(132, 174, 143))
-      self.bitmap.fill_rect(22, 40, 2, 2, Color.new(213, 218, 173))
-    elsif Tidebound::Actors.role(event) == "tide_bell"
-      self.bitmap.fill_rect(12, 16, 4, 31, wood)
-      self.bitmap.fill_rect(32, 16, 4, 31, wood)
-      self.bitmap.fill_rect(10, 14, 28, 4, dark)
-      self.bitmap.fill_rect(22, 18, 4, 6, dark)
-      self.bitmap.fill_rect(18, 24, 12, 10, Color.new(135, 126, 83))
-      self.bitmap.fill_rect(16, 33, 16, 3, Color.new(181, 154, 96))
-    else
-      self.bitmap.fill_rect(21, 28, 6, 19, wood)
-      self.bitmap.fill_rect(19, 28, 10, 4, dark)
-      3.times { |i| self.bitmap.fill_rect(18, 36 + i * 3, 13, 2, Color.new(178, 158, 111)) }
-      self.bitmap.fill_rect(29, 41, 2, 14, Color.new(158, 142, 109))
-    end
-    update
-  end
-  def update
-    super
-    position_at_event(@map_event)
-  end
-end
-
-EventHandlers.add(
-  :on_new_spriteset_map,
-  :tidebound_coast_props,
-  proc do |spriteset, viewport|
-    next unless [102, 108, 110, 112].include?(spriteset.map.map_id)
-    spriteset.map.events.each_value do |event|
-      unless Tidebound::Actors.role(event) == "coast_lamp" ||
-               %w[sea_glass tide_bell mooring_rope].include?(Tidebound::Actors.role(event))
-        next
-      end
-      spriteset.addUserSprite(TideboundCoastProp.new(event, viewport))
-    end
-  end
-)

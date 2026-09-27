@@ -39,3 +39,9 @@ copy before rebuilding, so stale committed PNGs cannot hide a missing exporter.
 
 Approved custom audio lives in `assets/audio/<category>/` and exports byte-for-byte.
 The two ambient loops are approved sources; builds need no NumPy or ffmpeg.
+
+`assets/props.json` owns world-picture anchors and optional fixed layers. It emits
+`src/generated/prop_assets.rb`; maps reference these asset keys. Lamps, archive
+props, household props, warm light, title backdrop and fold runes use approved
+PNGs. Ruby handles movement, flicker, text and story state. Small threshold marks
+and genuinely dynamic drawing remain in Ruby.

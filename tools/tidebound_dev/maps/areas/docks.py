@@ -146,6 +146,7 @@ def build(paths, palette):
         48,
         'pbMessage("A little working boat, tied close to the pier. Water knocks softly against its hull.")',
         role="dock_boat",
+        asset="dock_boat_left",
     )
     docks.event(
         "Dock boat",

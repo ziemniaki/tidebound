@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 import json
+from ..files import ruby
 from .definitions import DEFINITIONS
 
 MAPS = {name: definition.id for name, definition in DEFINITIONS.items()}
@@ -71,12 +72,6 @@ ROLES = {
     "dock_nets",
     "dock_stall",
 }
-
-
-def ruby(value):
-    if isinstance(value, dict):
-        return "{" + ", ".join(f"{ruby(k)} => {ruby(v)}" for k, v in value.items()) + "}"
-    return json.dumps(value)
 
 
 def collect_actors(maps):

@@ -39,21 +39,6 @@ class TideboundWindowLights
   end
 end
 
-class TideboundQuayProp < Tidebound::Presentation::OwnedSprite
-  def initialize(event, viewport)
-    super(viewport)
-    @event = event
-    role = Tidebound::Actors.role(event)
-    self.bitmap = Bitmap.new("Graphics/Pictures/Tidebound/#{role}")
-    self.ox = role == "dock_boat" && event.x == 24 ? 96 : 32
-    self.oy = 80
-    update
-  end
-  def update
-    super
-    position_at_event(@event)
-  end
-end
 EventHandlers.add(
   :on_new_spriteset_map,
   :tidebound_dock_details,
@@ -61,12 +46,5 @@ EventHandlers.add(
     map = spriteset.map
     next unless [102, 108, 112].include?(map.map_id)
     spriteset.addUserSprite(TideboundWindowLights.new(map))
-    if map.map_id == 112
-      map.events.each_value do |e|
-        if %w[dock_boat dock_bollard dock_nets dock_stall].include?(Tidebound::Actors.role(e))
-          spriteset.addUserSprite(TideboundQuayProp.new(e, viewport))
-        end
-      end
-    end
   end
 )

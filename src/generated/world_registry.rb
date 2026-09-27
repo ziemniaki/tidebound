@@ -172,7 +172,7 @@ module Tidebound
         36 => {"role" => "dock_nets"}.freeze,
         37 => {"role" => "dock_nets"}.freeze,
         38 => {"role" => "dock_nets"}.freeze,
-        39 => {"role" => "dock_boat"}.freeze,
+        39 => {"role" => "dock_boat", "asset" => "dock_boat_left"}.freeze,
         40 => {"role" => "dock_boat"}.freeze,
         41 => {"role" => "dock_stall"}.freeze,
         44 => {"role" => "demo_prop", "asset" => "ship1"}.freeze,

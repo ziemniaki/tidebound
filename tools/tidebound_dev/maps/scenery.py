@@ -4,7 +4,7 @@ from PIL import Image
 from rubymarshal.reader import loads
 
 from ..files import save_png
-from .registry import ruby
+from ..files import ruby
 
 
 def window_mask(atlas, tile):
