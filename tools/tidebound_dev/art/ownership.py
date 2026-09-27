@@ -37,6 +37,8 @@ def inventory(root):
         register(name, "files")
     for name in MAP_OUTPUTS:
         register(f"game/{name}", "maps")
+    register("src/generated/prop_assets.rb", "props")
+    register("src/generated/window_lights.rb", "maps")
     previous = recorded(root)
     audio_stems = set()
     for name in owners:
@@ -85,7 +87,7 @@ def recorded(root):
         if (
             ".." in path.parts
             or "\\" in name
-            or path.parts[:2] not in (("game", "Graphics"), ("game", "Audio"))
+            or path.parts[:2] not in (("game", "Graphics"), ("game", "Audio"), ("src", "generated"))
         ):
             raise ValueError(f"Invalid generated asset path: {name}")
     return entries

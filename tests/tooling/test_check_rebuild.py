@@ -13,16 +13,16 @@ from tidebound_dev import checks
 
 
 class GeneratedFileSetTests(unittest.TestCase):
-    def regenerate(self, generate):
+    def regenerate(self, generate, output="game/Graphics/Pictures/custom.png"):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / "input.txt").write_text("source")
-            image = root / "game/Graphics/Pictures/custom.png"
+            image = root / output
             image.parent.mkdir(parents=True)
             image.write_bytes(b"stale export")
             manifest = root / "tools/generated/assets.json"
             manifest.parent.mkdir(parents=True)
-            manifest.write_text(json.dumps({"game/Graphics/Pictures/custom.png": "files"}))
+            manifest.write_text(json.dumps({output: "files"}))
             subprocess.run(["git", "init", "-q", root], check=True)
             subprocess.run(["git", "-C", root, "add", "."], check=True)
             with (
@@ -42,8 +42,9 @@ class GeneratedFileSetTests(unittest.TestCase):
             self.regenerate(generate)
 
     def test_an_exporter_that_stops_writing_cannot_pass_using_old_output(self):
-        with self.assertRaisesRegex(SystemExit, "custom.png"):
-            self.regenerate(lambda root, **kwargs: None)
+        for output in ("game/Graphics/Pictures/custom.png", "src/generated/prop_assets.rb"):
+            with self.subTest(output=output), self.assertRaisesRegex(SystemExit, Path(output).name):
+                self.regenerate(lambda root, **kwargs: None, output)
 
     def test_python_import_cache_is_not_a_generated_game_asset(self):
         def generate(root, *, full):

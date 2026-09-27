@@ -123,5 +123,7 @@
   "game/Graphics/Tilesets/TideboundVillage.png": "maps",
   "game/Graphics/Trainers/TBABYSSRUNNER.png": "files",
   "game/Graphics/Trainers/TBLOCALYOUTH.png": "files",
-  "game/Graphics/Trainers/TBLOCALYOUTH2.png": "files"
+  "game/Graphics/Trainers/TBLOCALYOUTH2.png": "files",
+  "src/generated/prop_assets.rb": "props",
+  "src/generated/window_lights.rb": "maps"
 }

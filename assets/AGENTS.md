@@ -13,7 +13,8 @@ Approved custom sources live here; exported player files live in `game/`.
 2. Register the ID in `tools/tidebound_dev/art/pokemon.py::POKEMON`. Declare its
    cry source and whether shiny artwork is distinct. For an original cry, set
    `cry` to the asset's own ID and add `cry.ogg` to its source bundle. `shiny=True` requires
-   `front_shiny.png` and `back_shiny.png`; otherwise normal pixels are reused.
+   `front_shiny.png` and `back_shiny.png` (or the stock shiny files when using
+   `stock`); otherwise normal pixels are reused.
    Party icons currently share normal/shiny artwork. `stock` explicitly reuses
    stock sprites; the four palette recipes live in `art/recolors.py`.
 3. Icons are a **horizontal strip of square frames**: Essentials takes image
