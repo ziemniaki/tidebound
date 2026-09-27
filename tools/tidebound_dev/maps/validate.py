@@ -1,4 +1,3 @@
-from .transfers import Transfer
 from . import definitions
 from .data import encode
 from .tilesets import passages
@@ -6,6 +5,20 @@ from collections import deque
 from rubymarshal.reader import loads
 import json, re, struct
 from tidebound_dev.scripts.archive import validate_archive
+
+
+def validate_transfer(masks, map_id, x, y, direction=2):
+    if any(type(value) is not int for value in (map_id, x, y, direction)):
+        raise ValueError("Transfer coordinates/map/direction must be integers")
+    if direction not in (2, 4, 6, 8):
+        raise ValueError(f"Invalid transfer direction {direction}")
+    mask = masks.get(str(map_id))
+    if mask is None:
+        raise ValueError(f"Unknown transfer map {map_id}")
+    if not (0 <= y < len(mask) and 0 <= x < len(mask[y])):
+        raise ValueError(f"Transfer outside map {map_id}: {x},{y}")
+    if mask[y][x] != "1":
+        raise ValueError(f"Blocked transfer to map {map_id}: {x},{y}")
 
 
 def validate(root, event_scripts_output=None, check_scripts=True):
@@ -143,7 +156,7 @@ def validate(root, event_scripts_output=None, check_scripts=True):
                     if attrs["@code"] == 201 and attrs["@parameters"][0] == 0:
                         _, destination, tx, ty, direction, *_ = attrs["@parameters"]
                         try:
-                            Transfer(destination, tx, ty, direction or 2).validate(masks)
+                            validate_transfer(masks, destination, tx, ty, direction or 2)
                         except ValueError as error:
                             fail.append(f"{label}: {error}")
                 code = "\n".join(

@@ -6,7 +6,20 @@ from rubymarshal.classes import Symbol as S
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 
-from .species import SPECIES, METRICS
+from ..catalog import POKEMON
+
+SPECIES = {
+    identifier: {
+        **record["species"],
+        "file": "pokemon_forms_tidebound" if "_" in identifier else "pokemon_tidebound",
+    }
+    for identifier, record in POKEMON.items()
+}
+METRICS = {
+    identifier: {**record["metrics"], "file": "pokemon_metrics_tidebound"}
+    for identifier, record in POKEMON.items()
+    if "metrics" in record
+}
 
 STATS = ("HP", "ATTACK", "DEFENSE", "SPEED", "SPECIAL_ATTACK", "SPECIAL_DEFENSE")
 # Each field has one native representation. The PBS writer uses the original value.

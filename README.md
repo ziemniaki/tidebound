@@ -41,14 +41,17 @@ uv run preview pokemon/WHYDUCK  # inspect an asset in the engine
 
 [Development guide](docs/development.md) · [Working with an agent](docs/development.md#agent-assisted-development)
 · [Playtest starting states](docs/development.md#playtest-scenarios)
-· [Architecture](docs/architecture.md) · [Releasing](docs/releasing.md)
+· [Architecture](docs/architecture.md) · [Testing](tests/AGENTS.md)
+· [Releasing](docs/releasing.md) · [Engine contracts](docs/essentials-contracts.md)
+· [Content guide](content/AGENTS.md) · [Walkthrough](docs/walkthrough.md)
+· [Release notes](docs/release-notes.md)
 
 ## Project structure
 
 | Directory | What belongs here |
 | --- | --- |
 | [`specs/`](specs/game-design.md) | Game design and creative decisions |
-| [`docs/`](docs/README.md) | Development, playtesting, releases and current status |
+| `docs/` | Development, playtesting, releases and current status |
 | `src/` | Custom Ruby gameplay and presentation |
 | `game/` | Generated RPG Maker project and playable assets (ignored; created by build/play) |
 | `tools/` | Build commands, map/data compilers and packaging |

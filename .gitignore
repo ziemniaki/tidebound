@@ -21,6 +21,7 @@ Mac_Build/
 /releases/
 Tidebound_Project.zip
 Tidebound_Mac_*.zip
+/specs/game-design.pdf
 # Pinned runtime archives stay tracked; restored loose binaries do not.
 *.exe
 *.dll

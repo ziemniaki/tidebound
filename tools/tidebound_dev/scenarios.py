@@ -6,7 +6,7 @@ from rubymarshal.classes import Symbol
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from .maps.definitions import load as load_maps
-from .runtime.development import replace_main
+from .scripts.archive import replace_main
 
 FIELDS = {
     "base",

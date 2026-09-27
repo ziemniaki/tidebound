@@ -84,6 +84,9 @@ editor database wholesale. Follow the
 
 ## Project constraints
 
+- Keep the [PDF renderer](tools/tidebound_dev/documents/specification.py) for portable
+  distribution of the game design. Markdown is authoritative; generate the PDF
+  on demand and keep it out of Git.
 - Maps are authored in `content/maps/`; import saved RPG Maker edits with
   `uv run editor import` before rebuilding. `game/` and `src/generated/` are ignored outputs.
   Keep unimported editor work and its `.build/editor.json` checkpoint; builds

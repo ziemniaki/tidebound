@@ -31,12 +31,10 @@ class AssetTests(unittest.TestCase):
 
     def test_renaming_an_image_does_not_make_audio(self):
         with tempfile.TemporaryDirectory() as temp:
-            for extension, codec in (("ogg", "Ogg Vorbis"), ("wav", "PCM WAV")):
-                with self.subTest(extension=extension):
-                    path = Path(temp) / f"sound.{extension}"
-                    Image.new("RGBA", (8, 8)).save(path, format="PNG")
-                    with self.assertRaisesRegex(ValueError, codec):
-                        validate_audio(path)
+            path = Path(temp) / "sound.ogg"
+            Image.new("RGBA", (8, 8)).save(path, format="PNG")
+            with self.assertRaisesRegex(ValueError, "Ogg Vorbis"):
+                validate_audio(path)
 
     def test_bundle_preserves_alpha_and_requires_distinct_shiny_sources(self):
         with tempfile.TemporaryDirectory() as temp:

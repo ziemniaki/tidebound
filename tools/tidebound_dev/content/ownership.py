@@ -3,8 +3,7 @@
 import json
 from pathlib import PurePosixPath
 
-from .species import SPECIES, METRICS
-from .species_compiler import pbs_files
+from .species_compiler import SPECIES, METRICS, pbs_files
 from .story import ITEMS, TRAINERS
 from ..maps.definitions import load
 

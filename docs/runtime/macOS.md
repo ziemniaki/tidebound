@@ -31,9 +31,9 @@ run one real read-only App Translocation launch per architecture. Downloads,
 temporary and long Unicode paths remain opt-in diagnostics. Test quarantine approval is applied only
 to disposable fixtures; it is not distributed. This is not notarization.
 
-## Historical input provenance
+## Upstream inputs
 
-Game release: 0.3.0. Packaging date: 9 September 2026.
+The original archives remain offline build inputs, not alternate player runtimes:
 
 - Upstream: https://github.com/mkxp-z/mkxp-z
 - Revision: `826929eeb3ebc4b887c011604919217a790770f4`, dev branch.
@@ -41,37 +41,21 @@ Game release: 0.3.0. Packaging date: 9 September 2026.
 - Artifact: `7993949899`, `mkxp-z.macos.dev-826929e`.
 - Outer artifact SHA256: `488c51601ca9028513c92ece43c5dff87e956219067fad1450f33ccdea81625f`.
 - `mkxp-z-826929e.zip` is the unchanged inner `Z-universal.app.zip` from that artifact.
+  The rebuild uses its libraries and Ruby standard library as the template.
+- `mkxp-z-826929e-source.tar.gz` contains matching upstream source, build recipes
+  and dependency patches. The rebuild applies `portable-launch.patch` to it.
 - Runtime reports mkxp-z 2.4.2; Ruby is 3.1. Essentials originally targets the
   older c9378cf build. Windows keeps its original executable. No Essentials
   engine upgrade was performed.
 
-`macho_report.json` records all five Intel Mach-O images and their load commands.
-The main executable, Ruby, EGL and GLES target macOS 10.13; FluidSynth targets
-10.12. All linked non-system dylibs resolve inside Contents/Frameworks.
-The executable uses OpenGL by default on Intel. Apple Silicon code is also
-present upstream, but this release is prepared and documented for Intel.
-
-The upstream Intel executable has no LC_CODE_SIGNATURE. This development app
-is unsigned and not notarized. The packager preserves native binary bytes and
-permissions, adds Contents/Game, and updates the app's name, identifier and
-version. It does not disable macOS security or require a machine-wide bypass.
-
-Matching upstream source, build recipes and dependency patches are in
-`mkxp-z-826929e-source.tar.gz`. The original `LICENSE.mkxp-z-with-https.txt`
-is retained in the app. Dependency source URLs and versions are recorded in
-the source archive's macos/Dependencies recipes. Upstream source is also at:
+The original `LICENSE.mkxp-z-with-https.txt` is retained in the app. Dependency
+source URLs and versions are recorded in the source archive's macos/Dependencies
+recipes. Upstream source is also at:
 https://github.com/mkxp-z/mkxp-z/tree/826929eeb3ebc4b887c011604919217a790770f4
 
-Rebuild from the maintained project with:
+`macho_report.json` retains the historical Intel inspection of the original upstream
+template; it does not describe the current patched universal player.
 
-```sh
-uv run python -m tidebound_dev.release.candidates /path/to/new-output-folder
-```
-
-The complete game is copied into the app at packaging time. Editing the project
-requires rebuilding; no runtime file inside an already downloaded app silently
-synchronizes with the maintained ZIP. The stable save identity remains
-`Tidebound_Opening_0_2`.
-
-Verification separates static Mac checks, actual rendered Linux engine checks,
-and native Mac testing. No native Mac playtest has been run by the agent.
+Packaging inspects the actual runtime and records both architectures' Mach-O
+metadata in each build manifest. See [releasing](../releasing.md) for current
+packaging, signing and native verification requirements.

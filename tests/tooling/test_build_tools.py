@@ -11,7 +11,7 @@ import zlib
 
 from rubymarshal.writer import writes
 
-DEV = Path(__file__).resolve().parents[2] / "tools"
+ROOT = Path(__file__).resolve().parents[2]
 
 from tidebound_dev.scripts.archive import validate_archive
 
@@ -94,26 +94,22 @@ class CommandChecks(unittest.TestCase):
         (self.root / "tests").mkdir(parents=True)
         (self.game / "Data").mkdir(parents=True)
 
-    def command(self, script, *flags):
-        if script == "rebuild_scripts.py":
-            command = [
-                sys.executable,
-                *flags,
-                "-c",
-                "import sys; from pathlib import Path; from tidebound_dev.scripts.compiler import rebuild; rebuild(Path(sys.argv[1]))",
-                str(self.root),
-            ]
-        else:
-            command = [
-                sys.executable,
-                *flags,
-                str(self.root / "tests" / script.removeprefix("Tests/")),
-            ]
-        return subprocess.run(command, cwd=self.game, capture_output=True, text=True)
+    def command(self, *args):
+        return subprocess.run(
+            [sys.executable, *args], cwd=self.game, capture_output=True, text=True
+        )
+
+    def rebuild(self, *flags):
+        return self.command(
+            *flags,
+            "-c",
+            "import sys; from pathlib import Path; from tidebound_dev.scripts.compiler import rebuild; rebuild(Path(sys.argv[1]))",
+            str(self.root),
+        )
 
     def test_rebuild_rejects_plugin_before_writing_even_with_optimization(self):
-        shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
-        shutil.copytree(DEV.parent / "src", self.src, dirs_exist_ok=True)
+        shutil.copy2(ROOT / "release.json", self.root / "release.json")
+        shutil.copytree(ROOT / "src", self.src, dirs_exist_ok=True)
         paths = [
             "Data/Scripts.rxdata",
             "Data/metadata.dat",
@@ -125,19 +121,19 @@ class CommandChecks(unittest.TestCase):
         for name in paths:
             dest = self.game / name
             dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(DEV.parent / "game" / name, dest)
+            shutil.copy2(ROOT / "game" / name, dest)
         # Make a rebuild observable instead of relying on serializer differences.
         with (self.src / "tidebound/domain/state.rb").open("a") as source:
             source.write("\n# unembedded edit\n")
         before = {name: (self.game / name).read_bytes() for name in paths}
         (self.game / "Plugins/Tidebound").mkdir(parents=True)
-        result = self.command("rebuild_scripts.py", "-O")
+        result = self.rebuild("-O")
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Plugins/Tidebound", result.stderr)
         self.assertEqual(before, {name: (self.game / name).read_bytes() for name in paths})
 
     def test_script_only_rebuild_preserves_editor_data_without_map_outputs(self):
-        shutil.copy2(DEV.parent / "release.json", self.root / "release.json")
+        shutil.copy2(ROOT / "release.json", self.root / "release.json")
         (self.src / "load_order.txt").write_text("001_Core.rb\n")
         (self.src / "001_Core.rb").write_text("# current custom source\n")
         (self.game / "Data/Scripts.rxdata").write_bytes(
@@ -161,7 +157,7 @@ class CommandChecks(unittest.TestCase):
             dest = self.game / name
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_bytes(b"editor-authored data must remain untouched")
-        result = self.command("rebuild_scripts.py")
+        result = self.rebuild()
         self.assertEqual(result.returncode, 0, result.stderr)
         validate_archive(self.game, self.src)
         for name in preserved:
@@ -171,14 +167,12 @@ class CommandChecks(unittest.TestCase):
         self.assertFalse((self.dev / "generated").exists())
 
     def test_reference_refresh_removes_stale_indices(self):
-        shutil.copy2(
-            DEV.parent / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py"
-        )
+        shutil.copy2(ROOT / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py")
         ref = self.root / "tests/engine_reference"
         ref.mkdir()
         (ref / "000_Old.rb").write_text("# stale engine script")
         (self.game / "Data/Scripts.rxdata").write_bytes(writes([entry("New", "# current")]))
-        result = self.command("Tests/prepare_reference.py")
+        result = self.command(str(self.root / "tests/prepare_reference.py"))
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(sorted(path.name for path in ref.iterdir()), ["000_New.rb", "index.json"])
         self.assertEqual(
@@ -188,14 +182,12 @@ class CommandChecks(unittest.TestCase):
         self.assertEqual((ref / "000_New.rb").read_text(), "# current")
 
     def test_failed_reference_decode_preserves_previous_extraction(self):
-        shutil.copy2(
-            DEV.parent / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py"
-        )
+        shutil.copy2(ROOT / "tests/prepare_reference.py", self.root / "tests/prepare_reference.py")
         ref = self.root / "tests/engine_reference"
         ref.mkdir()
         (ref / "000_Old.rb").write_text("# previous")
         (self.game / "Data/Scripts.rxdata").write_bytes(writes([[1, "Broken", b"not zlib"]]))
-        result = self.command("Tests/prepare_reference.py")
+        result = self.command(str(self.root / "tests/prepare_reference.py"))
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual((ref / "000_Old.rb").read_text(), "# previous")
 

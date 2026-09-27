@@ -7,7 +7,17 @@ from pathlib import Path
 from PIL import Image
 
 from ..files import save_png
-from .recolors import recolor
+
+
+def recolor(path, palette):
+    with Image.open(path) as image:
+        edited = image.convert("RGBA")
+    pixels = list(edited.get_flattened_data())
+    missing = palette.keys() - {p[:3] for p in pixels if p[3]}
+    if missing:
+        raise ValueError(f"{path}: expected source palette colours missing: {sorted(missing)}")
+    edited.putdata([(*palette.get(p[:3], p[:3]), p[3]) if p[3] else p for p in pixels])
+    return edited
 
 
 @dataclass(frozen=True)
@@ -52,16 +62,6 @@ class Export:
 
 def validate_audio(path):
     """Check container/codec headers, not musical quality or native decoding."""
-    if path.suffix == ".wav":
-        import wave
-
-        try:
-            with wave.open(str(path), "rb") as audio:
-                if audio.getnchannels() not in (1, 2) or not audio.getnframes():
-                    raise ValueError(f"{path}: expected nonempty mono/stereo PCM WAV")
-        except (wave.Error, EOFError) as error:
-            raise ValueError(f"{path}: expected nonempty mono/stereo PCM WAV") from error
-        return
     with path.open("rb") as audio:
         header = audio.read(27)
         if len(header) != 27 or header[:5] != b"OggS\x00":

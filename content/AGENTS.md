@@ -7,6 +7,19 @@ workflow; extend its [owner](../tools/tidebound_dev/art/AGENTS.md) if needed.
 Use the shared [asset preview](../docs/development.md#asset-previews), then stage
 source changes before `uv run check --all`.
 
+## Approved artwork
+
+Approved pixels are build inputs. Export preserves geometry, alpha and pixel
+colours; it does not resize, quantize or reinterpret art. Species design lives in
+[species design notes](../specs/species.md); retain [attribution](../docs/credits.md) when replacing art.
+
+Stock fonts, battlebacks, animations and interface resources remain engine inputs.
+Essentials resolves some filenames dynamically; text search alone cannot prove
+an asset unused. Battleback metadata names a set (`_bg`, `_base0`, `_base1`,
+`_message`), and animation databases reference graphics independently of source
+code. Preserve those contracts when replacing stock assets. Keep
+`fontHeightReporting: 1`; fonts and native layout need visual inspection.
+
 ## Actors, trainers and items
 
 Actors use `actors/<name>/character.png`. XP sheets have **four columns × four

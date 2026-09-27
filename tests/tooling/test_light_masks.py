@@ -22,13 +22,12 @@ class LightMaskTests(unittest.TestCase):
             mask.putpixel((65, 34), (230, 180, 120, 75))
             mask.save(root / "content/tilesets/outside/windows.png")
             area = SimpleNamespace(id=1, light_mask="outside/windows.png", layers=[[], [[0, 394]]])
-            paths = SimpleNamespace(root=root, game=root / "game")
-            window_lights(paths, [area])
+            window_lights(root, [area])
             image = root / "game/Graphics/Pictures/Tidebound/window_panes.png"
             ruby = root / "src/generated/window_lights.rb"
             original = (image.read_bytes(), ruby.read_bytes())
             area.layers[1][0] = [394, 0]
-            window_lights(paths, [area])
+            window_lights(root, [area])
             self.assertEqual(image.read_bytes(), original[0])
             self.assertNotEqual(ruby.read_bytes(), original[1])
             self.assertIn("[[0, 0, 0]]", ruby.read_text())

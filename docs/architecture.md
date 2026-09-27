@@ -83,11 +83,13 @@ tilesets keep their dedicated JSON workflow. Stock native edits are imported as
 explicit overrides; generated files without an importer must be edited at source.
 
 `src/generated/`, `game/.generated/` and `.build/maps/` contain derived Ruby,
-validation inventories and previews. None is committed or needed on a fresh
+validation inventories and reports. None is committed or needed on a fresh
 checkout. Removing a declaration removes its output on the next build, without
 retirement manifests or record cleanup. `check` builds before verifying;
 `check --all` also builds from Git-tracked sources in isolation and compares the
 complete generated game and Ruby, including decoded PNG pixels.
+
+Inspect map appearance in RPG Maker or the native player.
 
 The [RPG Maker workflow](development.md#rpg-maker) imports saved edits back into
 these sources. Play/build compile current authored content. The map compiler derives
