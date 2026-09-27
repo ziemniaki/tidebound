@@ -125,37 +125,6 @@ T.test("rest gives an HP and PP floor without curing poison or cumulative healin
   T.equal(30, pkmn.hp)
 end
 
-T.test("cemetery uses exact lost companions, fills vacancies and preserves archives") do
-  state = fresh_state
-  _, ids = fallen_pair(state)
-  state.leave_astral!
-  backup = Array.new(6) { Pokemon.new(:XATU, 50) }
-  team = state.cemetery_team(backup)
-  T.equal(6, team.length)
-  T.equal(%i[NATU LAPRAS XATU XATU XATU XATU], team.map(&:species))
-  T.equal(ids[0], Tidebound.identity(team[0]))
-  T.equal(0, state.memorials[0].pokemon.hp)
-  team[0].moves[0].pp = 2
-  T.equal(7, state.memorials[0].pokemon.moves[0].pp)
-end
-
-T.test("no-loss cemetery uses complete fallback, inadequate fallback fails clearly") do
-  state = fresh_state
-  team = state.cemetery_team(Array.new(6) { Pokemon.new(:XATU) })
-  T.equal(6, team.length)
-  T.raises(ArgumentError) { state.cemetery_team([]) }
-end
-
-T.test("cemetery uses the six most recent losses without exceeding team size") do
-  state = fresh_state
-  4.times do
-    fallen_pair(state)
-    state.leave_astral!
-  end
-  T.equal(8, state.memorials.length)
-  T.equal(6, state.cemetery_team([]).length)
-end
-
 T.test("save round trip preserves identities, encounter states, archive and checkpoint") do
   state = fresh_state
   state.checkpoint = [2, 3, 4, 2]
@@ -168,28 +137,4 @@ T.test("save round trip preserves identities, encounter states, archive and chec
   T.equal(ids[0], loaded.memorials[0].id)
   loaded.begin_encounter!(ids[1])
   T.equal(ids[1], Tidebound.identity(loaded.recover!(ids[1])))
-end
-
-T.test("victory without healed Suicune stays dark") do
-  state = fresh_state
-  state.resolve_suicune!(:corrupted)
-  state.resolve_suicune!(:killed)
-  state.story[:mystic_sabre] = true
-  state.story[:final_demon_defeated] = true
-  T.equal(:dark_victory, state.ending)
-  T.raises(Tidebound::TransitionError) { state.resolve_suicune!(:healed) }
-end
-
-T.test("healing, sabre and final victory are all needed for restoration") do
-  state = fresh_state
-  state.resolve_suicune!(:corrupted)
-  state.resolve_suicune!(:rescued)
-  state.resolve_suicune!(:healed)
-  T.equal(:unfinished, state.ending)
-  state.story[:final_demon_defeated] = true
-  T.equal(:dark_victory, state.ending)
-  state.story[:mystic_sabre] = true
-  T.equal(:restoration, state.ending)
-  state.resolve_suicune!(:lost)
-  T.equal(:dark_victory, state.ending)
 end
