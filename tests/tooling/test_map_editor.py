@@ -6,6 +6,7 @@ import struct
 import tempfile
 import unittest
 from unittest.mock import patch
+from contextlib import ExitStack
 from tidebound_dev import pipeline
 from tidebound_dev.content import ownership
 from pathlib import Path
@@ -224,3 +225,38 @@ class MapEditorTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "export failed"):
                     pipeline.rebuild(self.root)
         self.assertEqual((self.root / "content/maps/home/layout.json").read_bytes(), saved)
+
+        # Even a failure at the last validation step must leave no checkpoint.
+        path.write_bytes(writes(native_map(json.loads(saved))))
+        with ExitStack() as stages:
+            for module in (
+                pipeline.art,
+                pipeline.map_features,
+                pipeline.story,
+                pipeline.species_compiler,
+                pipeline.encounters,
+                pipeline.configure,
+            ):
+                stages.enter_context(patch.object(module, "build"))
+            stages.enter_context(patch.object(pipeline.ownership, "prepare"))
+            for name in ("maps", "scripts"):
+                stages.enter_context(patch.object(pipeline, name))
+            validate = stages.enter_context(
+                patch.object(pipeline, "validate", side_effect=RuntimeError("invalid compiled map"))
+            )
+            with self.assertRaisesRegex(RuntimeError, "invalid compiled map"):
+                pipeline.rebuild(self.root)
+            self.assertFalse((self.root / editor.SESSION).exists())
+            validate.side_effect = None
+            pipeline.rebuild(self.root)
+        editor.require_import(self.root)
+        native = loads(path.read_bytes())
+        native.attributes["@bgm"].attributes["@volume"] = 31
+        path.write_bytes(writes(native))
+        with self.assertRaisesRegex(ValueError, "editor import"):
+            pipeline.rebuild(self.root)
+        editor.import_changes(self.root)
+        self.assertEqual(
+            json.loads((self.root / "content/maps/home/layout.json").read_text())["bgm"]["volume"],
+            31,
+        )

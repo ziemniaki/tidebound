@@ -177,7 +177,7 @@ def import_changes(root):
     path = root / SESSION
     if not path.exists():
         raise ValueError(
-            "No editor export to compare. Run uv run editor before editing the project."
+            "No build checkpoint to compare. Run uv run build or uv run rebuild before editing the project."
         )
     session = read(path)
     current = native_values(root, session["bindings"])
@@ -219,7 +219,7 @@ def import_changes(root):
         else:
             target.write_text(dump(result), encoding="utf-8")
     # Source-only additions may not have native exports yet. Keep them out of
-    # this editor session until the next prepare, while tracking imported maps.
+    # the checkpoint until the next build, while tracking imported maps.
     links = {
         name: link
         for name, link in bindings(root).items()

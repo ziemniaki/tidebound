@@ -111,7 +111,8 @@ standalone generator script. Formatting owns its dependency setup; operations do
 not import it from the CLI.
 
 `runtime/` holds pinned engine inputs, provenance and the portable Mac patch.
-Windows player/editor helpers restore from pinned archives into ignored locations.
+Windows players restore from pinned archives into ignored locations; optional
+editor utilities remain archived for manual use.
 Loose executable libraries stay untracked. The shared player staging pipeline
 copies only native runtime files; platform adapters own layout, signing and
 permissions. Release builds add archive round-trip verification. Publication and

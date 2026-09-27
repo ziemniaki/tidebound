@@ -47,7 +47,6 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
 | `uv run rebuild` | Regenerate maps, data, pipeline-owned art, reports and scripts |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
-| `uv run editor` | Compile and checkpoint the editor project; also restore helpers and open RPG Maker on Windows |
 | `uv run editor import` | Import saved map/tileset edits into authored files; works on every platform |
 
 `uv run build` is the game command. `uv build` builds a Python package, not
@@ -76,10 +75,13 @@ second plugin copy. See [architecture](architecture.md) for ownership.
 
 ## RPG Maker
 
-1. Run `uv run editor`. It compiles the authored game and records the exported
-   map/tileset state. On Windows it also restores ignored helpers and opens
-   `game/Game.rxproj`; on Mac/Linux it prints the prepared project path.
-2. Edit and **save** in RPG Maker. Close the editor before importing or rebuilding.
+The everyday Mac workflow is agent/source edits followed by `uv run play`, with
+`--from` for a declared starting state. RPG Maker is optional; builds never launch it.
+
+1. `uv run play`, `uv run build` and `uv run rebuild` all compile the authored game
+   and automatically record the exported map/tileset state after success.
+2. For visual map editing, open `game/Game.rxproj` manually in RPG Maker XP on
+   a compatible Windows environment. Edit and **save**, then close the editor.
 3. Run `uv run editor import`. Tiles, events (including all pages/routes), map
    audio, names/tree placement, custom tileset settings and textures return to
    `content/`. Review `git diff`, then `uv run play`.
@@ -88,9 +90,10 @@ The importer compares editor and source changes against the last export. Edits t
 separate fields merge; conflicting edits to the same field stop before any source
 is written. Resolve that field in source/editor and rerun. Scrolling, expanding a
 map in the editor, and Marshal encoding differences do not create source changes.
-While an editor session is active, rebuilds refuse pending saved edits until imported.
-A rebuild closes that session before exporting; run `editor` before the
-next editor session. Failed exports can be fixed and rebuilt normally.
+Before exporting, rebuilds compare saved maps against the last build/import
+checkpoint and refuse pending editor edits until imported. Once that check passes, the old
+checkpoint is cleared; a new one is recorded only after compilation and validation
+succeed. Fix failed builds and rebuild before continuing map editing.
 Unsaved editor changes cannot be detected, so always save and close first.
 
 New maps created in RPG Maker become `content/maps/<name>/` bundles on import,
@@ -109,9 +112,10 @@ authored map, import pending edits first, remove its source bundle and update it
 references, then rebuild; whole-map deletion in RPG Maker is not imported.
 Do not delete `.build/editor.json` to bypass a conflict.
 
-RPG Maker Test Play uses the project/release save namespace. `uv run play` uses
-isolated development saves. No editor installation is needed for JSON authoring,
-importing saved project files or native Mac/Linux playtesting.
+Use `uv run play` for native playtesting with isolated development saves. XP's
+own Test Play requires extracting `runtime/Windows/player.zip` into `game/` once
+and uses the project/release save namespace. No editor installation is needed for
+JSON authoring, importing saved project files or native Mac/Linux playtesting.
 
 Full regeneration writes directly to tracked files. If it fails, fix the reported
 error and rerun `uv run rebuild` before playing. Review the generated diff

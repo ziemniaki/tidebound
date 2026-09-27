@@ -2,9 +2,7 @@
 
 from pathlib import Path
 import argparse
-import os
 import platform
-import shutil
 import subprocess
 import sys
 import time
@@ -49,36 +47,6 @@ def development_build(target, *, preview=None, start=None):
     return launcher
 
 
-def open_editor():
-    from .pipeline import rebuild
-    from .maps.editor import remember
-
-    rebuild(ROOT)
-    remember(ROOT)
-    print(f"Editor project ready: {ROOT / 'game/Game.rxproj'}")
-    if sys.platform != "win32":
-        print(
-            "Open the project with RPG Maker XP on Windows; use uv run editor import after saving."
-        )
-        return
-
-    from tidebound_dev.release.metadata import load_release
-    from tidebound_dev.files import sha256
-    from tidebound_dev.runtime.inputs import windows_runtime, unpack_pinned
-
-    config = load_release()
-    sources = [windows_runtime(ROOT, config), unpack_pinned(ROOT, config, "windows_editor_archive")]
-    for source in sources:
-        for path in source.iterdir():
-            dest = ROOT / "game" / path.name
-            if dest.exists() and sha256(dest) != sha256(path):
-                raise ValueError(
-                    f"Preserving modified local file: {dest}. Move it aside before restoring the editor runtime."
-                )
-            shutil.copy2(path, dest)
-    os.startfile(ROOT / "game/Game.rxproj")
-
-
 def parser():
     cli = argparse.ArgumentParser(prog="tidebound", description=__doc__)
     commands = cli.add_subparsers(dest="command", required=True)
@@ -103,11 +71,8 @@ def parser():
     package.add_argument("--allow-dirty", action="store_true")
     formatting = commands.add_parser("format", help="Format Python and Ruby")
     formatting.add_argument("--check", action="store_true")
-    editor = commands.add_parser(
-        "editor",
-        help="Prepare the editor project, open RPG Maker on Windows, or import saved edits",
-    )
-    editor.add_argument("action", nargs="?", choices=("import",))
+    editor = commands.add_parser("editor", help="Import saved RPG Maker edits into source")
+    editor.add_argument("action", choices=("import",))
     return cli
 
 
@@ -135,12 +100,9 @@ def execute(args):
 
         rebuild(ROOT)
     elif args.command == "editor":
-        if args.action == "import":
-            from .maps.editor import import_changes
+        from .maps.editor import import_changes
 
-            import_changes(ROOT)
-        else:
-            open_editor()
+        import_changes(ROOT)
     elif args.command == "format":
         from .formatting import format_sources
 

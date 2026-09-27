@@ -23,3 +23,4 @@ def rebuild(root):
     scripts(root)
     configure.build(root)
     validate(root, root / ".build/maps/event_scripts.json")
+    editor.remember(root)

@@ -22,6 +22,6 @@ edits into authored content before rebuilding. Preserve supplied edits.
 fixed tilesets, lighting, authored PBS and native data;
 arbitrary new PBS fields require native compiler validation.
 
-RPG Maker Test Play uses the project save namespace. Use `uv run play` for the
-separate development namespace. Restored EXE/DLL helpers are ignored; use
-`uv run editor` on Windows instead of committing local binaries.
+Use `uv run play` for native development playtesting. Optional RPG Maker setup
+and its different save namespace are documented in the linked editor workflow.
+Locally extracted EXE/DLL files are ignored; do not commit them.

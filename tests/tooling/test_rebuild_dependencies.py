@@ -37,6 +37,7 @@ class RebuildDependenciesTests(unittest.TestCase):
             }
             patches.enter_context(patch.object(species_compiler, "SPECIES", definitions))
             patches.enter_context(patch.object(pipeline.art, "build"))
+            patches.enter_context(patch.object(pipeline.editor, "remember"))
             bundle = root / "content/maps/forest"
             bundle.mkdir(parents=True)
             (bundle / "map.json").write_text(
