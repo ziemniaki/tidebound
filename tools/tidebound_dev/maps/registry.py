@@ -1,50 +1,129 @@
-"""Names shared by map authoring and Ruby world operations."""
+"""Map-qualified actor identities and explicit runtime roles, independent of labels."""
 
+from dataclasses import dataclass
 import json
-
 from .definitions import DEFINITIONS
 
 MAPS = {name: definition.id for name, definition in DEFINITIONS.items()}
 MAP_NAMES = {value: key for key, value in MAPS.items()}
+
+
+@dataclass(frozen=True)
+class Actor:
+    key: str
+    map: str
+    label: str
+    role: str = "npc"
+    species: str = ""
+
+
 ACTORS = {
-    "mother": "Mother",
-    "mother_visiting": "Mother visiting",
-    "mother_at_vault": "Mother at vault",
-    "house_natu": "House:NATU",
-    "house_makuhita": "House:MAKUHITA",
-    "house_poochyena": "House:POOCHYENA",
-    "crate": "Crate",
-    "pookie_outside": "Pookie outside",
-    "oil_seller": "Oil seller",
-    "seller_outside": "Seller outside",
-    "seller_at_home": "Seller at home",
-    "seller_at_vault": "Seller at vault",
-    "road_thief": "Road thief",
-    "running_thief": "Running thief",
-    "robbery_youth_one": "Robbery youth one",
-    "robbery_youth_two": "Robbery youth two",
-    "necklace_thief": "Necklace thief",
+    "mother": Actor("mother", "home", "Mother", "npc", ""),
+    "mother_visiting": Actor("mother_visiting", "bedroom", "Mother visiting", "npc", ""),
+    "mother_at_vault": Actor("mother_at_vault", "vault", "Mother at vault", "npc", ""),
+    "house_natu": Actor("house_natu", "home", "House:NATU", "house", "NATU"),
+    "house_makuhita": Actor("house_makuhita", "home", "House:MAKUHITA", "house", "MAKUHITA"),
+    "house_poochyena": Actor("house_poochyena", "home", "House:POOCHYENA", "house", "POOCHYENA"),
+    "crate": Actor("crate", "home", "Crate", "crate", ""),
+    "pookie_outside": Actor(
+        "pookie_outside", "coast", "Pookie outside", "outside_dog", "POOCHYENA"
+    ),
+    "oil_seller": Actor("oil_seller", "shop", "Oil seller", "npc", ""),
+    "seller_outside": Actor("seller_outside", "coast", "Seller outside", "npc", ""),
+    "seller_at_home": Actor("seller_at_home", "home", "Seller at home", "npc", ""),
+    "seller_at_vault": Actor("seller_at_vault", "vault", "Seller at vault", "npc", ""),
+    "road_thief": Actor("road_thief", "road", "Road thief", "npc", ""),
+    "running_thief": Actor("running_thief", "road", "Running thief", "npc", ""),
+    "robbery_youth_one": Actor("robbery_youth_one", "coast", "Robbery youth one", "npc", ""),
+    "robbery_youth_two": Actor("robbery_youth_two", "coast", "Robbery youth two", "npc", ""),
+    "necklace_thief": Actor("necklace_thief", "hideout", "Necklace thief", "npc", ""),
+}
+
+# Roles select concrete consumers in features/actors.rb and presentation modules.
+ROLES = {
+    "npc",
+    "house",
+    "room",
+    "outside_dog",
+    "spirit",
+    "wood_bird",
+    "neighbor_wild",
+    "shore_duck",
+    "keys",
+    "crate",
+    "fire",
+    "main_lamp",
+    "lamp",
+    "lapras",
+    "coast_lamp",
+    "sea_glass",
+    "tide_bell",
+    "mooring_rope",
+    "berry",
+    "demo_prop",
+    "vault_ironwork",
+    "vault_pillar",
+    "necklace_drawer",
+    "sabre_exhibit",
+    "museum_case",
+    "dock_boat",
+    "dock_bollard",
+    "dock_nets",
+    "dock_stall",
 }
 
 
-def write_registry(root, maps):
-    if {area.id for area in maps} != set(MAPS.values()):
-        raise ValueError("Authored maps and world registry disagree")
-    events = {str(event.attributes["@name"]) for area in maps for event in area.events.values()}
-    missing = set(ACTORS.values()) - events
+def ruby(value):
+    if isinstance(value, dict):
+        return "{" + ", ".join(f"{ruby(k)} => {ruby(v)}" for k, v in value.items()) + "}"
+    return json.dumps(value)
+
+
+def collect_actors(maps):
+    actors, settings = {}, {}
+    for area in maps:
+        settings[area.id] = area.actor_settings
+        for event_id, info in area.actor_settings.items():
+            if event_id not in area.events:
+                raise ValueError(f"Map {area.id}: actor refers to missing event {event_id}")
+            key = info.get("key")
+            if not key:
+                continue
+            if key in actors:
+                raise ValueError(f"Duplicate actor identity: {key}")
+            expected = ACTORS[key]
+            if area.id != MAPS[expected.map]:
+                raise ValueError(f"Actor {key} belongs to {expected.map}, not map {area.id}")
+            actors[key] = {"map": area.id, "event": event_id}
+    missing = ACTORS.keys() - actors.keys()
     if missing:
-        raise ValueError("Missing named world actors: " + ", ".join(sorted(missing)))
+        raise ValueError("Missing world actors: " + ", ".join(sorted(missing)))
+    return actors, settings
+
+
+def write_registry(root, maps):
+    if len(maps) != len(MAPS) or {area.id for area in maps} != set(MAPS.values()):
+        raise ValueError("Authored maps and world registry disagree")
+    actors, settings = collect_actors(maps)
     lines = ["# Generated by the map compiler.", "module Tidebound", "  module World"]
-    for name, records in [("MAPS", MAPS), ("ACTORS", ACTORS)]:
+    for name, records in [("MAPS", MAPS), ("ACTORS", actors)]:
         lines.append(f"    {name} = {{")
-        lines.extend(f"      {key}: {json.dumps(value)}," for key, value in records.items())
+        lines.extend(f"      {key}: {ruby(value)}," for key, value in records.items())
         lines.append("    }.freeze")
+    lines.append("    ACTOR_SETTINGS = {")
+    for map_id, events in settings.items():
+        lines.append(f"      {map_id} => {{")
+        lines.extend(
+            f"        {event_id} => {ruby(info)}.freeze," for event_id, info in events.items()
+        )
+        lines.append("      }.freeze,")
+    lines.append("    }.freeze")
     lines.append("    MAP_SETTINGS = {")
     for definition in DEFINITIONS.values():
-        settings = ", ".join(
+        values = ", ".join(
             f"{key}: {json.dumps(value)}" for key, value in definition.runtime_settings().items()
         )
-        lines.append(f"      {definition.id} => {{{settings}}},")
+        lines.append(f"      {definition.id} => {{{values}}},")
     lines.append("    }.freeze")
     lines += ["  end", "end", ""]
     (root / "src/generated/world_registry.rb").write_text("\n".join(lines))

@@ -8,7 +8,7 @@ from .dock_details import apply as detail_docks
 def connect(home, road):
     # Add cellar and dock entrances to their owning areas.
     home.stamp(1, 237, 2, 2, 3, 11, walk=True)
-    home.event("Cellar stairs", 3, 12, "Tidebound::VaultVisit.stairs", trigger=1)
+    home.event("Cellar stairs", 3, 12, "Tidebound::VaultVisit.stairs", trigger=1, cue="south")
     home.event(
         ACTORS["seller_at_home"],
         14,
@@ -19,7 +19,7 @@ def connect(home, road):
     )
     # The city starts immediately beside the existing storehouse.
     road.rect(37, 42, 8, 3, tile(2, 27), walk=True)
-    road.event("Dock city", 44, 43, "Tidebound::VaultVisit.city_gate", trigger=1)
+    road.event("Dock city", 44, 43, "Tidebound::VaultVisit.city_gate", trigger=1, cue="east")
     road.event("Dock road sign", 42, 41, 'pbMessage("DOCKS AND MUSEUM - EAST")')
 
 
@@ -40,6 +40,7 @@ def build_basement():
             "Pokemon 01",
             opacity=0,
             blocks=True,
+            role="crate",
         )
     basement.stamp(0, 140, 3, 2, 5, 9)
     basement.event(
@@ -48,15 +49,22 @@ def build_basement():
         11,
         'pbMessage("A brush worn down to its wood. A spare lamp spindle. Tools repaired more often than replaced.")',
     )
-    basement.event("Vault doorway", 17, 4, "Tidebound::VaultVisit.vault_door")
+    basement.event("Vault doorway", 17, 4, "Tidebound::VaultVisit.vault_door", cue="north")
     basement.event(
         "Vault ironwork",
         17,
         3,
         'pbMessage("The iron door is far thicker than the cellar walls. Mother has left it open.")',
         blocks=True,
+        role="vault_ironwork",
     )
-    basement.event("Coast lamp:cellar", 13, 8, 'pbMessage("Mother has brought a lamp down.")')
+    basement.event(
+        "Coast lamp:cellar",
+        13,
+        8,
+        'pbMessage("Mother has brought a lamp down.")',
+        role="coast_lamp",
+    )
 
     return basement
 
@@ -76,6 +84,7 @@ def build_vault():
             y,
             'pbMessage("The stone is cold and worn smooth at shoulder height.")',
             blocks=True,
+            role="vault_pillar",
         )
     vault.event(
         ACTORS["mother_at_vault"],
@@ -97,6 +106,7 @@ def build_vault():
         6,
         'pbMessage("A shallow drawer, now locked. The seller\'s necklace rests inside, wrapped in cloth.")',
         blocks=True,
+        role="necklace_drawer",
     )
     vault.event(
         "Empty bays",
@@ -124,13 +134,13 @@ def build_docks():
     docks.polygon([(9, 15), (62, 15), (62, 39), (55, 44), (16, 44), (9, 35)], tile(2, 27))
     docks.rect(9, 26, 47, 5, tile(2, 27), walk=True)
     docks.rect(10, 26, 3, 5, tile(2, 13), walk=True)
-    docks.door(10, 28, 108, 43, 43, 4)
+    docks.door(10, 28, 108, 43, 43, 4, cue="west")
     # Museum: wider public facade with a shallow green roof and a stone forecourt.
     for yy in range(4):
         for xx, sx in enumerate([4, 5, 5, 5, 5, 5, 6, 7]):
             docks.rect(28 + xx, 18 + yy, 1, 1, tile(sx, 223 + yy), z=1, walk=False)
     docks.rect(31, 21, 1, 1, tile(4, 226), z=1, walk=True)
-    docks.door(31, 21, "museum", 14, 18, 8, name="Museum door")
+    docks.door(31, 21, "museum", 14, 18, 8, name="Museum door", cue="south")
     docks.event(
         "Museum sign",
         35,
@@ -148,12 +158,19 @@ def build_docks():
             "Pokemon 01",
             opacity=0,
             blocks=True,
+            role="crate",
         )
     for x in [25, 42, 54]:
         docks.rect(x, 41, 3, 10, tile(6, 150), walk=True)
         docks.rect(x, 51, 3, 1, tile(6, 152), z=1, walk=False)
     for x, y in [(14, 27), (28, 23), (37, 27), (43, 39), (55, 34)]:
-        docks.event("Coast lamp:dock", x, y, 'pbMessage("A warm lantern in a thick glass hood.")')
+        docks.event(
+            "Coast lamp:dock",
+            x,
+            y,
+            'pbMessage("A warm lantern in a thick glass hood.")',
+            role="coast_lamp",
+        )
     docks.event(
         "Porter",
         22,
@@ -202,7 +219,9 @@ def build_museum():
         "NPC 11",
         blocks=True,
     )
-    museum.event("Sabre exhibit", 15, 8, "Tidebound::VaultVisit.sabre", blocks=True)
+    museum.event(
+        "Sabre exhibit", 15, 8, "Tidebound::VaultVisit.sabre", blocks=True, role="sabre_exhibit"
+    )
     for x, y, name, text in [
         (
             7,
@@ -229,7 +248,9 @@ def build_museum():
             "A shipping ledger, open to a page of ordinary deliveries: lamp oil, flour, cloth.",
         ),
     ]:
-        museum.event("Museum case:" + name, x, y, f'pbMessage("{text}")', blocks=True)
+        museum.event(
+            "Museum case:" + name, x, y, f'pbMessage("{text}")', blocks=True, role="museum_case"
+        )
     museum.event(
         "Visitor",
         18,

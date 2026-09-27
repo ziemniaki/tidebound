@@ -52,8 +52,9 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
   [content guide](../tools/tidebound_dev/content/AGENTS.md) before changing forms.
 - Rendered visibility does not establish collision. `features/actors.rb` owns
   story-actor collision and skips forced routes; update its policy alongside
-  presentation. Event names/prefixes currently drive this policy, so renames are
-  behavior changes. Read the map guide before adding an actor name.
+  presentation. Generated actor roles select policy independently of display
+  labels. `World.actor` resolves a registered identity only on its owning map;
+  don't scan event names or assume an actor exists after a transfer.
 - `Presentation::OwnedSprite` disposes its bitmap and only an explicitly owned
   viewport. Use it for newly allocated code-drawn props, not borrowed/cache-backed
   bitmaps. Essentials Pokémon sprite classes own their `AnimatedBitmap` lifecycle;

@@ -30,8 +30,9 @@ and serializer, without custom save versioning.
 The refactor also introduces explicit map/species compilers, shared player staging,
 a source load manifest, named native scenarios and Python/Ruby formatting checks.
 See [the completed refactor](decisions/refactoring-plan.md) for scope and verification evidence.
-The [authoring audit](decisions/authoring-audit.md) records the remaining generation,
-content-validation and ownership gaps; those implementation changes are still open.
+The [authoring audit](decisions/authoring-audit.md) records the completed generation,
+content-validation and ownership fixes: staged rebuilds, catalog-driven native
+checks, shared map settings, explicit transfers/actors and one pixel export plan.
 Scoped AGENTS guides now document map, species, artwork, sound and gameplay workflows.
 
 ## Next work

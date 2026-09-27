@@ -262,7 +262,7 @@ def decorate(paths, interior, hideout):
 
     placements = {
         "Abyss runner": (13, 7, "Tidebound::Hideout.guard", "trainer_YOUNGSTER"),
-        "Necklace thief": (16, 4, "Tidebound::Hideout.boss", "Tidebound_Ivo_Seated"),
+        "necklace_thief": (16, 4, "Tidebound::Hideout.boss", "Tidebound_Ivo_Seated"),
         "Abyss packer": (18, 11, "Tidebound::NeighborQuest.packer", "trainer_BUGCATCHER"),
         "Abyss lookout": (3, 9, "Tidebound::NeighborQuest.lookout", "trainer_YOUNGSTER"),
         "Dispatch slip": (12, 4, "Tidebound::Hideout.cache", ""),
@@ -282,7 +282,7 @@ def decorate(paths, interior, hideout):
     ]
     for e in hideout.events.values():
         a = e.attributes
-        name = a["@name"]
+        name = hideout.actor_settings.get(a["@id"], {}).get("key", a["@name"])
         p = a["@pages"][0].attributes
         if name == "Crate goods":
             x, y = clutter_spots.pop(0)
@@ -294,7 +294,7 @@ def decorate(paths, interior, hideout):
             a.update({"@x": x, "@y": y})
             p["@graphic"].attributes["@character_name"] = char
             p["@list"] = script(code) + [command(0)]
-            p["@direction_fix"] = name == "Necklace thief"
+            p["@direction_fix"] = name == "necklace_thief"
             p["@through"] = not bool(char)
             if char:
                 hideout.walk[y][x] = False

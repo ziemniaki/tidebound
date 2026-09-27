@@ -3,7 +3,7 @@
 Audited 2026-09-27 at `b55a75e87f0f23de0e4257556dd7add2378cd365` (0.8.7).
 Scope: ownership, coupling, extension points, generation failure behavior and
 Essentials contracts for independent feature work. Python migration is out of scope.
-This pass adds workflow guidance; the implementation findings below remain open.
+All seven findings below are implemented in focused commits on PR #16.
 
 The previous refactor removed the implicit execution chains. The remaining work
 is at the authoring boundaries: definitions still have secondary owners, generation
@@ -121,8 +121,9 @@ check's limits. Retain small public Ruby event calls for story logic.
 second page, native Transfer Player commands, negative/oversized coordinates and
 blocked destinations. Coast source offsets are applied once; destinations are
 absolute. Checkpoint returns remain covered by the opening/neighbor/hideout flows.
-Static validation explicitly excludes arbitrary Ruby routing; feature changes need
-their own route scenarios.
+Dream/folded-room arrival, retry and both conditional return routes are covered
+in `world_boundaries.rb`. Static validation explicitly excludes arbitrary Ruby
+routing; feature changes need their own route scenarios.
 
 ### A6 — Implemented: one portable pixel export plan
 
@@ -151,7 +152,7 @@ reference. Obsolete shell recipes/intermediates were removed. Pixel output remai
 unchanged. Native Windows evidence belongs to the final platform verification;
 optional audio production remains outside the rebuild contract.
 
-### A7 — P2: actor names encode identity, rendering and collision together
+### A7 — Implemented: map-qualified identities and explicit actor roles
 
 Evidence: [registry.py](../../tools/tidebound_dev/maps/registry.py), `ACTORS` and
 `write_registry`; [navigation.rb](../../src/tidebound/world/navigation.rb), `actor`;
@@ -166,14 +167,19 @@ ambiguous matches. Then give special actors explicit role/state ownership in the
 existing registry, migrating consumers together. Keep this as data and small
 functions; no entity-component system or plugin registry is needed.
 
-**Acceptance:** a duplicate/misplaced actor is rejected during generation and a
-label-only rename cannot silently change collision or quest visibility.
+**Verified:** generation rejects duplicate/misplaced identities, unknown roles
+and missing role fields. A label-renaming fixture preserves identity, placement
+and collision data; Ruby quest scenarios use deliberately renamed actor labels.
+Headless collision tests retain key/bird visibility and ignore a misleading
+`Wild:` label on an unregistered event. All presentation selectors now read roles,
+assets and threshold directions rather than event display names. Existing event
+order and map binaries are unchanged.
 
 ## Guidance delivered in this pass
 
 Root AGENTS is a workflow router. Scoped guides cover Ruby features, maps, content,
 art, sound, compiled/editor files and tests. They document today's actual owners,
-including the limitations above; they do not claim the proposed refactors exist.
+including static/native verification limits and the implemented ownership contracts.
 [Essentials contracts](../essentials-contracts.md) records the versioned sources and
 inspection method. The repository workflow defines integration of shared generated
 binaries from independent checkouts. Stale migration/PR-in-progress instructions
@@ -187,8 +193,8 @@ together when extending map authoring; A6 and A7 can be separate changes with cl
 output/identity ownership. Each should have a focused commit and evidence.
 
 This audit used call-site tracing, the current embedded engine, upstream v21.1
-source and accessible/indexed Essentials documentation. Two disposable probes
-confirmed A1's fallback and A3's partial publication. It did not port gameplay,
-change assets, or run a new platform build/playthrough. Documentation links and
-headless baseline checks are verified for the guidance PR; native behavior claims
-remain limited to the inspected contracts and prior release evidence.
+source and accessible/indexed Essentials documentation. Disposable probes confirmed
+fallback and partial-publication defects. Implementation verification covers
+headless flows, isolated regeneration, exact artwork/metrics and native scenarios;
+platform verification is recorded in the PR. This is maintenance, without a
+Python gameplay port, save migration framework or expanded CI path matrix.

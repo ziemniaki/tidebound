@@ -2,18 +2,6 @@
 module Tidebound::FieldDetails
   FIRE_SECONDS = 15 * 60
   BERRY_SECONDS = 60 * 60
-  EXITS = [
-    "Door",
-    "Shop door",
-    "Forest path",
-    "South path",
-    "Bedroom exit",
-    "Storehouse door",
-    "Cellar stairs",
-    "Vault doorway",
-    "Dock city",
-    "Museum door"
-  ].freeze
   module_function
 
   def remaining(key, now = Time.now.to_i)

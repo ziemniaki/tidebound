@@ -42,7 +42,16 @@ def decorate(paths, coast, docks, road):
 
     # A visible, stationary duck at a clear roadside pool approach. Static event avoids
     # wandering into grass battle triggers or hiding in existing scenery.
-    road.event("Wild:PSYDUCK:shoreduck", 27, 36, "Tidebound::Pond.psyduck", "Pokemon 01", opacity=0)
+    road.event(
+        "Wild:PSYDUCK:shoreduck",
+        27,
+        36,
+        "Tidebound::Pond.psyduck",
+        "Pokemon 01",
+        opacity=0,
+        species="PSYDUCK",
+        role="shore_duck",
+    )
     for x, y in [(27, 36), (26, 36), (27, 35), (27, 37)]:
         road.layers[1][y][x] = 0
         road.layers[2][y][x] = 0
@@ -51,7 +60,7 @@ def decorate(paths, coast, docks, road):
     # Keep both original little skiffs; move their anchors clear of the new hulls.
     for e in docks.events.values():
         a = e.attributes
-        if a["@name"] == "Dock boat":
+        if docks.actor_settings.get(a["@id"], {}).get("role") == "dock_boat":
             a["@x"] = 24 if a["@x"] == 28 else 45
             a["@y"] = 48 if a["@x"] == 24 else 50
     # Two moored wooden sailing ships, approached through existing three-wide piers.
@@ -61,12 +70,16 @@ def decorate(paths, coast, docks, road):
         27,
         47,
         'pbMessage("The Salt Thread. Its hull smells of pine tar. A cargo list promises flour, hinges and letters.")',
+        role="demo_prop",
+        asset="ship1",
     )
     docks.event(
         "Demo prop:ship2",
         56,
         47,
         'pbMessage("The Little Promise. Fresh rope and carefully mended sails. A little duck is carved into the tiller.")',
+        role="demo_prop",
+        asset="ship2",
     )
     for x in [28, 57]:
         docks.rect(x, 48, 1, 1, tile(6, 150), walk=False)
@@ -117,6 +130,8 @@ def decorate(paths, coast, docks, road):
             y,
             'pbMessage("Crates of lamp oil and flour. The destination is written twice: PSYDUCK ISLAND.")',
             blocks=True,
+            role="demo_prop",
+            asset="cargo",
         )
         # Collision follows the complete 2x2 stack, not just the interactive anchor.
         for yy in range(y, y + 2):
@@ -142,7 +157,15 @@ def decorate(paths, coast, docks, road):
             "A low stone bears names worn shallow by hands. Fresh knots of ribbon hang from the rail beside it.",
         ),
     ]:
-        docks.event("Demo prop:" + name, x, y, f'pbMessage("{text}")', blocks=True)
+        docks.event(
+            "Demo prop:" + name,
+            x,
+            y,
+            f'pbMessage("{text}")',
+            blocks=True,
+            role="demo_prop",
+            asset=name,
+        )
     # Refresh targets after moved historical skiffs (IDs and scripts stay unchanged).
     docks.targets = [
         (

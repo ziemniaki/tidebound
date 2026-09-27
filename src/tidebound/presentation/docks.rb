@@ -3,7 +3,7 @@ class TideboundDemoProp < Tidebound::Presentation::OwnedSprite
   def initialize(event, viewport)
     super(viewport)
     @event = event
-    asset = event.name.split(":")[1]
+    asset = Tidebound::Actors.info(event).fetch("asset")
     self.bitmap = Bitmap.new("Graphics/Pictures/Tidebound/Demo_#{asset}")
     self.ox = 0
     self.oy = 0
@@ -11,7 +11,7 @@ class TideboundDemoProp < Tidebound::Presentation::OwnedSprite
   end
   def update
     super
-    asset = @event.name.split(":")[1]
+    asset = Tidebound::Actors.info(@event).fetch("asset")
     dx, dy = asset.start_with?("ship") ? [2, -4] : [0, 0]
     self.x = @event.screen_x - 16 + dx * 32
     self.y = @event.screen_y - 32 + dy * 32
@@ -24,7 +24,9 @@ EventHandlers.add(
   proc do |s, v|
     next unless s.map.map_id == 112
     s.map.events.each_value do |event|
-      s.addUserSprite(TideboundDemoProp.new(event, v)) if event.name.start_with?("Demo prop:")
+      if Tidebound::Actors.role(event) == "demo_prop"
+        s.addUserSprite(TideboundDemoProp.new(event, v))
+      end
     end
   end
 )

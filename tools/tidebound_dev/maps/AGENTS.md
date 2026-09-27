@@ -47,12 +47,19 @@ previews. `registry.py` exports map/actor names to Ruby. Read
   `(map_id, event_id, letter)`. Reordering events can attach saved self switches to
   a different actor. Use feature state for new story progression; do not treat
   event IDs as durable names or reintroduce a save migration framework.
-- `World.actor(:key)` resolves the registered name **on the current map**, returning
-  nil if absent. The registry verifies global existence, not uniqueness or the
-  expected map. Check the intended map and avoid duplicate names there.
-- Names such as `Wild:`, `Spirit:`, `House:`, `Room:`, `Pookie outside`, `Shop keys`
-  and `Crate...` are runtime inputs to actor/presentation logic, not decorative labels.
-  Trace consumers in `features/actors.rb` and presentation before renaming/copying.
+- Register a scene actor in `registry.ACTORS` with its key, owning map, readable
+  label and role; pass `ACTORS["key"]` to `Map.event`. `World.actor(:key)` uses the
+  generated map/event identity and returns nil on another map. Generation rejects
+  missing, duplicate and misplaced identities. Labels do not control lookup.
+- For anonymous props/companions, give `Map.event` an explicit `role`. Companion
+  roles require `species`; spirits require a soul `index`; `neighbor_wild` requires
+  the owning quest's `state` key. These select concrete consumers in
+  `features/actors.rb`. A name such as `Wild:NATU` alone has no effect.
+- Presentation also reads these roles. `demo_prop` requires its picture `asset`;
+  door/exit threshold hints use `cue="north|south|east|west"`. Add a role and its
+  consumer together; unknown roles and missing required fields fail generation.
+  `Map.door` defaults to the south sill. Map painters that relocate an existing
+  actor must retain its identity/role; don't rediscover scene actors by label.
 - A charset is a four-column/four-row XP sheet, not a Pokémon party icon strip.
   Event pages select from the last matching page; later pages can override earlier
   collision/movement settings. Validation inspects every page. `Map.door` records
@@ -60,8 +67,8 @@ previews. `registry.py` exports map/actor names to Ruby. Read
   calls and native Transfer Player commands in builder pages are rejected; put
   conditional movement in a feature method and test its success/retry/cancel routes.
   Static checks cannot prove Ruby routes: checkpoint returns are exercised in
-  `opening_flow.rb`, `neighbor_flow.rb` and `hideout_flow.rb`; folded-room movement
-  needs its own scenario when changed.
+  `opening_flow.rb`, `neighbor_flow.rb` and `hideout_flow.rb`; dream/folded-room
+  arrival/retry/return branches are in `world_boundaries.rb`.
 
 [Engine evidence](../../../docs/essentials-contracts.md) and
 [audit follow-ups](../../../docs/decisions/authoring-audit.md) describe the current

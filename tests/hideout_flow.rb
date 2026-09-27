@@ -4,7 +4,7 @@ def hideout_setup
   $player.party = [Pokemon.new(:NATU, 7, $player)]
   Tidebound::NeighborQuest.q.merge!(stage: :pursuit, first_won: true, heard: true)
   Tidebound::World.travel(:hideout, 11, 14)
-  $game_map.events = { 1 => OpeningEvent.new("Necklace thief", 1, 16, 4) }
+  Tidebound::World.actor(:necklace_thief).moveto(16, 4)
   $quest_outcome = 1
   $hideout_plays = 0
   $hideout_result = true

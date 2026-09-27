@@ -26,16 +26,20 @@ sprite.position_at_tile(map, 3, 4, dx: 16, dy: 32)
 check([sprite.x, sprite.y] == [108, 152], "Tile positioning")
 
 # No sprite is allocated for these actors: gameplay collision must still update.
-actor = Struct.new(:name, :through, :move_route_forcing)
-keys = actor.new("Shop keys", false, false)
-bird = actor.new("Wild:NATU", false, false)
-crate = actor.new("Crate 1", true, false)
+actor = Struct.new(:name, :through, :move_route_forcing, :map_id, :id)
+forest = Tidebound::World::ACTOR_SETTINGS.fetch(103)
+keys_id = forest.find { |_id, info| info["role"] == "keys" }.first
+bird_id = forest.find { |_id, info| info["role"] == "wood_bird" }.first
+keys = actor.new("A renamed key", false, false, 103, keys_id)
+bird = actor.new("A renamed bird", false, false, 103, bird_id)
+# A misleading prefix cannot opt an unregistered event into story policy.
+ordinary = actor.new("Wild:NATU", false, false, 103, 999)
 map.map_id = 103
-map.events = { 1 => keys, 2 => bird, 3 => crate }
+map.events = { keys_id => keys, bird_id => bird, 999 => ordinary }
 Tidebound.story[:keys_collected] = true
 Tidebound.story[:wood_bird_gone] = true
 map.update
-check(keys.through && bird.through && !crate.through, "Headless actor collision")
+check(keys.through && bird.through && !ordinary.through, "Headless actor collision")
 Tidebound.story.clear
 map.update
 check(!keys.through && !bird.through, "Visible actors block movement")

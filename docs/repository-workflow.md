@@ -21,7 +21,7 @@ ZIPs; technical metadata and the editable project archive remain CI artifacts.
 
 Use separate checkouts for simultaneous agents. A branch change in a shared
 working directory does not isolate edits or builds. Before splitting a feature,
-identify its source owner and shared contracts: map/species/form IDs, actor names,
+identify its source owner and shared contracts: map/species/form IDs, actor identities and roles,
 handler keys, public Ruby calls and source load order. Agree only those touched
 by the work; no ticket or registration service is required.
 

@@ -1,3 +1,13 @@
+# IDs and map ownership match generated data; labels deliberately do not.
+def world_events(map_id)
+  events = { 1 => OpeningEvent.new }
+  (Tidebound::World::ACTOR_SETTINGS[map_id] || {}).each do |id, _info|
+    events[id] = OpeningEvent.new("Fixture label #{id}", id)
+  end
+  events.each_value { |event| event.map_id = map_id }
+  events
+end
+
 # Real Essentials Pokemon, bag and SaveData; graphics/movement have fixtures here.
 # Full native movement and rendering are separately checked in rendered_smoke.rb.
 def check(value, label)
@@ -9,12 +19,7 @@ def new_opening
   $choices.clear
   $game_map = Game_Map.new
   $game_map.map_id = 107
-  $game_map.events = {
-    1 => OpeningEvent.new,
-    2 => OpeningEvent.new("Pookie outside", 2),
-    3 => OpeningEvent.new("Mother visiting", 3),
-    4 => OpeningEvent.new("Seller outside", 4)
-  }
+  $game_map.events = world_events($game_map.map_id)
   $game_player = OpeningPlayerLocation.new
   $opening_interpreter = Interpreter.allocate
   $opening_interpreter.instance_variable_set(:@event_id, 1)

@@ -47,7 +47,7 @@ from `git ls-files`. Setup/editor details: [development](docs/development.md).
 
 Use a focused branch in `ziemniaki/tidebound`, never a fork. Independent agents
 need separate checkouts; Git branches alone do not isolate writes. Map IDs, actor
-names, species/form IDs, event-handler keys and shared entry points are integration
+identities, species/form IDs, event-handler keys and shared entry points are integration
 contracts. Agree those before splitting work; report them in the PR. After combining
 source changes, regenerate shared binaries once from the combined source. Never
 resolve `Scripts.rxdata`, species databases or generated maps by choosing one

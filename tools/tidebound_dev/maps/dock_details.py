@@ -48,6 +48,7 @@ def apply(docks):
             x,
             y,
             'pbMessage("The lantern hood keeps most of the rain off the wick.")',
+            role="coast_lamp",
         )
     # Mooring posts, rolled nets and two working skiffs frame the old piers.
     for x, y in [(25, 44), (27, 49), (42, 44), (44, 49), (54, 44), (56, 49)]:
@@ -56,6 +57,7 @@ def apply(docks):
             x,
             y,
             'pbMessage("Salt has gathered around the rope. The knot is fresh.")',
+            role="dock_bollard",
         )
     for x, y in [(26, 47), (43, 46), (55, 47), (20, 40)]:
         docks.event(
@@ -63,24 +65,28 @@ def apply(docks):
             x,
             y,
             'pbMessage("Nets lie drying in careful folds. A few scales still catch the light.")',
+            role="dock_nets",
         )
     docks.event(
         "Dock boat",
         28,
         48,
         'pbMessage("A little working boat, tied close to the pier. Water knocks softly against its hull.")',
+        role="dock_boat",
     )
     docks.event(
         "Dock boat",
         45,
         47,
         'pbMessage("A mended oar rests across the seats. Someone has painted over the boat\'s old name.")',
+        role="dock_boat",
     )
     docks.event(
         "Dock stall",
         30,
         39,
         'pbMessage("An empty fish stall. The boards have been scrubbed clean.")',
+        role="dock_stall",
     )
     docks.event(
         "Quay worker",

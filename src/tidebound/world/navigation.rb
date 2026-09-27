@@ -22,9 +22,9 @@ module Tidebound::World
   end
 
   def actor(key)
-    name = ACTORS.fetch(key)
-    return nil unless name
-    $game_map.events.values.find { |event| event.name == name }
+    location = ACTORS.fetch(key)
+    return nil unless $game_map.map_id == location.fetch("map")
+    $game_map.events[location.fetch("event")]
   end
 
   # Essentials' pbMoveRoute schedules a route; its wait argument does not wait.

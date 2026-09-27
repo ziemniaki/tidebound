@@ -11,11 +11,8 @@ class TideboundThreshold < Tidebound::Presentation::OwnedSprite
     self.bitmap = Bitmap.new(32, 32)
     self.ox = 0
     self.oy = 0
-    north =
-      (map.map_id == 102 && ["Door", "Forest path"].include?(event.name)) ||
-        (map.map_id == 108 && event.name == "Door") || event.name == "Vault doorway"
-    east = event.name == "Dock city"
-    west = map.map_id == 112 && event.name == "Door"
+    cue = Tidebound::Actors.info(event)["cue"]
+    north, east, west = cue == "north", cue == "east", cue == "west"
     # Outdoor house triggers on their facade tile use its bottom sill; the
     # lighthouse trigger is one tile below its facade and uses the TOP edge.
     @cue_rect =
@@ -94,13 +91,13 @@ EventHandlers.add(
     map = spriteset.map
     next unless Tidebound::World::MAP_IDS.include?(map.map_id)
     map.events.each_value do |event|
-      if event.name.start_with?("Berry:")
+      if Tidebound::Actors.role(event) == "berry"
         spriteset.addUserSprite(TideboundBerryVisual.new(event, viewport, map.map_id))
       end
-      if Tidebound::FieldDetails::EXITS.include?(event.name)
+      if Tidebound::Actors.info(event)["cue"]
         spriteset.addUserSprite(TideboundThreshold.new(event, viewport, map))
       end
-      if event.name.start_with?("Coast lamp:") || event.name == "Fire"
+      if %w[coast_lamp fire].include?(Tidebound::Actors.role(event))
         spriteset.addUserSprite(TideboundWarmLight.new(map, event.x, event.y))
       end
     end

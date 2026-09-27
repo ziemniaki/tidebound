@@ -1,31 +1,29 @@
 """Map imports and isolated builders must not depend on execution order."""
 
 from pathlib import Path
-import importlib
-import pkgutil
+import subprocess
+import textwrap
 import sys
 import tempfile
 import unittest
 from unittest.mock import patch
 
-from tidebound_dev import maps
 from tidebound_dev.maps import areas, compiler
 
 
 class MapBuilderTests(unittest.TestCase):
     def test_modules_import_without_loading_or_writing_game_assets(self):
-        with (
-            patch("PIL.Image.open", side_effect=AssertionError("image read during import")),
-            patch("PIL.Image.Image.save", side_effect=AssertionError("image write during import")),
-            patch.object(
-                Path, "write_bytes", side_effect=AssertionError("binary write during import")
-            ),
-            patch.object(
-                Path, "write_text", side_effect=AssertionError("text write during import")
-            ),
-        ):
-            for module in pkgutil.iter_modules(maps.__path__, maps.__name__ + "."):
-                importlib.reload(importlib.import_module(module.name))
+        # Fresh imports, without leaving reloaded class identities in other tests.
+        probe = """
+from pathlib import Path
+from unittest.mock import patch
+import importlib, pkgutil
+from tidebound_dev import maps
+with patch("PIL.Image.open", side_effect=AssertionError("image read during import")), patch("PIL.Image.Image.save", side_effect=AssertionError("image write during import")), patch.object(Path, "write_bytes", side_effect=AssertionError("binary write during import")), patch.object(Path, "write_text", side_effect=AssertionError("text write during import")):
+    for module in pkgutil.iter_modules(maps.__path__, maps.__name__ + "."):
+        importlib.import_module(module.name)
+"""
+        subprocess.run([sys.executable, "-c", textwrap.dedent(probe)], check=True)
 
     def test_one_area_can_be_built_without_constructing_another(self):
         with patch.object(areas, "build_coast", side_effect=AssertionError("unrelated area")):

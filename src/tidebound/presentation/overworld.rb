@@ -4,13 +4,14 @@ class TideboundCompanionSprite < PokemonIconSprite
   include Tidebound::Presentation::Position
   def initialize(event, viewport)
     @map_event = event
-    @house_species = event.name.match?(/^(House|Room):/) ? event.name.split(":").last.to_sym : nil
-    @outside_dog = event.name == "Pookie outside"
-    @house_species = :POOCHYENA if @outside_dog
-    @spirit_index = event.name.start_with?("Spirit:") ? event.name.split(":").last.to_i : nil
+    actor = Tidebound::Actors.info(event)
+    @house_species =
+      %w[house room outside_dog].include?(actor["role"]) ? actor.fetch("species").to_sym : nil
+    @outside_dog = actor["role"] == "outside_dog"
+    @spirit_index = actor["index"]
     record = @spirit_index.nil? ? nil : Tidebound.state.souls[@spirit_index]
     original = @house_species ? Tidebound::Opening.household_pets[@house_species] : record&.pokemon
-    wild_species = event.name.start_with?("Wild:") ? event.name.split(":")[1].to_sym : nil
+    wild_species = actor["species"]&.to_sym
     pokemon =
       original ? Tidebound.copy(original) : Pokemon.new(@house_species || wild_species || :NATU, 4)
     pokemon.heal
@@ -43,7 +44,7 @@ class TideboundLampSprite < Tidebound::Presentation::OwnedSprite
     self.bitmap = Bitmap.new(64, 80)
     self.ox = 32
     self.oy = 64
-    @fire = event.name == "Fire"
+    @fire = Tidebound::Actors.role(event) == "fire"
     if @fire
       self.bitmap.fill_rect(14, 51, 34, 6, Color.new(69, 51, 44))
       self.bitmap.fill_rect(22, 47, 30, 6, Color.new(98, 63, 41))
@@ -64,7 +65,8 @@ class TideboundLampSprite < Tidebound::Presentation::OwnedSprite
     super
     position_at_event(@map_event)
     self.opacity = 230 + (Math.sin(System.uptime * (@fire ? 8 : 1.2)) * 20).to_i
-    self.opacity = 145 if @map_event.name == "Main lamp" && !Tidebound.story[:lamp_lit]
+    self.opacity = 145 if Tidebound::Actors.role(@map_event) == "main_lamp" &&
+      !Tidebound.story[:lamp_lit]
   end
 end
 
@@ -105,20 +107,20 @@ EventHandlers.add(
     spriteset.addUserSprite(TideboundPookieFollowerSprite.new(viewport))
     spriteset.map.events.each_value do |event|
       sprite =
-        case event.name
-        when /^Spirit:/, /^Wild:/, /^House:/, /^Room:/, "Pookie outside"
+        case Tidebound::Actors.role(event)
+        when "spirit", "wood_bird", "neighbor_wild", "shore_duck", "house", "room", "outside_dog"
           TideboundCompanionSprite.new(event, viewport)
-        when "Fire", "Main lamp", "Downward lamp", "Return", "Ashes"
-          unless event.name == "Main lamp" && spriteset.map.map_id == 104
+        when "fire", "main_lamp", "lamp"
+          unless Tidebound::Actors.role(event) == "main_lamp" && spriteset.map.map_id == 104
             TideboundLampSprite.new(event, viewport)
           end
-        when /^Crate/, "Shop keys"
+        when "crate", "keys"
           TideboundPropSprite.new(event, viewport)
-        when "Lapras"
+        when "lapras"
           TideboundLaprasSprite.new(event, viewport)
         end
       spriteset.addUserSprite(sprite) if sprite
-      if event.name == "Pookie outside"
+      if Tidebound::Actors.role(event) == "outside_dog"
         spriteset.addUserSprite(TideboundSleepSprite.new(event, viewport))
       end
     end
@@ -154,7 +156,7 @@ class TideboundPropSprite < Tidebound::Presentation::OwnedSprite
     self.bitmap = Bitmap.new(32, 32)
     self.ox = 16
     self.oy = 32
-    @key = event.name == "Shop keys"
+    @key = Tidebound::Actors.role(event) == "keys"
     if @key
       gold = Color.new(232, 204, 130)
       self.bitmap.fill_rect(10, 8, 8, 8, gold)
@@ -208,7 +210,7 @@ class TideboundCoastProp < Tidebound::Presentation::OwnedSprite
     self.oy = 48
     dark = Color.new(53, 46, 43)
     wood = Color.new(125, 94, 65)
-    if event.name.start_with?("Coast lamp:")
+    if Tidebound::Actors.role(event) == "coast_lamp"
       self.bitmap.fill_rect(6, 4, 36, 36, Color.new(236, 178, 91, 14))
       self.bitmap.fill_rect(12, 10, 24, 24, Color.new(244, 193, 108, 24))
       self.bitmap.fill_rect(22, 22, 4, 25, dark)
@@ -217,11 +219,11 @@ class TideboundCoastProp < Tidebound::Presentation::OwnedSprite
       self.bitmap.fill_rect(22, 16, 4, 8, Color.new(255, 229, 169))
       self.bitmap.fill_rect(14, 10, 20, 3, wood)
       self.bitmap.fill_rect(20, 46, 8, 2, wood)
-    elsif event.name == "Sea glass"
+    elsif Tidebound::Actors.role(event) == "sea_glass"
       self.bitmap.fill_rect(20, 42, 8, 4, Color.new(54, 111, 100))
       self.bitmap.fill_rect(22, 40, 6, 3, Color.new(132, 174, 143))
       self.bitmap.fill_rect(22, 40, 2, 2, Color.new(213, 218, 173))
-    elsif event.name == "Tide bell"
+    elsif Tidebound::Actors.role(event) == "tide_bell"
       self.bitmap.fill_rect(12, 16, 4, 31, wood)
       self.bitmap.fill_rect(32, 16, 4, 31, wood)
       self.bitmap.fill_rect(10, 14, 28, 4, dark)
@@ -248,8 +250,8 @@ EventHandlers.add(
   proc do |spriteset, viewport|
     next unless [102, 108, 110, 112].include?(spriteset.map.map_id)
     spriteset.map.events.each_value do |event|
-      unless event.name.start_with?("Coast lamp:") ||
-               ["Sea glass", "Tide bell", "Mooring rope"].include?(event.name)
+      unless Tidebound::Actors.role(event) == "coast_lamp" ||
+               %w[sea_glass tide_bell mooring_rope].include?(Tidebound::Actors.role(event))
         next
       end
       spriteset.addUserSprite(TideboundCoastProp.new(event, viewport))
