@@ -124,11 +124,11 @@ absolute. Checkpoint returns remain covered by the opening/neighbor/hideout flow
 Static validation explicitly excludes arbitrary Ruby routing; feature changes need
 their own route scenarios.
 
-### A6 — P2: artwork has two different regeneration contracts
+### A6 — Implemented: one portable pixel export plan
 
 Evidence: [species_compiler.py](../../tools/tidebound_dev/content/species_compiler.py),
-`export_art`; [Moonkern/export.sh](../../assets/Moonkern/export.sh);
-[Lapras/edit_sprites.py](../../assets/Lapras/edit_sprites.py);
+`export_art`; `assets/Moonkern/export.sh` (retired);
+`assets/Lapras/edit_sprites.py` (moved to `art/lapras.py`);
 [pipeline.py](../../tools/tidebound_dev/pipeline.py).
 Full rebuild regenerates some artwork but copies/retains other exported PNGs.
 Changing a retained source atlas can pass `check --all` because that recipe never
@@ -141,9 +141,15 @@ inputs/outputs, invoked from one export plan. Keep external sound production opt
 declare its reproducible environment only if maintaining generated audio is desired.
 Do not rerun image generation or redesign approved art as part of this cleanup.
 
-**Acceptance:** a retained source edit changes the intended outputs in an isolated
-rebuild; decoded pixels stay unchanged during recipe migration. Check available
-native Windows tools before claiming cross-platform exporter support.
+**Verified:** a full export compares every Pokémon PNG against approved decoded
+pixels and a source-atlas edit reaches normal and shiny output. Imports perform
+no file I/O. Wurmple/Lapras/Nivalora recipes now run through callable Pillow modules.
+All four legacy ImageMagick recipes reproduced different pixels with the available
+Mac installation. Instead of carrying that hidden dependency forward, approved
+pixel atlases are now authoritative, with original high-resolution art retained as
+reference. Obsolete shell recipes/intermediates were removed. Pixel output remains
+unchanged. Native Windows evidence belongs to the final platform verification;
+optional audio production remains outside the rebuild contract.
 
 ### A7 — P2: actor names encode identity, rendering and collision together
 

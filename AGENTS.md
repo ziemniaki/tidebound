@@ -36,13 +36,13 @@ uv run play           # embed current Ruby, stage and launch a development playe
 uv run build          # stage only; does not regenerate maps/content
 uv run format         # before embedding Ruby
 uv run rebuild        # embed src/load_order.txt into game/Data/Scripts.rxdata
-uv run rebuild --all  # regenerate maps/content and selected art, then embed
+uv run rebuild --all  # regenerate maps/content/art, then embed
 uv run check          # headless gate; never regenerates tracked game data
 uv run check --all    # also regenerate in isolation and compare
 ```
 
-Full rebuild does not reproduce every artwork recipe or ambient audio. See the
-asset/audio guides. Stage new files before `check --all`: its input set comes
+Full rebuild reproduces registered pixel exports; ambient audio production is
+optional. See the asset/audio guides. Stage new files before `check --all`: its input set comes
 from `git ls-files`. Setup/editor details: [development](docs/development.md).
 
 Use a focused branch in `ziemniaki/tidebound`, never a fork. Independent agents

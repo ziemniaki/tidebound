@@ -1,17 +1,11 @@
-# Tidebound Sunkern art
+# Sunkern artwork
 
-Built-in image editing, 12 September 2026, using the project's original
-Sunkern front, back and icon images as edit targets. Their original Essentials
-asset attribution remains in docs/credits.md. source.png is the retained generated
-atlas; export.sh extracts and sizes the runtime sprites with ImageMagick.
+A sickly regional Sunkern with curled leaves and a hollow face.
 
-Prompt specification: restrained sun-deprived Grass/Dark Sunkern; familiar Gen 3
-pixel art; muted faded ochre/grey olive seed shell, brown vertical stripes, two
-drooping sage leaves with dry tips and a bent stem; tired half-closed eyes and
-a tiny downturned mouth; tender and exhausted, not evil; no limbs, aura, demon
-features, labels or ground shadow. Transparent four-view atlas: front, back,
-small party icon and second weary-dip icon. Preserve species identity.
+Edit `assets/Sunkern/pixels.png`; `uv run rebuild --all` exports it through
+`art/atlas.py`. The 320×224 atlas contains front/back 160×160 frames across the
+top and the 128×64 two-frame icon at bottom left. Normal and shiny share the
+approved palette. High-resolution `reference.png` is a design reference; retired
+ImageMagick recipes did not reproduce the approved pixels on a current install.
 
-The built-in generation produced a 1254x1254 atlas. Export crops follow its
-actual image bounds. Battle sprites use 160x160 transparent canvases; icon uses
-two 64x64 frames. No separate shiny palette is established in this milestone.
+See [the asset guide](../../assets/AGENTS.md) for engine filenames and validation.

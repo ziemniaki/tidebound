@@ -8,16 +8,19 @@ of an existing form does not require changing its gameplay definition.
 ## Find the owner before replacing a PNG
 
 `tools/tidebound_dev/art/compiler.py::build` runs on full rebuild.
-It regenerates Frostcoon, snakes and Whyduck, copies Psyduck base art to form 1,
-and copies `FROSTCOON_EVOLUTION` to Nivalora. It also overwrites mapped cries.
-Editing these destinations alone will be undone. Change their source/recipe.
+All repeatable game pixel exports run here using locked Pillow. Inputs are either
+stock sprites plus a palette/detail recipe, retained Nivalora/Whyduck artwork, or
+`pixels.png` atlases for Sunkern, Moonkern, Moonflora and Glaciverm. Each atlas is
+320×224: front 160×160 at (0,0), back at (160,0), two-frame 128×64 icon at (0,160).
+Edit those approved pixels directly; export only crops, without resampling.
+Their high-resolution `reference.png` and prompts are design references. The retired
+ImageMagick recipes did not reproduce shipped pixels on a current installation.
+Do not re-quantize that reference art during a maintenance rebuild.
 
-Sunkern, Moonkern, Moonflora, Glaciverm and other recipes under `assets/` are
-**not all invoked by full rebuild**. Consult the matching `docs/art/` page and
-recipe; their exported game PNGs are currently checked-in inputs. A green
-`check --all` does not establish that those files match their source atlas.
-Some recipes use ImageMagick's `convert`, shell or local fonts. Do not assume
-`uv sync` installs those dependencies or that the recipe works on Windows.
+`art/compiler.py` makes species/form aliases and cry copies after their producers.
+Editing generated destinations alone will be undone. Change the declared source.
+Optional Whyduck preview/eye-design helpers are review tools, not rebuild inputs;
+the approved files under `Whyduck/pieces/` are authoritative.
 
 ## Add or replace an asset
 

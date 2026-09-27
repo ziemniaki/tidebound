@@ -1,10 +1,11 @@
-# Moonflora art
+# Moonflora artwork
 
-Built-in image editing from original Sunflora front/back. The prior ornate
-draft was rejected for excess detail. This version uses fewer petal shapes,
-flat muted colours, no particle wisps and a hollow face. See prompt.txt.
+Simple petal shapes, flat muted colours and a hollow face.
 
-export.sh mechanically removes magenta, crops two views, reduces to 8 colours
-and scales with nearest-neighbor. Battle art fits within 38x46 logical pixels
-at 2x on 160x160 canvases. The two-frame icon bobs gently. Separate shiny art
-and original cry remain undecided.
+Edit `assets/Moonflora/pixels.png`; `uv run rebuild --all` exports it through
+`art/atlas.py`. The 320×224 atlas contains front/back 160×160 frames across the
+top and the 128×64 two-frame icon at bottom left. Normal and shiny share the
+approved palette. High-resolution `reference.png` is a design reference; retired
+ImageMagick recipes did not reproduce the approved pixels on a current install.
+
+See [the asset guide](../../assets/AGENTS.md) for engine filenames and validation.
