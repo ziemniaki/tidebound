@@ -75,3 +75,27 @@ class Game_Map
     @display_y || 0
   end
 end
+
+# Native Essentials objects/save codec; battle outcomes and scene services mocked.
+class TrainerBattle
+  def self.start_core(foe)
+    raise "not NPC trainer" unless foe.is_a?(NPCTrainer) && !foe.party.empty?
+    if [2, 5].include?($quest_outcome)
+      $player.party.each { |p| p.hp = 0 }
+      Tidebound.before_cleanup_party = Tidebound.copy($player.party)
+      $player.party.each(&:heal)
+    end
+    $quest_outcome
+  end
+end
+def setBattleRule(*rules)
+  $quest_rules = rules
+end
+
+class PokemonBag
+  alias quest_original_add add
+  def add(item, *args)
+    return false if item == $quest_reject_item
+    quest_original_add(item, *args)
+  end
+end

@@ -5,9 +5,11 @@ const { DefaultRubyVM } = require('@ruby/wasm-wasi/dist/node');
 const root = path.resolve(__dirname, '../..');
 const references = path.join(root, 'tests/engine_reference');
 
+// Share compilation, never Ruby state: doubles in one suite must not leak into another.
+let compiled;
 async function createHarness() {
-  const binary = fs.readFileSync(require.resolve('@ruby/3.2-wasm-wasi/dist/ruby.wasm'));
-  const { vm } = await DefaultRubyVM(await WebAssembly.compile(binary));
+  compiled ||= WebAssembly.compile(fs.readFileSync(require.resolve('@ruby/3.2-wasm-wasi/dist/ruby.wasm')));
+  const { vm } = await DefaultRubyVM(await compiled);
   const entries = JSON.parse(fs.readFileSync(path.join(references, 'index.json'), 'utf8'));
 
   function evaluate(code, name) {

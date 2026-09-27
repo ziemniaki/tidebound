@@ -6,37 +6,41 @@ rewriting tracked game data. `uv run check --all` additionally regenerates in a
 disposable copy and compares binary data and decoded PNG pixels. Stage new source
 files first so the tracked-file copy includes them.
 
-## Coverage
+## Test suites
 
-| Check | What it establishes |
+| Location | What it protects |
 | --- | --- |
-| Python `test_*.py` | Packaging safety, provenance, failure cleanup, workflow authorization and developer commands |
-| `tests/run.cjs` | Domain and battle-adapter rules with test doubles |
-| `tests/native_domain.cjs` | Actual Essentials Pokémon, owner, bag and SaveData objects; all starters, quest branches, retries and save roundtrips |
-| `tests/regional_snakes.cjs` | Native species/forms, move inheritance, evolution and save preservation |
-| `tests/presentation_support.cjs` | Owned bitmap/viewport disposal, positioning and actor collision without sprites |
-| Geometry checks | Walkable arrivals/interactions, maze routes and Surf-only pond island |
-| Native platform smoke | Packaged engine startup, compiled data, actual save roundtrip, graphics/fonts and input initialization |
+| `tests/tooling/` | Authoring transactions, generated-map reachability, archive safety, release provenance and save isolation |
+| `tests/gameplay/` | Companion identity, battle rollback, quest progression/retries, real Essentials saves and resource ownership |
+| `tests/native/` | Packaged runtime startup, graphics, actual engine saves and platform path handling |
+| `tests/support/` | Explicit engine doubles and shared headless setup |
 
-`check` obtains the locked Node packages automatically. For individual harnesses,
-run from the repository root after setup:
+Python's standard `unittest` runs the tooling suite. Ruby scenarios run through
+one Node launcher using the pinned Ruby WASM runtime. Its three suites each get
+a fresh VM; compilation is shared, globals are not. Gameplay loads the complete
+embedded custom scripts with actual Essentials Pokémon, bag and SaveData objects.
+Display and battle execution remain doubles, so these checks cannot prove rendering
+or real battle-engine behavior. Native tests cover that separate runtime boundary.
 
 ```sh
-uv run python tests/prepare_reference.py
-node tests/run.cjs
-node tests/native_domain.cjs
-node tests/regional_snakes.cjs
+# One tooling module (no Node startup)
+uv run python -m unittest tests.tooling.test_generation -v
+# All tooling checks; successful tool output is hidden, failures retain it
+uv run python -m unittest discover -s tests/tooling -t . --buffer --durations 5
+# One isolated Ruby suite, after a successful check has refreshed engine references
+node tests/run.cjs battles
+node tests/run.cjs presentation
 ```
 
-`tests/engine_reference/` is an ignored extraction of the current archive. It is
-not editable source. The shared VM harness resolves stock scripts by name and
-loads complete scripts. Integration scenarios load every custom archive entry in
-production order before exercising story flows. Engine/display services are
-explicit test fixtures; production modules are never split at comments or scraped
-into partial definitions. Prefer the complete `check`
-gate, which supplies fresh event scripts instead of relying on a stale report.
-Custom Ruby must remain compatible with the bundled Ruby 3.1 runtime, even though
-the Node harness uses Ruby 3.2 WASM.
+`uv run check` also validates maps and supplies fresh event bodies to the gameplay
+suite. Use it for quest/event changes. `tests/engine_reference/` is an ignored
+extraction of the current archive, never editable source. The harness selects stock
+scripts by name and custom scripts in archive order. Custom Ruby must remain
+compatible with bundled Ruby 3.1; WASM uses Ruby 3.2.
+
+Full artwork parity belongs to `check --all`, which regenerates once and compares
+decoded pixels. The quick atlas test uses tiny synthetic frames to catch crop and
+alpha errors without copying and exporting the whole artwork tree.
 
 ## Native builds
 
@@ -61,9 +65,9 @@ entry, assign a unique save namespace and remove the test saves afterward.
 No existing player save or manually prepared engine directory is required.
 
 ```sh
-uv run python tests/mac_runtime_smoke.py /path/to/Tidebound_Mac_0.8.7_universal.zip /tmp/tidebound-scenes --arch arm64 --location ordinary --scenario world
-uv run python tests/windows_runtime_smoke.py C:/build/Tidebound_Windows_0.8.7_x64.zip C:/build/scenes --scenario all
-uv run python tests/linux_runtime_smoke.py /tmp/Tidebound_Linux_0.8.7_x86_64.zip /tmp/tidebound-scenes --scenario all
+uv run python -m tests.native.mac_runtime_smoke /path/to/Tidebound_Mac_0.8.7_universal.zip /tmp/tidebound-scenes --arch arm64 --location ordinary --scenario world
+uv run python -m tests.native.windows_runtime_smoke C:/build/Tidebound_Windows_0.8.7_x64.zip C:/build/scenes --scenario all
+uv run python -m tests.native.linux_runtime_smoke /tmp/Tidebound_Linux_0.8.7_x86_64.zip /tmp/tidebound-scenes --scenario all
 ```
 
 `runtime` exercises initialization and native save roundtrips. `world`
@@ -76,6 +80,6 @@ explicit in `content/verification.py`. Missing art cannot pass through base or
 placeholder fallback. Use a
 package built from the same checkout. Linux CI runs under Xvfb.
 
-Evidence includes `native-smoke.json`, engine logs and PNG captures. The old
-feature-specific drivers and historic saved-game fixture makers are retired;
-current quest behavior is covered by the production-composition suites above.
+Evidence includes `native-smoke.json`, engine logs and PNG captures.
+Full CI runs the portable headless gate once on Linux. Mac path-resolver checks
+run in the packaging job; native player launches retain their platform coverage.

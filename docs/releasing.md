@@ -24,7 +24,7 @@ On a Mac with Xcode command-line tools installed:
 
 ```sh
 uv run python -m tidebound_dev.release.candidates ../candidate
-uv run python tests/mac_runtime_smoke.py ../candidate/Tidebound_Mac_0.8.7_universal.zip ../smoke-arm64 --arch arm64
+uv run python -m tests.native.mac_runtime_smoke ../candidate/Tidebound_Mac_0.8.7_universal.zip ../smoke-arm64 --arch arm64
 ```
 
 For a Windows-only package, on any development host:
@@ -37,7 +37,7 @@ On Windows x64, test that archive using:
 
 ```powershell
 uv run python -m tidebound_dev.release.artifacts ../windows-candidate
-uv run python tests/windows_runtime_smoke.py ../windows-candidate/Tidebound_Windows_0.8.7_x64.zip ../smoke-windows
+uv run python -m tests.native.windows_runtime_smoke ../windows-candidate/Tidebound_Windows_0.8.7_x64.zip ../smoke-windows
 ```
 
 The Windows ZIP contains the unchanged `Game.exe`, Ruby/zlib DLLs, game assets,
@@ -58,7 +58,7 @@ On Linux x86_64 with the libraries in `docs/players/linux.txt` installed:
 
 ```sh
 uv run python -m tidebound_dev.release.artifacts ../linux-candidate
-uv run python tests/linux_runtime_smoke.py ../linux-candidate/Tidebound_Linux_0.8.7_x86_64.zip ../smoke-linux
+uv run python -m tests.native.linux_runtime_smoke ../linux-candidate/Tidebound_Linux_0.8.7_x86_64.zip ../smoke-linux
 ```
 
 The Linux ZIP bundles the unchanged upstream executable, lib64, Ruby stdlib,
@@ -112,7 +112,7 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
    Pokemon/state disk save roundtrip, and render a font/sprite frame through the
    graphics backend. Logs, JSON results and a screenshot are retained by CI.
 
-The Mac and Windows smoke tests share `tests/native_runtime_smoke.rb`. Each
+The Mac and Windows smoke tests share `tests/native/native_runtime_smoke.rb`. Each
 extracts a disposable copy, changes only that copy's Main entry and
 save namespace, re-signs the Mac test copy, and removes its unique save directory
 afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services from `/`, with one read-only App Translocation case per architecture in CI. It applies
@@ -223,7 +223,7 @@ complete it explicitly. Normal tag-triggered releases still refuse overwrites.
   [OpenAL Soft's backend override](https://github.com/kcat/openal-soft/blob/master/docs/env-vars.txt)
   allows startup without audible output. The distributed configuration is unchanged.
   Its system OpenGL driver reports only 1.1, below the engine's 2.0 minimum.
-  `tests/setup_windows_ci.ps1` downloads [Mesa 26.2.1](https://github.com/pal1000/mesa-dist-win/releases/tag/26.2.1),
+  `tests/native/setup_windows_ci.ps1` downloads [Mesa 26.2.1](https://github.com/pal1000/mesa-dist-win/releases/tag/26.2.1),
   verifies its pinned SHA-256 and selects llvmpipe through the test process's
   environment. Mesa stays in the runner temporary directory and never enters
   player packages. The screenshot proves software rendering, not hardware GPU
