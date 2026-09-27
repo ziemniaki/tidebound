@@ -17,12 +17,12 @@ uv run check --all
 The second command copies tracked files to a disposable directory, runs the map,
 item, encounter, regional-species and script generators, and compares their
 outputs. Binary game data must match byte-for-byte; PNGs must have identical
-decoded RGBA pixels. It never runs generators in your checkout. Stage newly
+decoded RGBA pixels. Both commands compile the local project; the second also verifies a clean build. Stage newly
 added build sources before running it so they are included in the tracked copy.
 
 On a Mac with Xcode command-line tools installed, run `uv run check --all` before
 packaging. The candidate command checks inputs, signatures, provenance and ZIP
-roundtrips; it does not rerun tests or regeneration. CI runs those once in its
+roundtrips; it assembles the game once from source and does not rerun tests. CI runs those once in its
 required verification job before packaging:
 
 ```sh

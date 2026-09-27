@@ -99,7 +99,10 @@ def execute(args):
             else:
                 run(launcher, cwd=launcher.parent)
     elif args.command == "package":
+        from .pipeline import rebuild
         from .packaging.pipeline import build
+
+        rebuild(ROOT)
 
         build(args.platform, args.output, allow_dirty=args.allow_dirty)
     elif args.command == "check":

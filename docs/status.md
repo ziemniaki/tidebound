@@ -17,7 +17,9 @@ the confirmed/proposed/open labels in [the specification](../specs/game-design.m
 
 Game files, Ruby source, tools, tests, specifications and documentation have
 separate homes. `uv run play/build/check` is the common entry point, with locked
-Python dependencies. Windows binaries restore from pinned archives. RPG Maker
+Python dependencies. The native project restores from a pinned offline Essentials baseline and authored
+sources; `game/` and `src/generated/` are ignored outputs. Windows binaries restore
+from pinned archives. RPG Maker
 XP opens `game/Game.rxproj`; authored maps round-trip through JSON.
 
 The current release includes the Mac Downloads/App Translocation and long-path fixes.

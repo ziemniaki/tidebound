@@ -59,10 +59,6 @@ def inventory(root):
             raise ValueError(f"Asset source is also a generated output: {source}")
         if not source.is_file():
             raise ValueError(f"Missing asset source: {source}")
-    previous_names = {name.casefold() for name in previous}
-    for name in owners:
-        if name.casefold() not in previous_names and (root / name).exists():
-            raise ValueError(f"Custom asset would overwrite an unowned file: {name}")
     return dict(sorted(owners.items())), exports
 
 
@@ -82,12 +78,6 @@ def recorded(root):
     return entries
 
 
-def remove_retired(root, owners):
-    # Remove before export: a case-only rename aliases the new file on macOS/Windows.
-    for name in recorded(root).keys() - owners.keys():
-        (root / name).unlink(missing_ok=True)
-
-
 def publish(root, owners):
     path = root / MANIFEST
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -97,9 +87,7 @@ def publish(root, owners):
 def validate(root):
     expected, _ = inventory(root)
     if recorded(root) != expected:
-        raise ValueError(
-            "Asset ownership changed; run uv run build --compile-only and stage the outputs"
-        )
+        raise ValueError("Asset ownership changed; run uv run build --compile-only")
     missing = [name for name in expected if not (root / name).is_file()]
     if missing:
         raise ValueError("Missing generated assets:\n" + "\n".join(missing))

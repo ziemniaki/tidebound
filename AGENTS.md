@@ -19,7 +19,7 @@ its source files, engine traps and verification; do not load every guide by defa
 | Items, actors, artwork and prop anchors | [content/AGENTS.md](content/AGENTS.md) |
 | Music, sound effect or cry | [audio/AGENTS.md](content/audio/AGENTS.md) |
 | Asset pipeline | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
-| RPG Maker edits or compiled game files | [game/AGENTS.md](game/AGENTS.md) |
+| RPG Maker edits or compiled game files | [editor workflow](docs/development.md#rpg-maker), [native overrides](content/overrides/AGENTS.md) |
 | Start a playthrough from a declared state | [Playtest workflow](docs/development.md#playtest-scenarios) |
 | Add/change tests | [tests/AGENTS.md](tests/AGENTS.md) |
 | Packaging, CI, release | [releasing](docs/releasing.md), [runtime notes](docs/architecture.md#runtime-boundaries) |
@@ -41,27 +41,26 @@ uv run build          # same compilation without launch
 uv run preview pokemon/WHYDUCK  # inspect one asset without loading a save
 uv run format         # before embedding Ruby
 uv run build --compile-only # update the compiled project without packaging a player
-uv run check          # headless gate; never regenerates tracked game data
-uv run check --all    # also regenerate in isolation and compare
+uv run check          # compile and run the headless gate
+uv run check --all    # also compare a clean isolated build
 ```
 
-Both build modes and play use the same complete compilation. Stage new sources and
-outputs before `check --all`: its input set comes from `git ls-files`.
+Both build modes and play use the same complete compilation. Stage new sources before `check --all`: its input set comes from `git ls-files`.
 Setup/editor details: [development](docs/development.md).
 
 Use a focused branch in `ziemniaki/tidebound`, never a fork. Independent agents
 need separate checkouts; Git branches alone do not isolate writes. Map IDs, actor
 identities, species/form IDs, event-handler keys and shared entry points are integration
 contracts. Agree those before splitting work; report them in the PR. After combining
-source changes, regenerate shared binaries once from the combined source. Never
-resolve `Scripts.rxdata`, species databases or generated maps by choosing one
-agent's binary wholesale. [Integration workflow](docs/development.md#independent-feature-work).
+source changes, build once from the combined sources. Generated binaries never
+belong in a commit. [Integration workflow](docs/development.md#independent-feature-work).
 
 ## Project constraints
 
 - Maps are authored in `content/maps/`; import saved RPG Maker edits with
-  `uv run editor import` before rebuilding. `game/Data` still contains irreplaceable
-  stock inputs; never clear it.
+  `uv run editor import` before rebuilding. `game/` and `src/generated/` are ignored outputs.
+  Keep unimported editor work and its `.build/editor.json` checkpoint; builds
+  regenerate everything else from the pinned baseline and authored sources.
 - Preserve current Pokémon identity, held items and quest state. An empty party
   may be an astral journey. Do not add save versions, compatibility gates or old
   migration chains. Never delete player saves to make a check pass.

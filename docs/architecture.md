@@ -70,19 +70,24 @@ across map edits. Native passage/terrain tables are shared with RPG Maker; the g
 has no separate collision override. Derived geometry, lighting and the world
 registry are written to `src/generated/`.
 
-`game/` is the RPG Maker project and stays tracked. It contains stock inputs that
-cannot currently be recreated from custom sources, alongside generated data.
-It is not a disposable build directory. The ownership records and validation
-sidecars under `game/.generated/` also stay tracked: they identify removable custom
-outputs and let checks validate committed maps without regenerating them. They
-are excluded from player packages. Never edit them by hand.
+`game/` is an ignored, generated RPG Maker project. Each build extracts the
+hash-pinned, offline `runtime/essentials/base.zip`, applies `content/overrides/`,
+then compiles authored bundles and Ruby. Previous outputs are never inputs.
+The baseline's [provenance](../runtime/essentials/README.md) describes the curated
+Essentials snapshot; it is not a pristine upstream distribution.
 
-Offline previews and disposable reports go to ignored `.build/maps/`. Full
-regeneration produces them; deleting them does not affect playing or checking the
-game. Native checks and packaging validate the tracked game and its sidecars.
-Full rebuild retires removed custom records/files and replaces current outputs;
-stock inputs are never swept. Isolated regeneration removes owned file outputs
-and verifies that all tracked generated files can be reproduced.
+`content/overrides/` holds intentional native stock changes and project defaults,
+using engine-relative paths. Authored bundles take precedence over stock content;
+an override cannot also target a generated file with an authored owner. Maps and
+tilesets keep their dedicated JSON workflow. Stock native edits are imported as
+explicit overrides; generated files without an importer must be edited at source.
+
+`src/generated/`, `game/.generated/` and `.build/maps/` contain derived Ruby,
+validation inventories and previews. None is committed or needed on a fresh
+checkout. Removing a declaration removes its output on the next build, without
+retirement manifests or record cleanup. `check` builds before verifying;
+`check --all` also builds from Git-tracked sources in isolation and compares the
+complete generated game and Ruby, including decoded PNG pixels.
 
 The [RPG Maker workflow](development.md#rpg-maker) imports saved edits back into
 these sources. Play/build compile current authored content. The map compiler derives

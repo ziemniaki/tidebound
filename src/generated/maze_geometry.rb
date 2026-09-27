@@ -1,8 +1,0 @@
-# Generated from authored map events and mechanics.
-module Tidebound::PsychicMaze
-  MAP = 114.freeze
-  START = [5, 20].freeze
-  PUSHERS = {[7, 20] => 8, [3, 9] => 8, [3, 3] => 6, [9, 3] => 2, [9, 7] => 6, [17, 7] => 2, [17, 5] => 8}.freeze
-  STOPS = [[7, 16], [17, 3], [17, 11]].freeze
-  WARPS = {[9, 16] => [4, 11], [4, 10] => [9, 17], [7, 11] => [5, 20], [16, 3] => [22, 5], [22, 6] => [16, 4]}.freeze
-end

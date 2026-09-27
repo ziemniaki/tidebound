@@ -16,6 +16,7 @@ def verify(root, *, full=False):
     from tidebound_dev.formatting import format_sources
 
     format_sources(root, check=True)
+    rebuild(root)
     from tidebound_dev.release.metadata import check_sources
 
     check_sources(root)
@@ -76,24 +77,31 @@ def _check_regeneration(root):
             dest = stage / name
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root / name, dest)
-        # Remove file outputs only in this disposable regeneration check. Native
-        # databases mix stock inputs with custom records; their compilers replace
-        # declared records, and ownership removes retired records.
-        from .content.ownership import recorded as content_outputs
+        _rebuild_isolated(stage)
 
-        for name in [*ownership.recorded(stage), *content_outputs(stage)["files"]]:
-            (stage / name).unlink(missing_ok=True)
-        rebuild(stage)
-        differences = [name for name in tracked if not equivalent(root / name, stage / name)]
-        generated = {
-            p.relative_to(stage).as_posix()
-            for p in stage.rglob("*")
-            if p.is_file()
-            and not {"__pycache__", ".build"}.intersection(p.relative_to(stage).parts)
-        }
-        differences.extend(sorted(generated - set(tracked)))
+        def outputs(folder):
+            from .workspace import files
+
+            return {"game/" + name for name in files(folder / "game")} | {
+                p.relative_to(folder).as_posix()
+                for directory in ("game/.generated", "src/generated")
+                for p in (folder / directory).rglob("*")
+                if p.is_file()
+            }
+
+        expected, actual = outputs(root), outputs(stage)
+        differences = sorted(expected ^ actual)
+        differences.extend(
+            name for name in sorted(expected & actual) if not equivalent(root / name, stage / name)
+        )
+        differences.extend(name for name in tracked if not equivalent(root / name, stage / name))
         if differences:
-            raise SystemExit(
-                "Generated assets differ from committed source:\n" + "\n".join(differences)
-            )
-    print("PASS: isolated rebuild reproduces tracked data, source and decoded PNG pixels")
+            raise SystemExit("Clean builds differ:\n" + "\n".join(differences))
+    print(
+        "PASS: clean checkout reproduces the game and generated Ruby (including decoded PNG pixels)"
+    )
+
+
+def _rebuild_isolated(root):
+    # Load catalogs and tooling from the isolated checkout, not this process's imports.
+    subprocess.run(["uv", "run", "--locked", "build", "--compile-only"], cwd=root, check=True)

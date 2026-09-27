@@ -25,14 +25,7 @@ def serialize(paths, maps):
     for m in maps:
         (paths.game / f"Data/Map{m.id:03}.rxdata").write_bytes(m.serialize())
     system = loads((paths.game / "Data/System.rxdata").read_bytes())
-    system.attributes.update(
-        {
-            "@start_map_id": 115,
-            "@start_x": 7,
-            "@start_y": 8,
-            "@magic_number": map_revision(paths.game),
-        }
-    )
+    system.attributes["@magic_number"] = map_revision(paths.game)
     (paths.game / "Data/System.rxdata").write_bytes(writes(system))
     infos = loads((paths.game / "Data/MapInfos.rxdata").read_bytes())
     metadata = loads((paths.game / "Data/map_metadata.dat").read_bytes())
