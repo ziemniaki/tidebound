@@ -8,6 +8,9 @@ import unittest
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from tidebound_dev.maps.validate import validate
+from tidebound_dev.maps.data import map_record, native_map
+from tidebound_dev.maps.model import command, obj, table
+import json
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -24,6 +27,7 @@ class MapValidationTests(unittest.TestCase):
             "game/.generated/maze_manifest.json",
             "game/Data/Scripts.rxdata",
             "game/Data/map_metadata.dat",
+            "game/Data/Tilesets.rxdata",
         ):
             dest = self.root / name
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -53,6 +57,54 @@ class MapValidationTests(unittest.TestCase):
     def test_missing_bgm_is_rejected(self):
         next((self.game / "Audio/BGM").glob("*.ogg")).unlink()
         with self.assertRaisesRegex(RuntimeError, "missing BGM"):
+            validate(self.root)
+
+    def test_directional_corridor_accepts_arrivals_but_blocks_forbidden_edges(self):
+        path = self.game / "Data/Map101.rxdata"
+        native = loads(path.read_bytes())
+        event = native.attributes["@events"][1]
+        event.attributes.update({"@x": 1, "@y": 4, "@name": "Corridor exit"})
+        page = event.attributes["@pages"][0]
+        event.attributes["@pages"] = [page]
+        page.attributes.update(
+            {"@trigger": 1, "@list": [command(201, 0, 101, 1, 1, 2, 0), command(0)]}
+        )
+        native.attributes["@events"] = {1: event}
+        record = map_record(native)
+        record.update(width=3, height=5, tileset_id=1)
+        record["data"] = {
+            "$type": "Table",
+            "shape": [3, 5, 3],
+            "rows": [[384, 385, 384] for _ in range(5)] + [[0, 0, 0] for _ in range(10)],
+        }
+        path.write_bytes(writes(native_map(record)))
+        declaration = self.root / "content/maps/home/map.json"
+        metadata = json.loads(declaration.read_text())
+        metadata["entrances"] = {}
+        declaration.write_text(json.dumps(metadata))
+        (self.game / ".generated/map_manifest.json").write_text(
+            json.dumps([{"id": 101, "width": 3, "height": 5}])
+        )
+        # Scripted movement masks are deliberately conservative: this corridor
+        # is not fully passable, but normal north/south movement is legal.
+        (self.game / ".generated/collisions.json").write_text(json.dumps({"101": ["000"] * 5}))
+        passages = [0] * 386
+        passages[384], passages[385] = 15, 4
+        tileset = obj(
+            "RPG::Tileset",
+            id=1,
+            passages=table(passages, 386),
+            priorities=table([0] * 386, 386),
+            terrain_tags=table([0] * 386, 386),
+        )
+        tilesets = self.game / "Data/Tilesets.rxdata"
+        tilesets.write_bytes(writes([None, tileset]))
+        validate(self.root)
+        # Blocking southward movement must not turn into a false successful flood fill.
+        passages[385] = 1
+        tileset.attributes["@passages"] = table(passages, 386)
+        tilesets.write_bytes(writes([None, tileset]))
+        with self.assertRaisesRegex(RuntimeError, "Corridor exit/page1 unreachable event"):
             validate(self.root)
 
     def test_wma_cannot_satisfy_native_map_audio(self):

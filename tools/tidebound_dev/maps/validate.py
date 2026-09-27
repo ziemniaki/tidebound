@@ -1,5 +1,7 @@
 from .transfers import Transfer
 from . import definitions
+from .data import encode
+from .tilesets import passages
 from collections import deque
 from rubymarshal.reader import loads
 import json, re, struct
@@ -32,6 +34,8 @@ def validate(root, event_scripts_output=None, check_scripts=True):
     fail = []
     event_scripts = []
     count = 0
+    native_tilesets = loads((G / "Data/Tilesets.rxdata").read_bytes())
+    movement = {}
     for spec in manifest:
         mid = spec["id"]
         m = native_maps[mid]
@@ -53,6 +57,28 @@ def validate(root, event_scripts_output=None, check_scripts=True):
         ):
             fail.append(f"{mid} tile table dimensions disagree with manifest")
             continue
+        # Forced scene routes use fully open tile masks. Ordinary editor maps
+        # need the native directional rules, including the destination's reverse edge.
+        passage = passages(native_tilesets[m["@tileset_id"]])
+        rows = encode(m["@data"])["rows"]
+        layers = [rows[i * h : (i + 1) * h] for i in range(3)]
+        movement[mid] = [
+            [
+                sum(1 << (d // 2 - 1) for d in (2, 4, 6, 8) if passage(layers, x, y, d))
+                for x in range(w)
+            ]
+            for y in range(h)
+        ]
+        masks[str(mid)] = ["".join("1" if bits else "0" for bits in row) for row in movement[mid]]
+    if fail:
+        raise RuntimeError("\n".join(fail))
+
+    for spec in manifest:
+        mid = spec["id"]
+        m = native_maps[mid]
+        mask = masks[str(mid)]
+        w, h = spec["width"], spec["height"]
+        allowed = movement[mid]
 
         def walk(x, y):
             return 0 <= x < w and 0 <= y < h and mask[y][x] == "1"
@@ -62,7 +88,19 @@ def validate(root, event_scripts_output=None, check_scripts=True):
         seen = set(q)
         while q:
             x, y = q.popleft()
-            for p in [(x + dx, y + dy) for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]] + (
+            neighbors = [
+                (x + dx, y + dy)
+                for dx, dy, bit, reverse in [
+                    (1, 0, 4, 2),
+                    (-1, 0, 2, 4),
+                    (0, 1, 1, 8),
+                    (0, -1, 8, 1),
+                ]
+                if walk(x + dx, y + dy)
+                and allowed[y][x] & bit
+                and allowed[y + dy][x + dx] & reverse
+            ]
+            for p in neighbors + (
                 [(dx, dy) for sx, sy, dx, dy in maze_data["warps"] if (x, y) == (sx, sy)]
                 if mid == maze_data.get("map")
                 else []
