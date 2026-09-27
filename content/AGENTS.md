@@ -1,11 +1,11 @@
 # Authored content
 
-Read [structure and naming](../docs/architecture.md#authored-content) for ownership
-and native path conventions. Pokémon: [pokemon/AGENTS.md](pokemon/AGENTS.md).
-Maps: [maps/AGENTS.md](maps/AGENTS.md). Sound: [audio/AGENTS.md](audio/AGENTS.md).
-Edit approved sources here; preview using the shared
-[asset workflow](../docs/development.md#asset-previews). Stage source changes before `uv run check --all`. Pipeline changes use the
-[exporter guide](../tools/tidebound_dev/art/AGENTS.md).
+Edit approved sources here using [structure and naming](../docs/architecture.md#authored-content).
+Follow the scoped guides for [Pokémon](pokemon/AGENTS.md), [maps](maps/AGENTS.md)
+and [sound](audio/AGENTS.md). New content should fit the existing bundle/export
+workflow; extend its [owner](../tools/tidebound_dev/art/AGENTS.md) if needed.
+Use the shared [asset preview](../docs/development.md#asset-previews), then stage
+source changes before `uv run check --all`.
 
 ## Actors, trainers and items
 
@@ -13,12 +13,11 @@ Actors use `actors/<name>/character.png`. XP sheets have **four columns × four
 rows**, down/left/right/up; inspect all directions and feet alignment in the engine.
 Pokémon party strips and trainer portraits are not walking sheets.
 
-Items use `items/<ID>/item.json` (`name`, `description`) plus `icon.png`, or an
-explicit `stock_icon` engine ID. These are story Key Items; other item behavior
-requires extending the compiler. Trainers use `trainers/<ID>/trainer.json` (`name`)
-with `portrait.png` and `character.png`, or `stock` for an existing trainer type.
-Stock trainer reuse supplies the native template as well as artwork; a trainer
-with local artwork uses the YOUNGSTER native template.
+Items use `items/<ID>/item.json` (`name`, `description`) with `icon.png` or a
+`stock_icon` engine ID. These are story Key Items; extend the compiler for other
+behavior. Trainers use `trainers/<ID>/trainer.json` (`name`) with `portrait.png`
+and `character.png`, or `stock` to reuse a native trainer template and artwork.
+Local trainer artwork uses the YOUNGSTER template.
 Battle rosters and reward delivery belong to the Ruby feature. `$bag.add` can fail:
 advance a one-time reward only after successful delivery. Missing item/trainer
 art can silently fall back to `000`; preview checks exact engine resolution.
@@ -35,9 +34,7 @@ An image does not set collision, and filenames do not select gameplay behavior.
 
 Static props share `presentation/props.rb`; flicker and quest transitions stay
 with their feature. `load_prop` owns/disposes its bitmap; never pass it cached art.
-Tile artwork lives in fixed `tilesets/<name>/image.png` sheets.
-Shared UI and effect images use `ui/` and `effects/`.
-
-Tile IDs, collision and aligned light masks follow the [map guide](maps/AGENTS.md).
+Tile sheets (`tilesets/<name>/image.png`), IDs, collision and light masks follow
+the [map guide](maps/AGENTS.md). Shared UI/effect images use `ui/` and `effects/`.
 Keep concepts and working files in root `references/`, and external attribution
 in [credits](../docs/credits.md).

@@ -1,4 +1,4 @@
-# Species, forms, items and encounters
+# Species, forms and encounters
 
 Each `<ENGINE_ID>/species.json` owns `species`, optional `metrics`, and `art`.
 Compilers discover these bundles; there is no registration list. Source images
@@ -35,19 +35,18 @@ live in the same folder. Naming/ownership: [architecture](../../docs/architectur
    Missing expected colours fail export. Preview all frames, then inspect battle
    and party composition; form fallback can hide missing assets.
 6. Format, `uv run build --compile-only`, stage additions, then `uv run check --all`.
-   Native verification derives its roster from the catalog and compares all native
-   species/metric attributes except PBS source bookkeeping and non-evolving family
-   backlinks. It checks exact front/back/shiny/icon/cry resolution. Cry exports and native expectations share the asset catalog; normal/shiny party
-   icons share the declared normal icon path. New species require their own assets by default.
+   Native verification derives rosters and art expectations from the same catalog
+   as export. It compares species/metrics except PBS bookkeeping and non-evolving
+   family backlinks, and checks exact front/back/shiny/icon/cry resolution.
+   Extend that catalog and its checks; never maintain a separate verification list.
    Run the native species scenario when altering definitions/compiler behavior.
 
 ## Data, form and encounter contracts
 
 - `BaseStats` uses PBS order: **HP, Attack, Defense, Speed, Special Attack,
   Special Defense**. It differs from the common display order with Speed last.
-  Python Height/Weight values are metres/kilograms; the compiler writes native
-  tenths. Do not pre-multiply by ten or change the stat order when copying a design.
-
+  Height/Weight values are metres/kilograms; the compiler writes native tenths.
+  Do not pre-multiply by ten or change stat order when copying a design.
 - `pokemon.form = n` clears cached ability, runs form hooks, recalculates stats and
   registers in the Pokédex. It **does not reset moves**. For a newly generated wild
   whose form has a different learnset, set form then `reset_moves`. Never reset

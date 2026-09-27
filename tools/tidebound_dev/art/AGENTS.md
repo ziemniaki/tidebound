@@ -1,11 +1,8 @@
 # Asset pipeline
 
-For approved image layouts and prop authoring, use [content/AGENTS.md](../../../content/AGENTS.md).
-
-## Pipeline ownership
-
-`pipeline.rebuild` calls `compiler.build` for every play/build/preview.
-Those commands share one complete map/content/asset compilation. Pipeline entry points:
+Image layouts and prop authoring: [content/AGENTS.md](../../../content/AGENTS.md).
+Follow the parent [tooling guide](../AGENTS.md). `pipeline.rebuild` calls
+`compiler.build` for every play/build/preview; extend that shared path.
 
 | Change | Owner in this directory |
 | --- | --- |
@@ -15,7 +12,6 @@ Those commands share one complete map/content/asset compilation. Pipeline entry 
 | Prop metadata validation / Ruby table | `props.py::load` / `write` |
 | Native preview selection / rendering | `preview.py` / `preview.rb` |
 
-Content bundles are discovered without registration; source IDs determine destinations.
 `files.exports` and `pokemon.exports` supply the same records to writing and
 `ownership.inventory`; do not add a second source/output list. Destinations are
 repository-relative POSIX paths (`game/...`); sources use the supplied root.
