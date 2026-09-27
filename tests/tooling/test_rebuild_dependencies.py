@@ -36,6 +36,9 @@ class RebuildDependenciesTests(unittest.TestCase):
                 "fields": {"Name": "New bird"},
             }
             patches.enter_context(patch.object(species_compiler, "SPECIES", definitions))
+            patches.enter_context(patch.object(pipeline.workspace, "prepare"))
+            patches.enter_context(patch.object(pipeline.workspace, "validate_overrides"))
+            patches.enter_context(patch.object(pipeline.editor, "require_import"))
             patches.enter_context(patch.object(pipeline.art, "build"))
             patches.enter_context(patch.object(pipeline.editor, "remember"))
             bundle = root / "content/maps/forest"

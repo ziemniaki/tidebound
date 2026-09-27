@@ -68,12 +68,12 @@ live in the same folder. Naming/ownership: [architecture](../../docs/architectur
 - The full pipeline compiles species before encounter rosters. Keep this order:
   encounter validation must see newly added species in the same build.
 
-[Inspected Essentials methods](../../docs/essentials-contracts.md). Failed builds
-do not roll back: fix the source and rerun before playing. Review generated diffs;
-`check --all` verifies isolated regeneration.
+[Inspected Essentials methods](../../docs/essentials-contracts.md).
+Builds assemble stock inputs and compile declarations in dependency order. Fix
+failed builds before playing; `check --all` compares a clean isolated build.
+Commit source changes, not generated databases or artwork.
 
-`game/.generated/content.json` tracks custom ownership; rebuild retires deleted
-declarations' outputs while preserving stock inputs. Never hand-edit it to claim
-a stock ID. Published species/items may exist in saves: retirement requires an
-explicit content decision. The manifest is written before generation for retries,
-not save versioning.
+Removing a declaration removes its generated output on the next fresh build.
+Published species/items may still exist in player saves: retire them only as an
+explicit content decision. `game/.generated/content.json` describes generated
+ownership for verification; never edit it by hand.

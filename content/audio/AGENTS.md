@@ -30,7 +30,7 @@ and [preview workflow](../../docs/development.md#asset-previews).
    fall back to the base. Preview them with `pokemon/ID`.
 4. Use `uv run preview "audio/music/<name>"` (substitute the category), then
    listen in-scene with normal/reduced player volume and relevant loop/transitions.
-   Stage source/exports and run `uv run check --all`; headers cannot prove sound quality.
+   Stage source changes and run `uv run check --all`; headers cannot prove sound quality.
 
 `src/tidebound/engine/audio.rb` caps only the two existing Tidebound loops; listen
 alongside them when mixing a new track. [Engine contracts](../../docs/essentials-contracts.md).

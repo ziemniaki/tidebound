@@ -71,6 +71,6 @@ build generator.
 
 Run `uv run play` to compile and play; `uv run build --compile-only` exports without
 launching. Inspect `.build/maps/map_<id>_preview.png`, then verify entrances,
-interactions and collision in the player. Stage sources/exports and run
+interactions and collision in the player. Stage source changes and run
 `uv run check --all`. Previews do not establish event scheduling or gameplay.
 The compiler updates the native map revision so saves reload changed maps.

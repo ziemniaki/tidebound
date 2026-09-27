@@ -5,7 +5,7 @@ Follow the scoped guides for [Pokémon](pokemon/AGENTS.md), [maps](maps/AGENTS.m
 and [sound](audio/AGENTS.md). New content should fit the existing bundle/export
 workflow; extend its [owner](../tools/tidebound_dev/art/AGENTS.md) if needed.
 Use the shared [asset preview](../docs/development.md#asset-previews), then stage
-sources and generated outputs before `uv run check --all`.
+source changes before `uv run check --all`.
 
 ## Actors, trainers and items
 

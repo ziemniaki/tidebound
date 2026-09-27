@@ -1,8 +1,9 @@
 # Verification boundaries
 
-`uv run check` prepares locked Node packages, extracts the current archive and
-supplies fresh map-event scripts; it does not rebuild. Format/embed Ruby and
-regenerate changed content first. Stage new files before `check --all`.
+`uv run check` prepares locked Node packages, assembles the native project,
+extracts its archive and supplies fresh map-event scripts to the harness.
+No committed game outputs are needed. Stage new sources before `check --all`:
+its isolated build copies only Git-tracked paths.
 
 ## What earns a test
 

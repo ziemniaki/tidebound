@@ -50,7 +50,7 @@ uv run preview pokemon/WHYDUCK  # inspect an asset in the engine
 | [`specs/`](specs/game-design.md) | Game design and creative decisions |
 | [`docs/`](docs/README.md) | Development, playtesting, releases and current status |
 | `src/` | Custom Ruby gameplay and presentation |
-| `game/` | RPG Maker project, compiled data, PBS definitions and playable assets |
+| `game/` | Generated RPG Maker project and playable assets (ignored; created by build/play) |
 | `tools/` | Build commands, map/data compilers and packaging |
 | `tests/` | Headless checks and native runtime smoke tests |
 | `content/` | Authored maps, Pokémon, items, actors, artwork and sound |

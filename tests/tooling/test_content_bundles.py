@@ -87,7 +87,7 @@ class ContentBundleTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "generated output"):
                 inventory(root)
 
-    def test_new_actor_cannot_overwrite_stock_art(self):
+    def test_authored_actor_can_intentionally_replace_stock_art(self):
         from PIL import Image
 
         with tempfile.TemporaryDirectory() as temp:
@@ -97,7 +97,9 @@ class ContentBundleTests(unittest.TestCase):
             Image.new("RGBA", (128, 192), (1, 2, 3, 255)).save(source)
             target = root / "game/Graphics/Characters/guard.png"
             target.parent.mkdir(parents=True)
-            target.write_bytes(b"stock art")
-            with self.assertRaisesRegex(ValueError, "overwrite an unowned file"):
-                inventory(root)
-            self.assertEqual(target.read_bytes(), b"stock art")
+            Image.new("RGBA", (128, 192), (4, 5, 6, 255)).save(target)
+            _, exports = inventory(root)
+            for export in exports:
+                export.write(root)
+            with Image.open(target) as image:
+                self.assertEqual(image.size, (128, 192))

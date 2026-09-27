@@ -62,7 +62,7 @@ jobs:
           cache-dependency-path: tests/package-lock.json
       - run: uv sync --locked
       - run: uv run --locked check --all
-      - name: Verification must not modify tracked source or game data
+      - name: Verification must not modify tracked source
         run: git diff --exit-code
 
   package:

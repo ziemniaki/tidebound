@@ -16,13 +16,16 @@ exported assets also use [art/AGENTS.md](art/AGENTS.md).
 - Extend existing declarations, discovery and ownership records together. Derive
   output paths and checks from the same catalog; do not add parallel registration
   lists. Generated files are outputs, never recipe inputs or manual fixes.
-- Preserve dependency order, stock inputs and editor import safeguards. Failed
-  builds require fixing the source and rerunning, not bypassing validation or
+- Restore stock inputs from the pinned baseline and native overrides before
+  compiling bundles; never use a previous build as input. Follow the
+  [override guide](../../content/overrides/AGENTS.md) for native stock changes.
+- Preserve dependency order and editor import safeguards. Failed builds require
+  fixing the source and rerunning, not bypassing validation or
   deleting checkpoints. See the [editor workflow](../../docs/development.md#rpg-maker).
 - Keep shared staging in `packaging/pipeline.py`; platform adapters own layout,
   signing and permissions. Follow [releasing](../../docs/releasing.md) for release work.
 
 Verify observable behavior through the existing [test boundaries](../../tests/AGENTS.md).
-For compilation/export changes, rebuild, stage new sources/outputs and run
-`uv run check --all` to prove isolated regeneration. Update the documented command
-or workflow when its behavior changes.
+For compilation/export changes, stage new sources and run `uv run check --all`
+to compare complete clean builds. Never commit `game/` or `src/generated/` outputs.
+Update the documented command or workflow when its behavior changes.

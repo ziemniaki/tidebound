@@ -42,6 +42,9 @@ class CandidateTests(unittest.TestCase):
         self.output = self.root.parent / "candidate"
         self.config = {"version": "1.2.3", "mac_build": "1"}
         config = patch.object(candidates, "check_sources", return_value=self.config)
+        compile_game = patch("tidebound_dev.pipeline.rebuild")
+        compile_game.start()
+        self.addCleanup(compile_game.stop)
         config.start()
         self.addCleanup(config.stop)
 
