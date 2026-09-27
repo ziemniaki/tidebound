@@ -1,6 +1,6 @@
 # Tidebound — The Keeper's Light
 
-Demo 1 **0.8.8** · Pokémon Essentials **21.1**
+Demo 1 **0.8.9** · Pokémon Essentials **21.1**
 
 ## Demo 1 / 0.8.0 — 23 September 2026
 
