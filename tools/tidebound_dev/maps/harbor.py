@@ -163,14 +163,3 @@ def decorate(paths, coast, docks, road):
             role="demo_prop",
             asset=name,
         )
-    # Refresh targets after moved historical skiffs (IDs and scripts stay unchanged).
-    docks.targets = [
-        (
-            e.attributes["@name"],
-            e.attributes["@x"],
-            e.attributes["@y"],
-            e.attributes["@pages"][0].attributes["@trigger"],
-            t[4],
-        )
-        for e, t in zip(docks.events.values(), docks.targets)
-    ]

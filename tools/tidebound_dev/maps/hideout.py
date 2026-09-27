@@ -293,16 +293,11 @@ def decorate(paths, interior, hideout):
             p["@through"] = not bool(char)
             if char:
                 hideout.walk[y][x] = False
-    hideout.targets = [
-        (
-            a["@name"],
-            a["@x"],
-            a["@y"],
-            a["@pages"][0].attributes["@trigger"],
-            not hideout.walk[a["@y"]][a["@x"]],
-        )
-        for a in [e.attributes for e in hideout.events.values()]
-    ]
+    hideout.blocking_events = {
+        event_id
+        for event_id, event in hideout.events.items()
+        if not hideout.walk[event.attributes["@y"]][event.attributes["@x"]]
+    }
     for x in [14, 15]:
         hideout.event("Sofa approach", x, 9, "Tidebound::Hideout.approach", trigger=1)
     hideout.event("Rune console", 15, 6, "Tidebound::Hideout.console")
