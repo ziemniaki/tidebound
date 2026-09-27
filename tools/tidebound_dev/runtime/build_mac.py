@@ -48,13 +48,16 @@ def fetch(folder, info, log):
     if not (folder / ".git").exists():
         folder.mkdir(parents=True, exist_ok=True)
         run("git", "init", "-q", folder, log=log)
-        run("git", "-C", folder, "remote", "add", "origin", info["url"], log=log)
-        run("git", "-C", folder, "fetch", "--depth", "1", "origin", info["commit"], log=log)
-        run("git", "-C", folder, "checkout", "--detach", "FETCH_HEAD", log=log)
-    head = subprocess.check_output(
-        ["git", "-C", str(folder), "rev-parse", "HEAD"], text=True
-    ).strip()
-    if head != info["commit"]:
+    head = subprocess.run(
+        ["git", "-C", str(folder), "rev-parse", "--verify", "HEAD"],
+        capture_output=True,
+        text=True,
+    )
+    if head.returncode:
+        # git init may survive a failed fetch. Resume directly from the lock URL.
+        run("git", "-C", folder, "fetch", "--depth", "1", info["url"], info["commit"], log=log)
+        run("git", "-C", folder, "checkout", "--detach", info["commit"], log=log)
+    elif head.stdout.strip() != info["commit"]:
         raise ValueError("Cached dependency commit differs from lock: " + str(folder))
     if "submodules" in info:
         for name, child in info["submodules"].items():
