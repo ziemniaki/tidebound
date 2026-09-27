@@ -2,7 +2,6 @@
 
 import json
 from pathlib import Path
-import re
 from rubymarshal.classes import Symbol
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -10,12 +9,10 @@ from .maps.definitions import DEFINITIONS
 from .runtime.development import replace_main
 
 FIELDS = {
-    "description",
     "base",
     "location",
     "checkpoint",
     "player",
-    "pokemon",
     "party",
     "household",
     "bag",
@@ -68,8 +65,6 @@ def select(root, name):
                 raise ValueError("Scenario bases must be standalone (one level only)")
             # Only story merges by top-level key. Other fields replace as a whole.
             spec = {**parent, **spec, "story": {**parent.get("story", {}), **spec.get("story", {})}}
-        if not isinstance(spec.get("description"), str) or not spec["description"].strip():
-            raise ValueError("A scenario needs a description")
         spec["arrival"] = location(spec["location"])
         spec["checkpoint"] = location(spec.get("checkpoint", spec["location"]))
         player = spec.get("player", {"name": "Ren", "avatar": 1})
@@ -88,39 +83,29 @@ def select(root, name):
             kind: loads((root / f"game/Data/{kind}.dat").read_bytes())
             for kind in ("species", "items", "moves")
         }
-        pokemon = spec.setdefault("pokemon", {})
-        for key, record in pokemon.items():
-            if not re.fullmatch(r"[a-z][a-z0-9_]*", key):
-                raise ValueError(f"Invalid Pokémon key: {key}")
+        party, household = spec.setdefault("party", []), spec.setdefault("household", [])
+        if not isinstance(party, list) or not isinstance(household, list) or len(party) > 6:
+            raise ValueError("Party and household must be lists; party holds at most six Pokémon")
+        for record in party + household:
             if record.keys() - {"species", "level", "name", "moves", "item"}:
-                raise ValueError(f"{key}: unknown Pokémon fields")
+                raise ValueError("Unknown Pokémon fields")
             if Symbol(record.get("species", "")) not in databases["species"]:
-                raise ValueError(f"{key}: unknown species/form")
+                raise ValueError("Unknown species/form")
             if type(record.get("level")) is not int or not 1 <= record["level"] <= 100:
-                raise ValueError(f"{key}: level must be 1–100")
+                raise ValueError("Pokémon level must be 1–100")
             if "moves" in record and (
                 not isinstance(record["moves"], list)
                 or not 1 <= len(record["moves"]) <= 4
                 or any(Symbol(move) not in databases["moves"] for move in record["moves"])
             ):
-                raise ValueError(f"{key}: expected one to four known moves")
+                raise ValueError("Expected one to four known moves")
             if "name" in record and (
                 not isinstance(record["name"], str) or not record["name"].strip()
             ):
-                raise ValueError(f"{key}: name must be nonempty text")
+                raise ValueError("Pokémon name must be nonempty text")
             if "item" in record and Symbol(record["item"]) not in databases["items"]:
-                raise ValueError(f"{key}: unknown held item")
-        for group in ("party", "household"):
-            keys = spec.setdefault(group, [])
-            if (
-                not isinstance(keys, list)
-                or len(keys) != len(set(keys))
-                or set(keys) - pokemon.keys()
-            ):
-                raise ValueError(f"{group}: unknown or duplicate Pokémon keys")
-        if len(spec["party"]) > 6 or set(spec["party"]) & set(spec["household"]):
-            raise ValueError("Party holds at most six Pokémon; household pets must be separate")
-        pets = [pokemon[key]["species"].split("_")[0] for key in spec["household"]]
+                raise ValueError("Unknown held item")
+        pets = [record["species"].split("_")[0] for record in household]
         if len(pets) != len(set(pets)):
             raise ValueError("Household pets must have distinct base species")
         for item, count in spec.setdefault("bag", {}).items():
@@ -131,7 +116,7 @@ def select(root, name):
             ):
                 raise ValueError(f"Invalid bag item/count: {item}")
         if not isinstance(spec.setdefault("story", {}), dict) or "household_pets" in spec["story"]:
-            raise ValueError("Story must be an object; use household for pet references")
+            raise ValueError("Story must be an object; use household for pets")
         return {"id": name, **spec}
     except (ValueError, TypeError, KeyError, AttributeError) as error:
         raise ValueError(f"Scenario {name}: {error}") from error

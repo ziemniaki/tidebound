@@ -188,47 +188,35 @@ need inspection in their actual scenes.
 ## Playtest scenarios
 
 ```sh
-uv run tidebound scenarios
-uv run play --scenario neighbor/return-necklace
-uv run build --scenario vault/visit --platform windows
+uv run play --from neighbor/meal
 ```
 
-Scenarios start a fresh game at a named entrance with declared party, bag and quest
-state. They bypass the title/prelude and never load an existing save. Each build
-gets a unique `Tidebound_Scenario_<id>` namespace; normal saving works inside it.
-The command and `DEVELOPMENT.json` report that namespace. Relaunching the same
-scenario starts fresh again. Scenario saves stay in the OS user-data directory;
-ordinary development and release saves are untouched.
+This starts the **full game** with the declared starting state: location, party,
+bag and story progress. Keep playing, travel, battle and save normally. There is
+no listing step or separate scenario build. Omitting `--from` opens the normal
+development title screen. Each `--from` launch starts fresh; saves made during
+it use `Tidebound_Playtest`, a scratch slot separate from normal development and
+release saves. Concurrent playtests share that scratch slot.
 
-A feature owns `src/tidebound/features/<feature>/scenarios/<name>.json`. Copy a
-nearby example. `opening/exploration` is a reusable starting point:
+Starting states live beside their feature in `src/tidebound/features/<feature>/scenarios/`.
+For example, `neighbor/meal.json` reuses `opening/exploration` and changes only:
 
 ```json
 {
   "base": "opening/exploration",
-  "description": "Return the recovered necklace to the oil seller.",
-  "location": ["shop", "door"],
-  "bag": {"TIDEBOUNDNECKLACE": 1},
-  "story": {"neighbor_quest": {"stage": ":necklace"}}
+  "location": ["home", "from_coast"],
+  "bag": {"TIDEBOUNDPIE": 1},
+  "story": {"neighbor_quest": {"stage": ":pie"}}
 }
 ```
 
-A base must be standalone; there is one inheritance level. Fields replace the
-base wholesale, except `story`, which merges by top-level key. A nested quest
-object replaces that quest completely. Story keys become Ruby symbols; a string
-starting with `:` becomes a symbol value (`":necklace"` → `:necklace`). Other
-strings remain text. Scenarios contain data, never executable Ruby.
+Copy [the baseline](../src/tidebound/features/opening/scenarios/exploration.json)
+for the complete format. `party` and `household` contain Pokémon directly, e.g.
+`{"species": "NATU", "level": 12, "item": "MYSTICWATER"}`; `name` and `moves`
+are optional. A base is standalone (no inheritance chains). Other fields replace
+it; `story` merges only its top-level keys. `":pie"` denotes a Ruby symbol;
+ordinary strings stay text. Map/entrance and species/item references are checked.
 
-`pokemon` defines named individuals with `species` (including `_1` forms),
-`level`, optional `name`, `moves` and held `item`. `party` and `household` reference
-those keys; they cannot claim the same individual. `bag` maps item IDs to counts.
-`player` contains `name` and `avatar`; `checkpoint` is another `[map, entrance]`,
-defaulting to the starting location. The base example shows every field.
-
-References are checked before staging. State is installed after new-game values
-but before map creation, so map callbacks see the intended state. Map autoruns
-still run: declare the completed story flags needed to skip an earlier scene.
-Errors name the scenario; native failures also write `scenario-error.txt` in its
-isolated save directory. Scenario changes need no rebuild; map/encounter/atlas
-changes still require `uv run rebuild --all`. Scenario drivers only replace Main
-inside development players and cannot be packaged as a release.
+State is installed before map callbacks. Declare the flags needed to skip earlier
+autoruns. Edits to starting states need only `play --from`; map/data changes still
+need `uv run rebuild --all`. The starting-state driver stays out of releases.

@@ -31,10 +31,8 @@ def prepare(game, namespace, scenario="all"):
     driver += (tests / "native_scenarios.rb").read_bytes()
     if scenario in ("world", "all"):
         driver += b"\n" + Path(scenarios.__file__).with_suffix(".rb").read_bytes()
-        driver += b"\n" + (tests / "development_scenarios.rb").read_bytes()
         root = tests.parent.parent
-        specs = [scenarios.select(root, name) for name in scenarios.catalog(root)]
-        (game / "NativeScenarios.rxdata").write_bytes(writes(specs))
+        (game / "NativeStart.rxdata").write_bytes(writes(scenarios.select(root, "neighbor/meal")))
     driver += b"\n" + (tests / "native_runtime_smoke.rb").read_bytes()
     main[0][2] = zlib.compress(driver)
     # Validate both files before publishing either change in this disposable copy.

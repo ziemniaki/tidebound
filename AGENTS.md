@@ -35,8 +35,7 @@ Run from the repository root. uv owns Python dependencies; Node is pinned in
 uv run play           # refresh assets/Ruby, stage and launch a development player
 uv run build          # same refresh without launch; preserves editor maps/content
 uv run play --preview pokemon/WHYDUCK  # inspect one asset without loading a save
-uv run play --scenario neighbor/meal  # fresh declared state, isolated scenario saves
-uv run tidebound scenarios            # list available starting states
+uv run play --from neighbor/meal  # full playthrough from a declared state
 uv run format         # before embedding Ruby
 uv run rebuild        # export custom assets and embed the Ruby load manifest
 uv run rebuild --all  # regenerate maps/content/art, then embed
@@ -65,7 +64,7 @@ agent's binary wholesale. [Integration workflow](docs/development.md#independent
   may be an astral journey. Do not add save versions, compatibility gates or old
   migration chains. Never delete player saves to make a check pass.
 - Release saves use `Tidebound_Opening_0_2`; `play` uses `Tidebound_Development`.
-  Scenario builds use unique `Tidebound_Scenario_*` namespaces.
+  `play --from` uses the separate `Tidebound_Playtest` scratch save.
   RPG Maker Test Play uses the project/release namespace. Keep `fontHeightReporting: 1`.
 - Ordinary locations remain night. Maintenance does not authorize engine or
   gameplay redesign. Update current docs in place when behavior changes.

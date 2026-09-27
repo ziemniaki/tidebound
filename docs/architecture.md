@@ -48,7 +48,7 @@ backlinks, validates references, then writes each database once. PBS text and
 native attributes come from the same fields. Map declarations own encounter slots
 and regional wild forms, compiled into one runtime lookup.
 `content/ownership.py` records custom records/files in `tools/generated/content.json`;
-full rebuild removes those records before compiling, preserving stock inputs. Add a definition instead of another
+full rebuild removes retired records/files while compilers replace current records. Add a definition instead of another
 executable builder. `content/story.py` writes all story Key Items in one database
 pass and generates their PBS from the same fields, then builds trainer classes.
 Artwork exports in `art/` are explicit functions; source
@@ -111,8 +111,8 @@ full rebuild. Ordinary `uv run play` refreshes custom assets and scripts while p
 ## Saves and behavior that must survive changes
 
 Release saves use `Tidebound_Opening_0_2`. Development player copies use
-`Tidebound_Development`. Feature-owned JSON scenarios get unique
-`Tidebound_Scenario_*` namespaces and install state before map construction.
+`Tidebound_Development`. `play --from` uses one separate `Tidebound_Playtest` scratch save and
+installs the declared starting state before map construction.
 `scenarios.py` resolves declarations; its Ruby driver replaces Main only in staged
 development players. All save namespaces live in the OS user-data directory, outside the
 checkout and app. The base editor project retains the release namespace.

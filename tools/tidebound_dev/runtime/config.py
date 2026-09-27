@@ -5,6 +5,7 @@ import re
 
 SAVE_DIRECTORY = "Tidebound_Opening_0_2"
 DEV_SAVES = "Tidebound_Development"
+PLAYTEST_SAVES = "Tidebound_Playtest"
 
 
 def parse_runtime_config(text):

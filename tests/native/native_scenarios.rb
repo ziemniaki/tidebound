@@ -4,10 +4,7 @@ module NativeScenarios
 
   def run(scenario, output)
     species if %i[species all].include?(scenario)
-    if %i[world all].include?(scenario)
-      world(output)
-      NativeDevelopmentScenarios.run(output)
-    end
+    world(output) if %i[world all].include?(scenario)
   end
 
   def records_snapshot(klass, identifiers)
@@ -138,23 +135,31 @@ module NativeScenarios
   end
 
   def world(output)
-    Game.start_new
-    # Scene snapshots begin after the prelude; no retained or migrated saves.
-    $scene = Scene_Map.new
-    $scene.createSpritesets
-    $PokemonSystem.textspeed = 3
-    Tidebound.story[:opening_started] = true
-    Tidebound.story[:bird_prelude_seen] = true
-    Tidebound.story[:hall_talk] = true
-    Tidebound.story[:walk_state] = :complete
-    Tidebound.story[:household_pets] = Tidebound::Opening::HOUSE_PETS.to_h do |species, (name, _)|
-      pokemon = Pokemon.new(species, 7, $player)
-      pokemon.name = name
-      Tidebound.state.assign_identity(pokemon)
-      [species, pokemon]
+    spec = load_data("NativeStart.rxdata")
+    entered = false
+    expected = DevelopmentScenario.story_value(spec.fetch("story"))
+    EventHandlers.add(
+      :on_enter_map,
+      :native_start_state,
+      proc do
+        if expected
+          unless expected.all? { |key, value| Tidebound.story[key] == value } &&
+                   $bag.has?(:TIDEBOUNDPIE) && $player.party.first&.species == :NATU
+            raise "Map entry observed incomplete state"
+          end
+          entered = true
+        end
+      end
+    )
+    DevelopmentScenario.boot(spec)
+    expected = nil
+    unless entered &&
+             [$game_map.map_id, $game_player.x, $game_player.y, $game_player.direction] ==
+               spec.fetch("arrival")
+      raise "Playtest did not start at the declared state/entrance"
     end
-    pbChangePlayer(1)
-    $player.party = [Pokemon.new(:NATU, 12, $player)]
+    $scene.createSpritesets
+    interrupt_route
     scenes = {
       home: [10, 8],
       coast: [34, 36],
@@ -169,16 +174,53 @@ module NativeScenarios
       Tidebound::World.travel(name, x, y)
       capture(output, name)
     end
+    identity = $player.party.map { |pet| [Tidebound.identity(pet), pet.item_id] }
+    story = Marshal.dump(Tidebound.story)
     save_path = File.join(System.data_directory, "world-current.rxdata")
     raise "Fresh world save failed" unless Game.save(save_path)
     bytes = File.binread(save_path)
     $scene.dispose
     SaveData.mark_values_as_unloaded
-    Game.load(SaveData.get_data_from_file(save_path))
+    saved = SaveData.get_data_from_file(save_path)
+    # Simulate a save from before repacking. Boot normally loads game_system first.
+    $game_system = saved[:game_system]
+    $game_system.magic_number = $data_system.magic_number ^ 1
+    tile = $game_map.data[0, 0, 0]
+    saved[:map_factory].map.data[0, 0, 0] = tile + 1
+    Game.load(saved)
+    raise "Save retained stale map tiles" unless $game_map.data[0, 0, 0] == tile
+    unless identity == $player.party.map { |pet| [Tidebound.identity(pet), pet.item_id] } &&
+             Marshal.dump(Tidebound.story) == story
+      raise "Save lost companion identity, held items or quest state"
+    end
     raise "Current world save changed during load" unless File.binread(save_path) == bytes
     raise "Current world save lost party" unless $player.party.first.species == :NATU
-    puts "PASS: fresh current world scenes and real Game.save/Game.load roundtrip"
+    puts "PASS: declared start before map callbacks; world captures; native save/load preserves state and refreshes stale maps"
   ensure
     $scene.dispose if $scene.is_a?(Scene_Map) && $scene.map_renderer
+  end
+
+  def interrupt_route
+    actor = Tidebound::World.actor(:mother)
+    original = [actor.x, actor.y, actor.through, actor.opacity, actor.move_speed]
+    route = actor.instance_variable_get(:@move_route)
+    begin
+      Tidebound::Scenes.run(actor, restore_positions: true) do
+        actor.opacity = 80
+        actor.move_speed = 2
+        pbMoveRoute(actor, [PBMoveRoute::WAIT, 200, PBMoveRoute::DOWN])
+        raise "Interrupted native scene"
+      end
+    rescue RuntimeError => error
+      raise unless error.message == "Interrupted native scene"
+    end
+    unless !actor.move_route_forcing && actor.instance_variable_get(:@move_route).equal?(route) &&
+             !Tidebound::Scenes.owns?(actor) &&
+             original == [actor.x, actor.y, actor.through, actor.opacity, actor.move_speed]
+      raise "Interrupted scene retained temporary movement/presentation"
+    end
+    10.times { actor.update }
+    raise "Cancelled route resumed" unless [actor.x, actor.y] == original.first(2)
+    puts "PASS: native forced-route interruption restores actor state and cancels pending movement"
   end
 end

@@ -4,12 +4,11 @@ from pathlib import Path
 import json
 import shutil
 import tempfile
-import uuid
 
 from tidebound_dev.paths import ROOT
 from tidebound_dev.art.ownership import validate as validate_assets
 from tidebound_dev.content.ownership import validate as validate_content
-from tidebound_dev.runtime.config import SAVE_DIRECTORY, DEV_SAVES, isolated_saves
+from tidebound_dev.runtime.config import SAVE_DIRECTORY, DEV_SAVES, PLAYTEST_SAVES, isolated_saves
 from tidebound_dev.release.metadata import check_sources, source_revision
 from tidebound_dev.release.artifacts import write_checksums
 from tidebound_dev.maps.validate import validate
@@ -36,8 +35,7 @@ def stage_player(
     config,
     development=False,
     preview=None,
-    scenario=None,
-    namespace=DEV_SAVES,
+    start=None,
 ):
     """All modes use the same runtime, payload and platform finalization."""
     adapter = PLATFORMS[platform]
@@ -47,28 +45,28 @@ def stage_player(
     copy_verified(root / "docs/credits.md", folder / "CREDITS.md")
     copy_verified(root / f"docs/players/{platform}.txt", folder / "README.txt")
     if development:
-        development_settings(player.game, namespace)
+        development_settings(player.game, PLAYTEST_SAVES if start else DEV_SAVES)
         if preview:
             from tidebound_dev.art.preview import prepare
 
             prepare(player.game, preview)
-        if scenario:
+        if start:
             from tidebound_dev.scenarios import prepare
 
-            prepare(player.game, scenario)
+            prepare(player.game, start)
     adapter.finalize(player)
     return player
 
 
 def build(
-    platform, output, root=ROOT, allow_dirty=False, development=False, preview=None, scenario=None
+    platform, output, root=ROOT, allow_dirty=False, development=False, preview=None, start=None
 ):
     """Publish a complete player or verified ZIP atomically; preserve existing output."""
-    if (preview or scenario) and not development:
-        raise ValueError("Previews and scenarios are development players only")
-    if preview and scenario:
-        raise ValueError("Choose an asset preview or a game scenario")
-    namespace = "Tidebound_Scenario_" + uuid.uuid4().hex if scenario else DEV_SAVES
+    if (preview or start) and not development:
+        raise ValueError("Starting states and asset previews are for development only")
+    if preview and start:
+        raise ValueError("Choose an asset preview or a starting state")
+    namespace = PLAYTEST_SAVES if start else DEV_SAVES
     output = output.resolve()
     if output.exists():
         raise FileExistsError(
@@ -85,9 +83,7 @@ def build(
         artifacts = Path(temp) / "artifacts"
         artifacts.mkdir()
         folder = artifacts / f"Tidebound_{adapter.NAME}_{config['version']}_{adapter.ARCHITECTURE}"
-        player = stage_player(
-            folder, platform, root, config, development, preview, scenario, namespace
-        )
+        player = stage_player(folder, platform, root, config, development, preview, start)
         if development:
             result = output / folder.name / player.launcher.relative_to(folder)
             write_json(
@@ -96,7 +92,7 @@ def build(
                     "kind": "development",
                     "platform": platform,
                     "save_directory": namespace,
-                    "scenario": scenario["id"] if scenario else None,
+                    "start": start["id"] if start else None,
                     "launcher": str(result),
                     "source_commit": revision["commit"],
                 },
@@ -131,7 +127,7 @@ def build(
         artifacts.rename(output)
     if development:
         print(f"Development saves: {namespace}")
-        if scenario:
-            print(f"Scenario {scenario['id']}: {scenario['location']}")
+        if start:
+            print(f"Starting at {start['id']}: {start['location']}")
     print(result)
     return result

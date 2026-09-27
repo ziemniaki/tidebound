@@ -24,28 +24,11 @@ module DevelopmentScenario
     $player.money = 0
     $PokemonSystem.textspeed = 3
     Tidebound.story.merge!(story_value(spec.fetch("story")))
-    pokemon =
-      spec
-        .fetch("pokemon")
-        .to_h do |key, record|
-          species, form = record.fetch("species").split("_", 2)
-          pet = Pokemon.new(species.to_sym, record.fetch("level"), $player)
-          pet.form = form.to_i
-          pet.reset_moves
-          pet.name = record["name"] if record["name"]
-          pet.item = record["item"].to_sym if record["item"]
-          if record["moves"]
-            pet.moves.clear
-            record["moves"].each { |move| pet.learn_move(move.to_sym) }
-          end
-          Tidebound.state.assign_identity(pet)
-          [key, pet]
-        end
-    $player.party = spec.fetch("party").map { |key| pokemon.fetch(key) }
+    $player.party = spec.fetch("party").map { |record| pokemon(record) }
     Tidebound.story[:household_pets] = spec
       .fetch("household")
-      .to_h do |key|
-        pet = pokemon.fetch(key)
+      .to_h do |record|
+        pet = pokemon(record)
         [pet.species, pet]
       end
     spec
@@ -55,6 +38,21 @@ module DevelopmentScenario
       end
     Tidebound.state.checkpoint = spec.fetch("checkpoint").dup
     $PokemonGlobal.pokecenterMapId = -1
+  end
+
+  def pokemon(record)
+    species, form = record.fetch("species").split("_", 2)
+    pet = Pokemon.new(species.to_sym, record.fetch("level"), $player)
+    pet.form = form.to_i
+    pet.reset_moves
+    pet.name = record["name"] if record["name"]
+    pet.item = record["item"].to_sym if record["item"]
+    if record["moves"]
+      pet.moves.clear
+      record["moves"].each { |move| pet.learn_move(move.to_sym) }
+    end
+    Tidebound.state.assign_identity(pet)
+    pet
   end
 
   # Game.start_new creates the map immediately after these values. Seed before
@@ -67,11 +65,6 @@ module DevelopmentScenario
   end
 
   def boot(spec)
-    unless File.basename(System.data_directory).match?(
-             /\ATidebound_(Scenario|Build_Smoke)_[a-f0-9]{32}\z/
-           )
-      raise "Scenarios require their own save namespace"
-    end
     @spec = spec
     MessageTypes.load_default_messages if FileTest.exist?("Data/messages_core.dat")
     PluginManager.runPlugins
@@ -87,7 +80,7 @@ module DevelopmentScenario
     $scene = Scene_Map.new
     $game_player.direction = direction
     Tidebound::Actors.refresh($game_map)
-    puts "Scenario #{spec.fetch("id")}: map #{map} at #{x},#{y}; saves #{System.data_directory}"
+    puts "Starting at #{spec.fetch("id")}: map #{map} at #{x},#{y}; saves #{System.data_directory}"
   ensure
     @spec = nil
   end
@@ -95,11 +88,6 @@ module DevelopmentScenario
   def run(spec)
     boot(spec)
     $scene.main until $scene.nil?
-  rescue StandardError => error
-    message = "Scenario #{spec.fetch("id")}: #{error.full_message}"
-    puts message
-    File.write(File.join(System.data_directory, "scenario-error.txt"), message)
-    raise
   end
 end
 SaveData.singleton_class.prepend(DevelopmentScenario::NewGameValues)

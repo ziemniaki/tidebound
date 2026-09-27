@@ -1,6 +1,5 @@
 {
   "base": "opening/exploration",
-  "description": "Meet Mother and the seller in the opened vault.",
   "location": [
     "vault",
     "door"

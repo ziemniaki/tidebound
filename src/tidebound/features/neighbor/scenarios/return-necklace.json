@@ -1,6 +1,5 @@
 {
   "base": "opening/exploration",
-  "description": "Return the necklace to the seller and begin the keepsake/vault visit.",
   "location": [
     "shop",
     "door"

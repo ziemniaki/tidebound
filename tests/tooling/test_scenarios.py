@@ -25,10 +25,8 @@ class ScenarioTests(unittest.TestCase):
             for changes in (
                 {"location": ["shop", "missing"]},
                 {"party": ["missing"]},
-                {"party": ["wick", "wick"]},
-                {"household": ["wick"]},
                 {"bag": {"NOT_AN_ITEM": 1}},
-                {"pokemon": {"wick": {"species": "NOT_A_SPECIES", "level": 7}}},
+                {"party": [{"species": "NOT_A_SPECIES", "level": 7}]},
                 {"stroy": {}},
                 {"base": "neighbor/meal"},
             ):
@@ -56,5 +54,5 @@ class ScenarioTests(unittest.TestCase):
             self.assertEqual(
                 loads((root / "Data/Scenario.rxdata").read_bytes())["arrival"], spec["arrival"]
             )
-            with self.assertRaisesRegex(ValueError, "development players only"):
-                build("windows", root / "release", scenario=spec)
+            with self.assertRaisesRegex(ValueError, "development only"):
+                build("windows", root / "release", start=spec)
