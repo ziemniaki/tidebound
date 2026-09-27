@@ -18,7 +18,7 @@
     "Berry:ORANBERRY@12,19": 9,
     "Berry:ORANBERRY@22,9": 10
   },
-  "atlas": "landscape",
+  "atlas": "fields",
   "encounters": {
     "Land": {
       "chance": 18,

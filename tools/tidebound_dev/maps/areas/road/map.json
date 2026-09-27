@@ -48,7 +48,7 @@
     "Pond obelisk (Surf)@27,61": 29,
     "Old fishing basket@37,70": 30
   },
-  "atlas": "landscape",
+  "atlas": "fields",
   "encounters": {
     "Land": {
       "chance": 18,

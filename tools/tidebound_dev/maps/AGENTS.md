@@ -33,9 +33,11 @@ for scene behavior; maps only call feature entry points.
 
 Static prop and character PNGs are owned by `assets/` and exported by `art/compiler.py`.
 Map compilation owns packed tilesets and window masks/placements in
-`src/generated/window_lights.rb`. Register any new packed texture output in
-`art/ownership.py::MAP_OUTPUTS`; the generated asset manifest and clean rebuild
-then cover it. Read approved image sources when composing tiles; standalone files
+`src/generated/window_lights.rb`. Choose a named atlas from `atlases.py::GROUPS`; each group has its own painter
+and tile allocation. Keep geographically or visually related maps together, and
+add a group when its texture approaches the 16,384-pixel height limit. Group
+textures enter asset ownership automatically. Special per-map texture outputs
+still belong in `art/ownership.py::MAP_OUTPUTS`. Read approved image sources when composing tiles; standalone files
 are discovered/exported by the asset pipeline. Prop references use `art/props.py::load`
 for shared validation; do not parse a second prop catalog in an area builder.
 
@@ -43,7 +45,7 @@ for shared validation; do not parse a second prop catalog in an area builder.
 
 - All drawing, event, door and `layers`/`walk` coordinates are absolute tiles.
   Coast layout uses `coast.absolute(x, y)` explicitly for local coordinates; its
-  origin `(24, 20)` is defined in `definitions.py` and exported to Ruby.
+  origin `(24, 20)` is defined in `areas/coast/map.json` and exported to Ruby.
   `World.coast_xy`/`travel_coast` convert local coast coordinates; `World.local_xy`
   converts event positions back to local coordinates for existing harvest keys.
   Door destinations resolve named entrances, e.g. `Map.door(x, y, "home", "from_coast")`.

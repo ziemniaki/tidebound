@@ -3,6 +3,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 import json
+from .atlases import GROUPS
 from rubymarshal.classes import Symbol
 
 ATMOSPHERES = {
@@ -33,6 +34,8 @@ class MapDefinition:
     origin: tuple[int, int] = (0, 0)
 
     def __post_init__(self):
+        if self.atlas is not None and self.atlas not in GROUPS:
+            raise ValueError(f"Map {self.id}: unknown atlas group {self.atlas}")
         if len(set(self.events.values())) != len(self.events) or any(
             type(i) is not int or i < 1 for i in self.events.values()
         ):

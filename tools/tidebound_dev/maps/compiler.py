@@ -5,6 +5,7 @@ from pathlib import Path
 
 from importlib import import_module
 from .definitions import DEFINITIONS
+from .atlases import GROUPS
 from . import landscape, interior, scenery
 from .interior import InteriorPainter
 from .landscape_painter import LandscapePalette
@@ -27,24 +28,41 @@ class BuildPaths:
 @dataclass
 class BuildContext:
     paths: BuildPaths
-    palette: LandscapePalette
-    rooms: InteriorPainter
+    palette: LandscapePalette | None = None
+    rooms: InteriorPainter | None = None
+
+
+def contexts(paths):
+    result = {None: BuildContext(paths)}
+    for key, group in GROUPS.items():
+        if group.kind == "landscape":
+            result[key] = BuildContext(paths, palette=LandscapePalette(paths.game))
+        elif group.kind == "interior":
+            result[key] = BuildContext(paths, rooms=InteriorPainter(paths.game))
+        else:
+            raise ValueError(f"Unknown atlas kind: {group.kind}")
+    return result
 
 
 def construct(paths):
-    context = BuildContext(paths, LandscapePalette(paths.game), InteriorPainter(paths.game))
+    groups = contexts(paths)
     built = []
     for name, definition in sorted(DEFINITIONS.items(), key=lambda item: item[1].id):
         module = import_module(f"{__package__}.areas.{name}.build")
-        area = module.build(context)
+        area = module.build(groups[definition.atlas])
         if area.id != definition.id:
             raise ValueError(f"Map {name}: builder and declaration disagree")
         built.append((definition, module, area))
-    landscape.save_atlas(paths, context.palette, [m for d, _, m in built if d.atlas == "landscape"])
-    interior.save_atlas(paths, context.rooms, [m for d, _, m in built if d.atlas == "interior"])
-    for _, module, area in built:
+    for key, group in GROUPS.items():
+        maps = [m for d, _, m in built if d.atlas == key]
+        context = groups[key]
+        if group.kind == "landscape":
+            landscape.save_atlas(paths, context.palette, maps, group)
+        else:
+            interior.save_atlas(paths, context.rooms, maps, group)
+    for definition, module, area in built:
         if hasattr(module, "finish"):
-            module.finish(context, area)
+            module.finish(groups[definition.atlas], area)
     return [area for _, _, area in built]
 
 

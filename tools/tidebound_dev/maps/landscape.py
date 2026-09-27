@@ -9,22 +9,18 @@ import math
 from collections import deque
 
 
-def save_atlas(paths, palette, maps):
+def save_atlas(paths, palette, maps, group):
     # Water depth is legible without compromising the animated native sea or vast horizon.
     # Only the story outdoor maps receive this cloned tileset; demo/astral remain untouched.
     tilesets = loads((paths.game / "Data/Tilesets.rxdata").read_bytes())
     landscape_id = next(
-        (
-            i
-            for i, t in enumerate(tilesets)
-            if t and t.attributes.get("@name") == "Tidebound Landscape"
-        ),
+        (i for i, t in enumerate(tilesets) if t and t.attributes.get("@name") == group.name),
         len(tilesets),
     )
     ts = loads(writes(tilesets[1]))
     ts.attributes["@id"] = landscape_id
-    ts.attributes["@name"] = "Tidebound Landscape"
-    ts.attributes["@tileset_name"] = "TideboundLandscape"
+    ts.attributes["@name"] = group.name
+    ts.attributes["@tileset_name"] = group.texture
     for m in maps:
         m.tileset = landscape_id
         m.light_mask = "Outside/windows.png"
@@ -58,8 +54,11 @@ def save_atlas(paths, palette, maps):
     atlas.alpha_composite(palette._native)
     for i, (im, tag) in enumerate(palette._tile_images):
         atlas.alpha_composite(im, ((i % 8) * 32, palette._native.height + (i // 8) * 32))
-    assert height <= 16384, "Keep landscape tileset within Mac 16K texture limit"
-    save_png(atlas, paths.game / "Graphics/Tilesets/TideboundLandscape.png")
+    if height > 16384:
+        raise ValueError(
+            f"Atlas {group.name} is {height}px high; split its maps into smaller groups (limit 16384)"
+        )
+    save_png(atlas, paths.game / f"Graphics/Tilesets/{group.texture}.png")
     for key in ["@passages", "@priorities", "@terrain_tags"]:
         data = ts.attributes[key]._dump()
         header = struct.unpack("<5i", data[:20])

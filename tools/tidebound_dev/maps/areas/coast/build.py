@@ -343,7 +343,11 @@ def finish(context, coast):
     ts.attributes.update(
         {"@id": village_id, "@name": "Tidebound Village", "@tileset_name": "TideboundVillage"}
     )
-    original = Image.open(paths.game / "Graphics/Tilesets/TideboundLandscape.png").convert("RGBA")
+    original = Image.open(
+        paths.game
+        / "Graphics/Tilesets"
+        / (str(tilesets[coast.tileset].attributes["@tileset_name"]) + ".png")
+    ).convert("RGBA")
     village = wooden_village(original)
     assert (
         village.crop((5 * 32, 444 * 32, 8 * 32, 452 * 32)).tobytes()
