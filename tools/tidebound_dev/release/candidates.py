@@ -18,6 +18,9 @@ def build_release(output, root=ROOT):
         raise FileExistsError("Release output already exists; refusing to overwrite it")
     config = check_sources(root)
     source = source_revision(root)
+    notes = (root / "docs/release-notes.md").read_text(encoding="utf-8")
+    if not notes.startswith("# Tidebound " + config["version"] + "\n"):
+        raise ValueError("Player-facing release notes must match release.json")
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".tidebound-release-", dir=output.parent) as temp:
         artifacts = Path(temp) / "artifacts"
@@ -55,9 +58,6 @@ def build_release(output, root=ROOT):
                     raise ValueError(f"Project ZIP differs from checkout: {name}")
         if source_revision(root) != source:
             raise ValueError("Source changed while the release was being built")
-        notes = (root / "docs/release-notes.md").read_text(encoding="utf-8")
-        if not notes.startswith("# Tidebound " + config["version"] + "\n"):
-            raise ValueError("Player-facing release notes must match release.json")
         (artifacts / "RELEASE_NOTES.md").write_text(notes, encoding="utf-8")
         write_checksums(artifacts)
         artifacts.rename(output)

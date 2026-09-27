@@ -81,3 +81,27 @@ class CandidateTests(unittest.TestCase):
                 candidates.build_release(self.output, self.root)
         self.assertFalse(self.output.exists())
         self.assertEqual(list(self.root.parent.iterdir()), [self.root])
+
+    def test_wrong_release_notes_fail_before_building_players(self):
+        notes = self.root / "docs/release-notes.md"
+        notes.write_text("# Tidebound 1.2.2\n\nOld notes.\n")
+        subprocess.run(["git", "-C", str(self.root), "add", "."], check=True)
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                str(self.root),
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=test@example.invalid",
+                "commit",
+                "-qm",
+                "stale notes",
+            ],
+            check=True,
+        )
+        with patch.object(candidates, "build", side_effect=AssertionError("unnecessary build")):
+            with self.assertRaisesRegex(ValueError, "release notes must match"):
+                candidates.build_release(self.output, self.root)
+        self.assertFalse(self.output.exists())

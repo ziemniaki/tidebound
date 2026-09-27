@@ -35,7 +35,8 @@ def development_build(target):
 
     rebuild(ROOT)
 
-    from .packaging.pipeline import build, DEV_SAVES
+    from .packaging.pipeline import build
+    from .runtime.config import DEV_SAVES
 
     output = ROOT / ".build/dev" / (time.strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
     launcher = build(target, output, allow_dirty=True, development=True)

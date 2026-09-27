@@ -6,7 +6,7 @@ import shutil
 import tempfile
 
 from tidebound_dev.paths import ROOT
-from tidebound_dev.runtime.config import SAVE_DIRECTORY
+from tidebound_dev.runtime.config import SAVE_DIRECTORY, DEV_SAVES, isolated_saves
 from tidebound_dev.release.metadata import check_sources, source_revision
 from tidebound_dev.release.artifacts import write_checksums
 from tidebound_dev.maps.validate import validate
@@ -14,7 +14,6 @@ from . import linux, mac, windows
 from .archives import archive_tree, copy_game, copy_verified, extract_bundle, game_hashes
 
 PLATFORMS = {"mac": mac, "windows": windows, "linux": linux}
-from tidebound_dev.runtime.config import DEV_SAVES, isolated_saves
 
 
 def development_settings(game):
