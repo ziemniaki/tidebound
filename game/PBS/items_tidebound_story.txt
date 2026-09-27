@@ -1,4 +1,14 @@
-﻿# Tidebound story items, never healing supplies.
+﻿# Generated story Key Items.
+
+#-------------------------------
+[TIDEBOUNDOILKEYS]
+Name = Oil-Shop Keys
+NamePlural = Oil-Shop Keys
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Consumable = false
+Description = Old brass keys found beneath white flowers. The oil seller in Shiohama is looking for them.
 
 #-------------------------------
 [TIDEBOUNDPIE]

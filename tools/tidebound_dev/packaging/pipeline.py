@@ -7,6 +7,7 @@ import tempfile
 
 from tidebound_dev.paths import ROOT
 from tidebound_dev.art.ownership import validate as validate_assets
+from tidebound_dev.content.ownership import validate as validate_content
 from tidebound_dev.runtime.config import SAVE_DIRECTORY, DEV_SAVES, isolated_saves
 from tidebound_dev.release.metadata import check_sources, source_revision
 from tidebound_dev.release.artifacts import write_checksums
@@ -58,6 +59,7 @@ def build(platform, output, root=ROOT, allow_dirty=False, development=False, pre
     revision = source_revision(root, allow_dirty)
     validate(root)
     validate_assets(root)
+    validate_content(root)
     adapter = PLATFORMS[platform]
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".tidebound-package-", dir=output.parent) as temp:

@@ -6563,14 +6563,3 @@ Pocket = 8
 Price = 0
 Flags = KeyItem
 Description = A faded sea chart that shows the way to a certain island.
-
-# TIDEBOUND OPENING ITEMS
-#-------------------------------
-[TIDEBOUNDOILKEYS]
-Name = Oil-Shop Keys
-NamePlural = Oil-Shop Keys
-Pocket = 8
-Price = 0
-Flags = KeyItem
-Consumable = false
-Description = Old brass keys found beneath white flowers. The oil seller in Shiohama is looking for them.

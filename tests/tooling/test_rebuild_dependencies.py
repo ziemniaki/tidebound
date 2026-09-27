@@ -44,6 +44,7 @@ class RebuildDependenciesTests(unittest.TestCase):
             patches.enter_context(
                 patch.dict(encounters.DEFINITIONS, {"forest": definition}, clear=True)
             )
+            patches.enter_context(patch.object(pipeline.ownership, "prepare"))
             for name in ("maps", "scripts", "validate"):
                 patches.enter_context(patch.object(pipeline, name))
             for module in (pipeline.story, pipeline.configure):

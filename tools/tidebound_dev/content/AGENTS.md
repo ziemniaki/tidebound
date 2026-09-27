@@ -71,3 +71,10 @@ quest flows do. Test a full bag when adding a one-time reward.
 Full rebuild writes directly in dependency order. If it fails, fix the cause and
 rerun before playing; it does not roll back generated files. `check --all` verifies
 regeneration in a disposable copy. Review generated diffs before committing.
+
+`tools/generated/content.json` records custom records and files. Full rebuild removes
+those records before compiling, so deleting a declaration retires its output without
+touching stock inputs. Never hand-edit the inventory to claim a stock ID. Published
+species/items may still exist in player saves: retire them only as an explicit
+content decision. The manifest is written before generation so failed builds can
+be fixed and rerun; it is not a save schema or migration system.

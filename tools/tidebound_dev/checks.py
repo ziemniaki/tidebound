@@ -20,6 +20,9 @@ def verify(root, *, full=False):
 
     check_sources(root)
     ownership.validate(root)
+    from tidebound_dev.content.ownership import validate as validate_content
+
+    validate_content(root)
     from .content.verification import inventory
 
     inventory()
