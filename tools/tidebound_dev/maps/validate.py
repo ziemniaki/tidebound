@@ -127,7 +127,8 @@ def validate(root, event_scripts_output=None, check_scripts=True):
                 and name
                 and not any(
                     (G / "Audio" / kind.upper() / (name + suffix)).is_file()
-                    for suffix in ("", ".ogg", ".wav", ".wma", ".mid", ".midi")
+                    and not (name + suffix).lower().endswith(".wma")
+                    for suffix in ("", ".ogg", ".wav", ".mid", ".midi")
                 )
             ):
                 fail.append(f"{mid} missing {kind.upper()} {name}")

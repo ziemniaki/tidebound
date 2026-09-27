@@ -55,6 +55,21 @@ class MapValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "missing BGM"):
             validate(self.root)
 
+    def test_wma_cannot_satisfy_native_map_audio(self):
+        path = self.game / "Data/Map101.rxdata"
+        native = loads(path.read_bytes())
+        native.attributes["@autoplay_bgm"] = True
+        self.asset("Audio/BGM/Unsupported.wma")
+        for name in ("Unsupported", "Unsupported.wma"):
+            native.attributes["@bgm"].attributes["@name"] = name
+            path.write_bytes(writes(native))
+            with self.assertRaisesRegex(RuntimeError, "missing BGM"):
+                validate(self.root)
+        native.attributes["@bgm"].attributes["@name"] = "Unsupported"
+        path.write_bytes(writes(native))
+        self.asset("Audio/BGM/Unsupported.ogg")
+        validate(self.root)
+
     def test_serialized_map_and_tile_table_dimensions_must_match_manifest(self):
         path = self.game / "Data/Map101.rxdata"
         original = path.read_bytes()
