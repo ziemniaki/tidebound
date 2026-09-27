@@ -57,7 +57,8 @@ lantern beacon reads approved source pixels when assembling its tileset.
 
 For world props, `assets/props.json` assigns a picture and pixel anchor (the point
 placed at an event's screen coordinates), plus an optional fixed `z` layer.
-Anchors may lie outside the image. Map events can select an `asset` explicitly;
+Anchors may lie outside the image. Use `Map.event(..., role="prop", asset="<key>")` for static scenery. New pictures
+do not require another role or Ruby class. Map generation rejects unknown asset keys;
 never infer placement from filename prefixes or a special event coordinate.
 Static props share `presentation/props.rb`; flickering lamps and quest props retain
 their behavior owners. `load_prop` replaces and disposes an independently loaded

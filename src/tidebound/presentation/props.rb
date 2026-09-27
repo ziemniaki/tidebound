@@ -24,24 +24,7 @@ EventHandlers.add(
     next unless Tidebound::World::MAP_IDS.include?(spriteset.map.map_id)
     spriteset.map.events.each_value do |event|
       role = Tidebound::Actors.role(event)
-      unless %w[
-               demo_prop
-               coast_lamp
-               sea_glass
-               tide_bell
-               mooring_rope
-               vault_ironwork
-               vault_pillar
-               necklace_drawer
-               sabre_exhibit
-               museum_case
-               dock_boat
-               dock_bollard
-               dock_nets
-               dock_stall
-             ].include?(role)
-        next
-      end
+      next unless %w[prop coast_lamp].include?(role)
       spriteset.addUserSprite(TideboundWorldProp.new(event, viewport))
     end
   end

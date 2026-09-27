@@ -17,7 +17,13 @@ def build():
         blocks=True,
     )
     museum.event(
-        "Sabre exhibit", 15, 8, "Tidebound::VaultVisit.sabre", blocks=True, role="sabre_exhibit"
+        "Sabre exhibit",
+        15,
+        8,
+        "Tidebound::VaultVisit.sabre",
+        blocks=True,
+        role="prop",
+        asset="sabre_exhibit",
     )
     for x, y, name, text in [
         (
@@ -46,7 +52,13 @@ def build():
         ),
     ]:
         museum.event(
-            "Museum case:" + name, x, y, f'pbMessage("{text}")', blocks=True, role="museum_case"
+            "Museum case:" + name,
+            x,
+            y,
+            f'pbMessage("{text}")',
+            blocks=True,
+            role="prop",
+            asset="museum_case",
         )
     museum.event(
         "Visitor",

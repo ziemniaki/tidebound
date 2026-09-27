@@ -143,7 +143,8 @@ def build(palette):
         "Tide bell",
         *coast.absolute(18, 20),
         'pbMessage("A bell with no clapper. Salt has filled the inscription.")',
-        role="tide_bell",
+        role="prop",
+        asset="tide_bell",
     )
     coast.event(
         "Forest path",
@@ -167,7 +168,8 @@ def build(palette):
         "Sea glass",
         *coast.absolute(29, 24),
         'pbMessage("Green glass, worn smooth by the water.\nFor a moment, it catches the light.")',
-        role="sea_glass",
+        role="prop",
+        asset="sea_glass",
     )
     coast.event(
         "Coast lamp:home",
@@ -185,7 +187,8 @@ def build(palette):
         "Mooring rope",
         *coast.absolute(54, 21),
         'pbMessage("An old mooring rope disappears beneath the boards.")',
-        role="mooring_rope",
+        role="prop",
+        asset="mooring_rope",
     )
 
     # Southern rocky path.

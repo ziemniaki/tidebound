@@ -62,7 +62,7 @@ tiles; do not export standalone character/prop art from an area builder.
   roles require `species`; spirits require a soul `index`; `neighbor_wild` requires
   the owning quest's `state` key. These select concrete consumers in
   `features/actors.rb`. A name such as `Wild:NATU` alone has no effect.
-- Presentation also reads these roles. `demo_prop` requires its picture `asset`;
+- Presentation also reads these roles. `prop` requires an `asset` from `assets/props.json`;
   door/exit threshold hints use `cue="north|south|east|west"`. Add a role and its
   consumer together; unknown roles and missing required fields fail generation.
   `Map.door` defaults to the south sill. Define actors at their final positions in their owning area. Do not append a

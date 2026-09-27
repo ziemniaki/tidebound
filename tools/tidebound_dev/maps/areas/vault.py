@@ -32,7 +32,8 @@ def build(interior):
             y,
             'pbMessage("The stone is cold and worn smooth at shoulder height.")',
             blocks=True,
-            role="vault_pillar",
+            role="prop",
+            asset="vault_pillar",
         )
     vault.event(
         ACTORS["mother_at_vault"],
@@ -54,7 +55,8 @@ def build(interior):
         6,
         'pbMessage("A shallow drawer, now locked. The seller\'s necklace rests inside, wrapped in cloth.")',
         blocks=True,
-        role="necklace_drawer",
+        role="prop",
+        asset="necklace_drawer",
     )
     vault.event(
         "Empty bays",

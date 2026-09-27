@@ -130,7 +130,8 @@ def build(paths, palette):
             x,
             y,
             'pbMessage("Salt has gathered around the rope. The knot is fresh.")',
-            role="dock_bollard",
+            role="prop",
+            asset="dock_bollard",
         )
     for x, y in [(26, 47), (43, 46), (55, 47), (20, 40)]:
         docks.event(
@@ -138,14 +139,15 @@ def build(paths, palette):
             x,
             y,
             'pbMessage("Nets lie drying in careful folds. A few scales still catch the light.")',
-            role="dock_nets",
+            role="prop",
+            asset="dock_nets",
         )
     docks.event(
         "Dock boat",
         24,
         48,
         'pbMessage("A little working boat, tied close to the pier. Water knocks softly against its hull.")',
-        role="dock_boat",
+        role="prop",
         asset="dock_boat_left",
     )
     docks.event(
@@ -153,14 +155,16 @@ def build(paths, palette):
         45,
         50,
         'pbMessage("A mended oar rests across the seats. Someone has painted over the boat\'s old name.")',
-        role="dock_boat",
+        role="prop",
+        asset="dock_boat",
     )
     docks.event(
         "Dock stall",
         30,
         39,
         'pbMessage("An empty fish stall. The boards have been scrubbed clean.")',
-        role="dock_stall",
+        role="prop",
+        asset="dock_stall",
     )
     docks.event(
         "Quay worker",
@@ -225,7 +229,7 @@ def build(paths, palette):
         27,
         47,
         'pbMessage("The Salt Thread. Its hull smells of pine tar. A cargo list promises flour, hinges and letters.")',
-        role="demo_prop",
+        role="prop",
         asset="ship1",
     )
     docks.event(
@@ -233,7 +237,7 @@ def build(paths, palette):
         56,
         47,
         'pbMessage("The Little Promise. Fresh rope and carefully mended sails. A little duck is carved into the tiller.")',
-        role="demo_prop",
+        role="prop",
         asset="ship2",
     )
     for x in [28, 57]:
@@ -283,7 +287,7 @@ def build(paths, palette):
             y,
             'pbMessage("Crates of lamp oil and flour. The destination is written twice: PSYDUCK ISLAND.")',
             blocks=True,
-            role="demo_prop",
+            role="prop",
             asset="cargo",
         )
         # Collision follows the complete 2x2 stack, not just the interactive anchor.
@@ -316,7 +320,7 @@ def build(paths, palette):
             y,
             f'pbMessage("{text}")',
             blocks=True,
-            role="demo_prop",
+            role="prop",
             asset=name,
         )
     return docks

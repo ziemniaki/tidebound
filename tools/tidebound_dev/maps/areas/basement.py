@@ -41,7 +41,8 @@ def build(interior):
         3,
         'pbMessage("The iron door is far thicker than the cellar walls. Mother has left it open.")',
         blocks=True,
-        role="vault_ironwork",
+        role="prop",
+        asset="vault_ironwork",
     )
     basement.event(
         "Coast lamp:cellar",

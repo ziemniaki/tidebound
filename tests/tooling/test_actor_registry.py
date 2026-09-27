@@ -45,7 +45,7 @@ class ActorRegistryTests(unittest.TestCase):
             {"role": "room"},
             {"role": "spirit"},
             {"role": "neighbor_wild", "species": "NATU"},
-            {"role": "demo_prop"},
+            {"role": "prop"},
         ):
             with self.subTest(options=options), self.assertRaises(ValueError):
                 area.event("Any readable label", 1, 1, "", **options)

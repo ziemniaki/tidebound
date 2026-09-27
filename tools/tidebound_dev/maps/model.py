@@ -491,8 +491,8 @@ class Map:
             raise ValueError("Spirit actor requires a nonnegative soul index")
         if role == "neighbor_wild" and not state:
             raise ValueError("Neighbor wild actor requires its quest state key")
-        if role == "demo_prop" and not asset:
-            raise ValueError("Demo prop requires an asset name")
+        if role == "prop" and not asset:
+            raise ValueError("Static prop requires an asset name")
         if cue and cue not in ("north", "south", "east", "west"):
             raise ValueError(f"Unknown threshold direction: {cue}")
         info.update(
