@@ -4,6 +4,7 @@ from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
 import subprocess
+import json
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -16,6 +17,12 @@ class GeneratedFileSetTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / "input.txt").write_text("source")
+            image = root / "game/Graphics/Pictures/custom.png"
+            image.parent.mkdir(parents=True)
+            image.write_bytes(b"stale export")
+            manifest = root / "tools/generated/assets.json"
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text(json.dumps({"game/Graphics/Pictures/custom.png": "files"}))
             subprocess.run(["git", "init", "-q", root], check=True)
             subprocess.run(["git", "-C", root, "add", "."], check=True)
             with (
@@ -34,8 +41,13 @@ class GeneratedFileSetTests(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "new-sprite.png"):
             self.regenerate(generate)
 
+    def test_an_exporter_that_stops_writing_cannot_pass_using_old_output(self):
+        with self.assertRaisesRegex(SystemExit, "custom.png"):
+            self.regenerate(lambda root, **kwargs: None)
+
     def test_python_import_cache_is_not_a_generated_game_asset(self):
         def generate(root, *, full):
+            (root / "game/Graphics/Pictures/custom.png").write_bytes(b"stale export")
             (root / "__pycache__").mkdir()
             (root / "__pycache__/fixture.pyc").write_bytes(b"cache")
 

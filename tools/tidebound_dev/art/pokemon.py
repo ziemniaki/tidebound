@@ -77,3 +77,9 @@ def outputs():
         for folder in (*FRAMES.values(), "Front shiny", "Back shiny"):
             yield f"game/Graphics/Pokemon/{folder}/{identifier}.png"
         yield f"game/Audio/SE/Cries/{identifier}.ogg"
+
+
+def cry_source(root, identifier, art):
+    if art.cry == identifier:
+        return root / f"assets/pokemon/{identifier}/cry.ogg"
+    return root / f"game/Audio/SE/Cries/{art.cry}.ogg"

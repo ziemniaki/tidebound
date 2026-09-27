@@ -29,3 +29,10 @@ Other approved PNGs mirror engine categories under `assets/characters`, `trainer
 The seated Ivo sheet, dock pictures, lantern glow and beacon are editable pixels.
 Map builders compose maps/tilesets; content builders write definitions, not images.
 The map compiler still owns packed tilesets, autotiles and window-mask placement.
+
+`tools/generated/assets.json` records generated custom files and their producer.
+It is derived, not a second authoring catalog. Duplicate destinations (including
+case collisions) and recipes reading generated outputs fail before export.
+Removing a declaration removes its former output on the next export; stock kit
+files are never swept. `check --all` clears declared custom exports in its isolated
+copy before rebuilding, so stale committed PNGs cannot hide a missing exporter.
