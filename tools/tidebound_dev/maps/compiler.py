@@ -21,7 +21,7 @@ from .areas import (
     dream,
     folded,
 )
-from . import landscape, interior
+from . import landscape, interior, scenery
 from .interior import InteriorPainter
 from .landscape_painter import LandscapePalette
 from .serialization import serialize
@@ -90,4 +90,6 @@ def construct(paths):
 
 def build(root):
     paths = BuildPaths(root)
-    serialize(paths, construct(paths))
+    maps = construct(paths)
+    scenery.generate(paths, maps)
+    serialize(paths, maps)

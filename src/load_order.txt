@@ -20,7 +20,8 @@ tidebound/features/fields.rb
 tidebound/presentation/fields.rb
 tidebound/features/vault.rb
 tidebound/presentation/vault.rb
-tidebound/world/docks.rb
+generated/window_lights.rb
+tidebound/presentation/quay.rb
 tidebound/engine/regional_forms.rb
 tidebound/engine/frostcoon.rb
 tidebound/presentation/lighthouse.rb
