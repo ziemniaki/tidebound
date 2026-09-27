@@ -4,7 +4,7 @@ from pathlib import Path
 from rubymarshal.writer import writes
 
 from ..catalog import AUDIO, bundles
-from ..runtime.development import replace_main
+from ..scripts.archive import replace_main
 from . import props
 from .files import exports
 

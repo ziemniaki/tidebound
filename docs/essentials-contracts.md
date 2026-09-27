@@ -51,13 +51,6 @@ distinguishes map metadata from the RPG Maker map itself. `Outdoor` affects
 engine behavior, and `HealingSpot` is a Teleport destination, not a blackout
 checkpoint. Tidebound uses its own checkpoint in the battle adapter.
 
-[Species definitions](https://essentialsdocs.fandom.com/wiki/Defining_a_species)
-and [forms](https://essentialsdocs.fandom.com/wiki/Forms) are the old wiki's indexed
-pages, which link to the current wiki. Their form inheritance/asset naming claims
-were checked against our resolver/compiler code. Direct requests to several current
-wiki pages returned 403 during this audit; those pages were not treated as inspected
-content. The embedded source is the authority for the precise contracts above.
-
 [mkxp-z's README](https://github.com/mkxp-z/mkxp-z#what-doesnt-work) explicitly
 excludes WMA. Audio playback still needs a native listening check: a successful
 load or encoder exit does not establish a seamless loop or a suitable mix.

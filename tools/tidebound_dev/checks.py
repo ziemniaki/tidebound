@@ -27,9 +27,6 @@ def verify(root, *, full=False):
     from tidebound_dev.content.ownership import validate as validate_content
 
     validate_content(root)
-    from .content.verification import inventory
-
-    inventory()
     from .scenarios import catalog, select
 
     for name in catalog(root):

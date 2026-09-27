@@ -7,9 +7,10 @@ import zlib
 import json
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-from tests.native.native_fixture import prepare
+from rubymarshal.classes import RubyString
+from tests.native.native_fixture import prepare, read_report
 from unittest.mock import patch
-from tidebound_dev.content import verification
+from tests.native import native_fixture
 
 
 class NativeFixtureTests(unittest.TestCase):
@@ -54,11 +55,37 @@ class NativeFixtureTests(unittest.TestCase):
 
 class ContentInventoryTests(unittest.TestCase):
     def test_new_species_derives_native_expectations(self):
-        with patch.object(verification, "SPECIES", {"NEWBIRD": {}, "NEWBIRD_1": {}}):
-            result = verification.inventory()
+        with patch.object(native_fixture, "SPECIES", {"NEWBIRD": {}, "NEWBIRD_1": {}}):
+            result = native_fixture.inventory()
         self.assertEqual(result["species"], ["NEWBIRD", "NEWBIRD_1"])
         self.assertEqual([entry["id"] for entry in result["art"]], ["NEWBIRD", "NEWBIRD_1"])
         self.assertEqual(
             result["art"][1]["front_shiny"], "Graphics/Pokemon/Front shiny/NEWBIRD_1.png"
         )
         self.assertEqual(result["art"][1]["cry"], "Cries/NEWBIRD_1")
+
+
+class NativeReportTests(unittest.TestCase):
+    def setUp(self):
+        self.base = Path(self.enterContext(tempfile.TemporaryDirectory()))
+
+    def test_native_encoded_strings_remain_readable_in_json_reports(self):
+        payload = {
+            RubyString("passed"): False,
+            RubyString("error"): RubyString("Pokémon failure"),
+            RubyString("checks"): [RubyString("font rendering")],
+        }
+        (self.base / "native-smoke.rxdata").write_bytes(writes(payload))
+        result = read_report(self.base)
+        self.assertEqual(
+            result, {"passed": False, "error": "Pokémon failure", "checks": ["font rendering"]}
+        )
+        self.assertEqual(json.loads((self.base / "native-smoke.json").read_text()), result)
+
+    def test_binary_encoded_native_exception_reports_the_real_failure(self):
+        message = "Main: undefined method — Pokémon".encode("utf-8")
+        payload = {"passed": False, "error": message}
+        (self.base / "native-smoke.rxdata").write_bytes(writes(payload))
+        result = read_report(self.base)
+        self.assertFalse(result["passed"])
+        self.assertEqual(result["error"], message.decode("utf-8"))

@@ -1,8 +1,9 @@
-"""Shared checks for the single embedded Tidebound loading path."""
+"""Read, validate and edit the embedded script archive."""
 
 import zlib
 
 from rubymarshal.reader import loads
+from rubymarshal.writer import writes
 
 
 def script_name(value):
@@ -79,3 +80,14 @@ def validate_archive(game, dev):
     if scripts["Main"].count("Scene_TideboundTitle") != 1:
         raise ValueError("Main must launch Scene_TideboundTitle exactly once")
     return scripts
+
+
+def replace_main(game, driver):
+    """Replace the entry point only in a staged development player."""
+    path = game / "Data/Scripts.rxdata"
+    entries = loads(path.read_bytes())
+    mains = [entry for entry in entries if entry[1] == "Main"]
+    if len(mains) != 1:
+        raise ValueError("Development player requires exactly one Main entry")
+    mains[0][2] = zlib.compress(driver)
+    path.write_bytes(writes(entries))

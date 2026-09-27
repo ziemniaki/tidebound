@@ -10,8 +10,7 @@ import subprocess
 import sys
 import tempfile
 import uuid
-from .smoke_report import read_report
-from .native_fixture import prepare, SCENARIOS
+from .native_fixture import prepare, read_report, SCENARIOS
 
 from tidebound_dev.packaging.archives import extract_bundle, game_hashes
 

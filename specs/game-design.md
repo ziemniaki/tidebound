@@ -2,7 +2,7 @@
 
 ## Game bible
 
-**Version 1.30 | 26 September 2026**
+**Version 1.31 | 28 September 2026**
 **Creative direction: Wojciech Krzyżanowski**  
 **Working title: Tidebound | Full story spoilers**
 
@@ -10,7 +10,7 @@ A solitary Pokémon journey through a wounded coastal land, where the sea keeps 
 
 This is the consolidated creative record for the whole game. It expands and supersedes the short design record dated 8 September 2026. It preserves established decisions, outlines a playable narrative, and identifies what still needs invention. It describes the intended game, not a claim that these chapters have already been built.
 
-**Current playable milestone: Demo 1 / 0.8.4, southern pond clearing.** This revision implements the previously reserved lighthouse cellar/vault and the first dock-city museum hall. Earlier statements reserving those spaces describe the 0.6 necklace milestone and are superseded for this limited visit. The museum heist, the sabre's magical use and the final confrontation remain future content.
+**Playable content and verification:** see the [current status](../docs/status.md). This bible records creative direction; planned chapters are not permission to implement them.
 
 ### How to read this document
 
@@ -37,7 +37,7 @@ The game bible governs fictional facts, characterisation, emotional intent, and 
 13. Endings and irreversible consequences
 14. Revelation and continuity rules
 15. Art, sound, dialogue, and quest design
-16. Open decisions and production record
+16. Open decisions
 
 ## 1. The emotional promise
 
@@ -710,7 +710,7 @@ Much later, recovery of or access to the sabre connects to healed Water/Grass Su
 
 **Confirmed immediate sequence, implemented in 0.6.0.**
 
-1. Retrieve the shop keys in the northern wood, return them, enter the shop and receive lamp oil. The seller also offers homemade pie on a distinctive ceramic plate and asks for the plate back. City 4 enters casually through the recipe.
+1. Retrieve the shop keys in the northern wood, return them, enter the shop and receive lamp oil. The seller also offers homemade pie on a distinctive blue-reed ceramic plate and asks for the plate back. City 4 enters casually through the recipe.
 2. Return the oil to Mother and share the pie. She recognises the cooking without explaining how. A remaining household Pokémon moves closer to the food. She washes the empty plate. The player retains it for return. The lamp lesson remains available in its existing order.
 3. Returning the plate to the shop triggers two boys bursting out and fleeing south. The seller's short, unsuccessful chase exposes his aching legs. He notices the plate and thanks the child before asking, neighbour to neighbour, for help recovering a pearl necklace.
 4. Follow the south coast road. Optional wild Pokémon precede the first thief. He recognises the lighthouse child, lies badly and battles. After defeat he accidentally admits the other boy has the necklace, then runs.
@@ -933,7 +933,7 @@ Each quest should define what the player understands, what they can change, what
 
 Maintain readable scenes, restrained flashing, and clear battle feedback. Mystery about the sea's intentions is productive; uncertainty about whether the game registered a button press is not.
 
-## 16. Open decisions and production record
+## 16. Open decisions
 
 ### 16.1 Decisions needed before their relevant chapters
 
@@ -948,45 +948,6 @@ Maintain readable scenes, restrained flashing, and clear battle feedback. Myster
 **Loss and endings:** individual faint versus death, spirit opportunity and catch balance, status persistence, recovery resources, save/reload policy, cemetery roster selection, Suicune edge cases, and the specific unresolved damage of the darker ending.
 
 Resolve these when useful to concrete work. There is no need to freeze every species, town, and dialogue before building the next coherent area.
-
-### 16.2 What currently exists
-
-**Prototype 0.6.0.** Nine playable opening maps: the keeper's house, Shiohama, an introductory Listening Wood area, the lantern room, Beyond the Shore, the oil shop, the child's bedroom, the south coast road and the old storehouse. The opening includes Mother's visit and family scene, Pookie's hundred-step walk and optional pier incident, household companion choice, recoverable shop keys, an indoor oil errand, tending the lamp, a later Lapras glimpse, limited rest, optional Natu and Frillish encounters, an astral companion-recovery loop, permanent-loss records within the saved timeline, a title scene, and two ambient loops. The oil-seller expansion adds pie and plate handoffs, a meal, robbery, southward pursuit, three small trainer battles, overheard criminal dialogue, necklace recovery and return, restrained wife revelation, a tiny pearl glint and a casual vault reference. Trainer defeats use the existing astral loop.
-
-The user confirmed that the 0.4 native Mac build works. The 0.6.0 expansion still needs their on-device check. Koga's towns and arc, the complete forest, shrines, Dive progression, custom regional species, Suicune, the sabre, the final cemetery battle, water-demon bosses, and endings remain future development. Existing helper functions are not completed chapters.
-
-### 16.3 Working arrangement as of 9 September 2026
-
-The user reports that an app update stopped their local Codex/ChatGPT development app from running on the older Mac. The project will continue in this phone-accessed workspace, with a maintained downloadable project ZIP and separate game bible and developer guide.
-
-The Mac remains the intended machine for testing and playing: Intel MacBook Pro, Mid-2015, macOS Monterey 12.7.5. A native Mac app is packaged with mkxp-z 2.4.2/826929e and Ruby 3.1. Its Intel code and bundled dependencies target macOS 10.13 or earlier. Actual engine rendering and save checks were run on Linux; the user confirmed that the 0.3 native Mac app works, then confirmed the 0.4 update works. The user confirmed 0.6.0 works. Version 0.6.1 needs their on-device check. The maintained project also retains its Windows launcher.
-
-Future work should preserve four practical distinctions: the latest source package, this creative record, implementation instructions, and what has actually passed on-device testing. The current milestone adds the neighbour quest, while preserving the perpetual-night coast, earlier domestic opening and native Mac app. Future chapters remain separate milestones.
-
-### 16.4 Maintenance and provenance
-
-This bible consolidates the worldbuilding conversation and the earlier design record. New connective geography, historical possibilities, chapter divisions, quest examples, and presentation ideas are labelled as proposals. It does not use external Pokémon lore to settle this game's unresolved continuity.
-
-For an accepted change, update the relevant passage and record the decision briefly. Keep proposals visibly provisional. Update the copy inside the project ZIP alongside the separate document so subsequent sessions do not inherit contradictory worlds.
-
-**Revision record:** Version 1.1, 9 September 2026. Added Mother's belief and mixed ritual motive, eternal childhood, an elderly starting village, guilt-driven containment and age-driven release, late-reveal boundaries, oil-shop interior and post-lamp household companion choice. Added provisional starter options without locking the roster. These opening changes are documented, not yet implemented.
-
-Version 1.0, 9 September 2026. Consolidated confirmed lore; expanded the regional, character, historical, quest, and ending outlines; added explicit mystery and continuity rules; separated prototype behaviour from intended mechanics; recorded the revised phone-workspace/Mac-playtest arrangement.
-
-
-**Revision record:** Version 1.2, 9 September 2026. Recorded the implemented Natu/Makuhita/Poochyena household choice, oil-shop interior, lamp interaction, restrained elderly-villager dialogue, legacy-save behavior and native Mac packaging. Custom third evolutions remain unbuilt. The 1.1 revision note above is historical.
-
-
-**Revision record:** Version 1.3, 9 September 2026. Recorded the bedroom and main-hall introduction, Makuhita's box work, Pookie's first walk and optional unseen pier presence, post-walk companion choice, forest Key Item and moving seller. This explicitly supersedes the earlier oil-before-choice order. Existing 0.2/0.3 journeys retain their progress; the new prologue is for new games.
-
-
-**Revision record:** Version 1.4, 9 September 2026. Established the Gen 3 opening and gradual introduction of deeper systems as a general development rule. Recorded the autumn/noir coastal art direction, rocky lighthouse approach, beach and flowers, expanded sea and longer pier, and restrained encounter staging. The 0.5 coast is implemented; the later regional transformations remain planned.
-
-
-**Revision record:** Version 1.5, 10 September 2026. Confirmed perpetual night for ordinary locations, with daylight reserved for future magical exceptions. Superseded the bright 0.5 autumn palette with a dark, desaturated moonlit coast and forest. Kept the expanded geography, details, Gen 3 familiarity and gradual revelations. The cause of perpetual night remains unspecified.
-
-
-**Revision record:** Version 1.6, 10 September 2026. Added the confirmed pie/plate/robbery/pursuit/necklace quest and healthy-grief counterpoint; recorded ordinary blue-reed pottery, City 4 hometown food, Ellie as working name, the lighthouse vault seed and unusual pearls as a recurring category. Established Team Abyss as working name. Recorded City 2's dock/distribution identity, major museum, public sabre display, later Abyss theft with incomplete understanding, and the eventual Suicune/Behemoth Blade connection as future canon only. Final city maps/names, sabre provenance, heist staging and vault purpose remain open. Updated playable status to 0.6; no later city, museum, heist or final-resolution gameplay was built.
 
 ## 20. The vault and first museum visit - 0.7.0
 
@@ -1008,8 +969,6 @@ Mother and the seller place the necklace safely inside. Their short conversation
 
 Keep the perpetual night and Gen 3 familiarity. Warm light belongs inside visible window panes and lanterns, preserving the dark streets and sea. These local additions establish a working settlement without fixing the city's final name or complete geography. No new magical explanation, criminal plan or late-game revelation is introduced.
 
-**Revision record:** Version 1.9, 12 September 2026. Recorded dock street/building/quay expansion, correctly aligned window lighting and the 0.7.1 playable baseline. Fixed post-cutscene entrance collisions without changing quest requirements. Later sabre theft, Suicune and final-resolution content remain reserved.
-
 ## 21. Tidebound Sunkern - the absent sun
 
 **Confirmed; implemented in 0.7.2.** Sunkern is not thriving in the region's perpetual night. Its faded ochre and olive shell, drooping sage leaves with dry tips, and tired, sad expression tell that story visually. Its regional typing is Grass/Dark. It remains a small, vulnerable seed Pokemon. Dark typing does not establish evil, demonic possession or moral corruption. The absence of sunlight itself is enough for this local story.
@@ -1019,8 +978,6 @@ Keep the perpetual night and Gen 3 familiarity. Warm light belongs inside visibl
 **Moves, implementation choices.** Level 1 Absorb and Growth; 4 Payback; 7 Ingrain; 10 Mega Drain; 13 Leech Seed; 16 Assurance; 19 Worry Seed; 22 Giga Drain; 25 Endeavor; 28 Endure; 31 Dark Pulse; 34 Energy Ball; 37 Seed Bomb; 40 Grassy Terrain. The pattern favours drawing energy from the surroundings, anchoring itself and responding to danger. Sun-themed moves are removed from its regional level-up, tutor and egg lists. This is a modest early companion, with the original base stats retained at 30 each. Existing abilities remain unchanged. These values are adjustable game balance, not immutable lore.
 
 **Evolution updated in 0.7.3.** Tidebound Sunkern now evolves into Moonkern, described below. This supersedes its provisional Sun Stone-to-Sunflora path. Ordinary Sunkern retains that original evolution. No sunlight location or cure quest is introduced.
-
-**Revision record:** Version 1.10, 13 September 2026. Added the user-confirmed sun-deprived Grass/Dark Sunkern, its sad muted sprite direction, regional encounter implementation and provisional moveset. Preserved ordinary Sunkern, existing companions, all prior locations and late-game mysteries.
 
 ## 22. Moonkern - the bloom that never came
 
@@ -1036,8 +993,6 @@ The outline uses pale sage and moon-silver against dusty violet, with sparse wis
 
 **Presentation status.** Front and back sprites, party icon and species data are implemented. A separate shiny palette and original cry remain open; the current build uses the same palette for shiny individuals and temporarily reuses Sunkern's cry. No evolution quest or new map was added.
 
-**Revision record:** Version 1.11, 13 September 2026. Added Moonkern's user-confirmed unfulfilled-growth concept, Grass/Ghost typing and spectral appearance. Implemented level-24 evolution, stronger stats and a revised moveset. Replaced the regional Sunflora placeholder while preserving ordinary Sunkern, existing companion identities and the game's loss rules.
-
 ## 23. Moonflora - the phantom flower
 
 **Confirmed; implemented in 0.7.4.** Tidebound Sunkern evolves into Moonkern at level 14, and Moonkern into Moonflora at level 20. This replaces the earlier level-24 transition. Ordinary Sunkern still evolves into ordinary Sunflora with a Sun Stone.
@@ -1051,9 +1006,6 @@ Moonflora is Grass/Ghost: the spirit of the flower the seed wanted to become. It
 Evolving preserves the companion's identity and can be cancelled normally. Existing Pokemon already above the threshold qualify on their next level gain, one evolution stage per event. Moonflora has no further evolution. No new map, item or quest is required.
 
 The front/back sprites and party icon are implemented. A distinct shiny palette and original cry remain open; the current build uses the same palette for shiny individuals and temporarily reuses Sunflora's cry.
-
-**Revision record:** Version 1.12, 13 September 2026. Changed the regional evolution thresholds to 14 and 20, added Moonflora, and simplified its sprite to match the existing pixel-art style.
-
 
 ## 24. Tidebound Wurmple - pale-blue forest form
 
@@ -1074,10 +1026,6 @@ has been established. The existing Silcoon/Cascoon routes remain playable as a
 provisional compatibility choice, yielding their ordinary forms. Do not treat
 this placeholder as the final design for the regional line. No explanation of
 the form's origin or new forest lore has been established.
-
-**Revision record:** Version 1.13, 13 September 2026. Added the user-confirmed
-pale-blue Bug/Ice Wurmple and explicitly deferred its regional evolutions.
-
 
 ## 25. Wurmple's split - Glaciverm and the sleeping branch
 

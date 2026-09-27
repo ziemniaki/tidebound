@@ -7,8 +7,7 @@ import unittest
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from tidebound_dev.maps import model
-from tidebound_dev.maps.transfers import Transfer
-from tidebound_dev.maps.validate import validate
+from tidebound_dev.maps.validate import validate, validate_transfer
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -17,9 +16,9 @@ class TransferTests(unittest.TestCase):
     def test_bounds_are_checked_before_mask_indexing(self):
         for x, y in ((-1, 0), (0, -1), (2, 0), (0, 2)):
             with self.subTest(x=x, y=y), self.assertRaisesRegex(ValueError, "outside map"):
-                Transfer(101, x, y).validate({"101": ["11", "11"]})
+                validate_transfer({"101": ["11", "11"]}, 101, x, y)
         with self.assertRaisesRegex(ValueError, "Blocked"):
-            Transfer(101, 0, 0).validate({"101": ["0"]})
+            validate_transfer({"101": ["0"]}, 101, 0, 0)
 
     def test_every_page_and_native_transfer_destination_is_validated(self):
         with tempfile.TemporaryDirectory() as temp:

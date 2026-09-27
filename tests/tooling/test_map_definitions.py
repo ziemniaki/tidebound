@@ -7,8 +7,7 @@ import unittest
 from rubymarshal.reader import loads
 from rubymarshal.classes import Symbol
 
-from tidebound_dev.maps import serialization
-from tidebound_dev.maps.compiler import build
+from tidebound_dev.maps.compiler import build, map_revision
 from tidebound_dev.maps.definitions import MapDefinition
 from dataclasses import asdict
 from tidebound_dev.content import configure
@@ -60,16 +59,16 @@ class MapDefinitionTests(unittest.TestCase):
             configure.build(root)
             system = loads((root / "game/Data/System.rxdata").read_bytes())
             revision = system.attributes["@magic_number"]
-            self.assertEqual(revision, serialization.map_revision(root / "game"))
+            self.assertEqual(revision, map_revision(root / "game"))
             tilesets = root / "game/Data/Tilesets.rxdata"
             original = tilesets.read_bytes()
             tilesets.write_bytes(original + b"changed packing")
-            self.assertNotEqual(revision, serialization.map_revision(root / "game"))
+            self.assertNotEqual(revision, map_revision(root / "game"))
             tilesets.write_bytes(original)
             area_file = root / "game/Data/Map117.rxdata"
             original = area_file.read_bytes()
             area_file.write_bytes(original + b"changed layout")
-            self.assertNotEqual(revision, serialization.map_revision(root / "game"))
+            self.assertNotEqual(revision, map_revision(root / "game"))
             area_file.write_bytes(original)
             native = loads((root / "game/Data/map_metadata.dat").read_bytes())[117].attributes
             self.assertEqual(native["@battle_environment"], Symbol("Cave"))

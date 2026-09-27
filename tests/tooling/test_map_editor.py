@@ -15,7 +15,7 @@ from rubymarshal.classes import UserDef
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from tidebound_dev.maps import editor, tilesets
-from tidebound_dev.maps.compiler import construct, BuildPaths
+from tidebound_dev.maps.compiler import construct
 from tidebound_dev.maps.data import map_record, native_map, dump
 from tidebound_dev.maps.model import command, obj
 
@@ -87,7 +87,7 @@ class MapEditorTests(unittest.TestCase):
         )
         self.assertEqual(map_record(loads(writes(native_map(saved)))), map_record(native))
         self.assertEqual(loads(ts_path.read_bytes())[fields["@tileset_id"]], ts)
-        home = construct(BuildPaths(self.root))[0]
+        home = construct(self.root)[0]
         self.assertFalse(home.walk[10][6])
         editor.remember(self.root)  # Manual exports above complete this build.
         before = (self.root / "content/maps/home/layout.json").read_bytes()
@@ -247,8 +247,8 @@ class MapEditorTests(unittest.TestCase):
         )
         shutil.copytree(ROOT / "game/.generated", self.root / "game/.generated")
         ownership.prepare(self.root, ownership.inventory(self.root))
-        area = next(a for a in construct(BuildPaths(self.root)) if a.id == 117)
-        self.assertEqual(map_record(loads(area.serialize())), record)
+        area = next(a for a in construct(self.root) if a.id == 117)
+        self.assertEqual(map_record(loads(writes(area.native))), record)
         editor.require_import(self.root)
         # A simultaneous source addition must not be silently assigned a second bundle.
         infos[118] = infos[117]

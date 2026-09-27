@@ -226,10 +226,14 @@ The release page has one player ZIP per OS: universal Mac, Windows x64 and Linux
 x86_64. SHA256SUMS, build manifests and the Markdown notes file remain inside the verified CI candidate, not separate release assets.
 GitHub also supplies its own source-code archives automatically.
 
-Update `docs/release-notes.md` for each version and follow
-[the release-note template](../.github/RELEASE_NOTES_TEMPLATE.md). Notes are curated
-for players as one flat changelog list. Do not split changes into sections or
-append instructions to choose/download/unzip a platform or read a README. Include
-only compatibility caveats that materially affect playing. Build logs, commit IDs, dependency details and test counts belong in
-CI and contributor docs. The builder requires the note heading to match the
-release version and uses this file as the GitHub release body.
+Update `docs/release-notes.md` for each version. The builder requires a
+`# Tidebound <version>` heading and uses this file as the GitHub release body.
+Lead with one sentence about the main player-visible change, then one flat list
+of short, concrete bullets comparing with the previous public release. For a
+refreshed draft, say whether earlier testers should download it again.
+
+Include save compatibility, required actions and known limitations only when
+they affect playing; smoke checks do not establish a full playtest. Omit spoilers,
+marketing filler, change-category headings and generic download/unzip/README
+instructions. Build logs, commit IDs, dependency details, test counts and agent
+activity belong in CI and contributor docs. A small release needs a small list.

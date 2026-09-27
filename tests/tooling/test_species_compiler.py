@@ -7,8 +7,7 @@ from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol as S
 
-from tidebound_dev.content.species import SPECIES
-from tidebound_dev.content.species_compiler import compile_records, native_field
+from tidebound_dev.content.species_compiler import SPECIES, compile_records, native_field
 
 ROOT = Path(__file__).resolve().parents[2]
 

@@ -13,7 +13,6 @@ from tidebound_dev.packaging.pipeline import build as package
 build = partial(package, "windows")
 from tidebound_dev.files import sha256
 from tidebound_dev.release.artifacts import verify
-from tests.native.smoke_report import read_report
 
 
 class WindowsReleaseTests(unittest.TestCase):
@@ -147,32 +146,6 @@ class WindowsReleaseTests(unittest.TestCase):
         archive.write_bytes(b"corrupt")
         with self.assertRaisesRegex(ValueError, "checksum mismatch"):
             verify(self.output)
-
-    def test_native_encoded_strings_remain_readable_in_json_reports(self):
-        from rubymarshal.classes import RubyString
-        from rubymarshal.writer import writes
-
-        payload = {
-            RubyString("passed"): False,
-            RubyString("error"): RubyString("Pokémon failure"),
-            RubyString("checks"): [RubyString("font rendering")],
-        }
-        (self.base / "native-smoke.rxdata").write_bytes(writes(payload))
-        result = read_report(self.base)
-        self.assertEqual(
-            result, {"passed": False, "error": "Pokémon failure", "checks": ["font rendering"]}
-        )
-        self.assertEqual(json.loads((self.base / "native-smoke.json").read_text()), result)
-
-    def test_binary_encoded_native_exception_reports_the_real_failure(self):
-        from rubymarshal.writer import writes
-
-        message = "Main: undefined method — Pokémon".encode("utf-8")
-        payload = {"passed": False, "error": message}
-        (self.base / "native-smoke.rxdata").write_bytes(writes(payload))
-        result = read_report(self.base)
-        self.assertFalse(result["passed"])
-        self.assertEqual(result["error"], message.decode("utf-8"))
 
 
 if __name__ == "__main__":
