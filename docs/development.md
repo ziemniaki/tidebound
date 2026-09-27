@@ -192,10 +192,9 @@ uv run play --from neighbor/meal
 ```
 
 This starts the **full game** with the declared starting state: location, party,
-bag and story progress. Keep playing, travel, battle and save normally. There is
-no listing step or separate scenario build. Omitting `--from` opens the normal
-development title screen. Each `--from` launch starts fresh; saves made during
-it use `Tidebound_Playtest`, a scratch slot separate from normal development and
+bag and story progress. Keep playing, travel, battle and save normally.
+Omitting `--from` opens the normal development title screen. Each `--from` launch
+starts fresh; saves made during it use `Tidebound_Playtest`, a scratch slot separate from normal development and
 release saves. Concurrent playtests share that scratch slot.
 
 Starting states live beside their feature in `src/tidebound/features/<feature>/scenarios/`.
@@ -219,4 +218,5 @@ ordinary strings stay text. Map/entrance and species/item references are checked
 
 State is installed before map callbacks. Declare the flags needed to skip earlier
 autoruns. Edits to starting states need only `play --from`; map/data changes still
-need `uv run rebuild --all`. The starting-state driver stays out of releases.
+need `uv run rebuild --all`. The starting-state driver is staged only for development;
+keep `tools/tidebound_dev/scenarios.rb` out of `src/load_order.txt` and releases.

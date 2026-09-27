@@ -71,8 +71,8 @@ uv run python -m tests.native.linux_runtime_smoke /tmp/Tidebound_Linux_0.8.8_x86
 ```
 
 `runtime` exercises initialization and native save roundtrips. `world`
-starts through the same `play --from` bootstrap, then captures home, coast, forest,
-lighthouse, vault, docks and pond. One native save/load checks companion identity,
+uses the [declared-start workflow](development.md#playtest-scenarios), then captures
+home, coast, forest, lighthouse, vault, docks and pond. One native save/load checks companion identity,
 held items, quest state and stale-map refresh; it also verifies state exists before
 map callbacks and that interrupting a forced route restores the actor. `species` recompiles the
 current checkout's PBS with Essentials in the isolated save directory, compares all custom species and metric attributes (excluding PBS provenance and

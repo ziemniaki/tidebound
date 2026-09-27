@@ -26,7 +26,6 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and
 git clone https://github.com/ziemniaki/tidebound.git
 cd tidebound
 uv run play
-uv run play --from neighbor/meal
 ```
 
 This builds and opens a native development copy with **separate development
@@ -41,6 +40,7 @@ uv run play --preview pokemon/WHYDUCK  # inspect an asset in the engine
 ```
 
 [Development guide](docs/development.md) · [Working with an agent](docs/development.md#agent-assisted-development)
+· [Playtest starting states](docs/development.md#playtest-scenarios)
 · [Architecture](docs/architecture.md) · [Releasing](docs/releasing.md)
 
 ## Project structure

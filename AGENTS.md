@@ -19,6 +19,7 @@ its source files, engine traps and verification; do not load every guide by defa
 | Pokémon, characters, icons, pictures and prop anchors | [assets/AGENTS.md](assets/AGENTS.md) |
 | Asset pipeline, music, sound effect or cry | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
 | RPG Maker edits or compiled game files | [game/AGENTS.md](game/AGENTS.md) |
+| Start a playthrough from a declared state | [Playtest workflow](docs/development.md#playtest-scenarios) |
 | Add/change tests | [tests/AGENTS.md](tests/AGENTS.md) |
 | Packaging, CI, release | [releasing](docs/releasing.md), [runtime notes](docs/architecture.md#runtime-boundaries) |
 
@@ -35,7 +36,6 @@ Run from the repository root. uv owns Python dependencies; Node is pinned in
 uv run play           # refresh assets/Ruby, stage and launch a development player
 uv run build          # same refresh without launch; preserves editor maps/content
 uv run play --preview pokemon/WHYDUCK  # inspect one asset without loading a save
-uv run play --from neighbor/meal  # full playthrough from a declared state
 uv run format         # before embedding Ruby
 uv run rebuild        # export custom assets and embed the Ruby load manifest
 uv run rebuild --all  # regenerate maps/content/art, then embed
@@ -64,7 +64,6 @@ agent's binary wholesale. [Integration workflow](docs/development.md#independent
   may be an astral journey. Do not add save versions, compatibility gates or old
   migration chains. Never delete player saves to make a check pass.
 - Release saves use `Tidebound_Opening_0_2`; `play` uses `Tidebound_Development`.
-  `play --from` uses the separate `Tidebound_Playtest` scratch save.
   RPG Maker Test Play uses the project/release namespace. Keep `fontHeightReporting: 1`.
 - Ordinary locations remain night. Maintenance does not authorize engine or
   gameplay redesign. Update current docs in place when behavior changes.

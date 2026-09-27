@@ -111,11 +111,10 @@ full rebuild. Ordinary `uv run play` refreshes custom assets and scripts while p
 ## Saves and behavior that must survive changes
 
 Release saves use `Tidebound_Opening_0_2`. Development player copies use
-`Tidebound_Development`. `play --from` uses one separate `Tidebound_Playtest` scratch save and
-installs the declared starting state before map construction.
-`scenarios.py` resolves declarations; its Ruby driver replaces Main only in staged
-development players. All save namespaces live in the OS user-data directory, outside the
-checkout and app. The base editor project retains the release namespace.
+`Tidebound_Development`. Starting-state behavior and save isolation are documented
+in the [playtest workflow](development.md#playtest-scenarios). All save namespaces
+live in the OS user-data directory, outside the checkout and app. The base editor
+project retains the release namespace.
 
 Tidebound uses Essentials' normal SaveData serialization without a custom version
 or compatibility gate. New games initialize current state directly; historic
