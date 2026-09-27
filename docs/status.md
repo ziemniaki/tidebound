@@ -25,15 +25,11 @@ CI covers relocated Unicode paths, saves and rendering on both Mac architectures
 Windows and Ubuntu 22.04/24.04. Mac is ad-hoc signed, not notarized. Smoke tests
 do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtesting.
 
-Historic demo migrations are retired. Saves use the normal Essentials reader
-and serializer, without custom save versioning.
-The refactor also introduces explicit map/species compilers, shared player staging,
-a source load manifest, named native scenarios and Python/Ruby formatting checks.
-See [the completed refactor](decisions/refactoring-plan.md) for scope and verification evidence.
-The [authoring audit](decisions/authoring-audit.md) records the completed generation,
-content-validation and ownership fixes: staged rebuilds, catalog-driven native
-checks, shared map settings, explicit transfers/actors and one pixel export plan.
-Scoped AGENTS guides now document map, species, artwork, sound and gameplay workflows.
+Current authoring uses staged rebuilds, catalog-derived content checks, shared
+map settings, explicit transfers/actor roles and one pixel export plan. Saves use
+the normal Essentials serializer without custom versioning. See
+[architecture](architecture.md) for ownership and [development](development.md)
+for the edit/build/check loop and scoped authoring guides.
 
 ## Next work
 

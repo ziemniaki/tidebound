@@ -85,10 +85,9 @@ The scoped guides explain the source files, engine contracts and checks for
 [Pokémon artwork](../assets/AGENTS.md) and [sound](../tools/tidebound_dev/art/AGENTS.md).
 They apply to human development as well as agents.
 
-Full rebuild regenerates only the art recipes wired into the pipeline. Other
-checked-in PNGs and ambient audio remain inputs; changing their source atlases
-requires their actual exporter. `check --all` cannot detect drift in a recipe it
-does not run. See the artwork guide before replacing an exported file.
+Full rebuild reproduces the [registered artwork exports](artwork.md). Other
+checked-in graphics and audio are direct inputs. Check the asset guide before
+editing a game PNG: generated destinations are replaced by their exporter.
 
 ## Less common work
 

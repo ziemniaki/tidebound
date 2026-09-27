@@ -13,15 +13,16 @@ the engine's expected directory structure intact inside `game/`.
 | Opening, quests and presentation | `src/tidebound/features/` and `src/tidebound/presentation/` | Same script archive |
 | Map layouts and events | `tools/tidebound_dev/maps/` area builders and painters | `game/Data/Map*.rxdata`, tilesets, previews/reports |
 | Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
-| Species, items, trainers, encounters | `tools/tidebound_dev/content/`, item/encounter builders | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` and generated sprites |
-| Artwork | `assets/<species>/` sources and export recipes | `game/Graphics/` |
+| Species, items, trainers, encounters | `tools/tidebound_dev/content/`, item/encounter builders | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` |
+| Artwork | `assets/<species>/` inputs and `tools/tidebound_dev/art/` exporters | `game/Graphics/` |
 | Sound | `tools/tidebound_dev/art/audio.py`, existing attributed assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
 Map builders return independent in-memory areas. `maps/compiler.py` declares
 composition explicitly: base areas, connections, landscape, interiors and harbor/
 pond decoration. Painters own their tile atlases and caches; area modules receive
-only the maps and painters they use. Imports never load or write game assets.
+only the maps and painters they use. Imports never load or write game assets. Interaction targets are derived from
+current event records; painters do not maintain a second position list.
 Full rebuild generates maps, content, art and scripts in a temporary workspace,
 then validates and publishes changed outputs. Failed generation/validation leaves
 the checkout unchanged; publication errors roll back replaced files. This protects
