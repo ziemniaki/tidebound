@@ -11,7 +11,7 @@ from .species_compiler import pbs_files
 from .story import ITEMS, TRAINERS
 from ..maps.definitions import DEFINITIONS
 
-MANIFEST = "tools/generated/content.json"
+MANIFEST = "game/.generated/content.json"
 TABLES = {
     "species.dat",
     "species_metrics.dat",
@@ -33,13 +33,12 @@ def inventory():
         "src/generated/wild_forms.rb",
     ]
     files += [f"game/Data/Map{i:03}.rxdata" for i in maps]
-    files += [f"tools/generated/map_{i}_preview.png" for i in maps]
     return {
         "databases": {
             "species.dat": sorted(SPECIES),
             "species_metrics.dat": sorted(METRICS),
-            "items.dat": sorted(row[0] for row in ITEMS),
-            "trainer_types.dat": sorted(row[0] for row in TRAINERS),
+            "items.dat": sorted(ITEMS),
+            "trainer_types.dat": sorted(TRAINERS),
             "encounters.dat": sorted(f"{d.id}_0" for d in DEFINITIONS.values() if d.encounters),
             "map_metadata.dat": maps,
             "MapInfos.rxdata": maps,
@@ -58,7 +57,7 @@ def recorded(root):
             ".." in path.parts
             or "\\" in name
             or path.parts[:2]
-            not in (("game", "Data"), ("game", "PBS"), ("tools", "generated"), ("src", "generated"))
+            not in (("game", "Data"), ("game", "PBS"), ("game", ".generated"), ("src", "generated"))
         ):
             raise ValueError(f"Invalid owned content path: {name}")
     return value

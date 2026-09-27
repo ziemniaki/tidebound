@@ -1,0 +1,13 @@
+{
+  "species": {
+    "inherit": "LAPRAS",
+    "fields": {
+      "FormName": "Tidebound",
+      "Types": ["WATER", "GHOST"],
+      "Color": "White"
+    }
+  },
+  "art": {
+    "cry": "LAPRAS"
+  }
+}

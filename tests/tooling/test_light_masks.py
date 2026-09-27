@@ -13,16 +13,16 @@ class LightMaskTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             for directory in (
-                "assets/tilesets/Outside",
+                "content/tilesets/Outside",
                 "game/Graphics/Pictures/Tidebound",
                 "src/generated",
             ):
                 (root / directory).mkdir(parents=True)
             mask = Image.new("RGBA", (256, 64))
             mask.putpixel((65, 34), (230, 180, 120, 75))
-            mask.save(root / "assets/tilesets/Outside/windows.png")
+            mask.save(root / "content/tilesets/outside/windows.png")
             area = SimpleNamespace(
-                id=1, light_mask="Outside/windows.png", source_tiles={}, layers=[[], [[0, 394]]]
+                id=1, light_mask="outside/windows.png", source_tiles={}, layers=[[], [[0, 394]]]
             )
             paths = SimpleNamespace(root=root, game=root / "game")
             window_lights(paths, [area])

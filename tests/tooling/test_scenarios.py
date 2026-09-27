@@ -15,7 +15,7 @@ from tidebound_dev.packaging.pipeline import build
 
 class ScenarioTests(unittest.TestCase):
     def test_resolves_base_state_and_rejects_broken_references(self):
-        spec = scenarios.select(ROOT, "neighbor/return-necklace")
+        spec = scenarios.select(ROOT, "neighbor/return_necklace")
         self.assertEqual(spec["story"]["walk_state"], ":complete")
         self.assertEqual(spec["story"]["neighbor_quest"]["stage"], ":necklace")
         self.assertEqual(spec["bag"], {"TIDEBOUNDNECKLACE": 1})

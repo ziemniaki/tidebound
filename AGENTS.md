@@ -14,10 +14,11 @@ its source files, engine traps and verification; do not load every guide by defa
 | Task | Guide |
 | --- | --- |
 | Quest, dialogue, battle, save or sprite behavior | [src/AGENTS.md](src/AGENTS.md) |
-| Add/edit a map, actor or transfer | [maps/AGENTS.md](tools/tidebound_dev/maps/AGENTS.md) |
-| Species/form, evolution, item or encounter data | [content/AGENTS.md](tools/tidebound_dev/content/AGENTS.md) |
-| Pokémon, characters, icons, pictures and prop anchors | [assets/AGENTS.md](assets/AGENTS.md) |
-| Asset pipeline, music, sound effect or cry | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
+| Add/edit a map, actor or transfer | [maps/AGENTS.md](content/maps/AGENTS.md) |
+| Species/form, evolution or encounter data | [pokemon/AGENTS.md](content/pokemon/AGENTS.md) |
+| Items, actors, artwork and prop anchors | [content/AGENTS.md](content/AGENTS.md) |
+| Music, sound effect or cry | [audio/AGENTS.md](content/audio/AGENTS.md) |
+| Asset pipeline | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
 | RPG Maker edits or compiled game files | [game/AGENTS.md](game/AGENTS.md) |
 | Start a playthrough from a declared state | [Playtest workflow](docs/development.md#playtest-scenarios) |
 | Add/change tests | [tests/AGENTS.md](tests/AGENTS.md) |
@@ -26,6 +27,8 @@ its source files, engine traps and verification; do not load every guide by defa
 [Essentials contracts](docs/essentials-contracts.md) indexes the inspected engine
 methods and upstream sources. Use the embedded engine as the version authority;
 a tutorial for another Essentials version is not an API contract.
+
+Structure and naming: [architecture](docs/architecture.md#authored-content).
 
 ## Commands and shared outputs
 

@@ -14,7 +14,7 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
    feature-specific key. Read the existing owner's state rather than maintaining
    another copy. `features/interactions.rb` owns shared mother/seller dispatch.
 2. Put the short event call in the Python map builder; read the
-   [map workflow](../tools/tidebound_dev/maps/AGENTS.md). A new Ruby method alone
+   [map workflow](../content/maps/AGENTS.md). A new Ruby method alone
    does not connect it to a map. Do not override another feature's method to
    change an interaction's priority.
 3. Use `Scenes.run(*events, restore_positions: true) { ... }` for temporary actor
@@ -58,7 +58,7 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
   `reset_on_new_game` matters for a second new game in the same process. Use normal
   Essentials serialization; no new save schema/version mechanism.
 - Pokémon form setters and learnsets have separate side effects; read the
-  [content guide](../tools/tidebound_dev/content/AGENTS.md) before changing forms.
+  [content guide](../content/pokemon/AGENTS.md) before changing forms.
 - Rendered visibility does not establish collision. Features declare availability;
   `world/actors.rb` applies it without knowing quest state. It indexes collision actors once, skips forced
   routes, and applies NPC resting visibility only on map entry or explicit
@@ -67,7 +67,7 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
   don't scan event names or assume an actor exists after a transfer.
 - `Presentation::OwnedSprite` disposes its bitmap and only an explicitly owned
   viewport. Use it for independently loaded/allocated bitmaps, never borrowed/cache-backed
-  images. Static props use approved pictures and anchors in `assets/props.json`;
+  images. Static props use approved pictures and anchors in `content/props/<name>/prop.json`;
   add an asset record and a `prop` event instead of another drawing class. Essentials Pokémon sprite classes own their `AnimatedBitmap` lifecycle;
   reuse `Presentation::Position` without giving a second owner the same bitmap.
 

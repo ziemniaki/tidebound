@@ -7,14 +7,14 @@ from tidebound_dev.scripts.archive import validate_archive
 
 
 def validate(root, event_scripts_output=None, check_scripts=True):
-    D = root / "tools"
+    D = root / "game"
     G = root / "game"
     if check_scripts:
         validate_archive(G, D.parent / "src")
-    masks = json.loads((D / "generated" / "collisions.json").read_text())
-    manifest = json.loads((D / "generated" / "map_manifest.json").read_text())
+    masks = json.loads((D / ".generated" / "collisions.json").read_text())
+    manifest = json.loads((D / ".generated" / "map_manifest.json").read_text())
     spawns = {mid: definition.arrivals for mid, definition in definitions.BY_ID.items()}
-    maze_data = json.loads((D / "generated" / "maze_manifest.json").read_text())
+    maze_data = json.loads((D / ".generated" / "maze_manifest.json").read_text())
     fail = []
     event_scripts = []
     count = 0

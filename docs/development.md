@@ -93,12 +93,12 @@ No development command commits, pushes, merges or publishes.
 ## Authoring workflows
 
 The scoped guides explain the source files, engine contracts and checks for
-[gameplay](../src/AGENTS.md), [maps](../tools/tidebound_dev/maps/AGENTS.md),
-[species/forms](../tools/tidebound_dev/content/AGENTS.md),
-[Pokémon artwork](../assets/AGENTS.md) and [sound](../tools/tidebound_dev/art/AGENTS.md).
+[gameplay](../src/AGENTS.md), [maps](../content/maps/AGENTS.md),
+[species/forms](../content/pokemon/AGENTS.md),
+[Pokémon artwork](../content/AGENTS.md) and [sound](../content/audio/AGENTS.md).
 They apply to human development as well as agents.
 
-Ordinary rebuild refreshes the [registered custom assets](artwork.md); full rebuild
+Ordinary rebuild refreshes the [authored custom assets](artwork.md); full rebuild
 also repacks map tilesets and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
 editing a game PNG: generated destinations are replaced by their exporter.
 
@@ -141,7 +141,7 @@ The [task table](../AGENTS.md#read-for-your-change) routes to its source owner.
 
 Coordinate changes to `src/load_order.txt`, `maps/compiler.py`, `maps/registry.py`,
 species catalogs and shared NPC dispatch. Individual map layouts belong in
-`maps/areas/<map>/`; another area must not patch their events or geometry.
+`content/maps/<map>/`; another area must not patch their events or geometry.
 
 Include source and generated outputs in the PR. When combining work, resolve
 source first, then regenerate once. For generator-owned binary conflicts, use a
@@ -168,12 +168,12 @@ Edit the approved source, then launch the asset viewer:
 
 ```sh
 uv run preview pokemon/WHYDUCK
-uv run preview characters/Tidebound_Ivo_Seated
-uv run preview props/ship1
+uv run preview actors/ivo
+uv run preview props/moored_ship
 uv run preview items/TIDEBOUNDOILKEYS
 uv run preview trainers/TBLOCALYOUTH
-uv run preview pictures/Tidebound/title
-uv run preview 'audio/BGM/Tidebound Shore'
+uv run preview ui/title
+uv run preview audio/music/shore
 ```
 
 Use exact asset IDs/filenames without extensions. The command refreshes approved

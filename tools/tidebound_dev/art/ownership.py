@@ -6,7 +6,7 @@ from pathlib import PurePosixPath
 from . import files, pokemon
 from ..maps.atlases import GROUPS
 
-MANIFEST = "tools/generated/assets.json"
+MANIFEST = "game/.generated/assets.json"
 MAP_OUTPUTS = tuple(f"Graphics/Tilesets/{group.texture}.png" for group in GROUPS.values()) + (
     "Graphics/Tilesets/TideboundPond.png",
     "Graphics/Tilesets/TideboundVillage.png",
@@ -62,6 +62,10 @@ def inventory(root):
             raise ValueError(f"Asset source is also a generated output: {source}")
         if not source.is_file():
             raise ValueError(f"Missing asset source: {source}")
+    previous_names = {name.casefold() for name in previous}
+    for name in owners:
+        if name.casefold() not in previous_names and (root / name).exists():
+            raise ValueError(f"Custom asset would overwrite an unowned file: {name}")
     return dict(sorted(owners.items())), exports
 
 

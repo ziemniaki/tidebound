@@ -1,6 +1,16 @@
 ﻿# Generated story Key Items.
 
 #-------------------------------
+[TIDEBOUNDNECKLACE]
+Name = Pearl Necklace
+NamePlural = Pearl Necklace
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Consumable = false
+Description = A small pearl necklace recovered from the thieves. The oil seller is waiting for it.
+
+#-------------------------------
 [TIDEBOUNDOILKEYS]
 Name = Oil-Shop Keys
 NamePlural = Oil-Shop Keys
@@ -29,16 +39,6 @@ Price = 0
 Flags = KeyItem
 Consumable = false
 Description = An ordinary ceramic plate, washed and dried. Two blue reeds decorate its rim. Return it to the oil seller.
-
-#-------------------------------
-[TIDEBOUNDNECKLACE]
-Name = Pearl Necklace
-NamePlural = Pearl Necklace
-Pocket = 8
-Price = 0
-Flags = KeyItem
-Consumable = false
-Description = A small pearl necklace recovered from the thieves. The oil seller is waiting for it.
 
 #-------------------------------
 [TIDEBOUNDREEDCHARM]

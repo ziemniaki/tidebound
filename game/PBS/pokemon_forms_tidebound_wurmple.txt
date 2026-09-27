@@ -1,6 +1,0 @@
-﻿# Generated from tidebound_dev.content species definitions.
-[WURMPLE,1]
-FormName = Tidebound
-Types = BUG,ICE
-Color = Blue
-Evolutions = GLACIVERM,Silcoon,10,FROSTCOON,Cascoon,10

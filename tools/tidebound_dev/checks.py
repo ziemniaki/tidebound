@@ -19,6 +19,9 @@ def verify(root, *, full=False):
     from tidebound_dev.release.metadata import check_sources
 
     check_sources(root)
+    from .catalog import validate_names
+
+    validate_names(root)
     ownership.validate(root)
     from tidebound_dev.content.ownership import validate as validate_content
 
@@ -85,7 +88,8 @@ def _check_regeneration(root):
         generated = {
             p.relative_to(stage).as_posix()
             for p in stage.rglob("*")
-            if p.is_file() and "__pycache__" not in p.relative_to(stage).parts
+            if p.is_file()
+            and not {"__pycache__", ".build"}.intersection(p.relative_to(stage).parts)
         }
         differences.extend(sorted(generated - set(tracked)))
         if differences:

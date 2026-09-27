@@ -1,0 +1,15 @@
+{
+  "species": {
+    "inherit": "PSYDUCK",
+    "fields": {
+      "FormName": "Tidebound",
+      "Types": ["WATER", "PSYCHIC"],
+      "Evolutions": [["WHYDUCK", "Level", 16]]
+    }
+  },
+  "art": {
+    "cry": "PSYDUCK",
+    "shiny": true,
+    "stock": "PSYDUCK"
+  }
+}

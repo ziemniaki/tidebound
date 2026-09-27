@@ -18,7 +18,7 @@ module Tidebound::Hideout
     e = actor
     return unless e
     seated = !q[:second_won] && !%i[necklace complete].include?(q[:stage])
-    e.character_name = seated ? "Tidebound_Ivo_Seated" : "trainer_CAMPER"
+    e.character_name = seated ? "ivo" : "trainer_CAMPER"
     e.instance_variable_set(:@direction_fix, seated)
     e.instance_variable_set(:@step_anime, false)
     e.moveto(13, 4) unless seated

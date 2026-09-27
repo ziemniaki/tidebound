@@ -20,7 +20,7 @@ class GeneratedFileSetTests(unittest.TestCase):
             image = root / output
             image.parent.mkdir(parents=True)
             image.write_bytes(b"stale export")
-            manifest = root / "tools/generated/assets.json"
+            manifest = root / "game/.generated/assets.json"
             manifest.parent.mkdir(parents=True)
             manifest.write_text(json.dumps({output: "files"}))
             manifest.with_name("content.json").write_text(

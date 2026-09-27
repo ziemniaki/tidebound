@@ -40,7 +40,7 @@ class MapDefinitionTests(unittest.TestCase):
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(ROOT / name, target)
             (root / "src/generated").mkdir(parents=True)
-            (root / "tools/generated").mkdir(parents=True)
+            (root / "game/.generated").mkdir(parents=True)
             with (
                 patch.dict(registry.DEFINITIONS, {"new_room": definition}, clear=True),
                 patch.dict(registry.MAPS, {"new_room": 117}, clear=True),

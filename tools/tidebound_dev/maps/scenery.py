@@ -9,7 +9,7 @@ def window_lights(paths, maps):
     for area in maps:
         if area.light_mask is None:
             continue
-        with Image.open(paths.root / "assets/tilesets" / area.light_mask) as source:
+        with Image.open(paths.root / "content/tilesets" / area.light_mask) as source:
             atlas = source.convert("RGBA")
         panes, tile_masks = [], {}
         for y, row in enumerate(area.layers[1]):

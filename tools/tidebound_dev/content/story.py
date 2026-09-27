@@ -16,45 +16,14 @@ def item_section(ident, name, description):
     )
 
 
-ITEMS = [
-    (
-        "TIDEBOUNDOILKEYS",
-        "Oil-Shop Keys",
-        "Old brass keys found beneath white flowers. The oil seller in Shiohama is looking for them.",
-    ),
-    (
-        "TIDEBOUNDPIE",
-        "Homemade Pie",
-        "A homemade pie on a ceramic plate painted with two blue reeds. A thank-you for you and Mother.",
-    ),
-    (
-        "TIDEBOUNDPLATE",
-        "Blue-Reed Plate",
-        "An ordinary ceramic plate, washed and dried. Two blue reeds decorate its rim. Return it to the oil seller.",
-    ),
-    (
-        "TIDEBOUNDNECKLACE",
-        "Pearl Necklace",
-        "A small pearl necklace recovered from the thieves. The oil seller is waiting for it.",
-    ),
-    (
-        "TIDEBOUNDREEDCHARM",
-        "Blue-Reed Keepsake",
-        "A small ceramic charm painted with two blue reeds. A gift from the oil seller, to keep.",
-    ),
-]
-
-TRAINERS = [
-    ("TBLOCALYOUTH", "Local Thief", "YOUNGSTER"),
-    ("TBLOCALYOUTH2", "Local Thief", "CAMPER"),
-    ("TBABYSSRUNNER", "Abyss Runner", "BURGLAR"),
-]
+from ..catalog import ITEMS, TRAINERS
 
 
 def build_items(game):
     items = loads((game / "Data/items.dat").read_bytes())
     text = "# Generated story Key Items.\n"
-    for ident, name, description in ITEMS:
+    for ident, record in ITEMS.items():
+        name, description = record["name"], record["description"]
         data = clone(items[Symbol("TOWNMAP")])
         data.attributes.update(
             {
@@ -83,7 +52,8 @@ def build_items(game):
 def build_trainers(game):
     types = loads((game / "Data/trainer_types.dat").read_bytes())
     text = "# Temporary stock art; no final Team Abyss uniform is established.\n"
-    for ident, name, base in TRAINERS:
+    for ident, record in TRAINERS.items():
+        name, base = record["name"], record.get("stock", "YOUNGSTER")
         data = clone(types[Symbol(base)])
         data.attributes.update(
             {
@@ -92,13 +62,13 @@ def build_trainers(game):
                 "@base_money": 0,
                 "@skill_level": 0,
                 "@intro_BGM": None,
-                "@battle_BGM": "Tidebound Stillness",
-                "@victory_BGM": "Tidebound Stillness",
+                "@battle_BGM": "stillness",
+                "@victory_BGM": "stillness",
                 "@pbs_file_suffix": "tidebound_story",
             }
         )
         types[Symbol(ident)] = data
-        text += f"\n#-------------------------------\n[{ident}]\nName = {name}\nGender = Male\nBaseMoney = 0\nSkillLevel = 0\nBattleBGM = Tidebound Stillness\nVictoryBGM = Tidebound Stillness\n"
+        text += f"\n#-------------------------------\n[{ident}]\nName = {name}\nGender = Male\nBaseMoney = 0\nSkillLevel = 0\nBattleBGM = stillness\nVictoryBGM = stillness\n"
     (game / "PBS/trainer_types_tidebound_story.txt").write_text(text, encoding="utf-8-sig")
     (game / "Data/trainer_types.dat").write_bytes(writes(types))
 

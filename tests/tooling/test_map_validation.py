@@ -19,9 +19,9 @@ class MapValidationTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.game = self.root / "game"
         for name in (
-            "tools/generated/collisions.json",
-            "tools/generated/map_manifest.json",
-            "tools/generated/maze_manifest.json",
+            "game/.generated/collisions.json",
+            "game/.generated/map_manifest.json",
+            "game/.generated/maze_manifest.json",
             "game/Data/Scripts.rxdata",
             "game/Data/map_metadata.dat",
         ):
@@ -71,7 +71,7 @@ class MapValidationTests(unittest.TestCase):
                 else:
                     import json
 
-                    masks = self.root / "tools/generated/collisions.json"
+                    masks = self.root / "game/.generated/collisions.json"
                     data = json.loads(masks.read_text())
                     data["101"][0] = data["101"][0][:-1]
                     masks.write_text(json.dumps(data))

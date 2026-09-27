@@ -166,7 +166,7 @@ def pbs_files(definitions):
         lines.extend(
             f"{key} = {pbs_value(value)}"
             for key, value in definition["fields"].items()
-            if value != ()
+            if value not in ((), [])
         )
         sections[definition["file"]].append("\n".join(lines))
     return {

@@ -1,5 +1,0 @@
-﻿# Generated from tidebound_dev.content species definitions.
-[PSYDUCK,1]
-FormName = Tidebound
-Types = WATER,PSYCHIC
-Evolutions = WHYDUCK,Level,16

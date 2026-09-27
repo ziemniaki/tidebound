@@ -2,7 +2,6 @@
 
 from pathlib import Path
 import unittest
-from unittest.mock import patch
 
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -43,13 +42,6 @@ class SpeciesCompilerTests(unittest.TestCase):
     def test_missing_template_and_cycles_have_explicit_errors(self):
         with self.assertRaisesRegex(ValueError, "Missing or cyclic"):
             compile_records({}, {"A": {"inherit": "B"}, "B": {"inherit": "A"}})
-
-    def test_duplicate_family_ids_are_rejected(self):
-        from tidebound_dev.content import species
-
-        with patch.object(species.coastal, "SPECIES", {"MOONKERN": {}}):
-            with self.assertRaisesRegex(ValueError, "Duplicate SPECIES.*MOONKERN"):
-                species.combine("SPECIES")
 
     def test_unknown_fields_and_invalid_stat_counts_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "Unsupported species field"):

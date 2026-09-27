@@ -1,8 +1,8 @@
 """One definition for each map's arrivals, music, metadata and atmosphere."""
 
 from dataclasses import dataclass, field
-from pathlib import Path
-import json
+from ..catalog import bundles
+from ..paths import ROOT
 from .atlases import GROUPS
 from rubymarshal.classes import Symbol
 
@@ -26,7 +26,7 @@ class MapDefinition:
     encounters: dict = field(default_factory=dict)
     wild_forms: dict[str, int] = field(default_factory=dict)
     atmosphere: str = "indoor"
-    music: str = "Tidebound Stillness"
+    music: str = "stillness"
     battleback: str = "field"
     environment: str = "None"
     outdoor: bool = False
@@ -86,8 +86,7 @@ class MapDefinition:
 
 # Only declarations are discovered. Builders are imported after the catalog is complete.
 DEFINITIONS = {
-    path.parent.name: MapDefinition(**json.loads(path.read_text()))
-    for path in sorted((Path(__file__).parent / "areas").glob("*/map.json"))
+    name: MapDefinition(**record) for name, record in bundles(ROOT, "maps", "map.json").items()
 }
 BY_ID = {definition.id: definition for definition in DEFINITIONS.values()}
 if len(BY_ID) != len(DEFINITIONS):

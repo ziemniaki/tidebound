@@ -7,10 +7,9 @@ from rubymarshal.writer import writes
 
 
 def build(root):
-    DEV = root / "tools"
-    GAME = DEV.parent / "game"
+    GAME = root / "game"
     # Read required generator output before changing editor metadata.
-    manifest = json.loads((DEV / "generated/map_manifest.json").read_text())
+    manifest = json.loads((GAME / ".generated/map_manifest.json").read_text())
     # Standalone title and a separate save directory avoid Essentials demo saves.
     p = GAME / "Game.ini"
     s = p.read_text()
@@ -32,10 +31,10 @@ def build(root):
             "@start_money": 0,
             "@start_item_storage": [],
             "@home": [101, 6, 10, 2],
-            "@wild_battle_BGM": "Tidebound Stillness",
-            "@wild_victory_BGM": "Tidebound Stillness",
-            "@trainer_battle_BGM": "Tidebound Stillness",
-            "@trainer_victory_BGM": "Tidebound Stillness",
+            "@wild_battle_BGM": "stillness",
+            "@wild_victory_BGM": "stillness",
+            "@trainer_battle_BGM": "stillness",
+            "@trainer_victory_BGM": "stillness",
         }
     )
     (GAME / "Data/metadata.dat").write_bytes(writes(md))
@@ -48,7 +47,7 @@ def build(root):
     for kind in ["WildBattleBGM", "WildVictoryBGM", "TrainerBattleBGM", "TrainerVictoryBGM"]:
         import re
 
-        s = re.sub(r"^" + kind + r"\s*=.*$", kind + " = Tidebound Stillness", s, flags=re.M)
+        s = re.sub(r"^" + kind + r"\s*=.*$", kind + " = stillness", s, flags=re.M)
     p.write_text(s, encoding="utf-8-sig")
     p = GAME / "PBS/map_metadata.txt"
     s = p.read_text(encoding="utf-8-sig")

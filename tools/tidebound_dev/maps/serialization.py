@@ -56,17 +56,19 @@ def serialize(paths, maps):
     collisions = {
         str(m.id): ["".join("1" if b else "0" for b in row) for row in m.walk] for m in maps
     }
-    (paths.tools / "generated" / "collisions.json").write_text(json.dumps(collisions, indent=2))
+    (paths.generated / "collisions.json").write_text(json.dumps(collisions, indent=2))
     ruby = (
         "module Tidebound\n  MAP_PASSAGES = {\n"
         + "".join(f"    {k} => {json.dumps(v)},\n" for k, v in collisions.items())
         + "  }\nend\n"
     )
-    (paths.tools.parent / "src" / "generated/map_passages.rb").write_text(ruby)
+    (paths.root / "src" / "generated/map_passages.rb").write_text(ruby)
+    preview_dir = paths.root / ".build/maps"
+    preview_dir.mkdir(parents=True, exist_ok=True)
     previews = PreviewRenderer(paths.game)
     for m in maps:
-        save_png(previews.render(m), paths.tools / "generated" / f"map_{m.id}_preview.png")
-    (paths.tools / "generated" / "map_manifest.json").write_text(
+        save_png(previews.render(m), preview_dir / f"map_{m.id}_preview.png")
+    (paths.generated / "map_manifest.json").write_text(
         json.dumps(
             [
                 {

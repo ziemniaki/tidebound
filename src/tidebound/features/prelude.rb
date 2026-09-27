@@ -66,7 +66,7 @@ class Scene_TideboundBirdPrelude
   end
   def main
     build
-    pbBGMPlay("Tidebound Stillness", 65, 80)
+    pbBGMPlay("stillness", 65, 80)
     Graphics.transition(16)
     @last_time = System.uptime
     until @finished

@@ -34,7 +34,7 @@ class TransferTests(unittest.TestCase):
     def test_every_page_is_validated_and_direct_transfers_are_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            shutil.copytree(ROOT / "tools/generated", root / "tools/generated")
+            shutil.copytree(ROOT / "game/.generated", root / "game/.generated")
             shutil.copytree(ROOT / "game/Data", root / "game/Data")
             for name in ("Graphics", "Audio"):
                 (root / "game" / name).symlink_to(ROOT / "game" / name, target_is_directory=True)

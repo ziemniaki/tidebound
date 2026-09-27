@@ -19,4 +19,4 @@ def rebuild(root, *, full=False):
     scripts(root)
     if full:
         configure.build(root)
-        validate(root, root / "tools/generated/event_scripts.json")
+        validate(root, root / ".build/maps/event_scripts.json")

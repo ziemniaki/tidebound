@@ -7,10 +7,10 @@ It is not a disposable build directory.
 | Editing | Source to change first |
 | --- | --- |
 | `Data/Scripts.rxdata` | `src/`, load manifest and explicit `tools/tidebound_dev/scripts/patches.py` patches |
-| `Data/Map101.rxdata` … `Map116.rxdata`, custom tilesets | [Map builders](../tools/tidebound_dev/maps/AGENTS.md) |
-| Tidebound species/forms/items/encounter PBS and `.dat` | [Content definitions](../tools/tidebound_dev/content/AGENTS.md) |
-| Custom Pokémon, character, trainer, item and picture PNGs | [Asset ownership/export guide](../assets/AGENTS.md) |
-| Sound files | [Audio workflow](../tools/tidebound_dev/art/AGENTS.md) |
+| `Data/Map101.rxdata` … `Map116.rxdata`, custom tilesets | [Map builders](../content/maps/AGENTS.md) |
+| Tidebound species/forms/items/encounter PBS and `.dat` | [Content definitions](../content/pokemon/AGENTS.md) |
+| Custom Pokémon, character, trainer, item and picture PNGs | [Asset ownership/export guide](../content/AGENTS.md) |
+| Sound files | [Audio workflow](../content/audio/AGENTS.md) |
 
 Do not edit ignored `tests/engine_reference/`: it is an inspection copy.
 Do not delete stock data or seemingly unused art based on text searches; Essentials
@@ -18,8 +18,8 @@ resolves many filenames dynamically. Manual editor changes to generated maps mus
 be brought back into their builders before regeneration. Preserve supplied edits.
 
 `uv run play` refreshes custom assets and Ruby. It preserves compiled content and
-map geometry. Edit approved sources in `assets/`, not exported PNG/OGG files;
-`tools/generated/assets.json` identifies owned exports. Packed tilesets/light masks
+map geometry. Edit approved sources in `content/`, not exported PNG/OGG files;
+`game/.generated/assets.json` identifies owned exports. Packed tilesets/light masks
 need `uv run rebuild --all`. Full rebuild writes both authored PBS and native data;
 arbitrary new PBS fields require native compiler validation.
 

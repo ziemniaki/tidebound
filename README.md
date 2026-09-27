@@ -53,7 +53,8 @@ uv run preview pokemon/WHYDUCK  # inspect an asset in the engine
 | `game/` | RPG Maker project, compiled data, PBS definitions and playable assets |
 | `tools/` | Build commands, map/data generators and packaging |
 | `tests/` | Headless checks and native runtime smoke tests |
-| `assets/` | Approved custom assets and creative references |
+| `content/` | Authored maps, Pokémon, items, actors, artwork and sound |
+| `references/` | Concepts and working material outside the build |
 | `runtime/` | Pinned engine inputs, patches and provenance |
 
 Agents start with [AGENTS.md](AGENTS.md). Contributors should read the

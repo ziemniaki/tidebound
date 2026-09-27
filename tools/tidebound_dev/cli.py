@@ -86,7 +86,7 @@ def parser():
         help="Start the full game at a declared state, e.g. neighbor/meal",
     )
     preview = commands.add_parser("preview", help="Build and launch the asset viewer")
-    preview.add_argument("asset", help="Asset selector, e.g. pokemon/WHYDUCK or props/ship1")
+    preview.add_argument("asset", help="Asset selector, e.g. pokemon/WHYDUCK or props/moored_ship")
     for name, help in (
         ("check", "Also verify isolated regeneration"),
         ("rebuild", "Also regenerate maps, content and artwork"),

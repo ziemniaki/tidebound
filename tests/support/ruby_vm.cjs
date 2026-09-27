@@ -65,7 +65,7 @@ end`, 'data bridge');
   }
 
   function compileEvents() {
-    const source = process.env.TIDEBOUND_EVENT_SCRIPTS || path.join(root, 'tools/generated/event_scripts.json');
+    const source = process.env.TIDEBOUND_EVENT_SCRIPTS || path.join(root, '.build/maps/event_scripts.json');
     const events = JSON.parse(fs.readFileSync(source, 'utf8'));
     for (const event of events) {
       evaluate(`RubyVM::InstructionSequence.compile(${JSON.stringify(event.code)}, ${JSON.stringify(event.name)})`, event.name);

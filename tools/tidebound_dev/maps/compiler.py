@@ -3,7 +3,8 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from importlib import import_module
+from runpy import run_path
+from types import SimpleNamespace
 from .definitions import DEFINITIONS
 from .atlases import GROUPS
 from . import landscape, interior, scenery
@@ -21,8 +22,8 @@ class BuildPaths:
         return self.root / "game"
 
     @property
-    def tools(self):
-        return self.root / "tools"
+    def generated(self):
+        return self.game / ".generated"
 
 
 @dataclass
@@ -48,7 +49,7 @@ def construct(paths):
     groups = contexts(paths)
     built = []
     for name, definition in sorted(DEFINITIONS.items(), key=lambda item: item[1].id):
-        module = import_module(f"{__package__}.areas.{name}.build")
+        module = SimpleNamespace(**run_path(str(paths.root / "content/maps" / name / "build.py")))
         area = module.build(groups[definition.atlas])
         if area.id != definition.id:
             raise ValueError(f"Map {name}: builder and declaration disagree")
@@ -68,6 +69,8 @@ def construct(paths):
 
 def build(root):
     paths = BuildPaths(root)
+    paths.generated.mkdir(parents=True, exist_ok=True)
+    (root / ".build/maps").mkdir(parents=True, exist_ok=True)
     maps = construct(paths)
     scenery.window_lights(paths, maps)
     serialize(paths, maps)

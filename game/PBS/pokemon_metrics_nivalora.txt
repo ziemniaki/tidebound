@@ -1,7 +1,0 @@
-﻿# Generated from tidebound_dev.content species definitions.
-[NIVALORA]
-BackSprite = 0,0
-FrontSprite = 0,4
-FrontSpriteAltitude = 8
-ShadowX = 0
-ShadowSize = 1

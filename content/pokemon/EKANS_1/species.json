@@ -1,0 +1,109 @@
+{
+  "species": {
+    "inherit": "EKANS",
+    "fields": {
+      "FormName": "Tidebound",
+      "Types": ["NORMAL", "DARK"],
+      "Color": "Gray",
+      "Moves": [
+        [1, "WRAP"],
+        [1, "LEER"],
+        [4, "PURSUIT"],
+        [9, "BITE"],
+        [12, "GLARE"],
+        [17, "SCREECH"],
+        [20, "SNARL"],
+        [25, "STOCKPILE"],
+        [25, "SWALLOW"],
+        [25, "SPITUP"],
+        [28, "ASSURANCE"],
+        [33, "DARKPULSE"],
+        [36, "TAUNT"],
+        [38, "FOULPLAY"],
+        [41, "HAZE"],
+        [44, "HONECLAWS"],
+        [49, "THROATCHOP"]
+      ],
+      "TutorMoves": [
+        "AQUATAIL",
+        "ATTRACT",
+        "BIND",
+        "BODYSLAM",
+        "BRUTALSWING",
+        "BULLDOZE",
+        "CAPTIVATE",
+        "CONFIDE",
+        "DARKPULSE",
+        "DIG",
+        "DOUBLEEDGE",
+        "DOUBLETEAM",
+        "EARTHQUAKE",
+        "ENDURE",
+        "FACADE",
+        "FRUSTRATION",
+        "TAUNT",
+        "GIGADRAIN",
+        "THROATCHOP",
+        "HEADBUTT",
+        "HIDDENPOWER",
+        "INFESTATION",
+        "IRONTAIL",
+        "MIMIC",
+        "NATURALGIFT",
+        "PAYBACK",
+        "CRUNCH",
+        "PROTECT",
+        "RAINDANCE",
+        "REST",
+        "RETURN",
+        "ROCKSLIDE",
+        "ROCKTOMB",
+        "ROUND",
+        "SECRETPOWER",
+        "SEEDBOMB",
+        "SLEEPTALK",
+        "SNATCH",
+        "SNORE",
+        "SPITE",
+        "STRENGTH",
+        "SUBSTITUTE",
+        "SUNNYDAY",
+        "SWAGGER",
+        "THIEF",
+        "TORMENT"
+      ],
+      "EggMoves": [
+        "BEATUP",
+        "DISABLE",
+        "JAWLOCK",
+        "NIGHTSLASH",
+        "SCARYFACE",
+        "SLAM",
+        "SPITE",
+        "SUCKERPUNCH",
+        "SWITCHEROO"
+      ],
+      "Evolutions": [["ARBOK", "Level", 22]]
+    }
+  },
+  "art": {
+    "cry": "EKANS",
+    "stock": "EKANS",
+    "palette": {
+      "Front": [
+        [[90, 16, 74], [52, 54, 57]],
+        [[123, 49, 106], [78, 81, 84]],
+        [[164, 74, 139], [112, 115, 118]],
+        [[205, 98, 180], [150, 153, 156]],
+        [[238, 164, 213], [196, 199, 201]]
+      ],
+      "Back": [
+        [[92, 18, 76], [52, 54, 57]],
+        [[124, 50, 108], [78, 81, 84]],
+        [[164, 74, 140], [112, 115, 118]],
+        [[204, 98, 180], [150, 153, 156]]
+      ],
+      "Icons": [[[144, 120, 200], [112, 115, 118]], [[192, 160, 200], [169, 172, 175]]]
+    }
+  }
+}

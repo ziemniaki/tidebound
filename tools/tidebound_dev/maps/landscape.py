@@ -23,7 +23,7 @@ def save_atlas(paths, palette, maps, group):
     ts.attributes["@tileset_name"] = group.texture
     for m in maps:
         m.tileset = landscape_id
-        m.light_mask = "Outside/windows.png"
+        m.light_mask = "outside/windows.png"
     # Keep the native wave animations, tint only blue water pixels (not shore rock).
     for name, source, factors in [
         ("Tidebound Shallows", "Sea", (0.98, 1.13, 1.03)),
