@@ -99,7 +99,16 @@ def build(paths, interior):
         color = 0 if (x, y) in [(9, 16), (4, 10)] else 2 if (x, y) == (7, 11) else 1
         interior.surface(maze, marker("warp", color), x, y)
         maze.event("Round patch", x, y, f"Tidebound::PsychicMaze.warp({dx}, {dy})", trigger=1)
-    maze.event("Room:NATU", 24, 5, "Tidebound::PsychicMaze.finish", "Pokemon 01", opacity=0)
+    maze.event(
+        "Room:NATU",
+        24,
+        5,
+        "Tidebound::PsychicMaze.finish",
+        "Pokemon 01",
+        opacity=0,
+        role="room",
+        species="NATU",
+    )
     maze.event("Game rules", 3, 19, "Tidebound::PsychicMaze.rules")
     maze.event("Opening", 2, 23, "Tidebound::PsychicMaze.arrival", trigger=3)
 

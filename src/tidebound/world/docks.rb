@@ -87,22 +87,22 @@ class TideboundQuayProp < Sprite
     self.bitmap = Bitmap.new(128, 96)
     self.ox = 32
     self.oy = 80
-    self.ox = 96 if event.name == "Dock boat" && event.x == 24
+    self.ox = 96 if Tidebound::Actors.role(event) == "dock_boat" && event.x == 24
     b = bitmap
     wood = Color.new(125, 96, 68)
     dark = Color.new(52, 57, 56)
     rope = Color.new(167, 150, 111)
-    case event.name
-    when "Dock bollard"
+    case Tidebound::Actors.role(event)
+    when "dock_bollard"
       b.fill_rect(22, 63, 20, 15, dark)
       b.fill_rect(25, 54, 14, 20, wood)
       [61, 65, 69].each { |y| b.fill_rect(22, y, 20, 2, rope) }
-    when "Dock nets"
+    when "dock_nets"
       b.fill_rect(8, 57, 43, 20, Color.new(38, 58, 59, 180))
       7.times { |i| b.fill_rect(9 + i * 6, 58, 2, 18, Color.new(115, 132, 118)) }
       5.times { |i| b.fill_rect(9, 58 + i * 4, 40, 1, rope) }
       b.fill_rect(16, 58, 4, 3, Color.new(202, 197, 156))
-    when "Dock boat"
+    when "dock_boat"
       [[8, 57, 93, 17], [14, 51, 81, 29], [21, 47, 67, 36]].each { |r| b.fill_rect(*r, dark) }
       b.fill_rect(21, 51, 66, 28, wood)
       b.fill_rect(25, 54, 58, 22, Color.new(69, 63, 53))
@@ -110,7 +110,7 @@ class TideboundQuayProp < Sprite
       b.fill_rect(30, 61, 68, 3, rope)
       b.fill_rect(93, 58, 11, 9, wood)
       b.fill_rect(10, 82, 82, 2, Color.new(93, 127, 139, 80))
-    when "Dock stall"
+    when "dock_stall"
       b.fill_rect(10, 54, 50, 27, wood)
       b.fill_rect(8, 50, 54, 7, rope)
       [15, 51].each { |x| b.fill_rect(x, 70, 5, 19, dark) }
@@ -139,7 +139,7 @@ EventHandlers.add(
     spriteset.addUserSprite(TideboundWindowLights.new(map))
     if map.map_id == 112
       map.events.each_value do |e|
-        if ["Dock boat", "Dock bollard", "Dock nets", "Dock stall"].include?(e.name)
+        if %w[dock_boat dock_bollard dock_nets dock_stall].include?(Tidebound::Actors.role(e))
           spriteset.addUserSprite(TideboundQuayProp.new(e, viewport))
         end
       end

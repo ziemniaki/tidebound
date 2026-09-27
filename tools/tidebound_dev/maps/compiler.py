@@ -2,8 +2,6 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-import shutil
-import tempfile
 
 from . import areas, vault, landscape, lighthouse, maze, dream, folded, hideout, harbor, pond
 from .interior import InteriorPainter
@@ -88,24 +86,21 @@ def construct(paths):
     ]
 
 
-def build(root):
-    # Keep authored input untouched until every map and transfer validates.
-    from tidebound_dev.files import equivalent
-    from tidebound_dev.maps.validate import validate
+def generate(root):
+    """Generate inside the caller's disposable root."""
+    from .validate import validate
 
-    with tempfile.TemporaryDirectory(prefix="tidebound-maps-") as temp:
-        paths = BuildPaths(Path(temp))
-        shutil.copytree(root / "game", paths.game)
-        (paths.tools / "generated").mkdir(parents=True)
-        (paths.root / "src/generated").mkdir(parents=True)
-        serialize(paths, construct(paths))
-        validate(paths.root, paths.tools / "generated/event_scripts.json", check_scripts=False)
-        for directory in ("game", "tools/generated", "src/generated"):
-            for source in (paths.root / directory).rglob("*"):
-                if not source.is_file():
-                    continue
-                target = root / source.relative_to(paths.root)
-                if target.exists() and equivalent(target, source):
-                    continue
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(source, target)
+    paths = BuildPaths(root)
+    serialize(paths, construct(paths))
+    validate(root, paths.tools / "generated/event_scripts.json", check_scripts=False)
+
+
+def build(root):
+    from tidebound_dev.generation import staged_outputs
+
+    with staged_outputs(
+        root,
+        inputs=("game",),
+        outputs=("game", "tools/generated", "src/generated"),
+    ) as stage:
+        generate(stage)

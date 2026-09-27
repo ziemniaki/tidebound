@@ -61,6 +61,13 @@ class SpeciesCompilerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Missing or cyclic"):
             compile_records({}, {"A": {"inherit": "B"}, "B": {"inherit": "A"}})
 
+    def test_duplicate_family_ids_are_rejected(self):
+        from tidebound_dev.content import species
+
+        with patch.object(species.coastal, "SPECIES", {"MOONKERN": {}}):
+            with self.assertRaisesRegex(ValueError, "Duplicate SPECIES.*MOONKERN"):
+                species.combine("SPECIES")
+
     def test_unknown_fields_and_invalid_stat_counts_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "Unsupported species field"):
             native_field("BaseStat", (1, 2, 3))

@@ -22,9 +22,12 @@ Map builders return independent in-memory areas. `maps/compiler.py` declares
 composition explicitly: base areas, connections, landscape, interiors and harbor/
 pond decoration. Painters own their tile atlases and caches; area modules receive
 only the maps and painters they use. Imports never load or write game assets.
-The compiler constructs in a temporary workspace, checks every arrival, transfer
-and interaction, then publishes changed outputs. Failed validation leaves the
-checkout unchanged.
+Full rebuild generates maps, content, art and scripts in a temporary workspace,
+then validates and publishes changed outputs. Failed generation/validation leaves
+the checkout unchanged; publication errors roll back replaced files. This protects
+ordinary I/O failures, not process termination midway through publication. Rebuild
+after an interrupted publication. A failed rollback retains a reported recovery
+directory rather than discarding the backups.
 
 ## Python operations
 
@@ -60,10 +63,13 @@ story behavior. Shared NPC interactions are dispatched explicitly in
 `features/interactions.rb`; features do not prepend into one another. Engine
 adapters can still prepend into Essentials interfaces.
 
-Map and actor names are declared in `maps/registry.py` and compiled to
+Map definitions in `maps/definitions.py` own IDs, arrivals, music, metadata and
+atmosphere. They feed native maps, PBS metadata, validation and generated runtime
+settings. Map-qualified actor identities live in `maps/registry.py`; event roles
+are authored beside their builders. Both compile to
 `src/generated/world_registry.rb`. Python builders use that catalog, and Ruby
 calls `World.travel(:road, ...)` or `World.actor(:mother)` instead of repeating
-map IDs or event display names. Regeneration validates the named maps/actors;
+map IDs or event display names. Regeneration rejects missing, duplicate or misplaced actors;
 headless integration verifies generated event calls against the loaded public API.
 
 Generated Ruby is confined to `src/generated/`. Maze, pond and collision data are
@@ -127,7 +133,9 @@ provenance are described in [releasing](releasing.md).
 ## Presentation and actor state
 
 `features/actors.rb` synchronizes companion/key/crate collision during map updates,
-independent of sprite creation. Its visibility rules are shared by the renderers.
+independent of sprite creation. Generated roles carry species, soul index or
+quest state key explicitly; readable labels do not select rendering or policy.
+Its visibility rules are shared by the renderers.
 Forced movement routes retain their collision ownership until the route finishes.
 
 Code-drawn props inherit `Presentation::OwnedSprite`: it disposes the owned bitmap

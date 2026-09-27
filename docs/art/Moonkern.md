@@ -1,16 +1,11 @@
-# Moonkern sprite source
+# Moonkern artwork
 
-Built-in image generation and editing, 13 September 2026, with Tidebound
-Sunkern as the species/style reference. The first result contained a printed
-checkerboard; a second edit replaced it with a magenta chroma key, including
-the hollow interior. source.png preserves that corrected atlas. export.sh
-removes the key and performs only mechanical crop, palette and size conversion.
+A hollow seed with a floating face and leaves.
 
-Four source cells: front, back, small front and small back. The runtime party
-icon uses two positions of the small front to preserve its face while bobbing.
-Battle frames are 160x160; icon strip 128x64. Shiny art uses the same palette
-pending a separate design. Cry reuses included Sunkern audio provisionally.
+Edit `assets/Moonkern/pixels.png`; `uv run rebuild --all` exports it through
+`art/atlas.py`. The 320×224 atlas contains front/back 160×160 frames across the
+top and the 128×64 two-frame icon at bottom left. Normal and shiny share the
+approved palette. High-resolution `reference.png` is a design reference; retired
+ImageMagick recipes did not reproduce the approved pixels on a current install.
 
-Correction prompt: preserve all sprites; remove every checkerboard/background
-texture, including inside the hollow seed; use real alpha or uniform #FF00FF
-chroma key in all empty regions; retain contour, floating face and leaves.
+See [the asset guide](../../assets/AGENTS.md) for engine filenames and validation.

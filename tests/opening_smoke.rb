@@ -46,6 +46,7 @@ end
 class OpeningScene
   def transfer_player
     $game_map.map_id = $game_temp.player_new_map_id
+    $game_map.events = world_events($game_map.map_id)
     $game_player.moveto($game_temp.player_new_x, $game_temp.player_new_y)
   end
 end
@@ -72,7 +73,7 @@ def pbMapInterpreter
   $opening_interpreter
 end
 class OpeningEvent
-  attr_accessor :name, :id, :x, :y, :opacity, :through, :step_anime
+  attr_accessor :name, :id, :map_id, :x, :y, :opacity, :through, :step_anime
   def initialize(name = "Opening", id = 1, x = 11, y = 16)
     @name = name
     @id = id

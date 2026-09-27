@@ -11,7 +11,7 @@ class TideboundArchiveProp < Tidebound::Presentation::OwnedSprite
     edge = Color.new(115, 124, 123)
     wood = Color.new(110, 77, 50)
     dark = Color.new(31, 40, 45)
-    if event.name == "Vault ironwork"
+    if Tidebound::Actors.role(event) == "vault_ironwork"
       b.fill_rect(4, 4, 88, 104, Color.new(70, 73, 69))
       b.fill_rect(10, 10, 76, 94, edge)
       b.fill_rect(16, 16, 64, 88, dark)
@@ -22,11 +22,11 @@ class TideboundArchiveProp < Tidebound::Presentation::OwnedSprite
       end
       b.fill_rect(35, 47, 13, 25, Color.new(142, 130, 96))
       b.fill_rect(39, 52, 5, 15, iron)
-    elsif event.name == "Vault pillar"
+    elsif Tidebound::Actors.role(event) == "vault_pillar"
       b.fill_rect(31, 24, 34, 80, Color.new(105, 106, 97))
       b.fill_rect(35, 29, 25, 67, Color.new(139, 138, 122))
       [24, 53, 78, 99].each { |y| b.fill_rect(29, y, 38, 4, Color.new(84, 91, 87)) }
-    elsif event.name == "Necklace drawer"
+    elsif Tidebound::Actors.role(event) == "necklace_drawer"
       b.fill_rect(24, 64, 48, 40, dark)
       b.fill_rect(26, 65, 44, 35, wood)
       [68, 81, 94].each do |y|
@@ -40,7 +40,7 @@ class TideboundArchiveProp < Tidebound::Presentation::OwnedSprite
       b.fill_rect(23, 61, 49, 2, Color.new(204, 223, 214))
       b.fill_rect(25, 83, 46, 3, Color.new(192, 172, 124))
       b.fill_rect(42, 94, 12, 4, Color.new(223, 214, 181))
-      if event.name == "Sabre exhibit"
+      if Tidebound::Actors.role(event) == "sabre_exhibit"
         b.fill_rect(31, 72, 8, 4, Color.new(116, 72, 48))
         b.fill_rect(39, 68, 3, 12, Color.new(208, 178, 102))
         b.fill_rect(42, 72, 21, 3, Color.new(199, 219, 220))
@@ -63,8 +63,9 @@ EventHandlers.add(
   :tidebound_archive_props,
   proc do |spriteset, viewport|
     spriteset.map.events.each_value do |e|
-      if ["Vault ironwork", "Vault pillar", "Necklace drawer", "Sabre exhibit"].include?(e.name) ||
-           e.name.start_with?("Museum case:")
+      if %w[vault_ironwork vault_pillar necklace_drawer sabre_exhibit museum_case].include?(
+           Tidebound::Actors.role(e)
+         )
         spriteset.addUserSprite(TideboundArchiveProp.new(e, viewport))
       end
     end

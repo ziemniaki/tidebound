@@ -1,7 +1,7 @@
 # Tidebound Wurmple
 
 The user explicitly authorized direct pixel recolouring on 13 September 2026.
-recolour.py replaces the red/coral palette with bright pale blue. It preserves
+`tools/tidebound_dev/art/wurmple.py` replaces the red/coral palette with bright pale blue. It preserves
 the original front/back poses, two icon frames, outlines, pixel positions,
 shading regions, dimensions and alpha. Cream and yellow details remain.
 
@@ -10,4 +10,4 @@ Outputs use WURMPLE_1.png. Front/back are 160x160; icon is 128x64. Shiny views
 share the pale-blue palette provisionally. No new generated art is used.
 Retain the original project Pokemon sprite attribution in docs/credits.md.
 
-Run: uv run python assets/Wurmple/recolour.py
+Run: uv run rebuild --all

@@ -7,40 +7,68 @@ module NativeScenarios
     world(output) if %i[world all].include?(scenario)
   end
 
-  def species_snapshot
-    # Essentials adds non-evolving :None family links on base species for forms.
-    # Compare actual evolution rules; those compiler-only links cannot evolve.
-    result = {}
-    GameData::Species.each do |record|
-      unless %i[
-               WURMPLE
-               SUNKERN
-               EKANS
-               ARBOK
-               PSYDUCK
-               FROSTCOON
-               GLACIVERM
-               NIVALORA
-               MOONKERN
-               MOONFLORA
-               WHYDUCK
-             ].include?(record.species)
-        next
-      end
-      result[record.id] = [
-        record.types,
-        record.base_stats,
-        record.abilities,
-        record.hidden_abilities,
-        record.moves,
-        record.evolutions.reject { |entry| entry[1] == :None }.sort_by(&:to_s)
-      ]
+  def records_snapshot(klass, identifiers)
+    identifiers.to_h do |identifier|
+      record = klass.get(identifier.to_sym)
+      attributes =
+        record
+          .instance_variables
+          .reject { |name| name == :@pbs_file_suffix }
+          .to_h do |name|
+            value = record.instance_variable_get(name)
+            # Essentials adds non-evolving family backlinks; retain all real rules.
+            value = value.reject { |entry| entry[1] == :None }.sort_by(&:to_s) if name ==
+              :@evolutions
+            [name, value]
+          end
+      [identifier, attributes]
     end
-    result
+  end
+
+  def content_snapshot(inventory)
+    {
+      species: records_snapshot(GameData::Species, inventory.fetch("species")),
+      metrics: records_snapshot(GameData::SpeciesMetrics, inventory.fetch("metrics"))
+    }
+  end
+
+  def exact_asset!(expected, actual)
+    unless actual && File.expand_path(actual) == File.expand_path(expected)
+      raise "Asset resolved incorrectly: expected #{expected}, got #{actual.inspect}"
+    end
+  end
+
+  def verify_art(inventory)
+    inventory
+      .fetch("art")
+      .each do |asset|
+        species, form = asset.fetch("species").to_sym, asset.fetch("form")
+        [false, true].each do |shiny|
+          [false, true].each do |back|
+            key = (back ? "back" : "front") + (shiny ? "_shiny" : "")
+            actual = GameData::Species.sprite_filename(species, form, 0, shiny, false, back)
+            exact_asset!(asset.fetch(key), actual)
+            image = AnimatedBitmap.new(actual)
+            raise "Empty sprite: #{actual}" if image.bitmap.width == 0
+            image.dispose
+          end
+          actual = GameData::Species.icon_filename(species, form, 0, shiny)
+          exact_asset!(asset.fetch(shiny ? "icon_shiny" : "icon"), actual)
+          image = AnimatedBitmap.new(actual)
+          unless image.width >= image.height && image.width % image.height == 0
+            raise "Icon must be a horizontal strip of square frames: #{actual}"
+          end
+          image.dispose
+        end
+        actual = GameData::Species.cry_filename(species, form)
+        exact_asset!(asset.fetch("cry"), actual)
+        raise "Missing cry: #{actual}" unless pbResolveAudioSE(actual)
+      end
   end
 
   def species
-    expected = species_snapshot
+    inventory = load_data("NativeContent.rxdata")
+    expected = content_snapshot(inventory)
     sources = Dir.glob("NativePBS/pokemon*.txt").map { |path| File.expand_path(path) }
     raise "Species scenario requires PBS inputs" if sources.empty?
     # The shipped Linux tree is read-only. Compile into the isolated save area.
@@ -50,24 +78,25 @@ module NativeScenarios
     Dir.chdir(destination) do
       Compiler.compile_pokemon(*sources.reject { |path| path =~ /pokemon_(forms|metrics)/ })
       Compiler.compile_pokemon_forms(*sources.select { |path| path.include?("pokemon_forms") })
+      Compiler.compile_pokemon_metrics(*sources.select { |path| path.include?("pokemon_metrics") })
     end
-    actual = species_snapshot
-    changed = (expected.keys | actual.keys).select { |key| expected[key] != actual[key] }
-    unless changed.empty?
-      raise "PBS compiler changed species: #{changed.map { |key| [key, expected[key], actual[key]] }.inspect}"
-    end
-    %i[GLACIVERM FROSTCOON NIVALORA MOONKERN MOONFLORA WHYDUCK].each do |species|
-      pokemon = Pokemon.new(species, 20, $player)
-      [false, true].each do |shiny|
-        pokemon.shiny = shiny
-        [false, true].each do |back|
-          image = GameData::Species.sprite_bitmap_from_pokemon(pokemon, back)
-          raise "Missing art: #{species}" unless image && image.bitmap.width > 0
-          image.dispose
+    actual = content_snapshot(inventory)
+    changed = []
+    expected.each do |kind, records|
+      records.each do |identifier, attributes|
+        attributes.each do |name, value|
+          found = actual.fetch(kind).fetch(identifier)[name]
+          unless value == found
+            changed << "#{identifier} #{name}: #{value.inspect} -> #{found.inspect}"
+          end
         end
+        extras = actual.fetch(kind).fetch(identifier).keys - attributes.keys
+        changed << "#{identifier}: unexpected attributes #{extras}" unless extras.empty?
       end
     end
-    puts "PASS: native PBS compiler agrees with generated species; front/back/shiny assets load"
+    raise "PBS compiler changed content: #{changed.join("; ")}" unless changed.empty?
+    verify_art(inventory)
+    puts "PASS: native PBS matches all custom species attributes and metrics; exact sprites, icons and cries resolve"
   end
 
   def capture(output, name)

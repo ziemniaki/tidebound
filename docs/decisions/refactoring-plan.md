@@ -1,6 +1,10 @@
 # Refactoring audit and plan
 
-Status: implementation in progress in PR #14. Audit completed 2026-09-26 against
+Status: completed and merged in [PR #14](https://github.com/ziemniaki/tidebound/pull/14),
+released in 0.8.7. The findings/plan below record the original scope, not pending
+instructions. Current follow-ups are in [the authoring audit](authoring-audit.md).
+
+Original audit completed 2026-09-26 against
 `0f6a91a9d8d1d939f0c2e7cd3927af3b41073539` (main after PR #13).
 
 The main problem is implicit ownership and execution order. Moving files alone
@@ -456,8 +460,8 @@ frameworks and a broad asset purge until a specific need justifies them.
 
 All fourteen implementation items are complete. Headless and isolated-regeneration
 checks pass locally. Fresh native ARM world/PBS/save scenarios pass, with seven
-rendered scenes compared before/after the presentation refactor. The final
-Mac ARM/Intel, Windows and Linux matrix is the final acceptance gate. Its
+rendered scenes compared before/after the presentation refactor. The Mac ARM/Intel,
+Windows and Linux matrix passed before merge. Its
 commit-specific result and evidence are recorded in [PR #14](https://github.com/ziemniaki/tidebound/pull/14).
 
 ### Development build measurement

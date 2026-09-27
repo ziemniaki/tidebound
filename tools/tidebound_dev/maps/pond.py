@@ -56,7 +56,7 @@ def decorate(paths, palette, road):
             a["@pages"][0].attributes["@list"] = script(
                 'pbMessage("A narrow trail bends down to a pond. Fishing lines hang motionless over the water.")'
             ) + [command(0)]
-        elif a["@name"] == "Wild:PSYDUCK:shoreduck":
+        elif road.actor_settings.get(a["@id"], {}).get("role") == "shore_duck":
             a["@x"], a["@y"] = 19, 62
     road.targets = [
         (
@@ -86,6 +86,7 @@ def decorate(paths, palette, road):
         54,
         "Tidebound::FieldDetails.berry(108, 20, 54, :ORANBERRY)",
         "berrytree_ORANBERRY",
+        role="berry",
     )
     road.events[len(road.events)].attributes["@pages"][0].attributes["@graphic"].attributes[
         "@direction"

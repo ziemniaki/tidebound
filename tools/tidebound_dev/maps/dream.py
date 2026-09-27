@@ -54,7 +54,16 @@ def build(paths, interior):
     inspect_prop("rug", [(5, 9)], "inspect_object(:rug)")
     for x in [7, 8]:
         dream.event("Dream exit", x, 12, "Tidebound::DreamRoom.exit_loop", trigger=1)
-    dream.event("Room:NATU", 10, 8, "Tidebound::DreamRoom.wick", "Pokemon 01", opacity=0)
+    dream.event(
+        "Room:NATU",
+        10,
+        8,
+        "Tidebound::DreamRoom.wick",
+        "Pokemon 01",
+        opacity=0,
+        role="room",
+        species="NATU",
+    )
     dream.event("Opening", 2, 11, "Tidebound::DreamRoom.arrival", trigger=3)
 
     (paths.tools / "generated" / "dream_manifest.json").write_text(

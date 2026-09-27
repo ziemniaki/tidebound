@@ -53,12 +53,13 @@ def build_home():
         'pbMessage("One of the boxes Maku is helping Mother put away.")',
         "Pokemon 01",
         opacity=0,
+        role="crate",
     )
     home.stamp(1, 237, 2, 2, 6, 3, walk=True)
     home.door(6, 3, 107, 8, 10, 8)
     # This autorun erases itself; persistent story flag prevents repetition on revisit.
     home.rect(10, 14, 1, 1, tile(4, 78), walk=True)
-    home.door(10, 14, 102, 8, 16)
+    home.door(10, 14, 102, 32, 36)
     home.stamp(1, 237, 2, 2, 16, 3, walk=True)
     home.door(17, 3, 104, 6, 9)
 
@@ -121,9 +122,9 @@ def build_coast():
     coast.stamp(0, 227, 4, 4, 20, 8)
     coast.stamp(0, 227, 4, 4, 28, 7)
     coast.stamp(4, 228, 4, 4, 34, 7)
-    coast.door(8, 15, 101, 10, 12, 8)
+    coast.door(8, 15, 101, 10, 12, 8, cue="north")
     coast.walk[31][45] = True
-    coast.event("Shop door", 21, 11, "Tidebound::Interactions.shop_door", trigger=1)
+    coast.event("Shop door", 21, 11, "Tidebound::Interactions.shop_door", trigger=1, cue="south")
     coast.event(
         ACTORS["seller_outside"], 22, 12, "Tidebound::Interactions.outside_seller", "NPC 10"
     )
@@ -148,11 +149,15 @@ def build_coast():
         blocks=True,
     )
     coast.event("Pier", 54, 20, "Tidebound::Opening.pier", trigger=1)
-    coast.event("Lapras", 56, 23, "")
+    coast.event("Lapras", 56, 23, "", role="lapras")
     coast.event(
-        "Tide bell", 18, 20, 'pbMessage("A bell with no clapper. Salt has filled the inscription.")'
+        "Tide bell",
+        18,
+        20,
+        'pbMessage("A bell with no clapper. Salt has filled the inscription.")',
+        role="tide_bell",
     )
-    coast.event("Forest path", 24, 3, "Tidebound::Opening.forest_gate", trigger=1)
+    coast.event("Forest path", 24, 3, "Tidebound::Opening.forest_gate", trigger=1, cue="north")
 
     for x in range(20, 39, 3):
         for y in range(-18, 3, 3):
@@ -212,27 +217,34 @@ def build_coast():
         29,
         24,
         'pbMessage("Green glass, worn smooth by the water.\nFor a moment, it catches the light.")',
+        role="sea_glass",
     )
     coast.event(
         "Coast lamp:home",
         5,
         16,
         'pbMessage("Mother lights this little lamp before dusk.\nSo you can always find the path home.")',
+        role="coast_lamp",
     )
     coast.event(
         "Coast lamp:pier",
         52,
         19,
         'pbMessage("A little oil lamp. Someone still tends it, even with the boats gone.")',
+        role="coast_lamp",
     )
     coast.event(
-        "Mooring rope", 54, 21, 'pbMessage("An old mooring rope disappears beneath the boards.")'
+        "Mooring rope",
+        54,
+        21,
+        'pbMessage("An old mooring rope disappears beneath the boards.")',
+        role="mooring_rope",
     )
 
     # Preserve all existing coast event IDs. Extend a small southern rocky path.
     coast.polygon([(28, 23), (32, 23), (33, 28), (32, 32), (28, 32), (27, 28)], tile(2, 27))
     coast.path(29, 24, 3, 8, True)
-    coast.event("South path", 30, 31, "Tidebound::NeighborQuest.south_gate", trigger=1)
+    coast.event("South path", 30, 31, "Tidebound::NeighborQuest.south_gate", trigger=1, cue="south")
     coast.event(ACTORS["robbery_youth_one"], 21, 11, "", "trainer_YOUNGSTER", opacity=0)
     coast.event(ACTORS["robbery_youth_two"], 21, 12, "", "trainer_CAMPER", opacity=0)
     coast.event(
@@ -250,11 +262,18 @@ def build_coast():
             f"Tidebound::FieldDetails.berry({coast.id}, {x}, {y}, :{item})",
             "berrytree_" + item,
             blocks=False,
+            role="berry",
         )
         coast.events[eid].attributes["@pages"][0].attributes["@graphic"].attributes[
             "@direction"
         ] = 8
-    coast.event("Coast lamp:shop", 24, 12, 'pbMessage("A sheltered flame warms the shopfront.")')
+    coast.event(
+        "Coast lamp:shop",
+        24,
+        12,
+        'pbMessage("A sheltered flame warms the shopfront.")',
+        role="coast_lamp",
+    )
 
     return coast
 
@@ -287,16 +306,28 @@ def build_forest():
     ]:
         forest.stamp(0, 55, 3, 3, x, y)
     forest.event("Ninja", 9, 20, "Tidebound::Opening.fire", "NPC 01", blocks=True)
-    forest.event("Fire", 10, 21, "Tidebound::Opening.fire", blocks=True)
-    forest.event("Wild:NATU", 21, 13, "Tidebound::Opening.bird", "Pokemon 01", opacity=0, move=1)
+    forest.event("Fire", 10, 21, "Tidebound::Opening.fire", blocks=True, role="fire")
+    forest.event(
+        "Wild:NATU",
+        21,
+        13,
+        "Tidebound::Opening.bird",
+        "Pokemon 01",
+        opacity=0,
+        move=1,
+        species="NATU",
+        role="wood_bird",
+    )
     forest.event("Dark pool", 27, 10, "Tidebound::Opening.pool", trigger=1)
     forest.rect(26, 8, 4, 2, 144, walk=False)
-    forest.event("Shop keys", 14, 11, "Tidebound::Opening.forest_keys", "Pokemon 01", opacity=0)
+    forest.event(
+        "Shop keys", 14, 11, "Tidebound::Opening.forest_keys", "Pokemon 01", opacity=0, role="keys"
+    )
     forest.event(
         "White flowers", 14, 9, 'pbMessage("Small white flowers. They have survived the cold.")'
     )
     forest.event("Northern way", 17, 3, "Tidebound::Opening.northern_way", trigger=1)
-    forest.door(17, 27, 102, 24, 5)
+    forest.door(17, 27, 102, 48, 25)
     for x, y in [(12, 21), (14, 7), (14, 8), (14, 10), (22, 15), (23, 15), (24, 15)]:
         forest.rect(x, y, 1, 1, tile(7, 3), z=1)
 
@@ -314,6 +345,7 @@ def build_forest():
             f"Tidebound::FieldDetails.berry({forest.id}, {x}, {y}, :{item})",
             "berrytree_" + item,
             blocks=False,
+            role="berry",
         )
         forest.events[eid].attributes["@pages"][0].attributes["@graphic"].attributes[
             "@direction"
@@ -326,13 +358,14 @@ def build_lantern():
     lantern = Map(MAPS["lantern"], "The Lantern Room", 14, 14, 3)
     lantern.rect(3, 3, 8, 8, tile(1, 81), walk=True)
     lantern.rect(3, 2, 8, 1, tile(1, 13), walk=False)
-    lantern.event("Main lamp", 6, 5, "Tidebound::Opening.main_lamp", blocks=True)
+    lantern.event("Main lamp", 6, 5, "Tidebound::Opening.main_lamp", blocks=True, role="main_lamp")
     lantern.event(
         "Downward lamp",
         9,
         8,
         'pbMessage("A smaller lamp points straight down into the water.\nThe glass is warm.")',
         blocks=True,
+        role="lamp",
     )
     lantern.rect(6, 11, 1, 1, tile(1, 81), walk=True)
     lantern.door(6, 11, 101, 16, 4)
@@ -359,11 +392,19 @@ def build_astral():
         astral.stamp(0, 55, 3, 3, x, y)
     for i, (x, y) in enumerate([(9, 7), (21, 8), (7, 15), (23, 16), (13, 5), (18, 19)]):
         astral.event(
-            f"Spirit:{i}", x, y, f"Tidebound::Opening.spirit({i})", "Pokemon 01", opacity=0, move=1
+            f"Spirit:{i}",
+            x,
+            y,
+            f"Tidebound::Opening.spirit({i})",
+            "Pokemon 01",
+            opacity=0,
+            move=1,
+            role="spirit",
+            index=i,
         )
     astral.event("Guide", 15, 20, "Tidebound::Opening.guide", "NPC 01", opacity=120)
-    astral.event("Return", 15, 22, "Tidebound::Opening.return_from_astral", trigger=1)
-    astral.event("Ashes", 5, 12, "Tidebound::Opening.memorial")
+    astral.event("Return", 15, 22, "Tidebound::Opening.return_from_astral", trigger=1, role="lamp")
+    astral.event("Ashes", 5, 12, "Tidebound::Opening.memorial", role="lamp")
     astral.event("Arrival", 3, 22, "Tidebound::Opening.astral_arrival", trigger=3)
 
     return astral
@@ -394,7 +435,7 @@ def build_shop():
         'pbMessage("The ledger lies open to a page with very few names.\nYour mother\'s is underlined.")',
     )
     shop.rect(8, 12, 1, 1, tile(4, 78), walk=True)
-    shop.door(8, 12, 102, 21, 12, 2)
+    shop.door(8, 12, 102, 45, 32, 2)
 
     return shop
 
@@ -407,7 +448,16 @@ def build_bedroom():
         bedroom.stamp(0, 0, 4, 2, x, 1)
     bedroom.stamp(0, 151, 2, 2, 3, 4)
     bedroom.stamp(0, 140, 3, 2, 10, 4)
-    bedroom.event("Room:NATU", 7, 8, "Tidebound::Opening.bedroom_pet", "Pokemon 01", opacity=0)
+    bedroom.event(
+        "Room:NATU",
+        7,
+        8,
+        "Tidebound::Opening.bedroom_pet",
+        "Pokemon 01",
+        opacity=0,
+        role="room",
+        species="NATU",
+    )
     bedroom.event(
         ACTORS["mother_visiting"],
         8,
@@ -419,7 +469,7 @@ def build_bedroom():
     bedroom.event("Book", 4, 9, "Tidebound::Opening.journal")
     bedroom.event("Opening", 2, 11, "Tidebound::Opening.begin_story", trigger=3)
     bedroom.rect(8, 12, 1, 1, tile(4, 78), walk=True)
-    bedroom.event("Bedroom exit", 8, 12, "Tidebound::Opening.bedroom_exit", trigger=1)
+    bedroom.event("Bedroom exit", 8, 12, "Tidebound::Opening.bedroom_exit", trigger=1, cue="south")
     # The short pursuit route is separate from the future dock city.
 
     return bedroom
@@ -496,7 +546,7 @@ def build_road():
         road.rect(x, y, 1, 1, 240, z=1)
     road.stamp(0, 227, 4, 4, 34, 38)
     road.rect(35, 41, 1, 1, tile(2, 13), walk=True)
-    road.door(18, 4, 102, 30, 30, 8)
+    road.door(18, 4, 102, 54, 50, 8, cue="north")
     road.event(
         "Wild:NATU:shorebird",
         20,
@@ -505,6 +555,9 @@ def build_road():
         "Pokemon 01",
         opacity=0,
         move=1,
+        species="NATU",
+        role="neighbor_wild",
+        state="shorebird",
     )
     road.event(
         "Wild:ZIGZAGOON:shoreforager",
@@ -514,6 +567,9 @@ def build_road():
         "Pokemon 01",
         opacity=0,
         move=1,
+        species="ZIGZAGOON",
+        role="neighbor_wild",
+        state="shoreforager",
     )
     road.event(
         ACTORS["road_thief"], 26, 26, "Tidebound::NeighborQuest.first_thief", "trainer_YOUNGSTER"
@@ -532,9 +588,11 @@ def build_road():
         road.event(
             "Storehouse approach", 29, y, "Tidebound::NeighborQuest.witness_hideout", trigger=1
         )
-    road.event("Storehouse door", 35, 41, "Tidebound::NeighborQuest.hideout_door", trigger=1)
+    road.event(
+        "Storehouse door", 35, 41, "Tidebound::NeighborQuest.hideout_door", trigger=1, cue="south"
+    )
     road.event("Road traveller", 23, 39, "Tidebound::NeighborQuest.rest", "NPC 01", blocks=True)
-    road.event("Fire", 24, 40, "Tidebound::NeighborQuest.rest", blocks=True)
+    road.event("Fire", 24, 40, "Tidebound::NeighborQuest.rest", blocks=True, role="fire")
     road.event(
         "Southern steps",
         26,
@@ -563,9 +621,16 @@ def build_road():
             f"Tidebound::FieldDetails.berry({road.id}, {x}, {y}, :{item})",
             "berrytree_" + item,
             blocks=False,
+            role="berry",
         )
         road.events[eid].attributes["@pages"][0].attributes["@graphic"].attributes["@direction"] = 8
-    road.event("Coast lamp:storehouse", 33, 42, 'pbMessage("The wick has been trimmed recently.")')
+    road.event(
+        "Coast lamp:storehouse",
+        33,
+        42,
+        'pbMessage("The wick has been trimmed recently.")',
+        role="coast_lamp",
+    )
 
     return road
 

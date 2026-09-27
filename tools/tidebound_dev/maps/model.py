@@ -1,4 +1,8 @@
-from .registry import MAP_NAMES
+from . import registry
+from .registry import MAPS
+from .transfers import Transfer
+from dataclasses import asdict
+from . import definitions
 
 """In-memory RPG Maker map, event and tile primitives. Importing writes nothing."""
 import struct
@@ -398,6 +402,8 @@ class Map:
         self.walk = [[False] * w for _ in range(h)]
         self.events = {}
         self.targets = []
+        self.transfers = []
+        self.actor_settings = {}
 
     def rect(self, x, y, w, h, t, z=0, walk=None):
         for yy in range(y, y + h):
@@ -413,8 +419,59 @@ class Map:
                 if walk is not None:
                     self.walk[y + yy][x + xx] = walk
 
-    def event(self, name, x, y, code, charset="", trigger=0, opacity=255, move=0, blocks=False):
+    def event(
+        self,
+        name,
+        x,
+        y,
+        code,
+        charset="",
+        trigger=0,
+        opacity=255,
+        move=0,
+        blocks=False,
+        *,
+        role="",
+        species="",
+        state="",
+        index=None,
+        asset="",
+        cue="",
+    ):
         eid = len(self.events) + 1
+        info = {}
+        if isinstance(name, registry.Actor):
+            actor = name
+            if self.id != MAPS[actor.map]:
+                raise ValueError(f"Actor {actor.key} belongs to {actor.map}, not map {self.id}")
+            name, role, species = actor.label, actor.role, actor.species
+            info["key"] = actor.key
+        if role and role not in registry.ROLES:
+            raise ValueError(f"Unknown actor role: {role}")
+        if (
+            role in ("house", "room", "outside_dog", "wood_bird", "neighbor_wild", "shore_duck")
+            and not species
+        ):
+            raise ValueError(f"Actor role {role} requires a species")
+        if role == "spirit" and (type(index) is not int or index < 0):
+            raise ValueError("Spirit actor requires a nonnegative soul index")
+        if role == "neighbor_wild" and not state:
+            raise ValueError("Neighbor wild actor requires its quest state key")
+        if role == "demo_prop" and not asset:
+            raise ValueError("Demo prop requires an asset name")
+        if cue and cue not in ("north", "south", "east", "west"):
+            raise ValueError(f"Unknown threshold direction: {cue}")
+        info.update(
+            {
+                k: v
+                for k, v in dict(
+                    role=role, species=species, state=state, index=index, asset=asset, cue=cue
+                ).items()
+                if v is not None and v != ""
+            }
+        )
+        if info:
+            self.actor_settings[eid] = info
         self.events[eid] = obj(
             "RPG::Event",
             id=eid,
@@ -428,14 +485,15 @@ class Map:
         self.targets.append((name, x, y, trigger, blocks))
         return eid
 
-    def door(self, x, y, destination, dx, dy, d=2):
-        self.walk[y][x] = True
-        code = (
-            f"Tidebound::World.travel_coast({dx}, {dy}, {d})"
-            if destination == 102
-            else f"Tidebound::World.travel(:{MAP_NAMES[destination]}, {dx}, {dy}, {d})"
-        )
-        self.event("Door", x, y, code, trigger=1)
+    def door(self, x, y, destination, dx, dy, d=2, name="Door", *, cue="south"):
+        """Source uses this area's coordinates; destinations are always absolute."""
+        destination = MAPS[destination] if isinstance(destination, str) else destination
+        transfer = Transfer(destination, dx, dy, d)
+        eid = self.event(name, x, y, transfer.script(), trigger=1, cue=cue)
+        event = self.events[eid].attributes
+        self.walk[event["@y"]][event["@x"]] = True
+        self.transfers.append({"event": eid, "page": 0, **asdict(transfer)})
+        return eid
 
     def serialize(self):
         flat = [v for layer in self.layers for row in layer for v in row]
@@ -447,7 +505,7 @@ class Map:
             autoplay_bgm=True,
             bgm=obj(
                 "RPG::AudioFile",
-                name="Tidebound Shore" if self.id == 102 else "Tidebound Stillness",
+                name=definitions.BY_ID[self.id].music,
                 volume=80,
                 pitch=100,
             ),
@@ -536,16 +594,6 @@ class CoastMap(Map):
     def event(self, name, x, y, *args, **kw):
         return super().event(name, x + self.OX, y + self.OY, *args, **kw)
 
-    def door(self, x, y, destination, dx, dy, d=2):
-        self.walk[y + self.OY][x + self.OX] = True
-        self.event(
-            "Door",
-            x,
-            y,
-            f"Tidebound::World.travel(:{MAP_NAMES[destination]}, {dx}, {dy}, {d})",
-            trigger=1,
-        )
-
     def polygon(self, points, t, walk=True):
         im = Image.new("1", (self.w, self.h))
         ImageDraw.Draw(im).polygon([(x + self.OX, y + self.OY) for x, y in points], fill=1)
@@ -574,4 +622,3 @@ class CoastMap(Map):
 
 class RoadMap(CoastMap):
     OX, OY = 0, 0
-    door = Map.door

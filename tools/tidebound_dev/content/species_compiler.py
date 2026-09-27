@@ -1,14 +1,12 @@
 """Compile regional definitions into Essentials data and PBS in one pass."""
 
 from collections import defaultdict
-import shutil
 
 from rubymarshal.classes import Symbol as S
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 
-from .species import SPECIES, METRICS, CRIES
-from ..art import frostcoon, snakes, whyduck
+from .species import SPECIES, METRICS
 
 STATS = ("HP", "ATTACK", "DEFENSE", "SPEED", "SPECIAL_ATTACK", "SPECIAL_DEFENSE")
 # Each field has one native representation. The PBS writer uses the original value.
@@ -179,19 +177,6 @@ def pbs_files(definitions):
     }
 
 
-def export_art(root):
-    game = root / "game"
-    for target, source in CRIES.items():
-        shutil.copy2(game / f"Audio/SE/Cries/{source}.ogg", game / f"Audio/SE/Cries/{target}.ogg")
-    for folder in ("Front", "Back", "Front shiny", "Back shiny", "Icons"):
-        sprites = game / "Graphics/Pokemon" / folder
-        shutil.copy2(sprites / "FROSTCOON_EVOLUTION.png", sprites / "NIVALORA.png")
-        shutil.copy2(sprites / "PSYDUCK.png", sprites / "PSYDUCK_1.png")
-    frostcoon.generate(game)
-    snakes.generate(game)
-    whyduck.generate(game, root / "assets/Whyduck/pieces")
-
-
 def build(root):
     game = root / "game"
     species = loads((game / "Data/species.dat").read_bytes())
@@ -208,5 +193,4 @@ def build(root):
     (game / "Data/species_metrics.dat").write_bytes(metric_bytes)
     for name, text in texts.items():
         (game / "PBS" / name).write_text(text, encoding="utf-8-sig")
-    export_art(root)
     print(f"Built {len(SPECIES)} regional species/forms and {len(METRICS)} sprite metrics")

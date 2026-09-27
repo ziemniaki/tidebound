@@ -3,8 +3,9 @@
 - [Maintainer workflow](maintainer.md): ask for a change, try it, review it.
 - [Development](development.md): setup, commands and editor support.
 - [Architecture](architecture.md): ownership, generated data and save invariants.
-- [Refactoring audit and plan](decisions/refactoring-plan.md): structural issues,
-  proposed boundaries, deletion candidates and implementation order.
+- [Authoring audit](decisions/authoring-audit.md): current structural gaps and focused follow-ups.
+- [Essentials contracts](essentials-contracts.md): inspected engine APIs and versioned sources.
+- [Completed refactoring](decisions/refactoring-plan.md): the work shipped in 0.8.7.
 - [Current status](status.md): what is playable and what remains planned.
 - [Testing](testing.md): headless and native checks.
 - [Releasing](releasing.md): checks, tags, draft review and publication.

@@ -222,8 +222,8 @@ module Tidebound
       end
       Tidebound::World.travel(:road, 18, 5, 2)
     end
-    def wild_visible?(name)
-      !q[(name.split(":").last + "_gone").to_sym]
+    def wild_visible?(id)
+      !q[(id.to_s + "_gone").to_sym]
     end
     def wild(id)
       return if q[(id.to_s + "_gone").to_sym]

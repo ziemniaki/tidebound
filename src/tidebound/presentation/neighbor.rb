@@ -63,7 +63,7 @@ EventHandlers.add(
     if s.map.map_id == 101
       s.addUserSprite(TideboundMealProp.new(v))
     elsif s.map.map_id == 106
-      e = s.map.events.values.find { |a| a.name == "Oil seller" }
+      e = s.map.events[Tidebound::World::ACTORS.fetch(:oil_seller).fetch("event")]
       s.addUserSprite(TideboundPearlProp.new(e, v)) if e
     end
   end

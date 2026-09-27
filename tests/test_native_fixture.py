@@ -7,6 +7,8 @@ import zlib
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from native_fixture import prepare
+from unittest.mock import patch
+from tidebound_dev.content import verification
 
 
 class NativeFixtureTests(unittest.TestCase):
@@ -45,3 +47,21 @@ class NativeFixtureTests(unittest.TestCase):
     def test_player_namespace_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "unique test namespace"):
             prepare(Path("/unused"), "Tidebound_Development")
+
+
+class ContentInventoryTests(unittest.TestCase):
+    def test_new_species_is_checked_without_a_second_roster_or_existing_art(self):
+        with patch.object(verification, "SPECIES", {"NEWBIRD": {}, "NEWBIRD_1": {}}):
+            result = verification.inventory()
+        self.assertEqual(result["species"], ["NEWBIRD", "NEWBIRD_1"])
+        self.assertEqual([entry["id"] for entry in result["art"]], ["NEWBIRD", "NEWBIRD_1"])
+        self.assertEqual(
+            result["art"][1]["front_shiny"], "Graphics/Pokemon/Front shiny/NEWBIRD_1.png"
+        )
+        self.assertEqual(result["art"][1]["cry"], "Cries/NEWBIRD_1")
+
+    def test_existing_cry_reuse_is_explicit(self):
+        entry = next(
+            entry for entry in verification.inventory()["art"] if entry["id"] == "SUNKERN_1"
+        )
+        self.assertEqual(entry["cry"], "Cries/SUNKERN")
