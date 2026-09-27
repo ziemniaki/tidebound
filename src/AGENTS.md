@@ -13,7 +13,7 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
    `Tidebound.story` for persistent quest state; keep new feature state under a
    feature-specific key. Read the existing owner's state rather than maintaining
    another copy. `features/interactions.rb` owns shared mother/seller dispatch.
-2. Put the short event call in the Python map builder; read the
+2. Put the short event call in the authored map event page; read the
    [map workflow](../content/maps/AGENTS.md). A new Ruby method alone
    does not connect it to a map. Do not override another feature's method to
    change an interaction's priority.

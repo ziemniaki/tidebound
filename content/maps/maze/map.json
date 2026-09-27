@@ -22,7 +22,16 @@
     "Round patch@22,6": 12,
     "Room:NATU@24,5": 13,
     "Game rules@3,19": 14,
-    "Opening@2,23": 15
+    "Opening@2,23": 15,
+    "slide_stop_16": 16,
+    "slide_stop_17": 17,
+    "slide_stop_18": 18
   },
-  "atlas": "dream"
+  "name": "Your Room",
+  "actor_settings": {
+    "13": {
+      "role": "room",
+      "species": "NATU"
+    }
+  }
 }

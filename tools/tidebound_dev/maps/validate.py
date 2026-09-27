@@ -58,15 +58,6 @@ def validate(root, event_scripts_output=None, check_scripts=True):
         for spawn in spawns[mid]:
             if spawn not in seen or not walk(*spawn):
                 fail.append(f"{mid} unreachable arrival {spawn}")
-        transfers = {}
-        for declaration in spec.get("transfers", []):
-            key = (declaration["event"], declaration["page"])
-            if key in transfers:
-                fail.append(f"{mid}: duplicate transfer declaration for {key}")
-            transfers[key] = Transfer(
-                **{k: v for k, v in declaration.items() if k not in ("event", "page")}
-            )
-        used_transfers = set()
         for event_id, ev in m["@events"].items():
             e = ev.attributes
             x, y = e["@x"], e["@y"]
@@ -90,10 +81,14 @@ def validate(root, event_scripts_output=None, check_scripts=True):
                     )
                     if not reachable:
                         fail.append(f"{label} unreachable event at {x},{y}")
-                if any(c.attributes["@code"] == 201 for c in page["@list"]):
-                    fail.append(
-                        f"{label}: native Transfer Player command; use Map.door or a tested feature method"
-                    )
+                for command in page["@list"]:
+                    attrs = command.attributes
+                    if attrs["@code"] == 201 and attrs["@parameters"][0] == 0:
+                        _, destination, tx, ty, direction, *_ = attrs["@parameters"]
+                        try:
+                            Transfer(destination, tx, ty, direction or 2).validate(masks)
+                        except ValueError as error:
+                            fail.append(f"{label}: {error}")
                 code = "\n".join(
                     str(c.attributes["@parameters"][0])
                     for c in page["@list"]
@@ -101,23 +96,11 @@ def validate(root, event_scripts_output=None, check_scripts=True):
                 )
                 if code:
                     event_scripts.append({"name": f"Map{label}", "code": code})
-                key = (event_id, page_index)
-                transfer = transfers.get(key)
-                if transfer:
-                    used_transfers.add(key)
-                    try:
-                        transfer.validate(masks)
-                        if code.strip() != transfer.script():
-                            fail.append(f"{label}: event code disagrees with declared transfer")
-                    except ValueError as error:
-                        fail.append(f"{label}: {error}")
-                elif re.search(r"\bWorld\s*\.\s*travel(?:_coast)?\b", code):
+                if re.search(r"\bWorld\s*\.\s*travel(?:_coast)?\b", code):
                     fail.append(
-                        f"{label}: undeclared transfer; use Map.door or a tested feature method"
+                        f"{label}: undeclared transfer; use native Transfer Player or a tested feature method"
                     )
                 count += 1
-        for key in transfers.keys() - used_transfers:
-            fail.append(f"{mid}: transfer refers to missing event/page {key}")
         bgm = str(m["@bgm"].attributes["@name"])
         if not (G / "Audio/BGM" / f"{bgm}.ogg").exists():
             fail.append(f"{mid} missing BGM {bgm}")

@@ -30,16 +30,15 @@ A prop bundle has `image.png` and `prop.json`: `{"anchor": [16, 32]}`.
 The integer anchor is placed at the event and may lie outside the image. Optional
 integer `z` fixes the layer. To reuse another prop's pixels, use `"image": "dock_boat"`
 and omit the local PNG; reuse must point directly to a bundle owning its image.
-Maps use `Map.event(..., role="prop", asset="dock_boat")`; rebuild with `--all`.
+Map events declare `{"role": "prop", "asset": "dock_boat"}` in their map's
+`actor_settings`; rebuild with `--all`.
 An image does not set collision, and filenames do not select gameplay behavior.
 
 Static props share `presentation/props.rb`; flicker and quest transitions stay
 with their feature. `load_prop` owns/disposes its bitmap; never pass it cached art.
-Map-only artwork lives beside that map's builder and is baked into its tileset.
+Tile artwork lives in fixed `tilesets/<name>/image.png` sheets.
 Shared UI and effect images use `ui/` and `effects/`.
 
-`tilesets/outside/windows.png` aligns with stock `Outside.png`; alpha is light
-strength. Packed tiles must retain original source IDs for lighting metadata.
-Tile/mask edits require `rebuild --all`; ordinary asset refresh does not repack maps.
+Tile IDs, collision and aligned light masks follow the [map guide](maps/AGENTS.md).
 Keep concepts and working files in root `references/`, and external attribution
 in [credits](../docs/credits.md).

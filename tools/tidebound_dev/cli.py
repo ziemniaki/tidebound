@@ -39,7 +39,7 @@ def development_build(target, *, preview=None, start=None):
     from .scenarios import select as select_scenario
 
     state = select_scenario(ROOT, start) if start else None
-    rebuild(ROOT)
+    rebuild(ROOT, full=True)
 
     from .packaging.pipeline import build
 
@@ -59,6 +59,9 @@ def open_editor():
     from tidebound_dev.files import sha256
     from tidebound_dev.runtime.inputs import windows_runtime, unpack_pinned
 
+    from .pipeline import rebuild
+
+    rebuild(ROOT, full=True)
     config = load_release()
     sources = [windows_runtime(ROOT, config), unpack_pinned(ROOT, config, "windows_editor_archive")]
     for source in sources:
@@ -99,7 +102,8 @@ def parser():
     package.add_argument("--allow-dirty", action="store_true")
     formatting = commands.add_parser("format", help="Format Python and Ruby")
     formatting.add_argument("--check", action="store_true")
-    commands.add_parser("editor", help="Restore and open the RPG Maker XP project")
+    editor = commands.add_parser("editor", help="Open RPG Maker or import saved map edits")
+    editor.add_argument("action", nargs="?", choices=("import",))
     return cli
 
 
@@ -127,7 +131,12 @@ def execute(args):
 
         rebuild(ROOT, full=args.all)
     elif args.command == "editor":
-        open_editor()
+        if args.action == "import":
+            from .maps.editor import import_changes
+
+            import_changes(ROOT)
+        else:
+            open_editor()
     elif args.command == "format":
         from .formatting import format_sources
 

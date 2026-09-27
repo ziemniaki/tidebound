@@ -18,30 +18,36 @@
     "Berry:ORANBERRY@12,19": 9,
     "Berry:ORANBERRY@22,9": 10
   },
-  "atlas": "fields",
   "encounters": {
     "Land": {
       "chance": 18,
       "slots": [
-        [
-          45,
-          "AIPOM",
-          3,
-          5
-        ],
-        [
-          40,
-          "WEEDLE",
-          3,
-          5
-        ],
-        [
-          15,
-          "WURMPLE_1",
-          3,
-          5
-        ]
+        [45, "AIPOM", 3, 5],
+        [40, "WEEDLE", 3, 5],
+        [15, "WURMPLE_1", 3, 5]
       ]
+    }
+  },
+  "name": "The Listening Wood",
+  "actor_settings": {
+    "2": {
+      "role": "fire"
+    },
+    "3": {
+      "role": "wood_bird",
+      "species": "NATU"
+    },
+    "5": {
+      "role": "keys"
+    },
+    "8": {
+      "cue": "south"
+    },
+    "9": {
+      "role": "berry"
+    },
+    "10": {
+      "role": "berry"
     }
   }
 }

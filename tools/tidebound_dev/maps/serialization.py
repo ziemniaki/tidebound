@@ -42,8 +42,8 @@ def serialize(paths, maps):
         infos[m.id] = obj(
             "RPG::MapInfo",
             name=m.name,
-            parent_id=0,
-            order=m.id,
+            parent_id=definitions.BY_ID[m.id].parent_id,
+            order=definitions.BY_ID[m.id].order or m.id,
             expanded=True,
             scroll_x=320,
             scroll_y=240,
@@ -76,8 +76,6 @@ def serialize(paths, maps):
                     "name": m.name,
                     "width": m.w,
                     "height": m.h,
-                    "targets": m.targets,
-                    "transfers": m.transfers,
                 }
                 for m in maps
             ],

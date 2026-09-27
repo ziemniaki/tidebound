@@ -1,101 +1,73 @@
-# Map and event authoring
+# Map authoring
 
-Each `<map>/` owns `map.json` (ID, entrances, metadata, actor placements,
-stable event IDs, atlas group) and `build.py` (layout/events/painting).
-`definitions.py` discovers these declarations; `compiler.py` calls each
-`build(context)`, packs atlases, then optional `finish(context, map)` hooks.
-`registry.py` derives runtime identities and entrances. See [src/AGENTS.md](../../src/AGENTS.md)
-for scene behavior; maps only call feature entry points.
+`map.json` owns the map ID, display name, named entrances, encounters, atmosphere,
+actor identities/roles and reserved event IDs. `layout.json` owns the complete RPG
+Maker map: dimensions, tile layers, audio, events, pages and movement routes.
+Both are authored data. Builds serialize them; they never execute map builders.
+The [editor workflow](../../docs/development.md#rpg-maker) is shared by humans and agents.
 
-## Add a map
+## Layout and tiles
 
-1. Add `<name>/map.json` and `build.py` following an existing area. Use a
-   distinct map ID and named `entrances` with `[x, y, direction]`. Return the complete
-   `Map` from `build(context)`; use `context.paths`, `palette` or `rooms`. No compiler
-   import/list change is needed. Declare named NPCs in this map's `actors` object;
-   duplicate identities and misplaced actors fail generation.
-2. Define entry/exit tiles; arrivals in the map definition drive reachability
-   validation. Include a return route and any scripted/conditional arrivals.
-3. Set walkability explicitly while drawing. `Map.walk` becomes `MAP_PASSAGES`.
-   On these maps, `world/atmosphere.rb::Passages` replaces tile passage checks and
-   returns terrain `None`; RPG Maker tileset flags alone will not create grass,
-   Surf water or ledges. Fields and Pond supply specific terrain hooks. A new
-   mechanic must account for those hooks, not just paint a grass/water tile.
-4. `MapDefinition` supplies music, native/PBS metadata and runtime atmosphere.
-   Ordinary maps default to the indoor preset. Choose another named preset for
-   outdoor/special scenes. `outdoor` is the Essentials metadata flag; `night`
-   controls Tidebound's permanent-night policy. They are distinct engine concerns.
-5. Format, run `uv run rebuild --all`, stage new source **and** outputs, then
-   `uv run check --all`. Inspect `.build/maps/map_<id>_preview.png` and play all
-   entrances, exits and interactions. Offline previews approximate rendering;
-   collision/terrain hooks and event pages still need native checks. Existing native
-   world captures cover a named roster, not every new map automatically.
+- `layout.json::data.shape` is `[width, height, 3]`; `rows` contains every row of
+  layer 0, then layer 1, then layer 2. Event dictionary keys are numeric IDs as
+  strings; each event's `id` must match its key. `$type` names native RPG classes;
+  preserve unfamiliar page/command fields rather than constructing a partial copy.
+- `tileset_id` refers to `content/tilesets/<name>/tileset.json::id` or a stock
+  tileset. Each custom bundle owns `image.png`, native passage/priority/terrain
+  tables and optional `windows.png`. Tile 384 is the first 32px square; sheets
+  have eight columns. IDs 48–383 select the seven native autotile slots.
+- **Append tiles; do not repack or reorder them.** Their numeric IDs are stable
+  references shared by all maps using that sheet. Keep every existing square in
+  place when extending a sheet. Native sheets must fit 256 × 16,384 pixels.
+  Extend all three metadata tables with new tiles. Changing a tileset's passage
+  flags intentionally changes every occurrence of that tile; use another tile
+  when only one occurrence should behave differently.
+- Collision uses Essentials' native passage, priority and terrain settings.
+  There is no runtime map-mask override. Passage low bits block down/left/right/up;
+  0 allows all, 15 blocks all. Priority affects drawing **and** which layer stops
+  the passage search. Terrain 13 ignores passage; terrain 6 is StillWater/Surf.
+  Event `through` and active page settings still affect character collision.
+- `windows.png` matches the fixed sheet square-for-square; alpha is light strength.
+  Moving a window tile moves its light automatically. Keep masks aligned when
+  adding tiles. The compiler writes the packed runtime light sheet.
 
-Static prop and character PNGs are owned by `content/` and exported by `art/compiler.py`.
-Map compilation owns packed tilesets and window masks/placements in
-`src/generated/window_lights.rb`. Choose a named atlas from `atlases.py::GROUPS`; each group has its own painter
-and tile allocation. Keep geographically or visually related maps together, and
-add a group when its texture approaches the 16,384-pixel height limit. Group
-textures enter asset ownership automatically. Special per-map texture outputs
-still belong in `art/ownership.py::MAP_OUTPUTS`. Read approved image sources when composing tiles; standalone files
-are discovered/exported by the asset pipeline. Prop references use `art/props.py::load`
-for shared validation; do not parse a second prop catalog in an area builder.
+## Events and gameplay
 
-## Coordinates, events and actors
+- Never renumber existing map/event IDs: saved self-switches use those IDs.
+  `map.json::events` reserves existing IDs, including deleted events. Allocate
+  above the reserved maximum when adding events; RPG Maker may reuse a deleted ID.
+- `actor_settings` maps event IDs to runtime roles and optional `key`, `species`,
+  `asset`, `state`, `index` or `cue`. A named `key` is the actor identity, independent of the event's display name. Missing named actors fail
+  compilation. Follow [src/AGENTS.md](../../src/AGENTS.md) for feature behavior.
+- Roles select consumers in `world/actors.rb`: companions need `species`, spirits
+  need `index`, neighbor wildlife needs `state`, props need `asset` from
+  `content/props/`. Door cues are `north|south|east|west`. Do not infer roles from labels.
+- Use native Transfer Player (command 201) for ordinary doors; direct destinations
+  are checked against map bounds/passages. A variable-driven transfer needs a
+  gameplay test. Feature-controlled travel uses `World.travel` in Ruby.
+- Script events use 355 plus 655 continuations, then command 0. Keep branching
+  in Ruby feature entry points. Trigger values: 0 action, 1 player touch, 2 event
+  touch, 3 autorun, 4 parallel. Guard and erase one-time autoruns. Pages are selected
+  last-to-first; every page can change movement, collision and graphics.
+- Named entrances in `map.json` are absolute `[x, y, direction]`. Coast's `origin`
+  is only for explicit `World.coast_xy` conversions; native layout positions stay
+  absolute. Moving a door destination does not move a named playtest entrance.
+- Maze slide/warp geometry derives from event script calls and their positions.
+  Stop events contain the native comment `tidebound:slide_stop`; move the event
+  with its painted diamond. The entry and Natu event define start/goal. Pond water
+  derives from terrain tags; `road/mechanics.json` declares tested reward regions.
 
-- All drawing, event, door and `layers`/`walk` coordinates are absolute tiles.
-  Coast layout uses `coast.absolute(x, y)` explicitly for local coordinates; its
-  origin `(24, 20)` is defined in `areas/coast/map.json` and exported to Ruby.
-  `World.coast_xy`/`travel_coast` convert local coast coordinates; `World.local_xy`
-  converts event positions back to local coordinates for existing harvest keys.
-  Door destinations resolve named entrances, e.g. `Map.door(x, y, "home", "from_coast")`.
-  Ruby uses `World.travel(:home, :from_coast)`. Raw coordinates remain available for
-  deliberate scene staging; all resolved coordinates are absolute.
-- Use `Map.door` for ordinary transfers and small public Ruby calls for interactions.
-  Script commands use 355 + 655 continuations and a terminating command 0; the
-  `script`/`page` helpers produce them. Keep story branching in the Ruby owner.
-- The helper's triggers are engine values: 0 action, 1 player touch, 2 event touch,
-  3 autorun, 4 parallel. Unconditional autorun can repeatedly seize control; erase
-  the current event and guard one-time effects in persistent quest state. A page
-  with no charset defaults to `through=True`; an invisible event may need explicit
-  collision. `blocks=True` also marks its tile unwalkable in the generated mask.
-- Allocate event IDs in `map.json::events`; never renumber or reuse an existing ID.
-  Named actors use their actor key. Other events default to `"label@x,y"`; supply
-  `key="stable_name"` when useful. Renaming/moving an anonymous event requires
-  updating its catalog key while preserving its numeric ID. Unknown keys and
-  duplicate IDs fail generation. Retain removed IDs as reserved entries: native
-  self-switches use `(map_id, event_id, letter)`; insertion order must not change them.
-- Declare a scene actor in its map's `actors` with its key, label, role and optional
-  species; pass the derived `ACTORS["key"]` to `Map.event`. `World.actor(:key)` uses the
-  generated map/event identity and returns nil on another map. Generation rejects
-  missing, duplicate and misplaced identities. Labels do not control lookup.
-- For anonymous props/companions, give `Map.event` an explicit `role`. Companion
-  roles require `species`; spirits require a soul `index`; `neighbor_wild` requires
-  the owning quest's `state` key. These select concrete consumers in
-  `world/actors.rb`. A name such as `Wild:NATU` alone has no effect.
-- Presentation also reads these roles. `prop` requires an `asset` from `content/props/<key>/prop.json`;
-  door/exit threshold hints use `cue="north|south|east|west"`. Add a role and its
-  consumer together; unknown roles and missing required fields fail generation.
-  `Map.door` defaults to the south sill. Define actors at their final positions in their owning area. Do not append a
-  second pass that finds and rewrites existing events by display label.
-- Pass `direction`, `direction_fix` and `through` to `Map.event` when needed;
-  keep Marshal page attribute access inside the map model.
-- A charset is a four-column/four-row XP sheet, not a Pokémon party icon strip.
-  Event pages select from the last matching page; later pages can override earlier
-  collision/movement settings. Validation inspects every page. `Map.door` records
-  structured destinations and checks bounds before passability. Direct Ruby travel
-  calls and native Transfer Player commands in builder pages are rejected; put
-  conditional movement in a feature method and test its success/retry/cancel routes.
-  Static checks cannot prove Ruby routes: checkpoint returns are exercised in
-  `tests/gameplay/opening.rb`, `neighbor.rb` and `hideout.rb`; dream/folded-room
-  arrival/retry/return branches are in `tests/gameplay/world.rb`.
+## Add or generate a map
 
-[Engine evidence](../../docs/essentials-contracts.md) describes the inspected
-contracts. `Map.targets` derives current event coordinates; painters can relocate
-an event without resynchronizing a second position list. `blocking_events` retains
-authored collision intent when a painter redraws the floor.
+Create a lower_snake_case bundle with `map.json` and `layout.json`; copying a small
+existing room preserves native defaults. Allocate a new map ID, entrances and
+empty actor/event reservations, then edit its layout in JSON or RPG Maker.
+Procedural tools may write these same files as a one-time authoring operation.
+Their output is ordinary editable content; generators are never a build dependency.
 
-The compiler derives `System.magic_number` from native map/tileset bytes. Essentials
-uses this existing editor field to reload cached maps when loading a save after a
-map rebuild. Do not replace it with a fixed number: repacked tile IDs would be
-interpreted against an old saved map. This does not rewrite Pokémon or quest state.
+Run `uv run play` to compile and play; `uv run rebuild --all` exports without
+launching. Inspect `.build/maps/map_<id>_preview.png`, then verify entrances,
+interactions and collision in the player. Stage sources/exports and run
+`uv run check --all`. Previews do not establish event scheduling or gameplay.
+The compiler updates Essentials' native map revision so saves reload changed maps
+without rewriting Pokémon or quest state.

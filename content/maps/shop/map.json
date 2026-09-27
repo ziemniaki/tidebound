@@ -3,15 +3,20 @@
   "entrances": {
     "door": [8, 10, 2]
   },
-  "actors": {
-    "oil_seller": {
-      "label": "Oil seller"
-    }
-  },
   "events": {
     "oil_seller": 1,
     "Bottles@4,7": 2,
     "Old ledger@11,10": 3,
     "Door@8,12": 4
+  },
+  "name": "The Oil Shop",
+  "actor_settings": {
+    "1": {
+      "key": "oil_seller",
+      "role": "npc"
+    },
+    "4": {
+      "cue": "south"
+    }
   }
 }

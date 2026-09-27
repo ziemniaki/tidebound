@@ -4,11 +4,6 @@
   "entrances": {
     "door": [11, 14, 2]
   },
-  "actors": {
-    "necklace_thief": {
-      "label": "Necklace thief"
-    }
-  },
   "events": {
     "Clutter@5,12": 1,
     "Clutter@7,12": 2,
@@ -32,5 +27,14 @@
     "Rune console@15,6": 20,
     "Unwashed dishes@19,5": 21
   },
-  "atlas": "storehouses"
+  "name": "The Old Storehouse",
+  "actor_settings": {
+    "12": {
+      "key": "necklace_thief",
+      "role": "npc"
+    },
+    "17": {
+      "cue": "south"
+    }
+  }
 }

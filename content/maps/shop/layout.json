@@ -1,0 +1,354 @@
+{
+  "$type": "RPG::Map",
+  "tileset_id": 34,
+  "width": 16,
+  "height": 14,
+  "autoplay_bgm": true,
+  "bgm": {
+    "$type": "RPG::AudioFile",
+    "name": "stillness",
+    "volume": 80,
+    "pitch": 100
+  },
+  "autoplay_bgs": false,
+  "bgs": {
+    "$type": "RPG::AudioFile",
+    "name": "",
+    "volume": 100,
+    "pitch": 100
+  },
+  "encounter_list": [],
+  "encounter_step": 30,
+  "data": {
+    "$type": "Table",
+    "shape": [16, 14, 3],
+    "rows": [
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2392, 2392],
+      [2392, 2392, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 2392, 2392],
+      [2392, 2392, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 489, 2392, 2392],
+      [2392, 2392, 1012, 2393, 2393, 2393, 1012, 1012, 1012, 1012, 2393, 2393, 1012, 1012, 2392, 2392],
+      [2392, 2392, 1012, 2393, 2393, 2393, 1012, 2393, 1012, 1012, 2393, 2393, 1012, 1012, 2392, 2392],
+      [2392, 2392, 1012, 2393, 2393, 2393, 1012, 1012, 1012, 1012, 2393, 2393, 1012, 1012, 2392, 2392],
+      [2392, 2392, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 2392, 2392],
+      [2392, 2392, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 2393, 2393, 1012, 1012, 2392, 2392],
+      [2392, 2392, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 2393, 2393, 1012, 1012, 2392, 2392],
+      [2392, 2392, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 2392, 2392],
+      [2392, 2392, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 1012, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 1012, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 384, 385, 386, 387, 384, 385, 386, 387, 384, 385, 386, 387, 0, 0],
+      [0, 0, 392, 393, 394, 395, 392, 393, 394, 395, 392, 393, 394, 395, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1507, 1508, 1509, 0, 0, 0, 0, 1504, 1505, 0, 0, 0, 0],
+      [0, 0, 0, 1515, 1516, 1517, 0, 0, 0, 0, 1512, 1513, 0, 0, 0, 0],
+      [0, 0, 0, 1523, 1524, 1525, 0, 0, 0, 0, 1520, 1521, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2086, 2087, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2094, 2095, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  "events": {
+    "1": {
+      "$type": "RPG::Event",
+      "id": 1,
+      "name": "Oil seller",
+      "x": 7,
+      "y": 5,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "NPC 10",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::Interactions.oil_seller"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "$type": "RPG::Event",
+      "id": 2,
+      "name": "Bottles",
+      "x": 4,
+      "y": 7,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Old glass, washed and washed again. Each bottle has a different name scratched underneath.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "$type": "RPG::Event",
+      "id": 3,
+      "name": "Old ledger",
+      "x": 11,
+      "y": 10,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"The ledger lies open to a page with very few names."]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 655,
+              "indent": 0,
+              "parameters": ["Your mother's is underlined.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "$type": "RPG::Event",
+      "id": 4,
+      "name": "Door",
+      "x": 8,
+      "y": 12,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 1,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 201,
+              "indent": 0,
+              "parameters": [0, 102, 45, 32, 2, 0]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

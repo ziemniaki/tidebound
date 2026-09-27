@@ -134,6 +134,33 @@ module NativeScenarios
     image.dispose
   end
 
+  def map_passages
+    surfing = $PokemonGlobal.surfing
+    $PokemonGlobal.surfing = false
+    Tidebound::MAP_PASSAGES.each do |id, rows|
+      map = Game_Map.new
+      map.setup(id)
+      rows.each_with_index do |row, y|
+        row.each_char.with_index do |value, x|
+          passage = [2, 4, 6, 8].all? { |direction| map.playerPassable?(x, y, direction) }
+          raise "Native tile collision differs at #{id}/#{x},#{y}" unless passage == (value == "1")
+        end
+      end
+      next unless id == 108
+      $PokemonGlobal.surfing = true
+      map.height.times do |y|
+        map.width.times do |x|
+          next unless map.terrain_tag(x, y).id == :StillWater
+          raise "Pond tile cannot be surfed: #{x},#{y}" unless map.playerPassable?(x, y, 2)
+        end
+      end
+      $PokemonGlobal.surfing = false
+    end
+    puts "PASS: native passage flags match all 16 authored maps; pond water supports Surf"
+  ensure
+    $PokemonGlobal.surfing = surfing
+  end
+
   def world(output)
     spec = load_data("NativeStart.rxdata")
     entered = false
@@ -160,6 +187,7 @@ module NativeScenarios
     end
     $scene.createSpritesets
     interrupt_route
+    map_passages
     scenes = {
       home: [10, 8],
       coast: [34, 36],

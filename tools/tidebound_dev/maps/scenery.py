@@ -1,4 +1,4 @@
-"""Pack authored light masks using source tile identity, independent of atlas layout."""
+"""Pack light masks from the same stable tile references used by the map."""
 
 from PIL import Image
 from ..files import save_png, ruby
@@ -13,8 +13,7 @@ def window_lights(paths, maps):
             atlas = source.convert("RGBA")
         panes, tile_masks = [], {}
         for y, row in enumerate(area.layers[1]):
-            for x, packed_tile in enumerate(row):
-                tile = area.source_tiles.get(packed_tile, packed_tile)
+            for x, tile in enumerate(row):
                 if tile < 384:
                     continue
                 if tile not in tile_masks:

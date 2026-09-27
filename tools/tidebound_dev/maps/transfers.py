@@ -1,4 +1,4 @@
-"""Ordinary transfers are data; Ruby event code is their serialized form."""
+"""Validate a native, fixed-destination Transfer Player command."""
 
 from dataclasses import dataclass
 from .registry import MAP_NAMES
@@ -10,9 +10,6 @@ class Transfer:
     x: int
     y: int
     direction: int = 2
-
-    def script(self):
-        return f"Tidebound::World.travel(:{MAP_NAMES[self.map_id]}, {self.x}, {self.y}, {self.direction})"
 
     def validate(self, masks):
         if any(type(value) is not int for value in (self.map_id, self.x, self.y, self.direction)):

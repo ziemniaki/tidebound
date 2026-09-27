@@ -17,5 +17,38 @@
     "Return@15,22": 8,
     "Ashes@5,12": 9,
     "Arrival@3,22": 10
+  },
+  "name": "Beyond the Shore",
+  "actor_settings": {
+    "1": {
+      "role": "spirit",
+      "index": 0
+    },
+    "2": {
+      "role": "spirit",
+      "index": 1
+    },
+    "3": {
+      "role": "spirit",
+      "index": 2
+    },
+    "4": {
+      "role": "spirit",
+      "index": 3
+    },
+    "5": {
+      "role": "spirit",
+      "index": 4
+    },
+    "6": {
+      "role": "spirit",
+      "index": 5
+    },
+    "8": {
+      "role": "lamp"
+    },
+    "9": {
+      "role": "lamp"
+    }
   }
 }

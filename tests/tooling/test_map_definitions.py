@@ -8,7 +8,8 @@ from unittest.mock import patch
 from rubymarshal.reader import loads
 from rubymarshal.classes import Symbol
 
-from tidebound_dev.maps import registry, model, serialization
+from tidebound_dev.maps import registry, model, serialization, definitions
+from tidebound_dev.maps.compiler import AuthoredMap
 from tidebound_dev.maps.definitions import MapDefinition
 from tidebound_dev.maps.compiler import BuildPaths
 from tidebound_dev.content import configure
@@ -19,10 +20,16 @@ ROOT = Path(__file__).resolve().parents[2]
 class MapDefinitionTests(unittest.TestCase):
     def test_new_indoor_map_has_consistent_native_pbs_audio_and_runtime_settings(self):
         definition = MapDefinition(
-            117, {"entry": [1, 1, 2]}, music="New room", battleback="cave1", environment="Cave"
+            117, {"entry": [1, 1, 2]}, name="New room", battleback="cave1", environment="Cave"
         )
-        area = model.Map(117, "New room", 3, 3, 1)
-        area.rect(0, 0, 3, 3, 0, walk=True)
+        import json
+
+        record = json.loads((ROOT / "content/maps/home/layout.json").read_text())
+        record.update(width=3, height=3, tileset_id=1, events={})
+        record["data"] = {"$type": "Table", "shape": [3, 3, 3], "rows": [[0] * 3 for _ in range(9)]}
+        record["bgm"]["name"] = "New room"
+        tileset = loads((ROOT / "game/Data/Tilesets.rxdata").read_bytes())[1]
+        area = AuthoredMap(definition, record, tileset)
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             for name in (
@@ -45,7 +52,7 @@ class MapDefinitionTests(unittest.TestCase):
                 patch.dict(registry.DEFINITIONS, {"new_room": definition}, clear=True),
                 patch.dict(registry.MAPS, {"new_room": 117}, clear=True),
                 patch.dict(registry.ACTORS, {}, clear=True),
-                patch.dict(model.definitions.BY_ID, {117: definition}, clear=True),
+                patch.dict(definitions.BY_ID, {117: definition}, clear=True),
             ):
                 serialization.serialize(BuildPaths(root), [area])
                 configure.build(root)

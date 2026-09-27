@@ -1,0 +1,417 @@
+{
+  "$type": "RPG::Map",
+  "tileset_id": 27,
+  "width": 16,
+  "height": 14,
+  "autoplay_bgm": true,
+  "bgm": {
+    "$type": "RPG::AudioFile",
+    "name": "stillness",
+    "volume": 80,
+    "pitch": 100
+  },
+  "autoplay_bgs": false,
+  "bgs": {
+    "$type": "RPG::AudioFile",
+    "name": "",
+    "volume": 100,
+    "pitch": 100
+  },
+  "encounter_list": [],
+  "encounter_step": 30,
+  "data": {
+    "$type": "Table",
+    "shape": [16, 14, 3],
+    "rows": [
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [2512, 2512, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2512, 2512],
+      [2512, 2512, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2512, 2512],
+      [2512, 2512, 2392, 2513, 2513, 2392, 2392, 2392, 2513, 2513, 2392, 2513, 2513, 2392, 2512, 2512],
+      [2512, 2512, 2392, 2513, 2513, 2392, 2392, 2392, 2513, 2513, 2392, 2513, 2513, 2392, 2512, 2512],
+      [2512, 2512, 2392, 2513, 2513, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2512, 2512],
+      [2512, 2512, 2392, 2392, 2392, 2495, 2496, 2497, 2498, 2499, 2392, 2392, 2392, 2392, 2512, 2512],
+      [2512, 2512, 2392, 2513, 2392, 2500, 2501, 2501, 2501, 2502, 2392, 2392, 2392, 2392, 2512, 2512],
+      [2512, 2512, 2392, 2392, 2513, 2503, 2504, 2505, 2506, 2507, 2392, 2392, 2513, 2392, 2512, 2512],
+      [2512, 2512, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2513, 2392, 2512, 2512],
+      [2512, 2512, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2512, 2512],
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 0, 2392, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512, 2512],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2393, 2393, 2397, 2398, 2393, 2393, 2393, 2393, 2397, 2398, 2393, 2393, 0, 0],
+      [0, 0, 2394, 2394, 2399, 2400, 2394, 2394, 2394, 2394, 2399, 2400, 2394, 2394, 0, 0],
+      [0, 0, 0, 2489, 2490, 0, 0, 0, 2417, 2418, 0, 2413, 2414, 0, 0, 0],
+      [0, 0, 0, 2491, 2492, 0, 0, 0, 2419, 2420, 0, 2415, 2416, 0, 0, 0],
+      [0, 0, 0, 2493, 2494, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 2519, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 2450, 2488, 0, 0, 0, 0, 0, 0, 0, 2451, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 2407, 2408, 0, 0, 0, 2452, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 2409, 2410, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 2411, 2412, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0],
+      [0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0],
+      [0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0],
+      [0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0],
+      [0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0],
+      [0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0],
+      [0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0],
+      [0, 0, 2395, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2396, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  "events": {
+    "1": {
+      "$type": "RPG::Event",
+      "id": 1,
+      "name": "Room:NATU",
+      "x": 7,
+      "y": 8,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "Pokemon 01",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 0,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::Opening.bedroom_pet"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "$type": "RPG::Event",
+      "id": 2,
+      "name": "Mother visiting",
+      "x": 8,
+      "y": 11,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "NPC 11",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 0,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": false,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["pbMessage(\"Mother: Downstairs, love.\")"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "$type": "RPG::Event",
+      "id": 3,
+      "name": "Book",
+      "x": 4,
+      "y": 9,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::Opening.journal"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "$type": "RPG::Event",
+      "id": 4,
+      "name": "Opening",
+      "x": 2,
+      "y": 11,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 3,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::Opening.begin_story"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "$type": "RPG::Event",
+      "id": 5,
+      "name": "Bedroom exit",
+      "x": 8,
+      "y": 12,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 1,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::Opening.bedroom_exit"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

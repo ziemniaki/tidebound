@@ -38,7 +38,6 @@ tidebound/features/docks/quest.rb
 tidebound/features/mending/quest.rb
 tidebound/features/mending/presentation.rb
 tidebound/features/hideout.rb
-generated/pond_geometry.rb
 tidebound/features/pond.rb
 tidebound/features/interactions.rb
 tidebound/features/opening/actors.rb

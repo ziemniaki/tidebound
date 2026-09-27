@@ -8,6 +8,9 @@ from .art import compiler as art
 
 
 def rebuild(root, *, full=False):
+    from .maps.editor import require_import, remember
+
+    require_import(root)
     art.build(root)
     if full:
         ownership.prepare(root, ownership.inventory())
@@ -20,3 +23,4 @@ def rebuild(root, *, full=False):
     if full:
         configure.build(root)
         validate(root, root / ".build/maps/event_scripts.json")
+        remember(root)

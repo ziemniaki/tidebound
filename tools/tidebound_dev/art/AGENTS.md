@@ -5,7 +5,7 @@ For approved image layouts and prop authoring, use [content/AGENTS.md](../../../
 ## Pipeline ownership
 
 `pipeline.rebuild` calls `compiler.build` for every play/build/preview/rebuild.
-`uv run rebuild --all` also runs map/content compilers. Pipeline entry points:
+`play`, `build` and `rebuild --all` also run map/content compilers. Pipeline entry points:
 
 | Change | Owner in this directory |
 | --- | --- |
@@ -19,7 +19,8 @@ Content bundles are discovered without registration; source IDs determine destin
 `files.exports` and `pokemon.exports` supply the same records to writing and
 `ownership.inventory`; do not add a second source/output list. Destinations are
 repository-relative POSIX paths (`game/...`); sources use the supplied root.
-Maps register packed textures in `ownership.MAP_OUTPUTS`. `game/.generated/assets.json`
+Fixed tile bundles export through `maps/tilesets.py`; only the packed runtime light
+sheet belongs in `ownership.MAP_OUTPUTS`. `game/.generated/assets.json`
 is derived: never hand-edit it or use generated exports as recipe inputs.
 
 Keep retirement **before** writing replacements: case-only renames can otherwise

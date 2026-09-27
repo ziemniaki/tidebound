@@ -24,5 +24,6 @@
     "Folded stairs@7,24": 16,
     "Opening@2,23": 17
   },
-  "atlas": "dream"
+  "name": "Your Room, Again",
+  "actor_settings": {}
 }

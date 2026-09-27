@@ -36,8 +36,8 @@ Run from the repository root. uv owns Python dependencies; Node is pinned in
 `.node-version`; gameplay uses bundled Ruby (no system Ruby setup).
 
 ```sh
-uv run play           # refresh assets/Ruby, stage and launch a development player
-uv run build          # same refresh without launch; preserves editor maps/content
+uv run play           # compile authored game, stage and launch a development player
+uv run build          # same compilation without launch
 uv run preview pokemon/WHYDUCK  # inspect one asset without loading a save
 uv run format         # before embedding Ruby
 uv run rebuild        # export custom assets and embed the Ruby load manifest
@@ -46,8 +46,8 @@ uv run check          # headless gate; never regenerates tracked game data
 uv run check --all    # also regenerate in isolation and compare
 ```
 
-Asset/Ruby edits use the default refresh. Maps, packed tilesets, light masks and
-content definitions require `rebuild --all` before play. Stage new sources and
+Play/build compile current authored content. `rebuild --all` exports it without
+launching; ordinary `rebuild` is an asset/Ruby-only refresh. Stage new sources and
 outputs before `check --all`: its input set comes from `git ls-files`.
 Setup/editor details: [development](docs/development.md).
 
@@ -61,8 +61,9 @@ agent's binary wholesale. [Integration workflow](docs/development.md#independent
 
 ## Project constraints
 
-- Maps 101–116 are generator-owned. Reconcile direct editor work before full
-  rebuild. `game/Data` also contains irreplaceable stock inputs; never clear it.
+- Maps are authored in `content/maps/`; import saved RPG Maker edits with
+  `uv run editor import` before rebuilding. `game/Data` still contains irreplaceable
+  stock inputs; never clear it.
 - Preserve current Pokémon identity, held items and quest state. An empty party
   may be an astral journey. Do not add save versions, compatibility gates or old
   migration chains. Never delete player saves to make a check pass.

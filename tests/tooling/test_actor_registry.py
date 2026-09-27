@@ -1,75 +1,48 @@
-"""Actor labels are presentation; map ownership and identity are contracts."""
+"""Map/event identities and actor contracts survive native display-name changes."""
 
-from dataclasses import replace
+import json
 import unittest
-from unittest.mock import patch
-from tidebound_dev.maps import registry, model
-from runpy import run_path
 from types import SimpleNamespace
-from tidebound_dev.maps.interior import InteriorPainter
+from unittest.mock import patch
+from tidebound_dev.maps import registry, definitions
+from tidebound_dev.maps.data import native_map
 from tidebound_dev.paths import ROOT
 
 
 class ActorRegistryTests(unittest.TestCase):
-    def test_duplicate_and_misplaced_actors_fail_generation(self):
-        mother = registry.ACTORS["mother"]
-        home = model.Map(101, "Home", 3, 3, 1)
-        home.event(mother, 1, 1, "")
-        with self.assertRaisesRegex(ValueError, "duplicate event identity"):
-            home.event(mother, 2, 1, "")
-        with self.assertRaisesRegex(ValueError, "belongs to home"):
-            model.Map(102, "Coast", 3, 3, 1).event(mother, 1, 1, "")
-
-    def test_label_changes_preserve_identity_role_and_placement(self):
-        original = run_path(str(ROOT / "content/maps/home/build.py"))["build"](
-            SimpleNamespace(rooms=InteriorPainter(ROOT / "game"))
+    def home(self):
+        native = native_map(json.loads((ROOT / "content/maps/home/layout.json").read_text()))
+        return SimpleNamespace(
+            id=101,
+            events=native.attributes["@events"],
+            actor_settings={int(k): v for k, v in definitions.BY_ID[101].actor_settings.items()},
         )
+
+    def test_named_actor_lookup_survives_rename_but_rejects_duplicate_and_wrong_map(self):
+        area = self.home()
+        area.events[1].attributes["@name"] = "A different display label"
         with patch.dict(
             registry.ACTORS,
-            {key: replace(value, label="Label " + key) for key, value in registry.ACTORS.items()},
+            {k: v for k, v in registry.ACTORS.items() if v.map == "home"},
+            clear=True,
         ):
-            renamed = run_path(str(ROOT / "content/maps/home/build.py"))["build"](
-                SimpleNamespace(rooms=InteriorPainter(ROOT / "game"))
-            )
-        self.assertEqual(original.actor_settings, renamed.actor_settings)
-        for event_id in original.events:
-            old = original.events[event_id].attributes
-            new = renamed.events[event_id].attributes
-            self.assertEqual((old["@x"], old["@y"]), (new["@x"], new["@y"]))
-            self.assertEqual(
-                old["@pages"][0].attributes["@through"], new["@pages"][0].attributes["@through"]
-            )
-        self.assertNotEqual(original.serialize(), renamed.serialize())
+            actors, _ = registry.collect_actors([area])
+            self.assertEqual(actors["mother"], {"map": 101, "event": 1})
+            with self.assertRaisesRegex(ValueError, "Duplicate actor"):
+                registry.collect_actors([area, area])
+            area.id = 102
+            with self.assertRaisesRegex(ValueError, "belongs to home"):
+                registry.collect_actors([area])
 
-    def test_role_typos_and_incomplete_roles_are_rejected(self):
-        area = model.Map(101, "Home", 3, 3, 1)
-        for options in (
+    def test_role_typos_and_incomplete_roles_fail_at_the_compiler_boundary(self):
+        area = self.home()
+        for info in (
             {"role": "hose"},
             {"role": "room"},
             {"role": "spirit"},
             {"role": "neighbor_wild", "species": "NATU"},
             {"role": "prop"},
         ):
-            with self.subTest(options=options), self.assertRaises(ValueError):
-                area.event("Any readable label", 1, 1, "", **options)
-
-    def test_landscape_protects_relocated_events_without_a_shadow_position_list(self):
-        from tidebound_dev.maps.landscape_painter import Landscape
-
-        area = model.Map(101, "Room", 10, 10, 1)
-        with patch.dict(model.definitions.BY_ID[101].events, {"Object@2,2": 999}):
-            event_id = area.event("Object", 2, 2, "", blocks=True)
-        area.events[event_id].attributes["@x"] = 6
-        landscape = Landscape(area, None)
-        self.assertIn((6, 2), landscape.protected)
-        self.assertNotIn((2, 2), landscape.protected)
-        self.assertTrue(area.targets[0][-1])  # Relocation preserves authored collision intent.
-
-    def test_inserting_an_event_does_not_renumber_existing_events(self):
-        ids = {"one": 7, "two": 12, "inserted": 20}
-        with patch.dict(model.definitions.BY_ID[101].events, ids, clear=True):
-            area = model.Map(101, "Home", 4, 4, 1)
-            for key in ("inserted", "two", "one"):
-                self.assertEqual(area.event("Label", 1, 1, "", key=key), ids[key])
-            with self.assertRaisesRegex(ValueError, "allocate a stable event ID"):
-                area.event("Forgot to allocate", 2, 2, "")
+            area.actor_settings = {1: info}
+            with self.subTest(info=info), self.assertRaises(ValueError):
+                registry.collect_actors([area])

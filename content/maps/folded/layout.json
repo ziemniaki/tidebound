@@ -1,0 +1,1281 @@
+{
+  "$type": "RPG::Map",
+  "tileset_id": 32,
+  "width": 30,
+  "height": 26,
+  "autoplay_bgm": true,
+  "bgm": {
+    "$type": "RPG::AudioFile",
+    "name": "stillness",
+    "volume": 80,
+    "pitch": 100
+  },
+  "autoplay_bgs": false,
+  "bgs": {
+    "$type": "RPG::AudioFile",
+    "name": "",
+    "volume": 100,
+    "pitch": 100
+  },
+  "encounter_list": [],
+  "encounter_step": 30,
+  "data": {
+    "$type": "Table",
+    "shape": [30, 26, 3],
+    "rows": [
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2578, 2578, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2495, 2496, 2497, 2498, 2579, 2499, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2578, 2578, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2500, 2566, 2580, 2501, 2501, 2502, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2494, 2494, 2571, 2572, 2573, 2571, 2572, 2573, 2571, 2572, 2573, 2494, 2564, 2494, 2578, 2494, 2503, 2504, 2505, 2506, 2581, 2507, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2583, 2578, 2578, 2578, 2578, 2578, 2494, 2494, 2494, 2494, 2578, 2578, 2578, 2578, 2392, 2392],
+      [2392, 2392, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2494, 2494, 2494, 2494, 2578, 2578, 2578, 2578, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2564, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2564, 2494, 2494, 2494, 2508, 2509, 2510, 2511, 2512, 2494, 2494, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2573, 2571, 2572, 2573, 2571, 2572, 2585, 2571, 2572, 2573, 2571, 2572, 2573, 2494, 2513, 2514, 2515, 2516, 2517, 2494, 2494, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2578, 2578, 2494, 2494, 2494, 2494, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2583, 2578, 2578, 2578, 2392, 2392],
+      [2392, 2392, 2578, 2578, 2494, 2494, 2494, 2494, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2392, 2392],
+      [2392, 2392, 2494, 2578, 2578, 2494, 2564, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2578, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2578, 2578, 2494, 2494, 2494, 2578, 2494, 2494, 2494, 2573, 2571, 2572, 2573, 2571, 2572, 2574, 2571, 2572, 2573, 2571, 2494, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2578, 2578, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2578, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2564, 2518, 2519, 2520, 2521, 2519, 2522, 2494, 2564, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2578, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2523, 2524, 2524, 2524, 2524, 2525, 2494, 2494, 2571, 2572, 2573, 2571, 2572, 2573, 2571, 2572, 2573, 2571, 2572, 2494, 2494, 2578, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2526, 2527, 2528, 2529, 2527, 2530, 2494, 2578, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2494, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2577, 2577, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392, 2392],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2531, 2531, 2531, 2532, 2533, 2531, 2531, 2531, 2531, 2531, 2531, 2531, 2531, 2532, 2533, 2531, 2531, 2531, 2531, 2532, 2533, 2531, 2531, 2531, 2531, 2531, 0, 0],
+      [0, 0, 2534, 2534, 2534, 2535, 2536, 2534, 2534, 2534, 2534, 2534, 2534, 2534, 2534, 2535, 2536, 2534, 2534, 2534, 2534, 2535, 2536, 2534, 2534, 2534, 2534, 2534, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2537, 2538, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2539, 2540, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2541, 2542, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2543, 2544, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2545, 2546, 0, 0, 0, 2547, 2548, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2549, 2550, 2549, 2550, 2549, 2550, 2549, 2550, 2567, 2568, 2549, 2550, 2565, 2550, 2549, 2550, 2549, 2550, 0, 0, 0, 0, 2567, 2568, 2549, 2550, 0, 0],
+      [0, 0, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 2569, 2570, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 0, 0, 0, 0, 2569, 2570, 2551, 2552, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 2545, 2546, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2549, 2550, 0, 0, 0, 0, 2549, 2550, 2549, 2550, 2549, 2550, 2549, 2550, 2549, 2550, 2567, 2568, 2549, 2550, 2549, 2550, 2565, 2550, 2549, 2550, 0, 0],
+      [0, 0, 2551, 2552, 0, 0, 0, 0, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 2569, 2570, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 0, 0],
+      [0, 0, 0, 2539, 2540, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2545, 2546, 0, 0],
+      [0, 0, 0, 2543, 2544, 0, 0, 0, 2553, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 2547, 2548, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2549, 2550, 2549, 2550, 2549, 2550, 2567, 2568, 2549, 2550, 2549, 2550, 2549, 2550, 2549, 2550, 2549, 2550, 2549, 2550, 2549, 2550, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2551, 2552, 2551, 2552, 2551, 2552, 2569, 2570, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 2551, 2552, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2554, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2555, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 2556, 2557, 0, 0, 0, 0, 2545, 2546, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 2558, 2559, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 2560, 2561, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2582, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2584, 0, 0],
+      [0, 0, 2582, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2584, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2582, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2584, 0, 0],
+      [0, 0, 2582, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2584, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2582, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2582, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 2562, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2563, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  },
+  "events": {
+    "1": {
+      "$type": "RPG::Event",
+      "id": 1,
+      "name": "Folded reading tooth",
+      "x": 12,
+      "y": 22,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reading(:tooth)"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "$type": "RPG::Event",
+      "id": 2,
+      "name": "Folded reading snow",
+      "x": 26,
+      "y": 15,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reading(:snow)"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "$type": "RPG::Event",
+      "id": 3,
+      "name": "Folded reading cradle",
+      "x": 9,
+      "y": 11,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reading(:cradle)"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "$type": "RPG::Event",
+      "id": 4,
+      "name": "Folded reading voice",
+      "x": 19,
+      "y": 6,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reading(:voice)"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "$type": "RPG::Event",
+      "id": 5,
+      "name": "Folded empty_bed",
+      "x": 4,
+      "y": 17,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reading(:empty_bed)"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "6": {
+      "$type": "RPG::Event",
+      "id": 6,
+      "name": "Folded chair",
+      "x": 8,
+      "y": 16,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reading(:chair)"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "7": {
+      "$type": "RPG::Event",
+      "id": 7,
+      "name": "Folded plant",
+      "x": 26,
+      "y": 21,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reading(:plant)"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "8": {
+      "$type": "RPG::Event",
+      "id": 8,
+      "name": "Folded cupboard",
+      "x": 12,
+      "y": 5,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reading(:cupboard)"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "9": {
+      "$type": "RPG::Event",
+      "id": 9,
+      "name": "Folded bed",
+      "x": 24,
+      "y": 4,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_bed"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "10": {
+      "$type": "RPG::Event",
+      "id": 10,
+      "name": "Folded bed",
+      "x": 25,
+      "y": 4,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_bed"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "11": {
+      "$type": "RPG::Event",
+      "id": 11,
+      "name": "Folded bed",
+      "x": 24,
+      "y": 5,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_bed"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "12": {
+      "$type": "RPG::Event",
+      "id": 12,
+      "name": "Folded bed",
+      "x": 25,
+      "y": 5,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_bed"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "13": {
+      "$type": "RPG::Event",
+      "id": 13,
+      "name": "Folded bed",
+      "x": 24,
+      "y": 6,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_bed"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "14": {
+      "$type": "RPG::Event",
+      "id": 14,
+      "name": "Folded bed",
+      "x": 25,
+      "y": 6,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 0,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_bed"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "15": {
+      "$type": "RPG::Event",
+      "id": 15,
+      "name": "Folded stairs",
+      "x": 6,
+      "y": 24,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 1,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reset"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "16": {
+      "$type": "RPG::Event",
+      "id": 16,
+      "name": "Folded stairs",
+      "x": 7,
+      "y": 24,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 1,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_reset"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    "17": {
+      "$type": "RPG::Event",
+      "id": 17,
+      "name": "Opening",
+      "x": 2,
+      "y": 23,
+      "pages": [
+        {
+          "$type": "RPG::Event::Page",
+          "condition": {
+            "$type": "RPG::Event::Page::Condition",
+            "switch1_valid": false,
+            "switch2_valid": false,
+            "variable_valid": false,
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch2_id": 1,
+            "variable_id": 1,
+            "variable_value": 0,
+            "self_switch_ch": "A"
+          },
+          "graphic": {
+            "$type": "RPG::Event::Page::Graphic",
+            "tile_id": 0,
+            "character_name": "",
+            "character_hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blend_type": 0
+          },
+          "move_type": 0,
+          "move_speed": 2,
+          "move_frequency": 2,
+          "move_route": {
+            "$type": "RPG::MoveRoute",
+            "repeat": true,
+            "skippable": true,
+            "list": [
+              {
+                "$type": "RPG::MoveCommand",
+                "code": 0,
+                "parameters": []
+              }
+            ]
+          },
+          "walk_anime": true,
+          "step_anime": false,
+          "direction_fix": false,
+          "through": true,
+          "always_on_top": false,
+          "trigger": 3,
+          "list": [
+            {
+              "$type": "RPG::EventCommand",
+              "code": 355,
+              "indent": 0,
+              "parameters": ["Tidebound::DreamRoom.folded_arrival"]
+            },
+            {
+              "$type": "RPG::EventCommand",
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

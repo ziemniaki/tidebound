@@ -49,11 +49,35 @@ ROLES = {
 }
 
 
+def validate_actor(info):
+    role = info.get("role", "")
+    if role and role not in ROLES:
+        raise ValueError(f"Unknown actor role: {role}")
+    if role in (
+        "house",
+        "room",
+        "outside_dog",
+        "wood_bird",
+        "neighbor_wild",
+        "shore_duck",
+    ) and not info.get("species"):
+        raise ValueError(f"Actor role {role} requires a species")
+    if role == "spirit" and (type(info.get("index")) is not int or info["index"] < 0):
+        raise ValueError("Spirit actor requires a nonnegative soul index")
+    if role == "neighbor_wild" and not info.get("state"):
+        raise ValueError("Neighbor wild actor requires its quest state key")
+    if role == "prop" and not info.get("asset"):
+        raise ValueError("Static prop requires an asset name")
+    if info.get("cue") and info["cue"] not in ("north", "south", "east", "west"):
+        raise ValueError(f"Unknown threshold direction: {info['cue']}")
+
+
 def collect_actors(maps):
     actors, settings = {}, {}
     for area in maps:
         settings[area.id] = area.actor_settings
         for event_id, info in area.actor_settings.items():
+            validate_actor(info)
             if event_id not in area.events:
                 raise ValueError(f"Map {area.id}: actor refers to missing event {event_id}")
             key = info.get("key")

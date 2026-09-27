@@ -4,17 +4,10 @@ import json
 from pathlib import PurePosixPath
 
 from . import files, pokemon
-from ..maps.atlases import GROUPS
+from ..maps import tilesets
 
 MANIFEST = "game/.generated/assets.json"
-MAP_OUTPUTS = tuple(f"Graphics/Tilesets/{group.texture}.png" for group in GROUPS.values()) + (
-    "Graphics/Tilesets/TideboundPond.png",
-    "Graphics/Tilesets/TideboundVillage.png",
-    "Graphics/Autotiles/Tidebound Shallows.png",
-    "Graphics/Autotiles/Tidebound Open Sea.png",
-    "Graphics/Autotiles/Tidebound Deep Sea.png",
-    "Graphics/Pictures/Tidebound/window_panes.png",
-)
+MAP_OUTPUTS = ("Graphics/Pictures/Tidebound/window_panes.png",)
 
 
 def inventory(root):
@@ -28,7 +21,11 @@ def inventory(root):
         folded.add(name.casefold())
         owners[name] = owner
 
-    for owner, producer in (("files", files.exports), ("pokemon", pokemon.exports)):
+    for owner, producer in (
+        ("files", files.exports),
+        ("pokemon", pokemon.exports),
+        ("tilesets", tilesets.exports),
+    ):
         for export in producer(root):
             register(export.destination, owner)
             exports.append(export)

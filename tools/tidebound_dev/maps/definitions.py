@@ -3,7 +3,6 @@
 from dataclasses import dataclass, field
 from ..catalog import bundles
 from ..paths import ROOT
-from .atlases import GROUPS
 from rubymarshal.classes import Symbol
 
 ATMOSPHERES = {
@@ -20,13 +19,14 @@ ATMOSPHERES = {
 class MapDefinition:
     id: int
     entrances: dict[str, list[int]]
-    actors: dict = field(default_factory=dict)
+    name: str = ""
+    actor_settings: dict = field(default_factory=dict)
     events: dict[str, int] = field(default_factory=dict)
-    atlas: str | None = None
+    parent_id: int = 0
+    order: int | None = None
     encounters: dict = field(default_factory=dict)
     wild_forms: dict[str, int] = field(default_factory=dict)
     atmosphere: str = "indoor"
-    music: str = "stillness"
     battleback: str = "field"
     environment: str = "None"
     outdoor: bool = False
@@ -34,8 +34,9 @@ class MapDefinition:
     origin: tuple[int, int] = (0, 0)
 
     def __post_init__(self):
-        if self.atlas is not None and self.atlas not in GROUPS:
-            raise ValueError(f"Map {self.id}: unknown atlas group {self.atlas}")
+        keys = [v["key"] for v in self.actor_settings.values() if v.get("key")]
+        if len(set(keys)) != len(keys):
+            raise ValueError(f"Map {self.id}: duplicate actor identity")
         if len(set(self.events.values())) != len(self.events) or any(
             type(i) is not int or i < 1 for i in self.events.values()
         ):
@@ -46,6 +47,18 @@ class MapDefinition:
             raise ValueError(f"Map {self.id} needs at least one arrival")
         if self.atmosphere not in ATMOSPHERES:
             raise ValueError(f"Map {self.id}: unknown atmosphere {self.atmosphere}")
+
+    @property
+    def actors(self):
+        return {
+            info["key"]: {
+                "label": info["key"],
+                "role": info.get("role", "npc"),
+                "species": info.get("species", ""),
+            }
+            for info in self.actor_settings.values()
+            if info.get("key")
+        }
 
     @property
     def arrivals(self):
@@ -84,7 +97,7 @@ class MapDefinition:
         return {**ATMOSPHERES[self.atmosphere], "night": self.night, "origin": self.origin}
 
 
-# Only declarations are discovered. Builders are imported after the catalog is complete.
+# Map declarations are discovered before composing encounters and actor registries.
 DEFINITIONS = {
     name: MapDefinition(**record) for name, record in bundles(ROOT, "maps", "map.json").items()
 }

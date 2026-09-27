@@ -17,10 +17,10 @@ bundles by their conventional filenames, without another registration list.
 | `content/trainers/<ID>/trainer.json` + portrait/character | Trainer type and artwork | Trainer data, portraits and walking sheets |
 | `content/actors/<name>/character.png` | Named actor walking sheet | `Graphics/Characters/<name>.png` |
 | `content/props/<name>/prop.json` + image | Picture, anchor and optional fixed layer | `Graphics/Pictures/props/<name>.png`, generated prop table |
-| `content/maps/<name>/map.json` + `build.py` | Layout, events, entrances, encounters and map-only art | Native maps, metadata, encounters and packed tilesets |
+| `content/maps/<name>/map.json` + `layout.json` | Layout, native event pages, entrances and encounters | Native maps, metadata and encounters |
 | `content/audio/{music,ambience,effects,cues}/` | Approved Ogg playback files | `Audio/{BGM,BGS,SE,ME}/` respectively |
 | `content/ui/`, `content/effects/` | Shared UI and effect PNGs | Corresponding subdirectories of `Graphics/Pictures/` |
-| `content/tilesets/` | Shared approved tile overlays | Packed map textures and lighting |
+| `content/tilesets/` | Fixed native tile sheets, flags and light masks | Tilesets and lighting |
 
 Use **lower_snake_case** for authored directories and ordinary filenames. Engine
 species/item/trainer IDs retain uppercase (`WHYDUCK`, `SUNKERN_1`, `TIDEBOUNDOILKEYS`),
@@ -64,11 +64,11 @@ Stock engine changes are explicit patches in `tools/tidebound_dev/scripts/patche
 ## Maps and generated files
 
 Map declarations allocate stable event IDs, named entrances and actor ownership.
-Builders use the shared APIs in `tools/tidebound_dev/maps/`; those tools contain
-compilers and reusable drawing primitives, not individual map definitions.
-Atlas groups bound texture allocation. Packed tiles retain their original source
-IDs for passage and lighting metadata. Regeneration derives runtime geometry and
-the world registry into `src/generated/`; handwritten Ruby never embeds copied maps.
+Native map records live in readable JSON; builds serialize them without executing
+layout generators. Fixed tileset IDs and square positions preserve tile references
+across map edits. Native passage/terrain tables are shared with RPG Maker; the game
+has no separate collision override. Derived geometry, lighting and the world
+registry are written to `src/generated/`.
 
 `game/` is the RPG Maker project and stays tracked. It contains stock inputs that
 cannot currently be recreated from custom sources, alongside generated data.
@@ -84,9 +84,8 @@ Full rebuild retires removed custom records/files and replaces current outputs;
 stock inputs are never swept. Isolated regeneration removes owned file outputs
 and verifies that all tracked generated files can be reproduced.
 
-The editor project is `game/Game.rxproj`. Direct editor changes to generated maps
-must be reconciled with their source before full rebuild. Ordinary play refreshes
-artwork and Ruby while preserving map geometry. The map compiler derives
+The [RPG Maker workflow](development.md#rpg-maker) imports saved edits back into
+these sources. Play/build compile current authored content. The map compiler derives
 Essentials' existing map revision from native map/tileset bytes; loading a save
 refreshes stale cached maps without changing Pokémon or quest state.
 

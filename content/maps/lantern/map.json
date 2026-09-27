@@ -9,5 +9,16 @@
     "Downward lamp@9,8": 2,
     "Door@6,11": 3
   },
-  "atlas": "lighthouse"
+  "name": "The Lantern Room",
+  "actor_settings": {
+    "1": {
+      "role": "main_lamp"
+    },
+    "2": {
+      "role": "lamp"
+    },
+    "3": {
+      "cue": "south"
+    }
+  }
 }

@@ -35,5 +35,11 @@
     "Room:NATU@10,8": 26,
     "Opening@2,11": 27
   },
-  "atlas": "dream"
+  "name": "Your Room",
+  "actor_settings": {
+    "26": {
+      "role": "room",
+      "species": "NATU"
+    }
+  }
 }

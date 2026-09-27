@@ -8,14 +8,6 @@
     "from_hideout": [35, 43, 2],
     "from_docks": [43, 43, 4]
   },
-  "actors": {
-    "road_thief": {
-      "label": "Road thief"
-    },
-    "running_thief": {
-      "label": "Running thief"
-    }
-  },
   "events": {
     "Door@18,4": 1,
     "Wild:NATU:shorebird@20,10": 2,
@@ -48,62 +40,75 @@
     "Pond obelisk (Surf)@27,61": 29,
     "Old fishing basket@37,70": 30
   },
-  "atlas": "fields",
   "encounters": {
     "Land": {
       "chance": 18,
       "slots": [
-        [
-          40,
-          "ZIGZAGOON",
-          4,
-          6
-        ],
-        [
-          35,
-          "SUNKERN_1",
-          4,
-          6
-        ],
-        [
-          15,
-          "EKANS_1",
-          4,
-          6
-        ],
-        [
-          10,
-          "PSYDUCK_1",
-          4,
-          6
-        ]
+        [40, "ZIGZAGOON", 4, 6],
+        [35, "SUNKERN_1", 4, 6],
+        [15, "EKANS_1", 4, 6],
+        [10, "PSYDUCK_1", 4, 6]
       ]
     },
     "PondGrass": {
       "chance": 18,
       "slots": [
-        [
-          40,
-          "PSYDUCK_1",
-          8,
-          11
-        ],
-        [
-          35,
-          "SUNKERN_1",
-          8,
-          10
-        ],
-        [
-          25,
-          "AIPOM",
-          8,
-          11
-        ]
+        [40, "PSYDUCK_1", 8, 11],
+        [35, "SUNKERN_1", 8, 10],
+        [25, "AIPOM", 8, 11]
       ]
     }
   },
   "wild_forms": {
     "ARBOK": 1
+  },
+  "name": "The South Coast Road",
+  "actor_settings": {
+    "1": {
+      "cue": "north"
+    },
+    "2": {
+      "role": "neighbor_wild",
+      "species": "NATU",
+      "state": "shorebird"
+    },
+    "3": {
+      "role": "neighbor_wild",
+      "species": "ZIGZAGOON",
+      "state": "shoreforager"
+    },
+    "4": {
+      "key": "road_thief",
+      "role": "npc"
+    },
+    "8": {
+      "key": "running_thief",
+      "role": "npc"
+    },
+    "12": {
+      "cue": "south"
+    },
+    "14": {
+      "role": "fire"
+    },
+    "18": {
+      "role": "berry"
+    },
+    "19": {
+      "role": "berry"
+    },
+    "20": {
+      "role": "coast_lamp"
+    },
+    "21": {
+      "cue": "east"
+    },
+    "23": {
+      "role": "shore_duck",
+      "species": "PSYDUCK"
+    },
+    "27": {
+      "role": "berry"
+    }
   }
 }

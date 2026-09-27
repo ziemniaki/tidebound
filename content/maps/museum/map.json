@@ -13,5 +13,31 @@
     "Museum case:Shipping ledger@7,12": 6,
     "Visitor@18,12": 7,
     "Door@14,21": 8
+  },
+  "name": "Dockside Museum",
+  "actor_settings": {
+    "2": {
+      "role": "prop",
+      "asset": "sabre_exhibit"
+    },
+    "3": {
+      "role": "prop",
+      "asset": "museum_case"
+    },
+    "4": {
+      "role": "prop",
+      "asset": "museum_case"
+    },
+    "5": {
+      "role": "prop",
+      "asset": "museum_case"
+    },
+    "6": {
+      "role": "prop",
+      "asset": "museum_case"
+    },
+    "8": {
+      "cue": "south"
+    }
   }
 }

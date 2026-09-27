@@ -11,8 +11,7 @@ implements it on a branch, and builds a development player for you to try with
 `uv run play`. Review the behavior and PR before merging. Story decisions belong
 in `specs/`; development instructions belong in `docs/` and scoped `AGENTS.md` files.
 
-If you also edit maps in RPG Maker XP, tell the agent which maps changed before
-regeneration so those edits can be incorporated into their Python source.
+RPG Maker and agents edit the same authored maps through the [editor workflow](#rpg-maker).
 
 ## Setup
 
@@ -38,7 +37,7 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 
 | Command | Result |
 | --- | --- |
-| `uv run play` | Embed current Ruby, build and launch a native development player |
+| `uv run play` | Compile authored maps/content/assets/Ruby and launch a native development player |
 | `uv run build` | Same build without launching; prints its path |
 | `uv run build --platform windows` | Cross-package a Windows development copy |
 | `uv run build --platform linux` | Cross-package a Linux x86_64 development copy |
@@ -49,7 +48,8 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run rebuild` | Export custom assets and embed the Ruby load manifest |
 | `uv run rebuild --all` | Regenerate maps, data, pipeline-owned art, reports and scripts |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
-| `uv run editor` | On Windows, restore ignored helpers and open `game/Game.rxproj` |
+| `uv run editor` | Export authored maps, restore ignored helpers and open RPG Maker on Windows |
+| `uv run editor import` | Import saved map/tileset edits into authored files; works on every platform |
 
 `uv run build` is the game command. `uv build` builds a Python package, not
 Tidebound. `uv run tidebound --help` lists the commands.
@@ -58,8 +58,9 @@ Development builds stage the native player directly, without making a release ZI
 Builds go into unique ignored `.build/dev/` directories. Development players use
 `Tidebound_Development` saves, shared between development builds. Release saves
 stay in `Tidebound_Opening_0_2`; installed release apps are not replaced.
-Closing the game returns control to `uv run play`. Old `.build/` directories and
-`.cache/` extractions can be deleted when no game is running; neither holds saves.
+Closing the game returns control to `uv run play`. Old `.build/dev/` players and `.cache/` extractions can be deleted when no game is
+running. Preserve `.build/editor.json` until editor changes have been imported;
+it records the comparison point, not a player save.
 
 Formatting uses [Ruff](https://docs.astral.sh/ruff/formatter/) for Python and
 [Syntax Tree](https://github.com/ruby-syntax-tree/syntax_tree) for Ruby. Ruby runs
@@ -74,20 +75,38 @@ Edit `src/tidebound/`, register new files in `src/load_order.txt`, then run `uv 
 reads `game/Data/Scripts.rxdata`; source edits must be embedded. Never install a
 second plugin copy. See [architecture](architecture.md) for ownership.
 
-RPG Maker XP opens `game/Game.rxproj`. `uv run editor` restores its local runtime
-and optional helpers from pinned archives. The editor edits the real project;
-its own Test Play uses the project's normal save namespace. Use `uv run play`
-for isolated development saves. Generated maps 101–116 must be reconciled with
-their Python generators after direct editor changes. `rebuild --all` overwrites
-those maps; review or commit editor work before intentionally regenerating.
-Ordinary `play` refreshes custom artwork/audio and scripts; it preserves map geometry.
+## RPG Maker
+
+1. On Windows, run `uv run editor`. It compiles the authored game, records the
+   exported map/tileset state, restores ignored helpers and opens `game/Game.rxproj`.
+2. Edit and **save** in RPG Maker. Close the editor before importing or rebuilding.
+3. Run `uv run editor import`. Tiles, events (including all pages/routes), map
+   audio, names/tree placement, custom tileset settings and textures return to
+   `content/`. Review `git diff`, then `uv run play`.
+
+The importer compares editor and source changes against the last export. Edits to
+separate fields merge; conflicting edits to the same field stop before any source
+is written. Resolve that field in source/editor and rerun. Scrolling, expanding a
+map in the editor, and Marshal encoding differences do not create source changes.
+Rebuilds detect pending saved map edits and ask for import before replacing them.
+Unsaved editor changes cannot be detected, so always save and close first.
+
+This imports existing authored map bundles and custom tilesets. Add a new bundle
+using the [map guide](../content/maps/AGENTS.md) before opening it in RPG Maker.
+Stock maps and other engine database edits remain native inputs in `game/`.
+The importer reports changed stock maps; other databases are outside its scope.
+Commit/review native input changes separately. Do not delete `.build/editor.json` to bypass a conflict.
+
+RPG Maker Test Play uses the project/release save namespace. `uv run play` uses
+isolated development saves. No editor installation is needed for JSON authoring,
+importing saved project files or native Mac/Linux playtesting.
 
 Full regeneration writes directly to tracked files. If it fails, fix the reported
 error and rerun `uv run rebuild --all` before playing. Review the generated diff
 in Git; `uv run check --all` verifies reproducibility in a disposable copy.
 
 Keep compiled data checked in: stock Essentials inputs cannot all be rebuilt
-from the custom generators. Review generated diffs alongside source changes.
+from the custom sources. Review generated diffs alongside source changes.
 No development command commits, pushes, merges or publishes.
 
 ## Authoring workflows
@@ -99,7 +118,7 @@ The scoped guides explain the source files, engine contracts and checks for
 They apply to human development as well as agents.
 
 Ordinary rebuild refreshes the [authored custom assets](artwork.md); full rebuild
-also repacks map tilesets and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
+also exports fixed tilesets, maps and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
 editing a game PNG: generated destinations are replaced by their exporter.
 
 ## Less common work
@@ -144,7 +163,7 @@ species catalogs and shared NPC dispatch. Individual map layouts belong in
 `content/maps/<map>/`; another area must not patch their events or geometry.
 
 Include source and generated outputs in the PR. When combining work, resolve
-source first, then regenerate once. For generator-owned binary conflicts, use a
+source first, then regenerate once. For compiled binary conflicts, use a
 known common baseline, apply the combined source, then run `uv run format`,
 `uv run rebuild --all` and `uv run check --all`. Never choose one branch's archive
 wholesale: that can discard another feature. Stock data and supplied editor/asset
