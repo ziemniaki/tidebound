@@ -198,6 +198,8 @@ module NativeScenarios
       road: [30, 55]
     }
     Graphics.transition(0)
+    relocating_npc_floor
+    furniture_overhangs(output)
     scenes.each do |name, (x, y)|
       Tidebound::World.travel(name, x, y)
       capture(output, name)
@@ -226,6 +228,57 @@ module NativeScenarios
     puts "PASS: declared start before map callbacks; world captures; native save/load preserves state and refreshes stale maps"
   ensure
     $scene.dispose if $scene.is_a?(Scene_Map) && $scene.map_renderer
+  end
+
+  def relocating_npc_floor
+    [[:home, :mother, 12, 7], [:shop, :oil_seller, 7, 5]].each do |map, key, x, y|
+      Tidebound::World.travel(map, x - 1, y, 6)
+      actor = Tidebound::World.actor(key)
+      raise "NPC fixture is not present: #{key}" unless actor && !actor.through
+      $game_player.move_right
+      raise "Player walked into #{key}" unless $game_player.x == x - 1
+      Tidebound::Scenes.run(actor, restore_positions: true) do
+        actor.moveto(x, y + 1)
+        $game_player.move_right
+        unless [$game_player.x, $game_player.y] == [x, y]
+          raise "Relocating #{key} left an invisible floor blocker"
+        end
+        $game_player.moveto(x, y)
+      end
+    end
+    puts "PASS: NPC events block occupied cells and leave walkable floor after relocating"
+  end
+
+  def furniture_overhangs(output)
+    # Exercise native player collision, including events and both ends of a step.
+    # Starting just right of each object, walk across its northern cap.
+    fixtures = [
+      [:bed, :bedroom, 5, 4, 2],
+      [:shelf, :bedroom, 13, 4, 2],
+      [:cupboard, :bedroom, 10, 4, 2],
+      [:plant, :bedroom, 13, 9, 1],
+      [:shop_shelf, :shop, 6, 4, 3],
+      [:damaged_machine, :hideout, 5, 4, 2],
+      [:display_case, :vault, 10, 14, 2],
+      [:trimmed_cupboard, :lantern, 5, 6, 2]
+    ]
+    fixtures.each do |name, map, x, y, width|
+      Tidebound::World.travel(map, x, y, 4)
+      raise "Furniture check requires normal collision" if $game_player.through
+      width.times do
+        $game_player.move_left
+        x -= 1
+        unless [$game_player.x, $game_player.y] == [x, y]
+          raise "Cannot walk behind #{name} at #{x},#{y}"
+        end
+        # Finish interpolation before attempting the next normal movement.
+        $game_player.moveto(x, y)
+        $game_player.move_down
+        raise "Walked into #{name} body" unless [$game_player.x, $game_player.y] == [x, y]
+      end
+      capture(output, "behind-#{name}")
+    end
+    puts "PASS: native player walks behind furniture overhangs and cannot enter their bodies"
   end
 
   def interrupt_route
