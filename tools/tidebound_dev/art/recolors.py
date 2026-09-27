@@ -1,7 +1,5 @@
 """Palette-only regional artwork. Source geometry and alpha stay unchanged."""
 
-from ..files import save_png
-
 from PIL import Image
 
 # Target species/form -> stock source and replacements by sprite folder.
@@ -100,21 +98,12 @@ RECOLORS = {
 }
 
 
-def generate(game):
-    sprites = game / "Graphics/Pokemon"
-    for target, (source, palettes) in RECOLORS.items():
-        for folder, palette in palettes.items():
-            path = sprites / folder / f"{source}.png"
-            with Image.open(path) as image:
-                edited = image.convert("RGBA")
-            pixels = list(edited.get_flattened_data())
-            missing = palette.keys() - {p[:3] for p in pixels if p[3]}
-            if missing:
-                raise ValueError(
-                    f"{path}: expected source palette colours missing: {sorted(missing)}"
-                )
-            edited.putdata([(*palette.get(p[:3], p[:3]), p[3]) if p[3] else p for p in pixels])
-            save_png(edited, sprites / folder / f"{target}.png")
-            if folder != "Icons":
-                save_png(edited, sprites / f"{folder} shiny" / f"{target}.png")
-    print("Exported regional palette edits: " + ", ".join(RECOLORS))
+def recolor(path, palette):
+    with Image.open(path) as image:
+        edited = image.convert("RGBA")
+    pixels = list(edited.get_flattened_data())
+    missing = palette.keys() - {p[:3] for p in pixels if p[3]}
+    if missing:
+        raise ValueError(f"{path}: expected source palette colours missing: {sorted(missing)}")
+    edited.putdata([(*palette.get(p[:3], p[:3]), p[3]) if p[3] else p for p in pixels])
+    return edited

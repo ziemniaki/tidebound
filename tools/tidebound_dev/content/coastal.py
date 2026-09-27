@@ -276,5 +276,3 @@ METRICS = {
         "fields": {"BackSprite": (0, 5), "FrontSprite": (1, 13), "ShadowX": 0, "ShadowSize": 2},
     }
 }
-
-CRIES = {"WHYDUCK": "PSYDUCK"}

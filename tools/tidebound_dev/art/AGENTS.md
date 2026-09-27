@@ -34,7 +34,7 @@ not convert the codec. Do not introduce WMA (unsupported by mkxp-z).
    both metadata encodings. Editing the map/PBS output alone is overwritten.
 4. Cries use the base ID for form 0 (`SPECIES.ogg`), `_1` for form 1; missing form
    cries fall back to the base. Missing cries may produce silence rather than an
-   error. Check `CRIES` in the species catalog before replacing one: full rebuild
+   error. Check `POKEMON` in `art/pokemon.py` before replacing one: full rebuild
    copies those aliases over their destinations.
 5. `uv run play` includes a directly added file. If changing generated map/content
    references, run `uv run rebuild --all`, then `uv run check --all`. Listen in the

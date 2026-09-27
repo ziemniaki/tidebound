@@ -1,6 +1,6 @@
 # Species, forms, items and encounters
 
-`species.py` combines family `SPECIES`, `METRICS` and `CRIES` catalogs.
+`species.py` combines family `SPECIES` and `METRICS` catalogs.
 `species_compiler.py` writes both native `.dat` and PBS. Generated PBS is not the
 source of truth. Species PNGs follow the [asset workflow](../../../assets/AGENTS.md).
 
@@ -25,15 +25,12 @@ source of truth. Species PNGs follow the [asset workflow](../../../assets/AGENTS
    evolution may retain form 1. Verify the actual evolved object's form, moves and
    identity, not only the declaration. See existing evolution tests before adding
    runtime hooks to compensate for a data definition.
-5. Add metrics and approved front/back/icon/shiny assets as needed. `CRIES` means
-   “copy this existing cry during rebuild”; don't add an alias over an original
-   custom cry. Form artwork/cry fallback can hide missing files.
+5. Add metrics and approved front/back/icon/shiny assets as needed. Declare cry and shiny reuse once in `art/pokemon.py::POKEMON`. Form artwork/cry fallback can hide missing files.
 6. Format, `uv run rebuild --all`, stage additions, then `uv run check --all`.
    Native verification derives its roster from the catalog and compares all native
    species/metric attributes except PBS source bookkeeping and non-evolving family
-   backlinks. It checks exact front/back/shiny/icon/cry resolution. Deliberate form
-   cry reuse is declared in `verification.CRY_REUSE`; normal/shiny party icons share
-   the declared normal icon path. New species require their own assets by default.
+   backlinks. It checks exact front/back/shiny/icon/cry resolution. Cry exports and native expectations share the asset catalog; normal/shiny party
+   icons share the declared normal icon path. New species require their own assets by default.
    Run the native species scenario when altering definitions/compiler behavior.
 
 ## Data, form and encounter contracts

@@ -1,33 +1,25 @@
-# Artwork sources
+# Asset ownership
 
-Run `uv run rebuild --all` to export registered artwork. `art/compiler.py` is the
-export plan; [the asset workflow](../assets/AGENTS.md) covers naming, icon layout,
-Essentials fallback and validation. Paths below are relative to the repository.
+Approved artwork is build input, not a recipe to reinterpret on every build.
+`assets/references/` retains concepts and working pieces outside the export path.
+The [asset guide](../assets/AGENTS.md) covers Pokémon naming and engine contracts.
 
-| Artwork | Editable input | Exporter | Approved details |
-| --- | --- | --- | --- |
-| Regional Sunkern | `assets/Sunkern/pixels.png` | `art/atlas.py` | Sickly seed, curled leaves, hollow face |
-| Moonkern | `assets/Moonkern/pixels.png` | `art/atlas.py` | Hollow seed, floating face and leaves |
-| Moonflora | `assets/Moonflora/pixels.png` | `art/atlas.py` | Simple petals, flat muted colours, hollow face |
-| Glaciverm | `assets/Glaciverm/pixels.png` | `art/atlas.py` | Pale-blue chitin, cream underside, yellow horn/eyes and rounded omega mouth |
-| Regional Wurmple | Stock WURMPLE sprites; palette in exporter | `art/recolors.py` | Pale blue replaces red/coral; cream/yellow details and geometry remain |
-| Frostcoon | Stock SILCOON sprites; palette in exporter | `art/recolors.py` | Frozen-silk blue, white highlights, golden eye |
-| Regional Ekans/Arbok | Stock EKANS/ARBOK sprites; palettes in exporter | `art/recolors.py` | Gray scales; yellow/orange eyes, belly and hood markings remain |
-| Regional Lapras | Stock LAPRAS sprites; pixel recipe | `art/lapras.py` | White/jade palette, green eyes, faded gold scar and sparse translucent mist behind the original silhouette |
-| Nivalora | `assets/Nivalora/approved_front.png`, `rear_source.png` | `art/nivalora.py` | Pale butterfly dragon, golden eyes, cream split muzzle, head horn, four wings and curled tail |
-| Whyduck | `assets/Whyduck/pieces/` and pixel recipe | `art/whyduck.py` | Pink brain, original Psyduck eye/beak pixels, palms and webbed feet |
+| Assets | Authoritative input | Export owner |
+| --- | --- | --- |
+| Sunkern form, Moonkern, Moonflora, Glaciverm, Lapras form, Nivalora, Whyduck | `assets/pokemon/<ENGINE_ID>/{front,back,icon}.png` | `art/pokemon.py` |
+| Whyduck shiny | `assets/pokemon/WHYDUCK/{front_shiny,back_shiny}.png` | Same bundle |
+| Wurmple form, Frostcoon, Ekans/Arbok forms | Stock sprites and `art/recolors.py` palettes | Same bundle |
+| Psyduck form | Explicit stock reuse in `art/pokemon.py::POKEMON` | Same bundle |
+| Pokémon cries | Cry source in each `POKEMON` record | `art/compiler.py` |
 
-Stock sprites are under `game/Graphics/Pokemon/{Front,Back,Icons}/`. Recolouring
-preserves every source pixel position and alpha value. Nivalora uses a fixed
-16-colour palette and nearest-neighbour sampling. The atlas layout is specified
-in the asset guide; high-resolution `reference.png` files and prompts are design
-references, not build inputs. Keep them separate from editable pixel atlases.
+All custom Pokémon export exact engine filenames, including cries. Shiny reuse
+is explicit; native checks consume the same inventory. Recoloring preserves source
+geometry and alpha. Approved PNG export preserves all pixels without resampling.
+Current battle canvases are 160×160 and icons are horizontal 128×64 strips.
 
-Current battle canvases are 160×160 and party icons are horizontal 128×64 strips.
-Palette edits, atlas species, Lapras and Nivalora use the normal palette for shiny
-art provisionally. Whyduck has a separate shiny export. Cry reuse is declared in
-`content/verification.py`; copy aliases live in the species catalog.
+Run `uv run rebuild --all` to regenerate. Stage new sources and outputs before
+`uv run check --all`, which uses tracked inputs. Native species verification checks
+actual engine resolution; battle/party inspection checks visual composition.
 
-Species rules belong in [specs/species](../specs/species/), including
-[Nivalora](../specs/species/Nivalora.md) and [regional snakes](../specs/species/Snakes.md).
-Retain [asset attribution](credits.md) when replacing artwork.
+Species design lives in [specs/species](../specs/species/). Retain
+[attribution](credits.md) when replacing artwork.

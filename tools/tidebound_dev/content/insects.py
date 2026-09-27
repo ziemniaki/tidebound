@@ -262,5 +262,3 @@ METRICS = {
         },
     },
 }
-
-CRIES = {"GLACIVERM": "WURMPLE", "FROSTCOON": "SILCOON", "NIVALORA": "ARTICUNO"}

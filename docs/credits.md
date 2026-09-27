@@ -25,14 +25,14 @@ This is an unofficial fan project. Please support the official games.
 
 Tidebound Sunkern (0.7.2): regional sprite edit generated with OpenAI's built-in
 image editing tool from the included Sunkern art. Original sprite attribution
-remains applicable. Source atlas and export recipe are in assets/Sunkern.
+remains applicable. Source atlas and export recipe are in assets/pokemon/SUNKERN_1.
 
 Moonkern (0.7.3): built-in OpenAI image generation/editing using Tidebound Sunkern
-as a visual reference. Source and export recipe in assets/Moonkern.
+as a visual reference. Source and export recipe in assets/references/MOONKERN.
 The temporary cry reuses the included Sunkern cry and its existing attribution.
 
 Moonflora (0.7.4): built-in OpenAI image generation/editing using original
-Sunflora as reference. Art/Moonflora retains the simplified atlas and export.
+Sunflora as reference. assets/references/MOONFLORA retains the simplified atlas and export.
 Its temporary cry reuses the included Sunflora cry and its attribution.
 
 
@@ -42,7 +42,7 @@ attribution remains applicable. Recipe: tools/tidebound_dev/art/recolors.py.
 
 
 Glaciverm (0.7.6): original sprite atlas generated with the built-in image tool;
-mechanical pixel export retained in assets/Glaciverm. Its provisional
+mechanical pixel export retained in assets/references/GLACIVERM. Its provisional
 cry reuses the included Wurmple cry. Frostcoon is a clearly provisional reuse
 of included Silcoon sprites and cry; original asset attribution still applies.
 
