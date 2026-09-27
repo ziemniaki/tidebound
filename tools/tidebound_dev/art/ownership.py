@@ -37,6 +37,7 @@ def inventory(root):
         register(name, "files")
     for name in MAP_OUTPUTS:
         register(f"game/{name}", "maps")
+    previous = recorded(root)
     audio_stems = set()
     for name in owners:
         if not name.startswith("game/Audio/"):
@@ -50,7 +51,7 @@ def inventory(root):
             if (
                 other.stem.casefold() == PurePosixPath(name).stem.casefold()
                 and relative != name
-                and relative not in recorded(root)
+                and relative not in previous
             ):
                 raise ValueError(f"Audio shadows an existing asset: {name} / {relative}")
     # Recipes must read stock/source art, never last build's custom output.
@@ -67,7 +68,7 @@ def inventory(root):
                 root / f"game/Graphics/Pokemon/{folder}/{art.stock}.png" for folder in folders
             )
     for source in sources:
-        if source.relative_to(root).as_posix() in owners:
+        if source.relative_to(root).as_posix() in owners.keys() | previous.keys():
             raise ValueError(f"Asset source is also a generated output: {source}")
         if not source.is_file():
             raise ValueError(f"Missing asset source: {source}")

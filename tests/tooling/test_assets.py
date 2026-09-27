@@ -91,6 +91,9 @@ class AssetRefreshTests(unittest.TestCase):
                 with Image.open(target) as image:
                     self.assertEqual(image.getpixel((0, 0)), color)
             source.unlink()
+            with patch.dict(files.ALIASES, {"Graphics/Items/OTHER.png": "Graphics/Items/KEY.png"}):
+                with self.assertRaisesRegex(ValueError, "generated output"):
+                    pipeline.rebuild(root)
             pipeline.rebuild(root)
             self.assertFalse(target.exists())
             self.assertEqual(stock.read_bytes(), b"irreplaceable stock input")

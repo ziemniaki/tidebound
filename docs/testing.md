@@ -39,8 +39,8 @@ scripts by name and custom scripts in archive order. Custom Ruby must remain
 compatible with bundled Ruby 3.1; WASM uses Ruby 3.2.
 
 Full artwork parity belongs to `check --all`, which regenerates once and compares
-decoded pixels. The quick atlas test uses tiny synthetic frames to catch crop and
-alpha errors without copying and exporting the whole artwork tree.
+decoded pixels. Focused asset tests cover alpha preservation, required shiny inputs, character/icon
+formats, stale-output removal and lighting through tileset packing.
 
 ## Native builds
 
@@ -76,8 +76,8 @@ and pond, plus a real Game.save/Game.load roundtrip. `species` recompiles the
 current checkout's PBS with Essentials in the isolated save directory, compares all custom species and metric attributes (excluding PBS provenance and
 non-evolving family backlinks), and checks exact normal/shiny front/back/icon/cry
 paths. Its roster is derived from authored catalogs; deliberate cry/icon reuse is
-explicit in `content/verification.py`. Missing art cannot pass through base or
-placeholder fallback. Use a
+declared once in `art/pokemon.py`. Custom story item icons and trainer portraits/charsets also resolve explicitly.
+Missing art cannot pass through base or placeholder fallback. Use a
 package built from the same checkout. Linux CI runs under Xvfb.
 
 Evidence includes `native-smoke.json`, engine logs and PNG captures.

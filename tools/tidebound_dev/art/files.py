@@ -31,11 +31,19 @@ DIRECTORIES = {
 def copies(root):
     for directory, destination in DIRECTORIES.items():
         for source in sorted((root / "assets" / directory).rglob("*")):
-            if source.is_file() and source.suffix.lower() in (".png", ".ogg", ".wav"):
-                yield (
-                    f"game/{destination}/{source.relative_to(root / 'assets' / directory).as_posix()}",
-                    source,
+            if not source.is_file() or source.name.startswith(".") or source.suffix == ".md":
+                continue
+            relative = source.relative_to(root / "assets" / directory)
+            allowed = (".ogg", ".wav") if directory == "audio" else (".png",)
+            if source.suffix not in allowed:
+                raise ValueError(
+                    f"{source}: expected {allowed}; keep working references in assets/references"
                 )
+            if directory == "audio" and (
+                len(relative.parts) < 2 or relative.parts[0] not in ("BGM", "BGS", "ME", "SE")
+            ):
+                raise ValueError(f"{source}: audio requires a BGM, BGS, ME or SE category")
+            yield f"game/{destination}/{relative.as_posix()}", source
     for target, source in ALIASES.items():
         yield f"game/{target}", root / "game" / source
 

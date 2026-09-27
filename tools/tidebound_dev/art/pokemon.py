@@ -38,9 +38,7 @@ def frames(root, identifier, art):
         else:
             source = root / f"assets/pokemon/{identifier}/{name}.png"
         if identifier in RECOLORS:
-            stock, palettes = RECOLORS[identifier]
-            if art.stock != stock:
-                raise ValueError(f"{identifier}: recolor source disagrees with stock source")
+            palettes = RECOLORS[identifier]
             frame = recolor(source, palettes[folder])
         else:
             with Image.open(source) as image:

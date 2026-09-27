@@ -17,7 +17,7 @@ is explicit; native checks consume the same inventory. Recoloring preserves sour
 geometry and alpha. Approved PNG export preserves all pixels without resampling.
 Current battle canvases are 160×160 and icons are horizontal 128×64 strips.
 
-Run `uv run rebuild --all` to regenerate. Stage new sources and outputs before
+Run `uv run rebuild` to refresh standalone assets; use `--all` for map atlases and lighting. Stage new sources and outputs before
 `uv run check --all`, which uses tracked inputs. Native species verification checks
 actual engine resolution; battle/party inspection checks visual composition.
 
@@ -50,3 +50,12 @@ Window lighting uses the approved `assets/tilesets/Outside/windows.png` overlay.
 Map packing retains source tile identities so masks survive atlas compaction.
 This restores two road/storehouse window panes that the old final-tile heuristic
 missed. Existing coast/dock masks retain their pixels and placements.
+
+Stock fonts, battlebacks, animations and interface resources remain supplied
+engine inputs under `game/`. Their filenames can be resolved dynamically; a text
+search cannot establish that they are unused. New scene-specific UI art can use
+`assets/pictures/`; stock-format replacements require the owning Essentials scene's
+contract. Keep `fontHeightReporting: 1`; font loading and metrics need native
+inspection. Battleback metadata names a set (`_bg`, `_base0`, `_base1`, `_message`),
+not a single picture. Animation databases reference numbered graphics; do not
+rename those independently of their data. See [engine contracts](essentials-contracts.md).

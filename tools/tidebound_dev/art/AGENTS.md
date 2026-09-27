@@ -1,7 +1,7 @@
 # Asset exporters and audio
 
-For Pokémon graphics, read [assets/AGENTS.md](../../../assets/AGENTS.md).
-The audio workflow below also applies when adding files directly under game/Audio.
+For graphics and source ownership, read [assets/AGENTS.md](../../../assets/AGENTS.md).
+Custom files are approved under `assets/`; stock kit inputs remain under `game/`.
 
 ## Add music, a sound effect or a cry
 

@@ -66,6 +66,29 @@ module NativeScenarios
       end
   end
 
+  # Verify custom definitions through real resolvers, not just filesystem presence.
+  def verify_story_art
+    GameData::Item.each do |item|
+      next unless item.id.to_s.start_with?("TIDEBOUND")
+      exact_asset!(
+        "Graphics/Items/#{item.id}.png",
+        pbResolveBitmap(GameData::Item.icon_filename(item.id))
+      )
+    end
+    GameData::TrainerType.each do |trainer|
+      next unless trainer.id.to_s.start_with?("TB")
+      exact_asset!(
+        "Graphics/Trainers/#{trainer.id}.png",
+        pbResolveBitmap(GameData::TrainerType.front_sprite_filename(trainer.id))
+      )
+      sheet = Bitmap.new("Graphics/Characters/trainer_#{trainer.id}")
+      unless sheet.width % 4 == 0 && sheet.height % 4 == 0
+        raise "Invalid XP character sheet: #{trainer.id}"
+      end
+      sheet.dispose
+    end
+  end
+
   def species
     inventory = load_data("NativeContent.rxdata")
     expected = content_snapshot(inventory)
@@ -96,6 +119,7 @@ module NativeScenarios
     end
     raise "PBS compiler changed content: #{changed.join("; ")}" unless changed.empty?
     verify_art(inventory)
+    verify_story_art
     puts "PASS: native PBS matches all custom species attributes and metrics; exact sprites, icons and cries resolve"
   end
 

@@ -17,8 +17,8 @@ Do not delete stock data or seemingly unused art based on text searches; Essenti
 resolves many filenames dynamically. Manual editor changes to generated maps must
 be brought back into their builders before regeneration. Preserve supplied edits.
 
-`uv run play` rebuilds Ruby only. It will not compile a changed PBS file or rebuild
-a map. Full rebuild publishes both authored PBS and native databases for supported
+`uv run play` refreshes custom assets and Ruby. It preserves compiled content and
+map geometry. Edit approved sources in `assets/`, not their exported PNG/OGG files. Full rebuild publishes both authored PBS and native databases for supported
 content; arbitrary new PBS fields require native compiler validation.
 
 RPG Maker Test Play uses the project save namespace. Use `uv run play` for the
