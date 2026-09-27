@@ -15,6 +15,7 @@ class LandscapePalette:
         # Story maps use native rows through 451. Leave room below the GL 16K texture limit.
         self._tile_images = []
         self._tile_cache = {}
+        self._ground_tiles = {}
         self._base_count = 384 + (self._native.height // 32) * 8
 
         self.PINE = self.art(0, 55, 3, 3)
@@ -42,6 +43,29 @@ class LandscapePalette:
 
     def art(self, x, y, w=1, h=1):
         return self._native.crop((x * 32, y * 32, (x + w) * 32, (y + h) * 32))
+
+    def ground_tile(self, edges):
+        if edges in self._ground_tiles:
+            return self._ground_tiles[edges]
+        im = self.art(1, 0)
+        px = im.load()
+        for yy in range(32):
+            for xx in range(32):
+                edge = 1.0
+                for exposed, dist in zip(edges, (xx, 31 - xx, yy, 31 - yy)):
+                    if exposed:
+                        edge = min(edge, min(1, dist / 12))
+                factor = 0.16 * edge
+                r, g, b, a = px[xx, yy]
+                px[xx, yy] = (
+                    round(r * (1 - factor) + 75 * factor),
+                    round(g * (1 - factor) + 86 * factor),
+                    round(b * (1 - factor) + 66 * factor),
+                    a,
+                )
+        tile_id = self.baked(im)
+        self._ground_tiles[edges] = tile_id
+        return tile_id
 
     def clear_nature(self, m):
         for y in range(m.h):
@@ -252,30 +276,13 @@ class Landscape:
             self.ground_cells.add((x, y))
 
     def finish(self):
-        # Feather connected humus beds into grass. No square patchwork under trees.
+        # Feather connected humus beds into grass, reusing identical edge patterns.
         for x, y in sorted(self.ground_cells):
-            im = self.palette.art(1, 0)
-            px = im.load()
-            for yy in range(32):
-                for xx in range(32):
-                    edge = 1.0
-                    for dx, dy, dist in [
-                        (-1, 0, xx),
-                        (1, 0, 31 - xx),
-                        (0, -1, yy),
-                        (0, 1, 31 - yy),
-                    ]:
-                        if (x + dx, y + dy) not in self.ground_cells:
-                            edge = min(edge, min(1, dist / 12))
-                    factor = 0.16 * edge
-                    r, g, b, a = px[xx, yy]
-                    px[xx, yy] = (
-                        round(r * (1 - factor) + 75 * factor),
-                        round(g * (1 - factor) + 86 * factor),
-                        round(b * (1 - factor) + 66 * factor),
-                        a,
-                    )
-            self.m.layers[0][y][x] = self.palette.baked(im)
+            edges = tuple(
+                (x + dx, y + dy) not in self.ground_cells
+                for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1))
+            )
+            self.m.layers[0][y][x] = self.palette.ground_tile(edges)
         for _, im, x, y in sorted(self.sprites, key=lambda v: v[0]):
             self.overlay.alpha_composite(im, (x, y))
         for y in range(self.m.h):

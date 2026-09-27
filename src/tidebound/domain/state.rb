@@ -81,12 +81,7 @@ module Tidebound
       @souls = []
       @memorials = []
       @checkpoint = nil
-      @story = {
-        suicune: :unmet,
-        mystic_sabre: false,
-        final_demon_defeated: false,
-        koga_imitation_defeated: false
-      }
+      @story = {}
     end
 
     def assign_identity(pokemon)
@@ -189,37 +184,6 @@ module Tidebound
         # A small PP floor avoids a no-moves softlock. No cumulative refill.
         p.moves.each { |move| move.pp = 1 if move.pp == 0 && move.total_pp > 0 }
       end
-    end
-
-    def cemetery_team(fallback, size = 6)
-      raise ArgumentError, "Team size must be 1..6" unless (1..6).include?(size)
-      fallen = @memorials.last(size).map { |s| Tidebound.copy(s.pokemon) }
-      missing = size - fallen.length
-      raise ArgumentError, "Not enough fallback Pokemon" if fallback.length < missing
-      team = fallen + fallback.first(missing).map { |p| Tidebound.copy(p) }
-      team.each(&:heal)
-      team
-    end
-
-    def resolve_suicune!(choice)
-      allowed = {
-        unmet: [:corrupted],
-        corrupted: %i[rescued killed],
-        rescued: %i[healed lost],
-        healed: [:lost],
-        killed: [],
-        lost: []
-      }
-      unless allowed.fetch(@story[:suicune]).include?(choice)
-        raise TransitionError, "Invalid Suicune story transition"
-      end
-      @story[:suicune] = choice
-    end
-
-    def ending
-      return :unfinished unless @story[:final_demon_defeated]
-      return :restoration if @story[:suicune] == :healed && @story[:mystic_sabre]
-      :dark_victory
     end
 
     private

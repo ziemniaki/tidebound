@@ -1,7 +1,7 @@
 from .registry import MAPS, ACTORS
 
 """Cellar, vault, docks and museum definitions and entrance connections."""
-from .model import Map, RoadMap, tile
+from .model import Map, tile
 from .dock_details import apply as detail_docks
 
 
@@ -130,7 +130,7 @@ def build_vault():
 
 
 def build_docks():
-    docks = RoadMap(MAPS["docks"], "The Docks", 80, 64, 1, 96)
+    docks = Map(MAPS["docks"], "The Docks", 80, 64, 1, 96)
     docks.polygon([(9, 15), (62, 15), (62, 39), (55, 44), (16, 44), (9, 35)], tile(2, 27))
     docks.rect(9, 26, 47, 5, tile(2, 27), walk=True)
     docks.rect(10, 26, 3, 5, tile(2, 13), walk=True)

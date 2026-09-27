@@ -19,6 +19,8 @@
 ].each { |name| SaveData.unregister(name.to_sym) }
 
 class Sprite
+  def update
+  end
 end
 class PokemonIconSprite < Sprite
 end
@@ -64,8 +66,8 @@ class OpeningEvent
   def turn_toward_player
   end
 end
-def pbReceiveItem(item)
-  $bag.add(item)
+def pbReceiveItem(item, quantity = 1)
+  $bag.add(item, quantity)
 end
 class Game_Map
   def display_x

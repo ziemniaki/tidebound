@@ -24,8 +24,9 @@ pond decoration. Painters own their tile atlases and caches; area modules receiv
 only the maps and painters they use. Imports never load or write game assets. Interaction targets are derived from
 current event records; painters do not maintain a second position list.
 Full rebuild generates maps, content, art and scripts in a temporary workspace,
-then validates and publishes changed outputs. Failed generation/validation leaves
-the checkout unchanged; publication errors roll back replaced files. This protects
+then validates and publishes changed outputs. The isolated regeneration check
+already owns a disposable checkout and runs the same generation plan directly.
+Failed generation/validation leaves the checkout unchanged; publication errors roll back replaced files. This protects
 ordinary I/O failures, not process termination midway through publication. Rebuild
 after an interrupted publication. A failed rollback retains a reported recovery
 directory rather than discarding the backups.
@@ -66,13 +67,19 @@ unlisted, out-of-order or stale sources and a competing `Plugins/Tidebound` copy
 state root; each feature owns its state transitions. `world/navigation.rb` owns
 travel and actor movement, `world/atmosphere.rb` owns map lighting/passages, and
 `engine/encounters.rb` owns shared party checks and encounter construction. Feature modules own
-story behavior. Shared NPC interactions are dispatched explicitly in
+story behavior. Mending rules live in `features/mending.rb`; its scene and the
+dream visual sequences live in `presentation/`. Shared NPC interactions are
+dispatched explicitly in
 `features/interactions.rb`; features do not prepend into one another. Engine
 adapters can still prepend into Essentials interfaces.
 
 Map definitions in `maps/definitions.py` own IDs, arrivals, music, metadata and
 atmosphere. They feed native maps, PBS metadata, validation and generated runtime
-settings. Map-qualified actor identities live in `maps/registry.py`; event roles
+settings, including the coast coordinate origin. Map drawing APIs use absolute
+tiles; builders convert local coast positions explicitly with `Map.absolute`.
+Offline previews live in `maps/preview.py`, sharing decoded art and tile crops
+for one generation. Map-qualified actor identities live in `maps/registry.py`;
+event roles
 are authored beside their builders. Both compile to
 `src/generated/world_registry.rb`. Python builders use that catalog, and Ruby
 calls `World.travel(:road, ...)` or `World.actor(:mother)` instead of repeating

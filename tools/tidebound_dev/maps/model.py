@@ -7,7 +7,6 @@ from . import definitions
 """In-memory RPG Maker map, event and tile primitives. Importing writes nothing."""
 import struct
 from rubymarshal.classes import RubyObject, UserDef
-from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from PIL import Image, ImageDraw
 
@@ -405,6 +404,36 @@ class Map:
         self.transfers = []
         self.actor_settings = {}
 
+    def absolute(self, x, y):
+        """Convert authored local coordinates; drawing and event APIs are absolute."""
+        ox, oy = definitions.BY_ID[self.id].origin
+        return x + ox, y + oy
+
+    def polygon(self, points, t, walk=True):
+        im = Image.new("1", (self.w, self.h))
+        ImageDraw.Draw(im).polygon(points, fill=1)
+        for yy in range(self.h):
+            for xx in range(self.w):
+                if im.getpixel((xx, yy)):
+                    self.layers[0][yy][xx] = t
+                    self.walk[yy][xx] = walk
+
+    def path(self, x, y, w, h, stone=False):
+        base = 26 if stone else 12
+        for yy in range(h):
+            for xx in range(w):
+                self.rect(
+                    x + xx,
+                    y + yy,
+                    1,
+                    1,
+                    tile(
+                        1 if xx == 0 else 3 if xx == w - 1 else 2,
+                        base + (0 if yy == 0 else 2 if yy == h - 1 else 1),
+                    ),
+                    walk=True,
+                )
+
     def rect(self, x, y, w, h, t, z=0, walk=None):
         for yy in range(y, y + h):
             for xx in range(x, x + w):
@@ -500,7 +529,7 @@ class Map:
         ]
 
     def door(self, x, y, destination, dx, dy, d=2, name="Door", *, cue="south"):
-        """Source uses this area's coordinates; destinations are always absolute."""
+        """Source and destination coordinates are absolute."""
         destination = MAPS[destination] if isinstance(destination, str) else destination
         transfer = Transfer(destination, dx, dy, d)
         eid = self.event(name, x, y, transfer.script(), trigger=1, cue=cue)
@@ -531,108 +560,3 @@ class Map:
             events=self.events,
         )
         return writes(m)
-
-    def render(self, game):
-        ts = loads((game / "Data/Tilesets.rxdata").read_bytes())[self.tileset].attributes
-        atlas = Image.open(game / "Graphics/Tilesets" / f"{ts['@tileset_name']}.png").convert(
-            "RGBA"
-        )
-        canvas = Image.new("RGBA", (self.w * 32, self.h * 32), (5, 9, 20, 255))
-        autos = {}
-        for layer in self.layers:
-            for y, row in enumerate(layer):
-                for x, t in enumerate(row):
-                    if t >= 384:
-                        c = (t - 384) % 8
-                        r = (t - 384) // 8
-                        image = atlas.crop((c * 32, r * 32, c * 32 + 32, r * 32 + 32))
-                    elif t >= 48:
-                        key = t // 48 - 1
-                        if key not in autos:
-                            autos[key] = Image.open(
-                                game / "Graphics/Autotiles" / f"{ts['@autotile_names'][key]}.png"
-                            ).convert("RGBA")
-                        auto = autos[key]
-                        # Variant zero is the seamless centre, four 16px chunks.
-                        image = Image.new("RGBA", (32, 32))
-                        for i, chunk in enumerate(PATTERNS[t % 48]):
-                            cx = ((chunk - 1) % 6) * 16
-                            cy = ((chunk - 1) // 6) * 16
-                            image.paste(
-                                auto.crop((cx, cy, cx + 16, cy + 16)), ((i % 2) * 16, (i // 2) * 16)
-                            )
-                    else:
-                        continue
-                    if 48 <= t < 384 and auto.height == 32:
-                        image = auto.crop((0, 0, 32, 32))
-                    canvas.alpha_composite(image, (x * 32, y * 32))
-        for e in self.events.values():
-            p = e.attributes
-            g = p["@pages"][0].attributes["@graphic"].attributes
-            if g["@character_name"] and g["@opacity"]:
-                im = Image.open(
-                    game / "Graphics/Characters" / f"{g['@character_name']}.png"
-                ).convert("RGBA")
-                w, h = im.width // 4, im.height // 4
-                im = im.crop((w, 0, w * 2, h))
-                canvas.alpha_composite(im, (p["@x"] * 32 + (32 - w) // 2, p["@y"] * 32 + 32 - h))
-        if self.id in (102, 103, 108, 112):
-            # Approximate the runtime Tone in the offline preview, without editing assets.
-            rgb = canvas.convert("RGB")
-            grey = rgb.convert("L").convert("RGB")
-            rgb = Image.blend(rgb, grey, 150 / 255)
-            rgb = Image.merge(
-                "RGB",
-                [
-                    band.point(lambda v, shift=shift: max(0, v + shift))
-                    for band, shift in zip(rgb.split(), [-80, -74, -48])
-                ],
-            )
-            canvas = rgb.convert("RGBA")
-        elif self.id == 105:
-            canvas = Image.alpha_composite(
-                canvas, Image.new("RGBA", canvas.size, (10, 19, 49, 155))
-            )
-        return canvas.convert("RGB")
-
-
-class CoastMap(Map):
-    OX, OY = 24, 20
-
-    def rect(self, x, y, *args, **kw):
-        super().rect(x + self.OX, y + self.OY, *args, **kw)
-
-    def stamp(self, sx, sy, w, h, x, y, **kw):
-        super().stamp(sx, sy, w, h, x + self.OX, y + self.OY, **kw)
-
-    def event(self, name, x, y, *args, **kw):
-        return super().event(name, x + self.OX, y + self.OY, *args, **kw)
-
-    def polygon(self, points, t, walk=True):
-        im = Image.new("1", (self.w, self.h))
-        ImageDraw.Draw(im).polygon([(x + self.OX, y + self.OY) for x, y in points], fill=1)
-        for yy in range(self.h):
-            for xx in range(self.w):
-                if im.getpixel((xx, yy)):
-                    self.layers[0][yy][xx] = t
-                    self.walk[yy][xx] = walk
-
-    def path(self, x, y, w, h, stone=False):
-        base = 26 if stone else 12
-        for yy in range(h):
-            for xx in range(w):
-                self.rect(
-                    x + xx,
-                    y + yy,
-                    1,
-                    1,
-                    tile(
-                        1 if xx == 0 else 3 if xx == w - 1 else 2,
-                        base + (0 if yy == 0 else 2 if yy == h - 1 else 1),
-                    ),
-                    walk=True,
-                )
-
-
-class RoadMap(CoastMap):
-    OX, OY = 0, 0

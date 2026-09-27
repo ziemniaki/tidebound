@@ -31,10 +31,12 @@ previews. `registry.py` exports map/actor identities and roles to Ruby. Read
 
 ## Coordinates, events and actors
 
-- Coordinates are tiles. Coast authoring methods add `(24, 20)` to local coordinates;
-  direct `layers`/`walk` indexing does not. `World.travel_coast` accepts local coast
-  coordinates; `World.travel(:coast, ...)` accepts absolute ones. `Map.door` destinations
-  are always absolute, including coast destinations. Do not offset twice.
+- All drawing, event, door and `layers`/`walk` coordinates are absolute tiles.
+  Coast layout uses `coast.absolute(x, y)` explicitly for local coordinates; its
+  origin `(24, 20)` is defined in `definitions.py` and exported to Ruby.
+  `World.coast_xy`/`travel_coast` convert local coast coordinates; `World.local_xy`
+  converts event positions back to local coordinates for existing harvest keys.
+  Door destinations and `World.travel` coordinates are always absolute.
 - Use `Map.door` for ordinary transfers and small public Ruby calls for interactions.
   Script commands use 355 + 655 continuations and a terminating command 0; the
   `script`/`page` helpers produce them. Keep story branching in the Ruby owner.

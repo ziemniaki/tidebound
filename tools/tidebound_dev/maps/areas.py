@@ -1,7 +1,7 @@
 from .registry import MAPS, ACTORS
 
 """Base area definitions; each builder returns an independent map."""
-from .model import Map, CoastMap, RoadMap, tile
+from .model import Map, tile
 
 
 def build_home():
@@ -67,105 +67,154 @@ def build_home():
 
 
 def build_coast():
-    coast = CoastMap(MAPS["coast"], "Shiohama", 108, 88, 1, 96)
+    coast = Map(MAPS["coast"], "Shiohama", 108, 88, 1, 96)
     # The ocean continues far past every reachable camera position.
     coast.polygon(
         [
-            (3, 7),
-            (7, 5),
-            (12, 5),
-            (14, 8),
-            (16, 12),
-            (14, 16),
-            (14, 19),
-            (11, 22),
-            (6, 22),
-            (2, 19),
-            (1, 13),
+            coast.absolute(x, y)
+            for x, y in [
+                (3, 7),
+                (7, 5),
+                (12, 5),
+                (14, 8),
+                (16, 12),
+                (14, 16),
+                (14, 19),
+                (11, 22),
+                (6, 22),
+                (2, 19),
+                (1, 13),
+            ]
         ],
         tile(2, 27),
     )
-    coast.polygon([(4, 8), (11, 7), (13, 10), (13, 16), (11, 20), (5, 20), (3, 16)], tile(1, 0))
     coast.polygon(
         [
-            (20, -18),
-            (38, -18),
-            (39, 7),
-            (41, 12),
-            (39, 17),
-            (37, 22),
-            (33, 25),
-            (25, 25),
-            (21, 22),
-            (19, 16),
+            coast.absolute(x, y)
+            for x, y in [(4, 8), (11, 7), (13, 10), (13, 16), (11, 20), (5, 20), (3, 16)]
         ],
         tile(1, 0),
     )
-    coast.polygon([(22, 18), (29, 17), (36, 19), (37, 22), (33, 25), (25, 25), (21, 22)], 192)
     coast.polygon(
-        [(11, 18), (15, 18), (17, 19), (21, 18), (23, 20), (20, 22), (16, 21), (13, 22), (11, 20)],
+        [
+            coast.absolute(x, y)
+            for x, y in [
+                (20, -18),
+                (38, -18),
+                (39, 7),
+                (41, 12),
+                (39, 17),
+                (37, 22),
+                (33, 25),
+                (25, 25),
+                (21, 22),
+                (19, 16),
+            ]
+        ],
+        tile(1, 0),
+    )
+    coast.polygon(
+        [
+            coast.absolute(x, y)
+            for x, y in [(22, 18), (29, 17), (36, 19), (37, 22), (33, 25), (25, 25), (21, 22)]
+        ],
+        192,
+    )
+    coast.polygon(
+        [
+            coast.absolute(x, y)
+            for x, y in [
+                (11, 18),
+                (15, 18),
+                (17, 19),
+                (21, 18),
+                (23, 20),
+                (20, 22),
+                (16, 21),
+                (13, 22),
+                (11, 20),
+            ]
+        ],
         tile(2, 27),
     )
-    coast.path(7, 14, 4, 7, True)
-    coast.path(10, 18, 7, 3, True)
-    coast.path(16, 19, 8, 3, True)
-    coast.path(23, 3, 3, 19)
-    coast.path(24, 14, 13, 3)
-    coast.path(33, 15, 4, 7)
+    coast.path(*coast.absolute(7, 14), 4, 7, True)
+    coast.path(*coast.absolute(10, 18), 7, 3, True)
+    coast.path(*coast.absolute(16, 19), 8, 3, True)
+    coast.path(*coast.absolute(23, 3), 3, 19)
+    coast.path(*coast.absolute(24, 14), 13, 3)
+    coast.path(*coast.absolute(33, 15), 4, 7)
     # Weathered timber projects above water; it is not a dirt peninsula.
-    coast.rect(35, 20, 20, 1, tile(6, 150), walk=True)
-    coast.rect(35, 21, 20, 1, tile(6, 151), walk=True)
-    coast.rect(35, 22, 20, 1, tile(6, 152), z=1, walk=False)
-    coast.rect(52, 19, 3, 1, tile(6, 150), walk=True)
-    coast.rect(55, 20, 1, 2, tile(7, 151), z=1, walk=False)
-    coast.stamp(5, 444, 3, 8, 7, 7)
-    coast.stamp(0, 227, 4, 4, 20, 8)
-    coast.stamp(0, 227, 4, 4, 28, 7)
-    coast.stamp(4, 228, 4, 4, 34, 7)
-    coast.door(8, 15, 101, 10, 12, 8, cue="north")
+    coast.rect(*coast.absolute(35, 20), 20, 1, tile(6, 150), walk=True)
+    coast.rect(*coast.absolute(35, 21), 20, 1, tile(6, 151), walk=True)
+    coast.rect(*coast.absolute(35, 22), 20, 1, tile(6, 152), z=1, walk=False)
+    coast.rect(*coast.absolute(52, 19), 3, 1, tile(6, 150), walk=True)
+    coast.rect(*coast.absolute(55, 20), 1, 2, tile(7, 151), z=1, walk=False)
+    coast.stamp(5, 444, 3, 8, *coast.absolute(7, 7))
+    coast.stamp(0, 227, 4, 4, *coast.absolute(20, 8))
+    coast.stamp(0, 227, 4, 4, *coast.absolute(28, 7))
+    coast.stamp(4, 228, 4, 4, *coast.absolute(34, 7))
+    coast.door(*coast.absolute(8, 15), 101, 10, 12, 8, cue="north")
     coast.walk[31][45] = True
-    coast.event("Shop door", 21, 11, "Tidebound::Interactions.shop_door", trigger=1, cue="south")
     coast.event(
-        ACTORS["seller_outside"], 22, 12, "Tidebound::Interactions.outside_seller", "NPC 10"
+        "Shop door",
+        *coast.absolute(21, 11),
+        "Tidebound::Interactions.shop_door",
+        trigger=1,
+        cue="south",
     )
     coast.event(
-        ACTORS["pookie_outside"], 11, 16, "Tidebound::Opening.pookie", "Pokemon 01", opacity=0
+        ACTORS["seller_outside"],
+        *coast.absolute(22, 12),
+        "Tidebound::Interactions.outside_seller",
+        "NPC 10",
+    )
+    coast.event(
+        ACTORS["pookie_outside"],
+        *coast.absolute(11, 16),
+        "Tidebound::Opening.pookie",
+        "Pokemon 01",
+        opacity=0,
     )
     coast.event(
         "Oil shop sign",
-        23,
-        12,
+        *coast.absolute(23, 12),
         'pbMessage("LAMP OIL. Please ask the seller for assistance.\nA small bottle hangs beside the lettering.")',
     )
     coast.event(
-        "Empty house", 29, 11, 'pbMessage("The door has swollen in its frame. Nobody answers.")'
+        "Empty house",
+        *coast.absolute(29, 11),
+        'pbMessage("The door has swollen in its frame. Nobody answers.")',
     )
     coast.event(
         "Seated neighbour",
-        31,
-        18,
+        *coast.absolute(31, 18),
         'pbMessage("Young as ever, aren\'t you? I wish I knew your secret.")\npbMessage("Your mother still lights the tower every night. I used to complain that it shone through my curtains.")',
         "NPC 14",
         blocks=True,
     )
-    coast.event("Pier", 54, 20, "Tidebound::Opening.pier", trigger=1)
-    coast.event("Lapras", 56, 23, "", role="lapras")
+    coast.event("Pier", *coast.absolute(54, 20), "Tidebound::Opening.pier", trigger=1)
+    coast.event("Lapras", *coast.absolute(56, 23), "", role="lapras")
     coast.event(
         "Tide bell",
-        18,
-        20,
+        *coast.absolute(18, 20),
         'pbMessage("A bell with no clapper. Salt has filled the inscription.")',
         role="tide_bell",
     )
-    coast.event("Forest path", 24, 3, "Tidebound::Opening.forest_gate", trigger=1, cue="north")
+    coast.event(
+        "Forest path",
+        *coast.absolute(24, 3),
+        "Tidebound::Opening.forest_gate",
+        trigger=1,
+        cue="north",
+    )
 
     for x in range(20, 39, 3):
         for y in range(-18, 3, 3):
-            coast.stamp(0, 55, 3, 3, x, y)
+            coast.stamp(0, 55, 3, 3, *coast.absolute(x, y))
     for x, y in [(3, 7), (12, 10), (18, 6), (25, 7), (32, 3), (36, 12)]:
-        coast.stamp(3, 67, 3, 3, x, y)
+        coast.stamp(3, 67, 3, 3, *coast.absolute(x, y))
     for x, y in [(1, 10), (1, 17), (11, 5), (13, 13), (6, 21), (16, 22), (20, 24), (37, 16)]:
-        coast.stamp(0, 108, 3, 3, x, y)
+        coast.stamp(0, 108, 3, 3, *coast.absolute(x, y))
     for i, (x, y) in enumerate(
         [
             (4, 16),
@@ -183,7 +232,7 @@ def build_coast():
         ]
     ):
         sx, sy = [(0, 140), (2, 140), (0, 142), (3, 142), (2, 143)][i % 5]
-        coast.stamp(sx, sy, 1, 1, x, y)
+        coast.stamp(sx, sy, 1, 1, *coast.absolute(x, y))
     for x, y in [
         (5, 11),
         (5, 12),
@@ -198,9 +247,9 @@ def build_coast():
         (31, 16),
         (23, 17),
     ]:
-        coast.rect(x, y, 1, 1, 240, z=1)
+        coast.rect(*coast.absolute(x, y), 1, 1, 240, z=1)
     for x, y in [(4, 12), (6, 17), (12, 19), (20, 17), (27, 16), (32, 18), (34, 23)]:
-        coast.rect(x, y, 1, 1, tile(6, 0), z=1)
+        coast.rect(*coast.absolute(x, y), 1, 1, tile(6, 0), z=1)
     # Only the authored entrance crosses into the northern forest.
     for x in range(20, 40):
         coast.walk[22][x + 24] = False
@@ -208,57 +257,66 @@ def build_coast():
         coast.walk[23][x + 24] = False
     coast.event(
         "Headland flowers",
-        11,
-        12,
+        *coast.absolute(11, 12),
         'pbMessage("Late flowers, sheltered by a ring of flat stones.\nSomeone has tied the weakest stems to little sticks.")',
     )
     coast.event(
         "Sea glass",
-        29,
-        24,
+        *coast.absolute(29, 24),
         'pbMessage("Green glass, worn smooth by the water.\nFor a moment, it catches the light.")',
         role="sea_glass",
     )
     coast.event(
         "Coast lamp:home",
-        5,
-        16,
+        *coast.absolute(5, 16),
         'pbMessage("Mother lights this little lamp before dusk.\nSo you can always find the path home.")',
         role="coast_lamp",
     )
     coast.event(
         "Coast lamp:pier",
-        52,
-        19,
+        *coast.absolute(52, 19),
         'pbMessage("A little oil lamp. Someone still tends it, even with the boats gone.")',
         role="coast_lamp",
     )
     coast.event(
         "Mooring rope",
-        54,
-        21,
+        *coast.absolute(54, 21),
         'pbMessage("An old mooring rope disappears beneath the boards.")',
         role="mooring_rope",
     )
 
     # Preserve all existing coast event IDs. Extend a small southern rocky path.
-    coast.polygon([(28, 23), (32, 23), (33, 28), (32, 32), (28, 32), (27, 28)], tile(2, 27))
-    coast.path(29, 24, 3, 8, True)
-    coast.event("South path", 30, 31, "Tidebound::NeighborQuest.south_gate", trigger=1, cue="south")
-    coast.event(ACTORS["robbery_youth_one"], 21, 11, "", "trainer_YOUNGSTER", opacity=0)
-    coast.event(ACTORS["robbery_youth_two"], 21, 12, "", "trainer_CAMPER", opacity=0)
+    coast.polygon(
+        [
+            coast.absolute(x, y)
+            for x, y in [(28, 23), (32, 23), (33, 28), (32, 32), (28, 32), (27, 28)]
+        ],
+        tile(2, 27),
+    )
+    coast.path(*coast.absolute(29, 24), 3, 8, True)
+    coast.event(
+        "South path",
+        *coast.absolute(30, 31),
+        "Tidebound::NeighborQuest.south_gate",
+        trigger=1,
+        cue="south",
+    )
+    coast.event(
+        ACTORS["robbery_youth_one"], *coast.absolute(21, 11), "", "trainer_YOUNGSTER", opacity=0
+    )
+    coast.event(
+        ACTORS["robbery_youth_two"], *coast.absolute(21, 12), "", "trainer_CAMPER", opacity=0
+    )
     coast.event(
         "Coast road sign",
-        31,
-        29,
+        *coast.absolute(31, 29),
         'pbMessage("COAST ROAD - SOUTH. The lettering has been repainted around the rusted nails.")',
     )
 
     for x, y, item in [(12, 18, "ORANBERRY")]:
         eid = coast.event(
             "Berry:" + item,
-            x,
-            y,
+            *coast.absolute(x, y),
             f"Tidebound::FieldDetails.berry({coast.id}, {x}, {y}, :{item})",
             "berrytree_" + item,
             blocks=False,
@@ -269,8 +327,7 @@ def build_coast():
         ] = 8
     coast.event(
         "Coast lamp:shop",
-        24,
-        12,
+        *coast.absolute(24, 12),
         'pbMessage("A sheltered flame warms the shopfront.")',
         role="coast_lamp",
     )
@@ -476,7 +533,7 @@ def build_bedroom():
 
 
 def build_road():
-    road = RoadMap(MAPS["road"], "The South Coast Road", 56, 84, 1, 96)
+    road = Map(MAPS["road"], "The South Coast Road", 56, 84, 1, 96)
     road.polygon(
         [
             (17, 1),

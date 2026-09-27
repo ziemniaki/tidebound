@@ -25,11 +25,14 @@ tidebound/engine/frostcoon.rb
 tidebound/presentation/lighthouse.rb
 generated/maze_geometry.rb
 tidebound/features/maze.rb
+tidebound/presentation/dream.rb
 tidebound/features/dream.rb
 tidebound/features/prelude.rb
 tidebound/engine/audio.rb
 tidebound/features/docks.rb
 tidebound/presentation/docks.rb
+tidebound/features/mending.rb
+tidebound/presentation/mending.rb
 tidebound/features/hideout.rb
 generated/pond_geometry.rb
 tidebound/features/pond.rb
