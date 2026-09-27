@@ -2,10 +2,9 @@
 
 Approved custom sources live here; exported player files live in `game/`.
 `references/` contains concepts and working material, never build inputs.
-Edit source → `uv run play --preview <selector>` → stage source and generated
-outputs → `uv run check --all`. Selectors use exact case and no file extension:
-`pokemon/ID`, `characters/NAME`, `trainers/ID`, `items/ID`, `pictures/PATH`,
-`props/KEY`. Pipeline changes: [exporter guide](../tools/tidebound_dev/art/AGENTS.md).
+Edit source → [preview](../docs/development.md#asset-previews) → stage source
+and generated outputs → `uv run check --all`.
+Pipeline changes: [exporter guide](../tools/tidebound_dev/art/AGENTS.md).
 
 ## Pokémon sprites, forms and icons
 

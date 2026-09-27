@@ -28,7 +28,7 @@ do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtestin
 Current authoring uses one rebuild plan, catalog-derived content checks, shared
 map-local declarations, named entrances/stable event IDs, feature-owned actor policies
 and independent atlas groups. Generated content and assets have explicit ownership. `play` refreshes approved assets automatically;
-`play --preview` inspects them without entering a game.
+`preview` inspects them without entering a game.
 [Declared starting states](development.md#playtest-scenarios) support focused playtesting. Saves use
 the normal Essentials serializer without custom versioning. See
 [architecture](architecture.md) for ownership and [development](development.md)

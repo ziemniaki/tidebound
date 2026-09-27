@@ -28,7 +28,7 @@ def host_platform():
     raise ValueError("Playable builds support macOS Intel/ARM, Windows x64 and Linux x86_64.")
 
 
-def development_build(target, preview=None, start=None):
+def development_build(target, *, preview=None, start=None):
     if target == "mac" and sys.platform != "darwin":
         raise ValueError("Mac builds require macOS and Xcode command-line tools.")
     from .pipeline import rebuild
@@ -80,17 +80,13 @@ def parser():
         "--platform", choices=("mac", "windows", "linux"), help="Defaults to this computer"
     )
     play = commands.add_parser("play", help="Build and launch a development player")
-    for command in (build, play):
-        modes = command.add_mutually_exclusive_group()
-        modes.add_argument(
-            "--preview", help="Inspect an asset, e.g. pokemon/WHYDUCK or props/ship1"
-        )
-        if command is play:
-            modes.add_argument(
-                "--from",
-                dest="start",
-                help="Start the full game at a declared state, e.g. neighbor/meal",
-            )
+    play.add_argument(
+        "--from",
+        dest="start",
+        help="Start the full game at a declared state, e.g. neighbor/meal",
+    )
+    preview = commands.add_parser("preview", help="Build and launch the asset viewer")
+    preview.add_argument("asset", help="Asset selector, e.g. pokemon/WHYDUCK or props/ship1")
     for name, help in (
         ("check", "Also verify isolated regeneration"),
         ("rebuild", "Also regenerate maps, content and artwork"),
@@ -108,10 +104,12 @@ def parser():
 
 
 def execute(args):
-    if args.command in ("build", "play"):
+    if args.command in ("build", "play", "preview"):
         target = getattr(args, "platform", None) or host_platform()
-        launcher = development_build(target, args.preview, getattr(args, "start", None))
-        if args.command == "play":
+        launcher = development_build(
+            target, preview=getattr(args, "asset", None), start=getattr(args, "start", None)
+        )
+        if args.command != "build":
             if target == "mac":
                 run("open", "-n", "-W", launcher)
             else:
@@ -155,6 +153,10 @@ def build():
 
 def play():
     main(["play", *sys.argv[1:]])
+
+
+def preview():
+    main(["preview", *sys.argv[1:]])
 
 
 def check():

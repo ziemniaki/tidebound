@@ -35,7 +35,7 @@ Run from the repository root. uv owns Python dependencies; Node is pinned in
 ```sh
 uv run play           # refresh assets/Ruby, stage and launch a development player
 uv run build          # same refresh without launch; preserves editor maps/content
-uv run play --preview pokemon/WHYDUCK  # inspect one asset without loading a save
+uv run preview pokemon/WHYDUCK  # inspect one asset without loading a save
 uv run format         # before embedding Ruby
 uv run rebuild        # export custom assets and embed the Ruby load manifest
 uv run rebuild --all  # regenerate maps/content/art, then embed

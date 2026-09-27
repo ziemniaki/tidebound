@@ -4,7 +4,7 @@ For approved image layouts and prop authoring, use [assets/AGENTS.md](../../../a
 
 ## Pipeline ownership
 
-`pipeline.rebuild` calls `compiler.build` for every play/build/rebuild.
+`pipeline.rebuild` calls `compiler.build` for every play/build/preview/rebuild.
 `uv run rebuild --all` also runs map/content compilers. Pipeline entry points:
 
 | Change | Owner in this directory |
@@ -52,7 +52,7 @@ owned exports in an isolated copy and proves they rebuild from source.
    For Pokémon cries, follow the bundle declaration in the asset guide and call
    `GameData::Species.play_cry_from_pokemon(pokemon)`: missing form cries can silently
    fall back to the base. Preview them with `pokemon/ID`.
-4. Use `uv run play --preview "audio/BGM/<name>"` (substitute the category), then
+4. Use `uv run preview "audio/BGM/<name>"` (substitute the category), then
    listen in-scene with normal/reduced player volume and relevant loop/transitions.
    Stage source/exports and run `uv run check --all`; headers cannot prove sound quality.
 
