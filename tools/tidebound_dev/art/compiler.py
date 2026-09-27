@@ -9,7 +9,8 @@ def build(root):
     owners, exports = ownership.inventory(root)
     records = props.load(root)
     ownership.remove_retired(root, owners)
+    # Claim validated destinations before writing so a failed export can be retried.
+    ownership.publish(root, owners)
     for export in exports:
         export.write(root)
     props.write(root, records)
-    ownership.publish(root, owners)
