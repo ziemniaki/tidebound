@@ -23,7 +23,7 @@ Preview syntax: [development](../../docs/development.md#asset-previews).
    direct `Audio.*` calls bypass it. Volume is 0–100, normal pitch 100; wrapper fades
    use seconds, while lower-level audio calls can use milliseconds.
 3. Map autoplay belongs to `content/maps/<map>/map.json::music`; battle/victory
-   defaults to `content/configure.py`. Both require `uv run rebuild --all`.
+   defaults to `content/configure.py`. Both require `uv run rebuild`.
    For Pokémon cries, follow [the Pokémon guide](../pokemon/AGENTS.md) and call
    `GameData::Species.play_cry_from_pokemon(pokemon)`: missing form cries can silently
    fall back to the base. Preview them with `pokemon/ID`.

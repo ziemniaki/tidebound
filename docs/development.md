@@ -45,10 +45,10 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run format --check` | Check formatting without editing |
 | `uv run check` | Formatting, tooling, geometry, scripts and quest/save tests; no game regeneration |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
-| `uv run rebuild` | Export custom assets and embed the Ruby load manifest |
-| `uv run rebuild --all` | Regenerate maps, data, pipeline-owned art, reports and scripts |
+| `uv run rebuild` | Regenerate maps, data, pipeline-owned art, reports and scripts |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
 | `uv run editor` | Export authored maps, restore ignored helpers and open RPG Maker on Windows |
+| `uv run editor prepare` | Export and checkpoint the project without opening Windows RPG Maker |
 | `uv run editor import` | Import saved map/tileset edits into authored files; works on every platform |
 
 `uv run build` is the game command. `uv build` builds a Python package, not
@@ -79,6 +79,8 @@ second plugin copy. See [architecture](architecture.md) for ownership.
 
 1. On Windows, run `uv run editor`. It compiles the authored game, records the
    exported map/tileset state, restores ignored helpers and opens `game/Game.rxproj`.
+   Use `uv run editor prepare` when opening the project yourself or exchanging
+   saved editor files with a machine that runs RPG Maker.
 2. Edit and **save** in RPG Maker. Close the editor before importing or rebuilding.
 3. Run `uv run editor import`. Tiles, events (including all pages/routes), map
    audio, names/tree placement, custom tileset settings and textures return to
@@ -88,21 +90,33 @@ The importer compares editor and source changes against the last export. Edits t
 separate fields merge; conflicting edits to the same field stop before any source
 is written. Resolve that field in source/editor and rerun. Scrolling, expanding a
 map in the editor, and Marshal encoding differences do not create source changes.
-Rebuilds detect pending saved map edits and ask for import before replacing them.
+While an editor session is active, rebuilds refuse pending saved edits until imported.
+A rebuild closes that session before exporting; run `editor` or `editor prepare`
+before the next editor session. Failed exports can be fixed and rebuilt normally.
 Unsaved editor changes cannot be detected, so always save and close first.
 
-This imports existing authored map bundles and custom tilesets. Add a new bundle
-using the [map guide](../content/maps/AGENTS.md) before opening it in RPG Maker.
-Stock maps and other engine database edits remain native inputs in `game/`.
-The importer reports changed stock maps; other databases are outside its scope.
-Commit/review native input changes separately. Do not delete `.build/editor.json` to bypass a conflict.
+New maps created in RPG Maker become `content/maps/<name>/` bundles on import,
+keeping their native map IDs and tree placement. The name becomes a lower_snake_case
+folder; an existing folder gets the map ID suffix. Renaming a map later changes
+its display name, not its bundle key. Add named playtest entrances and actor roles
+only when needed; ordinary editor transfers work without that extra metadata.
+An unconnected draft map has no reachability starting point, so static interaction
+checks begin once it has an entrance or incoming transfer.
+
+Existing authored maps and custom tilesets round-trip through this workflow.
+Stock maps and other engine databases remain direct native inputs in `game/`;
+review and commit those edits separately. Adding a custom tileset or editing
+its light mask uses the [map guide](../content/maps/AGENTS.md). To remove an entire
+authored map, import pending edits first, remove its source bundle and update its
+references, then rebuild; whole-map deletion in RPG Maker is not imported.
+Do not delete `.build/editor.json` to bypass a conflict.
 
 RPG Maker Test Play uses the project/release save namespace. `uv run play` uses
 isolated development saves. No editor installation is needed for JSON authoring,
 importing saved project files or native Mac/Linux playtesting.
 
 Full regeneration writes directly to tracked files. If it fails, fix the reported
-error and rerun `uv run rebuild --all` before playing. Review the generated diff
+error and rerun `uv run rebuild` before playing. Review the generated diff
 in Git; `uv run check --all` verifies reproducibility in a disposable copy.
 
 Keep compiled data checked in: stock Essentials inputs cannot all be rebuilt
@@ -117,8 +131,7 @@ The scoped guides explain the source files, engine contracts and checks for
 [Pokémon artwork](../content/AGENTS.md) and [sound](../content/audio/AGENTS.md).
 They apply to human development as well as agents.
 
-Ordinary rebuild refreshes the [authored custom assets](artwork.md); full rebuild
-also exports fixed tilesets, maps and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
+Rebuild exports [authored custom assets](artwork.md), fixed tilesets, maps and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
 editing a game PNG: generated destinations are replaced by their exporter.
 
 ## Less common work
@@ -165,7 +178,7 @@ species catalogs and shared NPC dispatch. Individual map layouts belong in
 Include source and generated outputs in the PR. When combining work, resolve
 source first, then regenerate once. For compiled binary conflicts, use a
 known common baseline, apply the combined source, then run `uv run format`,
-`uv run rebuild --all` and `uv run check --all`. Never choose one branch's archive
+`uv run rebuild` and `uv run check --all`. Never choose one branch's archive
 wholesale: that can discard another feature. Stock data and supplied editor/asset
 edits need their own reconciliation. Never regenerate in another agent's active
 checkout. Handoffs name the branch/commit, checks and remaining work.
@@ -236,6 +249,6 @@ it; `story` merges only its top-level keys. `":pie"` denotes a Ruby symbol;
 ordinary strings stay text. Map/entrance and species/item references are checked.
 
 State is installed before map callbacks. Declare the flags needed to skip earlier
-autoruns. Edits to starting states need only `play --from`; map/data changes still
-need `uv run rebuild --all`. The starting-state driver is staged only for development;
+autoruns. Use `play --from` after editing either the starting state or game content; it
+rebuilds before resolving map/species/item references. The starting-state driver is staged only for development;
 keep `tools/tidebound_dev/scenarios.rb` out of `src/load_order.txt` and releases.

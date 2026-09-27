@@ -28,6 +28,7 @@ class MapValidationTests(unittest.TestCase):
             dest = self.root / name
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / name, dest)
+        shutil.copytree(ROOT / "content/maps", self.root / "content/maps")
         shutil.copytree(ROOT / "src", self.root / "src")
         for original in (ROOT / "game/Data").glob("Map1[01][0-9].rxdata"):
             shutil.copy2(original, self.game / "Data" / original.name)
@@ -78,3 +79,27 @@ class MapValidationTests(unittest.TestCase):
                 path.write_bytes(writes(record))
                 with self.assertRaisesRegex(RuntimeError, "dimensions"):
                     validate(self.root)
+
+    def test_editor_map_can_be_silent_or_use_native_audio_without_named_entrances(self):
+        path = self.game / "Data/Map101.rxdata"
+        native = loads(path.read_bytes())
+        native.attributes["@autoplay_bgm"] = False
+        native.attributes["@bgm"].attributes["@name"] = ""
+        native.attributes["@events"] = {}
+        path.write_bytes(writes(native))
+        import json
+
+        manifest = self.game / ".generated/map_manifest.json"
+        manifest.write_text(
+            json.dumps([m for m in json.loads(manifest.read_text()) if m["id"] == 101])
+        )
+        declaration = self.root / "content/maps/home/map.json"
+        data = json.loads(declaration.read_text())
+        data["entrances"] = {}
+        declaration.write_text(json.dumps(data))
+        validate(self.root)
+        native.attributes["@autoplay_bgm"] = True
+        native.attributes["@bgm"].attributes["@name"] = "Editor track"
+        path.write_bytes(writes(native))
+        self.asset("Audio/BGM/Editor track.mid")
+        validate(self.root)

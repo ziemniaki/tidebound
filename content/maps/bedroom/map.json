@@ -5,13 +5,6 @@
     "stairs": [8, 10, 2],
     "from_home": [8, 10, 8]
   },
-  "events": {
-    "Room:NATU@7,8": 1,
-    "mother_visiting": 2,
-    "Book@4,9": 3,
-    "Opening@2,11": 4,
-    "Bedroom exit@8,12": 5
-  },
   "name": "Your Room",
   "actor_settings": {
     "1": {

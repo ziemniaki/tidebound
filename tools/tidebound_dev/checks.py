@@ -83,7 +83,7 @@ def _check_regeneration(root):
 
         for name in [*ownership.recorded(stage), *content_outputs(stage)["files"]]:
             (stage / name).unlink(missing_ok=True)
-        rebuild(stage, full=True)
+        rebuild(stage)
         differences = [name for name in tracked if not equivalent(root / name, stage / name)]
         generated = {
             p.relative_to(stage).as_posix()

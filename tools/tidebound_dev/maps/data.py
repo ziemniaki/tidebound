@@ -9,7 +9,7 @@ from ..catalog import unique_keys
 
 
 def read(path):
-    return json.loads(path.read_text(), object_pairs_hook=unique_keys)
+    return json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=unique_keys)
 
 
 def encode(value):

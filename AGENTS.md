@@ -40,14 +40,12 @@ uv run play           # compile authored game, stage and launch a development pl
 uv run build          # same compilation without launch
 uv run preview pokemon/WHYDUCK  # inspect one asset without loading a save
 uv run format         # before embedding Ruby
-uv run rebuild        # export custom assets and embed the Ruby load manifest
-uv run rebuild --all  # regenerate maps/content/art, then embed
+uv run rebuild        # compile all authored maps, content, assets and Ruby
 uv run check          # headless gate; never regenerates tracked game data
 uv run check --all    # also regenerate in isolation and compare
 ```
 
-Play/build compile current authored content. `rebuild --all` exports it without
-launching; ordinary `rebuild` is an asset/Ruby-only refresh. Stage new sources and
+Play/build and rebuild use the same complete compilation. Stage new sources and
 outputs before `check --all`: its input set comes from `git ls-files`.
 Setup/editor details: [development](docs/development.md).
 

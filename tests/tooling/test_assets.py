@@ -128,10 +128,10 @@ class AssetTests(unittest.TestCase):
 
 
 class AssetRefreshTests(unittest.TestCase):
-    def test_default_rebuild_refreshes_art_and_retires_only_owned_outputs(self):
+    def test_export_refreshes_art_and_retires_only_owned_outputs(self):
         from contextlib import ExitStack
 
-        from tidebound_dev import pipeline
+        from tidebound_dev.art import compiler
         from tidebound_dev.art import ownership
 
         with tempfile.TemporaryDirectory() as temp, ExitStack() as patches:
@@ -144,26 +144,18 @@ class AssetRefreshTests(unittest.TestCase):
             source = root / "content/actors/actor/character.png"
             target = root / "game/Graphics/Characters/actor.png"
             patches.enter_context(patch.object(ownership, "MAP_OUTPUTS", ()))
-            patches.enter_context(patch.object(pipeline, "scripts"))
-            patches.enter_context(
-                patch.object(
-                    pipeline,
-                    "maps",
-                    side_effect=AssertionError("ordinary rebuild must preserve editor maps"),
-                )
-            )
             for color in ((1, 2, 3, 128), (4, 5, 6, 200)):
                 Image.new("RGBA", (48, 48), color).save(source)
-                pipeline.rebuild(root)
+                compiler.build(root)
                 with Image.open(target) as image:
                     self.assertEqual(image.getpixel((0, 0)), color)
             renamed = source.parent.rename(source.parent.with_name("mother"))
-            pipeline.rebuild(root)
+            compiler.build(root)
             self.assertFalse(target.exists())
             target = target.with_name("mother.png")
             self.assertTrue(target.is_file())
             (renamed / "character.png").unlink()
             renamed.rmdir()
-            pipeline.rebuild(root)
+            compiler.build(root)
             self.assertFalse(target.exists())
             self.assertEqual(stock.read_bytes(), b"irreplaceable stock input")

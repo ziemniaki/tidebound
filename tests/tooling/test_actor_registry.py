@@ -3,7 +3,6 @@
 import json
 import unittest
 from types import SimpleNamespace
-from unittest.mock import patch
 from tidebound_dev.maps import registry, definitions
 from tidebound_dev.maps.data import native_map
 from tidebound_dev.paths import ROOT
@@ -15,24 +14,21 @@ class ActorRegistryTests(unittest.TestCase):
         return SimpleNamespace(
             id=101,
             events=native.attributes["@events"],
-            actor_settings={int(k): v for k, v in definitions.BY_ID[101].actor_settings.items()},
+            actor_settings={
+                int(k): v for k, v in definitions.load(ROOT)["home"].actor_settings.items()
+            },
         )
 
-    def test_named_actor_lookup_survives_rename_but_rejects_duplicate_and_wrong_map(self):
+    def test_named_actor_lookup_survives_rename_but_rejects_duplicate_and_missing_event(self):
         area = self.home()
         area.events[1].attributes["@name"] = "A different display label"
-        with patch.dict(
-            registry.ACTORS,
-            {k: v for k, v in registry.ACTORS.items() if v.map == "home"},
-            clear=True,
-        ):
-            actors, _ = registry.collect_actors([area])
-            self.assertEqual(actors["mother"], {"map": 101, "event": 1})
-            with self.assertRaisesRegex(ValueError, "Duplicate actor"):
-                registry.collect_actors([area, area])
-            area.id = 102
-            with self.assertRaisesRegex(ValueError, "belongs to home"):
-                registry.collect_actors([area])
+        actors, _ = registry.collect_actors([area])
+        self.assertEqual(actors["mother"], {"map": 101, "event": 1})
+        with self.assertRaisesRegex(ValueError, "Duplicate actor"):
+            registry.collect_actors([area, area])
+        del area.events[1]
+        with self.assertRaisesRegex(ValueError, "missing event"):
+            registry.collect_actors([area])
 
     def test_role_typos_and_incomplete_roles_fail_at_the_compiler_boundary(self):
         area = self.home()

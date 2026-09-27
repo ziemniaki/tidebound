@@ -4,16 +4,6 @@
     "door": [14, 18, 2],
     "from_docks": [14, 18, 8]
   },
-  "events": {
-    "Attendant@8,16": 1,
-    "Sabre exhibit@15,8": 2,
-    "Museum case:Harbour bell@7,7": 3,
-    "Museum case:Sounding weights@22,7": 4,
-    "Museum case:Ceramic fragments@22,14": 5,
-    "Museum case:Shipping ledger@7,12": 6,
-    "Visitor@18,12": 7,
-    "Door@14,21": 8
-  },
   "name": "Dockside Museum",
   "actor_settings": {
     "2": {

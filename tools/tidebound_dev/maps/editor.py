@@ -2,11 +2,14 @@
 
 import hashlib
 import json
+from pathlib import PureWindowsPath
 from PIL import Image
 from rubymarshal.reader import loads
 from .data import encode, map_record, native_map, decode, dump, read
 from .tilesets import sources
-from ..files import sha256
+from .definitions import load
+import re
+import unicodedata
 
 SESSION = ".build/editor.json"
 
@@ -69,19 +72,53 @@ def native_values(root, links):
     return result
 
 
-def other_files(root, links):
-    # Changes outside this importer remain native inputs. Name them rather than
-    # pretending that "imported" also covers stock maps, scripts or the database.
-    owned = {f"Map{identifier:03}.rxdata" for kind, identifier in links.values() if kind == "map"}
-    return {
-        p.name: sha256(p)
-        for p in sorted((root / "game/Data").glob("Map[0-9]*.rxdata"))
-        if p.name not in owned
-    }
+def close(root):
+    (root / SESSION).unlink(missing_ok=True)
 
 
-def remember(root):
-    links = bindings(root)
+def map_ids(root):
+    return sorted(int(p.stem[3:]) for p in (root / "game/Data").glob("Map[0-9]*.rxdata"))
+
+
+def new_maps(root, session):
+    """RPG Maker allocates native IDs; import their full records without a second allocator."""
+    infos = loads((root / "game/Data/MapInfos.rxdata").read_bytes())
+    pending = {}
+    definitions = load(root)
+    used = {key.casefold() for key in definitions}
+    authored_ids = {definition.id for definition in definitions.values()}
+    for identifier in sorted(set(map_ids(root)) - set(session["map_ids"])):
+        if identifier in authored_ids:
+            raise ValueError(f"New editor map {identifier}: ID already used by an authored map")
+        info = infos[identifier].attributes
+        name = str(info["@name"])
+        ascii_name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()
+        key = re.sub(r"[^a-z0-9]+", "_", ascii_name.lower()).strip("_")
+        if not key or not key[0].isalpha() or PureWindowsPath(key).is_reserved():
+            key = f"map_{identifier}"
+        if key.casefold() in used:
+            key = f"{key}_{identifier}"
+        if key.casefold() in used:
+            raise ValueError(f"New map {identifier}: bundle name {key} already exists")
+        used.add(key.casefold())
+        folder = f"content/maps/{key}"
+        pending[f"{folder}/map.json"] = {
+            "id": identifier,
+            "name": name,
+            "entrances": {},
+            "parent_id": info["@parent_id"],
+            "order": info["@order"],
+        }
+        pending[f"{folder}/layout.json"] = map_record(
+            loads((root / f"game/Data/Map{identifier:03}.rxdata").read_bytes())
+        )
+        native_map(pending[f"{folder}/layout.json"])
+    return pending
+
+
+def remember(root, links=None):
+    if links is None:
+        links = bindings(root)
     path = root / SESSION
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -89,7 +126,7 @@ def remember(root):
             {
                 "bindings": links,
                 "native": native_values(root, links),
-                "other": other_files(root, links),
+                "map_ids": map_ids(root),
             }
         )
     )
@@ -102,6 +139,8 @@ def require_import(root):
     session = read(path)
     current = native_values(root, session["bindings"])
     changed = [name for name in current if current[name] != session["native"][name]]
+    added = sorted(set(map_ids(root)) - set(session["map_ids"]))
+    changed.extend(f"New native map {identifier}" for identifier in added)
     if changed:
         raise ValueError(
             "Saved RPG Maker changes need uv run editor import before rebuilding:\n"
@@ -138,23 +177,11 @@ def import_changes(root):
     path = root / SESSION
     if not path.exists():
         raise ValueError(
-            "No editor export to compare. Run uv run editor before editing the project."
+            "No editor export to compare. Run uv run editor (or editor prepare) before editing the project."
         )
     session = read(path)
     current = native_values(root, session["bindings"])
-    other = other_files(root, session["bindings"])
-    changed_other = [
-        name
-        for name in other.keys() | session.get("other", {}).keys()
-        if other.get(name) != session.get("other", {}).get(name)
-    ]
-    if changed_other:
-        print(
-            "Native maps outside authored bundles were preserved, not imported. "
-            "Add new maps as content/maps bundles; keep stock/database edits in game/:\n"
-            + "\n".join(changed_other)
-        )
-    pending = {}
+    pending = new_maps(root, session)
     for name, edited in current.items():
         if edited == session["native"][name]:
             continue
@@ -170,16 +197,13 @@ def import_changes(root):
             native_map(result)  # Validate native tables before writing any source.
             metadata = name.replace("layout.json", "map.json")
             declaration = pending.get(metadata, read(root / metadata))
-            reserved = declaration["events"]
-            added = edited["events"].keys() - session["native"][name]["events"].keys()
-            for event in added:
-                if int(event) in reserved.values() and event not in source["events"]:
-                    raise ValueError(
-                        f"{name}: event {event} reuses a reserved ID; allocate above {max(reserved.values())}"
-                    )
-                if int(event) not in reserved.values():
-                    reserved[f"event_{event}"] = int(event)
-            if added:
+            retired = set(declaration.get("retired_event_ids", []))
+            reused = set(map(int, edited["events"])) & retired
+            if reused:
+                raise ValueError(f"{name}: retired event IDs cannot be reused: {sorted(reused)}")
+            removed = session["native"][name]["events"].keys() - result["events"].keys()
+            if removed:
+                declaration["retired_event_ids"] = sorted(retired | set(map(int, removed)))
                 pending[metadata] = declaration
         elif name.endswith("tileset.json"):
             decode(result)
@@ -189,9 +213,17 @@ def import_changes(root):
     # Compute every merge first. Conflicts never partially import a session.
     for name, result in pending.items():
         target = root / name
+        target.parent.mkdir(parents=True, exist_ok=True)
         if target.suffix == ".png":
             target.write_bytes(result)
         else:
-            target.write_text(dump(result))
-    remember(root)
+            target.write_text(dump(result), encoding="utf-8")
+    # Source-only additions may not have native exports yet. Keep them out of
+    # this editor session until the next prepare, while tracking imported maps.
+    links = {
+        name: link
+        for name, link in bindings(root).items()
+        if name in session["bindings"] or name in pending
+    }
+    remember(root, links)
     print(f"Imported {len(pending)} changed map/tileset files. Review git diff; rebuild to play.")

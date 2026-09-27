@@ -3,7 +3,7 @@
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from rubymarshal.classes import RubyObject, Symbol
-from ..maps.definitions import DEFINITIONS
+from ..maps.definitions import load
 from ..files import ruby
 from .species_compiler import identity
 
@@ -14,7 +14,7 @@ def build(root):
     species = loads((game / "Data/species.dat").read_bytes())
     text = "# Generated from map encounter declarations.\n"
     forms = {}
-    for name, area in DEFINITIONS.items():
+    for name, area in load(root).items():
         selected = dict(area.wild_forms)
         chances, types = {}, {}
         if area.encounters:

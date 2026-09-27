@@ -5,7 +5,7 @@ For approved image layouts and prop authoring, use [content/AGENTS.md](../../../
 ## Pipeline ownership
 
 `pipeline.rebuild` calls `compiler.build` for every play/build/preview/rebuild.
-`play`, `build` and `rebuild --all` also run map/content compilers. Pipeline entry points:
+Those commands share one complete map/content/asset compilation. Pipeline entry points:
 
 | Change | Owner in this directory |
 | --- | --- |

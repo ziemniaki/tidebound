@@ -7,21 +7,6 @@
     "from_bedroom": [6, 4, 2],
     "from_basement": [4, 12, 6]
   },
-  "events": {
-    "mother": 1,
-    "Book@4,10": 2,
-    "Opening@2,13": 3,
-    "house_natu": 4,
-    "house_makuhita": 5,
-    "house_poochyena": 6,
-    "crate": 7,
-    "Crate spare@12,10": 8,
-    "Door@6,3": 9,
-    "Door@10,14": 10,
-    "Door@17,3": 11,
-    "Cellar stairs@3,12": 12,
-    "seller_at_home": 13
-  },
   "name": "The Keeper's House",
   "actor_settings": {
     "1": {

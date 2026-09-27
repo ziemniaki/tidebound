@@ -29,7 +29,7 @@ def bundles(root, category, filename):
         path = directory / filename
         if not path.is_file():
             raise ValueError(f"{directory}: missing {filename}")
-        record = json.loads(path.read_text(), object_pairs_hook=unique_keys)
+        record = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=unique_keys)
         if not isinstance(record, dict):
             raise ValueError(f"{path}: expected an object")
         records[directory.name] = record

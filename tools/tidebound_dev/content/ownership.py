@@ -9,7 +9,7 @@ from rubymarshal.writer import writes
 from .species import SPECIES, METRICS
 from .species_compiler import pbs_files
 from .story import ITEMS, TRAINERS
-from ..maps.definitions import DEFINITIONS
+from ..maps.definitions import load
 
 MANIFEST = "game/.generated/content.json"
 TABLES = {
@@ -23,8 +23,9 @@ TABLES = {
 }
 
 
-def inventory():
-    maps = sorted(d.id for d in DEFINITIONS.values())
+def inventory(root):
+    definitions = load(root)
+    maps = sorted(d.id for d in definitions.values())
     files = [f"game/PBS/{name}" for name in pbs_files(SPECIES) | pbs_files(METRICS)]
     files += [
         "game/PBS/items_tidebound_story.txt",
@@ -39,7 +40,7 @@ def inventory():
             "species_metrics.dat": sorted(METRICS),
             "items.dat": sorted(ITEMS),
             "trainer_types.dat": sorted(TRAINERS),
-            "encounters.dat": sorted(f"{d.id}_0" for d in DEFINITIONS.values() if d.encounters),
+            "encounters.dat": sorted(f"{d.id}_0" for d in definitions.values() if d.encounters),
             "map_metadata.dat": maps,
             "MapInfos.rxdata": maps,
         },
@@ -71,14 +72,18 @@ def prepare(root, expected):
         old = previous["databases"].get(name, [])
         key = lambda value: Symbol(value) if isinstance(value, str) else value
         for identifier in set(identifiers) - set(old):
-            if key(identifier) in database:
+            if name not in ("MapInfos.rxdata", "map_metadata.dat") and key(identifier) in database:
                 raise ValueError(f"Custom content would overwrite stock {name}: {identifier}")
         retired = set(old) - set(identifiers)
         if retired:
             for identifier in retired:
                 database.pop(key(identifier), None)
             cleaned[name] = writes(database)
-    for name in set(expected["files"]) - set(previous["files"]):
+    # A map declaration explicitly adopts its native editor ID and file.
+    map_files = {
+        f"game/Data/Map{i:03}.rxdata" for i in expected["databases"].get("MapInfos.rxdata", [])
+    }
+    for name in set(expected["files"]) - set(previous["files"]) - map_files:
         if (root / name).exists():
             raise ValueError(f"Custom content would overwrite an unowned file: {name}")
     # Record claims before generation so a failed build can be fixed and rerun.
@@ -91,5 +96,5 @@ def prepare(root, expected):
 
 
 def validate(root):
-    if recorded(root) != inventory():
-        raise ValueError("Content ownership changed; run uv run rebuild --all")
+    if recorded(root) != inventory(root):
+        raise ValueError("Content ownership changed; run uv run rebuild")

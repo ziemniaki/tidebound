@@ -1,7 +1,6 @@
 from ..files import save_png
 from .preview import PreviewRenderer
 from .registry import write_registry
-from . import definitions
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 import json
@@ -42,14 +41,14 @@ def serialize(paths, maps):
         infos[m.id] = obj(
             "RPG::MapInfo",
             name=m.name,
-            parent_id=definitions.BY_ID[m.id].parent_id,
-            order=definitions.BY_ID[m.id].order or m.id,
+            parent_id=m.definition.parent_id,
+            order=m.definition.order or m.id,
             expanded=True,
             scroll_x=320,
             scroll_y=240,
         )
         md = loads(writes(template))
-        md.attributes.update({"@id": m.id, **definitions.BY_ID[m.id].native_metadata(m.name)})
+        md.attributes.update({"@id": m.id, **m.definition.native_metadata(m.name)})
         metadata[m.id] = md
     (paths.game / "Data/MapInfos.rxdata").write_bytes(writes(infos))
     (paths.game / "Data/map_metadata.dat").write_bytes(writes(metadata))

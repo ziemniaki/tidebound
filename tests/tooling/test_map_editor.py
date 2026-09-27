@@ -5,6 +5,9 @@ import shutil
 import struct
 import tempfile
 import unittest
+from unittest.mock import patch
+from tidebound_dev import pipeline
+from tidebound_dev.content import ownership
 from pathlib import Path
 from PIL import Image
 from rubymarshal.classes import UserDef
@@ -78,7 +81,9 @@ class MapEditorTests(unittest.TestCase):
             export.write(self.root)
         with Image.open(image_path) as image:
             self.assertEqual(image.getpixel((0, 0)), (12, 34, 56, 255))
-        saved = json.loads((self.root / "content/maps/home/layout.json").read_text())
+        saved = json.loads(
+            (self.root / "content/maps/home/layout.json").read_bytes().decode("utf-8")
+        )
         self.assertEqual(map_record(loads(writes(native_map(saved)))), map_record(native))
         self.assertEqual(loads(ts_path.read_bytes())[fields["@tileset_id"]], ts)
         home = construct(BuildPaths(self.root))[0]
@@ -103,6 +108,11 @@ class MapEditorTests(unittest.TestCase):
         self.assertEqual(
             merged["events"]["1"]["x"], native.attributes["@events"][1].attributes["@x"]
         )
+        # A source-only new map must not be read as an already-exported native map.
+        added = self.root / "content/maps/agent_room"
+        added.mkdir()
+        (added / "map.json").write_text('{"id": 118, "name": "Agent room"}')
+        (added / "layout.json").write_text(dump(authored))
         # Import again without exporting the source-only rename to the editor.
         native.attributes["@bgm"].attributes["@volume"] = 31
         path.write_bytes(writes(native))
@@ -140,7 +150,7 @@ class MapEditorTests(unittest.TestCase):
         event.attributes["@name"] = "Another event"
         events[eid] = event
         path.write_bytes(writes(native))
-        with self.assertRaisesRegex(ValueError, "reserved ID"):
+        with self.assertRaisesRegex(ValueError, "retired event IDs"):
             editor.import_changes(self.root)
         self.assertEqual(source.read_bytes(), before)
 
@@ -150,3 +160,67 @@ class MapEditorTests(unittest.TestCase):
         infos[101].attributes.update({"@scroll_x": 900, "@scroll_y": 600, "@expanded": False})
         path.write_bytes(writes(infos))
         editor.require_import(self.root)
+
+    def test_editor_created_map_becomes_authored_content_with_its_native_id(self):
+        path = self.root / "game/Data/Map117.rxdata"
+        record = json.loads((self.root / "content/maps/home/layout.json").read_text())
+        record["events"] = {}
+        path.write_bytes(writes(native_map(record)))
+        info_path = self.root / "game/Data/MapInfos.rxdata"
+        infos = loads(info_path.read_bytes())
+        infos[117] = obj(
+            "RPG::MapInfo",
+            name="New room!",
+            parent_id=101,
+            order=17,
+            expanded=False,
+            scroll_x=0,
+            scroll_y=0,
+        )
+        info_path.write_bytes(writes(infos))
+        with self.assertRaisesRegex(ValueError, "New native map 117"):
+            editor.require_import(self.root)
+        editor.import_changes(self.root)
+        bundle = self.root / "content/maps/new_room"
+        self.assertEqual(
+            json.loads((bundle / "map.json").read_text()),
+            {"id": 117, "name": "New room!", "entrances": {}, "parent_id": 101, "order": 17},
+        )
+        shutil.copytree(ROOT / "game/.generated", self.root / "game/.generated")
+        ownership.prepare(self.root, ownership.inventory(self.root))
+        area = next(a for a in construct(BuildPaths(self.root)) if a.id == 117)
+        self.assertEqual(map_record(loads(area.serialize())), record)
+        editor.require_import(self.root)
+        # A simultaneous source addition must not be silently assigned a second bundle.
+        infos[118] = infos[117]
+        info_path.write_bytes(writes(infos))
+        (self.root / "game/Data/Map118.rxdata").write_bytes(path.read_bytes())
+        source = self.root / "content/maps/agent_room"
+        source.mkdir()
+        (source / "map.json").write_text('{"id": 118, "name": "Agent room"}')
+        before = (bundle / "layout.json").read_bytes()
+        with self.assertRaisesRegex(ValueError, "ID already used"):
+            editor.import_changes(self.root)
+        self.assertEqual((bundle / "layout.json").read_bytes(), before)
+        self.assertFalse((self.root / "content/maps/new_room_118").exists())
+
+    def test_pending_edits_are_guarded_but_failed_exports_do_not_block_retry(self):
+        path = self.root / "game/Data/Map101.rxdata"
+        native = loads(path.read_bytes())
+        native.attributes["@bgm"].attributes["@volume"] = 42
+        path.write_bytes(writes(native))
+        with self.assertRaisesRegex(ValueError, "editor import"):
+            pipeline.rebuild(self.root)
+        editor.import_changes(self.root)
+        saved = (self.root / "content/maps/home/layout.json").read_bytes()
+
+        def failed_export(root):
+            native.attributes["@bgm"].attributes["@volume"] = 12
+            path.write_bytes(writes(native))
+            raise RuntimeError("export failed")
+
+        with patch.object(pipeline.art, "build", side_effect=failed_export):
+            for _ in range(2):
+                with self.assertRaisesRegex(RuntimeError, "export failed"):
+                    pipeline.rebuild(self.root)
+        self.assertEqual((self.root / "content/maps/home/layout.json").read_bytes(), saved)

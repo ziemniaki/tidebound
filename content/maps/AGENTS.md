@@ -1,7 +1,7 @@
 # Map authoring
 
 `map.json` owns the map ID, display name, named entrances, encounters, atmosphere,
-actor identities/roles and reserved event IDs. `layout.json` owns the complete RPG
+actor identities/roles and retired event IDs. `layout.json` owns the complete RPG
 Maker map: dimensions, tile layers, audio, events, pages and movement routes.
 Both are authored data. Builds serialize them; they never execute map builders.
 The [editor workflow](../../docs/development.md#rpg-maker) is shared by humans and agents.
@@ -34,11 +34,12 @@ The [editor workflow](../../docs/development.md#rpg-maker) is shared by humans a
 ## Events and gameplay
 
 - Never renumber existing map/event IDs: saved self-switches use those IDs.
-  `map.json::events` reserves existing IDs, including deleted events. Allocate
-  above the reserved maximum when adding events; RPG Maker may reuse a deleted ID.
+  Live IDs belong only to `layout.json::events`. `map.json::retired_event_ids`
+  records deleted IDs; import records deletions and rejects reuse. Allocate above
+  both the live and retired maxima; RPG Maker may offer a retired ID. For JSON
+  deletions, add the removed ID to that list yourself.
 - `actor_settings` maps event IDs to runtime roles and optional `key`, `species`,
-  `asset`, `state`, `index` or `cue`. A named `key` is the actor identity, independent of the event's display name. Missing named actors fail
-  compilation. Follow [src/AGENTS.md](../../src/AGENTS.md) for feature behavior.
+  `asset`, `state`, `index` or `cue`. A named `key` is the actor identity, independent of the event's display name. Every declared actor must reference an existing event. Follow [src/AGENTS.md](../../src/AGENTS.md) for feature behavior.
 - Roles select consumers in `world/actors.rb`: companions need `species`, spirits
   need `index`, neighbor wildlife needs `state`, props need `asset` from
   `content/props/`. Door cues are `north|south|east|west`. Do not infer roles from labels.
@@ -60,12 +61,14 @@ The [editor workflow](../../docs/development.md#rpg-maker) is shared by humans a
 ## Add or generate a map
 
 Create a lower_snake_case bundle with `map.json` and `layout.json`; copying a small
-existing room preserves native defaults. Allocate a new map ID, entrances and
-empty actor/event reservations, then edit its layout in JSON or RPG Maker.
+existing room preserves native defaults. Use a new map ID unless deliberately
+adopting an existing native map; source declarations own those IDs on rebuild.
+Declare entrances and actor settings only when needed. Alternatively create a map
+in RPG Maker and import it using the linked editor workflow; no scaffold is needed.
 Procedural tools may write these same files as a one-time authoring operation.
 Their output is ordinary editable content; generators are never a build dependency.
 
-Run `uv run play` to compile and play; `uv run rebuild --all` exports without
+Run `uv run play` to compile and play; `uv run rebuild` exports without
 launching. Inspect `.build/maps/map_<id>_preview.png`, then verify entrances,
 interactions and collision in the player. Stage sources/exports and run
 `uv run check --all`. Previews do not establish event scheduling or gameplay.

@@ -38,8 +38,8 @@ def development_build(target, *, preview=None, start=None):
     asset = select(ROOT, preview) if preview else None
     from .scenarios import select as select_scenario
 
+    rebuild(ROOT)
     state = select_scenario(ROOT, start) if start else None
-    rebuild(ROOT, full=True)
 
     from .packaging.pipeline import build
 
@@ -59,9 +59,9 @@ def open_editor():
     from tidebound_dev.files import sha256
     from tidebound_dev.runtime.inputs import windows_runtime, unpack_pinned
 
-    from .pipeline import rebuild
+    from .pipeline import prepare_editor
 
-    rebuild(ROOT, full=True)
+    prepare_editor(ROOT)
     config = load_release()
     sources = [windows_runtime(ROOT, config), unpack_pinned(ROOT, config, "windows_editor_archive")]
     for source in sources:
@@ -90,12 +90,9 @@ def parser():
     )
     preview = commands.add_parser("preview", help="Build and launch the asset viewer")
     preview.add_argument("asset", help="Asset selector, e.g. pokemon/WHYDUCK or props/moored_ship")
-    for name, help in (
-        ("check", "Also verify isolated regeneration"),
-        ("rebuild", "Also regenerate maps, content and artwork"),
-    ):
-        command = commands.add_parser(name)
-        command.add_argument("--all", action="store_true", help=help)
+    check = commands.add_parser("check", help="Verify the compiled game")
+    check.add_argument("--all", action="store_true", help="Also verify isolated regeneration")
+    commands.add_parser("rebuild", help="Compile all authored maps, content, assets and scripts")
     package = commands.add_parser("package", help="Package one native player")
     package.add_argument("platform", choices=("mac", "windows", "linux"))
     package.add_argument("output", type=Path)
@@ -103,7 +100,7 @@ def parser():
     formatting = commands.add_parser("format", help="Format Python and Ruby")
     formatting.add_argument("--check", action="store_true")
     editor = commands.add_parser("editor", help="Open RPG Maker or import saved map edits")
-    editor.add_argument("action", nargs="?", choices=("import",))
+    editor.add_argument("action", nargs="?", choices=("prepare", "import"))
     return cli
 
 
@@ -129,12 +126,16 @@ def execute(args):
     elif args.command == "rebuild":
         from .pipeline import rebuild
 
-        rebuild(ROOT, full=args.all)
+        rebuild(ROOT)
     elif args.command == "editor":
         if args.action == "import":
             from .maps.editor import import_changes
 
             import_changes(ROOT)
+        elif args.action == "prepare":
+            from .pipeline import prepare_editor
+
+            prepare_editor(ROOT)
         else:
             open_editor()
     elif args.command == "format":

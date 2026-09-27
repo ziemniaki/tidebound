@@ -38,7 +38,7 @@ class GeneratedFileSetTests(unittest.TestCase):
                     self.assertEqual((root / "input.txt").read_text(), "source")
 
     def test_new_untracked_output_cannot_pass_regeneration(self):
-        def generate(root, *, full):
+        def generate(root):
             (root / "new-sprite.png").write_bytes(b"new generated asset")
 
         with self.assertRaisesRegex(SystemExit, "new-sprite.png"):
@@ -50,7 +50,7 @@ class GeneratedFileSetTests(unittest.TestCase):
                 self.regenerate(lambda root, **kwargs: None, output)
 
     def test_python_import_cache_is_not_a_generated_game_asset(self):
-        def generate(root, *, full):
+        def generate(root):
             (root / "game/Graphics/Pictures/custom.png").write_bytes(b"stale export")
             (root / "__pycache__").mkdir()
             (root / "__pycache__/fixture.pyc").write_bytes(b"cache")
@@ -58,7 +58,7 @@ class GeneratedFileSetTests(unittest.TestCase):
         self.regenerate(generate)
 
     def test_failed_isolated_generation_cannot_change_checkout(self):
-        def generate(root, *, full):
+        def generate(root):
             (root / "input.txt").write_text("partial output")
             raise ValueError("generation failed")
 

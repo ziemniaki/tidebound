@@ -4,14 +4,13 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
-from unittest.mock import patch
 from rubymarshal.reader import loads
 from rubymarshal.classes import Symbol
 
-from tidebound_dev.maps import registry, model, serialization, definitions
-from tidebound_dev.maps.compiler import AuthoredMap
+from tidebound_dev.maps import serialization
+from tidebound_dev.maps.compiler import build
 from tidebound_dev.maps.definitions import MapDefinition
-from tidebound_dev.maps.compiler import BuildPaths
+from dataclasses import asdict
 from tidebound_dev.content import configure
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -28,8 +27,6 @@ class MapDefinitionTests(unittest.TestCase):
         record.update(width=3, height=3, tileset_id=1, events={})
         record["data"] = {"$type": "Table", "shape": [3, 3, 3], "rows": [[0] * 3 for _ in range(9)]}
         record["bgm"]["name"] = "New room"
-        tileset = loads((ROOT / "game/Data/Tilesets.rxdata").read_bytes())[1]
-        area = AuthoredMap(definition, record, tileset)
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             for name in (
@@ -47,15 +44,20 @@ class MapDefinitionTests(unittest.TestCase):
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(ROOT / name, target)
             (root / "src/generated").mkdir(parents=True)
+            (root / "game/Graphics/Pictures/Tidebound").mkdir(parents=True)
             (root / "game/.generated").mkdir(parents=True)
-            with (
-                patch.dict(registry.DEFINITIONS, {"new_room": definition}, clear=True),
-                patch.dict(registry.MAPS, {"new_room": 117}, clear=True),
-                patch.dict(registry.ACTORS, {}, clear=True),
-                patch.dict(definitions.BY_ID, {117: definition}, clear=True),
-            ):
-                serialization.serialize(BuildPaths(root), [area])
-                configure.build(root)
+            bundle = root / "content/maps/new_room"
+            bundle.mkdir(parents=True)
+            (bundle / "map.json").write_text(json.dumps(asdict(definition)))
+            (bundle / "layout.json").write_text(json.dumps(record))
+            shutil.copytree(ROOT / "game/Graphics/Tilesets", root / "game/Graphics/Tilesets")
+            metadata_source = root / "game/PBS/map_metadata.txt"
+            metadata_source.write_text(
+                "[117]\nName = Editor room\n" + metadata_source.read_text(encoding="utf-8-sig"),
+                encoding="utf-8-sig",
+            )
+            build(root)
+            configure.build(root)
             system = loads((root / "game/Data/System.rxdata").read_bytes())
             revision = system.attributes["@magic_number"]
             self.assertEqual(revision, serialization.map_revision(root / "game"))
@@ -74,6 +76,7 @@ class MapDefinitionTests(unittest.TestCase):
             self.assertEqual(native["@battle_background"], "cave1")
             self.assertFalse(native["@outdoor_map"])
             pbs = (root / "game/PBS/map_metadata.txt").read_text()
+            self.assertEqual(pbs.count("[117]"), 1)
             self.assertIn(
                 "[117]\nName = New room\nShowArea = true\nBattleBack = cave1\nEnvironment = Cave",
                 pbs,
@@ -83,9 +86,19 @@ class MapDefinitionTests(unittest.TestCase):
             runtime = (root / "src/generated/world_registry.rb").read_text()
             self.assertIn('117 => {tone: [-8, -14, -25, 12], fog: "", opacity: 0', runtime)
             self.assertEqual(definition.arrivals, ((1, 1),))
+            updated = asdict(definition)
+            updated["battleback"] = "field"
+            (bundle / "map.json").write_text(json.dumps(updated))
+            build(root)
+            self.assertEqual(
+                loads((root / "game/Data/map_metadata.dat").read_bytes())[117].attributes[
+                    "@battle_background"
+                ],
+                "field",
+            )
 
-    def test_unknown_atmosphere_and_missing_arrivals_fail_at_definition(self):
+    def test_unknown_atmosphere_and_invalid_arrivals_fail_at_definition(self):
         with self.assertRaisesRegex(ValueError, "arrival"):
-            MapDefinition(117, {})
+            MapDefinition(117, {"entry": [-1, 0, 2]})
         with self.assertRaisesRegex(ValueError, "atmosphere"):
             MapDefinition(117, {"entry": [1, 1, 2]}, atmosphere="unregistered")

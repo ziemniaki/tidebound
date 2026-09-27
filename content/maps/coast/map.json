@@ -9,30 +9,6 @@
     "shore": [77, 40, 2],
     "from_road": [54, 50, 8]
   },
-  "events": {
-    "Door@32,35": 1,
-    "Shop door@45,31": 2,
-    "seller_outside": 3,
-    "pookie_outside": 4,
-    "Oil shop sign@47,32": 5,
-    "Empty house@53,31": 6,
-    "Seated neighbour@55,38": 7,
-    "Pier@78,40": 8,
-    "Lapras@80,43": 9,
-    "Tide bell@42,40": 10,
-    "Forest path@48,23": 11,
-    "Headland flowers@35,32": 12,
-    "Sea glass@53,44": 13,
-    "Coast lamp:home@29,36": 14,
-    "Coast lamp:pier@76,39": 15,
-    "Mooring rope@78,41": 16,
-    "South path@54,51": 17,
-    "robbery_youth_one": 18,
-    "robbery_youth_two": 19,
-    "Coast road sign@55,49": 20,
-    "Berry:ORANBERRY@36,38": 21,
-    "Coast lamp:shop@48,32": 22
-  },
   "name": "Shiohama",
   "actor_settings": {
     "1": {

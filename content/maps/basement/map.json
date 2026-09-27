@@ -6,19 +6,6 @@
     "vault": [17, 5, 2],
     "from_vault": [17, 5, 2]
   },
-  "events": {
-    "Door@6,14": 1,
-    "Crate cellar@5,5": 2,
-    "Crate cellar@6,5": 3,
-    "Crate cellar@8,6": 4,
-    "Crate cellar@20,13": 5,
-    "Crate cellar@21,13": 6,
-    "Crate cellar@20,14": 7,
-    "Old tools@6,11": 8,
-    "Vault doorway@17,4": 9,
-    "Vault ironwork@17,3": 10,
-    "Coast lamp:cellar@13,8": 11
-  },
   "name": "The Lighthouse Cellar",
   "actor_settings": {
     "1": {

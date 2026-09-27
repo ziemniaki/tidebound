@@ -1,7 +1,7 @@
 """A new species must compile before its encounter roster in the same rebuild."""
 
 from pathlib import Path
-from dataclasses import replace
+import json
 import unittest
 import tempfile
 import shutil
@@ -15,7 +15,7 @@ from tidebound_dev import pipeline
 
 class RebuildDependenciesTests(unittest.TestCase):
     def test_new_species_and_encounter_build_together_from_clean_data(self):
-        from tidebound_dev.content import species_compiler, encounters
+        from tidebound_dev.content import species_compiler
 
         source = Path(__file__).resolve().parents[2]
         with tempfile.TemporaryDirectory() as temp, ExitStack() as patches:
@@ -37,19 +37,22 @@ class RebuildDependenciesTests(unittest.TestCase):
             }
             patches.enter_context(patch.object(species_compiler, "SPECIES", definitions))
             patches.enter_context(patch.object(pipeline.art, "build"))
-            definition = replace(
-                encounters.DEFINITIONS["forest"],
-                encounters={"Land": {"chance": 18, "slots": [[100, new_species, 3, 5]]}},
-            )
-            patches.enter_context(
-                patch.dict(encounters.DEFINITIONS, {"forest": definition}, clear=True)
+            bundle = root / "content/maps/forest"
+            bundle.mkdir(parents=True)
+            (bundle / "map.json").write_text(
+                json.dumps(
+                    {
+                        "id": 103,
+                        "encounters": {"Land": {"chance": 18, "slots": [[100, new_species, 3, 5]]}},
+                    }
+                )
             )
             patches.enter_context(patch.object(pipeline.ownership, "prepare"))
             for name in ("maps", "scripts", "validate"):
                 patches.enter_context(patch.object(pipeline, name))
-            for module in (pipeline.story, pipeline.configure):
+            for module in (pipeline.story, pipeline.configure, pipeline.map_features):
                 patches.enter_context(patch.object(module, "build"))
-            pipeline.rebuild(root, full=True)
+            pipeline.rebuild(root)
             result = loads((root / "game/Data/encounters.dat").read_bytes())
             self.assertEqual(
                 result[Symbol("103_0")].attributes["@types"][Symbol("Land")][0][1],
