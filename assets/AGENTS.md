@@ -19,8 +19,8 @@ Do not re-quantize that reference art during a maintenance rebuild.
 
 `art/compiler.py` makes species/form aliases and cry copies after their producers.
 Editing generated destinations alone will be undone. Change the declared source.
-Optional Whyduck preview/eye-design helpers are review tools, not rebuild inputs;
-the approved files under `Whyduck/pieces/` are authoritative.
+The approved files under `Whyduck/pieces/` are build inputs; update those directly.
+The source/exporter inventory is in [artwork](../docs/artwork.md).
 
 ## Add or replace an asset
 

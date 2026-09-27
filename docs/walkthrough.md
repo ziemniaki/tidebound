@@ -179,7 +179,7 @@ Neither cures poison. See specs/species/Frostcoon.md.
 0.7.12: Nivalora (working name) completes Frostcoon's level-55 evolution.
 Ice/Dragon, 600 BST, fast special attacker, Shield Dust, gentle sleep/HP support.
 Approved front and corrected rear sprites, icon and provisional same-palette
-shiny art are active. See specs/species/FrostcoonEvolution.md.
+shiny art are active. See specs/species/Nivalora.md.
 Existing Frostcoon evolve at their next qualifying level-up; saves retain their
 companions. No new wild encounter or story event. Articuno cry is provisional.
 

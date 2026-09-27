@@ -25,9 +25,6 @@ class SpeciesCompilerTests(unittest.TestCase):
             for module in (
                 "content.species",
                 "content.species_compiler",
-                "art.frostcoon",
-                "art.snakes",
-                "art.whyduck",
             ):
                 importlib.reload(importlib.import_module("tidebound_dev." + module))
 

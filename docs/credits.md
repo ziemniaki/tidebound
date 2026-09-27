@@ -38,7 +38,7 @@ Its temporary cry reuses the included Sunflora cry and its attribution.
 
 Tidebound Wurmple (0.7.5): direct palette edit of the included Wurmple front,
 back and icon sprites, explicitly authorized by the user. Original asset
-attribution remains applicable. Recipe: tools/tidebound_dev/art/wurmple.py.
+attribution remains applicable. Recipe: tools/tidebound_dev/art/recolors.py.
 
 
 Glaciverm (0.7.6): original sprite atlas generated with the built-in image tool;
@@ -55,4 +55,4 @@ No image generation was used for this regional form. Cry inherits Lapras.
 
 Frostcoon (0.7.10): manually specified palette edit of included Silcoon front,
 back and icon sprites. Original asset attribution remains applicable. Recipe:
-tools/tidebound_dev/art/frostcoon.py. No image generation; cry reuses Silcoon.
+tools/tidebound_dev/art/recolors.py. No image generation; cry reuses Silcoon.
