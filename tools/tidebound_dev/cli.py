@@ -50,18 +50,22 @@ def development_build(target, *, preview=None, start=None):
 
 
 def open_editor():
+    from .pipeline import rebuild
+    from .maps.editor import remember
+
+    rebuild(ROOT)
+    remember(ROOT)
+    print(f"Editor project ready: {ROOT / 'game/Game.rxproj'}")
     if sys.platform != "win32":
-        raise ValueError(
-            "RPG Maker XP requires Windows. Use uv run play for native Mac/Linux playtesting."
+        print(
+            "Open the project with RPG Maker XP on Windows; use uv run editor import after saving."
         )
+        return
 
     from tidebound_dev.release.metadata import load_release
     from tidebound_dev.files import sha256
     from tidebound_dev.runtime.inputs import windows_runtime, unpack_pinned
 
-    from .pipeline import prepare_editor
-
-    prepare_editor(ROOT)
     config = load_release()
     sources = [windows_runtime(ROOT, config), unpack_pinned(ROOT, config, "windows_editor_archive")]
     for source in sources:
@@ -99,8 +103,11 @@ def parser():
     package.add_argument("--allow-dirty", action="store_true")
     formatting = commands.add_parser("format", help="Format Python and Ruby")
     formatting.add_argument("--check", action="store_true")
-    editor = commands.add_parser("editor", help="Open RPG Maker or import saved map edits")
-    editor.add_argument("action", nargs="?", choices=("prepare", "import"))
+    editor = commands.add_parser(
+        "editor",
+        help="Prepare the editor project, open RPG Maker on Windows, or import saved edits",
+    )
+    editor.add_argument("action", nargs="?", choices=("import",))
     return cli
 
 
@@ -132,10 +139,6 @@ def execute(args):
             from .maps.editor import import_changes
 
             import_changes(ROOT)
-        elif args.action == "prepare":
-            from .pipeline import prepare_editor
-
-            prepare_editor(ROOT)
         else:
             open_editor()
     elif args.command == "format":

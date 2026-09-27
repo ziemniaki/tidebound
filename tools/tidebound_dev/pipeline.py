@@ -23,9 +23,3 @@ def rebuild(root):
     scripts(root)
     configure.build(root)
     validate(root, root / ".build/maps/event_scripts.json")
-
-
-def prepare_editor(root):
-    rebuild(root)
-    editor.remember(root)
-    print(f"Editor project ready: {root / 'game/Game.rxproj'}")

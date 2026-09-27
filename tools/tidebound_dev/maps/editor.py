@@ -177,7 +177,7 @@ def import_changes(root):
     path = root / SESSION
     if not path.exists():
         raise ValueError(
-            "No editor export to compare. Run uv run editor (or editor prepare) before editing the project."
+            "No editor export to compare. Run uv run editor before editing the project."
         )
     session = read(path)
     current = native_values(root, session["bindings"])
