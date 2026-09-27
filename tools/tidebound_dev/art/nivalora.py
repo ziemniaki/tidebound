@@ -1,5 +1,7 @@
 """Reduce the approved Nivalora sources with the fixed design palette."""
 
+from ..files import save_png
+
 from PIL import Image
 
 COLOURS = [
@@ -48,10 +50,10 @@ def generate(game, assets):
             double, ((160 - double.width) // 2, 8 if face == "Front" else 160 - double.height)
         )
         for directory in [face, face + " shiny"]:
-            frame.save(game / f"Graphics/Pokemon/{directory}/NIVALORA.png")
+            save_png(frame, game / f"Graphics/Pokemon/{directory}/NIVALORA.png")
     small = reduce(assets / "approved_front.png", (28, 28))
     icon = small.resize((small.width * 2, small.height * 2), Image.Resampling.NEAREST)
     sheet = Image.new("RGBA", (128, 64))
     for x, y in [(0, 6), (64, 4)]:
         sheet.paste(icon, (x + (64 - icon.width) // 2, y))
-    sheet.save(game / "Graphics/Pokemon/Icons/NIVALORA.png")
+    save_png(sheet, game / "Graphics/Pokemon/Icons/NIVALORA.png")

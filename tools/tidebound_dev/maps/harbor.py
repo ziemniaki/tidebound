@@ -1,3 +1,4 @@
+from ..files import save_png
 from PIL import Image
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -29,7 +30,7 @@ def decorate(paths, coast, docks, road):
         village.crop((5 * 32, 444 * 32, 8 * 32, 452 * 32)).tobytes()
         == original.crop((5 * 32, 444 * 32, 8 * 32, 452 * 32)).tobytes()
     )
-    village.save(paths.game / "Graphics/Tilesets/TideboundVillage.png")
+    save_png(village, paths.game / "Graphics/Tilesets/TideboundVillage.png")
     if village_id == len(tilesets):
         tilesets.append(ts)
     else:

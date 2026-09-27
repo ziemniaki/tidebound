@@ -30,7 +30,7 @@ GitHub feature. Do not publish the instructions or unused template sections.
 - No “various improvements,” “under the hood,” “exciting,” “seamless,” or filler.
   Do not invent benefits or pad a small release into a marketing announcement.
 - Attach only one player ZIP per supported OS. Keep provenance/checksums and the
-  editable project ZIP in CI artifacts; notes belong in the release body.
+  other technical metadata in CI artifacts; notes belong in the release body.
 
 ## Starting layout
 

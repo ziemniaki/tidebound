@@ -25,7 +25,7 @@ CI covers relocated Unicode paths, saves and rendering on both Mac architectures
 Windows and Ubuntu 22.04/24.04. Mac is ad-hoc signed, not notarized. Smoke tests
 do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtesting.
 
-Current authoring uses staged rebuilds, catalog-derived content checks, shared
+Current authoring uses one rebuild plan, catalog-derived content checks, shared
 map settings, explicit transfers/actor roles and one pixel export plan. Saves use
 the normal Essentials serializer without custom versioning. See
 [architecture](architecture.md) for ownership and [development](development.md)

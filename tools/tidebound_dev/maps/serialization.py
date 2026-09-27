@@ -1,3 +1,4 @@
+from ..files import save_png
 from .preview import PreviewRenderer
 from .registry import write_registry
 from . import definitions
@@ -47,7 +48,7 @@ def serialize(paths, maps):
     (paths.tools.parent / "src" / "generated/map_passages.rb").write_text(ruby)
     previews = PreviewRenderer(paths.game)
     for m in maps:
-        previews.render(m).save(paths.tools / "generated" / f"map_{m.id}_preview.png")
+        save_png(previews.render(m), paths.tools / "generated" / f"map_{m.id}_preview.png")
     (paths.tools / "generated" / "map_manifest.json").write_text(
         json.dumps(
             [

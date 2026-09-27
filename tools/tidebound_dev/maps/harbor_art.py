@@ -1,3 +1,4 @@
+from ..files import save_png
 from PIL import Image, ImageDraw
 
 
@@ -117,7 +118,7 @@ def generate(output):
             d.ellipse((x + 2, y + 1, x + 7, y + 3), outline=light)
         for x in [18, 33, 125, 139]:
             d.line((x, 91, x, 96), fill=ink)
-        im.resize((320, 256), Image.Resampling.NEAREST).save(output / f"Demo_{name}.png")
+        save_png(im.resize((320, 256), Image.Resampling.NEAREST), output / f"Demo_{name}.png")
 
     ship("ship1", (114, 126, 138), (194, 184, 157))
     ship("ship2", (120, 141, 130), (207, 199, 169))
@@ -130,7 +131,7 @@ def generate(output):
         d.line((x + 2, y + 1, x + 2, y + h - 1), fill=(189, 155, 110))
         d.line((x + w - 2, y + 1, x + w - 2, y + h - 1), fill=(67, 66, 65))
         d.line((x + 3, y + 2, x + w - 3, y + h - 2), fill=(164, 136, 97))
-    im.resize((64, 64), Image.Resampling.NEAREST).save(output / "Demo_cargo.png")
+    save_png(im.resize((64, 64), Image.Resampling.NEAREST), output / "Demo_cargo.png")
 
     # Clone the landscape atlas for Shiohama alone. Keep exact glass/mullion pixels,
     # native tile coordinates, transparency and lighthouse rows 444..451 unchanged.
@@ -162,4 +163,4 @@ def generate(output):
             for y in [6, 8, 10]:
                 d.line((6, y, 10, y), fill=(101, 109, 114))
             d.line((2, 12, 5, 14), fill=(202, 158, 117), width=2)
-        im.resize((32, 32), Image.Resampling.NEAREST).save(output / f"Demo_{name}.png")
+        save_png(im.resize((32, 32), Image.Resampling.NEAREST), output / f"Demo_{name}.png")

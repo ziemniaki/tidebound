@@ -1,3 +1,4 @@
+from ..files import save_png
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -278,7 +279,7 @@ def decorate(paths, palette, coast, forest, road, docks):
                         min(255, int(blue * factors[2])),
                         a,
                     )
-        im.save(paths.game / "Graphics/Autotiles" / f"{name}.png")
+        save_png(im, paths.game / "Graphics/Autotiles" / f"{name}.png")
     ts.attributes["@autotile_names"][:3] = [
         "Tidebound Shallows",
         "Tidebound Open Sea",
@@ -317,7 +318,7 @@ def decorate(paths, palette, coast, forest, road, docks):
     for i, (im, tag) in enumerate(palette._tile_images):
         atlas.alpha_composite(im, ((i % 8) * 32, palette._native.height + (i // 8) * 32))
     assert height <= 16384, "Keep landscape tileset within Mac 16K texture limit"
-    atlas.save(paths.game / "Graphics/Tilesets/TideboundLandscape.png")
+    save_png(atlas, paths.game / "Graphics/Tilesets/TideboundLandscape.png")
     for key in ["@passages", "@priorities", "@terrain_tags"]:
         data = ts.attributes[key]._dump()
         header = struct.unpack("<5i", data[:20])

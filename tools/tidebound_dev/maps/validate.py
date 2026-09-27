@@ -1,10 +1,8 @@
 from .transfers import Transfer
 from . import definitions
-from tidebound_dev.paths import ROOT
-from pathlib import Path
 from collections import deque
 from rubymarshal.reader import loads
-import argparse, json, re, struct
+import json, re, struct
 from tidebound_dev.scripts.archive import validate_archive
 
 
@@ -149,14 +147,3 @@ def validate(root, event_scripts_output=None, check_scripts=True):
     print(
         f"PASS: {count} event pages; declared arrivals/transfers and static interaction reachability checked. Scripted routes need gameplay scenarios."
     )
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Check maps and embedded source without rewriting game data."
-    )
-    parser.add_argument(
-        "--event-scripts", type=Path, help="Explicit destination for extracted event scripts"
-    )
-    args = parser.parse_args()
-    validate(ROOT, args.event_scripts)

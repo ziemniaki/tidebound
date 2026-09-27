@@ -66,6 +66,6 @@ return false. Advance reward state only after successful delivery, as existing
 quest flows do. Test a full bag when adding a one-time reward.
 
 [Inspected Essentials methods](../../../docs/essentials-contracts.md).
-Full rebuild stages maps, content, art and scripts before publishing. Generation
-failure leaves live outputs intact; publication errors roll back changed files.
-A killed process is not an atomic transaction: rebuild successfully before playing.
+Full rebuild writes directly in dependency order. If it fails, fix the cause and
+rerun before playing; it does not roll back generated files. `check --all` verifies
+regeneration in a disposable copy. Review generated diffs before committing.

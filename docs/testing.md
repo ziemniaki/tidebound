@@ -10,7 +10,7 @@ files first so the tracked-file copy includes them.
 
 | Location | What it protects |
 | --- | --- |
-| `tests/tooling/` | Authoring transactions, generated-map reachability, archive safety, release provenance and save isolation |
+| `tests/tooling/` | Generator dependencies, generated-map reachability, archive safety, release provenance and save isolation |
 | `tests/gameplay/` | Companion identity, battle rollback, quest progression/retries, real Essentials saves and resource ownership |
 | `tests/native/` | Packaged runtime startup, graphics, actual engine saves and platform path handling |
 | `tests/support/` | Explicit engine doubles and shared headless setup |

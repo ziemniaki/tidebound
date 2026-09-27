@@ -87,7 +87,6 @@ def parser():
     package.add_argument("--allow-dirty", action="store_true")
     formatting = commands.add_parser("format", help="Format Python and Ruby")
     formatting.add_argument("--check", action="store_true")
-    commands.add_parser("doctor", help="Show local development prerequisites")
     commands.add_parser("editor", help="Restore and open the RPG Maker XP project")
     return cli
 
@@ -106,30 +105,13 @@ def execute(args):
 
         build(args.platform, args.output, allow_dirty=args.allow_dirty)
     elif args.command == "check":
-        from .checks.verify import main as verify
+        from .checks import verify
 
-        verify(ROOT)
-        if args.all:
-            from .checks.rebuild import main as check_rebuild
-
-            check_rebuild(ROOT)
+        verify(ROOT, full=args.all)
     elif args.command == "rebuild":
         from .pipeline import rebuild
 
         rebuild(ROOT, full=args.all)
-    elif args.command == "doctor":
-        print("Checkout:", ROOT)
-        print("Python:", platform.python_version())
-        print("Native player:", host_platform())
-        for name in (
-            "git",
-            "node",
-            "npm",
-            *(["codesign", "xcrun"] if sys.platform == "darwin" else []),
-        ):
-            print(name + ":", shutil.which(name) or "not installed")
-        print("Checks require Node:", (ROOT / ".node-version").read_text().strip())
-        print("Development guide: docs/development.md")
     elif args.command == "editor":
         open_editor()
     elif args.command == "format":
@@ -165,10 +147,6 @@ def check():
 
 def rebuild():
     main(["rebuild", *sys.argv[1:]])
-
-
-def doctor():
-    main(["doctor", *sys.argv[1:]])
 
 
 def editor():

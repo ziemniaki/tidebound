@@ -25,7 +25,7 @@ extracting the complete package. The folder can be moved; Mac installation in
 Applications is optional. Keep the Windows/Linux runtime and game files together.
 
 Press Return, then Continue for an existing save or New Game to begin.
-The editable project and game bible are available in the repository and CI artifacts.
+The editable project and game specification are available in the repository.
 
 Use the arrow keys to move and **Enter** to interact. **Esc** opens the menu or
 backs out. Use **F1** to view or change the launcher's key bindings. Save from

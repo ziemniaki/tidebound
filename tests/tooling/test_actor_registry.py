@@ -46,3 +46,14 @@ class ActorRegistryTests(unittest.TestCase):
         ):
             with self.subTest(options=options), self.assertRaises(ValueError):
                 area.event("Any readable label", 1, 1, "", **options)
+
+    def test_landscape_protects_relocated_events_without_a_shadow_position_list(self):
+        from tidebound_dev.maps.landscape_painter import Landscape
+
+        area = model.Map(101, "Room", 10, 10, 1)
+        event_id = area.event("Object", 2, 2, "", blocks=True)
+        area.events[event_id].attributes["@x"] = 6
+        landscape = Landscape(area, None)
+        self.assertIn((6, 2), landscape.protected)
+        self.assertNotIn((2, 2), landscape.protected)
+        self.assertTrue(area.targets[0][-1])  # Relocation preserves authored collision intent.

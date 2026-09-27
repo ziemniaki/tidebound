@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import patch
 from PIL import Image
 from tidebound_dev.art import atlas
+from tidebound_dev.files import save_png
 
 
 class AtlasTests(unittest.TestCase):
@@ -46,3 +47,16 @@ class AtlasTests(unittest.TestCase):
                     if folder != "Icons":
                         with Image.open(outputs / (folder + " shiny") / "BIRD.png") as shiny:
                             self.assertEqual(frame.tobytes(), shiny.tobytes())
+
+    def test_png_encoding_changes_do_not_dirty_art_but_pixel_edits_are_saved(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "sprite.png"
+            image = Image.new("RGBA", (32, 32), (10, 20, 30, 128))
+            image.save(path, compress_level=0)
+            original = path.read_bytes()
+            save_png(image, path)
+            self.assertEqual(path.read_bytes(), original)
+            image.putpixel((0, 0), (40, 50, 60, 64))
+            save_png(image, path)
+            with Image.open(path) as saved:
+                self.assertEqual(saved.getpixel((0, 0)), (40, 50, 60, 64))

@@ -36,7 +36,6 @@ Mac builds need Xcode command-line tools; Linux needs the documented
 ```sh
 uv run build       # build without opening the game
 uv run check       # verify changes; requires Node 24.14.1
-uv run doctor      # inspect your local setup
 ```
 
 [Development guide](docs/development.md) · [Working with an agent](docs/maintainer.md)

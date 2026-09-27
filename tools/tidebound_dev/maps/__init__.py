@@ -1,1 +1,1 @@
-"""Explicit map definitions, reusable painters and a staged compiler."""
+"""Explicit map definitions, reusable painters and serialization."""

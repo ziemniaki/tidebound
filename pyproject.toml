@@ -15,7 +15,6 @@ build = "tidebound_dev.cli:build"
 play = "tidebound_dev.cli:play"
 check = "tidebound_dev.cli:check"
 rebuild = "tidebound_dev.cli:rebuild"
-doctor = "tidebound_dev.cli:doctor"
 editor = "tidebound_dev.cli:editor"
 format = "tidebound_dev.cli:format"
 

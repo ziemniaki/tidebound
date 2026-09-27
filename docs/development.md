@@ -22,8 +22,7 @@ the test lockfile changes. Node is not needed just to build or play.
 | Windows x64 | None for the player; install RPG Maker XP separately only for its editor |
 | Linux x86_64 | Ubuntu 22.04/24.04 [runtime libraries](players/linux.txt); graphical desktop for playing |
 
-`uv run doctor` inspects prerequisites. The game bundles Ruby; a system Ruby
-installation is not required for normal development.
+The game bundles Ruby; a system Ruby installation is not required for development.
 
 ## Commands
 
@@ -72,6 +71,10 @@ for isolated development saves. Generated maps 101–116 must be reconciled with
 their Python generators after direct editor changes. `rebuild --all` overwrites
 those maps; review or commit editor work before intentionally regenerating.
 Ordinary `play` rebuilds scripts, not map geometry.
+
+Full regeneration writes directly to tracked files. If it fails, fix the reported
+error and rerun `uv run rebuild --all` before playing. Review the generated diff
+in Git; `uv run check --all` verifies reproducibility in a disposable copy.
 
 Keep compiled data checked in: stock Essentials inputs cannot all be rebuilt
 from the custom generators. Review generated diffs alongside source changes.

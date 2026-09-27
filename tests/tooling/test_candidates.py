@@ -47,7 +47,7 @@ class CandidateTests(unittest.TestCase):
 
     def package(self, platform, output, root):
         # Platform packaging has its own native/transaction checks. Supply its on-disk
-        # contract here; candidate assembly, project archive and validation run for real.
+        # contract here; candidate assembly and validation run for real.
         name, arch, manifest = {
             "mac": ("Mac", "universal", "BUILD.json"),
             "windows": ("Windows", "x64", "WINDOWS_BUILD.json"),
@@ -59,12 +59,10 @@ class CandidateTests(unittest.TestCase):
         (output / manifest).write_text(json.dumps({**self.config, "source": self.source}))
         write_checksums(output)
 
-    def test_complete_candidate_matches_commit_and_project_contents(self):
+    def test_complete_candidate_matches_commit_and_release_notes(self):
         with patch.object(candidates, "build", side_effect=self.package):
             candidates.build_release(self.output, self.root)
         validate_candidate(self.output, "1.2.3", self.source["commit"], "1")
-        with zipfile.ZipFile(self.output / "Tidebound_Project_1.2.3.zip") as archive:
-            self.assertEqual(archive.read("Tidebound_Prototype/game.txt"), b"committed game")
         self.assertEqual(
             (self.output / "RELEASE_NOTES.md").read_text(),
             (self.root / "docs/release-notes.md").read_text(),
@@ -105,3 +103,22 @@ class CandidateTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "release notes must match"):
                 candidates.build_release(self.output, self.root)
         self.assertFalse(self.output.exists())
+
+    def test_candidate_cannot_mix_commits_builds_or_omit_a_player(self):
+        with patch.object(candidates, "build", side_effect=self.package):
+            candidates.build_release(self.output, self.root)
+        with self.assertRaisesRegex(ValueError, "source/version"):
+            validate_candidate(self.output, "1.2.3", "b" * 40, "1")
+        with self.assertRaisesRegex(ValueError, "Mac build"):
+            validate_candidate(self.output, "1.2.3", self.source["commit"], "2")
+        manifest_path = self.output / "WINDOWS_BUILD.json"
+        manifest = json.loads(manifest_path.read_text())
+        manifest["source"]["commit"] = "b" * 40
+        manifest_path.write_text(json.dumps(manifest))
+        write_checksums(self.output)
+        with self.assertRaisesRegex(ValueError, "source/version"):
+            validate_candidate(self.output, "1.2.3", self.source["commit"], "1")
+        (self.output / "Tidebound_Linux_1.2.3_x86_64.zip").unlink()
+        write_checksums(self.output)
+        with self.assertRaisesRegex(ValueError, "complete"):
+            validate_candidate(self.output, "1.2.3", self.source["commit"], "1")

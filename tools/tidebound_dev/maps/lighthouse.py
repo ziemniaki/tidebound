@@ -1,3 +1,4 @@
+from ..files import save_png
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -76,7 +77,7 @@ def decorate(paths, interior, bedroom, home, lantern, basement, vault):
     for yy in range(26, 75, 6):
         g.rectangle((30, yy, 65, yy + 2), fill=(255, 221, 144, 180))
     g.rectangle((43, 29, 51, 70), fill=(255, 232, 174, 130))
-    glow.save(paths.game / "Graphics/Pictures/Tidebound_Beacon_Glow.png")
+    save_png(glow, paths.game / "Graphics/Pictures/Tidebound_Beacon_Glow.png")
 
     interior.room(basement, 3, 4, 20, 13, True)
     interior.stairs(basement, 5, 12)
@@ -136,7 +137,7 @@ def save_atlas(paths, interior, rooms):
     atlas.alpha_composite(interior.I)
     for i, im in enumerate(interior.interior_tiles):
         atlas.alpha_composite(im, ((i % 8) * 32, interior.I.height + (i // 8) * 32))
-    atlas.save(paths.game / "Graphics/Tilesets/TideboundLighthouse.png")
+    save_png(atlas, paths.game / "Graphics/Tilesets/TideboundLighthouse.png")
     for key in ["@passages", "@priorities", "@terrain_tags"]:
         raw = ts.attributes[key]._dump()
         size = struct.unpack("<5i", raw[:20])[4]

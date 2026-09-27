@@ -2,9 +2,7 @@
 
 from pathlib import Path
 import argparse
-import subprocess
 import tempfile
-import zipfile
 
 from tidebound_dev.packaging.pipeline import build
 from tidebound_dev.paths import ROOT
@@ -31,31 +29,6 @@ def build_release(output, root=ROOT):
             for file in package.iterdir():
                 if file.name != "SHA256SUMS.txt":
                     file.rename(artifacts / file.name)
-        project = artifacts / ("Tidebound_Project_" + config["version"] + ".zip")
-        subprocess.run(
-            [
-                "git",
-                "-C",
-                str(root),
-                "archive",
-                "--format=zip",
-                "--prefix=Tidebound_Prototype/",
-                "--output=" + str(project),
-                source["commit"],
-            ],
-            check=True,
-        )
-        with zipfile.ZipFile(project) as archive:
-            if archive.testzip() is not None:
-                raise ValueError("Project ZIP integrity failure")
-            tracked = (
-                subprocess.check_output(["git", "-C", str(root), "ls-files", "-z"])
-                .decode()
-                .split("\0")
-            )
-            for name in filter(None, tracked):
-                if archive.read("Tidebound_Prototype/" + name) != (root / name).read_bytes():
-                    raise ValueError(f"Project ZIP differs from checkout: {name}")
         if source_revision(root) != source:
             raise ValueError("Source changed while the release was being built")
         (artifacts / "RELEASE_NOTES.md").write_text(notes, encoding="utf-8")
