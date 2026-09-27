@@ -53,8 +53,9 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
 - Pokémon form setters and learnsets have separate side effects; read the
   [content guide](../tools/tidebound_dev/content/AGENTS.md) before changing forms.
 - Rendered visibility does not establish collision. `features/actors.rb` owns
-  story-actor collision and skips forced routes; update its policy alongside
-  presentation. Generated actor roles select policy independently of display
+  visibility and collision policy. It indexes collision actors once, skips forced
+  routes, and applies NPC resting visibility only on map entry or explicit
+  `Actors.refresh` scene boundaries. Per-frame sync must not hide a cutscene actor. Generated actor roles select policy independently of display
   labels. `World.actor` resolves a registered identity only on its owning map;
   don't scan event names or assume an actor exists after a transfer.
 - `Presentation::OwnedSprite` disposes its bitmap and only an explicitly owned

@@ -228,8 +228,7 @@ module Tidebound
           seller,
           [PBMoveRoute::CHANGE_SPEED, 3, PBMoveRoute::LEFT, PBMoveRoute::UP]
         )
-        seller.opacity = 0 if seller
-        seller.through = true if seller
+        Tidebound::Actors.refresh($game_map)
         pbMessage("Seller: Come in, come in. Let's get you that oil.")
       else
         Tidebound.story[:keys_requested] = true
@@ -270,21 +269,10 @@ module Tidebound
       pbMessage("You put the Oil-Shop Keys in the Key Items pocket.")
     end
 
-    def sync_opening_actors
-      return unless Tidebound::World::MAP_IDS.include?($game_map.map_id)
-      seller = Tidebound::World.actor(:seller_outside)
-      if seller
-        seller.opacity = Tidebound.story[:shop_unlocked] ? 0 : 255
-        seller.through = !!Tidebound.story[:shop_unlocked]
-      end
+    def restore_walk_position
       dog = Tidebound::World.actor(:pookie_outside)
       if dog && Tidebound.story[:walk_state] == :at_pier
         dog.moveto(*Tidebound::World.coast_xy(*POOKIE_PIER))
-      end
-      visitor = Tidebound::World.actor(:mother_visiting)
-      if visitor
-        visitor.opacity = 0
-        visitor.through = true
       end
     end
   end
@@ -298,6 +286,6 @@ EventHandlers.add(
 EventHandlers.add(:on_frame_update, :tidebound_pookie_scene, proc { Tidebound::Opening.walk_frame })
 EventHandlers.add(
   :on_enter_map,
-  :tidebound_opening_actors,
-  proc { |_previous_map| Tidebound::Opening.sync_opening_actors }
+  :tidebound_walk_position,
+  proc { |_previous_map| Tidebound::Opening.restore_walk_position }
 )

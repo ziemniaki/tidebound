@@ -23,6 +23,7 @@ const suites = {
     h.compileEvents();
   },
   presentation(h) {
+    h.engine('Event_Handlers', 'Event_HandlerCollections');
     h.ruby('tests/support/sprite_services.rb');
     h.ruby('src/tidebound/presentation/sprites.rb');
     h.ruby('src/generated/world_registry.rb');

@@ -16,7 +16,7 @@ Tidebound::World.travel(:docks, 11, 28)
 $choices = [true]
 Tidebound::DemoLaunch.sailor_battle(:nell)
 check(Tidebound::DemoLaunch.flags[:nell], "dock battle depends on an unrelated quest")
-Tidebound::Opening.sync_opening_actors
+Tidebound::Actors.refresh($game_map)
 puts "PASS: named world operations and pond/dock battles preserve map ownership and quest progress."
 
 # Map entry synchronizes story actors even when no spriteset is constructed.
@@ -32,6 +32,20 @@ Tidebound::VaultVisit.q[:open] = true
   EventHandlers.trigger(:on_enter_map, 0)
   check(event.through && event.opacity == 0, "Map entry did not hide #{actor} without rendering")
 end
+
+# Resting visibility must not overwrite a scene's temporary actor state on a frame.
+Tidebound::World.travel(:coast, 32, 36)
+youth = Tidebound::World.actor(:robbery_youth_one)
+youth.opacity = 255
+youth.through = false
+Tidebound::Actors.sync($game_map)
+check(youth.opacity == 255 && !youth.through, "Frame sync hid a cutscene actor")
+Tidebound::NeighborQuest.busy = true
+Tidebound::Actors.refresh($game_map)
+check(youth.opacity == 255 && !youth.through, "Map refresh interrupted the robbery")
+Tidebound::NeighborQuest.busy = false
+Tidebound::Actors.refresh($game_map)
+check(youth.opacity == 0 && youth.through, "Scene actor did not return to its resting state")
 
 # Conditional/computed routes are checked here; map validation cannot parse Ruby.
 new_opening

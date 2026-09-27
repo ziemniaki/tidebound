@@ -361,33 +361,5 @@ module Tidebound
       self.pearl_glint = 0
       self.busy = false
     end
-    def sync_actors
-      return if self.busy
-      if $game_map.map_id == 102
-        %i[robbery_youth_one robbery_youth_two].each do |name|
-          e = Tidebound::World.actor(name)
-          next unless e
-          e.opacity = 0
-          e.through = true
-        end
-      elsif $game_map.map_id == 108
-        e = Tidebound::World.actor(:road_thief)
-        if e
-          visible = stage == :pursuit && !q[:first_won]
-          e.opacity = visible ? 255 : 0
-          e.through = !visible
-        end
-        e = Tidebound::World.actor(:running_thief)
-        if e
-          e.opacity = 0
-          e.through = true
-        end
-      end
-    end
   end
 end
-EventHandlers.add(
-  :on_enter_map,
-  :tidebound_neighbor_actors,
-  proc { |_previous_map| Tidebound::NeighborQuest.sync_actors }
-)
