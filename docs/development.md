@@ -143,7 +143,7 @@ The scoped guides explain the source files, engine contracts and checks for
 [Pokémon artwork](../content/AGENTS.md) and [sound](../content/audio/AGENTS.md).
 They apply to human development as well as agents.
 
-Rebuild exports [authored custom assets](artwork.md), fixed tilesets, maps and lighting. Stock engine graphics/audio come from the baseline and native overrides. Check the asset guide before
+Rebuild exports [authored custom assets](../content/AGENTS.md), fixed tilesets, maps and lighting. Stock engine graphics/audio come from the baseline and native overrides. Check the asset guide before
 editing a game PNG: generated destinations are replaced by their exporter.
 
 ## Less common work
@@ -153,9 +153,10 @@ call the same operations as CI; `pipeline.py` owns the full rebuild sequence. Sh
 and `uv run tidebound format` use the same options and implementation.
 Run a diagnostic module with `uv run python -m tidebound_dev.<module>` or a
 focused test with `uv run python -m unittest tests.tooling.test_assets -v`
-(see [testing](testing.md) for suite boundaries). Optional PDF regeneration has separate dependencies. For the game specification PDF, run
+(see [testing](../tests/AGENTS.md) for suite boundaries). To generate a portable game specification PDF, run
 `uv run --group docs python -m tidebound_dev.documents.specification`; use `--output /path/to/preview.pdf`
-to render a preview. macOS/Windows use Times New Roman and Arial; Linux needs
+to choose another destination. The default `specs/game-design.pdf` is ignored;
+commit the Markdown and renderer, not generated PDFs. macOS/Windows use Times New Roman and Arial; Linux needs
 Liberation Serif and DejaVu Sans (`fonts-liberation` and `fonts-dejavu-core` on Ubuntu).
 Approved audio files need no composer or encoder dependency. Rebuilding the Mac engine is separate from
 packaging: see [runtime provenance](runtime/macOS.md).
@@ -193,17 +194,6 @@ are ignored and rebuilt from the combined sources. Native override conflicts
 need deliberate reconciliation; never choose one editor database wholesale when
 both branches changed it. Never build in another agent's active checkout.
 Handoffs name the branch/commit, checks and remaining work.
-
-## Tooling choice
-
-uv provides one locked Python environment and command set on native Windows,
-macOS and Linux, including CI. devenv requires Nix and WSL2 on Windows, which
-does not reproduce the native Windows game/editor environment. Defer a mandatory
-devenv shell until a concrete need outweighs that additional setup.
-
-References: [uv projects](https://docs.astral.sh/uv/guides/projects/),
-[uv entry points](https://docs.astral.sh/uv/concepts/projects/config/),
-[devenv installation](https://devenv.sh/getting-started/).
 
 ## Asset previews
 

@@ -79,7 +79,7 @@ files; reusable tooling belongs in the existing package, never a map-specific
 build generator.
 
 Run `uv run play` to compile and play; `uv run build --compile-only` exports without
-launching. Inspect `.build/maps/map_<id>_preview.png`, then verify entrances,
-interactions and collision in the player. Stage source changes and run
-`uv run check --all`. Previews do not establish event scheduling or gameplay.
+launching. Inspect layouts in RPG Maker and verify appearance, entrances,
+interactions and collision in the native player. Stage source changes and run
+`uv run check --all`; static validation does not establish event scheduling or rendering.
 The compiler updates the native map revision so saves reload changed maps.

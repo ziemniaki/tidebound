@@ -3,6 +3,7 @@ import re
 import argparse
 from tidebound_dev.documents.fonts import resolve_fonts
 from html import escape
+from urllib.parse import urljoin
 from reportlab.platypus import (
     SimpleDocTemplate,
     Paragraph,
@@ -27,6 +28,7 @@ def main(root=CHECKOUT):
     parser.add_argument("--output", type=Path, default=ROOT / "game-design.pdf")
     OUT = parser.parse_args().output
     TEXT = (ROOT / "game-design.md").read_text()
+    edition = re.search(r"^\*\*(Version [^\n*]+)\*\*$", TEXT, re.M)[1].replace("|", "/")
     for name, path in resolve_fonts().items():
         pdfmetrics.registerFont(TTFont(name, str(path)))
     pdfmetrics.registerFontFamily(
@@ -68,9 +70,6 @@ def main(root=CHECKOUT):
             textColor=teal,
             keepWithNext=True,
         ),
-        "small": ParagraphStyle(
-            "Small", fontName="Head", fontSize=9, leading=13, spaceAfter=9, textColor=grey
-        ),
         "bullet": ParagraphStyle(
             "Bullet",
             fontName="Body",
@@ -92,6 +91,17 @@ def main(root=CHECKOUT):
         s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
         s = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<i>\1</i>", s)
         s = re.sub(r"`([^`]+)`", r'<font name="Head">\1</font>', s)
+        s = re.sub(
+            r"\[([^\]]+)\]\(([^)]+)\)",
+            lambda m: (
+                '<link href="'
+                + urljoin("https://github.com/ziemniaki/tidebound/blob/main/specs/", m[2])
+                + '" color="#306565">'
+                + m[1]
+                + "</link>"
+            ),
+            s,
+        )
         return s
 
     class BibleDoc(SimpleDocTemplate):
@@ -133,7 +143,7 @@ def main(root=CHECKOUT):
         for i, line in enumerate(
             [
                 "Creative direction: Wojciech Krzyżanowski",
-                "Version 1.30 / 26 September 2026",
+                edition,
                 "Working title / Full story spoilers",
                 "Confirmed decisions, proposals, and intentional mysteries",
             ]
@@ -150,7 +160,7 @@ def main(root=CHECKOUT):
         canvas.setStrokeColor(colors.HexColor("#CED8D5"))
         canvas.setLineWidth(0.5)
         canvas.line(52, h - 41, w - 52, h - 41)
-        canvas.drawString(52, 29, "Version 1.30  /  26 September 2026  /  Full story spoilers")
+        canvas.drawString(52, 29, f"{edition}  /  Full story spoilers")
         canvas.drawRightString(w - 52, 29, str(doc.page))
         canvas.restoreState()
 

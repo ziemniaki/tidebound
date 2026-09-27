@@ -1,17 +1,43 @@
-"""Prepare disposable native fixtures without touching player data or source archives."""
+"""Prepare isolated native fixtures and decode their evidence on every platform."""
 
 from pathlib import Path
+import json
 import re
 import shutil
 import zlib
 
+from rubymarshal.classes import RubyString
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from tidebound_dev.runtime.config import isolated_saves
-from tidebound_dev.content.verification import inventory
+from tidebound_dev.content.species_compiler import SPECIES, METRICS, identity
 from tidebound_dev import scenarios
 
 SCENARIOS = ("runtime", "world", "species", "all")
+
+
+def inventory():
+    # Include each form's base so compiler-added family relationships are checked.
+    species = sorted(set(SPECIES) | {identity(name)[0] for name in SPECIES})
+    art = []
+    for identifier in SPECIES:
+        name, form = identity(identifier)
+        art.append(
+            {
+                "id": identifier,
+                "species": name,
+                "form": form,
+                "front": f"Graphics/Pokemon/Front/{identifier}.png",
+                "back": f"Graphics/Pokemon/Back/{identifier}.png",
+                "front_shiny": f"Graphics/Pokemon/Front shiny/{identifier}.png",
+                "back_shiny": f"Graphics/Pokemon/Back shiny/{identifier}.png",
+                # The current art direction shares normal and shiny party icons.
+                "icon": f"Graphics/Pokemon/Icons/{identifier}.png",
+                "icon_shiny": f"Graphics/Pokemon/Icons/{identifier}.png",
+                "cry": f"Cries/{identifier}",
+            }
+        )
+    return {"species": species, "metrics": sorted(METRICS), "art": art}
 
 
 def prepare(game, namespace, scenario="all"):
@@ -42,3 +68,22 @@ def prepare(game, namespace, scenario="all"):
         (game / "NativeContent.rxdata").write_bytes(writes(inventory()))
     config.write_text(text, encoding="utf-8")
     scripts.write_bytes(encoded)
+
+
+def read_report(output):
+    def plain(value):
+        # Ruby exceptions can be ASCII-8BIT strings even when their message is
+        # UTF-8. Preserve the failure instead of hiding it behind a JSON error.
+        if isinstance(value, bytes):
+            return value.decode("utf-8", errors="replace")
+        if isinstance(value, RubyString):
+            return str(value)
+        if isinstance(value, dict):
+            return {plain(key): plain(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [plain(item) for item in value]
+        return value
+
+    result = plain(loads((output / "native-smoke.rxdata").read_bytes()))
+    (output / "native-smoke.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    return result
