@@ -1,6 +1,6 @@
 """Bake static dock props and source-glass masks for the runtime sprites."""
 
-from PIL import Image, ImageDraw
+from PIL import Image
 from rubymarshal.reader import loads
 
 from ..files import save_png
@@ -70,49 +70,3 @@ def window_lights(paths, maps):
         + ruby(placements)
         + ".freeze\nend\n"
     )
-
-
-def dock_props(game):
-    wood, dark, rope = (125, 96, 68, 255), (52, 57, 56, 255), (167, 150, 111, 255)
-    for role in ("bollard", "nets", "boat", "stall"):
-        image = Image.new("RGBA", (128, 96))
-        draw = ImageDraw.Draw(image)
-
-        def rect(x, y, width, height, color):
-            draw.rectangle((x, y, x + width - 1, y + height - 1), fill=color)
-
-        if role == "bollard":
-            rect(22, 63, 20, 15, dark)
-            rect(25, 54, 14, 20, wood)
-            for y in (61, 65, 69):
-                rect(22, y, 20, 2, rope)
-        elif role == "nets":
-            rect(8, 57, 43, 20, (38, 58, 59, 180))
-            for i in range(7):
-                rect(9 + i * 6, 58, 2, 18, (115, 132, 118, 255))
-            for i in range(5):
-                rect(9, 58 + i * 4, 40, 1, rope)
-            rect(16, 58, 4, 3, (202, 197, 156, 255))
-        elif role == "boat":
-            for box in ((8, 57, 93, 17), (14, 51, 81, 29), (21, 47, 67, 36)):
-                rect(*box, dark)
-            rect(21, 51, 66, 28, wood)
-            rect(25, 54, 58, 22, (69, 63, 53, 255))
-            for x in (33, 51, 71):
-                rect(x, 53, 5, 24, (168, 130, 84, 255))
-            rect(30, 61, 68, 3, rope)
-            rect(93, 58, 11, 9, wood)
-            rect(10, 82, 82, 2, (93, 127, 139, 80))
-        else:
-            rect(10, 54, 50, 27, wood)
-            rect(8, 50, 54, 7, rope)
-            for x in (15, 51):
-                rect(x, 70, 5, 19, dark)
-            rect(12, 42, 45, 8, (72, 94, 88, 255))
-            rect(12, 47, 45, 2, (167, 176, 149, 255))
-        save_png(image, game / "Graphics/Pictures/Tidebound" / f"dock_{role}.png")
-
-
-def generate(paths, maps):
-    dock_props(paths.game)
-    window_lights(paths, maps)

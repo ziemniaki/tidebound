@@ -2,11 +2,9 @@ from ..model import Map, tile
 from ..registry import MAPS
 from ..shoreline import coastal_shoreline
 from ..landscape import shade_water
-from ..harbor_art import generate
 
 
 def build(paths, palette):
-    generate(paths.game / "Graphics/Pictures/Tidebound")
     docks = Map(MAPS["docks"], "The Docks", 80, 64, 1, 96)
     docks.polygon([(9, 15), (62, 15), (62, 39), (55, 44), (16, 44), (9, 35)], tile(2, 27))
     docks.rect(9, 26, 47, 5, tile(2, 27), walk=True)

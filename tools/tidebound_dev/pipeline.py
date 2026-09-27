@@ -9,12 +9,12 @@ from .art import compiler as art
 
 def rebuild(root, *, full=False):
     if full:
+        art.build(root)
         maps(root)
         story.build(root)
         # Encounters must see species added by this build.
         species_compiler.build(root)
         encounters.build(root)
-        art.build(root)
     scripts(root)
     if full:
         configure.build(root)

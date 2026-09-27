@@ -31,3 +31,23 @@ Use ordinary image tools or generation to prepare artwork, then approve the fina
 pixels. Do not add a bespoke production renderer for each Pokémon. Record external
 provenance in [credits](../docs/credits.md). For audio, read the
 [audio workflow](../tools/tidebound_dev/art/AGENTS.md).
+
+## Characters, trainers, item icons and pictures
+
+Put approved PNGs in `characters/`, `trainers/`, `items/` or `pictures/`; paths
+below that directory become paths below `game/Graphics/<Category>/`. Reuse stock
+art explicitly in `art/files.py::ALIASES`. Do not copy artwork in a content or map
+builder. Every output has one source; an approved file and an alias cannot own
+the same destination.
+
+Characters use XP's **four columns × four rows**, in down/left/right/up order.
+The frame canvas includes transparent padding; equal division alone cannot prove
+correct feet alignment or direction order. Inspect all directions in the engine.
+Trainer battle portraits and Pokémon party icons are different formats; never
+use a party strip as a walking charset. Trainer IDs must match the content record.
+Item icons use item IDs; absent images otherwise resolve to Essentials' `000`.
+
+Maps reference assets and own placement/collision. Static prop images and anchors
+belong to the asset owner; interaction and animation remain in Ruby. A painted
+object does not automatically block movement. Map-embedded artwork such as the
+lantern beacon reads approved source pixels when assembling its tileset.

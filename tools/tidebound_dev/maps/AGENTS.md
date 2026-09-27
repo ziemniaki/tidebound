@@ -29,9 +29,10 @@ previews. `registry.py` exports map/actor identities and roles to Ruby. Read
    collision/terrain hooks and event pages still need native checks. Existing native
    world captures cover a named roster, not every new map automatically.
 
-Static dock props and window-light masks are baked by `scenery.py`; map compilation
-exports their PNGs and `src/generated/window_lights.rb`. Keep per-pixel asset work
-in the builder; runtime presentation owns only positioning and animation.
+Static prop and character PNGs are owned by `assets/` and exported by `art/compiler.py`.
+Map compilation owns packed tilesets and window masks/placements in
+`src/generated/window_lights.rb`. Read approved image sources when composing
+tiles; do not export standalone character/prop art from an area builder.
 
 ## Coordinates, events and actors
 

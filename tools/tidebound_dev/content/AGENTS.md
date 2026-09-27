@@ -57,7 +57,8 @@ source of truth. Species PNGs follow the [asset workflow](../../../assets/AGENTS
 - The full pipeline compiles species before encounter rosters. Keep this order:
   encounter validation must see newly added species in the same build.
 
-Items/quest rewards use `story.py` for PBS/native data.
+Items/quest rewards use `story.py` for PBS/native data. Item and trainer images
+belong to `assets/` or explicit stock aliases in `art/files.py`, never this compiler.
 A successful item definition does not guarantee a reward fits: `$bag.add` can
 return false. Advance reward state only after successful delivery, as existing
 quest flows do. Test a full bag when adding a one-time reward.

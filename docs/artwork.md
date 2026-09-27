@@ -23,3 +23,9 @@ actual engine resolution; battle/party inspection checks visual composition.
 
 Species design lives in [specs/species](../specs/species/). Retain
 [attribution](credits.md) when replacing artwork.
+
+Other approved PNGs mirror engine categories under `assets/characters`, `trainers`,
+`items` and `pictures`. `art/files.py` owns conventional copies and stock aliases.
+The seated Ivo sheet, dock pictures, lantern glow and beacon are editable pixels.
+Map builders compose maps/tilesets; content builders write definitions, not images.
+The map compiler still owns packed tilesets, autotiles and window-mask placement.
