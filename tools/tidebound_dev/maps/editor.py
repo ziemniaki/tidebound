@@ -148,7 +148,7 @@ def require_import(root):
         )
 
 
-def merge(base, source, edited, path):
+def merge(base, source, edited, path, *, indexed=False):
     if edited == base or source == edited:
         return source
     if source == base:
@@ -158,15 +158,22 @@ def merge(base, source, edited, path):
         missing = object()
         for key in dict.fromkeys([*source, *edited]):
             b, s, e = (v.get(key, missing) for v in (base, source, edited))
-            value = merge(b, s, e, f"{path}/{key}")
+            value = merge(
+                b, s, e, f"{path}/{key}", indexed=base.get("$type") == "Table" and key == "rows"
+            )
             if value is not missing:
                 result[key] = value
         return result
-    if all(isinstance(v, list) for v in (base, source, edited)) and len(base) == len(source) == len(
-        edited
+    # Only native tables have stable coordinates. Pages/commands/routes can be
+    # reordered without changing length, so concurrent edits must conflict.
+    if (
+        indexed
+        and all(isinstance(v, list) for v in (base, source, edited))
+        and len(base) == len(source) == len(edited)
     ):
         return [
-            merge(b, s, e, f"{path}/{i}") for i, (b, s, e) in enumerate(zip(base, source, edited))
+            merge(b, s, e, f"{path}/{i}", indexed=True)
+            for i, (b, s, e) in enumerate(zip(base, source, edited))
         ]
     raise ValueError(
         f"Editor/source conflict at {path}. Keep both edits and resolve this field before importing."
