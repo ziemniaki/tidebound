@@ -165,6 +165,21 @@ class Scene_TideboundMending
     @live.zoom_x = @live.zoom_y = 2
     @icons = Bitmap.new("Graphics/Pokemon/Icons/NATU")
     @bitmaps << @icons
+    @hud_state = nil
+    @hud_background = bitmap(Graphics.width, Graphics.height)
+    pbSetSystemFont(@hud_background)
+    @hud_background.fill_rect(0, 0, Graphics.width, 42, Color.new(7, 8, 12, 245))
+    @hud_background.fill_rect(0, 320, Graphics.width, 64, Color.new(7, 8, 12, 245))
+    @hud_background.font.size = 17
+    @hud_background.font.color = Color.new(158, 172, 165)
+    @hud_background.draw_text(
+      4,
+      352,
+      Graphics.width - 8,
+      28,
+      "Arrows: walk   Enter: loosen stitch   Esc: leave",
+      1
+    )
     @text = bitmap(Graphics.width, Graphics.height)
     sprite(@text, 5)
     pbSetSystemFont(@text)
@@ -269,22 +284,20 @@ class Scene_TideboundMending
       x, y = point(Tidebound::Mending::EXIT)
       ink(b, x - 3, y - 4, 7, 8, 163, 194, 176)
     end
+    draw_hud
+  end
+  def draw_hud
+    state = [@game.freed.length, @caption]
+    return if @hud_state == state
+    @hud_state = state
+    # Native font glyphs can extend beyond draw_text's rectangle. Restore the
+    # complete static layer so a shorter caption cannot leave old pixels behind.
     @text.clear
+    @text.blt(0, 0, @hud_background, Rect.new(0, 0, Graphics.width, Graphics.height))
     @text.font.size = 22
     @text.font.color = Color.new(216, 201, 182)
-    @text.fill_rect(0, 0, Graphics.width, 42, Color.new(7, 8, 12, 245))
     @text.draw_text(12, 4, Graphics.width - 24, 32, "THE MENDING     #{@game.freed.length} / 3", 1)
-    @text.fill_rect(0, 320, Graphics.width, 64, Color.new(7, 8, 12, 245))
     @text.font.size = 17
     @text.draw_text(4, 321, Graphics.width - 8, 30, @caption, 1)
-    @text.font.color = Color.new(158, 172, 165)
-    @text.draw_text(
-      4,
-      352,
-      Graphics.width - 8,
-      28,
-      "Arrows: walk   Enter: loosen stitch   Esc: leave",
-      1
-    )
   end
 end
