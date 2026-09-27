@@ -32,12 +32,16 @@ directory rather than discarding the backups.
 
 ## Python operations
 
-`tools/tidebound_dev/` is an installed Python package. `cli.py` parses commands;
+`tools/tidebound_dev/` is an installed Python package. `cli.py` gives the short uv
+aliases and `tidebound <command>` one parser and command implementation;
 `pipeline.py` is the single rebuild plan used by local development and isolated
 regeneration. `scripts/`, `maps/`, `content/`, `art/`, `runtime/`, `packaging/` and
 `release/` own callable operations. They accept explicit roots when operating on
 a disposable copy. Modules do not modify `sys.path` or launch other generator
-scripts. The standalone GitHub comment dispatcher is in `.github/scripts/`.
+scripts. `formatting.py` owns the pinned Node/WASM and formatter setup used by checks;
+operations never import setup from the CLI. `files.py` owns content hashing and
+comparison, and `runtime/config.py` owns mkxp parsing and save namespaces.
+The standalone GitHub comment dispatcher is in `.github/scripts/`.
 
 ## Regional data
 
@@ -45,7 +49,9 @@ scripts. The standalone GitHub comment dispatcher is in `.github/scripts/`.
 metrics using PBS field names; `content/species.py` is the combined catalog. `content/species_compiler.py` resolves templates, derives evolution
 backlinks, validates references, then writes each database once. PBS text and
 native attributes come from the same fields. Add a definition instead of another
-executable builder. Artwork exports in `art/` are explicit functions; source
+executable builder. `content/story.py` writes all story Key Items in one database
+pass and generates their PBS from the same fields, then builds trainer classes.
+Artwork exports in `art/` are explicit functions; source
 images remain in `assets/`.
 
 ## Ruby loading and ownership
@@ -129,7 +135,11 @@ The CLI and CI share one player staging pipeline. Platform adapters own runtime
 layout, signing and executable permissions. Development settings are applied
 before signing; development builds publish the player directly. Release builds
 add ZIP roundtrip verification and provenance manifests in an atomic transaction. Release package checks and
-provenance are described in [releasing](releasing.md).
+provenance are described in [releasing](releasing.md). `release/candidates.py`
+assembles all platforms and the source archive; it does not invoke tests.
+`release/artifacts.py` owns checksums and candidate validation for both normal
+publication and explicit draft refresh. CI requires verification before packaging
+and native launches before any release publication.
 
 ## Presentation and actor state
 

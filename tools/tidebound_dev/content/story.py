@@ -1,4 +1,4 @@
-"""Quest data. Battle rosters use Essentials NPCTrainer and live in 008."""
+"""Compile story Key Items and trainer classes; battle rosters live in Ruby features."""
 
 import shutil
 from rubymarshal.reader import loads
@@ -6,13 +6,49 @@ from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol
 
 
-def build(root):
-    G = root / "game"
+def clone(value):
+    return loads(writes(value))
 
-    def clone(v):
-        return loads(writes(v))
 
-    items = loads((G / "Data/items.dat").read_bytes())
+def item_section(ident, name, description):
+    return (
+        f"\n#-------------------------------\n[{ident}]\nName = {name}\nNamePlural = {name}\n"
+        f"Pocket = 8\nPrice = 0\nFlags = KeyItem\nConsumable = false\nDescription = {description}\n"
+    )
+
+
+def build_items(game):
+    items = loads((game / "Data/items.dat").read_bytes())
+    key = clone(items[Symbol("TOWNMAP")])
+    key.attributes.update(
+        {
+            "@id": Symbol("TIDEBOUNDOILKEYS"),
+            "@real_name": "Oil-Shop Keys",
+            "@real_name_plural": "Oil-Shop Keys",
+            "@real_portion_name": "",
+            "@real_portion_name_plural": "",
+            "@pocket": 8,
+            "@price": 0,
+            "@sell_price": 0,
+            "@field_use": 0,
+            "@battle_use": 0,
+            "@flags": ["KeyItem"],
+            "@consumable": False,
+            "@real_description": "Old brass keys found beneath white flowers. The oil seller in Shiohama is looking for them.",
+        }
+    )
+    items[Symbol("TIDEBOUNDOILKEYS")] = key
+
+    path = game / "PBS/items.txt"
+    stock = path.read_text(encoding="utf-8-sig").split("# TIDEBOUND OPENING ITEMS")[0].rstrip()
+    path.write_text(
+        stock
+        + "\n\n# TIDEBOUND OPENING ITEMS"
+        + item_section(
+            "TIDEBOUNDOILKEYS", key.attributes["@real_name"], key.attributes["@real_description"]
+        ),
+        encoding="utf-8-sig",
+    )
     text = "# Tidebound story items, never healing supplies.\n"
     rows = [
         (
@@ -33,15 +69,13 @@ def build(root):
             "A small pearl necklace recovered from the thieves. The oil seller is waiting for it.",
             "PEARLSTRING",
         ),
-    ]
-    rows.append(
         (
             "TIDEBOUNDREEDCHARM",
             "Blue-Reed Keepsake",
             "A small ceramic charm painted with two blue reeds. A gift from the oil seller, to keep.",
             "SHOALSHELL",
-        )
-    )
+        ),
+    ]
     for ident, name, desc, icon in rows:
         data = clone(items[Symbol("TIDEBOUNDOILKEYS")])
         data.attributes.update(
@@ -56,11 +90,14 @@ def build(root):
             }
         )
         items[Symbol(ident)] = data
-        text += f"\n#-------------------------------\n[{ident}]\nName = {name}\nNamePlural = {name}\nPocket = 8\nPrice = 0\nFlags = KeyItem\nConsumable = false\nDescription = {desc}\n"
-        shutil.copy2(G / f"Graphics/Items/{icon}.png", G / f"Graphics/Items/{ident}.png")
-    (G / "PBS/items_tidebound_neighbor.txt").write_text(text, encoding="utf-8-sig")
-    (G / "Data/items.dat").write_bytes(writes(items))
-    types = loads((G / "Data/trainer_types.dat").read_bytes())
+        text += item_section(ident, name, desc)
+        shutil.copy2(game / f"Graphics/Items/{icon}.png", game / f"Graphics/Items/{ident}.png")
+    (game / "PBS/items_tidebound_neighbor.txt").write_text(text, encoding="utf-8-sig")
+    (game / "Data/items.dat").write_bytes(writes(items))
+
+
+def build_trainers(game):
+    types = loads((game / "Data/trainer_types.dat").read_bytes())
     text = "# Temporary stock art; no final Team Abyss uniform is established.\n"
     for ident, name, base in [
         ("TBLOCALYOUTH", "Local Thief", "YOUNGSTER"),
@@ -82,11 +119,18 @@ def build(root):
         )
         types[Symbol(ident)] = data
         text += f"\n#-------------------------------\n[{ident}]\nName = {name}\nGender = Male\nBaseMoney = 0\nSkillLevel = 0\nBattleBGM = Tidebound Stillness\nVictoryBGM = Tidebound Stillness\n"
-        shutil.copy2(G / f"Graphics/Trainers/{base}.png", G / f"Graphics/Trainers/{ident}.png")
         shutil.copy2(
-            G / f"Graphics/Characters/trainer_{base}.png",
-            G / f"Graphics/Characters/trainer_{ident}.png",
+            game / f"Graphics/Trainers/{base}.png", game / f"Graphics/Trainers/{ident}.png"
         )
-    (G / "PBS/trainer_types_tidebound_neighbor.txt").write_text(text, encoding="utf-8-sig")
-    (G / "Data/trainer_types.dat").write_bytes(writes(types))
-    print("Built four quest Key Items and three trainer classes.")
+        shutil.copy2(
+            game / f"Graphics/Characters/trainer_{base}.png",
+            game / f"Graphics/Characters/trainer_{ident}.png",
+        )
+    (game / "PBS/trainer_types_tidebound_neighbor.txt").write_text(text, encoding="utf-8-sig")
+    (game / "Data/trainer_types.dat").write_bytes(writes(types))
+
+
+def build(root):
+    build_items(root / "game")
+    build_trainers(root / "game")
+    print("Built five story Key Items and three trainer classes.")

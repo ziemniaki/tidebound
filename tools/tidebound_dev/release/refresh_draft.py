@@ -7,8 +7,9 @@ import re
 import subprocess
 import sys
 
-from tidebound_dev.release.metadata import load_release, sha256
-from tidebound_dev.release.artifacts import verify
+from tidebound_dev.release.metadata import load_release
+from tidebound_dev.files import sha256
+from tidebound_dev.release.artifacts import player_archives, validate_candidate
 
 
 def command(*args):
@@ -40,13 +41,6 @@ def asset_snapshot(release):
     return sorted((a["id"], a["name"], a["size"], a.get("digest")) for a in release["assets"])
 
 
-def player_archives(folder, version):
-    return [
-        folder / f"Tidebound_{platform}_{version}_{arch}.zip"
-        for platform, arch in (("Mac", "universal"), ("Windows", "x64"), ("Linux", "x86_64"))
-    ]
-
-
 def check(repo, tag, expected):
     pages = json.loads(
         command("gh", "api", "--paginate", "--slurp", f"repos/{repo}/releases?per_page=100")
@@ -58,32 +52,6 @@ def check(repo, tag, expected):
     ref = api(f"repos/{repo}/git/ref/tags/{tag}")
     validate_draft(release, tag, ref["object"]["sha"], expected)
     return release, ref
-
-
-def validate_candidate(folder, version, commit, mac_build):
-    verify(folder)
-    expected = {
-        f"Tidebound_Mac_{version}_universal.zip",
-        f"Tidebound_Windows_{version}_x64.zip",
-        f"Tidebound_Linux_{version}_x86_64.zip",
-        f"Tidebound_Project_{version}.zip",
-        "BUILD.json",
-        "WINDOWS_BUILD.json",
-        "LINUX_BUILD.json",
-        "SHA256SUMS.txt",
-        "RELEASE_NOTES.md",
-    }
-    if {p.name for p in folder.iterdir()} != expected:
-        raise ValueError("Expected the complete four-platform/project candidate set")
-    for name in ("BUILD.json", "WINDOWS_BUILD.json", "LINUX_BUILD.json"):
-        manifest = json.loads((folder / name).read_text())
-        if manifest["version"] != version or manifest["source"] != {
-            "commit": commit,
-            "dirty": False,
-        }:
-            raise ValueError("Candidate source/version does not match verified workflow commit")
-    if json.loads((folder / "BUILD.json").read_text())["mac_build"] != mac_build:
-        raise ValueError("Candidate Mac build does not match release metadata")
 
 
 def main(mode, folder=None):

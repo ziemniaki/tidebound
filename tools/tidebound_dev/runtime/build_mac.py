@@ -18,7 +18,8 @@ import tempfile
 
 from tidebound_dev.runtime.mac import inspect_runtime
 from tidebound_dev.packaging.archives import archive_tree, extract_bundle
-from tidebound_dev.release.metadata import ROOT, sha256
+from tidebound_dev.paths import ROOT
+from tidebound_dev.files import sha256
 
 SOURCE = ROOT / "runtime/macOS/mkxp-z-826929e-source.tar.gz"
 SOURCE_SHA = "87f70b4738a78fd66630312c795e760f59def7fcff0dfe12c2d50bd7ec65e21b"

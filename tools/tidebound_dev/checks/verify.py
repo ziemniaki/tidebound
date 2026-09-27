@@ -2,7 +2,6 @@
 
 from pathlib import Path
 import os
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -11,10 +10,6 @@ from tidebound_dev.paths import ROOT
 
 
 def main(root=ROOT):
-    if not shutil.which("node"):
-        raise SystemExit("Node.js is required. See docs/development.md for setup.")
-    if not (root / "tests/node_modules/@ruby/3.2-wasm-wasi").is_dir():
-        raise SystemExit("Install test dependencies: npm ci --prefix tests --ignore-scripts")
     from tidebound_dev.formatting import format_sources
 
     format_sources(root, check=True)

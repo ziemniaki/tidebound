@@ -24,8 +24,7 @@ class GenerationTests(unittest.TestCase):
 
             with (
                 patch.object(pipeline, "maps"),
-                patch.object(pipeline.opening_items, "build"),
-                patch.object(pipeline.quest_data, "build"),
+                patch.object(pipeline.story, "build"),
                 patch.object(pipeline.species_compiler, "build", side_effect=data),
                 patch.object(pipeline.encounters, "build"),
                 patch.object(pipeline.art, "build", side_effect=FileNotFoundError("missing PNG")),

@@ -47,7 +47,7 @@ class RebuildDependenciesTests(unittest.TestCase):
             )
             for name in ("maps", "scripts", "validate"):
                 patches.enter_context(patch.object(pipeline, name))
-            for module in (pipeline.opening_items, pipeline.quest_data, pipeline.configure):
+            for module in (pipeline.story, pipeline.configure):
                 patches.enter_context(patch.object(module, "build"))
             pipeline.rebuild(root, full=True)
             result = loads((root / "game/Data/encounters.dat").read_bytes())

@@ -2,36 +2,24 @@
 
 from pathlib import Path
 import json
-import re
 import shutil
 import tempfile
 
-from tidebound_dev.release.metadata import (
-    ROOT,
-    SAVE_DIRECTORY,
-    check_sources,
-    sha256,
-    source_revision,
-)
+from tidebound_dev.paths import ROOT
+from tidebound_dev.runtime.config import SAVE_DIRECTORY
+from tidebound_dev.release.metadata import check_sources, source_revision
+from tidebound_dev.release.artifacts import write_checksums
 from tidebound_dev.maps.validate import validate
 from . import linux, mac, windows
 from .archives import archive_tree, copy_game, copy_verified, extract_bundle, game_hashes
 
 PLATFORMS = {"mac": mac, "windows": windows, "linux": linux}
-DEV_SAVES = "Tidebound_Development"
+from tidebound_dev.runtime.config import DEV_SAVES, isolated_saves
 
 
 def development_settings(game):
     path = game / "mkxp.json"
-    text, count = re.subn(
-        r'("dataPathApp"\s*:\s*)"[^"]+"',
-        lambda match: match[1] + json.dumps(DEV_SAVES),
-        path.read_text(encoding="utf-8"),
-    )
-    if count != 1:
-        raise ValueError(
-            "Expected exactly one save directory setting; refusing unsafe development build"
-        )
+    text = isolated_saves(path.read_text(encoding="utf-8"), DEV_SAVES)
     path.write_text(text, encoding="utf-8")
 
 
@@ -105,12 +93,7 @@ def build(platform, output, root=ROOT, allow_dirty=False, development=False):
                 raise ValueError("ZIP roundtrip changed packaged files")
             shutil.rmtree(folder)
             write_json(artifacts / adapter.MANIFEST, manifest)
-            (artifacts / "SHA256SUMS.txt").write_text(
-                "".join(
-                    sha256(path) + "  " + path.name + "\n" for path in sorted(artifacts.iterdir())
-                ),
-                encoding="utf-8",
-            )
+            write_checksums(artifacts)
             result = output / archive.name
         if source_revision(root, allow_dirty) != revision:
             raise ValueError("Source changed while the package was being built")

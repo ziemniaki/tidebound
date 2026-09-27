@@ -12,7 +12,7 @@ from tidebound_dev.packaging.pipeline import build as package
 
 build = partial(package, "linux")
 from tidebound_dev.packaging.archives import extract_bundle
-from tidebound_dev.release.metadata import sha256
+from tidebound_dev.files import sha256
 from tidebound_dev.release.artifacts import verify
 
 

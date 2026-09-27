@@ -2,9 +2,10 @@
 
 from pathlib import Path
 import argparse
+import json
 import re
 
-from tidebound_dev.release.metadata import sha256
+from tidebound_dev.files import sha256
 
 
 def verify(folder):
@@ -21,6 +22,46 @@ def verify(folder):
     if not expected or actual != expected:
         raise ValueError("Checksums do not cover the complete candidate")
     print("PASS: all downloaded release artifact checksums")
+
+
+def player_archives(folder, version):
+    return [
+        folder / f"Tidebound_{platform}_{version}_{arch}.zip"
+        for platform, arch in (("Mac", "universal"), ("Windows", "x64"), ("Linux", "x86_64"))
+    ]
+
+
+def validate_candidate(folder, version, commit, mac_build):
+    verify(folder)
+    expected = {
+        f"Tidebound_Mac_{version}_universal.zip",
+        f"Tidebound_Windows_{version}_x64.zip",
+        f"Tidebound_Linux_{version}_x86_64.zip",
+        f"Tidebound_Project_{version}.zip",
+        "BUILD.json",
+        "WINDOWS_BUILD.json",
+        "LINUX_BUILD.json",
+        "SHA256SUMS.txt",
+        "RELEASE_NOTES.md",
+    }
+    if {p.name for p in folder.iterdir()} != expected:
+        raise ValueError("Expected the complete four-platform/project candidate set")
+    for name in ("BUILD.json", "WINDOWS_BUILD.json", "LINUX_BUILD.json"):
+        manifest = json.loads((folder / name).read_text())
+        if manifest["version"] != version or manifest["source"] != {
+            "commit": commit,
+            "dirty": False,
+        }:
+            raise ValueError("Candidate source/version does not match verified workflow commit")
+    if json.loads((folder / "BUILD.json").read_text())["mac_build"] != mac_build:
+        raise ValueError("Candidate Mac build does not match release metadata")
+
+
+def write_checksums(folder):
+    files = sorted(path for path in folder.iterdir() if path.name != "SHA256SUMS.txt")
+    (folder / "SHA256SUMS.txt").write_text(
+        "".join(sha256(path) + "  " + path.name + "\n" for path in files), encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":

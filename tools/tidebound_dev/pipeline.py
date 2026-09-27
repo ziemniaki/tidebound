@@ -5,14 +5,13 @@ from .generation import staged_outputs
 from .scripts.compiler import rebuild as scripts
 from .maps.compiler import generate as maps
 from .maps.validate import validate
-from .content import opening_items, quest_data, encounters, species_compiler, configure
+from .content import story, encounters, species_compiler, configure
 from .art import compiler as art
 
 
 def generate(root):
     maps(root)
-    opening_items.build(root)
-    quest_data.build(root)
+    story.build(root)
     # Consumers must see species added in this build, not stale compiled inputs.
     species_compiler.build(root)
     encounters.build(root)

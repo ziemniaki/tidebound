@@ -7,7 +7,8 @@ import tempfile
 import unittest
 
 from tidebound_dev.runtime.build_mac import SOURCE, PATCH, run
-from tidebound_dev.release.metadata import ROOT, load_release
+from tidebound_dev.paths import ROOT
+from tidebound_dev.release.metadata import load_release
 
 
 class RuntimeBuildTests(unittest.TestCase):

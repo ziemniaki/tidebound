@@ -1,5 +1,6 @@
 from pathlib import Path
 import hashlib
+import json
 import shutil
 import tempfile
 import unittest
@@ -75,6 +76,27 @@ class RuntimeRestorationTests(unittest.TestCase):
 
 
 class DevelopmentSaveTests(unittest.TestCase):
+    def test_save_isolation_ignores_commented_examples_and_preserves_other_settings(self):
+        original = """// Example: "dataPathApp": "DoNotUse"
+        {"dataPathApp": "Tidebound_Opening_0_2", "fontHeightReporting": 1,
+         "title": "Pokémon", "url": "https://host/*example*/", "bindings": {"c": "Use",},}
+        """
+        with tempfile.TemporaryDirectory() as temp:
+            game = Path(temp)
+            config = game / "mkxp.json"
+            config.write_text(original)
+            development_settings(game)
+            self.assertEqual(
+                json.loads(config.read_text()),
+                {
+                    "dataPathApp": "Tidebound_Development",
+                    "fontHeightReporting": 1,
+                    "title": "Pokémon",
+                    "url": "https://host/*example*/",
+                    "bindings": {"c": "Use"},
+                },
+            )
+
     def test_missing_or_ambiguous_save_setting_fails_without_writing(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

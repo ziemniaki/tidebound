@@ -1,4 +1,4 @@
-"""Build verified release candidates from a clean commit; never publish them."""
+"""Package all players from a clean commit; verification belongs to `check --all` and CI."""
 
 from pathlib import Path
 import argparse
@@ -7,9 +7,9 @@ import tempfile
 import zipfile
 
 from tidebound_dev.packaging.pipeline import build
-from tidebound_dev.checks.verify import main as verify
-from tidebound_dev.checks.rebuild import main as check_rebuild
-from tidebound_dev.release.metadata import ROOT, check_sources, sha256, source_revision
+from tidebound_dev.paths import ROOT
+from tidebound_dev.release.metadata import check_sources, source_revision
+from tidebound_dev.release.artifacts import write_checksums
 
 
 def build_release(output, root=ROOT):
@@ -18,22 +18,16 @@ def build_release(output, root=ROOT):
         raise FileExistsError("Release output already exists; refusing to overwrite it")
     config = check_sources(root)
     source = source_revision(root)
-    verify(root)
-    check_rebuild(root)
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".tidebound-release-", dir=output.parent) as temp:
         artifacts = Path(temp) / "artifacts"
-        build("mac", artifacts, root=root)
-        windows = Path(temp) / "windows"
-        build("windows", windows, root=root)
-        for file in windows.iterdir():
-            if file.name != "SHA256SUMS.txt":
-                file.rename(artifacts / file.name)
-        linux = Path(temp) / "linux"
-        build("linux", linux, root=root)
-        for file in linux.iterdir():
-            if file.name != "SHA256SUMS.txt":
-                file.rename(artifacts / file.name)
+        artifacts.mkdir()
+        for platform in ("mac", "windows", "linux"):
+            package = Path(temp) / platform
+            build(platform, package, root=root)
+            for file in package.iterdir():
+                if file.name != "SHA256SUMS.txt":
+                    file.rename(artifacts / file.name)
         project = artifacts / ("Tidebound_Project_" + config["version"] + ".zip")
         subprocess.run(
             [
@@ -65,10 +59,7 @@ def build_release(output, root=ROOT):
         if not notes.startswith("# Tidebound " + config["version"] + "\n"):
             raise ValueError("Player-facing release notes must match release.json")
         (artifacts / "RELEASE_NOTES.md").write_text(notes, encoding="utf-8")
-        files = sorted(p for p in artifacts.iterdir() if p.name != "SHA256SUMS.txt")
-        (artifacts / "SHA256SUMS.txt").write_text(
-            "".join(sha256(p) + "  " + p.name + "\n" for p in files), encoding="utf-8"
-        )
+        write_checksums(artifacts)
         artifacts.rename(output)
     print("PASS: release candidates from", source["commit"], "at", output)
     return output
