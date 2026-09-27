@@ -37,7 +37,19 @@ module NativeDevelopmentScenarios
       raise "Scenario save failed" unless Game.save
       $scene.dispose
       SaveData.mark_values_as_unloaded
-      Game.load(SaveData.get_data_from_file(SaveData::FILE_PATH))
+      saved = SaveData.get_data_from_file(SaveData::FILE_PATH)
+      if spec.fetch("id") == "vault/visit"
+        # A save from before repacking has a stale native map revision and tiles.
+        saved[:game_system].magic_number = $data_system.magic_number ^ 1
+        # Game.set_up_system loads this boot value before Game.load on launch.
+        $game_system = saved[:game_system]
+        original_tile = $game_map.data[0, 0, 0]
+        saved[:map_factory].map.data[0, 0, 0] = original_tile + 1
+      end
+      Game.load(saved)
+      if original_tile && $game_map.data[0, 0, 0] != original_tile
+        raise "Existing save retained map tiles from before the atlas rebuild"
+      end
       unless identity == $player.party.map { |pet| [Tidebound.identity(pet), pet.item_id] } &&
                Marshal.dump(Tidebound.story) == story
         raise "Scenario save/load lost identity, held items or quest state"

@@ -23,7 +23,9 @@ map. `map.json` allocates stable event IDs and named entrances.
 `maps/compiler.py` assembles maps and packs independent `atlases.py` groups; painters
 provide reusable primitives without reaching into other areas. Events are defined
 at their final positions with their final scripts, preserving existing IDs.
-`maps/serialization.py` writes native data, collision masks and previews.
+`maps/serialization.py` writes native data, collision masks and previews. It derives
+Essentials' existing map revision from native map/tileset bytes, so loading a save
+after repacking reloads cached maps without changing Pokémon or quest state.
 
 ## Python operations
 

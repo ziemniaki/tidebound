@@ -94,3 +94,8 @@ for shared validation; do not parse a second prop catalog in an area builder.
 contracts. `Map.targets` derives current event coordinates; painters can relocate
 an event without resynchronizing a second position list. `blocking_events` retains
 authored collision intent when a painter redraws the floor.
+
+The compiler derives `System.magic_number` from native map/tileset bytes. Essentials
+uses this existing editor field to reload cached maps when loading a save after a
+map rebuild. Do not replace it with a fixed number: repacked tile IDs would be
+interpreted against an old saved map. This does not rewrite Pokémon or quest state.
