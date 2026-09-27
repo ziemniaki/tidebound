@@ -36,7 +36,9 @@ def select(root, name):
     }
     if kind in categories:
         stem = f"game/{categories[kind]}/{identifier}"
-        matches = [path for path, _ in copies(root) if str(Path(path).with_suffix("")) == stem]
+        matches = [
+            path for path, _ in copies(root) if Path(path).with_suffix("").as_posix() == stem
+        ]
         if len(matches) == 1:
             return {**record, "path": matches[0].removeprefix("game/")}
     raise ValueError(

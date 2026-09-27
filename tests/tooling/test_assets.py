@@ -10,6 +10,22 @@ from tidebound_dev.art.files import validate_audio
 
 
 class AssetTests(unittest.TestCase):
+    def test_preview_selector_matches_engine_paths_on_windows(self):
+        from pathlib import PureWindowsPath
+        from unittest.mock import patch
+        from tidebound_dev.art import preview
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / "assets/characters/ACTOR.png"
+            source.parent.mkdir(parents=True)
+            Image.new("RGBA", (128, 192), (1, 2, 3, 255)).save(source)
+            with patch.object(preview, "Path", PureWindowsPath):
+                self.assertEqual(
+                    preview.select(root, "characters/ACTOR")["path"],
+                    "Graphics/Characters/ACTOR.png",
+                )
+
     def test_renaming_an_image_to_ogg_does_not_make_audio(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "sound.ogg"
