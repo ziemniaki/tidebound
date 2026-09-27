@@ -87,8 +87,9 @@ The everyday Mac workflow is agent/source edits followed by `uv run play`, with
    `content/`. Review `git diff`, then `uv run play`.
 
 The importer compares editor and source changes against the last export. Edits to
-separate fields merge; conflicting edits to the same field stop before any source
-is written. Resolve that field in source/editor and rerun. Scrolling, expanding a
+separate fields or tile cells merge. Concurrent edits to event pages, command lists
+or movement routes conflict as a whole: their positions are not stable identities.
+Conflicts stop before any source is written. Resolve in source/editor and rerun. Scrolling, expanding a
 map in the editor, and Marshal encoding differences do not create source changes.
 Before exporting, rebuilds compare saved maps against the last build/import
 checkpoint and refuse pending editor edits until imported. Once that check passes, the old

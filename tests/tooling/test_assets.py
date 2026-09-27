@@ -128,6 +128,32 @@ class AssetTests(unittest.TestCase):
 
 
 class AssetRefreshTests(unittest.TestCase):
+    def test_failed_new_export_can_be_fixed_and_rebuilt(self):
+        from tidebound_dev.art import compiler
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "src/generated").mkdir(parents=True)
+            for name, width in (("first", 128), ("second", 127)):
+                source = root / f"content/actors/{name}/character.png"
+                source.parent.mkdir(parents=True)
+                Image.new("RGBA", (width, 128), (1, 2, 3, 255)).save(source)
+            with self.assertRaisesRegex(ValueError, "four-column"):
+                compiler.build(root)
+            Image.new("RGBA", (128, 128), (4, 5, 6, 255)).save(source)
+            compiler.build(root)
+            with Image.open(root / "game/Graphics/Characters/second.png") as image:
+                self.assertEqual(image.getpixel((0, 0)), (4, 5, 6, 255))
+            # A new claim must still reject genuine stock inputs.
+            stock = root / "game/Graphics/Characters/stock.png"
+            stock.write_bytes(b"stock input")
+            added = root / "content/actors/stock/character.png"
+            added.parent.mkdir(parents=True)
+            Image.new("RGBA", (128, 128), (1, 2, 3, 255)).save(added)
+            with self.assertRaisesRegex(ValueError, "unowned file"):
+                compiler.build(root)
+            self.assertEqual(stock.read_bytes(), b"stock input")
+
     def test_export_refreshes_art_and_retires_only_owned_outputs(self):
         from contextlib import ExitStack
 

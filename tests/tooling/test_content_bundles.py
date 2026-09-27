@@ -4,12 +4,43 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
+from rubymarshal.reader import loads
+from rubymarshal.writer import writes
+from rubymarshal.classes import Symbol
 
 from tidebound_dev.catalog import bundles, validate_names
 from tidebound_dev.art.ownership import inventory
 
 
 class ContentBundleTests(unittest.TestCase):
+    def test_stock_trainer_gender_matches_the_generated_pbs(self):
+        from tidebound_dev.content import story
+
+        with tempfile.TemporaryDirectory() as temp:
+            game = Path(temp)
+            (game / "Data").mkdir()
+            (game / "PBS").mkdir()
+            database = game / "Data/trainer_types.dat"
+            original = Path(__file__).resolve().parents[2] / "game/Data/trainer_types.dat"
+            types = loads(original.read_bytes())
+            for gender, label in ((0, "Male"), (1, "Female"), (2, "Unknown")):
+                stock = next(
+                    key for key, value in types.items() if value.attributes["@gender"] == gender
+                )
+                database.write_bytes(writes(types))
+                with patch.object(
+                    story, "TRAINERS", {"TEST": {"name": "Test", "stock": stock.name}}
+                ):
+                    story.build_trainers(game)
+                self.assertEqual(
+                    loads(database.read_bytes())[Symbol("TEST")].attributes["@gender"], gender
+                )
+                self.assertIn(
+                    f"Gender = {label}\n",
+                    (game / "PBS/trainer_types_tidebound_story.txt").read_text(),
+                )
+
     def test_missing_declaration_and_duplicate_keys_fail_at_source(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

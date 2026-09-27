@@ -162,6 +162,37 @@ class MapEditorTests(unittest.TestCase):
         path.write_bytes(writes(infos))
         editor.require_import(self.root)
 
+    def test_reordered_commands_conflict_with_concurrent_source_edits(self):
+        path = self.root / "game/Data/Map101.rxdata"
+        native = loads(path.read_bytes())
+        page = native.attributes["@events"][1].attributes["@pages"][0].attributes
+        page["@list"] = [command(121, 1, 1, 0), command(121, 2, 2, 0), command(0)]
+        path.write_bytes(writes(native))
+        source = self.root / "content/maps/home/layout.json"
+        source.write_text(dump(map_record(native)))
+        editor.remember(self.root)
+        authored = json.loads(source.read_text())
+        authored["events"]["1"]["pages"][0]["list"][1]["parameters"][2] = 1
+        source.write_text(dump(authored))
+        page["@list"][0], page["@list"][1] = page["@list"][1], page["@list"][0]
+        path.write_bytes(writes(native))
+        before = source.read_bytes()
+        with self.assertRaisesRegex(ValueError, "conflict.*events/1/pages"):
+            editor.import_changes(self.root)
+        self.assertEqual(source.read_bytes(), before)
+
+    def test_disjoint_tile_edits_keep_their_coordinates(self):
+        path = self.root / "game/Data/Map101.rxdata"
+        source = self.root / "content/maps/home/layout.json"
+        authored = json.loads(source.read_text())
+        native = map_record(loads(path.read_bytes()))
+        authored["data"]["rows"][0][0] = 384
+        native["data"]["rows"][0][1] = 385
+        source.write_text(dump(authored))
+        path.write_bytes(writes(native_map(native)))
+        editor.import_changes(self.root)
+        self.assertEqual(json.loads(source.read_text())["data"]["rows"][0][:2], [384, 385])
+
     def test_editor_created_map_becomes_authored_content_with_its_native_id(self):
         path = self.root / "game/Data/Map117.rxdata"
         record = json.loads((self.root / "content/maps/home/layout.json").read_text())
