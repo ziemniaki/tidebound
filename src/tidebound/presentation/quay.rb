@@ -22,9 +22,10 @@ class TideboundWindowLights
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     @viewport.z = 1
     @atlas = Bitmap.new("Graphics/Pictures/Tidebound/window_panes")
-    @sprites = Tidebound::Presentation::WINDOW_LIGHTS.fetch(map.map_id).map do |x, y, index|
-      TideboundWindowPane.new(map, x, y, index, @atlas, @viewport)
-    end
+    @sprites =
+      Tidebound::Presentation::WINDOW_LIGHTS
+        .fetch(map.map_id)
+        .map { |x, y, index| TideboundWindowPane.new(map, x, y, index, @atlas, @viewport) }
   end
   def update
     @sprites.each(&:update)

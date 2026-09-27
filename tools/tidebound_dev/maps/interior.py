@@ -1,16 +1,14 @@
-from ..files import save_png
+"""Interior furniture painting and the shared tile atlas, owned by one compilation."""
+
+import random
+import struct
+
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-import struct
 
+from ..files import save_png
 from .model import table
-
-
-"""Interior tile atlas and furniture painting, owned by one map compilation."""
-
-from PIL import Image, ImageDraw
-import random
 
 
 class InteriorPainter:
