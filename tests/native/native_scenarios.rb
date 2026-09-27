@@ -3,8 +3,41 @@ module NativeScenarios
   module_function
 
   def run(scenario, output)
+    window_scaling if %i[runtime all].include?(scenario)
     species if %i[species all].include?(scenario)
     world(output) if %i[world all].include?(scenario)
+  end
+
+  def window_scaling
+    original_size = $PokemonSystem.screensize
+    unless Graphics.fixed_aspect_ratio && Graphics.integer_scaling && Graphics.last_mile_scaling
+      raise "Game does not fit the window with proportional scaling"
+    end
+    unless [true, 1].include?(Graphics.smooth_scaling)
+      raise "Fractional window scaling is not bilinear"
+    end
+    pbSetResizeFactor(1)
+    [[320, 240], [640, 480], [720, 400], [400, 600]].each do |width, height|
+      Graphics.resize_window(width, height)
+      20.times do
+        Graphics.update
+        Input.update
+      end
+      unless (Graphics.scale - height.to_f / Settings::SCREEN_HEIGHT).abs < 0.01
+        raise "Native window did not resize to #{width}x#{height}"
+      end
+      image = Graphics.snap_to_bitmap
+      begin
+        unless image.width == Settings::SCREEN_WIDTH && image.height == Settings::SCREEN_HEIGHT
+          raise "Window resizing changed the logical game canvas"
+        end
+      ensure
+        image.dispose
+      end
+    end
+    puts "PASS: native window resizing preserves the game canvas at small, large, wide and tall sizes"
+  ensure
+    pbSetResizeFactor(original_size)
   end
 
   def records_snapshot(klass, identifiers)

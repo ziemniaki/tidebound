@@ -12,6 +12,11 @@ F1 displays the key bindings. Save from the in-game menu.
 Existing saves remain in %APPDATA%\Tidebound_Opening_0_2.
 Extract updates to a new folder; do not delete your save directory.
 
+Resize the window to enlarge the whole game, including menus and text.
+The picture keeps its proportions; wider or taller windows have black bars.
+Whole-number scales stay crisp; intermediate sizes use light smoothing.
+Options > Screen Size offers presets and Full; Alt+Enter toggles fullscreen.
+
 The executable and DLLs are the unchanged Windows runtime supplied with
 the project. This package does not add publisher signing or an installer.
 Read CREDITS.md and RUNTIME_SOURCE.md for credits and runtime provenance.

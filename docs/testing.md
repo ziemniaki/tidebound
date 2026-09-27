@@ -70,7 +70,10 @@ uv run python -m tests.native.windows_runtime_smoke C:/build/Tidebound_Windows_0
 uv run python -m tests.native.linux_runtime_smoke /tmp/Tidebound_Linux_0.8.9_x86_64.zip /tmp/tidebound-scenes --scenario all
 ```
 
-`runtime` exercises initialization and native save roundtrips. `world`
+`runtime` exercises initialization, native save roundtrips and window resizing
+at small, large, wide and tall sizes while preserving the logical game canvas.
+Desktop checks must still verify the final scaled image and fullscreen transitions.
+`world`
 uses the [declared-start workflow](development.md#playtest-scenarios), then captures
 home, coast, forest, lighthouse, vault, docks and pond. One native save/load checks companion identity,
 held items, quest state and stale-map refresh; it also verifies state exists before

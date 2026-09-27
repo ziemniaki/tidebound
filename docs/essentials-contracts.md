@@ -32,6 +32,15 @@ custom load manifest.
 
 Additional contracts verified in the embedded sections:
 
+- `MKXP_Compatibility`: `pbSetResizeFactor` initializes the logical canvas once;
+  its presets resize the window, not the game layout. Tidebound's embedding patch
+  sets proportional, integer-first scaling with a bilinear final pass at that
+  initialization. The shipped Windows binding takes a Boolean `smooth_scaling`;
+  pinned Mac/Linux take a numeric filter index. Keep that distinction in Ruby,
+  where it can be queried, rather than putting incompatible types in shared JSON.
+  Native `runtime` checks exercise small, large, wide and tall windows without
+  changing the logical canvas. Inspect actual desktop resizing/fullscreen for
+  final presentation; `snap_to_bitmap` captures the canvas before window scaling.
 - `Overworld_BattleStarting`: `start_core` returns integer outcomes; `start`
   wrappers have different Boolean contracts. `after_battle` heals a loss/draw
   with `canLose` **before** firing `on_end_battle`.

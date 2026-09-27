@@ -18,6 +18,11 @@ targets. ARM Linux, Steam Deck controls and other distributions are not verified
 Controls: arrows to move; Return to confirm; Esc or X for menu/back.
 F1 opens key bindings. Save through the in-game menu.
 
+Resize the window to enlarge the whole game, including menus and text.
+The picture keeps its proportions; wider or taller windows have black bars.
+Whole-number scales stay crisp; intermediate sizes use light smoothing.
+Options > Screen Size offers presets and Full; Alt+Enter toggles fullscreen.
+
 The game keeps the Tidebound_Opening_0_2 save identity. On Linux saves normally
 live below ~/.local/share/ (or XDG_DATA_HOME), outside this player folder.
 Replacing the player folder does not replace saves. Saves do not automatically

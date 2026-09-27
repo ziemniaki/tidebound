@@ -1,4 +1,4 @@
-"""The four intentional adaptations to stock Essentials source during embedding."""
+"""Intentional adaptations to stock Essentials source during embedding."""
 
 import re
 import zlib
@@ -7,6 +7,16 @@ from tidebound_dev.scripts.archive import script_name
 
 
 LITERAL_PATCHES = {
+    "MKXP_Compatibility": (
+        "if !$ResizeInitialized",
+        """unless $ResizeInitialized
+    # Fit the full scene to the window without distorting its proportions.
+    Graphics.fixed_aspect_ratio = true
+    Graphics.integer_scaling = true
+    Graphics.last_mile_scaling = true
+    # Shipped Windows uses a Boolean; Mac/Linux use a filter index (1 = bilinear).
+    Graphics.smooth_scaling = Graphics.smooth_scaling.is_a?(Integer) ? 1 : true""",
+    ),
     "Battler_ChangeSelf": ('"{1} fainted!"', '"{1} died!"'),
     "Overworld": ('"{1} fainted..."', '"{1} died..."'),
     "Main": ("return Scene_Intro.new", "return Scene_TideboundTitle.new"),

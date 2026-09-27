@@ -103,8 +103,13 @@
 
     // Whether the game window is freely resizable.
     //
-    // "winResizable": true,
+    "winResizable": true,
 
+    // Essentials' pbSetResizeFactor applies Tidebound's fit-to-window policy
+    // at boot: fixed aspect, integer enlargement, then bilinear last-mile scaling.
+    // Its Ruby binding handles the different filter types in our pinned players.
+    // The commented scaling settings below are engine reference only.
+    //
     // Whether the game screen's aspect ratio is preserved when resizing the
     // window. If false, the game screen will stretch and distort to fill the
     // entire window.
