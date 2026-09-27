@@ -93,3 +93,8 @@ module Tidebound::Astral
     end
   end
 end
+
+Tidebound::Actors.on_frame("spirit") do |_event, actor|
+  soul = Tidebound.state.souls[actor.fetch("index")]
+  soul && soul.status == :waiting && Tidebound.state.realm == :astral
+end

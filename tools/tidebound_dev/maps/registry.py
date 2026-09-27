@@ -42,7 +42,7 @@ ACTORS = {
     "necklace_thief": Actor("necklace_thief", "hideout", "Necklace thief", "npc", ""),
 }
 
-# Roles select concrete consumers in features/actors.rb and presentation modules.
+# Roles select concrete consumers in world/actors.rb and presentation modules.
 ROLES = {
     "npc",
     "house",

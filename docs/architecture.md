@@ -148,7 +148,7 @@ and native launches before any release publication.
 
 ## Presentation and actor state
 
-`features/actors.rb` synchronizes companion/key/crate collision during map updates,
+`world/actors.rb` synchronizes companion/key/crate collision during map updates,
 independent of sprite creation. Generated roles carry species, soul index or
 quest state key explicitly; readable labels do not select rendering or policy.
 Its visibility rules are shared by the renderers.

@@ -35,3 +35,13 @@ Tidebound::Scenes.run(keys) do
 end
 check(keys.through, "Scene exit did not restore current story collision")
 puts "PASS: interrupted scene cleanup, actor ownership and headless collision"
+
+%i[road_thief nonexistent_actor].each do |key|
+  rejected = false
+  begin
+    Tidebound::Actors.on_entry(key) { true }
+  rescue RuntimeError
+    rejected = true
+  end
+  check(rejected, "Duplicate/unknown actor policy was accepted: #{key}")
+end

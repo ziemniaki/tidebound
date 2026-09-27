@@ -5,6 +5,8 @@ order. Edit the manifest when adding a file; dependencies must already be loaded
 when constants, inheritance or hook registration are evaluated. `generated/` is
 written by Python compilers. No second copy in `game/Plugins/Tidebound`.
 
+Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.md).
+
 ## Add a quest or interaction
 
 1. Put the state transition and dialogue in its feature module. Use
@@ -57,8 +59,8 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
   Essentials serialization; no new save schema/version mechanism.
 - Pokémon form setters and learnsets have separate side effects; read the
   [content guide](../tools/tidebound_dev/content/AGENTS.md) before changing forms.
-- Rendered visibility does not establish collision. `features/actors.rb` owns
-  visibility and collision policy. It indexes collision actors once, skips forced
+- Rendered visibility does not establish collision. Features declare availability;
+  `world/actors.rb` applies it without knowing quest state. It indexes collision actors once, skips forced
   routes, and applies NPC resting visibility only on map entry or explicit
   `Actors.refresh` scene boundaries. Per-frame sync must not hide a cutscene actor. Generated actor roles select policy independently of display
   labels. `World.actor` resolves a registered identity only on its owning map;

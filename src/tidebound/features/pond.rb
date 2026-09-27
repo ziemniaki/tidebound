@@ -99,3 +99,7 @@ module Tidebound::PondTerrain
   end
 end
 Game_Map.prepend(Tidebound::PondTerrain)
+
+Tidebound::Actors.on_frame("shore_duck") do |_event, _actor|
+  !Tidebound::Pond.flags[:shoreduck_gone]
+end

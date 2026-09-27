@@ -64,7 +64,7 @@ for shared validation; do not parse a second prop catalog in an area builder.
 - For anonymous props/companions, give `Map.event` an explicit `role`. Companion
   roles require `species`; spirits require a soul `index`; `neighbor_wild` requires
   the owning quest's `state` key. These select concrete consumers in
-  `features/actors.rb`. A name such as `Wild:NATU` alone has no effect.
+  `world/actors.rb`. A name such as `Wild:NATU` alone has no effect.
 - Presentation also reads these roles. `prop` requires an `asset` from `assets/props.json`;
   door/exit threshold hints use `cue="north|south|east|west"`. Add a role and its
   consumer together; unknown roles and missing required fields fail generation.
