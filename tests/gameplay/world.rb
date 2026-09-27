@@ -40,10 +40,10 @@ youth.opacity = 255
 youth.through = false
 Tidebound::Actors.sync($game_map)
 check(youth.opacity == 255 && !youth.through, "Frame sync hid a cutscene actor")
-Tidebound::NeighborQuest.busy = true
-Tidebound::Actors.refresh($game_map)
-check(youth.opacity == 255 && !youth.through, "Map refresh interrupted the robbery")
-Tidebound::NeighborQuest.busy = false
+Tidebound::Scenes.run(youth) do
+  Tidebound::Actors.refresh($game_map)
+  check(youth.opacity == 255 && !youth.through, "Map refresh interrupted the robbery")
+end
 Tidebound::Actors.refresh($game_map)
 check(youth.opacity == 0 && youth.through, "Scene actor did not return to its resting state")
 

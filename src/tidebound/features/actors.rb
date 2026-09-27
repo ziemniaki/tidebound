@@ -94,7 +94,7 @@ module Tidebound::Actors
       .fetch(map.map_id, {})
       .each do |id, actor|
         event = map.events[id]
-        next unless event && !event.move_route_forcing
+        next unless event && !event.move_route_forcing && !Tidebound::Scenes.owns?(event)
         event.through = !visible?(event, actor)
       end
   end
@@ -106,11 +106,7 @@ module Tidebound::Actors
       .fetch(map.map_id, {})
       .each do |id, actor|
         event = map.events[id]
-        next unless event && !event.move_route_forcing
-        if Tidebound::NeighborQuest.busy &&
-             %w[road_thief running_thief robbery_youth_one robbery_youth_two].include?(actor["key"])
-          next
-        end
+        next unless event && !event.move_route_forcing && !Tidebound::Scenes.owns?(event)
         visible = visible?(event, actor)
         event.opacity = visible ? 255 : 0
         event.through = !visible

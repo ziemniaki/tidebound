@@ -1,7 +1,7 @@
 # Shared engine operations. Features own their story transitions.
 module Tidebound::World
   class << self
-    attr_accessor :coast_camera_target
+    attr_accessor :camera_target
   end
   module_function
   def erase_autorun
@@ -37,8 +37,12 @@ module Tidebound::World
       raise "Tidebound: scene movement timed out" if System.uptime > deadline
       pbWait(0.025)
     end
-    # Essentials appends THROUGH_OFF even for actors which were already through.
-    event.through = previous_through
+  ensure
+    if event
+      Tidebound::Scenes.cancel_route(event)
+      # Essentials appends THROUGH_OFF even for actors which were already through.
+      event.through = previous_through
+    end
   end
 
   def local_xy(map_id, x, y)
@@ -60,7 +64,7 @@ module Tidebound::World
       [[y - h / 2 + 0.5, 0].max, $game_map.height - h].min * Game_Map::REAL_RES_Y
     ]
   end
-  def coast_camera_to(x, y, duration = 0.65)
+  def camera_to(x, y, duration = 0.65)
     start_x, start_y = $game_map.display_x, $game_map.display_y
     target_x, target_y = camera_position(x, y)
     pbWait(duration) do |elapsed|
@@ -71,20 +75,16 @@ module Tidebound::World
     end
     $game_map.display_x, $game_map.display_y = target_x, target_y
   end
-  def coast_camera_home
-    coast_camera_to($game_player.x, $game_player.y)
+  def camera_home
+    camera_to($game_player.x, $game_player.y)
   end
-  def coast_camera_frame
-    event = self.coast_camera_target
-    return unless event && $game_map.map_id == 102
+  def camera_frame
+    event = self.camera_target
+    return unless event && event.map_id == $game_map.map_id
     x, y = camera_position(event.x, event.y)
     blend = 1.0 - Math.exp(-6.0 / [Graphics.frame_rate, 1].max)
     $game_map.display_x += (x - $game_map.display_x) * blend
     $game_map.display_y += (y - $game_map.display_y) * blend
   end
 end
-EventHandlers.add(
-  :on_frame_update,
-  :tidebound_coast_camera,
-  proc { Tidebound::World.coast_camera_frame }
-)
+EventHandlers.add(:on_frame_update, :tidebound_coast_camera, proc { Tidebound::World.camera_frame })

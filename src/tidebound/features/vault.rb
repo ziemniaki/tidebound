@@ -32,24 +32,28 @@ module Tidebound::VaultVisit
       "Seller: I'll ask Ellie about that vault. I would rather carry this necklace up the hill once than lose it again."
     )
     e = Tidebound::World.actor(:oil_seller)
-    if e
-      e.through = true
-      Tidebound::World.animate(e, [PBMoveRoute::DOWN] * 5 + [PBMoveRoute::RIGHT])
-      e.opacity = 0
-      e.through = true
+    Tidebound::Scenes.run(e, restore_positions: true) do
+      if e
+        e.through = true
+        Tidebound::World.animate(e, [PBMoveRoute::DOWN] * 5 + [PBMoveRoute::RIGHT])
+        e.opacity = 0
+        e.through = true
+      end
     end
     # Show his departure on the existing coast, rather than teleporting him in dialogue.
     if $game_map.map_id == 106
       Tidebound::World.travel_coast(23, 13)
       e = Tidebound::World.actor(:seller_outside)
-      e.moveto(*Tidebound::World.coast_xy(21, 12))
-      e.opacity = 255
-      e.through = true
-      Tidebound::World.animate(e, [PBMoveRoute::DOWN] * 8 + [PBMoveRoute::LEFT] * 13)
-      say("He stops to catch his breath, then takes the stone path towards the lighthouse.")
-      Tidebound::World.animate(e, [PBMoveRoute::UP] * 5)
-      e.opacity = 0
-      e.through = true
+      Tidebound::Scenes.run(e, restore_positions: true) do
+        e.moveto(*Tidebound::World.coast_xy(21, 12))
+        e.opacity = 255
+        e.through = true
+        Tidebound::World.animate(e, [PBMoveRoute::DOWN] * 8 + [PBMoveRoute::LEFT] * 13)
+        say("He stops to catch his breath, then takes the stone path towards the lighthouse.")
+        Tidebound::World.animate(e, [PBMoveRoute::UP] * 5)
+        e.opacity = 0
+        e.through = true
+      end
     end
     Tidebound::Actors.refresh($game_map)
   end
@@ -61,13 +65,15 @@ module Tidebound::VaultVisit
     )
     m = Tidebound::World.actor(:mother)
     s = Tidebound::World.actor(:seller_at_home)
-    [m, s].compact.each { |e| e.through = true }
-    Tidebound::World.animate(m, [PBMoveRoute::LEFT] * 9 + [PBMoveRoute::DOWN] * 4) if m
-    say(
-      "Mother turns a small iron key. Cold air rises from the stairs.",
-      "Mother: Mind the last step. It is lower than it looks."
-    )
-    q[:open] = true
+    Tidebound::Scenes.run(m, s, restore_positions: true) do
+      [m, s].compact.each { |e| e.through = true }
+      Tidebound::World.animate(m, [PBMoveRoute::LEFT] * 9 + [PBMoveRoute::DOWN] * 4) if m
+      say(
+        "Mother turns a small iron key. Cold air rises from the stairs.",
+        "Mother: Mind the last step. It is lower than it looks."
+      )
+      q[:open] = true
+    end
     pbFadeOutIn { Tidebound::Actors.refresh($game_map) }
   end
   def stairs

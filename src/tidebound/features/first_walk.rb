@@ -183,16 +183,16 @@ module Tidebound
           (dog.y - Tidebound::World.coast_xy(*POOKIE_PIER)[1]).abs
       route += [PBMoveRoute::RIGHT] * [Tidebound::World.coast_xy(*POOKIE_PIER)[0] - dog.x, 0].max
       route += [PBMoveRoute::TURN_DOWN]
-      Tidebound::World.coast_camera_target = dog
+      Tidebound::World.camera_target = dog
       Tidebound::World.animate(dog, route)
-      Tidebound::World.coast_camera_target = nil
+      Tidebound::World.camera_target = nil
       Tidebound.story[:walk_state] = :at_pier
       dog.through = false
       pbWait(0.45)
       pbMessage("Only the tide beneath the boards. You cannot see what she is barking at.")
-      Tidebound::World.coast_camera_home
+      Tidebound::World.camera_home
     ensure
-      Tidebound::World.coast_camera_target = nil
+      Tidebound::World.camera_target = nil
     end
 
     def finish_walk
