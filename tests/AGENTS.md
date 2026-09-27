@@ -2,8 +2,7 @@
 
 Run commands from the repository root. `uv run check` prepares locked Node packages,
 extracts the current archive and supplies fresh map-event scripts to the harness.
-It does not rebuild source. Format and embed Ruby first; content/map edits need
-full regeneration before checking. `check --all` copies only Git-tracked paths:
+It assembles the native project before checking; no committed game outputs are needed. `check --all` copies only Git-tracked paths:
 stage new files before running it.
 
 ## What earns a test

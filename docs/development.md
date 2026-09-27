@@ -43,11 +43,11 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run build --platform linux` | Cross-package a Linux x86_64 development copy |
 | `uv run format` | Format handwritten Python and Ruby |
 | `uv run format --check` | Check formatting without editing |
-| `uv run check` | Formatting, tooling, geometry, scripts and quest/save tests; no game regeneration |
+| `uv run check` | Compile, then check formatting, tooling, geometry, scripts and quest/save behavior |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
 | `uv run build --compile-only` | Compile the project and checkpoint it without packaging a player |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
-| `uv run editor import` | Import saved map/tileset edits into authored files; works on every platform |
+| `uv run editor import` | Import saved map/tileset and stock edits into source; works on every platform |
 
 `uv run build` is the game command. `uv build` builds a Python package, not
 Tidebound. `uv run tidebound --help` lists the commands.
@@ -84,14 +84,14 @@ The everyday Mac workflow is agent/source edits followed by `uv run play`, with
    a compatible Windows environment. Edit and **save**, then close the editor.
 3. Run `uv run editor import`. Tiles, events (including all pages/routes), map
    audio, names/tree placement, custom tileset settings and textures return to
-   `content/`. Review `git diff`, then `uv run play`.
+   their `content/` bundles. Stock native edits go to `content/overrides/`. Review `git diff`, then `uv run play`.
 
 The importer compares editor and source changes against the last export. Edits to
 separate fields or tile cells merge. Concurrent edits to event pages, command lists
 or movement routes conflict as a whole: their positions are not stable identities.
 Conflicts stop before any source is written. Resolve in source/editor and rerun. Scrolling, expanding a
 map in the editor, and Marshal encoding differences do not create source changes.
-Before exporting, rebuilds compare saved maps against the last build/import
+Before exporting, builds compare the native project against the last build/import
 checkpoint and refuse pending editor edits until imported. Once that check passes, the old
 checkpoint is cleared; a new one is recorded only after compilation and validation
 succeed. Fix failed builds and rebuild before continuing map editing.
@@ -106,8 +106,12 @@ An unconnected draft map has no reachability starting point, so static interacti
 checks begin once it has an entrance or incoming transfer.
 
 Existing authored maps and custom tilesets round-trip through this workflow.
-Stock maps and other engine databases remain direct native inputs in `game/`;
-review and commit those edits separately. Adding a custom tileset or editing
+Stock maps, stock tileset records, native databases and assets import as engine-relative
+files in `content/overrides/`. Mixed map/tileset databases exclude authored records
+from those overrides. Concurrent changes to the same override stop with a conflict.
+Edits to generated scripts/PBS/species data or other generated assets without an
+importer stop with an error: change their owning source instead. Native file
+deletion is not imported. Adding a custom tileset or editing
 its light mask uses the [map guide](../content/maps/AGENTS.md). To remove an entire
 authored map, import pending edits first, remove its source bundle and update its
 references, then rebuild; whole-map deletion in RPG Maker is not imported.
@@ -118,13 +122,18 @@ own Test Play requires extracting `runtime/Windows/player.zip` into `game/` once
 and uses the project/release save namespace. No editor installation is needed for
 JSON authoring, importing saved project files or native Mac/Linux playtesting.
 
-Full regeneration writes directly to tracked files. If it fails, fix the reported
-error and rerun `uv run build --compile-only` before playing. Review the generated diff
-in Git; `uv run check --all` verifies reproducibility in a disposable copy.
-
-Keep compiled data checked in: stock Essentials inputs cannot all be rebuilt
-from the custom sources. Review generated diffs alongside source changes.
+`game/` and `src/generated/` are ignored outputs, created automatically by build,
+play, preview, check and release packaging. The pinned baseline is checked in,
+so game assembly needs no extra download. If compilation fails, fix the reported
+error and rebuild before editing in Maker. Commit authored source changes only.
 No development command commits, pushes, merges or publishes.
+
+When upgrading a checkout from the old tracked `game/` layout, save and import
+pending map edits **before pulling**. Commit any remaining stock edits so Git
+can protect them during the update. After pulling, preserve any remaining old
+`game/` directory outside the checkout before the first build; do not discard
+unimported work. A fresh clone needs only `uv run play`. Missing checkpoints on an
+existing project stop the build rather than assume its contents are disposable.
 
 ## Authoring workflows
 
@@ -134,7 +143,7 @@ The scoped guides explain the source files, engine contracts and checks for
 [Pokémon artwork](../content/AGENTS.md) and [sound](../content/audio/AGENTS.md).
 They apply to human development as well as agents.
 
-Rebuild exports [authored custom assets](artwork.md), fixed tilesets, maps and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
+Rebuild exports [authored custom assets](artwork.md), fixed tilesets, maps and lighting. Stock engine graphics/audio come from the baseline and native overrides. Check the asset guide before
 editing a game PNG: generated destinations are replaced by their exporter.
 
 ## Less common work
@@ -178,13 +187,12 @@ Coordinate changes to `src/load_order.txt`, `maps/compiler.py`, `maps/registry.p
 species catalogs and shared NPC dispatch. Individual map layouts belong in
 `content/maps/<map>/`; another area must not patch their events or geometry.
 
-Include source and generated outputs in the PR. When combining work, resolve
-source first, then regenerate once. For compiled binary conflicts, use a
-known common baseline, apply the combined source, then run `uv run format`,
-`uv run build --compile-only` and `uv run check --all`. Never choose one branch's archive
-wholesale: that can discard another feature. Stock data and supplied editor/asset
-edits need their own reconciliation. Never regenerate in another agent's active
-checkout. Handoffs name the branch/commit, checks and remaining work.
+Include authored source changes in the PR. When combining work, resolve source
+conflicts, then run `uv run format` and `uv run check --all`. Generated binaries
+are ignored and rebuilt from the combined sources. Native override conflicts
+need deliberate reconciliation; never choose one editor database wholesale when
+both branches changed it. Never build in another agent's active checkout.
+Handoffs name the branch/commit, checks and remaining work.
 
 ## Tooling choice
 

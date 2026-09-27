@@ -70,13 +70,11 @@ live in the same folder. Naming/ownership: [architecture](../../docs/architectur
   encounter validation must see newly added species in the same build.
 
 [Inspected Essentials methods](../../docs/essentials-contracts.md).
-Full rebuild writes directly in dependency order. If it fails, fix the cause and
-rerun before playing; it does not roll back generated files. `check --all` verifies
-regeneration in a disposable copy. Review generated diffs before committing.
+Builds assemble stock inputs and compile declarations in dependency order. Fix
+failed builds before playing; `check --all` compares a clean isolated build.
+Commit source changes, not generated databases or artwork.
 
-`game/.generated/content.json` records custom records and files. Full rebuild removes
-retired records/files, so deleting a declaration retires its output without
-touching stock inputs. Never hand-edit the inventory to claim a stock ID. Published
-species/items may still exist in player saves: retire them only as an explicit
-content decision. The manifest is written before generation so failed builds can
-be fixed and rerun; it is not a save schema or migration system.
+Removing a declaration removes its generated output on the next fresh build.
+Published species/items may still exist in player saves: retire them only as an
+explicit content decision. `game/.generated/content.json` describes generated
+ownership for verification; never edit it by hand.

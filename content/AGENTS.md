@@ -4,8 +4,7 @@ Read [structure and naming](../docs/architecture.md#authored-content) for owners
 and native path conventions. Pokémon: [pokemon/AGENTS.md](pokemon/AGENTS.md).
 Maps: [maps/AGENTS.md](maps/AGENTS.md). Sound: [audio/AGENTS.md](audio/AGENTS.md).
 Edit approved sources here; preview using the shared
-[asset workflow](../docs/development.md#asset-previews). Stage sources and generated
-outputs before `uv run check --all`. Pipeline changes use the
+[asset workflow](../docs/development.md#asset-previews). Stage source changes before `uv run check --all`. Pipeline changes use the
 [exporter guide](../tools/tidebound_dev/art/AGENTS.md).
 
 ## Actors, trainers and items
