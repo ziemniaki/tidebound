@@ -5,7 +5,7 @@ from PIL import Image
 from . import ownership
 from ..files import save_png
 from .pokemon import POKEMON, frames, cry_source
-from .files import copies, validate_image
+from .files import copies, validate_image, validate_audio
 
 
 def build(root):
@@ -13,6 +13,8 @@ def build(root):
     for destination, source in copies(root):
         if source.suffix.lower() == ".png":
             validate_image(source, destination)
+        else:
+            validate_audio(source)
         target = root / destination
         target.parent.mkdir(parents=True, exist_ok=True)
         if source.suffix.lower() == ".png":
@@ -26,6 +28,7 @@ def build(root):
             path.parent.mkdir(parents=True, exist_ok=True)
             save_png(image, path)
         source = cry_source(root, identifier, art)
+        validate_audio(source)
         target = root / f"game/Audio/SE/Cries/{identifier}.ogg"
         if source != target:
             shutil.copy2(source, target)

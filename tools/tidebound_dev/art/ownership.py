@@ -34,6 +34,22 @@ def inventory(root):
         register(name, "files")
     for name in MAP_OUTPUTS:
         register(f"game/{name}", "maps")
+    audio_stems = set()
+    for name in owners:
+        if not name.startswith("game/Audio/"):
+            continue
+        stem = str(PurePosixPath(name).with_suffix("")).casefold()
+        if stem in audio_stems:
+            raise ValueError(f"Ambiguous audio extensions: {name}")
+        audio_stems.add(stem)
+        for other in (root / name).parent.glob("*"):
+            relative = other.relative_to(root).as_posix()
+            if (
+                other.stem.casefold() == PurePosixPath(name).stem.casefold()
+                and relative != name
+                and relative not in recorded(root)
+            ):
+                raise ValueError(f"Audio shadows an existing asset: {name} / {relative}")
     # Recipes must read stock/source art, never last build's custom output.
     sources = [source for _, source in copies(root)]
     for identifier, art in pokemon.POKEMON.items():

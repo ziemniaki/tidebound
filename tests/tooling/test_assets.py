@@ -6,9 +6,17 @@ import unittest
 from PIL import Image
 from tidebound_dev.art.pokemon import PokemonArt, frames
 from tidebound_dev.files import save_png
+from tidebound_dev.art.files import validate_audio
 
 
 class AssetTests(unittest.TestCase):
+    def test_renaming_an_image_to_ogg_does_not_make_audio(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "sound.ogg"
+            Image.new("RGBA", (8, 8)).save(path, format="PNG")
+            with self.assertRaisesRegex(ValueError, "Ogg Vorbis"):
+                validate_audio(path)
+
     def test_bundle_preserves_alpha_and_requires_distinct_shiny_sources(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

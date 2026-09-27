@@ -114,7 +114,7 @@ dependencies. For the game specification PDF, run
 `uv run --group docs python -m tidebound_dev.documents.specification`; use `--output /path/to/preview.pdf`
 to render a preview. macOS/Windows use Times New Roman and Arial; Linux needs
 Liberation Serif and DejaVu Sans (`fonts-liberation` and `fonts-dejavu-core` on Ubuntu).
-Audio generation needs NumPy and ffmpeg. Rebuilding the Mac engine is separate from
+Approved audio files need no composer or encoder dependency. Rebuilding the Mac engine is separate from
 packaging: see [runtime provenance](runtime/macOS.md).
 
 Verified release candidates require a clean checkout and the procedure in

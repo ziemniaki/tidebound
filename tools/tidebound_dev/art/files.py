@@ -47,3 +47,26 @@ def validate_image(path, destination):
             raise ValueError(f"{path}: XP characters require a four-column, four-row sheet")
         if not image.convert("RGBA").getchannel("A").getbbox():
             raise ValueError(f"{path}: empty artwork")
+
+
+def validate_audio(path):
+    """Check container/codec headers, not musical quality or native decoding."""
+    if path.suffix == ".wav":
+        import wave
+
+        with wave.open(str(path), "rb") as audio:
+            if audio.getnchannels() not in (1, 2) or not audio.getnframes():
+                raise ValueError(f"{path}: expected nonempty mono/stereo PCM WAV")
+        return
+    with path.open("rb") as audio:
+        header = audio.read(27)
+        if len(header) != 27 or header[:5] != b"OggS\x00":
+            raise ValueError(f"{path}: expected Ogg Vorbis, not a renamed file")
+        audio.read(header[26])  # First page's lacing table.
+        identification = audio.read(30)
+        if (
+            len(identification) != 30
+            or identification[:7] != b"\x01vorbis"
+            or identification[11] not in (1, 2)
+        ):
+            raise ValueError(f"{path}: expected mono/stereo Ogg Vorbis")

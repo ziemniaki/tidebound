@@ -36,3 +36,6 @@ case collisions) and recipes reading generated outputs fail before export.
 Removing a declaration removes its former output on the next export; stock kit
 files are never swept. `check --all` clears declared custom exports in its isolated
 copy before rebuilding, so stale committed PNGs cannot hide a missing exporter.
+
+Approved custom audio lives in `assets/audio/<category>/` and exports byte-for-byte.
+The two ambient loops are approved sources; builds need no NumPy or ffmpeg.

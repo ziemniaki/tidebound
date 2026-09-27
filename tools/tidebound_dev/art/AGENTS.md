@@ -19,8 +19,8 @@ not convert the codec. Do not introduce WMA (unsupported by mkxp-z).
 
 ### Workflow
 
-1. Add the playable file with exact case, retaining editable source/recipe under
-   `assets/<sound-name>/` if applicable. Record external provenance in
+1. Add the approved playable file with exact case under `assets/audio/<category>/`.
+   Keep optional composition references outside the export directories. Record external provenance in
    `docs/credits.md`. Avoid duplicate stems with different extensions: resolution
    chooses an available file, not necessarily the newly added one.
 2. Wire playback into the owning scene. Pass `"Door close"`, not
@@ -34,17 +34,17 @@ not convert the codec. Do not introduce WMA (unsupported by mkxp-z).
    both metadata encodings. Editing the map/PBS output alone is overwritten.
 4. Cries use the base ID for form 0 (`SPECIES.ogg`), `_1` for form 1; missing form
    cries fall back to the base. Missing cries may produce silence rather than an
-   error. Check `POKEMON` in `art/pokemon.py` before replacing one: full rebuild
-   copies those aliases over their destinations.
-5. `uv run play` includes a directly added file. If changing generated map/content
+   error. Declare reuse in `art/pokemon.py::POKEMON`. For an original cry, set its cry
+   source to its own ID and add `assets/pokemon/<ID>/cry.ogg`.
+5. Run `uv run rebuild --all` after replacing an approved source. If changing generated map/content
    references, run `uv run rebuild --all`, then `uv run check --all`. Listen in the
    actual scene with normal and reduced player volume, including looping and
    battle/map transitions where applicable. Headless checks do not hear audio.
 
 `engine/audio.rb` caps only the two existing Tidebound loops; new tracks do not
 inherit that mix automatically. Choose their level by listening alongside them.
-The optional ambient generator `tidebound_dev.art.audio` replaces those two loops
-and is **not** part of full rebuild. It needs NumPy and ffmpeg; NumPy is not in the
-locked project dependencies. Adding a sound does not require running that generator.
+Approved custom audio lives under `assets/audio/<BGM|BGS|ME|SE>/`; export preserves
+its bytes under `game/Audio/`. Composition and encoding happen before approval,
+using the author's preferred tools. Builds do not synthesize or re-encode tracks.
 
 Engine methods and runtime support: [Essentials contracts](../../../docs/essentials-contracts.md).

@@ -41,8 +41,8 @@ uv run check          # headless gate; never regenerates tracked game data
 uv run check --all    # also regenerate in isolation and compare
 ```
 
-Full rebuild reproduces registered pixel exports; ambient audio production is
-optional. See the asset/audio guides. Stage new files before `check --all`: its input set comes
+Full rebuild reproduces custom asset exports from approved sources. See the
+asset/audio guides. Stage new files before `check --all`: its input set comes
 from `git ls-files`. Setup/editor details: [development](docs/development.md).
 
 Use a focused branch in `ziemniaki/tidebound`, never a fork. Independent agents

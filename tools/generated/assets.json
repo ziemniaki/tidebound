@@ -1,4 +1,6 @@
 {
+  "game/Audio/BGM/Tidebound Shore.ogg": "files",
+  "game/Audio/BGM/Tidebound Stillness.ogg": "files",
   "game/Audio/SE/Cries/ARBOK_1.ogg": "pokemon",
   "game/Audio/SE/Cries/EKANS_1.ogg": "pokemon",
   "game/Audio/SE/Cries/FROSTCOON.ogg": "pokemon",

@@ -15,7 +15,7 @@ the engine's expected directory structure intact inside `game/`.
 | Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
 | Species, items, trainers, encounters | `tools/tidebound_dev/content/`, item/encounter builders | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` |
 | Artwork | `assets/<species>/` inputs and `tools/tidebound_dev/art/` exporters | `game/Graphics/` |
-| Sound | `tools/tidebound_dev/art/audio.py`, existing attributed assets | `game/Audio/` |
+| Sound | `assets/audio/`, existing attributed stock assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
 Each `maps/areas/<map>.py` owns the complete layout, events and painting of one
