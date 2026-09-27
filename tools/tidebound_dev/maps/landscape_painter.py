@@ -67,26 +67,6 @@ class LandscapePalette:
         self._ground_tiles[edges] = tile_id
         return tile_id
 
-    def clear_nature(self, m):
-        for y in range(m.h):
-            for x in range(m.w):
-                v = m.layers[1][y][x]
-                row = (v - 384) // 8 if v >= 384 else -1
-                nature = (
-                    52 <= row <= 75
-                    or 108 <= row <= 110
-                    or (139 <= row <= 143 and (v - 384) % 8 < 4)
-                    or v in [240, tile(6, 0), tile(7, 3), tile(7, 0)]
-                )
-                if nature:
-                    m.layers[1][y][x] = 0
-                    # Restore old nature footprints only on real land, not water or borders.
-                    if m.layers[0][y][x] >= 384 and (m.id != 103 or 3 <= x <= 32 and 3 <= y <= 26):
-                        m.walk[y][x] = True
-        for _, x, y, _, blocks in m.targets:
-            if blocks:
-                m.walk[y][x] = False
-
     def grass_patch(self, p, cx, cy, rx, ry):
         m = p.m
         for y in range(max(0, cy - ry - 1), min(m.h, cy + ry + 2)):

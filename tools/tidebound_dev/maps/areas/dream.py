@@ -1,8 +1,8 @@
-from .registry import MAPS
+from ..registry import MAPS
 from PIL import Image, ImageDraw
 import json
 
-from .model import Map
+from ..model import Map
 
 
 def build(paths, interior):

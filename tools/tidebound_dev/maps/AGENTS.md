@@ -1,15 +1,15 @@
 # Map and event authoring
 
-These builders own maps 101–116. `compiler.construct` composes their areas and
-painters; `serialization.serialize` writes RPG Maker maps, metadata, masks and
+These builders own maps 101–116. Each `areas/<map>.py` owns its final layout, events and painting.
+`compiler.construct` assembles complete maps and exports shared atlases; `serialization.serialize` writes RPG Maker maps, metadata, masks and
 previews. `registry.py` exports map/actor identities and roles to Ruby. Read
 [src/AGENTS.md](../../../src/AGENTS.md) for the gameplay side of an event.
 
 ## Add a map
 
 1. Add a `MapDefinition` in `definitions.DEFINITIONS` with a distinct map ID,
-   symbolic name, arrivals and any non-default music/metadata/atmosphere. Add a builder
-   returning `Map` and wire it into `compiler.construct`'s returned list. Decorators
+   symbolic name, arrivals and any non-default music/metadata/atmosphere. Add `areas/<name>.py` with a builder
+   returning its complete `Map` and wire it into `compiler.construct`'s returned list. Painters
    share atlases: adding an interior also needs the appropriate `save_atlas` input.
    Pass the supplied `BuildPaths`; do not write into the checkout via a global root.
 2. Define entry/exit tiles; arrivals in the map definition drive reachability
@@ -60,8 +60,10 @@ previews. `registry.py` exports map/actor identities and roles to Ruby. Read
 - Presentation also reads these roles. `demo_prop` requires its picture `asset`;
   door/exit threshold hints use `cue="north|south|east|west"`. Add a role and its
   consumer together; unknown roles and missing required fields fail generation.
-  `Map.door` defaults to the south sill. Map painters that relocate an existing
-  actor must retain its identity/role; don't rediscover scene actors by label.
+  `Map.door` defaults to the south sill. Define actors at their final positions in their owning area. Do not append a
+  second pass that finds and rewrites existing events by display label.
+- Pass `direction`, `direction_fix` and `through` to `Map.event` when needed;
+  keep Marshal page attribute access inside the map model.
 - A charset is a four-column/four-row XP sheet, not a Pokémon party icon strip.
   Event pages select from the last matching page; later pages can override earlier
   collision/movement settings. Validation inspects every page. `Map.door` records

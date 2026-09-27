@@ -460,6 +460,9 @@ class Map:
         move=0,
         blocks=False,
         *,
+        direction=2,
+        direction_fix=False,
+        through=None,
         role="",
         species="",
         state="",
@@ -501,13 +504,18 @@ class Map:
         )
         if info:
             self.actor_settings[eid] = info
+        event_page = page(code, charset, trigger, opacity, move)
+        event_page.attributes["@graphic"].attributes["@direction"] = direction
+        event_page.attributes["@direction_fix"] = direction_fix
+        if through is not None:
+            event_page.attributes["@through"] = through
         self.events[eid] = obj(
             "RPG::Event",
             id=eid,
             name=name,
             x=x,
             y=y,
-            pages=[page(code, charset, trigger, opacity, move)],
+            pages=[event_page],
         )
         if blocks:
             self.walk[y][x] = False

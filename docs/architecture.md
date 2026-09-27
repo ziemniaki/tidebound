@@ -18,16 +18,11 @@ the engine's expected directory structure intact inside `game/`.
 | Sound | `tools/tidebound_dev/art/audio.py`, existing attributed assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
-Map builders return independent in-memory areas. `maps/compiler.py` declares
-composition explicitly: base areas, connections, landscape, interiors and harbor/
-pond decoration. Painters own their tile atlases and caches; area modules receive
-only the maps and painters they use. Imports never load or write game assets. Interaction targets are derived from
-current event records; painters do not maintain a second position list.
-Full rebuild writes maps, content, art and scripts directly in dependency order,
-then validates the complete game. A failure can leave partial generated outputs;
-fix the error and rerun before playing. Git holds the previous tracked versions.
-`check --all` runs the same plan in a disposable copy and compares outputs without
-changing the checkout.
+Each `maps/areas/<map>.py` owns the complete layout, events and painting of one
+map. `maps/compiler.py` assembles them and publishes shared atlases; painters
+provide reusable primitives without reaching into other areas. Events are defined
+at their final positions with their final scripts, preserving existing IDs.
+`maps/serialization.py` writes native data, collision masks and previews.
 
 ## Python operations
 
