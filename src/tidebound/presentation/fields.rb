@@ -70,10 +70,7 @@ class TideboundBerryVisual < Tidebound::Presentation::OwnedSprite
   end
   def update
     super
-    x = @event.x
-    y = @event.y
-    x -= 24
-    y -= 20 if @map_id == 102
+    x, y = Tidebound::World.local_xy(@map_id, @event.x, @event.y)
     stamp = (Tidebound.state.story[:berry_picks] || {})[[@map_id, x, y]]
     ripe = !stamp || Time.now.to_i - stamp >= Tidebound::FieldDetails::BERRY_SECONDS
     return if ripe == @last_ripe

@@ -128,9 +128,8 @@ module Tidebound
       return unless $game_map.map_id == 102
       return unless Followers.get(POOKIE_FOLLOWER)
       Tidebound.story[:walk_steps] = [Tidebound.story[:walk_steps].to_i + 1, WALK_LENGTH].min
-      if !Tidebound.story[:walk_pier_seen] &&
-           (34..38).include?($game_player.x - World::COAST_OFFSET[0]) &&
-           (19..21).include?($game_player.y - World::COAST_OFFSET[1])
+      x, y = World.local_xy($game_map.map_id, $game_player.x, $game_player.y)
+      if !Tidebound.story[:walk_pier_seen] && (34..38).include?(x) && (19..21).include?(y)
         Tidebound.story[:walk_pier_pending] = true
       end
     end

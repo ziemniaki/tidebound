@@ -405,6 +405,36 @@ class Map:
         self.transfers = []
         self.actor_settings = {}
 
+    def absolute(self, x, y):
+        """Convert authored local coordinates; drawing and event APIs are absolute."""
+        ox, oy = definitions.BY_ID[self.id].origin
+        return x + ox, y + oy
+
+    def polygon(self, points, t, walk=True):
+        im = Image.new("1", (self.w, self.h))
+        ImageDraw.Draw(im).polygon(points, fill=1)
+        for yy in range(self.h):
+            for xx in range(self.w):
+                if im.getpixel((xx, yy)):
+                    self.layers[0][yy][xx] = t
+                    self.walk[yy][xx] = walk
+
+    def path(self, x, y, w, h, stone=False):
+        base = 26 if stone else 12
+        for yy in range(h):
+            for xx in range(w):
+                self.rect(
+                    x + xx,
+                    y + yy,
+                    1,
+                    1,
+                    tile(
+                        1 if xx == 0 else 3 if xx == w - 1 else 2,
+                        base + (0 if yy == 0 else 2 if yy == h - 1 else 1),
+                    ),
+                    walk=True,
+                )
+
     def rect(self, x, y, w, h, t, z=0, walk=None):
         for yy in range(y, y + h):
             for xx in range(x, x + w):
@@ -500,7 +530,7 @@ class Map:
         ]
 
     def door(self, x, y, destination, dx, dy, d=2, name="Door", *, cue="south"):
-        """Source uses this area's coordinates; destinations are always absolute."""
+        """Source and destination coordinates are absolute."""
         destination = MAPS[destination] if isinstance(destination, str) else destination
         transfer = Transfer(destination, dx, dy, d)
         eid = self.event(name, x, y, transfer.script(), trigger=1, cue=cue)
@@ -595,44 +625,3 @@ class Map:
             )
         return canvas.convert("RGB")
 
-
-class CoastMap(Map):
-    OX, OY = 24, 20
-
-    def rect(self, x, y, *args, **kw):
-        super().rect(x + self.OX, y + self.OY, *args, **kw)
-
-    def stamp(self, sx, sy, w, h, x, y, **kw):
-        super().stamp(sx, sy, w, h, x + self.OX, y + self.OY, **kw)
-
-    def event(self, name, x, y, *args, **kw):
-        return super().event(name, x + self.OX, y + self.OY, *args, **kw)
-
-    def polygon(self, points, t, walk=True):
-        im = Image.new("1", (self.w, self.h))
-        ImageDraw.Draw(im).polygon([(x + self.OX, y + self.OY) for x, y in points], fill=1)
-        for yy in range(self.h):
-            for xx in range(self.w):
-                if im.getpixel((xx, yy)):
-                    self.layers[0][yy][xx] = t
-                    self.walk[yy][xx] = walk
-
-    def path(self, x, y, w, h, stone=False):
-        base = 26 if stone else 12
-        for yy in range(h):
-            for xx in range(w):
-                self.rect(
-                    x + xx,
-                    y + yy,
-                    1,
-                    1,
-                    tile(
-                        1 if xx == 0 else 3 if xx == w - 1 else 2,
-                        base + (0 if yy == 0 else 2 if yy == h - 1 else 1),
-                    ),
-                    walk=True,
-                )
-
-
-class RoadMap(CoastMap):
-    OX, OY = 0, 0

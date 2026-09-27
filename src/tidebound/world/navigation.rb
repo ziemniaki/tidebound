@@ -1,6 +1,5 @@
 # Shared engine operations. Features own their story transitions.
 module Tidebound::World
-  COAST_OFFSET = [24, 20].freeze
   class << self
     attr_accessor :coast_camera_target
   end
@@ -42,8 +41,13 @@ module Tidebound::World
     event.through = previous_through
   end
 
+  def local_xy(map_id, x, y)
+    ox, oy = MAP_SETTINGS.fetch(map_id).fetch(:origin)
+    [x - ox, y - oy]
+  end
   def coast_xy(x, y)
-    [x + COAST_OFFSET[0], y + COAST_OFFSET[1]]
+    ox, oy = MAP_SETTINGS.fetch(MAPS.fetch(:coast)).fetch(:origin)
+    [x + ox, y + oy]
   end
   def travel_coast(x, y, direction = 2)
     travel(:coast, *coast_xy(x, y), direction)

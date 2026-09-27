@@ -23,6 +23,7 @@ class MapDefinition:
     environment: str = "None"
     outdoor: bool = False
     night: bool = True
+    origin: tuple[int, int] = (0, 0)
 
     def __post_init__(self):
         if not self.arrivals:
@@ -60,13 +61,13 @@ class MapDefinition:
         }
 
     def runtime_settings(self):
-        return {**ATMOSPHERES[self.atmosphere], "night": self.night}
+        return {**ATMOSPHERES[self.atmosphere], "night": self.night, "origin": self.origin}
 
 
 DEFINITIONS = {
     "home": MapDefinition(101, ((6, 10), (10, 12), (16, 4), (6, 4))),
     "coast": MapDefinition(
-        102, ((32, 36), (48, 25), (45, 32), (77, 40)), "night", "Tidebound Shore"
+        102, ((32, 36), (48, 25), (45, 32), (77, 40)), "night", "Tidebound Shore", origin=(24, 20)
     ),
     "forest": MapDefinition(103, ((17, 25), (11, 22)), "night", environment="Forest"),
     "lantern": MapDefinition(104, ((6, 9),)),

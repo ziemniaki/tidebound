@@ -21,9 +21,9 @@ class TransferTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Blocked"):
             Transfer(101, 0, 0).validate({"101": ["0"]})
 
-    def test_coast_source_is_local_and_destination_is_absolute(self):
-        area = model.CoastMap(102, "Coast", 108, 88, 1)
-        eid = area.door(8, 16, "home", 10, 13)
+    def test_explicit_coast_conversion_leaves_destination_absolute(self):
+        area = model.Map(102, "Coast", 108, 88, 1)
+        eid = area.door(*area.absolute(8, 16), "home", 10, 13)
         event = area.events[eid].attributes
         self.assertEqual((event["@x"], event["@y"]), (32, 36))
         self.assertEqual(
