@@ -11,6 +11,11 @@ Controls: arrows to move; Return to interact/confirm; Esc or X for menu/back.
 Fn-F1 opens key bindings on keyboards that reserve F1 for brightness.
 Save through the in-game menu.
 
+Resize the window to enlarge the whole game, including menus and text.
+The picture keeps its proportions; wider or taller windows have black bars.
+Whole-number scales stay crisp; intermediate sizes use light smoothing.
+Options > Screen Size offers presets and Full; Option+Return toggles fullscreen.
+
 Saves live outside the app:
 ~/Library/Application Support/Tidebound_Opening_0_2/
 Replacing the app leaves this folder intact. Back up an existing save before

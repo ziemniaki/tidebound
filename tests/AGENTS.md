@@ -56,7 +56,10 @@ Use [releasing](../docs/releasing.md) for packaging and platform commands. Each
 launcher accepts `--scenario runtime|world|species|all` (default `all`). Use a
 package from the same checkout as its PBS and test sources.
 
-- `runtime` checks initialization, a real save roundtrip and a rendered font/sprite.
+- `runtime` checks initialization, a real save roundtrip, a rendered font/sprite
+  and resizing at small, large, wide and tall window sizes while preserving the
+  logical game canvas. Desktop checks must still verify the final scaled image
+  and fullscreen transitions.
 - `world` uses [declared starts](../docs/development.md#playtest-scenarios) to capture
   home, coast, forest, lighthouse, vault, docks and pond. It checks companion/item/
   quest continuity, stale-map refresh, state before map callbacks and interrupted

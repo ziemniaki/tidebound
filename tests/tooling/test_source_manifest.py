@@ -48,6 +48,7 @@ class EnginePatchTests(unittest.TestCase):
                 "Main": "return Scene_Intro.new",
                 "Battler_ChangeSelf": '"{1} fainted!"',
                 "Overworld": '"{1} fainted..."',
+                "MKXP_Compatibility": "if !$ResizeInitialized\nend",
             }.items()
         ]
 

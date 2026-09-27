@@ -142,6 +142,7 @@ class CommandChecks(unittest.TestCase):
                     entry("Settings", 'GAME_VERSION = "0.0.0"\nTIME_SHADING = true'),
                     entry("Battler_ChangeSelf", '"{1} fainted!"'),
                     entry("Overworld", '"{1} fainted..."'),
+                    entry("MKXP_Compatibility", "if !$ResizeInitialized\nend"),
                     entry("Main", "return Scene_Intro.new"),
                 ]
             )
