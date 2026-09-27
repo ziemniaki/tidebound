@@ -2,7 +2,6 @@
 
 from pathlib import Path
 import argparse
-import hashlib
 import os
 import platform
 import shutil
@@ -17,27 +16,6 @@ from tidebound_dev.paths import ROOT
 def run(*args, cwd=ROOT):
     print("+ " + " ".join(map(str, args)), flush=True)
     subprocess.run(list(map(str, args)), cwd=cwd, check=True)
-
-
-def test_dependencies():
-    node, npm = shutil.which("node"), shutil.which("npm")
-    wanted = (ROOT / ".node-version").read_text().strip()
-    if not node or not npm:
-        raise ValueError(
-            f"Checks need Node.js {wanted}. Install it, then rerun this command. See docs/development.md."
-        )
-    actual = subprocess.check_output([node, "--version"], text=True).strip().lstrip("v")
-    if actual != wanted:
-        raise ValueError(f"Checks need Node.js {wanted}; found {actual}. See docs/development.md.")
-    lock = hashlib.sha256((ROOT / "tests/package-lock.json").read_bytes()).hexdigest()
-    stamp = ROOT / "tests/node_modules/.tidebound-lock"
-    if (
-        not stamp.exists()
-        or stamp.read_text() != lock
-        or not (stamp.parent / "@ruby/3.2-wasm-wasi/dist/ruby.wasm").is_file()
-    ):
-        run(npm, "ci", "--prefix", ROOT / "tests", "--ignore-scripts")
-        stamp.write_text(lock)
 
 
 def host_platform():
@@ -57,7 +35,8 @@ def development_build(target):
 
     rebuild(ROOT)
 
-    from .packaging.pipeline import build, DEV_SAVES
+    from .packaging.pipeline import build
+    from .runtime.config import DEV_SAVES
 
     output = ROOT / ".build/dev" / (time.strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
     launcher = build(target, output, allow_dirty=True, development=True)
@@ -71,7 +50,8 @@ def open_editor():
             "RPG Maker XP requires Windows. Use uv run play for native Mac/Linux playtesting."
         )
 
-    from tidebound_dev.release.metadata import load_release, sha256
+    from tidebound_dev.release.metadata import load_release
+    from tidebound_dev.files import sha256
     from tidebound_dev.runtime.inputs import windows_runtime, unpack_pinned
 
     config = load_release()
@@ -87,40 +67,45 @@ def open_editor():
     os.startfile(ROOT / "game/Game.rxproj")
 
 
-def dispatch(command, argv):
-    parser = argparse.ArgumentParser(prog="uv run " + command)
-    if command in ("build", "play"):
-        if command == "build":
-            parser.add_argument(
-                "--platform", choices=("mac", "windows", "linux"), help="Defaults to this computer"
-            )
-    elif command == "package":
-        parser.add_argument("platform", choices=("mac", "windows", "linux"))
-        parser.add_argument("output", type=Path)
-        parser.add_argument("--allow-dirty", action="store_true")
-    elif command in ("check", "rebuild"):
-        parser.add_argument(
-            "--all",
-            action="store_true",
-            help="Also regenerate maps/data"
-            if command == "rebuild"
-            else "Also verify isolated regeneration",
-        )
-    args = parser.parse_args(argv)
-    if command in ("build", "play"):
+def parser():
+    cli = argparse.ArgumentParser(prog="tidebound", description=__doc__)
+    commands = cli.add_subparsers(dest="command", required=True)
+    build = commands.add_parser("build", help="Stage a development player")
+    build.add_argument(
+        "--platform", choices=("mac", "windows", "linux"), help="Defaults to this computer"
+    )
+    commands.add_parser("play", help="Build and launch a development player")
+    for name, help in (
+        ("check", "Also verify isolated regeneration"),
+        ("rebuild", "Also regenerate maps, content and artwork"),
+    ):
+        command = commands.add_parser(name)
+        command.add_argument("--all", action="store_true", help=help)
+    package = commands.add_parser("package", help="Package one native player")
+    package.add_argument("platform", choices=("mac", "windows", "linux"))
+    package.add_argument("output", type=Path)
+    package.add_argument("--allow-dirty", action="store_true")
+    formatting = commands.add_parser("format", help="Format Python and Ruby")
+    formatting.add_argument("--check", action="store_true")
+    commands.add_parser("doctor", help="Show local development prerequisites")
+    commands.add_parser("editor", help="Restore and open the RPG Maker XP project")
+    return cli
+
+
+def execute(args):
+    if args.command in ("build", "play"):
         target = getattr(args, "platform", None) or host_platform()
         launcher = development_build(target)
-        if command == "play":
+        if args.command == "play":
             if target == "mac":
                 run("open", "-n", "-W", launcher)
             else:
                 run(launcher, cwd=launcher.parent)
-    elif command == "package":
+    elif args.command == "package":
         from .packaging.pipeline import build
 
         build(args.platform, args.output, allow_dirty=args.allow_dirty)
-    elif command == "check":
-        test_dependencies()
+    elif args.command == "check":
         from .checks.verify import main as verify
 
         verify(ROOT)
@@ -128,11 +113,11 @@ def dispatch(command, argv):
             from .checks.rebuild import main as check_rebuild
 
             check_rebuild(ROOT)
-    elif command == "rebuild":
+    elif args.command == "rebuild":
         from .pipeline import rebuild
 
         rebuild(ROOT, full=args.all)
-    elif command == "doctor":
+    elif args.command == "doctor":
         print("Checkout:", ROOT)
         print("Python:", platform.python_version())
         print("Native player:", host_platform())
@@ -145,48 +130,50 @@ def dispatch(command, argv):
             print(name + ":", shutil.which(name) or "not installed")
         print("Checks require Node:", (ROOT / ".node-version").read_text().strip())
         print("Development guide: docs/development.md")
-    elif command == "editor":
+    elif args.command == "editor":
         open_editor()
+    elif args.command == "format":
+        from .formatting import format_sources
+
+        format_sources(check=args.check)
 
 
-def entry(command):
+def main(argv=None):
+    args = parser().parse_args(argv)
     try:
-        dispatch(command, sys.argv[1:])
+        execute(args)
     except (ValueError, OSError) as error:
         raise SystemExit(str(error)) from None
     except subprocess.CalledProcessError as error:
         raise SystemExit(error.returncode) from None
 
 
+# uv aliases use the same parser and operations as `tidebound <command>`.
+
+
 def build():
-    entry("build")
+    main(["build", *sys.argv[1:]])
 
 
 def play():
-    entry("play")
+    main(["play", *sys.argv[1:]])
 
 
 def check():
-    entry("check")
+    main(["check", *sys.argv[1:]])
 
 
 def rebuild():
-    entry("rebuild")
+    main(["rebuild", *sys.argv[1:]])
 
 
 def doctor():
-    entry("doctor")
+    main(["doctor", *sys.argv[1:]])
 
 
 def editor():
-    entry("editor")
+    main(["editor", *sys.argv[1:]])
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "command", choices=("build", "play", "check", "rebuild", "doctor", "editor", "package")
-    )
-    args, rest = parser.parse_known_args()
-    sys.argv = [sys.argv[0], *rest]
-    entry(args.command)
+def format():
+    main(["format", *sys.argv[1:]])

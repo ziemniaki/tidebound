@@ -17,7 +17,7 @@ check = "tidebound_dev.cli:check"
 rebuild = "tidebound_dev.cli:rebuild"
 doctor = "tidebound_dev.cli:doctor"
 editor = "tidebound_dev.cli:editor"
-format = "tidebound_dev.formatting:main"
+format = "tidebound_dev.cli:format"
 
 [build-system]
 requires = ["uv_build==0.12.1"]

@@ -20,7 +20,10 @@ outputs. Binary game data must match byte-for-byte; PNGs must have identical
 decoded RGBA pixels. It never runs generators in your checkout. Stage newly
 added build sources before running it so they are included in the tracked copy.
 
-On a Mac with Xcode command-line tools installed:
+On a Mac with Xcode command-line tools installed, run `uv run check --all` before
+packaging. The candidate command checks inputs, signatures, provenance and ZIP
+roundtrips; it does not rerun tests or regeneration. CI runs those once in its
+required verification job before packaging:
 
 ```sh
 uv run python -m tidebound_dev.release.candidates ../candidate
@@ -132,8 +135,8 @@ source gate also compiles and tests the actual patched path-normalization helper
 
 Packaging occurs inside a temporary sibling directory. The output directory
 appears only after all package checks pass; failed attempts clean up their staging
-files. Existing output paths are rejected. This protects packaging transactions;
-the older individual generators still modify files in place when invoked directly.
+files. Existing output paths are rejected. This protects packaging transactions. Use `uv run rebuild --all` for staged
+content generation; low-level generators operate on the root supplied by their caller.
 
 ## Pull requests and tags
 

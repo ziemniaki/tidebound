@@ -4,6 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 import zlib
+import json
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from tests.native.native_fixture import prepare
@@ -44,7 +45,7 @@ class NativeFixtureTests(unittest.TestCase):
             self.assertTrue((game / "NativePBS/pokemon.txt").is_file())
             self.assertIn("species", loads((game / "NativeContent.rxdata").read_bytes()))
             self.assertIn(b"TIDEBOUND_NATIVE_SCENARIO = :all", zlib.decompress(actual[1][2]))
-            self.assertIn('"fontHeightReporting":1', (game / "mkxp.json").read_text())
+            self.assertEqual(json.loads((game / "mkxp.json").read_text())["fontHeightReporting"], 1)
 
     def test_player_namespace_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "unique test namespace"):

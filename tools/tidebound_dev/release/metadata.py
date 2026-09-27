@@ -1,21 +1,14 @@
 """Shared, fail-closed release metadata and source checks."""
 
 from pathlib import Path
-import hashlib
 import json
 import re
 import subprocess
 
 from tidebound_dev.scripts.archive import validate_archive
-
 from tidebound_dev.paths import ROOT
-
-SAVE_DIRECTORY = "Tidebound_Opening_0_2"
-
-
-def sha256(path):
-    with path.open("rb") as stream:
-        return hashlib.file_digest(stream, "sha256").hexdigest()
+from tidebound_dev.files import sha256
+from tidebound_dev.runtime.config import SAVE_DIRECTORY, parse_runtime_config
 
 
 def load_release(root=ROOT):
@@ -30,30 +23,6 @@ def load_release(root=ROOT):
         path = Path(config[key])
         if path.is_absolute() or ".." in path.parts:
             raise ValueError(f"Unsafe runtime path: {path}")
-    return config
-
-
-def parse_runtime_config(text):
-    """Parse mkxp JSON comments without treating quoted URLs as comments."""
-    tokens = r'"(?:\\.|[^"\\])*"|//[^\r\n]*|/\*[\s\S]*?\*/'
-    text = re.sub(tokens, lambda m: m[0] if m[0].startswith('"') else " ", text)
-    # mkxp accepts trailing commas as well as comments. Skip quoted strings so
-    # literal comma/brace text in paths or window titles is never rewritten.
-    text = re.sub(
-        r'"(?:\\.|[^"\\])*"|,\s*(?=[}\]])', lambda m: m[0] if m[0].startswith('"') else "", text
-    )
-
-    def unique(pairs):
-        result = {}
-        for key, value in pairs:
-            if key in result:
-                raise ValueError(f"Duplicate runtime configuration key: {key}")
-            result[key] = value
-        return result
-
-    config = json.loads(text, object_pairs_hook=unique)
-    if not isinstance(config, dict):
-        raise ValueError("Expected a runtime configuration object")
     return config
 
 

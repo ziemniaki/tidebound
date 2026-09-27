@@ -2,7 +2,7 @@
 
 import struct
 
-from tidebound_dev.release.metadata import sha256
+from tidebound_dev.files import sha256
 from tidebound_dev.runtime.inputs import windows_runtime
 from .archives import copy_verified
 from .model import Player

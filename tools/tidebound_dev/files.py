@@ -1,6 +1,12 @@
 """Content comparison for generated output, independent of PNG encoding."""
 
+import hashlib
 from PIL import Image
+
+
+def sha256(path):
+    with path.open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
 def equivalent(before, after):

@@ -7,7 +7,7 @@ import zlib
 
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-from tidebound_dev.release.metadata import parse_runtime_config
+from tidebound_dev.runtime.config import isolated_saves
 from tidebound_dev.content.verification import inventory
 
 SCENARIOS = ("runtime", "world", "species", "all")
@@ -19,15 +19,7 @@ def prepare(game, namespace, scenario="all"):
     if not re.fullmatch(r"Tidebound_Build_Smoke_[a-f0-9]{32}", namespace):
         raise ValueError("Native fixtures require a unique test namespace")
     config = game / "mkxp.json"
-    text, count = re.subn(
-        r'"dataPathApp"\s*:\s*"[^"]+"',
-        '"dataPathApp": "' + namespace + '"',
-        config.read_text(encoding="utf-8"),
-    )
-    if count != 1:
-        raise ValueError("Expected exactly one save namespace setting before launch")
-    if parse_runtime_config(text).get("dataPathApp") != namespace:
-        raise ValueError("Save namespace was not isolated before launch")
+    text = isolated_saves(config.read_text(encoding="utf-8"), namespace)
     scripts = game / "Data/Scripts.rxdata"
     entries = loads(scripts.read_bytes())
     main = [entry for entry in entries if entry[1] == "Main"]

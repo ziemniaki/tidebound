@@ -92,7 +92,8 @@ editing a game PNG: generated destinations are replaced by their exporter.
 ## Less common work
 
 Reusable tools live in the installed `tidebound_dev` package. The everyday commands
-call the same operations as CI; `pipeline.py` owns the full rebuild sequence.
+call the same operations as CI; `pipeline.py` owns the full rebuild sequence. Short aliases such as `uv run format`
+and `uv run tidebound format` use the same options and implementation.
 Run a diagnostic module with `uv run python -m tidebound_dev.<module>` or a
 focused test with `uv run python -m unittest tests.tooling.test_generation -v`
 (see [testing](testing.md) for suite boundaries). Optional audio/PDF regeneration has separate

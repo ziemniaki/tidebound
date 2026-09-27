@@ -6,7 +6,9 @@ import subprocess
 import tempfile
 import tarfile
 
-from tidebound_dev.release.metadata import ROOT, load_release, sha256
+from tidebound_dev.paths import ROOT
+from tidebound_dev.release.metadata import load_release
+from tidebound_dev.files import sha256
 
 
 def test(source):

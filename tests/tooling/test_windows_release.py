@@ -11,7 +11,7 @@ from tidebound_dev.packaging.windows import RUNTIME_FILES, inspect_runtime
 from tidebound_dev.packaging.pipeline import build as package
 
 build = partial(package, "windows")
-from tidebound_dev.release.metadata import sha256
+from tidebound_dev.files import sha256
 from tidebound_dev.release.artifacts import verify
 from tests.native.smoke_report import read_report
 

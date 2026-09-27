@@ -3,8 +3,9 @@ import json
 import tempfile
 import unittest
 
-from tidebound_dev.release.refresh_draft import validate_candidate, validate_draft
-from tidebound_dev.release.metadata import sha256
+from tidebound_dev.release.artifacts import validate_candidate
+from tidebound_dev.release.refresh_draft import validate_draft
+from tidebound_dev.files import sha256
 
 
 class DraftRefreshTests(unittest.TestCase):

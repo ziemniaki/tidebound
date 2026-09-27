@@ -4,7 +4,7 @@ from pathlib import Path
 import struct
 import tempfile
 
-from tidebound_dev.release.metadata import sha256
+from tidebound_dev.files import sha256
 from .archives import copy_verified, extract_bundle
 from .model import Player
 
