@@ -8,7 +8,7 @@ import tempfile
 
 from tidebound_dev.paths import ROOT
 from tidebound_dev.files import equivalent
-from tidebound_dev.pipeline import rebuild
+from tidebound_dev.pipeline import generate
 
 
 def main(root=ROOT):
@@ -23,7 +23,7 @@ def main(root=ROOT):
             dest = stage / name
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root / name, dest)
-        rebuild(stage, full=True)
+        generate(stage)
         differences = [name for name in tracked if not equivalent(root / name, stage / name)]
         generated = {
             p.relative_to(stage).as_posix()
