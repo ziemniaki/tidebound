@@ -68,7 +68,8 @@ def build_trainers(game):
             }
         )
         types[Symbol(ident)] = data
-        text += f"\n#-------------------------------\n[{ident}]\nName = {name}\nGender = Male\nBaseMoney = 0\nSkillLevel = 0\nBattleBGM = stillness\nVictoryBGM = stillness\n"
+        gender = ("Male", "Female", "Unknown")[data.attributes["@gender"]]
+        text += f"\n#-------------------------------\n[{ident}]\nName = {name}\nGender = {gender}\nBaseMoney = 0\nSkillLevel = 0\nBattleBGM = stillness\nVictoryBGM = stillness\n"
     (game / "PBS/trainer_types_tidebound_story.txt").write_text(text, encoding="utf-8-sig")
     (game / "Data/trainer_types.dat").write_bytes(writes(types))
 
