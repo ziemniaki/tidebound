@@ -1,5 +1,6 @@
-# Tidebound 0.8.9
+# Tidebound 0.8.10
 
-- Existing saves now load updated maps after a game update.
-- Interrupted scenes restore character movement, visibility and camera position.
-- Fixed handling of losses and draws in grass encounters.
+Window resizing now keeps pixel art crisp at whole-number scales and smoother at intermediate sizes.
+
+- The game scales proportionally to the window, keeping menus and text in view.
+- Fixed oversized furniture collision and blocked floor tiles left behind by moved characters.
