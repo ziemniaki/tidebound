@@ -76,13 +76,13 @@ check(Tidebound.state.checkpoint == [103, 11, 22, 8], "checkpoint")
 Tidebound.state.enter_astral!($player.party, { map_id: 103 })
 $player.party.clear
 $game_map.map_id = 105
-o.astral_arrival
-o.astral_arrival
+Tidebound::Astral.arrival
+Tidebound::Astral.arrival
 check($player.party.size == 1 && Tidebound.borrowed?($player.party.first), "guide duplication")
 roundtrip
 check(Tidebound.state.waiting_ids.size == 1, "saved soul")
 $choices = [true]
-o.return_from_astral
+Tidebound::Astral.leave
 check($game_map.map_id == 103 && Tidebound.state.memorials.size == 1, "return/loss")
 o.house_pet(:POOCHYENA)
 check($player.party.size == 1, "replacement starter after death")

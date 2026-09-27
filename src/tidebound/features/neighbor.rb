@@ -5,19 +5,24 @@ module Tidebound
     PLATE = :TIDEBOUNDPLATE
     NECKLACE = :TIDEBOUNDNECKLACE
     ROSTERS = {
-      first: [:TBLOCALYOUTH, "Toma", "I wasn't even trying!", [[:RATTATA, 5, %i[TACKLE TAILWHIP]]]],
-      runner: [
-        :TBABYSSRUNNER,
-        "Bram",
-        "This is coming out of somebody's share.",
-        [[:ZIGZAGOON, 6, %i[TACKLE GROWL]]]
-      ],
-      second: [
-        :TBLOCALYOUTH2,
-        "Ivo",
-        "These pearls aren't even worth this!",
-        [[:POOCHYENA, 7, %i[TACKLE HOWL SANDATTACK]]]
-      ]
+      first: {
+        type: :TBLOCALYOUTH,
+        name: "Toma",
+        loss: "I wasn't even trying!",
+        team: [[:RATTATA, 5, %i[TACKLE TAILWHIP]]]
+      },
+      runner: {
+        type: :TBABYSSRUNNER,
+        name: "Bram",
+        loss: "This is coming out of somebody's share.",
+        team: [[:ZIGZAGOON, 6, %i[TACKLE GROWL]]]
+      },
+      second: {
+        type: :TBLOCALYOUTH2,
+        name: "Ivo",
+        loss: "These pearls aren't even worth this!",
+        team: [[:POOCHYENA, 7, %i[TACKLE HOWL SANDATTACK]]]
+      }
     }.freeze
     WILDS = { shorebird: [:NATU, 4], shoreforager: [:ZIGZAGOON, 4] }.freeze
     class << self
@@ -242,12 +247,7 @@ module Tidebound
     end
     def battle(id)
       return 0 unless Tidebound::Encounters.able?
-      outcome = Tidebound.trainer!(Tidebound::Encounters.trainer(*ROSTERS.fetch(id)))
-      if outcome == :astral
-        say("The sound of the world draws away.")
-        Tidebound::World.travel(:astral, 15, 21, 8)
-      end
-      outcome
+      Tidebound::Encounters.trainer(**ROSTERS.fetch(id))
     end
     def first_thief
       return if stage != :pursuit || q[:first_won]

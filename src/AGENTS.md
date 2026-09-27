@@ -39,8 +39,10 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
 - Battles: use `Encounters.able?` before starting an interaction and the Tidebound
   battle adapters. Core outcomes are integers: 0 aborted, 1 won, 2 lost, 3 fled,
   4 caught, 5 draw. Ruby treats all of them as truthy. Only `== 1` advances trainer
-  victory. `Encounters.fight` handles `:astral` transfer for wilds; callers of
-  `Tidebound.trainer!` must handle it themselves. Stop the living scene after transfer.
+  victory. `Encounters.fight` and `Encounters.trainer` handle `:astral` transfers.
+  Trainer definitions use named type/name/loss/team fields. Stop the living scene
+  after transfer; only victory grants quest progress. `features/astral.rb` owns
+  recurring guide/recovery/return interactions.
 - Essentials heals loss/draw parties during `after_battle` when `canLose` is set.
   Tidebound snapshots **before** that cleanup. Moving recovery to `on_end_battle`
   loses the pre-heal state. Spirit capture restores the original companion;

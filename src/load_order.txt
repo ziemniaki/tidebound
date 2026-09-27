@@ -7,6 +7,7 @@ tidebound/world/navigation.rb
 tidebound/world/atmosphere.rb
 tidebound/engine/encounters.rb
 tidebound/features/opening.rb
+tidebound/features/astral.rb
 tidebound/presentation/sprites.rb
 tidebound/features/actors.rb
 tidebound/presentation/title.rb

@@ -452,17 +452,17 @@ def build_astral():
             f"Spirit:{i}",
             x,
             y,
-            f"Tidebound::Opening.spirit({i})",
+            f"Tidebound::Astral.spirit({i})",
             "Pokemon 01",
             opacity=0,
             move=1,
             role="spirit",
             index=i,
         )
-    astral.event("Guide", 15, 20, "Tidebound::Opening.guide", "NPC 01", opacity=120)
-    astral.event("Return", 15, 22, "Tidebound::Opening.return_from_astral", trigger=1, role="lamp")
-    astral.event("Ashes", 5, 12, "Tidebound::Opening.memorial", role="lamp")
-    astral.event("Arrival", 3, 22, "Tidebound::Opening.astral_arrival", trigger=3)
+    astral.event("Guide", 15, 20, "Tidebound::Astral.guide", "NPC 01", opacity=120)
+    astral.event("Return", 15, 22, "Tidebound::Astral.leave", trigger=1, role="lamp")
+    astral.event("Ashes", 5, 12, "Tidebound::Astral.memorial", role="lamp")
+    astral.event("Arrival", 3, 22, "Tidebound::Astral.arrival", trigger=3)
 
     return astral
 

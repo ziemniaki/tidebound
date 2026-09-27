@@ -65,18 +65,19 @@ module Tidebound::DemoLaunch
     say(*TALKS.fetch(id))
   end
   BATTLES = {
-    nell: [
-      "Nell",
-      [[:WINGULL, 8], [:WOOPER, 9]],
-      "Sailor Nell: I'm off watch. One friendly challenge, if you and your companions are ready?",
-      "Steady hands. I could learn from you."
-    ],
-    oren: [
-      "Oren",
-      [[:POLIWAG, 10], [:KRABBY, 11]],
-      "Sailor Oren: We practise here before a long crossing. Care to join us for a battle?",
-      "A good lesson. Let's both remember it."
-    ]
+    nell: {
+      name: "Nell",
+      team: [[:WINGULL, 8], [:WOOPER, 9]],
+      invite:
+        "Sailor Nell: I'm off watch. One friendly challenge, if you and your companions are ready?",
+      loss: "Steady hands. I could learn from you."
+    },
+    oren: {
+      name: "Oren",
+      team: [[:POLIWAG, 10], [:KRABBY, 11]],
+      invite: "Sailor Oren: We practise here before a long crossing. Care to join us for a battle?",
+      loss: "A good lesson. Let's both remember it."
+    }
   }.freeze
   def sailor_battle(id)
     if flags[id]
@@ -91,17 +92,20 @@ module Tidebound::DemoLaunch
       )
       return
     end
-    name, team, invitation, loss = BATTLES.fetch(id)
-    return unless pbConfirmMessage(invitation)
+    sailor = BATTLES.fetch(id)
+    return unless pbConfirmMessage(sailor.fetch(:invite))
     return unless Tidebound::Encounters.able?
-    foe = Tidebound::Encounters.trainer(:SAILOR, name, loss, team)
-    result = Tidebound.trainer!(foe)
-    if result == :astral
-      say("The harbour bells fall quiet.")
-      Tidebound::World.travel(:astral, 15, 21, 8)
-    elsif result == 1
+    result =
+      Tidebound::Encounters.trainer(
+        type: :SAILOR,
+        name: sailor.fetch(:name),
+        loss: sailor.fetch(:loss),
+        team: sailor.fetch(:team),
+        departure: "The harbour bells fall quiet."
+      )
+    if result == 1
       flags[id] = true
-      say(loss)
+      say(sailor.fetch(:loss))
     end
   end
   def voyage
