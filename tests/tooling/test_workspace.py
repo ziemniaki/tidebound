@@ -77,6 +77,20 @@ class WorkspaceTests(unittest.TestCase):
         self.assertFalse(partial.exists())
         self.assertEqual((self.root / "game/Audio/BGM/stock.ogg").read_bytes(), b"stock")
 
+    def test_editor_edit_to_a_removed_bundle_cannot_resurrect_it_as_an_override(self):
+        source = self.root / "content/actors/guard/character.png"
+        source.parent.mkdir(parents=True)
+        Image.new("RGBA", (128, 192), (1, 2, 3, 255)).save(source)
+        compiler.build(self.root)
+        editor.remember(self.root)
+        target = self.root / "game/Graphics/Characters/guard.png"
+        Image.new("RGBA", (128, 192), (4, 5, 6, 255)).save(target)
+        source.unlink()
+        source.parent.rmdir()
+        with self.assertRaisesRegex(ValueError, "generated"):
+            editor.import_changes(self.root)
+        self.assertFalse((self.root / "content/overrides/Graphics/Characters/guard.png").exists())
+
     def test_hash_failure_does_not_clear_project_and_saves_are_not_build_outputs(self):
         game = self.root / "game"
         save = game / "Game.rxdata"

@@ -130,6 +130,7 @@ def remember(root, links=None):
                 "map_ids": map_ids(root),
                 "files": workspace.file_state(root, links),
                 "overrides": workspace.override_state(root),
+                "generated": sorted(workspace.generated_files(root)),
             }
         )
     )
@@ -175,7 +176,7 @@ def native_imports(root, session):
     if "files" not in session:
         return {}  # One-time import of maps from the previous tracked-project workflow.
     changed = file_changes(root, session)
-    generated = workspace.generated_files(root)
+    generated = workspace.generated_files(root) | set(session.get("generated", []))
     new_ids = set(map_ids(root)) - set(session["map_ids"])
     current_overrides = workspace.override_state(root)
     result = {}
