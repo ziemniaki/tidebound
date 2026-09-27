@@ -64,3 +64,26 @@ Tidebound.story[:psychic_maze] = :complete
 Tidebound::DreamRoom.return_to_journey
 check([$game_map.map_id, $game_player.x, $game_player.y] == [107, 6, 8], "return to bedroom")
 puts "PASS: conditional dream/folded-room arrival, retry and both return routes."
+
+# Native encounter callers use a Boolean result, not Ruby-truthy outcome codes.
+new_opening
+Tidebound::World.travel(:road, 18, 5)
+original_fight = Tidebound::Encounters.method(:fight)
+begin
+  {
+    0 => true,
+    1 => true,
+    2 => false,
+    3 => true,
+    4 => true,
+    5 => false,
+    :astral => false
+  }.each do |outcome, expected|
+    Tidebound::Encounters.define_singleton_method(:fight) { |*foes| outcome }
+    result = WildBattle.start(:ZUBAT, 5, can_override: true)
+    check(result == expected, "WildBattle.start returned #{result.inspect} for #{outcome}")
+  end
+ensure
+  Tidebound::Encounters.define_singleton_method(:fight, original_fight)
+end
+puts "PASS: native grass encounters preserve the engine's Boolean result contract."

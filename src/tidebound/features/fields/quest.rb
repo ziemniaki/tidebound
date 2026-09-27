@@ -78,7 +78,7 @@ module Tidebound::GrassBattles
   def start(*args, can_override: false)
     if can_override && [103, 108].include?($game_map.map_id) && Tidebound.state.realm == :living
       result = Tidebound::Encounters.fight(*args)
-      return result == :astral ? 2 : result
+      return ![2, 5, :astral].include?(result)
     end
     super
   end
