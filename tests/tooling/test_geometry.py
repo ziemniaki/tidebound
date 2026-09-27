@@ -6,6 +6,9 @@ from pathlib import Path
 import unittest
 from rubymarshal.reader import loads
 
+from tidebound_dev.maps.data import encode
+from tidebound_dev.maps.tilesets import passages
+
 ROOT = Path(__file__).resolve().parents[2]
 GENERATED = ROOT / "game/.generated"
 DIRECTIONS = {2: (0, 1), 4: (-1, 0), 6: (1, 0), 8: (0, -1)}
@@ -28,6 +31,62 @@ def reachable(start, edges):
 
 
 class GeometryTests(unittest.TestCase):
+    def test_furniture_overhangs_leave_floor_walkable_and_bodies_solid(self):
+        # Northern caps and upright furniture tops overhang the floor below them.
+        # Read exported layers too: a blocked floor under a passable cap still blocks.
+        fixtures = {
+            101: [(3, 3, 2), (10, 3, 2), (12, 4, 3), (15, 7, 1), (4, 8, 3), (16, 10, 2)],
+            104: [(3, 6, 2)],  # cupboard, including solid trim above its left end
+            106: [(3, 4, 3), (10, 4, 2)],  # oil-shop shelf variants
+            107: [(3, 4, 2), (8, 4, 2), (11, 4, 2), (12, 9, 1)],
+            109: [(3, 4, 2), (6, 4, 2), (18, 4, 2)],  # damaged machines and basin
+            110: [(10, 4, 2), (13, 4, 2), (20, 4, 2), (4, 8, 2), (20, 8, 2), (14, 13, 2)],
+            111: [
+                (4, 3, 2),
+                (7, 3, 2),
+                (19, 3, 2),
+                (22, 3, 2),
+                (4, 7, 2),
+                (22, 7, 2),
+                (4, 12, 2),
+                (22, 12, 2),
+                (8, 14, 2),
+                (17, 14, 2),  # glass display cases
+            ],
+            114: [(3, 15, 2)],  # maze bed
+            115: [(3, 4, 2), (8, 4, 2), (11, 4, 2), (12, 9, 1)],
+            116: [
+                (12, 4, 2),
+                (24, 4, 2),
+                (3, 15, 2),
+                (26, 20, 1),
+                (2, 8, 18),
+                (24, 8, 4),
+                (2, 13, 2),
+                (8, 13, 20),
+                (2, 18, 22),
+            ],  # include shelf ends beneath the wall trim and every distorted cap
+        }
+        tilesets = loads((ROOT / "game/Data/Tilesets.rxdata").read_bytes())
+        for map_id, furniture in fixtures.items():
+            area = loads((ROOT / f"game/Data/Map{map_id:03}.rxdata").read_bytes()).attributes
+            rows = encode(area["@data"])["rows"]
+            height = area["@height"]
+            layers = [rows[z * height : (z + 1) * height] for z in range(3)]
+            passable = passages(tilesets[area["@tileset_id"]])
+            for left, top, width in furniture:
+                for x in range(left, left + width):
+                    with self.subTest(map=map_id, x=x, y=top):
+                        for direction in DIRECTIONS:
+                            self.assertTrue(
+                                passable(layers, x, top, direction),
+                                "Cannot walk behind furniture",
+                            )
+                            self.assertFalse(
+                                passable(layers, x, top + 1, direction),
+                                "Can walk into the furniture body",
+                            )
+
     def test_maze_has_no_slide_cycles_or_reachable_softlocks(self):
         maze = json.loads((GENERATED / "maze_manifest.json").read_text())
         mask = json.loads((GENERATED / "collisions.json").read_text())["114"]

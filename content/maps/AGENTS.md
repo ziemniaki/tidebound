@@ -27,6 +27,15 @@ The [editor workflow](../../docs/development.md#rpg-maker) is shared by humans a
   0 allows all, 15 blocks all. Priority affects drawing **and** which layer stops
   the passage search. Terrain 13 ignores passage; terrain 6 is StillWater/Surf.
   Event `through` and active page settings still affect character collision.
+- Furniture's northern caps, upright cupboard tops and potted-plant foliage are
+  overhangs: use passage 0 and priority 1, with passable floor and wall trim on
+  that cell. Keep the lower body solid. Check all three layers: a blocked floor
+  duplicate or trim tile still blocks a passable overhang. Do not mark the entire
+  artwork rectangle as the object's footprint, or apply this rule to terrain
+  boundaries, building walls and ground-level rubble barriers.
+- A relocating or hidden NPC needs ordinary floor underneath. Its active event
+  owns character collision; baking its initial position into a blocked floor
+  leaves an invisible obstacle after it moves or disappears.
 - `windows.png` matches the fixed sheet square-for-square; alpha is light strength.
   Moving a window tile moves its light automatically. Keep masks aligned when
   adding tiles. The compiler writes the packed runtime light sheet.
