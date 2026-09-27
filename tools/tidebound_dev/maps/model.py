@@ -1,4 +1,6 @@
-from .registry import MAP_NAMES
+from .registry import MAP_NAMES, MAPS
+from .transfers import Transfer
+from dataclasses import asdict
 from . import definitions
 
 """In-memory RPG Maker map, event and tile primitives. Importing writes nothing."""
@@ -399,6 +401,7 @@ class Map:
         self.walk = [[False] * w for _ in range(h)]
         self.events = {}
         self.targets = []
+        self.transfers = []
 
     def rect(self, x, y, w, h, t, z=0, walk=None):
         for yy in range(y, y + h):
@@ -429,14 +432,15 @@ class Map:
         self.targets.append((name, x, y, trigger, blocks))
         return eid
 
-    def door(self, x, y, destination, dx, dy, d=2):
-        self.walk[y][x] = True
-        code = (
-            f"Tidebound::World.travel_coast({dx}, {dy}, {d})"
-            if destination == 102
-            else f"Tidebound::World.travel(:{MAP_NAMES[destination]}, {dx}, {dy}, {d})"
-        )
-        self.event("Door", x, y, code, trigger=1)
+    def door(self, x, y, destination, dx, dy, d=2, name="Door"):
+        """Source uses this area's coordinates; destinations are always absolute."""
+        destination = MAPS[destination] if isinstance(destination, str) else destination
+        transfer = Transfer(destination, dx, dy, d)
+        eid = self.event(name, x, y, transfer.script(), trigger=1)
+        event = self.events[eid].attributes
+        self.walk[event["@y"]][event["@x"]] = True
+        self.transfers.append({"event": eid, "page": 0, **asdict(transfer)})
+        return eid
 
     def serialize(self):
         flat = [v for layer in self.layers for row in layer for v in row]
@@ -537,16 +541,6 @@ class CoastMap(Map):
     def event(self, name, x, y, *args, **kw):
         return super().event(name, x + self.OX, y + self.OY, *args, **kw)
 
-    def door(self, x, y, destination, dx, dy, d=2):
-        self.walk[y + self.OY][x + self.OX] = True
-        self.event(
-            "Door",
-            x,
-            y,
-            f"Tidebound::World.travel(:{MAP_NAMES[destination]}, {dx}, {dy}, {d})",
-            trigger=1,
-        )
-
     def polygon(self, points, t, walk=True):
         im = Image.new("1", (self.w, self.h))
         ImageDraw.Draw(im).polygon([(x + self.OX, y + self.OY) for x, y in points], fill=1)
@@ -575,4 +569,3 @@ class CoastMap(Map):
 
 class RoadMap(CoastMap):
     OX, OY = 0, 0
-    door = Map.door

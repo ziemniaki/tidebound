@@ -103,7 +103,7 @@ that same definition. Regenerating the current maps preserves their binaries,
 metadata and preview pixels; only the generated runtime settings and their Ruby
 consumer change.
 
-### A5 — P2: map validation covers only part of the engine's event model
+### A5 — Implemented: validate all event pages and declare ordinary transfers
 
 Evidence: [validate.py](../../tools/tidebound_dev/maps/validate.py), `validate` uses
 `@pages[0]` and regexes matching positive literal coordinates with specific spacing.
@@ -117,8 +117,12 @@ structured builder data before generating Ruby. Bounds-check before indexing mas
 For conditional/scripted movement, require a targeted scenario and state the static
 check's limits. Retain small public Ruby event calls for story logic.
 
-**Acceptance:** second-page and out-of-bounds transfer regressions are caught;
-computed routes have explicit scenario coverage. Don't build a Ruby parser here.
+**Verified:** regressions reject missing artwork and direct/computed travel on a
+second page, native Transfer Player commands, negative/oversized coordinates and
+blocked destinations. Coast source offsets are applied once; destinations are
+absolute. Checkpoint returns remain covered by the opening/neighbor/hideout flows.
+Static validation explicitly excludes arbitrary Ruby routing; feature changes need
+their own route scenarios.
 
 ### A6 — P2: artwork has two different regeneration contracts
 

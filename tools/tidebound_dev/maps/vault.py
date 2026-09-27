@@ -130,7 +130,7 @@ def build_docks():
         for xx, sx in enumerate([4, 5, 5, 5, 5, 5, 6, 7]):
             docks.rect(28 + xx, 18 + yy, 1, 1, tile(sx, 223 + yy), z=1, walk=False)
     docks.rect(31, 21, 1, 1, tile(4, 226), z=1, walk=True)
-    docks.event("Museum door", 31, 21, "Tidebound::World.travel(:museum,14,18,8)", trigger=1)
+    docks.door(31, 21, "museum", 14, 18, 8, name="Museum door")
     docks.event(
         "Museum sign",
         35,

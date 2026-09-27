@@ -1,4 +1,4 @@
-from .registry import MAPS
+from .transfers import Transfer
 from . import definitions
 from tidebound_dev.paths import ROOT
 from pathlib import Path
@@ -11,7 +11,6 @@ from tidebound_dev.scripts.archive import validate_archive
 def validate(root, event_scripts_output=None, check_scripts=True):
     D = root / "tools"
     G = root / "game"
-    ROOT = G
     if check_scripts:
         validate_archive(G, D.parent / "src")
     masks = json.loads((D / "generated" / "collisions.json").read_text())
@@ -61,39 +60,66 @@ def validate(root, event_scripts_output=None, check_scripts=True):
         for spawn in spawns[mid]:
             if spawn not in seen or not walk(*spawn):
                 fail.append(f"{mid} unreachable arrival {spawn}")
-        for ev in m["@events"].values():
-            e = ev.attributes
-            x = e["@x"]
-            y = e["@y"]
-            name = str(e["@name"])
-            page = e["@pages"][0].attributes
-            charset = str(page["@graphic"].attributes["@character_name"])
-            if charset and not (G / "Graphics/Characters" / f"{charset}.png").exists():
-                fail.append(f"{mid} missing charset {charset}")
-            if page["@trigger"] != 3 and name not in ["Lapras", "Pond obelisk (Surf)"]:
-                reachable = (
-                    (x, y) in seen
-                    if page["@trigger"] == 1
-                    else any(
-                        (x + dx, y + dy) in seen for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]
-                    )
-                )
-                if not reachable:
-                    fail.append(f"{mid} unreachable event {name} at {x},{y}")
-            code = "\n".join(
-                str(c.attributes["@parameters"][0])
-                for c in page["@list"]
-                if c.attributes["@code"] in (355, 655)
+        transfers = {}
+        for declaration in spec.get("transfers", []):
+            key = (declaration["event"], declaration["page"])
+            if key in transfers:
+                fail.append(f"{mid}: duplicate transfer declaration for {key}")
+            transfers[key] = Transfer(
+                **{k: v for k, v in declaration.items() if k not in ("event", "page")}
             )
-            if code:
-                event_scripts.append({"name": f"Map{mid}/{name}", "code": code})
-            for dest, tx, ty in re.findall(r"World.travel\(:([a-z_]+), (\d+), (\d+)", code):
-                if masks[str(MAPS[dest])][int(ty)][int(tx)] != "1":
-                    fail.append(f"{mid}: blocked transfer to {dest} {tx},{ty}")
-            for tx, ty in re.findall(r"World.travel_coast\((\d+), (\d+)", code):
-                if masks["102"][int(ty) + 20][int(tx) + 24] != "1":
-                    fail.append(f"{mid}: blocked coast transfer")
-            count += 1
+        used_transfers = set()
+        for event_id, ev in m["@events"].items():
+            e = ev.attributes
+            x, y = e["@x"], e["@y"]
+            name = str(e["@name"])
+            if not (0 <= x < w and 0 <= y < h):
+                fail.append(f"{mid} event {name} outside map at {x},{y}")
+            for page_index, record in enumerate(e["@pages"]):
+                page = record.attributes
+                label = f"{mid}/{name}/page{page_index + 1}"
+                charset = str(page["@graphic"].attributes["@character_name"])
+                if charset and not (G / "Graphics/Characters" / f"{charset}.png").exists():
+                    fail.append(f"{label} missing charset {charset}")
+                if page["@trigger"] not in (3, 4) and name not in ["Lapras", "Pond obelisk (Surf)"]:
+                    reachable = (
+                        (x, y) in seen
+                        if page["@trigger"] == 1
+                        else any(
+                            (x + dx, y + dy) in seen
+                            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]
+                        )
+                    )
+                    if not reachable:
+                        fail.append(f"{label} unreachable event at {x},{y}")
+                if any(c.attributes["@code"] == 201 for c in page["@list"]):
+                    fail.append(
+                        f"{label}: native Transfer Player command; use Map.door or a tested feature method"
+                    )
+                code = "\n".join(
+                    str(c.attributes["@parameters"][0])
+                    for c in page["@list"]
+                    if c.attributes["@code"] in (355, 655)
+                )
+                if code:
+                    event_scripts.append({"name": f"Map{label}", "code": code})
+                key = (event_id, page_index)
+                transfer = transfers.get(key)
+                if transfer:
+                    used_transfers.add(key)
+                    try:
+                        transfer.validate(masks)
+                        if code.strip() != transfer.script():
+                            fail.append(f"{label}: event code disagrees with declared transfer")
+                    except ValueError as error:
+                        fail.append(f"{label}: {error}")
+                elif re.search(r"\bWorld\s*\.\s*travel(?:_coast)?\b", code):
+                    fail.append(
+                        f"{label}: undeclared transfer; use Map.door or a tested feature method"
+                    )
+                count += 1
+        for key in transfers.keys() - used_transfers:
+            fail.append(f"{mid}: transfer refers to missing event/page {key}")
         bgm = str(m["@bgm"].attributes["@name"])
         if not (G / "Audio/BGM" / f"{bgm}.ogg").exists():
             fail.append(f"{mid} missing BGM {bgm}")
@@ -120,7 +146,9 @@ def validate(root, event_scripts_output=None, check_scripts=True):
         raise RuntimeError("\n".join(fail))
     if event_scripts_output:
         event_scripts_output.write_text(json.dumps(event_scripts), encoding="utf-8")
-    print(f"PASS: {count} map events; every arrival, door and interaction reachable.")
+    print(
+        f"PASS: {count} event pages; declared arrivals/transfers and static interaction reachability checked. Scripted routes need gameplay scenarios."
+    )
 
 
 if __name__ == "__main__":

@@ -54,7 +54,14 @@ def serialize(paths, maps):
     (paths.tools / "generated" / "map_manifest.json").write_text(
         json.dumps(
             [
-                {"id": m.id, "name": m.name, "width": m.w, "height": m.h, "targets": m.targets}
+                {
+                    "id": m.id,
+                    "name": m.name,
+                    "width": m.w,
+                    "height": m.h,
+                    "targets": m.targets,
+                    "transfers": m.transfers,
+                }
                 for m in maps
             ],
             indent=2,

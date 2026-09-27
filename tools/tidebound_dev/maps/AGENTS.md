@@ -33,7 +33,8 @@ previews. `registry.py` exports map/actor names to Ruby. Read
 
 - Coordinates are tiles. Coast authoring methods add `(24, 20)` to local coordinates;
   direct `layers`/`walk` indexing does not. `World.travel_coast` accepts local coast
-  coordinates; `World.travel(:coast, ...)` accepts absolute ones. Do not offset twice.
+  coordinates; `World.travel(:coast, ...)` accepts absolute ones. `Map.door` destinations
+  are always absolute, including coast destinations. Do not offset twice.
 - Use `Map.door` for ordinary transfers and small public Ruby calls for interactions.
   Script commands use 355 + 655 continuations and a terminating command 0; the
   `script`/`page` helpers produce them. Keep story branching in the Ruby owner.
@@ -54,8 +55,13 @@ previews. `registry.py` exports map/actor names to Ruby. Read
   Trace consumers in `features/actors.rb` and presentation before renaming/copying.
 - A charset is a four-column/four-row XP sheet, not a Pokémon party icon strip.
   Event pages select from the last matching page; later pages can override earlier
-  collision/movement settings. The current validator inspects only the first page
-  and literal transfer calls; it does not prove all conditional routes are valid.
+  collision/movement settings. Validation inspects every page. `Map.door` records
+  structured destinations and checks bounds before passability. Direct Ruby travel
+  calls and native Transfer Player commands in builder pages are rejected; put
+  conditional movement in a feature method and test its success/retry/cancel routes.
+  Static checks cannot prove Ruby routes: checkpoint returns are exercised in
+  `opening_flow.rb`, `neighbor_flow.rb` and `hideout_flow.rb`; folded-room movement
+  needs its own scenario when changed.
 
 [Engine evidence](../../../docs/essentials-contracts.md) and
 [audit follow-ups](../../../docs/decisions/authoring-audit.md) describe the current

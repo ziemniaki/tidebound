@@ -58,7 +58,7 @@ def build_home():
     home.door(6, 3, 107, 8, 10, 8)
     # This autorun erases itself; persistent story flag prevents repetition on revisit.
     home.rect(10, 14, 1, 1, tile(4, 78), walk=True)
-    home.door(10, 14, 102, 8, 16)
+    home.door(10, 14, 102, 32, 36)
     home.stamp(1, 237, 2, 2, 16, 3, walk=True)
     home.door(17, 3, 104, 6, 9)
 
@@ -296,7 +296,7 @@ def build_forest():
         "White flowers", 14, 9, 'pbMessage("Small white flowers. They have survived the cold.")'
     )
     forest.event("Northern way", 17, 3, "Tidebound::Opening.northern_way", trigger=1)
-    forest.door(17, 27, 102, 24, 5)
+    forest.door(17, 27, 102, 48, 25)
     for x, y in [(12, 21), (14, 7), (14, 8), (14, 10), (22, 15), (23, 15), (24, 15)]:
         forest.rect(x, y, 1, 1, tile(7, 3), z=1)
 
@@ -394,7 +394,7 @@ def build_shop():
         'pbMessage("The ledger lies open to a page with very few names.\nYour mother\'s is underlined.")',
     )
     shop.rect(8, 12, 1, 1, tile(4, 78), walk=True)
-    shop.door(8, 12, 102, 21, 12, 2)
+    shop.door(8, 12, 102, 45, 32, 2)
 
     return shop
 
@@ -496,7 +496,7 @@ def build_road():
         road.rect(x, y, 1, 1, 240, z=1)
     road.stamp(0, 227, 4, 4, 34, 38)
     road.rect(35, 41, 1, 1, tile(2, 13), walk=True)
-    road.door(18, 4, 102, 30, 30, 8)
+    road.door(18, 4, 102, 54, 50, 8)
     road.event(
         "Wild:NATU:shorebird",
         20,
