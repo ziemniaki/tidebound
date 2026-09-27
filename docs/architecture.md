@@ -18,7 +18,7 @@ the engine's expected directory structure intact inside `game/`.
 | Sound | `assets/audio/`, existing attributed stock assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
-Each `maps/areas/<map>.py` owns the complete layout, events and painting of one
+Each `maps/areas/<map>/` owns the complete layout, events and painting of one
 map. `maps/compiler.py` assembles them and publishes shared atlases; painters
 provide reusable primitives without reaching into other areas. Events are defined
 at their final positions with their final scripts, preserving existing IDs.
@@ -66,7 +66,7 @@ dispatched explicitly in
 `features/interactions.rb`; features do not prepend into one another. Engine
 adapters can still prepend into Essentials interfaces.
 
-Map definitions in `maps/definitions.py` own IDs, arrivals, music, metadata and
+Map-local `map.json` declarations own IDs, named entrances, music, metadata and
 atmosphere. They feed native maps, PBS metadata, validation and generated runtime
 settings, including the coast coordinate origin. Map drawing APIs use absolute
 tiles; builders convert local coast positions explicitly with `Map.absolute`.

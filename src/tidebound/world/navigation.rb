@@ -8,8 +8,9 @@ module Tidebound::World
     pbMapInterpreter&.get_self&.erase
   end
 
-  def travel(map_id, x, y, direction = 2)
+  def travel(map_id, x, y = nil, direction = 2)
     map_id = MAPS.fetch(map_id) if map_id.is_a?(Symbol)
+    x, y, direction = ENTRANCES.fetch(map_id).fetch(x.to_s) if x.is_a?(Symbol)
     pbFadeOutIn do
       $game_temp.player_new_map_id = map_id
       $game_temp.player_new_x = x

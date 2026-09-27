@@ -23,13 +23,13 @@ class TransferTests(unittest.TestCase):
 
     def test_explicit_coast_conversion_leaves_destination_absolute(self):
         area = model.Map(102, "Coast", 108, 88, 1)
-        eid = area.door(*area.absolute(8, 16), "home", 10, 13)
+        eid = area.door(*area.absolute(8, 15), "home", "from_coast", cue="north")
         event = area.events[eid].attributes
-        self.assertEqual((event["@x"], event["@y"]), (32, 36))
+        self.assertEqual((event["@x"], event["@y"]), (32, 35))
         self.assertEqual(
-            area.transfers, [dict(event=eid, page=0, map_id=101, x=10, y=13, direction=2)]
+            area.transfers, [dict(event=eid, page=0, map_id=101, x=10, y=12, direction=8)]
         )
-        self.assertTrue(area.walk[36][32])
+        self.assertTrue(area.walk[35][32])
 
     def test_every_page_is_validated_and_direct_transfers_are_rejected(self):
         with tempfile.TemporaryDirectory() as temp:

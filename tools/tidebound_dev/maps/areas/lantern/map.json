@@ -1,0 +1,13 @@
+{
+  "id": 104,
+  "entrances": {
+    "stairs": [6, 9, 2],
+    "from_home": [6, 9, 2]
+  },
+  "events": {
+    "Main lamp@6,5": 1,
+    "Downward lamp@9,8": 2,
+    "Door@6,11": 3
+  },
+  "atlas": "interior"
+}

@@ -141,7 +141,7 @@ The [task table](../AGENTS.md#read-for-your-change) routes to its source owner.
 
 Coordinate changes to `src/load_order.txt`, `maps/compiler.py`, `maps/registry.py`,
 species catalogs and shared NPC dispatch. Individual map layouts belong in
-`maps/areas/<map>.py`; another area must not patch their events or geometry.
+`maps/areas/<map>/`; another area must not patch their events or geometry.
 
 Include source and generated outputs in the PR. When combining work, resolve
 source first, then regenerate once. For generator-owned binary conflicts, use a

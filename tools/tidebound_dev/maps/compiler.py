@@ -3,24 +3,8 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from .areas import (
-    home,
-    coast,
-    forest,
-    lantern,
-    astral,
-    shop,
-    bedroom,
-    road,
-    hideout,
-    basement,
-    vault,
-    docks,
-    museum,
-    maze,
-    dream,
-    folded,
-)
+from importlib import import_module
+from .definitions import DEFINITIONS
 from . import landscape, interior, scenery
 from .interior import InteriorPainter
 from .landscape_painter import LandscapePalette
@@ -40,52 +24,28 @@ class BuildPaths:
         return self.root / "tools"
 
 
+@dataclass
+class BuildContext:
+    paths: BuildPaths
+    palette: LandscapePalette
+    rooms: InteriorPainter
+
+
 def construct(paths):
-    palette = LandscapePalette(paths.game)
-    rooms = InteriorPainter(paths.game)
-    # Explicit atlas allocation order keeps generated tiles deterministic.
-    wood = forest.build(palette)
-    village = coast.build(palette)
-    route = road.build(paths, palette)
-    quay = docks.build(paths, palette)
-    bed = bedroom.build(rooms)
-    house = home.build(rooms)
-    tower = lantern.build(paths, rooms)
-    cellar = basement.build(rooms)
-    archive = vault.build(rooms)
-    puzzle = maze.build(paths, rooms)
-    dream_room = dream.build(paths, rooms)
-    folded_room = folded.build(paths, rooms)
-    storehouse = hideout.build(paths, rooms)
-    landscape.save_atlas(paths, palette, [village, wood, route, quay])
-    interior.save_atlas(
-        paths,
-        rooms,
-        [bed, house, tower, cellar, archive, puzzle, dream_room, folded_room, storehouse],
-    )
-    coast.save_tileset(paths, village)
-    road.save_tileset(paths, palette, route)
-    return sorted(
-        [
-            house,
-            village,
-            wood,
-            tower,
-            astral.build(),
-            shop.build(),
-            bed,
-            route,
-            storehouse,
-            cellar,
-            archive,
-            quay,
-            museum.build(),
-            puzzle,
-            dream_room,
-            folded_room,
-        ],
-        key=lambda area: area.id,
-    )
+    context = BuildContext(paths, LandscapePalette(paths.game), InteriorPainter(paths.game))
+    built = []
+    for name, definition in sorted(DEFINITIONS.items(), key=lambda item: item[1].id):
+        module = import_module(f"{__package__}.areas.{name}.build")
+        area = module.build(context)
+        if area.id != definition.id:
+            raise ValueError(f"Map {name}: builder and declaration disagree")
+        built.append((definition, module, area))
+    landscape.save_atlas(paths, context.palette, [m for d, _, m in built if d.atlas == "landscape"])
+    interior.save_atlas(paths, context.rooms, [m for d, _, m in built if d.atlas == "interior"])
+    for _, module, area in built:
+        if hasattr(module, "finish"):
+            module.finish(context, area)
+    return [area for _, _, area in built]
 
 
 def build(root):

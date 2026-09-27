@@ -1,8 +1,9 @@
-from ..model import Map
-from ..registry import MAPS
+from ...model import Map
+from ...registry import MAPS
 
 
-def build(interior):
+def build(context):
+    interior = context.rooms
     basement = Map(MAPS["basement"], "The Lighthouse Cellar", 26, 20, 3)
     interior.room(basement, 3, 4, 20, 13, True)
     interior.stairs(basement, 5, 12)
@@ -16,7 +17,7 @@ def build(interior):
         for y in [2, 3, 4]:
             interior.surface(basement, interior.wall(True).crop((0, 0, 32, 32)), x, y, True)
 
-    basement.door(6, 14, 101, 4, 12, 6)
+    basement.door(6, 14, "home", "from_basement")
     for x, y in [(5, 5), (6, 5), (8, 6), (20, 13), (21, 13), (20, 14)]:
         basement.event(
             "Crate cellar",

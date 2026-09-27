@@ -1,21 +1,23 @@
-from ..model import Map, tile
-from ..registry import MAPS
-from ..shoreline import coastal_shoreline
-from ..landscape import shade_water
+from ...model import Map, tile
+from ...registry import MAPS
+from ...shoreline import coastal_shoreline
+from ...landscape import shade_water
 
 
-def build(paths, palette):
+def build(context):
+    paths = context.paths
+    palette = context.palette
     docks = Map(MAPS["docks"], "The Docks", 80, 64, 1, 96)
     docks.polygon([(9, 15), (62, 15), (62, 39), (55, 44), (16, 44), (9, 35)], tile(2, 27))
     docks.rect(9, 26, 47, 5, tile(2, 27), walk=True)
     docks.rect(10, 26, 3, 5, tile(2, 13), walk=True)
-    docks.door(10, 28, 108, 43, 43, 4, cue="west")
+    docks.door(10, 28, "road", "from_docks", cue="west")
     # Museum: wider public facade with a shallow green roof and a stone forecourt.
     for yy in range(4):
         for xx, sx in enumerate([4, 5, 5, 5, 5, 5, 6, 7]):
             docks.rect(28 + xx, 18 + yy, 1, 1, tile(sx, 223 + yy), z=1, walk=False)
     docks.rect(31, 21, 1, 1, tile(4, 226), z=1, walk=True)
-    docks.door(31, 21, "museum", 14, 18, 8, name="Museum door", cue="south")
+    docks.door(31, 21, "museum", "from_docks", name="Museum door", cue="south")
     docks.event(
         "Museum sign",
         35,

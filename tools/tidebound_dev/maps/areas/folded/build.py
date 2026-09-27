@@ -1,11 +1,13 @@
-from ..registry import MAPS
+from ...registry import MAPS
 from PIL import Image, ImageDraw
 import json
 
-from ..model import Map
+from ...model import Map
 
 
-def build(paths, interior):
+def build(context):
+    paths = context.paths
+    interior = context.rooms
     """Second false bedroom: a larger, fractured room with a readable winding route."""
     black = interior.itile(Image.new("RGBA", (32, 32), (0, 0, 0, 255)))
     folded = Map(MAPS["folded"], "Your Room, Again", 30, 26, 27)

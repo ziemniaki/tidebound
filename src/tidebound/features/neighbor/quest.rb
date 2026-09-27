@@ -214,7 +214,7 @@ module Tidebound
         $game_player.turn_up
         return
       end
-      Tidebound::World.travel(:road, 18, 5, 2)
+      Tidebound::World.travel(:road, :north)
     end
     def wild_visible?(id)
       !q[(id.to_s + "_gone").to_sym]

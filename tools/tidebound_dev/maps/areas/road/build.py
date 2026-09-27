@@ -2,16 +2,18 @@ import math
 import json
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-from ...files import save_png
-from ..model import table
+from ....files import save_png
+from ...model import table
 from PIL import Image, ImageDraw
-from ..model import Map, tile
-from ..registry import MAPS, ACTORS
-from ..shoreline import coastal_shoreline
-from ..landscape import shade_water
+from ...model import Map, tile
+from ...registry import MAPS, ACTORS
+from ...shoreline import coastal_shoreline
+from ...landscape import shade_water
 
 
-def build(paths, palette):
+def build(context):
+    paths = context.paths
+    palette = context.palette
     road = Map(MAPS["road"], "The South Coast Road", 56, 84, 1, 96)
     road.polygon(
         [
@@ -51,7 +53,7 @@ def build(paths, palette):
     road.rect(25, 24, 3, 2, tile(6, 150), walk=True)
     road.stamp(0, 227, 4, 4, 34, 38)
     road.rect(35, 41, 1, 1, tile(2, 13), walk=True)
-    road.door(18, 4, 102, 54, 50, 8, cue="north")
+    road.door(18, 4, "coast", "from_road", cue="north")
     road.event(
         "Wild:NATU:shorebird",
         20,
@@ -391,7 +393,8 @@ def paint_pond(paths, palette, road):
     )
 
 
-def save_tileset(paths, palette, road):
+def finish(context, road):
+    paths, palette = context.paths, context.palette
     source = palette._native
     used = sorted(
         {v for layer in road.layers for row in layer for v in row if v >= 384 and v != 391}

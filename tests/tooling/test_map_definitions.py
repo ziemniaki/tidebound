@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 class MapDefinitionTests(unittest.TestCase):
     def test_new_indoor_map_has_consistent_native_pbs_audio_and_runtime_settings(self):
         definition = MapDefinition(
-            117, ((1, 1),), music="New room", battleback="cave1", environment="Cave"
+            117, {"entry": [1, 1, 2]}, music="New room", battleback="cave1", environment="Cave"
         )
         area = model.Map(117, "New room", 3, 3, 1)
         area.rect(0, 0, 3, 3, 0, walk=True)
@@ -66,6 +66,6 @@ class MapDefinitionTests(unittest.TestCase):
 
     def test_unknown_atmosphere_and_missing_arrivals_fail_at_definition(self):
         with self.assertRaisesRegex(ValueError, "arrival"):
-            MapDefinition(117, ())
+            MapDefinition(117, {})
         with self.assertRaisesRegex(ValueError, "atmosphere"):
-            MapDefinition(117, ((1, 1),), atmosphere="unregistered")
+            MapDefinition(117, {"entry": [1, 1, 2]}, atmosphere="unregistered")

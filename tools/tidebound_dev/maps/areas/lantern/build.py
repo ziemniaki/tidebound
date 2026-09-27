@@ -1,9 +1,11 @@
 from PIL import Image
-from ..model import Map
-from ..registry import MAPS
+from ...model import Map
+from ...registry import MAPS
 
 
-def build(paths, interior):
+def build(context):
+    paths = context.paths
+    interior = context.rooms
     lantern = Map(MAPS["lantern"], "The Lantern Room", 14, 14, 3)
     interior.room(lantern, 3, 3, 8, 8, True)
     interior.window(lantern, 3, 1)
@@ -27,6 +29,6 @@ def build(paths, interior):
         blocks=True,
         role="lamp",
     )
-    lantern.door(6, 11, 101, 16, 4)
+    lantern.door(6, 11, "home", "from_lantern")
 
     return lantern

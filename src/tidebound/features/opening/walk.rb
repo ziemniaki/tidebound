@@ -28,7 +28,7 @@ module Tidebound
 
     def bedroom_exit
       bedroom_pet unless Tidebound.story[:bedroom_talk]
-      Tidebound::World.travel(:home, 6, 4, 2)
+      Tidebound::World.travel(:home, :from_bedroom)
     end
 
     def home_arrival

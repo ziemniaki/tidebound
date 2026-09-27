@@ -1,9 +1,10 @@
-from ..model import Map, tile
-from ..registry import MAPS
-from ..shoreline import shoreline
+from ...model import Map, tile
+from ...registry import MAPS
+from ...shoreline import shoreline
 
 
-def build(palette):
+def build(context):
+    palette = context.palette
     forest = Map(MAPS["forest"], "The Listening Wood", 36, 30, 1, tile(1, 0))
     forest.rect(3, 3, 30, 24, tile(1, 0), walk=True)
     forest.rect(16, 3, 3, 24, tile(2, 13), walk=True)
@@ -31,7 +32,7 @@ def build(palette):
         "White flowers", 14, 9, 'pbMessage("Small white flowers. They have survived the cold.")'
     )
     forest.event("Northern way", 17, 3, "Tidebound::Opening.northern_way", trigger=1)
-    forest.door(17, 27, 102, 48, 25)
+    forest.door(17, 27, "coast", "from_forest")
 
     for x, y, item in [(12, 19, "ORANBERRY"), (22, 9, "ORANBERRY")]:
         forest.event(

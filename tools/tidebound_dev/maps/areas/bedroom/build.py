@@ -1,8 +1,9 @@
-from ..model import Map
-from ..registry import MAPS, ACTORS
+from ...model import Map
+from ...registry import MAPS, ACTORS
 
 
-def build(interior):
+def build(context):
+    interior = context.rooms
     bedroom = Map(MAPS["bedroom"], "Your Room", 16, 14, 3)
     interior.room(bedroom, 2, 4, 12, 8)
     interior.window(bedroom, 4, 2)

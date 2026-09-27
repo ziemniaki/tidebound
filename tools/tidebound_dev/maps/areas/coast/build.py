@@ -1,15 +1,16 @@
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
-from ...files import save_png
-from ..harbor_art import wooden_village
+from ....files import save_png
+from ...harbor_art import wooden_village
 from PIL import Image, ImageDraw
-from ..model import Map, tile
-from ..registry import MAPS, ACTORS
-from ..shoreline import coastal_shoreline
-from ..landscape import shade_water
+from ...model import Map, tile
+from ...registry import MAPS, ACTORS
+from ...shoreline import coastal_shoreline
+from ...landscape import shade_water
 
 
-def build(palette):
+def build(context):
+    palette = context.palette
     coast = Map(MAPS["coast"], "Shiohama", 108, 88, 1, 96)
     # The ocean continues far past every reachable camera position.
     coast.polygon(
@@ -98,7 +99,7 @@ def build(palette):
     coast.stamp(4, 228, 4, 4, *coast.absolute(34, 7))
     # Open corner beside the oil-shop roof.
     coast.rect(44, 28, 1, 1, 0, z=1, walk=True)
-    coast.door(*coast.absolute(8, 15), 101, 10, 12, 8, cue="north")
+    coast.door(*coast.absolute(8, 15), "home", "from_coast", cue="north")
     coast.walk[31][45] = True
     coast.event(
         "Shop door",
@@ -326,7 +327,8 @@ def build(palette):
     return coast
 
 
-def save_tileset(paths, coast):
+def finish(context, coast):
+    paths = context.paths
     # A separate atlas gives only Shiohama wooden homes; lighthouse pixels are exact.
     tilesets = loads((paths.game / "Data/Tilesets.rxdata").read_bytes())
     village_id = next(

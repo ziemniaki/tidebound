@@ -1,8 +1,8 @@
-from ..model import Map, tile
-from ..registry import MAPS, ACTORS
+from ...model import Map, tile
+from ...registry import MAPS, ACTORS
 
 
-def build():
+def build(context):
     shop = Map(MAPS["shop"], "The Oil Shop", 16, 14, 3)
     shop.rect(2, 3, 12, 9, tile(4, 78), walk=True)
     shop.rect(2, 2, 12, 2, tile(1, 13), walk=False)
@@ -27,6 +27,6 @@ def build():
         'pbMessage("The ledger lies open to a page with very few names.\nYour mother\'s is underlined.")',
     )
     shop.rect(8, 12, 1, 1, tile(4, 78), walk=True)
-    shop.door(8, 12, 102, 45, 32, 2)
+    shop.door(8, 12, "coast", "from_shop")
 
     return shop

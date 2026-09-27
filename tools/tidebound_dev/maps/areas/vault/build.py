@@ -1,9 +1,10 @@
 from PIL import ImageDraw
-from ..model import Map
-from ..registry import MAPS, ACTORS
+from ...model import Map
+from ...registry import MAPS, ACTORS
 
 
-def build(interior):
+def build(context):
+    interior = context.rooms
     vault = Map(MAPS["vault"], "The Lighthouse Vault", 28, 22, 3)
     interior.room(vault, 3, 3, 22, 16, True)
     for x in [4, 7, 19, 22]:
@@ -72,6 +73,6 @@ def build(interior):
         'pbMessage("The lowest stones are darker than the rest. The mortar has been renewed around them.")',
     )
     vault.event("Arrival", 3, 18, "Tidebound::VaultVisit.conversation", trigger=3)
-    vault.door(12, 18, 110, 17, 5, 2)
+    vault.door(12, 18, "basement", "from_vault")
 
     return vault

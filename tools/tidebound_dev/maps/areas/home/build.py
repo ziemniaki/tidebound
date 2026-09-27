@@ -1,8 +1,9 @@
-from ..model import Map
-from ..registry import MAPS, ACTORS
+from ...model import Map
+from ...registry import MAPS, ACTORS
 
 
-def build(interior):
+def build(context):
+    interior = context.rooms
     home = Map(MAPS["home"], "The Keeper's House", 20, 16, 3)
     interior.room(home, 2, 3, 16, 11)
     interior.window(home, 8, 1)
@@ -67,9 +68,9 @@ def build(interior):
         opacity=0,
         role="crate",
     )
-    home.door(6, 3, 107, 8, 10, 8)
-    home.door(10, 14, 102, 32, 36)
-    home.door(17, 3, 104, 6, 9)
+    home.door(6, 3, "bedroom", "from_home")
+    home.door(10, 14, "coast", "from_home")
+    home.door(17, 3, "lantern", "from_home")
     home.event("Cellar stairs", 3, 12, "Tidebound::VaultVisit.stairs", trigger=1, cue="south")
     home.event(
         ACTORS["seller_at_home"],

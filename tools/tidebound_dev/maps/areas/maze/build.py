@@ -1,11 +1,13 @@
-from ..registry import MAPS
+from ...registry import MAPS
 from PIL import Image, ImageDraw
 import json
 
-from ..model import Map
+from ...model import Map
 
 
-def build(paths, interior):
+def build(context):
+    paths = context.paths
+    interior = context.rooms
     """Small one-time opening puzzle; invoked before lighthouse atlas serialization."""
     maze = Map(MAPS["maze"], "Your Room", 29, 25, 27)
     # Opaque void also occludes the engine's below-map water-reflection sprite.

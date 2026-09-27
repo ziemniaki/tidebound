@@ -1,8 +1,8 @@
-from ..model import Map, tile
-from ..registry import MAPS
+from ...model import Map, tile
+from ...registry import MAPS
 
 
-def build():
+def build(context):
     astral = Map(MAPS["astral"], "Beyond the Shore", 32, 26, 1, tile(1, 0))
     astral.rect(3, 3, 26, 20, tile(1, 0), walk=True)
     astral.rect(14, 4, 3, 19, tile(2, 13), walk=True)

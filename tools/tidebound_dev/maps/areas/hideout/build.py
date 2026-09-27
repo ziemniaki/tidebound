@@ -1,10 +1,12 @@
 from PIL import Image, ImageDraw
 import random
-from ..model import Map
-from ..registry import MAPS, ACTORS
+from ...model import Map
+from ...registry import MAPS, ACTORS
 
 
-def build(paths, interior):
+def build(context):
+    paths = context.paths
+    interior = context.rooms
     hideout = Map(MAPS["hideout"], "The Old Storehouse", 22, 18, 3)
 
     # Everything here is specific to the squat; shared lighthouse furniture stays intact.
@@ -270,7 +272,7 @@ def build(paths, interior):
     )
     hideout.event("Dispatch slip", 12, 4, "Tidebound::Hideout.cache")
     hideout.event("Arrival", 2, 15, "Tidebound::Hideout.arrival", trigger=3)
-    hideout.door(11, 16, 108, 35, 43, 2)
+    hideout.door(11, 16, "road", "from_hideout")
     for x in [14, 15]:
         hideout.event("Sofa approach", x, 9, "Tidebound::Hideout.approach", trigger=1)
     hideout.event("Rune console", 15, 6, "Tidebound::Hideout.console")

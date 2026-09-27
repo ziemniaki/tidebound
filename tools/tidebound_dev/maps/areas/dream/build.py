@@ -1,11 +1,13 @@
-from ..registry import MAPS
+from ...registry import MAPS
 from PIL import Image, ImageDraw
 import json
 
-from ..model import Map
+from ...model import Map
 
 
-def build(paths, interior):
+def build(context):
+    paths = context.paths
+    interior = context.rooms
     """The false ordinary bedroom, before the one-time psychic maze."""
     dream = Map(MAPS["dream"], "Your Room", 16, 14, 27)
     interior.room(dream, 2, 4, 12, 8)

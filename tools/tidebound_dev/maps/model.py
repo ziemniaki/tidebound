@@ -471,8 +471,8 @@ class Map:
         index=None,
         asset="",
         cue="",
+        key=None,
     ):
-        eid = len(self.events) + 1
         info = {}
         if isinstance(name, registry.Actor):
             actor = name
@@ -504,6 +504,15 @@ class Map:
                 if v is not None and v != ""
             }
         )
+        key = key or info.get("key") or f"{name}@{x},{y}"
+        try:
+            eid = definitions.BY_ID[self.id].events[key]
+        except KeyError:
+            raise ValueError(
+                f"Map {self.id}: allocate a stable event ID for {key!r} in its map.json"
+            ) from None
+        if eid in self.events:
+            raise ValueError(f"Map {self.id}: duplicate event identity {key!r}")
         if info:
             self.actor_settings[eid] = info
         event_page = page(code, charset, trigger, opacity, move)
@@ -538,10 +547,11 @@ class Map:
             for event_id, event in self.events.items()
         ]
 
-    def door(self, x, y, destination, dx, dy, d=2, name="Door", *, cue="south"):
-        """Source and destination coordinates are absolute."""
-        destination = MAPS[destination] if isinstance(destination, str) else destination
-        transfer = Transfer(destination, dx, dy, d)
+    def door(self, x, y, destination, entrance, name="Door", *, cue="south"):
+        definition = definitions.DEFINITIONS[destination]
+        dx, dy, direction = definition.entrances[entrance]
+        destination = definition.id
+        transfer = Transfer(destination, dx, dy, direction)
         eid = self.event(name, x, y, transfer.script(), trigger=1, cue=cue)
         event = self.events[eid].attributes
         self.walk[event["@y"]][event["@x"]] = True

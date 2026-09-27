@@ -1,17 +1,19 @@
 # Map and event authoring
 
-These builders own maps 101–116. Each `areas/<map>.py` owns its final layout, events and painting.
-`compiler.construct` assembles complete maps and exports shared atlases; `serialization.serialize` writes RPG Maker maps, metadata, masks and
-previews. `registry.py` exports map/actor identities and roles to Ruby. Read
-[src/AGENTS.md](../../../src/AGENTS.md) for the gameplay side of an event.
+Each `areas/<map>/` owns `map.json` (ID, entrances, metadata, actor placements,
+stable event IDs, atlas group) and `build.py` (layout/events/painting).
+`definitions.py` discovers these declarations; `compiler.py` calls each
+`build(context)`, packs atlases, then optional `finish(context, map)` hooks.
+`registry.py` derives runtime identities and entrances. See [src/AGENTS.md](../../../src/AGENTS.md)
+for scene behavior; maps only call feature entry points.
 
 ## Add a map
 
-1. Add a `MapDefinition` in `definitions.DEFINITIONS` with a distinct map ID,
-   symbolic name, arrivals and any non-default music/metadata/atmosphere. Add `areas/<name>.py` with a builder
-   returning its complete `Map` and wire it into `compiler.construct`'s returned list. Painters
-   share atlases: adding an interior also needs the appropriate `save_atlas` input.
-   Pass the supplied `BuildPaths`; do not write into the checkout via a global root.
+1. Add `areas/<name>/map.json` and `build.py` following an existing area. Use a
+   distinct map ID and named `entrances` with `[x, y, direction]`. Return the complete
+   `Map` from `build(context)`; use `context.paths`, `palette` or `rooms`. No compiler
+   import/list change is needed. Declare named NPCs in this map's `actors` object;
+   duplicate identities and misplaced actors fail generation.
 2. Define entry/exit tiles; arrivals in the map definition drive reachability
    validation. Include a return route and any scripted/conditional arrivals.
 3. Set walkability explicitly while drawing. `Map.walk` becomes `MAP_PASSAGES`.
@@ -44,7 +46,9 @@ for shared validation; do not parse a second prop catalog in an area builder.
   origin `(24, 20)` is defined in `definitions.py` and exported to Ruby.
   `World.coast_xy`/`travel_coast` convert local coast coordinates; `World.local_xy`
   converts event positions back to local coordinates for existing harvest keys.
-  Door destinations and `World.travel` coordinates are always absolute.
+  Door destinations resolve named entrances, e.g. `Map.door(x, y, "home", "from_coast")`.
+  Ruby uses `World.travel(:home, :from_coast)`. Raw coordinates remain available for
+  deliberate scene staging; all resolved coordinates are absolute.
 - Use `Map.door` for ordinary transfers and small public Ruby calls for interactions.
   Script commands use 355 + 655 continuations and a terminating command 0; the
   `script`/`page` helpers produce them. Keep story branching in the Ruby owner.
@@ -53,12 +57,14 @@ for shared validation; do not parse a second prop catalog in an area builder.
   the current event and guard one-time effects in persistent quest state. A page
   with no charset defaults to `through=True`; an invisible event may need explicit
   collision. `blocks=True` also marks its tile unwalkable in the generated mask.
-- Event IDs come from insertion order (`len(events)+1`); self-switch identity is
-  `(map_id, event_id, letter)`. Reordering events can attach saved self switches to
-  a different actor. Use feature state for new story progression; do not treat
-  event IDs as durable names or reintroduce a save migration framework.
-- Register a scene actor in `registry.ACTORS` with its key, owning map, readable
-  label and role; pass `ACTORS["key"]` to `Map.event`. `World.actor(:key)` uses the
+- Allocate event IDs in `map.json::events`; never renumber or reuse an existing ID.
+  Named actors use their actor key. Other events default to `"label@x,y"`; supply
+  `key="stable_name"` when useful. Renaming/moving an anonymous event requires
+  updating its catalog key while preserving its numeric ID. Unknown keys and
+  duplicate IDs fail generation. Retain removed IDs as reserved entries: native
+  self-switches use `(map_id, event_id, letter)`; insertion order must not change them.
+- Declare a scene actor in its map's `actors` with its key, label, role and optional
+  species; pass the derived `ACTORS["key"]` to `Map.event`. `World.actor(:key)` uses the
   generated map/event identity and returns nil on another map. Generation rejects
   missing, duplicate and misplaced identities. Labels do not control lookup.
 - For anonymous props/companions, give `Map.event` an explicit `role`. Companion

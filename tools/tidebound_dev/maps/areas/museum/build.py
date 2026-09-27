@@ -1,8 +1,8 @@
-from ..model import Map, tile
-from ..registry import MAPS
+from ...model import Map, tile
+from ...registry import MAPS
 
 
-def build():
+def build(context):
     museum = Map(MAPS["museum"], "Dockside Museum", 30, 24, 3)
     museum.rect(3, 3, 24, 18, tile(1, 81), walk=True)
     museum.rect(3, 2, 24, 2, tile(1, 13), walk=False)
@@ -68,6 +68,6 @@ def build():
         "NPC 10",
         blocks=True,
     )
-    museum.door(14, 21, 112, 32, 23, 2)
+    museum.door(14, 21, "docks", "from_museum")
 
     return museum
