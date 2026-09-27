@@ -44,7 +44,7 @@ EventHandlers.add(
   :tidebound_dock_details,
   proc do |spriteset, viewport|
     map = spriteset.map
-    next unless [102, 108, 112].include?(map.map_id)
+    next unless Tidebound::Presentation::WINDOW_LIGHTS.key?(map.map_id)
     spriteset.addUserSprite(TideboundWindowLights.new(map))
   end
 )

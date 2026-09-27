@@ -45,3 +45,8 @@ The two ambient loops are approved sources; builds need no NumPy or ffmpeg.
 props, household props, warm light, title backdrop and fold runes use approved
 PNGs. Ruby handles movement, flicker, text and story state. Small threshold marks
 and genuinely dynamic drawing remain in Ruby.
+
+Window lighting uses the approved `assets/tilesets/Outside/windows.png` overlay.
+Map packing retains source tile identities so masks survive atlas compaction.
+This restores two road/storehouse window panes that the old final-tile heuristic
+missed. Existing coast/dock masks retain their pixels and placements.

@@ -403,6 +403,8 @@ class Map:
         self.blocking_events = set()
         self.transfers = []
         self.actor_settings = {}
+        self.light_mask = None
+        self.source_tiles = {}  # Packed tile -> source tile, for authored overlays.
 
     def absolute(self, x, y):
         """Convert authored local coordinates; drawing and event APIs are absolute."""

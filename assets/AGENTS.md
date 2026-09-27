@@ -61,3 +61,14 @@ Static props share `presentation/props.rb`; flickering lamps and quest props ret
 their behavior owners. `load_prop` replaces and disposes an independently loaded
 bitmap; do not pass it a shared/cache-owned image. Household pie/plate states are
 separate images, while the pearl glint remains a small dynamic effect.
+
+## Tilesets and lighting
+
+`tilesets/Outside/windows.png` is a transparent overlay aligned pixel-for-pixel
+with the stock `Outside.png` atlas. Paint only the lit glass; its alpha is the
+light strength. Map compilation crops this approved mask, without guessing from
+blue pixels. Landscape maps select it through `Map.light_mask`. A tileset packer
+must preserve `Map.source_tiles` (packed ID → original ID); otherwise metadata
+would attach to unrelated tiles after packing. The road packer is the example.
+Packed game tilesets are outputs. Shared map painters own packing and map
+composition; approved standalone pictures stay under the asset owner.

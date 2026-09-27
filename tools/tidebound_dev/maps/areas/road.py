@@ -398,6 +398,7 @@ def save_tileset(paths, palette, road):
     )
     remap = {v: 392 + i for i, v in enumerate(used)}
     remap[391] = 391
+    road.source_tiles = {new: old for old, new in remap.items()}
     atlas = Image.new("RGBA", (256, math.ceil((8 + len(used)) / 8) * 32))
     atlas.paste(palette.art(0, 0, 8, 1), (0, 0))
     for old, new in remap.items():

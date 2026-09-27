@@ -1,65 +1,35 @@
-"""Bake static dock props and source-glass masks for the runtime sprites."""
+"""Pack authored light masks using source tile identity, independent of atlas layout."""
 
 from PIL import Image
-from rubymarshal.reader import loads
-
-from ..files import save_png
-from ..files import ruby
-
-
-def window_mask(atlas, tile):
-    if tile < 384:
-        return None
-    x, y = (tile - 384) % 8, (tile - 384) // 8
-    lighthouse = x == 6 and y in (447, 448)
-    if not (
-        (y == 230 and x in (2, 3))
-        or (y == 232 and x == 0)
-        or (y == 231 and x in (6, 7))
-        or (y == 233 and x in (4, 5, 6))
-        or (y == 226 and x == 5)
-        or lighthouse
-    ):
-        return None
-    mask = Image.new("RGBA", (32, 32))
-    for py in range(32):
-        for px in range(32):
-            red, green, blue, alpha = atlas.getpixel((x * 32 + px, y * 32 + py))
-            glass = (
-                (red, green, blue) == (39, 47, 87)
-                if lighthouse
-                else alpha > 0 and blue >= 180 and green > red + 25 and blue > green + 25
-            )
-            if glass:
-                mask.putpixel(
-                    (px, py), (255, 218, 145, 235) if green > 165 else (234, 167, 79, 225)
-                )
-    return mask
+from ..files import save_png, ruby
 
 
 def window_lights(paths, maps):
-    tilesets = loads((paths.game / "Data/Tilesets.rxdata").read_bytes())
     masks, indices, placements = [], {}, {}
     for area in maps:
-        if area.id not in (102, 108, 112):
+        if area.light_mask is None:
             continue
-        tileset = tilesets[area.tileset].attributes["@tileset_name"]
-        with Image.open(paths.game / "Graphics/Tilesets" / f"{tileset}.png") as source:
+        with Image.open(paths.root / "assets/tilesets" / area.light_mask) as source:
             atlas = source.convert("RGBA")
-        tiles = set(tile for row in area.layers[1] for tile in row)
-        tile_masks = {tile: window_mask(atlas, tile) for tile in tiles}
-        panes = []
+        panes, tile_masks = [], {}
         for y, row in enumerate(area.layers[1]):
-            for x, tile in enumerate(row):
+            for x, packed_tile in enumerate(row):
+                tile = area.source_tiles.get(packed_tile, packed_tile)
+                if tile < 384:
+                    continue
+                if tile not in tile_masks:
+                    sx, sy = (tile - 384) % 8 * 32, (tile - 384) // 8 * 32
+                    tile_masks[tile] = atlas.crop((sx, sy, sx + 32, sy + 32))
                 mask = tile_masks[tile]
-                if mask is None:
+                if not mask.getchannel("A").getbbox():
                     continue
                 pixels = mask.tobytes()
                 if pixels not in indices:
                     indices[pixels] = len(masks)
                     masks.append(mask)
                 panes.append([x, y, indices[pixels]])
-        placements[area.id] = panes
+        if panes:
+            placements[area.id] = panes
     sheet = Image.new("RGBA", (32 * max(1, len(masks)), 32))
     for index, mask in enumerate(masks):
         sheet.paste(mask, (index * 32, 0))
