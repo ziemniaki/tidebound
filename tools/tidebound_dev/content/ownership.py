@@ -74,15 +74,17 @@ def prepare(root, expected):
         for identifier in set(identifiers) - set(old):
             if key(identifier) in database:
                 raise ValueError(f"Custom content would overwrite stock {name}: {identifier}")
-        for identifier in old:
-            database.pop(key(identifier), None)
-        cleaned[name] = writes(database)
+        retired = set(old) - set(identifiers)
+        if retired:
+            for identifier in retired:
+                database.pop(key(identifier), None)
+            cleaned[name] = writes(database)
     for name in set(expected["files"]) - set(previous["files"]):
         if (root / name).exists():
             raise ValueError(f"Custom content would overwrite an unowned file: {name}")
     # Record claims before generation so a failed build can be fixed and rerun.
     # Retired outputs are removed first; only our recorded paths can be deleted.
-    for name in previous["files"]:
+    for name in set(previous["files"]) - set(expected["files"]):
         (root / name).unlink(missing_ok=True)
     for name, data in cleaned.items():
         (root / "game/Data" / name).write_bytes(data)

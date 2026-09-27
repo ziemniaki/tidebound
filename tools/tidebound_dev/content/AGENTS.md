@@ -73,7 +73,7 @@ rerun before playing; it does not roll back generated files. `check --all` verif
 regeneration in a disposable copy. Review generated diffs before committing.
 
 `tools/generated/content.json` records custom records and files. Full rebuild removes
-those records before compiling, so deleting a declaration retires its output without
+retired records/files, so deleting a declaration retires its output without
 touching stock inputs. Never hand-edit the inventory to claim a stock ID. Published
 species/items may still exist in player saves: retire them only as an explicit
 content decision. The manifest is written before generation so failed builds can

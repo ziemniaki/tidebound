@@ -73,8 +73,12 @@ def _check_regeneration(root):
             dest = stage / name
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root / name, dest)
-        # Start custom asset exports from source; copied stale outputs prove nothing.
-        for name in ownership.recorded(stage):
+        # Remove file outputs only in this disposable regeneration check. Native
+        # databases mix stock inputs with custom records; their compilers replace
+        # declared records, and ownership removes retired records.
+        from .content.ownership import recorded as content_outputs
+
+        for name in [*ownership.recorded(stage), *content_outputs(stage)["files"]]:
             (stage / name).unlink(missing_ok=True)
         rebuild(stage, full=True)
         differences = [name for name in tracked if not equivalent(root / name, stage / name)]

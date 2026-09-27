@@ -11,7 +11,7 @@ from tidebound_dev.content import ownership
 
 
 class ContentOwnershipTests(unittest.TestCase):
-    def test_retirement_preserves_stock_and_retry_replaces_partial_output(self):
+    def test_retirement_preserves_current_records_and_retries_keep_new_claims(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             (root / "game/Data").mkdir(parents=True)
@@ -36,7 +36,11 @@ class ContentOwnershipTests(unittest.TestCase):
             self.assertFalse(retired.exists())
             database.write_bytes(writes({S("STOCK"): 1, S("NEW"): "partial build"}))
             ownership.prepare(root, expected)
-            self.assertEqual(loads(database.read_bytes()), {S("STOCK"): 1})
+            self.assertEqual(
+                loads(database.read_bytes()), {S("STOCK"): 1, S("NEW"): "partial build"}
+            )
             with self.assertRaisesRegex(ValueError, "overwrite stock"):
                 ownership.prepare(root, {"databases": {"species.dat": ["STOCK"]}, "files": []})
-            self.assertEqual(loads(database.read_bytes()), {S("STOCK"): 1})
+            self.assertEqual(
+                loads(database.read_bytes()), {S("STOCK"): 1, S("NEW"): "partial build"}
+            )
