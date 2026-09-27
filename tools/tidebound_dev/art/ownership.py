@@ -57,8 +57,9 @@ def inventory(root):
     # Recipes must read stock/source art, never last build's custom output.
     sources = {export.source for export in exports}
     sources.update(export.matching_canvas for export in exports if export.matching_canvas)
+    generated = {name.casefold() for name in owners.keys() | previous.keys()}
     for source in sources:
-        if source.relative_to(root).as_posix() in owners.keys() | previous.keys():
+        if source.relative_to(root).as_posix().casefold() in generated:
             raise ValueError(f"Asset source is also a generated output: {source}")
         if not source.is_file():
             raise ValueError(f"Missing asset source: {source}")
@@ -81,10 +82,13 @@ def recorded(root):
     return entries
 
 
-def publish(root, owners):
-    # Removed declarations must not leave obsolete images in player packages.
+def remove_retired(root, owners):
+    # Remove before export: a case-only rename aliases the new file on macOS/Windows.
     for name in recorded(root).keys() - owners.keys():
         (root / name).unlink(missing_ok=True)
+
+
+def publish(root, owners):
     path = root / MANIFEST
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(owners, indent=2) + "\n")

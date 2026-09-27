@@ -164,6 +164,12 @@ class AssetRefreshTests(unittest.TestCase):
                 pipeline.rebuild(root)
                 with Image.open(target) as image:
                     self.assertEqual(image.getpixel((0, 0)), color)
+            # On case-insensitive disks, retiring KEY after writing key deletes the new export.
+            source = source.rename(source.with_name("key.png"))
+            pipeline.rebuild(root)
+            target = target.with_name("key.png")
+            self.assertTrue(target.is_file())
+            self.assertIn("key.png", [path.name for path in target.parent.iterdir()])
             source.unlink()
             with (
                 patch.dict(files.ALIASES, {"Graphics/Items/OTHER.png": "Graphics/Items/KEY.png"}),
