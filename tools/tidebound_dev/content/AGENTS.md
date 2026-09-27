@@ -50,10 +50,14 @@ source of truth. Species PNGs follow the [asset workflow](../../../assets/AGENTS
 - `Pokemon.new` alone does not trigger `:on_wild_pokemon_created`; the wild-generation
   path does. A prepared Pokémon passed to battle may therefore bypass regional
   selection. Set intended form/learnset on scripted individuals explicitly.
-- Roster data lives in `encounters.py`; regional wild-selection hooks live in
-  `src/tidebound/engine/regional_forms.rb`. Land/PondGrass activation also depends
-  on `features/fields.rb` / `features/pond.rb` terrain and trigger code. A roster
-  entry alone does not make encounters happen on a generated map.
+- Encounter tables belong to `maps/areas/<map>/map.json::encounters`:
+  `"Land": {"chance": 18, "slots": [[100, "SUNKERN_1", 4, 6]]}`.
+  Rows are weight, engine species/form ID, minimum and maximum level. The compiler
+  emits PBS/native data and the regional-form table consumed by one engine hook.
+  `wild_forms` declares additional scripted-wild defaults, e.g. `{"ARBOK": 1}`.
+  Conflicting forms for one base species on the same map are rejected; special
+  context-dependent mechanics need their own explicit feature. Terrain activation
+  still belongs to the map/feature; a table alone does not create encounter tiles.
 - The full pipeline compiles species before encounter rosters. Keep this order:
   encounter validation must see newly added species in the same build.
 

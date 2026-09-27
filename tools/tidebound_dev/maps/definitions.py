@@ -22,6 +22,8 @@ class MapDefinition:
     actors: dict = field(default_factory=dict)
     events: dict[str, int] = field(default_factory=dict)
     atlas: str | None = None
+    encounters: dict = field(default_factory=dict)
+    wild_forms: dict[str, int] = field(default_factory=dict)
     atmosphere: str = "indoor"
     music: str = "Tidebound Stillness"
     battleback: str = "field"

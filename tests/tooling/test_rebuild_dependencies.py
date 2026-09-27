@@ -1,6 +1,7 @@
 """A new species must compile before its encounter roster in the same rebuild."""
 
 from pathlib import Path
+from dataclasses import replace
 import unittest
 import tempfile
 import shutil
@@ -21,6 +22,7 @@ class RebuildDependenciesTests(unittest.TestCase):
             root = Path(temp)
             (root / "game/Data").mkdir(parents=True)
             (root / "game/PBS").mkdir()
+            (root / "src/generated").mkdir(parents=True)
             for name in ("species", "species_metrics", "moves", "abilities", "encounters"):
                 shutil.copy2(source / f"game/Data/{name}.dat", root / f"game/Data/{name}.dat")
             new_species = "NEWBIRD"
@@ -35,15 +37,12 @@ class RebuildDependenciesTests(unittest.TestCase):
             }
             patches.enter_context(patch.object(species_compiler, "SPECIES", definitions))
             patches.enter_context(patch.object(pipeline.art, "build"))
+            definition = replace(
+                encounters.DEFINITIONS["forest"],
+                encounters={"Land": {"chance": 18, "slots": [[100, new_species, 3, 5]]}},
+            )
             patches.enter_context(
-                patch.object(
-                    encounters,
-                    "ROSTERS",
-                    {
-                        103: [(100, new_species, 3, 5)],
-                        108: [(100, "PSYDUCK", 4, 6)],
-                    },
-                )
+                patch.dict(encounters.DEFINITIONS, {"forest": definition}, clear=True)
             )
             for name in ("maps", "scripts", "validate"):
                 patches.enter_context(patch.object(pipeline, name))
