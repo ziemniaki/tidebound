@@ -5,6 +5,8 @@ The unused bottom-right area is not exported. High-resolution concept art is
 reference material, not an alternative build input.
 """
 
+from ..files import save_png
+
 from PIL import Image
 
 ATLASES = {
@@ -28,6 +30,6 @@ def generate(game, assets):
             ("Icons", (0, 160, 128, 224)),
         ):
             frame = source.crop(bounds)
-            frame.save(game / "Graphics/Pokemon" / folder / f"{species}.png")
+            save_png(frame, game / "Graphics/Pokemon" / folder / f"{species}.png")
             if folder != "Icons":
-                frame.save(game / "Graphics/Pokemon" / f"{folder} shiny" / f"{species}.png")
+                save_png(frame, game / "Graphics/Pokemon" / f"{folder} shiny" / f"{species}.png")

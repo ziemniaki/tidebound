@@ -5,6 +5,8 @@ gold forehead scar, and sparse translucent stepped mist behind the body.
 No generator, blur, interpolation or runtime filtering is used.
 """
 
+from ..files import save_png
+
 from PIL import Image, ImageDraw
 
 BODY = {
@@ -103,8 +105,8 @@ def generate(game):
             for x in range(im.width)
             if original.getpixel((x, y))[3] == 255
         )
-        im.save(src.with_name("LAPRAS_1.png"))
-        im.save(G / "Graphics/Pokemon" / (folder + " shiny") / "LAPRAS_1.png")
+        save_png(im, src.with_name("LAPRAS_1.png"))
+        save_png(im, G / "Graphics/Pokemon" / (folder + " shiny") / "LAPRAS_1.png")
 
     src = G / "Graphics/Pokemon/Icons/LAPRAS.png"
     original = Image.open(src).convert("RGBA")
@@ -124,7 +126,7 @@ def generate(game):
             [(108, 62), (120, 62), (120, 60), (126, 60)],
         ],
     )
-    im.save(src.with_name("LAPRAS_1.png"))
+    save_png(im, src.with_name("LAPRAS_1.png"))
     print(
         "Lapras: original poses, white/jade/gold palette, sparse pixel mist; front/back/shiny/icon exported."
     )

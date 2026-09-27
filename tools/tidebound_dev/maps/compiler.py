@@ -1,4 +1,4 @@
-"""Construct, validate and publish generated maps from a disposable workspace."""
+"""Construct and serialize maps; the rebuild plan validates the complete game."""
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -86,21 +86,6 @@ def construct(paths):
     ]
 
 
-def generate(root):
-    """Generate inside the caller's disposable root."""
-    from .validate import validate
-
+def build(root):
     paths = BuildPaths(root)
     serialize(paths, construct(paths))
-    validate(root, paths.tools / "generated/event_scripts.json", check_scripts=False)
-
-
-def build(root):
-    from tidebound_dev.generation import staged_outputs
-
-    with staged_outputs(
-        root,
-        inputs=("game",),
-        outputs=("game", "tools/generated", "src/generated"),
-    ) as stage:
-        generate(stage)

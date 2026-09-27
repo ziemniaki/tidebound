@@ -1,5 +1,7 @@
 """Palette-only regional artwork. Source geometry and alpha stay unchanged."""
 
+from ..files import save_png
+
 from PIL import Image
 
 # Target species/form -> stock source and replacements by sprite folder.
@@ -112,7 +114,7 @@ def generate(game):
                     f"{path}: expected source palette colours missing: {sorted(missing)}"
                 )
             edited.putdata([(*palette.get(p[:3], p[:3]), p[3]) if p[3] else p for p in pixels])
-            edited.save(sprites / folder / f"{target}.png")
+            save_png(edited, sprites / folder / f"{target}.png")
             if folder != "Icons":
-                edited.save(sprites / f"{folder} shiny" / f"{target}.png")
+                save_png(edited, sprites / f"{folder} shiny" / f"{target}.png")
     print("Exported regional palette edits: " + ", ".join(RECOLORS))

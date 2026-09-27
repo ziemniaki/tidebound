@@ -4,6 +4,8 @@ Two pink hemispheres grow through an opened skull; wings arc for a spell.
 80x80 and 64x32 source grids are scaled exactly 2x without filtering.
 """
 
+from ..files import save_png
+
 from PIL import Image, ImageDraw
 
 O = (56, 42, 49, 255)
@@ -493,7 +495,7 @@ def generate(game, pieces):
                 # lowered right, with Psyduck's original hand pixels.
                 sprite.alpha_composite(point_left, (3, 36))
                 sprite.alpha_composite(point_right, (63, 50))
-            sprite.resize((160, 160), Image.Resampling.NEAREST).save(target)
+            save_png(sprite.resize((160, 160), Image.Resampling.NEAREST), target)
     icon = Image.new("RGBA", (64, 32))
     d = ImageDraw.Draw(icon)
     icon_frame(d, 0)
@@ -501,5 +503,5 @@ def generate(game, pieces):
     icon_beak = Image.open(pieces / "psyduck_icon_beak.png").convert("RGBA")
     icon.alpha_composite(icon_beak, (10, 20))
     icon.alpha_composite(icon_beak, (42, 21))
-    icon.resize((128, 64), Image.Resampling.NEAREST).save(P / "Icons/WHYDUCK.png")
+    save_png(icon.resize((128, 64), Image.Resampling.NEAREST), P / "Icons/WHYDUCK.png")
     print("Whyduck sprite draft: pink brain, Psyduck palms and webbed feet.")

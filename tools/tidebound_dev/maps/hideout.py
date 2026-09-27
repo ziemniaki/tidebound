@@ -1,3 +1,4 @@
+from ..files import save_png
 from PIL import Image, ImageDraw
 
 from .model import command, script
@@ -253,7 +254,7 @@ def decorate(paths, interior, hideout):
     for yy in range(4):
         for xx in range(4):
             sheet.alpha_composite(seat, (xx * fw, yy * fh))
-    sheet.save(paths.game / "Graphics/Characters/Tidebound_Ivo_Seated.png")
+    save_png(sheet, paths.game / "Graphics/Characters/Tidebound_Ivo_Seated.png")
 
     placements = {
         "Abyss runner": (13, 7, "Tidebound::Hideout.guard", "trainer_YOUNGSTER"),

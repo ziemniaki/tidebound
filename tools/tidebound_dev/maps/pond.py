@@ -1,3 +1,4 @@
+from ..files import save_png
 from PIL import Image, ImageDraw
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
@@ -203,7 +204,7 @@ def decorate(paths, palette, road):
             for x, v in enumerate(row):
                 if v >= 384:
                     row[x] = remap[v]
-    atlas.save(paths.game / "Graphics/Tilesets/TideboundPond.png")
+    save_png(atlas, paths.game / "Graphics/Tilesets/TideboundPond.png")
     tilesets = loads((paths.game / "Data/Tilesets.rxdata").read_bytes())
     pid = next(
         (i for i, t in enumerate(tilesets) if t and t.attributes.get("@name") == "Tidebound Pond"),

@@ -15,7 +15,7 @@ preserve uncommitted changes; release ZIPs are distribution snapshots.
 Quick checks run on pushes. Full builds are on demand and on release tags.
 See [releasing](releasing.md) for exact-head review and publication. A tag creates
 a draft; it does not publish automatically. Release pages contain three player
-ZIPs; technical metadata and the editable project archive remain CI artifacts.
+ZIPs; technical metadata remains in CI artifacts. The repository is the editable project.
 
 ## Independent feature work
 

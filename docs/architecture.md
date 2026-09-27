@@ -23,13 +23,11 @@ composition explicitly: base areas, connections, landscape, interiors and harbor
 pond decoration. Painters own their tile atlases and caches; area modules receive
 only the maps and painters they use. Imports never load or write game assets. Interaction targets are derived from
 current event records; painters do not maintain a second position list.
-Full rebuild generates maps, content, art and scripts in a temporary workspace,
-then validates and publishes changed outputs. The isolated regeneration check
-already owns a disposable checkout and runs the same generation plan directly.
-Failed generation/validation leaves the checkout unchanged; publication errors roll back replaced files. This protects
-ordinary I/O failures, not process termination midway through publication. Rebuild
-after an interrupted publication. A failed rollback retains a reported recovery
-directory rather than discarding the backups.
+Full rebuild writes maps, content, art and scripts directly in dependency order,
+then validates the complete game. A failure can leave partial generated outputs;
+fix the error and rerun before playing. Git holds the previous tracked versions.
+`check --all` runs the same plan in a disposable copy and compares outputs without
+changing the checkout.
 
 ## Python operations
 
@@ -40,8 +38,8 @@ regeneration. `scripts/`, `maps/`, `content/`, `art/`, `runtime/`, `packaging/` 
 `release/` own callable operations. They accept explicit roots when operating on
 a disposable copy. Modules do not modify `sys.path` or launch other generator
 scripts. `formatting.py` owns the pinned Node/WASM and formatter setup used by checks;
-operations never import setup from the CLI. `files.py` owns content hashing and
-comparison, and `runtime/config.py` owns mkxp parsing and save namespaces.
+operations never import setup from the CLI. `files.py` owns content hashing, comparison and PNG writes that preserve unchanged
+artwork, and `runtime/config.py` owns mkxp parsing and save namespaces.
 The standalone GitHub comment dispatcher is in `.github/scripts/`.
 
 ## Regional data
@@ -143,9 +141,9 @@ layout, signing and executable permissions. Development settings are applied
 before signing; development builds publish the player directly. Release builds
 add ZIP roundtrip verification and provenance manifests in an atomic transaction. Release package checks and
 provenance are described in [releasing](releasing.md). `release/candidates.py`
-assembles all platforms and the source archive; it does not invoke tests.
-`release/artifacts.py` owns checksums and candidate validation for both normal
-publication and explicit draft refresh. CI requires verification before packaging
+assembles the three player archives; it does not invoke tests.
+`release/artifacts.py` owns checksums and candidate validation before
+release publication. CI requires verification before packaging
 and native launches before any release publication.
 
 ## Presentation and actor state

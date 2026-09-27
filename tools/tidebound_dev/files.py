@@ -18,4 +18,17 @@ def equivalent(before, after):
         return False
     # PNG compressor bytes may differ across macOS/Linux and Pillow wheels.
     with Image.open(before) as a, Image.open(after) as b:
-        return a.size == b.size and a.convert("RGBA").tobytes() == b.convert("RGBA").tobytes()
+        return _same_pixels(a, b)
+
+
+def _same_pixels(a, b):
+    return a.size == b.size and a.convert("RGBA").tobytes() == b.convert("RGBA").tobytes()
+
+
+def save_png(image, path):
+    """Avoid Git noise when only the PNG encoder changed, not the artwork."""
+    if path.is_file():
+        with Image.open(path) as previous:
+            if _same_pixels(previous, image):
+                return
+    image.save(path)

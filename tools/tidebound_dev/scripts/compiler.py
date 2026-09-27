@@ -1,6 +1,5 @@
 """Embed the manifest's Ruby files and the explicit Essentials adaptations."""
 
-from tidebound_dev.paths import ROOT
 import zlib
 
 from rubymarshal.reader import loads
@@ -35,7 +34,3 @@ def rebuild(root):
     entries[main:main] = custom
     archive.write_bytes(writes(entries))
     print(f"Embedded {len(custom)} Tidebound scripts into {len(entries)} entries.")
-
-
-if __name__ == "__main__":
-    rebuild(ROOT)

@@ -61,9 +61,7 @@ jobs:
           cache: npm
           cache-dependency-path: tests/package-lock.json
       - run: uv sync --locked
-      - run: uv run --locked check
-      - name: Rebuild in an isolated copy and compare generated assets
-        run: uv run --locked python -m tidebound_dev.checks.rebuild
+      - run: uv run --locked check --all
       - name: Verification must not modify tracked source or game data
         run: git diff --exit-code
 
@@ -84,7 +82,7 @@ jobs:
       - run: uv sync --locked
       - name: Verify the patched Mac path resolver
         run: uv run --locked python -m tests.native.mac_path_normalization
-      - name: Stage and verify Mac, Windows, Linux and editable project archives
+      - name: Stage and verify Mac, Windows and Linux player archives
         run: uv run --locked python -m tidebound_dev.release.candidates "$RUNNER_TEMP/candidate"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:

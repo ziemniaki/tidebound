@@ -1,7 +1,7 @@
 # Verified builds and releases
 
 The current workflow produces one universal Mac ZIP (native `x86_64` and `arm64`),
-a Windows x64 player ZIP, a Linux x86_64 player ZIP, and an editable project ZIP. `release.json`
+a Windows x64 player ZIP and a Linux x86_64 player ZIP. `release.json`
 defines the package version, Mac build number and pinned runtime archive/source
 hashes, including all three existing Windows native binaries. Existing release downloads are not replaced by tooling changes; publish a new version to distribute these updates.
 
@@ -105,8 +105,7 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
    launching it. This catches extraction problems separately from Gatekeeper
    trust policy. Apple documents this Unicode issue in
    [Resolving Gatekeeper Problems](https://developer.apple.com/forums/thread/706379).
-5. Every packaged game file matches its source hash. The project ZIP comes from
-   the exact clean Git commit. `BUILD.json` records the source commit, runtime
+5. Every packaged game file matches its source hash. `BUILD.json` records the source commit, runtime
    provenance, architectures, signing status, dependency report and game hashes.
    `SHA256SUMS.txt` covers every release file other than itself.
 6. Native smoke checks launch the packaged engine on separate Intel Mac, ARM Mac
@@ -118,7 +117,7 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
 The Mac and Windows smoke tests share `tests/native/native_runtime_smoke.rb`. Each
 extracts a disposable copy, changes only that copy's Main entry and
 save namespace, re-signs the Mac test copy, and removes its unique save directory
-afterward. The test Main never replaces the release script archive; the editable project retains test sources. The Mac test launches through Launch Services from `/`, with one read-only App Translocation case per architecture in CI. It applies
+afterward. The test Main never replaces the release script archive; test sources remain in the repository. The Mac test launches through Launch Services from `/`, with one read-only App Translocation case per architecture in CI. It applies
 an already-approved quarantine attribute to a disposable fixture, then requires
 that the reported path is an actual App Translocation mount and is read-only.
 Other locations are opt-in diagnostics (`--location` or `--location all`).
@@ -135,8 +134,8 @@ source gate also compiles and tests the actual patched path-normalization helper
 
 Packaging occurs inside a temporary sibling directory. The output directory
 appears only after all package checks pass; failed attempts clean up their staging
-files. Existing output paths are rejected. This protects packaging transactions. Use `uv run rebuild --all` for staged
-content generation; low-level generators operate on the root supplied by their caller.
+files. Existing output paths are rejected. Local content generation uses `uv run rebuild --all` and writes directly to the
+checkout.
 
 ## Pull requests and tags
 
@@ -183,32 +182,8 @@ For the next release:
 
 For a transient workflow failure, rerun on the same tag. If a draft already exists,
 the publisher refuses to overwrite it; inspect that draft rather than silently
-replacing its files. Build artifacts have 14-day retention. The one-time pond
-publisher is retired and available only in Git history.
-
-## Explicitly refreshing an unpublished draft
-
-Use Actions > Refresh unpublished draft only when the owner requests replacing
-an existing unpublished candidate. Dispatch on main and provide the current
-remote tag object SHA (`git ls-remote origin refs/tags/v0.8.5`) as the lease.
-Increment the Mac build number for a replacement bundle and merge its metadata
-first. This is how the owner-authorized 0.8.5 build40 refresh is prepared.
-
-The workflow validates draft status and the existing tag, runs the entire build
-and native matrix, and verifies the complete candidate's hashes and source SHA.
-It downloads and verifies every old asset, retaining assets and release/tag
-metadata as `previous-draft-release` for 90 days before making changes. It then
-moves the tag with a force-with-lease push, uploads the three player ZIPs, removes
-backed-up technical/project attachments, replaces the notes, and
-verifies GitHub asset digests. The release remains a draft. The Actions token's
-tag push does not recursively trigger another build; the complete build already
-ran as a prerequisite in this workflow.
-
-Published/immutable releases, unexpected tag changes, extra old assets, partial
-candidates and mismatched commits/builds are rejected. Replacement is a sequence
-of API calls, not an atomic transaction: if interrupted after retagging or upload,
-keep the draft unpublished, inspect the backup and run state, then restore or
-complete it explicitly. Normal tag-triggered releases still refuse overwrites.
+replacing its files. Changes to a tagged build use a new version and tag.
+Build artifacts have 14-day retention.
 
 ## Remaining release gates
 
@@ -248,8 +223,7 @@ References: [GitHub runner architectures](https://docs.github.com/en/actions/ref
 ## Release presentation
 
 The release page has one player ZIP per OS: universal Mac, Windows x64 and Linux
-x86_64. SHA256SUMS, build manifests, the editable project ZIP and the Markdown
-notes file remain inside the verified CI candidate, not separate release assets.
+x86_64. SHA256SUMS, build manifests and the Markdown notes file remain inside the verified CI candidate, not separate release assets.
 GitHub also supplies its own source-code archives automatically.
 
 Update `docs/release-notes.md` for each version and follow

@@ -24,20 +24,12 @@ def verify(folder):
     print("PASS: all downloaded release artifact checksums")
 
 
-def player_archives(folder, version):
-    return [
-        folder / f"Tidebound_{platform}_{version}_{arch}.zip"
-        for platform, arch in (("Mac", "universal"), ("Windows", "x64"), ("Linux", "x86_64"))
-    ]
-
-
 def validate_candidate(folder, version, commit, mac_build):
     verify(folder)
     expected = {
         f"Tidebound_Mac_{version}_universal.zip",
         f"Tidebound_Windows_{version}_x64.zip",
         f"Tidebound_Linux_{version}_x86_64.zip",
-        f"Tidebound_Project_{version}.zip",
         "BUILD.json",
         "WINDOWS_BUILD.json",
         "LINUX_BUILD.json",
@@ -45,7 +37,7 @@ def validate_candidate(folder, version, commit, mac_build):
         "RELEASE_NOTES.md",
     }
     if {p.name for p in folder.iterdir()} != expected:
-        raise ValueError("Expected the complete four-platform/project candidate set")
+        raise ValueError("Expected the complete three-platform candidate set")
     for name in ("BUILD.json", "WINDOWS_BUILD.json", "LINUX_BUILD.json"):
         manifest = json.loads((folder / name).read_text())
         if manifest["version"] != version or manifest["source"] != {
