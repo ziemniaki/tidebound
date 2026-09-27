@@ -7,7 +7,6 @@ from . import definitions
 """In-memory RPG Maker map, event and tile primitives. Importing writes nothing."""
 import struct
 from rubymarshal.classes import RubyObject, UserDef
-from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from PIL import Image, ImageDraw
 
@@ -561,67 +560,3 @@ class Map:
             events=self.events,
         )
         return writes(m)
-
-    def render(self, game):
-        ts = loads((game / "Data/Tilesets.rxdata").read_bytes())[self.tileset].attributes
-        atlas = Image.open(game / "Graphics/Tilesets" / f"{ts['@tileset_name']}.png").convert(
-            "RGBA"
-        )
-        canvas = Image.new("RGBA", (self.w * 32, self.h * 32), (5, 9, 20, 255))
-        autos = {}
-        for layer in self.layers:
-            for y, row in enumerate(layer):
-                for x, t in enumerate(row):
-                    if t >= 384:
-                        c = (t - 384) % 8
-                        r = (t - 384) // 8
-                        image = atlas.crop((c * 32, r * 32, c * 32 + 32, r * 32 + 32))
-                    elif t >= 48:
-                        key = t // 48 - 1
-                        if key not in autos:
-                            autos[key] = Image.open(
-                                game / "Graphics/Autotiles" / f"{ts['@autotile_names'][key]}.png"
-                            ).convert("RGBA")
-                        auto = autos[key]
-                        # Variant zero is the seamless centre, four 16px chunks.
-                        image = Image.new("RGBA", (32, 32))
-                        for i, chunk in enumerate(PATTERNS[t % 48]):
-                            cx = ((chunk - 1) % 6) * 16
-                            cy = ((chunk - 1) // 6) * 16
-                            image.paste(
-                                auto.crop((cx, cy, cx + 16, cy + 16)), ((i % 2) * 16, (i // 2) * 16)
-                            )
-                    else:
-                        continue
-                    if 48 <= t < 384 and auto.height == 32:
-                        image = auto.crop((0, 0, 32, 32))
-                    canvas.alpha_composite(image, (x * 32, y * 32))
-        for e in self.events.values():
-            p = e.attributes
-            g = p["@pages"][0].attributes["@graphic"].attributes
-            if g["@character_name"] and g["@opacity"]:
-                im = Image.open(
-                    game / "Graphics/Characters" / f"{g['@character_name']}.png"
-                ).convert("RGBA")
-                w, h = im.width // 4, im.height // 4
-                im = im.crop((w, 0, w * 2, h))
-                canvas.alpha_composite(im, (p["@x"] * 32 + (32 - w) // 2, p["@y"] * 32 + 32 - h))
-        if self.id in (102, 103, 108, 112):
-            # Approximate the runtime Tone in the offline preview, without editing assets.
-            rgb = canvas.convert("RGB")
-            grey = rgb.convert("L").convert("RGB")
-            rgb = Image.blend(rgb, grey, 150 / 255)
-            rgb = Image.merge(
-                "RGB",
-                [
-                    band.point(lambda v, shift=shift: max(0, v + shift))
-                    for band, shift in zip(rgb.split(), [-80, -74, -48])
-                ],
-            )
-            canvas = rgb.convert("RGBA")
-        elif self.id == 105:
-            canvas = Image.alpha_composite(
-                canvas, Image.new("RGBA", canvas.size, (10, 19, 49, 155))
-            )
-        return canvas.convert("RGB")
-

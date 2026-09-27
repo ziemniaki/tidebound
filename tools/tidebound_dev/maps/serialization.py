@@ -1,3 +1,4 @@
+from .preview import PreviewRenderer
 from .registry import write_registry
 from . import definitions
 from rubymarshal.reader import loads
@@ -44,8 +45,9 @@ def serialize(paths, maps):
         + "  }\nend\n"
     )
     (paths.tools.parent / "src" / "generated/map_passages.rb").write_text(ruby)
+    previews = PreviewRenderer(paths.game)
     for m in maps:
-        m.render(paths.game).save(paths.tools / "generated" / f"map_{m.id}_preview.png")
+        previews.render(m).save(paths.tools / "generated" / f"map_{m.id}_preview.png")
     (paths.tools / "generated" / "map_manifest.json").write_text(
         json.dumps(
             [

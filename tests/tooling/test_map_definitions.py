@@ -5,7 +5,6 @@ import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
-from PIL import Image
 from rubymarshal.reader import loads
 from rubymarshal.classes import Symbol
 
@@ -28,6 +27,7 @@ class MapDefinitionTests(unittest.TestCase):
             root = Path(temp)
             for name in (
                 "game/Data/System.rxdata",
+                "game/Data/Tilesets.rxdata",
                 "game/Data/MapInfos.rxdata",
                 "game/Data/map_metadata.dat",
                 "game/Data/metadata.dat",
@@ -46,7 +46,6 @@ class MapDefinitionTests(unittest.TestCase):
                 patch.dict(registry.MAPS, {"new_room": 117}, clear=True),
                 patch.dict(registry.ACTORS, {}, clear=True),
                 patch.dict(model.definitions.BY_ID, {117: definition}, clear=True),
-                patch.object(model.Map, "render", return_value=Image.new("RGB", (96, 96))),
             ):
                 serialization.serialize(BuildPaths(root), [area])
                 configure.build(root)
