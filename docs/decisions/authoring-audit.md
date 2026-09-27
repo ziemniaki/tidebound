@@ -12,6 +12,9 @@ These are specific extension/verification gaps, not a reason for another framewo
 
 ## Findings
 
+Evidence below describes the audited baseline. Each Change/Verified entry records
+the implementation in this PR.
+
 ### A1 — Implemented: derive native coverage from the content catalog
 
 Evidence: [native_scenarios.rb](../../tests/native_scenarios.rb),
@@ -198,3 +201,20 @@ fallback and partial-publication defects. Implementation verification covers
 headless flows, isolated regeneration, exact artwork/metrics and native scenarios;
 platform verification is recorded in the PR. This is maintenance, without a
 Python gameplay port, save migration framework or expanded CI path matrix.
+
+## Verification record
+
+Implementation commit `47212392027948759060cb9bd2b883859984f64d` passed
+[full platform verification](https://github.com/ziemniaki/tidebound/actions/runs/36281935653):
+Mac/Linux headless checks, isolated Linux regeneration, all player packaging,
+native ARM and Intel Mac, Windows x64 and Ubuntu 22.04/24.04. The existing Mac
+jobs each use one App Translocation launch; no matrix expansion.
+
+Local `uv run check --all` passed 107 Python tests plus the Ruby scenarios and
+reproduced tracked binary data and decoded PNG pixels. A native ARM `all` run
+verified content compilation, exact assets, seven rendered scenes and save/load;
+the scene captures were inspected. A migration probe verified that all 95 former
+label-based sprite/collision classifications retained their explicit roles.
+Ninety local documentation links were checked. Audio and a complete gameplay
+walkthrough remain outside these checks; Windows native player evidence does
+not claim a Windows exporter run.
