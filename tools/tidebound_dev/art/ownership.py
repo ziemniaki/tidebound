@@ -2,8 +2,8 @@
 
 import json
 from pathlib import PurePosixPath
-from . import pokemon
-from .files import copies
+
+from . import files, pokemon
 
 MANIFEST = "tools/generated/assets.json"
 MAP_OUTPUTS = (
@@ -19,9 +19,7 @@ MAP_OUTPUTS = (
 
 
 def inventory(root):
-    for directory in (root / "assets/pokemon").glob("*"):
-        if directory.is_dir() and directory.name not in pokemon.POKEMON:
-            raise ValueError(f"Unregistered Pokémon source: {directory.name}")
+    exports = []
     owners = {}
     folded = set()
 
@@ -31,10 +29,10 @@ def inventory(root):
         folded.add(name.casefold())
         owners[name] = owner
 
-    for name in pokemon.outputs():
-        register(name, "pokemon")
-    for name, _ in copies(root):
-        register(name, "files")
+    for owner, producer in (("files", files.exports), ("pokemon", pokemon.exports)):
+        for export in producer(root):
+            register(export.destination, owner)
+            exports.append(export)
     for name in MAP_OUTPUTS:
         register(f"game/{name}", "maps")
     register("src/generated/prop_assets.rb", "props")
@@ -57,24 +55,14 @@ def inventory(root):
             ):
                 raise ValueError(f"Audio shadows an existing asset: {name} / {relative}")
     # Recipes must read stock/source art, never last build's custom output.
-    sources = [source for _, source in copies(root)]
-    for identifier, art in pokemon.POKEMON.items():
-        sources.append(pokemon.cry_source(root, identifier, art))
-        if art.stock:
-            folders = (
-                (*pokemon.FRAMES.values(), "Front shiny", "Back shiny")
-                if art.shiny
-                else pokemon.FRAMES.values()
-            )
-            sources.extend(
-                root / f"game/Graphics/Pokemon/{folder}/{art.stock}.png" for folder in folders
-            )
+    sources = {export.source for export in exports}
+    sources.update(export.matching_canvas for export in exports if export.matching_canvas)
     for source in sources:
         if source.relative_to(root).as_posix() in owners.keys() | previous.keys():
             raise ValueError(f"Asset source is also a generated output: {source}")
         if not source.is_file():
             raise ValueError(f"Missing asset source: {source}")
-    return dict(sorted(owners.items()))
+    return dict(sorted(owners.items())), exports
 
 
 def recorded(root):
@@ -103,7 +91,7 @@ def publish(root, owners):
 
 
 def validate(root):
-    expected = inventory(root)
+    expected, _ = inventory(root)
     if recorded(root) != expected:
         raise ValueError("Asset ownership changed; run uv run rebuild --all and stage the outputs")
     missing = [name for name in expected if not (root / name).is_file()]

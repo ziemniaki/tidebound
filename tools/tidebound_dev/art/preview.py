@@ -1,12 +1,14 @@
 """Select an asset and replace Main only in a disposable development player."""
 
-import json
 import zlib
 from pathlib import Path
+
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
+
+from . import props
+from .files import DIRECTORIES, exports
 from .pokemon import POKEMON
-from .files import copies
 
 
 def select(root, name):
@@ -20,24 +22,19 @@ def select(root, name):
         species, _, form = identifier.partition("_")
         return {**record, "species": species, "form": int(form or 0)}
     if kind == "props":
-        props = json.loads((root / "assets/props.json").read_text())
-        if identifier in props:
+        records = props.load(root)
+        if identifier in records:
             return {
                 **record,
-                **props[identifier],
-                "path": f"Graphics/Pictures/{props[identifier]['file']}.png",
+                **records[identifier],
+                "path": f"Graphics/Pictures/{records[identifier]['file']}.png",
             }
-    categories = {
-        "characters": "Graphics/Characters",
-        "items": "Graphics/Items",
-        "trainers": "Graphics/Trainers",
-        "pictures": "Graphics/Pictures",
-        "audio": "Audio",
-    }
-    if kind in categories:
-        stem = f"game/{categories[kind]}/{identifier}"
+    if kind in DIRECTORIES:
+        stem = f"game/{DIRECTORIES[kind]}/{identifier}"
         matches = [
-            path for path, _ in copies(root) if Path(path).with_suffix("").as_posix() == stem
+            export.destination
+            for export in exports(root)
+            if Path(export.destination).with_suffix("").as_posix() == stem
         ]
         if len(matches) == 1:
             return {**record, "path": matches[0].removeprefix("game/")}

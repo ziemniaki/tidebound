@@ -31,7 +31,9 @@ Map builders compose maps/tilesets; content builders write definitions, not imag
 The map compiler still owns packed tilesets, autotiles and window-mask placement.
 
 `tools/generated/assets.json` records generated custom files and their producer.
-It is derived, not a second authoring catalog. Duplicate destinations (including
+It is derived, not a second authoring catalog. `files.py` and `pokemon.py` declare
+source/destination pairs; the writer and ownership checks consume those same
+records. Prop export, map references and previews share `props.py` validation. Duplicate destinations (including
 case collisions) and recipes reading generated outputs fail before export.
 Removing a declaration removes its former output on the next export; stock kit
 files are never swept. `check --all` clears declared custom exports in its isolated

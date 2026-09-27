@@ -1,9 +1,9 @@
 """Approved Pokémon bundles, with explicit stock, shiny and cry reuse."""
 
 from dataclasses import dataclass
-from PIL import Image
 
-from .recolors import RECOLORS, recolor
+from .export import Export
+from .recolors import RECOLORS
 
 
 @dataclass(frozen=True)
@@ -30,54 +30,37 @@ POKEMON = {
 FRAMES = {"front": "Front", "back": "Back", "icon": "Icons"}
 
 
-def frames(root, identifier, art):
-    """Yield the engine destination and image; no resizing or alpha compositing."""
-    for name, folder in FRAMES.items():
-        if art.stock:
-            source = root / f"game/Graphics/Pokemon/{folder}/{art.stock}.png"
-        else:
-            source = root / f"assets/pokemon/{identifier}/{name}.png"
-        if identifier in RECOLORS:
-            palettes = RECOLORS[identifier]
-            frame = recolor(source, palettes[folder])
-        else:
-            with Image.open(source) as image:
-                frame = image.convert("RGBA")
-        validate_frame(source, frame, name)
-        yield f"Graphics/Pokemon/{folder}/{identifier}.png", frame
-        if name == "icon":
-            continue
-        if art.shiny:
+def exports(root):
+    for directory in (root / "assets/pokemon").glob("*"):
+        if directory.is_dir() and directory.name not in POKEMON:
+            raise ValueError(f"Unregistered Pokémon source: {directory.name}")
+    for identifier, art in POKEMON.items():
+        for name, folder in FRAMES.items():
             source = (
-                root / f"game/Graphics/Pokemon/{folder} shiny/{art.stock}.png"
+                root / f"game/Graphics/Pokemon/{folder}/{art.stock}.png"
                 if art.stock
-                else root / f"assets/pokemon/{identifier}/{name}_shiny.png"
+                else root / f"assets/pokemon/{identifier}/{name}.png"
             )
-            with Image.open(source) as image:
-                shiny = image.convert("RGBA")
-            if shiny.size != frame.size:
-                raise ValueError(f"{source}: shiny canvas must match normal canvas {frame.size}")
-        else:
-            shiny = frame
-        yield f"Graphics/Pokemon/{folder} shiny/{identifier}.png", shiny
-
-
-def validate_frame(path, image, name):
-    width, height = image.size
-    if name == "icon" and (width < height or width % height):
-        raise ValueError(f"{path}: icon must be a horizontal strip of square frames")
-    if not image.getchannel("A").getbbox():
-        raise ValueError(f"{path}: empty artwork")
-
-
-def outputs():
-    for identifier in POKEMON:
-        for folder in (*FRAMES.values(), "Front shiny", "Back shiny"):
-            yield f"game/Graphics/Pokemon/{folder}/{identifier}.png"
-        yield f"game/Audio/SE/Cries/{identifier}.ogg"
-
-
-def cry_source(root, identifier, art):
-    if art.cry == identifier:
-        return root / f"assets/pokemon/{identifier}/cry.ogg"
-    return root / f"game/Audio/SE/Cries/{art.cry}.ogg"
+            palette = RECOLORS[identifier][folder] if identifier in RECOLORS else None
+            yield Export(source, f"game/Graphics/Pokemon/{folder}/{identifier}.png", palette)
+            if name == "icon":
+                continue
+            shiny = source
+            if art.shiny:
+                shiny = (
+                    root / f"game/Graphics/Pokemon/{folder} shiny/{art.stock}.png"
+                    if art.stock
+                    else source.with_stem(f"{name}_shiny")
+                )
+            yield Export(
+                shiny,
+                f"game/Graphics/Pokemon/{folder} shiny/{identifier}.png",
+                palette=None if art.shiny else palette,
+                matching_canvas=source if art.shiny else None,
+            )
+        cry = (
+            root / f"assets/pokemon/{identifier}/cry.ogg"
+            if art.cry == identifier
+            else root / f"game/Audio/SE/Cries/{art.cry}.ogg"
+        )
+        yield Export(cry, f"game/Audio/SE/Cries/{identifier}.ogg")
