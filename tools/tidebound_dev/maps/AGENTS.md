@@ -31,7 +31,9 @@ previews. `registry.py` exports map/actor identities and roles to Ruby. Read
 
 Static prop and character PNGs are owned by `assets/` and exported by `art/compiler.py`.
 Map compilation owns packed tilesets and window masks/placements in
-`src/generated/window_lights.rb`. Read approved image sources when composing
+`src/generated/window_lights.rb`. Register any new packed texture output in
+`art/ownership.py::MAP_OUTPUTS`; the generated asset manifest and clean rebuild
+then cover it. Standalone approved files are discovered by their asset directory. Read approved image sources when composing
 tiles; do not export standalone character/prop art from an area builder.
 
 ## Coordinates, events and actors
