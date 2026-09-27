@@ -19,6 +19,9 @@ MAP_OUTPUTS = (
 
 
 def inventory(root):
+    for directory in (root / "assets/pokemon").glob("*"):
+        if directory.is_dir() and directory.name not in pokemon.POKEMON:
+            raise ValueError(f"Unregistered Pokémon source: {directory.name}")
     owners = {}
     folded = set()
 

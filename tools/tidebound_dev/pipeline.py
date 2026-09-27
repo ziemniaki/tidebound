@@ -8,8 +8,8 @@ from .art import compiler as art
 
 
 def rebuild(root, *, full=False):
+    art.build(root)
     if full:
-        art.build(root)
         maps(root)
         story.build(root)
         # Encounters must see species added by this build.

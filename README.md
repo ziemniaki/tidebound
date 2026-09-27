@@ -36,6 +36,7 @@ Mac builds need Xcode command-line tools; Linux needs the documented
 ```sh
 uv run build       # build without opening the game
 uv run check       # verify changes; requires Node 24.14.1
+uv run play --preview pokemon/WHYDUCK  # inspect an asset in the engine
 ```
 
 [Development guide](docs/development.md) · [Working with an agent](docs/development.md#agent-assisted-development)
@@ -51,7 +52,7 @@ uv run check       # verify changes; requires Node 24.14.1
 | `game/` | RPG Maker project, compiled data, PBS definitions and playable assets |
 | `tools/` | Build commands, map/data generators and packaging |
 | `tests/` | Headless checks and native runtime smoke tests |
-| `assets/` | Editable art sources and export recipes |
+| `assets/` | Approved custom assets and creative references |
 | `runtime/` | Pinned engine inputs, patches and provenance |
 
 Agents start with [AGENTS.md](AGENTS.md). Contributors should read the

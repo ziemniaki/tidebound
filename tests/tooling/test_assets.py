@@ -52,3 +52,45 @@ class AssetTests(unittest.TestCase):
             save_png(image, path)
             with Image.open(path) as saved:
                 self.assertEqual(saved.getpixel((0, 0)), (40, 50, 60, 64))
+
+
+class AssetRefreshTests(unittest.TestCase):
+    def test_default_rebuild_refreshes_art_and_retires_only_owned_outputs(self):
+        from unittest.mock import patch
+        from contextlib import ExitStack
+        from tidebound_dev import pipeline
+        from tidebound_dev.art import pokemon, files, ownership
+
+        with tempfile.TemporaryDirectory() as temp, ExitStack() as patches:
+            root = Path(temp)
+            (root / "assets/items").mkdir(parents=True)
+            (root / "assets/props.json").write_text("{}")
+            (root / "src/generated").mkdir(parents=True)
+            stock = root / "game/Graphics/Items/STOCK.png"
+            stock.parent.mkdir(parents=True)
+            stock.write_bytes(b"irreplaceable stock input")
+            source = root / "assets/items/KEY.png"
+            target = root / "game/Graphics/Items/KEY.png"
+            for obj, name, value in (
+                (pokemon, "POKEMON", {}),
+                (files, "ALIASES", {}),
+                (ownership, "MAP_OUTPUTS", ()),
+            ):
+                patches.enter_context(patch.object(obj, name, value))
+            patches.enter_context(patch.object(pipeline, "scripts"))
+            patches.enter_context(
+                patch.object(
+                    pipeline,
+                    "maps",
+                    side_effect=AssertionError("ordinary rebuild must preserve editor maps"),
+                )
+            )
+            for color in ((1, 2, 3, 128), (4, 5, 6, 200)):
+                Image.new("RGBA", (48, 48), color).save(source)
+                pipeline.rebuild(root)
+                with Image.open(target) as image:
+                    self.assertEqual(image.getpixel((0, 0)), color)
+            source.unlink()
+            pipeline.rebuild(root)
+            self.assertFalse(target.exists())
+            self.assertEqual(stock.read_bytes(), b"irreplaceable stock input")

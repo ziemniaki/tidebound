@@ -22,7 +22,9 @@ Approved custom sources live here; exported player files live in `game/`.
 4. Stats and placement metrics belong to the [content owner](../tools/tidebound_dev/content/AGENTS.md).
    Do not offset PNGs and `METRICS` blindly together. Debug-editor metric changes
    are overwritten by regeneration.
-5. Run `uv run rebuild --all`, stage source and outputs, then `uv run check --all`.
+5. Run `uv run play --preview pokemon/<ID>` to refresh exports and inspect the
+   asset. Use `uv run rebuild --all` when changing content or maps too. Stage
+   source and outputs before `uv run check --all`.
    Inspect front/back in battle and icons in the party screen. Native `species`
    checks exact normal/shiny/form paths and cries: Essentials' fallback to base
    sprites or `000` must not hide missing custom assets.

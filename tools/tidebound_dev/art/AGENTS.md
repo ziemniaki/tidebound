@@ -36,7 +36,7 @@ not convert the codec. Do not introduce WMA (unsupported by mkxp-z).
    cries fall back to the base. Missing cries may produce silence rather than an
    error. Declare reuse in `art/pokemon.py::POKEMON`. For an original cry, set its cry
    source to its own ID and add `assets/pokemon/<ID>/cry.ogg`.
-5. Run `uv run rebuild --all` after replacing an approved source. If changing generated map/content
+5. Use `uv run play --preview "audio/BGM/<name>"` after replacing an approved source. If changing generated map/content
    references, run `uv run rebuild --all`, then `uv run check --all`. Listen in the
    actual scene with normal and reduced player volume, including looping and
    battle/map transitions where applicable. Headless checks do not hear audio.

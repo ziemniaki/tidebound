@@ -32,10 +32,10 @@ Run from the repository root. uv owns Python dependencies; Node is pinned in
 `.node-version`; gameplay uses bundled Ruby (no system Ruby setup).
 
 ```sh
-uv run play           # embed current Ruby, stage and launch a development player
-uv run build          # stage only; does not regenerate maps/content
+uv run play           # refresh assets/Ruby, stage and launch a development player
+uv run build          # same refresh without launch; preserves editor maps/content
 uv run format         # before embedding Ruby
-uv run rebuild        # embed src/load_order.txt into game/Data/Scripts.rxdata
+uv run rebuild        # export custom assets and embed the Ruby load manifest
 uv run rebuild --all  # regenerate maps/content/art, then embed
 uv run check          # headless gate; never regenerates tracked game data
 uv run check --all    # also regenerate in isolation and compare

@@ -27,7 +27,7 @@ def write_json(path, value):
     path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
 
 
-def stage_player(folder, platform, root, config, development=False):
+def stage_player(folder, platform, root, config, development=False, preview=None):
     """All modes use the same runtime, payload and platform finalization."""
     adapter = PLATFORMS[platform]
     folder.mkdir()
@@ -37,12 +37,18 @@ def stage_player(folder, platform, root, config, development=False):
     copy_verified(root / f"docs/players/{platform}.txt", folder / "README.txt")
     if development:
         development_settings(player.game)
+        if preview:
+            from tidebound_dev.art.preview import prepare
+
+            prepare(player.game, preview)
     adapter.finalize(player)
     return player
 
 
-def build(platform, output, root=ROOT, allow_dirty=False, development=False):
+def build(platform, output, root=ROOT, allow_dirty=False, development=False, preview=None):
     """Publish a complete player or verified ZIP atomically; preserve existing output."""
+    if preview and not development:
+        raise ValueError("Asset previews are development players only")
     output = output.resolve()
     if output.exists():
         raise FileExistsError(
@@ -58,7 +64,7 @@ def build(platform, output, root=ROOT, allow_dirty=False, development=False):
         artifacts = Path(temp) / "artifacts"
         artifacts.mkdir()
         folder = artifacts / f"Tidebound_{adapter.NAME}_{config['version']}_{adapter.ARCHITECTURE}"
-        player = stage_player(folder, platform, root, config, development)
+        player = stage_player(folder, platform, root, config, development, preview)
         if development:
             result = output / folder.name / player.launcher.relative_to(folder)
             write_json(
