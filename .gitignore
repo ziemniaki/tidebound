@@ -28,11 +28,9 @@ Tidebound_Mac_*.zip
 /.cache/
 /dist/
 *.egg-info/
-/game/animmaker.txt
-/game/extendtext.txt
-/game/knownpoint.bmp
-/game/selpoint.bmp
-/game/townmapgen.html
-/game/Essentials Docs Wiki.URL
 desktop.ini
 Thumbs.db
+
+# Native project and Ruby tables are assembled from source.
+/game/
+/src/generated/

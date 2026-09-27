@@ -58,7 +58,11 @@ def validate_names(root):
     categories = roles.keys() | {"maps", "audio", "ui", "effects", "tilesets"}
     for path in sorted((root / "content").rglob("*")):
         relative = path.relative_to(root / "content")
-        if "__pycache__" in relative.parts or path.name == "AGENTS.md":
+        if (
+            "__pycache__" in relative.parts
+            or path.name == "AGENTS.md"
+            or relative.parts[0] == "overrides"
+        ):
             continue
         if relative.parts[0] not in categories:
             raise ValueError(f"Unknown content category: {relative.parts[0]}")

@@ -89,6 +89,7 @@ class MapEditorTests(unittest.TestCase):
         self.assertEqual(loads(ts_path.read_bytes())[fields["@tileset_id"]], ts)
         home = construct(BuildPaths(self.root))[0]
         self.assertFalse(home.walk[10][6])
+        editor.remember(self.root)  # Manual exports above complete this build.
         before = (self.root / "content/maps/home/layout.json").read_bytes()
         editor.import_changes(self.root)
         self.assertEqual((self.root / "content/maps/home/layout.json").read_bytes(), before)
@@ -131,6 +132,32 @@ class MapEditorTests(unittest.TestCase):
             editor.import_changes(self.root)
         self.assertEqual(source_path.read_bytes(), before)
         self.assertEqual(path.read_bytes(), edited)
+
+    def test_stock_map_and_tileset_edits_import_without_capturing_authored_records(self):
+        path = self.root / "game/Data/Map001.rxdata"
+        native = loads(path.read_bytes())
+        native.attributes["@bgm"].attributes["@volume"] = 41
+        path.write_bytes(writes(native))
+        infos_path = self.root / "game/Data/MapInfos.rxdata"
+        infos = loads(infos_path.read_bytes())
+        infos[1].attributes["@name"] = "Stock map renamed"
+        infos_path.write_bytes(writes(infos))
+        sets_path = self.root / "game/Data/Tilesets.rxdata"
+        sets = loads(sets_path.read_bytes())
+        sets[1].attributes["@name"] = "Stock tileset renamed"
+        sets_path.write_bytes(writes(sets))
+        with self.assertRaisesRegex(ValueError, "editor import"):
+            editor.require_import(self.root)
+        editor.import_changes(self.root)
+        overrides = self.root / "content/overrides/Data"
+        self.assertEqual(loads((overrides / path.name).read_bytes()), native)
+        imported_infos = loads((overrides / "MapInfos.rxdata").read_bytes())
+        self.assertEqual(imported_infos[1].attributes["@name"], "Stock map renamed")
+        self.assertNotIn(101, imported_infos)
+        imported_sets = loads((overrides / "Tilesets.rxdata").read_bytes())
+        self.assertEqual(imported_sets[1].attributes["@name"], "Stock tileset renamed")
+        self.assertLessEqual(len(imported_sets), 26)
+        editor.require_import(self.root)
 
     def test_new_event_keeps_its_id_and_deleted_ids_cannot_be_reused(self):
         path = self.root / "game/Data/Map101.rxdata"
@@ -236,7 +263,9 @@ class MapEditorTests(unittest.TestCase):
         self.assertEqual((bundle / "layout.json").read_bytes(), before)
         self.assertFalse((self.root / "content/maps/new_room_118").exists())
 
-    def test_pending_edits_are_guarded_but_failed_exports_do_not_block_retry(self):
+    @patch.object(pipeline.workspace, "prepare")
+    @patch.object(pipeline.workspace, "validate_overrides")
+    def test_pending_edits_are_guarded_but_failed_exports_do_not_block_retry(self, *_):
         path = self.root / "game/Data/Map101.rxdata"
         native = loads(path.read_bytes())
         native.attributes["@bgm"].attributes["@volume"] = 42

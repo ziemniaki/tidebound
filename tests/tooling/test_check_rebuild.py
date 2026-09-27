@@ -1,35 +1,28 @@
-"""A clean regeneration must reproduce the complete set of tracked outputs."""
+"""An isolated build must not depend on local outputs or alter authored inputs."""
 
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
 import subprocess
-import json
 import tempfile
 import unittest
 from unittest.mock import patch
-
 from tidebound_dev import checks
 
 
 class GeneratedFileSetTests(unittest.TestCase):
-    def regenerate(self, generate, output="game/Graphics/Pictures/custom.png"):
+    def regenerate(self, generate):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / "input.txt").write_text("source")
-            image = root / output
+            (root / ".gitignore").write_text("game/\nsrc/generated/\n")
+            image = root / "game/Graphics/Pictures/custom.png"
             image.parent.mkdir(parents=True)
-            image.write_bytes(b"stale export")
-            manifest = root / "game/.generated/assets.json"
-            manifest.parent.mkdir(parents=True)
-            manifest.write_text(json.dumps({output: "files"}))
-            manifest.with_name("content.json").write_text(
-                json.dumps({"databases": {}, "files": []})
-            )
+            image.write_bytes(b"export")
             subprocess.run(["git", "init", "-q", root], check=True)
             subprocess.run(["git", "-C", root, "add", "."], check=True)
             with (
-                patch.object(checks, "rebuild", side_effect=generate),
+                patch.object(checks, "_rebuild_isolated", side_effect=generate),
                 redirect_stdout(StringIO()),
             ):
                 try:
@@ -37,23 +30,21 @@ class GeneratedFileSetTests(unittest.TestCase):
                 finally:
                     self.assertEqual((root / "input.txt").read_text(), "source")
 
-    def test_new_untracked_output_cannot_pass_regeneration(self):
+    def test_missing_or_extra_output_cannot_pass_a_clean_build(self):
+        def extra(root):
+            (root / "game").mkdir()
+            (root / "game/new-sprite.png").write_bytes(b"unexpected")
+
+        for generate in (lambda root: None, extra):
+            with self.subTest(generate=generate), self.assertRaisesRegex(SystemExit, "custom.png"):
+                self.regenerate(generate)
+
+    def test_regeneration_cannot_reuse_local_output(self):
         def generate(root):
-            (root / "new-sprite.png").write_bytes(b"new generated asset")
-
-        with self.assertRaisesRegex(SystemExit, "new-sprite.png"):
-            self.regenerate(generate)
-
-    def test_an_exporter_that_stops_writing_cannot_pass_using_old_output(self):
-        for output in ("game/Graphics/Pictures/custom.png", "src/generated/prop_assets.rb"):
-            with self.subTest(output=output), self.assertRaisesRegex(SystemExit, Path(output).name):
-                self.regenerate(lambda root, **kwargs: None, output)
-
-    def test_python_import_cache_is_not_a_generated_game_asset(self):
-        def generate(root):
-            (root / "game/Graphics/Pictures/custom.png").write_bytes(b"stale export")
-            (root / "__pycache__").mkdir()
-            (root / "__pycache__/fixture.pyc").write_bytes(b"cache")
+            self.assertFalse((root / "game").exists())
+            image = root / "game/Graphics/Pictures/custom.png"
+            image.parent.mkdir(parents=True)
+            image.write_bytes(b"export")
 
         self.regenerate(generate)
 

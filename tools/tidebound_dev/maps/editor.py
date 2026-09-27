@@ -1,5 +1,6 @@
 """Explicit editor import with a three-way comparison against the last export."""
 
+from .. import workspace
 import hashlib
 import json
 from pathlib import PureWindowsPath
@@ -127,6 +128,8 @@ def remember(root, links=None):
                 "bindings": links,
                 "native": native_values(root, links),
                 "map_ids": map_ids(root),
+                "files": workspace.file_state(root, links),
+                "overrides": workspace.override_state(root),
             }
         )
     )
@@ -134,18 +137,67 @@ def remember(root, links=None):
 
 def require_import(root):
     path = root / SESSION
-    if not path.exists():
+    if not workspace.files(root / "game"):
         return
+    if not path.exists():
+        if (root / ".build/exporting").exists():
+            return
+        raise ValueError(
+            "Existing game/ has no build checkpoint. Preserve it outside game/ before rebuilding; never discard unimported editor work."
+        )
     session = read(path)
+    if "files" not in session:
+        raise ValueError(
+            "This checkout predates generated game/. Import pending map edits, then preserve game/ outside the checkout before the first build. See docs/development.md#rpg-maker."
+        )
     current = native_values(root, session["bindings"])
     changed = [name for name in current if current[name] != session["native"][name]]
     added = sorted(set(map_ids(root)) - set(session["map_ids"]))
     changed.extend(f"New native map {identifier}" for identifier in added)
+    changed.extend(file_changes(root, session))
     if changed:
         raise ValueError(
             "Saved RPG Maker changes need uv run editor import before rebuilding:\n"
             + "\n".join(changed)
         )
+
+
+def file_changes(root, session):
+    current = workspace.file_state(root, session["bindings"])
+    return sorted(
+        name
+        for name in current.keys() | session.get("files", {}).keys()
+        if current.get(name) != session.get("files", {}).get(name)
+    )
+
+
+def native_imports(root, session):
+    if "files" not in session:
+        return {}  # One-time import of maps from the previous tracked-project workflow.
+    changed = file_changes(root, session)
+    generated = workspace.generated_files(root)
+    new_ids = set(map_ids(root)) - set(session["map_ids"])
+    current_overrides = workspace.override_state(root)
+    result = {}
+    for name in changed:
+        if name in {f"Data/Map{i:03}.rxdata" for i in new_ids}:
+            continue  # Imported as authored bundles below.
+        path = root / "game" / name
+        if not path.is_file():
+            raise ValueError(
+                f"Native file deleted: {name}. Restore it before importing; remove authored content at its source."
+            )
+        if name in generated:
+            raise ValueError(
+                f"{name} is generated. Edit its owner in src/ or content/, then restore the exported file before importing other changes."
+            )
+        if current_overrides.get(name) != session["overrides"].get(name):
+            raise ValueError(f"Editor/source conflict at {workspace.OVERRIDES}/{name}")
+        links = {**session["bindings"], **{f"new/{i}": ("map", i) for i in new_ids}}
+        data = workspace.native_bytes(root, name, path.read_bytes(), links)
+        if hashlib.sha256(data).hexdigest() != session["files"].get(name):
+            result[f"{workspace.OVERRIDES}/{name}"] = data
+    return result
 
 
 def merge(base, source, edited, path, *, indexed=False):
@@ -217,11 +269,12 @@ def import_changes(root):
         elif name.endswith("map.json"):
             result = {**pending.get(name, read(root / name)), **result}
         pending[name] = result
+    pending.update(native_imports(root, session))
     # Compute every merge first. Conflicts never partially import a session.
     for name, result in pending.items():
         target = root / name
         target.parent.mkdir(parents=True, exist_ok=True)
-        if target.suffix == ".png":
+        if isinstance(result, bytes):
             target.write_bytes(result)
         else:
             target.write_text(dump(result), encoding="utf-8")
@@ -233,6 +286,4 @@ def import_changes(root):
         if name in session["bindings"] or name in pending
     }
     remember(root, links)
-    print(
-        f"Imported {len(pending)} changed map/tileset files. Review git diff, then run uv run play."
-    )
+    print(f"Imported {len(pending)} changed source files. Review git diff, then run uv run play.")

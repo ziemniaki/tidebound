@@ -14,6 +14,10 @@ def build_release(output, root=ROOT):
     output = output.resolve()
     if output.exists():
         raise FileExistsError("Release output already exists; refusing to overwrite it")
+    from tidebound_dev.pipeline import rebuild
+
+    source_revision(root)
+    rebuild(root)
     config = check_sources(root)
     source = source_revision(root)
     notes = (root / "docs/release-notes.md").read_text(encoding="utf-8")

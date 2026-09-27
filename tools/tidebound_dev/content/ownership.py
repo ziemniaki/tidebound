@@ -1,10 +1,7 @@
-"""Own only declared custom records; stock databases remain rebuild inputs."""
+"""Describe generated content for validation and editor ownership."""
 
 import json
 from pathlib import PurePosixPath
-from rubymarshal.classes import Symbol
-from rubymarshal.reader import loads
-from rubymarshal.writer import writes
 
 from .species import SPECIES, METRICS
 from .species_compiler import pbs_files
@@ -65,34 +62,9 @@ def recorded(root):
 
 
 def prepare(root, expected):
-    previous = recorded(root)
-    cleaned = {}
-    for name, identifiers in expected["databases"].items():
-        database = loads((root / "game/Data" / name).read_bytes())
-        old = previous["databases"].get(name, [])
-        key = lambda value: Symbol(value) if isinstance(value, str) else value
-        for identifier in set(identifiers) - set(old):
-            if name not in ("MapInfos.rxdata", "map_metadata.dat") and key(identifier) in database:
-                raise ValueError(f"Custom content would overwrite stock {name}: {identifier}")
-        retired = set(old) - set(identifiers)
-        if retired:
-            for identifier in retired:
-                database.pop(key(identifier), None)
-            cleaned[name] = writes(database)
-    # A map declaration explicitly adopts its native editor ID and file.
-    map_files = {
-        f"game/Data/Map{i:03}.rxdata" for i in expected["databases"].get("MapInfos.rxdata", [])
-    }
-    for name in set(expected["files"]) - set(previous["files"]) - map_files:
-        if (root / name).exists():
-            raise ValueError(f"Custom content would overwrite an unowned file: {name}")
-    # Record claims before generation so a failed build can be fixed and rerun.
-    # Retired outputs are removed first; only our recorded paths can be deleted.
-    for name in set(previous["files"]) - set(expected["files"]):
-        (root / name).unlink(missing_ok=True)
-    for name, data in cleaned.items():
-        (root / "game/Data" / name).write_bytes(data)
-    (root / MANIFEST).write_text(json.dumps(expected, indent=2) + "\n")
+    path = root / MANIFEST
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(expected, indent=2) + "\n")
 
 
 def validate(root):

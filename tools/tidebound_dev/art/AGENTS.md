@@ -23,8 +23,9 @@ Fixed tile bundles export through `maps/tilesets.py`; only the packed runtime li
 sheet belongs in `ownership.MAP_OUTPUTS`. `game/.generated/assets.json`
 is derived: never hand-edit it or use generated exports as recipe inputs.
 
-Keep retirement **before** writing replacements: case-only renames can otherwise
-delete fresh files on macOS/Windows. Fix failed builds and rerun; there is no rollback.
-Map references and previews use `props.load`, not separate JSON parsing/validation.
-Verify pipeline changes with `uv run check --all` after staging new files: it removes
-owned exports in an isolated copy and proves they rebuild from source.
+The pipeline first restores the baseline and native overrides; exporters never
+consume a previous build. Authored bundles may intentionally replace stock assets.
+Removing or renaming a bundle needs no retirement code. Override paths must not
+also be owned by a bundle. Map references and previews use `props.load`, not
+separate JSON parsing/validation. Run `uv run check --all` after staging new sources
+for a complete clean-build comparison.

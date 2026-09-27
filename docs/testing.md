@@ -1,8 +1,8 @@
 # Testing
 
 Run `uv run check` for the normal headless gate. It checks Python/Ruby formatting, tooling regressions,
-map/source agreement, geometry and Ruby domain/native-object suites without
-rewriting tracked game data. `uv run check --all` additionally regenerates in a
+map/source agreement, geometry and Ruby domain/native-object suites after compiling
+a fresh native project. `uv run check --all` additionally regenerates in a
 disposable copy and compares binary data and decoded PNG pixels. Stage new source
 files first so the tracked-file copy includes them.
 
@@ -38,7 +38,7 @@ extraction of the current archive, never editable source. The harness selects st
 scripts by name and custom scripts in archive order. Custom Ruby must remain
 compatible with bundled Ruby 3.1; WASM uses Ruby 3.2.
 
-Full artwork parity belongs to `check --all`, which regenerates once and compares
+Full artwork parity belongs to `check --all`, which builds in isolation and compares
 decoded pixels. Focused asset tests cover alpha preservation, required shiny inputs, character/icon
 formats, stale-output removal and lighting through tileset packing.
 

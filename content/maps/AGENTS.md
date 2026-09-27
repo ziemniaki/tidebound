@@ -70,7 +70,7 @@ Their output is ordinary editable content; generators are never a build dependen
 
 Run `uv run play` to compile and play; `uv run build --compile-only` exports without
 launching. Inspect `.build/maps/map_<id>_preview.png`, then verify entrances,
-interactions and collision in the player. Stage sources/exports and run
+interactions and collision in the player. Stage source changes and run
 `uv run check --all`. Previews do not establish event scheduling or gameplay.
 The compiler updates Essentials' native map revision so saves reload changed maps
 without rewriting Pokémon or quest state.

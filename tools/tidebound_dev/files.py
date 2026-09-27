@@ -31,6 +31,7 @@ def save_png(image, path):
         with Image.open(path) as previous:
             if _same_pixels(previous, image):
                 return
+    path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path)
 
 
