@@ -51,7 +51,7 @@ identities, species/form IDs, event-handler keys and shared entry points are int
 contracts. Agree those before splitting work; report them in the PR. After combining
 source changes, regenerate shared binaries once from the combined source. Never
 resolve `Scripts.rxdata`, species databases or generated maps by choosing one
-agent's binary wholesale. [Integration workflow](docs/repository-workflow.md).
+agent's binary wholesale. [Integration workflow](docs/development.md#independent-feature-work).
 
 ## Project constraints
 

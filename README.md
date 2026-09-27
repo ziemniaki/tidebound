@@ -38,7 +38,7 @@ uv run build       # build without opening the game
 uv run check       # verify changes; requires Node 24.14.1
 ```
 
-[Development guide](docs/development.md) · [Working with an agent](docs/maintainer.md)
+[Development guide](docs/development.md) · [Working with an agent](docs/development.md#agent-assisted-development)
 · [Architecture](docs/architecture.md) · [Releasing](docs/releasing.md)
 
 ## Project structure
