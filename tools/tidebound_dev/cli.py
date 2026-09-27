@@ -28,7 +28,7 @@ def host_platform():
     raise ValueError("Playable builds support macOS Intel/ARM, Windows x64 and Linux x86_64.")
 
 
-def development_build(target, preview=None):
+def development_build(target, preview=None, scenario=None):
     if target == "mac" and sys.platform != "darwin":
         raise ValueError("Mac builds require macOS and Xcode command-line tools.")
     from .pipeline import rebuild
@@ -36,14 +36,18 @@ def development_build(target, preview=None):
     from .art.preview import select
 
     asset = select(ROOT, preview) if preview else None
+    from .scenarios import select as select_scenario
+
+    state = select_scenario(ROOT, scenario) if scenario else None
     rebuild(ROOT)
 
     from .packaging.pipeline import build
-    from .runtime.config import DEV_SAVES
 
     output = ROOT / ".build/dev" / (time.strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
-    launcher = build(target, output, allow_dirty=True, development=True, preview=asset)
-    print(f"\nReady: {launcher}\nDevelopment saves: {DEV_SAVES}", flush=True)
+    launcher = build(
+        target, output, allow_dirty=True, development=True, preview=asset, scenario=state
+    )
+    print(f"\nReady: {launcher}", flush=True)
     return launcher
 
 
@@ -79,9 +83,14 @@ def parser():
     )
     play = commands.add_parser("play", help="Build and launch a development player")
     for command in (build, play):
-        command.add_argument(
+        modes = command.add_mutually_exclusive_group()
+        modes.add_argument(
             "--preview", help="Inspect an asset, e.g. pokemon/WHYDUCK or props/ship1"
         )
+        modes.add_argument(
+            "--scenario", help="Start a declared game state; list with uv run tidebound scenarios"
+        )
+    commands.add_parser("scenarios", help="List feature-owned playtest states")
     for name, help in (
         ("check", "Also verify isolated regeneration"),
         ("rebuild", "Also regenerate maps, content and artwork"),
@@ -101,7 +110,7 @@ def parser():
 def execute(args):
     if args.command in ("build", "play"):
         target = getattr(args, "platform", None) or host_platform()
-        launcher = development_build(target, args.preview)
+        launcher = development_build(target, args.preview, args.scenario)
         if args.command == "play":
             if target == "mac":
                 run("open", "-n", "-W", launcher)
@@ -119,6 +128,11 @@ def execute(args):
         from .pipeline import rebuild
 
         rebuild(ROOT, full=args.all)
+    elif args.command == "scenarios":
+        from .scenarios import catalog, read
+
+        for name, path in catalog(ROOT).items():
+            print(f"{name}: {read(path)['description']}")
     elif args.command == "editor":
         open_editor()
     elif args.command == "format":

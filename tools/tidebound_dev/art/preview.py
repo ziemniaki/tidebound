@@ -1,11 +1,10 @@
 """Select an asset and replace Main only in a disposable development player."""
 
-import zlib
 from pathlib import Path
 
-from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 
+from ..runtime.development import replace_main
 from . import props
 from .files import DIRECTORIES, exports
 from .pokemon import POKEMON
@@ -44,13 +43,7 @@ def select(root, name):
 
 
 def prepare(game, record):
-    path = game / "Data/Scripts.rxdata"
-    entries = loads(path.read_bytes())
-    mains = [entry for entry in entries if entry[1] == "Main"]
-    if len(mains) != 1:
-        raise ValueError("Asset preview requires exactly one Main entry")
     driver = Path(__file__).with_suffix(".rb").read_bytes()
     driver += b'\nAssetPreview.run(load_data("Data/AssetPreview.rxdata"))\n'
-    mains[0][2] = zlib.compress(driver)
-    path.write_bytes(writes(entries))
+    replace_main(game, driver)
     (game / "Data/AssetPreview.rxdata").write_bytes(writes(record))

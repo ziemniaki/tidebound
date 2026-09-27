@@ -4,7 +4,10 @@ module NativeScenarios
 
   def run(scenario, output)
     species if %i[species all].include?(scenario)
-    world(output) if %i[world all].include?(scenario)
+    if %i[world all].include?(scenario)
+      world(output)
+      NativeDevelopmentScenarios.run(output)
+    end
   end
 
   def records_snapshot(klass, identifiers)

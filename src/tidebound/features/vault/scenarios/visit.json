@@ -1,0 +1,20 @@
+{
+  "base": "opening/exploration",
+  "description": "Meet Mother and the seller in the opened vault.",
+  "location": [
+    "vault",
+    "door"
+  ],
+  "bag": {
+    "TIDEBOUNDREEDCHARM": 1
+  },
+  "story": {
+    "neighbor_quest": {
+      "stage": ":complete"
+    },
+    "vault_visit": {
+      "gift": true,
+      "open": true
+    }
+  }
+}

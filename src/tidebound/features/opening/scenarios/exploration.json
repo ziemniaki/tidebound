@@ -1,0 +1,62 @@
+{
+  "description": "Explore after the opening, with Wick in the party and the other pets at home.",
+  "location": [
+    "home",
+    "from_coast"
+  ],
+  "checkpoint": [
+    "home",
+    "start"
+  ],
+  "player": {
+    "name": "Ren",
+    "avatar": 1
+  },
+  "pokemon": {
+    "wick": {
+      "species": "NATU",
+      "level": 12,
+      "name": "Wick",
+      "moves": [
+        "PECK",
+        "LEER",
+        "NIGHTSHADE"
+      ],
+      "item": "MYSTICWATER"
+    },
+    "maku": {
+      "species": "MAKUHITA",
+      "level": 7,
+      "name": "Maku"
+    },
+    "pookie": {
+      "species": "POOCHYENA",
+      "level": 7,
+      "name": "Pookie"
+    }
+  },
+  "party": [
+    "wick"
+  ],
+  "household": [
+    "maku",
+    "pookie"
+  ],
+  "bag": {
+    "POTION": 5,
+    "POKEBALL": 10
+  },
+  "story": {
+    "opening_started": true,
+    "bird_prelude_seen": true,
+    "hall_talk": true,
+    "walk_state": ":complete",
+    "starter_chosen": ":NATU",
+    "oil_requested": true,
+    "keys_collected": true,
+    "shop_unlocked": true,
+    "oil_collected": true,
+    "oil_returned": true,
+    "lamp_lit": true
+  }
+}

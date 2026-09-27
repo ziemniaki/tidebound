@@ -1,0 +1,16 @@
+{
+  "base": "opening/exploration",
+  "description": "Share the pie with Mother; verify the meal scene and plate delivery.",
+  "location": [
+    "home",
+    "from_coast"
+  ],
+  "bag": {
+    "TIDEBOUNDPIE": 1
+  },
+  "story": {
+    "neighbor_quest": {
+      "stage": ":pie"
+    }
+  }
+}

@@ -26,6 +26,7 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and
 git clone https://github.com/ziemniaki/tidebound.git
 cd tidebound
 uv run play
+uv run play --scenario neighbor/meal
 ```
 
 This builds and opens a native development copy with **separate development

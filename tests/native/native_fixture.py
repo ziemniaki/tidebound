@@ -9,6 +9,7 @@ from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from tidebound_dev.runtime.config import isolated_saves
 from tidebound_dev.content.verification import inventory
+from tidebound_dev import scenarios
 
 SCENARIOS = ("runtime", "world", "species", "all")
 
@@ -28,6 +29,12 @@ def prepare(game, namespace, scenario="all"):
     tests = Path(__file__).parent
     driver = f"TIDEBOUND_NATIVE_SCENARIO = :{scenario}\n".encode()
     driver += (tests / "native_scenarios.rb").read_bytes()
+    if scenario in ("world", "all"):
+        driver += b"\n" + Path(scenarios.__file__).with_suffix(".rb").read_bytes()
+        driver += b"\n" + (tests / "development_scenarios.rb").read_bytes()
+        root = tests.parent.parent
+        specs = [scenarios.select(root, name) for name in scenarios.catalog(root)]
+        (game / "NativeScenarios.rxdata").write_bytes(writes(specs))
     driver += b"\n" + (tests / "native_runtime_smoke.rb").read_bytes()
     main[0][2] = zlib.compress(driver)
     # Validate both files before publishing either change in this disposable copy.

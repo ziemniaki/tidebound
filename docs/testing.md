@@ -72,7 +72,11 @@ uv run python -m tests.native.linux_runtime_smoke /tmp/Tidebound_Linux_0.8.8_x86
 
 `runtime` exercises initialization and native save roundtrips. `world`
 adds fresh-game scene captures of home, coast, forest, lighthouse, vault, docks
-and pond, plus a real Game.save/Game.load roundtrip. `species` recompiles the
+and pond, plus a real Game.save/Game.load roundtrip. In the same launch it also
+boots the feature-owned development scenarios, checks their entrances/party/bag,
+roundtrips their saves and interrupts a native forced route. The docks scenario
+records 180 scene-update timings in `scene-profile.rxdata` (render pacing excluded);
+this is diagnostic evidence, not a hardware-dependent pass threshold. `species` recompiles the
 current checkout's PBS with Essentials in the isolated save directory, compares all custom species and metric attributes (excluding PBS provenance and
 non-evolving family backlinks), and checks exact normal/shiny front/back/icon/cry
 paths. Its roster is derived from authored catalogs; deliberate cry/icon reuse is

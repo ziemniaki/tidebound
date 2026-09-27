@@ -4,6 +4,7 @@ from pathlib import Path
 import json
 import shutil
 import tempfile
+import uuid
 
 from tidebound_dev.paths import ROOT
 from tidebound_dev.art.ownership import validate as validate_assets
@@ -18,9 +19,9 @@ from .archives import archive_tree, copy_game, copy_verified, extract_bundle, ga
 PLATFORMS = {"mac": mac, "windows": windows, "linux": linux}
 
 
-def development_settings(game):
+def development_settings(game, namespace=DEV_SAVES):
     path = game / "mkxp.json"
-    text = isolated_saves(path.read_text(encoding="utf-8"), DEV_SAVES)
+    text = isolated_saves(path.read_text(encoding="utf-8"), namespace)
     path.write_text(text, encoding="utf-8")
 
 
@@ -28,7 +29,16 @@ def write_json(path, value):
     path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
 
 
-def stage_player(folder, platform, root, config, development=False, preview=None):
+def stage_player(
+    folder,
+    platform,
+    root,
+    config,
+    development=False,
+    preview=None,
+    scenario=None,
+    namespace=DEV_SAVES,
+):
     """All modes use the same runtime, payload and platform finalization."""
     adapter = PLATFORMS[platform]
     folder.mkdir()
@@ -37,19 +47,28 @@ def stage_player(folder, platform, root, config, development=False, preview=None
     copy_verified(root / "docs/credits.md", folder / "CREDITS.md")
     copy_verified(root / f"docs/players/{platform}.txt", folder / "README.txt")
     if development:
-        development_settings(player.game)
+        development_settings(player.game, namespace)
         if preview:
             from tidebound_dev.art.preview import prepare
 
             prepare(player.game, preview)
+        if scenario:
+            from tidebound_dev.scenarios import prepare
+
+            prepare(player.game, scenario)
     adapter.finalize(player)
     return player
 
 
-def build(platform, output, root=ROOT, allow_dirty=False, development=False, preview=None):
+def build(
+    platform, output, root=ROOT, allow_dirty=False, development=False, preview=None, scenario=None
+):
     """Publish a complete player or verified ZIP atomically; preserve existing output."""
-    if preview and not development:
-        raise ValueError("Asset previews are development players only")
+    if (preview or scenario) and not development:
+        raise ValueError("Previews and scenarios are development players only")
+    if preview and scenario:
+        raise ValueError("Choose an asset preview or a game scenario")
+    namespace = "Tidebound_Scenario_" + uuid.uuid4().hex if scenario else DEV_SAVES
     output = output.resolve()
     if output.exists():
         raise FileExistsError(
@@ -66,7 +85,9 @@ def build(platform, output, root=ROOT, allow_dirty=False, development=False, pre
         artifacts = Path(temp) / "artifacts"
         artifacts.mkdir()
         folder = artifacts / f"Tidebound_{adapter.NAME}_{config['version']}_{adapter.ARCHITECTURE}"
-        player = stage_player(folder, platform, root, config, development, preview)
+        player = stage_player(
+            folder, platform, root, config, development, preview, scenario, namespace
+        )
         if development:
             result = output / folder.name / player.launcher.relative_to(folder)
             write_json(
@@ -74,7 +95,8 @@ def build(platform, output, root=ROOT, allow_dirty=False, development=False, pre
                 {
                     "kind": "development",
                     "platform": platform,
-                    "save_directory": DEV_SAVES,
+                    "save_directory": namespace,
+                    "scenario": scenario["id"] if scenario else None,
                     "launcher": str(result),
                     "source_commit": revision["commit"],
                 },
@@ -107,5 +129,9 @@ def build(platform, output, root=ROOT, allow_dirty=False, development=False, pre
         if source_revision(root, allow_dirty) != revision:
             raise ValueError("Source changed while the package was being built")
         artifacts.rename(output)
+    if development:
+        print(f"Development saves: {namespace}")
+        if scenario:
+            print(f"Scenario {scenario['id']}: {scenario['location']}")
     print(result)
     return result

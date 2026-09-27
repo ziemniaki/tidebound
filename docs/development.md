@@ -184,3 +184,51 @@ Enter replays it, Esc closes. This is a disposable development player: the previ
 Main never enters a game or loads/writes a player save and never ships in releases.
 Battle positioning metrics, map collisions, lighting and music transitions still
 need inspection in their actual scenes.
+
+## Playtest scenarios
+
+```sh
+uv run tidebound scenarios
+uv run play --scenario neighbor/return-necklace
+uv run build --scenario vault/visit --platform windows
+```
+
+Scenarios start a fresh game at a named entrance with declared party, bag and quest
+state. They bypass the title/prelude and never load an existing save. Each build
+gets a unique `Tidebound_Scenario_<id>` namespace; normal saving works inside it.
+The command and `DEVELOPMENT.json` report that namespace. Relaunching the same
+scenario starts fresh again. Scenario saves stay in the OS user-data directory;
+ordinary development and release saves are untouched.
+
+A feature owns `src/tidebound/features/<feature>/scenarios/<name>.json`. Copy a
+nearby example. `opening/exploration` is a reusable starting point:
+
+```json
+{
+  "base": "opening/exploration",
+  "description": "Return the recovered necklace to the oil seller.",
+  "location": ["shop", "door"],
+  "bag": {"TIDEBOUNDNECKLACE": 1},
+  "story": {"neighbor_quest": {"stage": ":necklace"}}
+}
+```
+
+A base must be standalone; there is one inheritance level. Fields replace the
+base wholesale, except `story`, which merges by top-level key. A nested quest
+object replaces that quest completely. Story keys become Ruby symbols; a string
+starting with `:` becomes a symbol value (`":necklace"` → `:necklace`). Other
+strings remain text. Scenarios contain data, never executable Ruby.
+
+`pokemon` defines named individuals with `species` (including `_1` forms),
+`level`, optional `name`, `moves` and held `item`. `party` and `household` reference
+those keys; they cannot claim the same individual. `bag` maps item IDs to counts.
+`player` contains `name` and `avatar`; `checkpoint` is another `[map, entrance]`,
+defaulting to the starting location. The base example shows every field.
+
+References are checked before staging. State is installed after new-game values
+but before map creation, so map callbacks see the intended state. Map autoruns
+still run: declare the completed story flags needed to skip an earlier scene.
+Errors name the scenario; native failures also write `scenario-error.txt` in its
+isolated save directory. Scenario changes need no rebuild; map/encounter/atlas
+changes still require `uv run rebuild --all`. Scenario drivers only replace Main
+inside development players and cannot be packaged as a release.

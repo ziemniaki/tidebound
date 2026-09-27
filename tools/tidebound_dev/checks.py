@@ -26,6 +26,10 @@ def verify(root, *, full=False):
     from .content.verification import inventory
 
     inventory()
+    from .scenarios import catalog, select
+
+    for name in catalog(root):
+        select(root, name)
 
     def run(*command, env=None):
         print("+ " + " ".join(map(str, command)), flush=True)

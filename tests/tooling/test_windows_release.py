@@ -91,6 +91,36 @@ class WindowsReleaseTests(unittest.TestCase):
             self.assertEqual(set(manifest["files_sha256"]), names - {"BUILD.json"})
         verify(self.output)
 
+    def test_scenario_builds_get_distinct_saves_without_changing_source(self):
+        from rubymarshal.writer import writes
+        from tidebound_dev.runtime.config import parse_runtime_config
+        import zlib
+
+        config = self.root / "game/mkxp.json"
+        config.write_text('{"dataPathApp":"Tidebound_Opening_0_2"}')
+        scripts = self.root / "game/Data/Scripts.rxdata"
+        original = writes([[1, "Main", zlib.compress(b"normal title")]])
+        scripts.write_bytes(original)
+        spec = {"id": "test/state", "location": ["home", "start"]}
+        namespaces = set()
+        for index in range(2):
+            launcher = build(
+                self.base / f"scenario-{index}", self.root, development=True, scenario=spec
+            )
+            staged = parse_runtime_config((launcher.parent / "mkxp.json").read_text())
+            namespace = staged["dataPathApp"]
+            self.assertTrue(namespace.startswith("Tidebound_Scenario_"))
+            namespaces.add(namespace)
+            manifest = json.loads((launcher.parent / "DEVELOPMENT.json").read_text())
+            self.assertEqual(manifest["save_directory"], namespace)
+            self.assertEqual(manifest["scenario"], "test/state")
+            self.assertTrue((launcher.parent / "Data/Scenario.rxdata").is_file())
+        self.assertEqual(len(namespaces), 2)
+        self.assertEqual(scripts.read_bytes(), original)
+        self.assertEqual(
+            parse_runtime_config(config.read_text())["dataPathApp"], "Tidebound_Opening_0_2"
+        )
+
     def test_mutated_runtime_is_rejected_before_output(self):
         (self.root / "Game.exe").write_bytes(b"changed")
         with self.assertRaisesRegex(ValueError, "provenance hash mismatch"):

@@ -19,3 +19,11 @@ A feature with several concerns gets one folder: `quest.rb` (state/transitions),
   register competing callbacks or prepend one feature into another.
 - Test through the composed gameplay harness, including interruption/retry for a
   changed scene. Headless movement doubles cannot prove native route behavior.
+
+Keep reproducible starting states in `<feature>/scenarios/*.json`. Use
+`uv run play --scenario feature/name`; list them with `uv run tidebound scenarios`.
+Reference named map entrances and Pokémon IDs, never a copied player save. Bases
+are one level; `story` merges by top-level key, nested quest objects replace in full.
+State exists before map callbacks; set the guards needed to skip earlier autoruns.
+The [scenario schema](../../../docs/development.md#playtest-scenarios) covers party,
+household, bag and symbol values. Do not add scenario Ruby to the load manifest.
