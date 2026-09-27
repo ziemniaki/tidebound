@@ -43,11 +43,7 @@ jobs:
 
   verify:
     needs: resolve
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-24.04, macos-14]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -67,7 +63,6 @@ jobs:
       - run: uv sync --locked
       - run: uv run --locked check
       - name: Rebuild in an isolated copy and compare generated assets
-        if: runner.os == 'Linux'
         run: uv run --locked python -m tidebound_dev.checks.rebuild
       - name: Verification must not modify tracked source or game data
         run: git diff --exit-code
@@ -93,6 +88,8 @@ jobs:
           cache-dependency-path: tests/package-lock.json
       - run: uv sync --locked
       - run: npm ci --prefix tests --ignore-scripts
+      - name: Verify the patched Mac path resolver
+        run: uv run --locked python -m tests.native.mac_path_normalization
       - name: Stage and verify Mac, Windows, Linux and editable project archives
         run: uv run --locked python -m tidebound_dev.release.candidates "$RUNNER_TEMP/candidate"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -134,11 +131,11 @@ jobs:
         working-directory: ${{ runner.temp }}/candidate
         run: shasum -a 256 -c SHA256SUMS.txt
       - name: Build through the developer command
-        run: uv run --locked python tests/dev_workflow_smoke.py
+        run: uv run --locked python -m tests.native.dev_workflow_smoke
       - name: Run native packaged-engine smoke
         env:
           TEST_ARCH: ${{ matrix.arch }}
-        run: uv run --locked python tests/mac_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Mac_*_universal.zip "$RUNNER_TEMP/smoke" --arch "$TEST_ARCH" --location translocated
+        run: uv run --locked python -m tests.native.mac_runtime_smoke "$RUNNER_TEMP"/candidate/Tidebound_Mac_*_universal.zip "$RUNNER_TEMP/smoke" --arch "$TEST_ARCH" --location translocated
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
@@ -169,16 +166,16 @@ jobs:
       - name: Verify downloaded artifacts
         run: uv run --locked python -m tidebound_dev.release.artifacts "$env:RUNNER_TEMP/candidate"
       - name: Prepare pinned software OpenGL for the hosted runner
-        run: ./tests/setup_windows_ci.ps1
+        run: ./tests/native/setup_windows_ci.ps1
       - name: Build through the developer command
-        run: uv run --locked python tests/dev_workflow_smoke.py
+        run: uv run --locked python -m tests.native.dev_workflow_smoke
       - name: Run native Windows packaged-engine smoke
         env:
           # Hosted Windows has no audio output device. This affects CI only.
           ALSOFT_DRIVERS: 'null'
         run: |
           $archive = Get-Item "$env:RUNNER_TEMP/candidate/Tidebound_Windows_*_x64.zip"
-          uv run --locked python tests/windows_runtime_smoke.py $archive.FullName "$env:RUNNER_TEMP/smoke"
+          uv run --locked python -m tests.native.windows_runtime_smoke $archive.FullName "$env:RUNNER_TEMP/smoke"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
@@ -217,12 +214,12 @@ jobs:
           path: ${{ runner.temp }}/candidate/
       - run: uv run --locked python -m tidebound_dev.release.artifacts "$RUNNER_TEMP/candidate"
       - name: Build through the developer command
-        run: uv run --locked python tests/dev_workflow_smoke.py
+        run: uv run --locked python -m tests.native.dev_workflow_smoke
       - name: Run native Linux player smoke
         env:
           ALSOFT_DRIVERS: 'null'
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a uv run --locked python tests/linux_runtime_smoke.py "$RUNNER_TEMP"/candidate/Tidebound_Linux_*_x86_64.zip "$RUNNER_TEMP/smoke"
+        run: xvfb-run -a uv run --locked python -m tests.native.linux_runtime_smoke "$RUNNER_TEMP"/candidate/Tidebound_Linux_*_x86_64.zip "$RUNNER_TEMP/smoke"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:

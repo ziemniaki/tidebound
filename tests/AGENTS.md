@@ -6,20 +6,35 @@ It does not rebuild source. Format and embed Ruby first; content/map edits need
 full regeneration before checking. `check --all` copies only Git-tracked paths:
 stage new files before running it.
 
+## What earns a test
+
+Keep a regression when it names a player or maintainer failure and exercises the
+operation that can cause it: lost identity/items, stuck progression, invalid map
+arrival, partial publication, wrong release inputs, or saves written to the wrong
+namespace. Assert the observable result. A mock of the failing external service
+is useful; mocking the operation under test is not.
+
+Do not add import-only checks, source/YAML substring assertions, copied catalog
+values, or another platform copy of shared pipeline tests. `check --all` owns
+whole-tree regeneration/pixel parity. Native scenarios own real engine/platform
+claims. One end-to-end quest covers the shared path; vary choices only where they
+change behavior. A test count or coverage percentage is not a target.
+
 ## Pick the engine boundary being tested
 
-- `run.cjs` covers domain/adapters with doubles. `native_domain.cjs` loads real
-  Essentials data objects plus the complete custom script composition. Add quest
-  regressions to the matching Ruby flow via this harness, not a partial file eval
-  that omits later hooks. `support/ruby_vm.cjs` selects stock scripts by name;
-  extraction numeric prefixes change when archive entries change.
+- `tooling/` uses standard Python `unittest`; `gameplay/` contains Ruby scenarios.
+  `run.cjs` runs `battles`, `gameplay` and `presentation` in isolated VMs. The
+  gameplay suite loads real Essentials data objects and every custom script in
+  archive order. Add quest regressions there, never to partial source evals.
+  `support/ruby_vm.cjs` selects stock scripts by name; numeric extraction prefixes
+  change whenever archive entries change. Put doubles in `support/`, not scenarios.
 - `prepare_reference.py` refreshes ignored `engine_reference/` from
   `game/Data/Scripts.rxdata`. Editing that directory fixes neither production nor
   the next check. Do not use it as a second source tree.
 - Engine doubles are explicit in `support/`. A double can establish a state
   transition; it cannot establish real event scheduling, sprite ownership, sound,
   or native platform behavior. Do not stub away the engine operation under test.
-- For species, `native_scenarios.rb` consumes the catalog-derived `NativeContent`
+- For species, `native/native_scenarios.rb` consumes the catalog-derived `NativeContent`
   fixture and compares native attributes/metrics before and after real PBS
   compilation. It checks exact sprite/icon/cry resolution, so a bitmap returned
   through fallback to `000` cannot pass required-art verification.

@@ -1,10 +1,42 @@
 const { createHarness } = require('./support/ruby_vm.cjs');
 
+const suites = {
+  battles(h) {
+    for (const file of [
+      'tests/support/battle_services.rb',
+      'src/tidebound/domain/state.rb', 'src/tidebound/engine/battles.rb',
+      'tests/gameplay/state.rb', 'tests/gameplay/battles.rb'
+    ]) h.ruby(file);
+  },
+  gameplay(h) {
+    h.loadEngine();
+    h.loadData();
+    h.ruby('tests/support/world_services.rb');
+    h.engine('SaveData', 'SaveData_Value', 'PokemonBag', 'Interpreter', 'Game_SaveValues');
+    h.ruby('tests/support/integration_services.rb');
+    h.production();
+    h.ruby('tests/support/scene_services.rb');
+    h.ruby('tests/support/story_helpers.rb');
+    for (const suite of [
+      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'regional_snakes'
+    ]) h.ruby(`tests/gameplay/${suite}.rb`);
+    h.compileEvents();
+  },
+  presentation(h) {
+    h.ruby('tests/support/sprite_services.rb');
+    h.ruby('src/tidebound/presentation/sprites.rb');
+    h.ruby('src/generated/world_registry.rb');
+    h.ruby('src/tidebound/features/actors.rb');
+    h.ruby('tests/gameplay/presentation.rb');
+  }
+};
+
 (async () => {
-  const h = await createHarness();
-  for (const file of [
-    'tests/001_Support.rb', 'src/tidebound/domain/state.rb', 'src/tidebound/engine/battles.rb',
-    'tests/002_CoreTests.rb', 'tests/003_AdapterTests.rb'
-  ]) h.ruby(file);
-  h.finish();
+  const selected = process.argv.slice(2);
+  for (const name of selected.length ? selected : Object.keys(suites)) {
+    if (!Object.hasOwn(suites, name)) throw new Error(`Unknown suite ${name}; choose ${Object.keys(suites).join(', ')}`);
+    console.log(`\nRuby: ${name}`);
+    const h = await createHarness();
+    try { suites[name](h); } finally { h.finish(); }
+  }
 })().catch(error => { console.error(String(error)); process.exitCode = 1; });

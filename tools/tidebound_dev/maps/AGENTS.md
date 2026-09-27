@@ -67,8 +67,8 @@ previews. `registry.py` exports map/actor identities and roles to Ruby. Read
   calls and native Transfer Player commands in builder pages are rejected; put
   conditional movement in a feature method and test its success/retry/cancel routes.
   Static checks cannot prove Ruby routes: checkpoint returns are exercised in
-  `opening_flow.rb`, `neighbor_flow.rb` and `hideout_flow.rb`; dream/folded-room
-  arrival/retry/return branches are in `world_boundaries.rb`.
+  `tests/gameplay/opening.rb`, `neighbor.rb` and `hideout.rb`; dream/folded-room
+  arrival/retry/return branches are in `tests/gameplay/world.rb`.
 
 [Engine evidence](../../../docs/essentials-contracts.md) describes the inspected
 contracts. `Map.targets` derives current event coordinates; painters can relocate

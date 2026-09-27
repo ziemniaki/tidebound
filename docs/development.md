@@ -94,7 +94,8 @@ editing a game PNG: generated destinations are replaced by their exporter.
 Reusable tools live in the installed `tidebound_dev` package. The everyday commands
 call the same operations as CI; `pipeline.py` owns the full rebuild sequence.
 Run a diagnostic module with `uv run python -m tidebound_dev.<module>` or a
-standalone test with `uv run python tests/<name>.py`. Optional audio/PDF regeneration has separate
+focused test with `uv run python -m unittest tests.tooling.test_generation -v`
+(see [testing](testing.md) for suite boundaries). Optional audio/PDF regeneration has separate
 dependencies. For the game specification PDF, run
 `uv run --group docs python -m tidebound_dev.documents.specification`; use `--output /path/to/preview.pdf`
 to render a preview. macOS/Windows use Times New Roman and Arial; Linux needs
