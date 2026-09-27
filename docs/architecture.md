@@ -14,8 +14,8 @@ the engine's expected directory structure intact inside `game/`.
 | Map layouts and events | `tools/tidebound_dev/maps/areas/` and shared painters | `game/Data/Map*.rxdata`, tilesets, previews/reports |
 | Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
 | Species, items, trainers, encounters | `tools/tidebound_dev/content/`, item/encounter builders | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` |
-| Artwork | `assets/<species>/` inputs and `tools/tidebound_dev/art/` exporters | `game/Graphics/` |
-| Sound | `tools/tidebound_dev/art/audio.py`, existing attributed assets | `game/Audio/` |
+| Artwork | `assets/` approved inputs and `tools/tidebound_dev/art/` exporters | `game/Graphics/` |
+| Sound | `assets/audio/`, existing attributed stock assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
 Each `maps/areas/<map>.py` owns the complete layout, events and painting of one
@@ -98,7 +98,7 @@ The editor project is `game/Game.rxproj`. IDs 101–116 are generated story maps
 stock demo maps are retained. `tools/generated/` holds collision masks, event
 reports, manifests and offline previews. Those are build outputs, not editable
 map definitions. Reconcile direct editor changes with the generators before a
-full rebuild. Ordinary `uv run play` only rebuilds scripts.
+full rebuild. Ordinary `uv run play` refreshes custom assets and scripts while preserving maps.
 
 ## Saves and behavior that must survive changes
 

@@ -22,4 +22,3 @@ def combine(attribute):
 
 SPECIES = combine("SPECIES")
 METRICS = combine("METRICS")
-CRIES = combine("CRIES")

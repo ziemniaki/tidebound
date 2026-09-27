@@ -9,6 +9,7 @@ import tempfile
 
 from .files import equivalent
 from .pipeline import rebuild
+from .art import ownership
 
 
 def verify(root, *, full=False):
@@ -18,6 +19,10 @@ def verify(root, *, full=False):
     from tidebound_dev.release.metadata import check_sources
 
     check_sources(root)
+    ownership.validate(root)
+    from .content.verification import inventory
+
+    inventory()
 
     def run(*command, env=None):
         print("+ " + " ".join(map(str, command)), flush=True)
@@ -61,6 +66,9 @@ def _check_regeneration(root):
             dest = stage / name
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root / name, dest)
+        # Start custom asset exports from source; copied stale outputs prove nothing.
+        for name in ownership.recorded(stage):
+            (stage / name).unlink(missing_ok=True)
         rebuild(stage, full=True)
         differences = [name for name in tracked if not equivalent(root / name, stage / name)]
         generated = {

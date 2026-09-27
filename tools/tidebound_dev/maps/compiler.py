@@ -91,5 +91,5 @@ def construct(paths):
 def build(root):
     paths = BuildPaths(root)
     maps = construct(paths)
-    scenery.generate(paths, maps)
+    scenery.window_lights(paths, maps)
     serialize(paths, maps)

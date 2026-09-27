@@ -28,18 +28,21 @@ def host_platform():
     raise ValueError("Playable builds support macOS Intel/ARM, Windows x64 and Linux x86_64.")
 
 
-def development_build(target):
+def development_build(target, preview=None):
     if target == "mac" and sys.platform != "darwin":
         raise ValueError("Mac builds require macOS and Xcode command-line tools.")
     from .pipeline import rebuild
 
+    from .art.preview import select
+
+    asset = select(ROOT, preview) if preview else None
     rebuild(ROOT)
 
     from .packaging.pipeline import build
     from .runtime.config import DEV_SAVES
 
     output = ROOT / ".build/dev" / (time.strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
-    launcher = build(target, output, allow_dirty=True, development=True)
+    launcher = build(target, output, allow_dirty=True, development=True, preview=asset)
     print(f"\nReady: {launcher}\nDevelopment saves: {DEV_SAVES}", flush=True)
     return launcher
 
@@ -74,7 +77,11 @@ def parser():
     build.add_argument(
         "--platform", choices=("mac", "windows", "linux"), help="Defaults to this computer"
     )
-    commands.add_parser("play", help="Build and launch a development player")
+    play = commands.add_parser("play", help="Build and launch a development player")
+    for command in (build, play):
+        command.add_argument(
+            "--preview", help="Inspect an asset, e.g. pokemon/WHYDUCK or props/ship1"
+        )
     for name, help in (
         ("check", "Also verify isolated regeneration"),
         ("rebuild", "Also regenerate maps, content and artwork"),
@@ -94,7 +101,7 @@ def parser():
 def execute(args):
     if args.command in ("build", "play"):
         target = getattr(args, "platform", None) or host_platform()
-        launcher = development_build(target)
+        launcher = development_build(target, args.preview)
         if args.command == "play":
             if target == "mac":
                 run("open", "-n", "-W", launcher)

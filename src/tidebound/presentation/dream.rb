@@ -8,19 +8,7 @@ module Tidebound::Presentation::Dream
     old_direction = player.direction
     viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     viewport.z = 99_997
-    bitmap = Bitmap.new(128, 128)
-    ink = Color.new(162, 181, 199, 165)
-    40.times do |i|
-      a = i * Math::PI / 20
-      xx = 64 + (Math.cos(a) * 43).round
-      yy = 64 + (Math.sin(a) * 30).round
-      bitmap.fill_rect(xx, yy, 3, 3, ink)
-    end
-    [[32, 44], [82, 41], [54, 85], [92, 70]].each do |xx, yy|
-      bitmap.fill_rect(xx, yy, 2, 10, ink)
-      bitmap.fill_rect(xx, yy, 8, 2, ink)
-      bitmap.fill_rect(xx + 6, yy + 6, 2, 6, ink)
-    end
+    bitmap = Bitmap.new("Graphics/Pictures/Tidebound/fold_runes")
     sprite = Sprite.new(viewport)
     sprite.bitmap = bitmap
     sprite.ox = 64

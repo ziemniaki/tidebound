@@ -29,9 +29,13 @@ previews. `registry.py` exports map/actor identities and roles to Ruby. Read
    collision/terrain hooks and event pages still need native checks. Existing native
    world captures cover a named roster, not every new map automatically.
 
-Static dock props and window-light masks are baked by `scenery.py`; map compilation
-exports their PNGs and `src/generated/window_lights.rb`. Keep per-pixel asset work
-in the builder; runtime presentation owns only positioning and animation.
+Static prop and character PNGs are owned by `assets/` and exported by `art/compiler.py`.
+Map compilation owns packed tilesets and window masks/placements in
+`src/generated/window_lights.rb`. Register any new packed texture output in
+`art/ownership.py::MAP_OUTPUTS`; the generated asset manifest and clean rebuild
+then cover it. Read approved image sources when composing tiles; standalone files
+are discovered/exported by the asset pipeline. Prop references use `art/props.py::load`
+for shared validation; do not parse a second prop catalog in an area builder.
 
 ## Coordinates, events and actors
 
@@ -61,7 +65,7 @@ in the builder; runtime presentation owns only positioning and animation.
   roles require `species`; spirits require a soul `index`; `neighbor_wild` requires
   the owning quest's `state` key. These select concrete consumers in
   `features/actors.rb`. A name such as `Wild:NATU` alone has no effect.
-- Presentation also reads these roles. `demo_prop` requires its picture `asset`;
+- Presentation also reads these roles. `prop` requires an `asset` from `assets/props.json`;
   door/exit threshold hints use `cue="north|south|east|west"`. Add a role and its
   consumer together; unknown roles and missing required fields fail generation.
   `Map.door` defaults to the south sill. Define actors at their final positions in their owning area. Do not append a

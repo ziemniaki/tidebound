@@ -314,5 +314,3 @@ METRICS = {
         },
     },
 }
-
-CRIES = {"MOONKERN": "SUNKERN", "MOONFLORA": "SUNFLORA"}

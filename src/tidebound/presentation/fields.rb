@@ -40,17 +40,7 @@ class TideboundWarmLight < Tidebound::Presentation::OwnedSprite
     @map = map
     @tile_x = x
     @tile_y = y
-    self.bitmap = Bitmap.new(128, 128)
-    self.ox = 64
-    self.oy = 88
-    [60, 50, 40, 30, 20].each do |r|
-      (-r..r).step(2) do |yy|
-        half = Math.sqrt(r * r - yy * yy).to_i
-        bitmap.fill_rect(64 - half, 64 + yy, half * 2, 2, Color.new(255, 174, 71, 5))
-      end
-    end
-    bitmap.fill_rect(60, 59, 8, 11, Color.new(255, 207, 121))
-    bitmap.fill_rect(62, 61, 4, 7, Color.new(255, 239, 186))
+    load_prop("warm_light")
     update
   end
   def update

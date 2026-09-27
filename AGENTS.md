@@ -16,8 +16,8 @@ its source files, engine traps and verification; do not load every guide by defa
 | Quest, dialogue, battle, save or sprite behavior | [src/AGENTS.md](src/AGENTS.md) |
 | Add/edit a map, actor or transfer | [maps/AGENTS.md](tools/tidebound_dev/maps/AGENTS.md) |
 | Species/form, evolution, item or encounter data | [content/AGENTS.md](tools/tidebound_dev/content/AGENTS.md) |
-| Pokémon artwork, icons and export recipes | [assets/AGENTS.md](assets/AGENTS.md) |
-| Music, sound effect or cry | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
+| Pokémon, characters, icons, pictures and prop anchors | [assets/AGENTS.md](assets/AGENTS.md) |
+| Asset pipeline, music, sound effect or cry | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
 | RPG Maker edits or compiled game files | [game/AGENTS.md](game/AGENTS.md) |
 | Add/change tests | [tests/AGENTS.md](tests/AGENTS.md) |
 | Packaging, CI, release | [releasing](docs/releasing.md), [runtime notes](docs/architecture.md#runtime-boundaries) |
@@ -32,18 +32,20 @@ Run from the repository root. uv owns Python dependencies; Node is pinned in
 `.node-version`; gameplay uses bundled Ruby (no system Ruby setup).
 
 ```sh
-uv run play           # embed current Ruby, stage and launch a development player
-uv run build          # stage only; does not regenerate maps/content
+uv run play           # refresh assets/Ruby, stage and launch a development player
+uv run build          # same refresh without launch; preserves editor maps/content
+uv run play --preview pokemon/WHYDUCK  # inspect one asset without loading a save
 uv run format         # before embedding Ruby
-uv run rebuild        # embed src/load_order.txt into game/Data/Scripts.rxdata
+uv run rebuild        # export custom assets and embed the Ruby load manifest
 uv run rebuild --all  # regenerate maps/content/art, then embed
 uv run check          # headless gate; never regenerates tracked game data
 uv run check --all    # also regenerate in isolation and compare
 ```
 
-Full rebuild reproduces registered pixel exports; ambient audio production is
-optional. See the asset/audio guides. Stage new files before `check --all`: its input set comes
-from `git ls-files`. Setup/editor details: [development](docs/development.md).
+Asset/Ruby edits use the default refresh. Maps, packed tilesets, light masks and
+content definitions require `rebuild --all` before play. Stage new sources and
+outputs before `check --all`: its input set comes from `git ls-files`.
+Setup/editor details: [development](docs/development.md).
 
 Use a focused branch in `ziemniaki/tidebound`, never a fork. Independent agents
 need separate checkouts; Git branches alone do not isolate writes. Map IDs, actor

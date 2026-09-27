@@ -9,7 +9,9 @@ tidebound/engine/encounters.rb
 tidebound/features/opening.rb
 tidebound/features/astral.rb
 tidebound/presentation/sprites.rb
+generated/prop_assets.rb
 tidebound/features/actors.rb
+tidebound/presentation/props.rb
 tidebound/presentation/title.rb
 tidebound/presentation/overworld.rb
 tidebound/features/first_walk.rb
@@ -19,7 +21,6 @@ tidebound/presentation/neighbor.rb
 tidebound/features/fields.rb
 tidebound/presentation/fields.rb
 tidebound/features/vault.rb
-tidebound/presentation/vault.rb
 generated/window_lights.rb
 tidebound/presentation/quay.rb
 tidebound/engine/regional_forms.rb
@@ -32,7 +33,6 @@ tidebound/features/dream.rb
 tidebound/features/prelude.rb
 tidebound/engine/audio.rb
 tidebound/features/docks.rb
-tidebound/presentation/docks.rb
 tidebound/features/mending.rb
 tidebound/presentation/mending.rb
 tidebound/features/hideout.rb

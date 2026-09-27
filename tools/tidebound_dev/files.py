@@ -32,3 +32,11 @@ def save_png(image, path):
             if _same_pixels(previous, image):
                 return
     image.save(path)
+
+
+def ruby(value):
+    import json
+
+    if isinstance(value, dict):
+        return "{" + ", ".join(f"{ruby(k)} => {ruby(v)}" for k, v in value.items()) + "}"
+    return json.dumps(value)

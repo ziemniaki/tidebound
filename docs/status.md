@@ -1,6 +1,6 @@
 # Current status
 
-**Playable baseline:** Demo 1, version 0.8.7. Pokémon Essentials 21.1, pinned
+**Playable baseline:** Demo 1, version 0.8.8. Pokémon Essentials 21.1, pinned
 mkxp-z runtime; universal Mac, Windows x64 and Linux x86_64 releases.
 
 The demo includes the dream opening, lighthouse family and companion choice,
@@ -26,7 +26,8 @@ Windows and Ubuntu 22.04/24.04. Mac is ad-hoc signed, not notarized. Smoke tests
 do not replace gameplay, audio, hardware-GPU or Intel Monterey 12.7.5 playtesting.
 
 Current authoring uses one rebuild plan, catalog-derived content checks, shared
-map settings, explicit transfers/actor roles and one pixel export plan. Saves use
+map settings, explicit transfers/actor roles and one custom asset export plan. `play` refreshes approved assets automatically;
+`play --preview` inspects them without entering a game. Saves use
 the normal Essentials serializer without custom versioning. See
 [architecture](architecture.md) for ownership and [development](development.md)
 for the edit/build/check loop and scoped authoring guides.

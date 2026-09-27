@@ -1,6 +1,5 @@
 from PIL import Image, ImageDraw
 import random
-from ...files import save_png
 from ..model import Map
 from ..registry import MAPS, ACTORS
 
@@ -237,21 +236,6 @@ def build(paths, interior):
     d.ellipse((51, 10, 57, 16), fill="#b3a16b")
     d.line((19, 30, 28, 30, 30, 25), fill="#aaa48b", width=2)
     interior.surface(hideout, device, 15, 6, True)
-
-    # Retain native head/torso and fold the legs forward into a seated silhouette.
-    src = Image.open(paths.game / "Graphics/Characters/trainer_CAMPER.png").convert("RGBA")
-    fw, fh = src.width // 4, src.height // 4
-    seat = Image.new("RGBA", (fw, fh))
-    seat.alpha_composite(src.crop((0, 0, fw, 33)), (0, 5))
-    seat.alpha_composite(src.crop((2, 33, fw - 2, 40)), (2, 35))
-    sd = ImageDraw.Draw(seat)
-    sd.rectangle((10, 32, 21, 35), fill="#584d43")
-    sd.rectangle((12, 32, 13, 33), fill="#b4ad8b")
-    sheet = Image.new("RGBA", src.size)
-    for yy in range(4):
-        for xx in range(4):
-            sheet.alpha_composite(seat, (xx * fw, yy * fh))
-    save_png(sheet, paths.game / "Graphics/Characters/Tidebound_Ivo_Seated.png")
 
     for x, y in [
         (5, 12),

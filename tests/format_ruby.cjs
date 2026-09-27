@@ -12,7 +12,7 @@ const { RubyVM } = require('@ruby/wasm-wasi');
   const wasi = new WASI({ version: 'preview1', returnOnExit: true, preopens: { '/formatter': cache } });
   const { vm } = await RubyVM.instantiateModule({ module: await WebAssembly.compile(binary), wasip1: wasi });
   vm.eval('$LOAD_PATH.unshift(*Dir["/formatter/*/lib"]); load "/formatter/ripper-core.rb"; require "rubygems/version"; require "syntax_tree"');
-  const files = execFileSync('git', ['ls-files', '-z', 'src/tidebound', 'tests'], { encoding: 'utf8' })
+  const files = execFileSync('git', ['ls-files', '-z', 'src/tidebound', 'tests', 'tools'], { encoding: 'utf8' })
     .split('\0').filter(file => file.endsWith('.rb'));
   let changed = 0;
   for (const file of files) {

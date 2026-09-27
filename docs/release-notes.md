@@ -1,7 +1,5 @@
-# Tidebound 0.8.7
+# Tidebound 0.8.8
 
-- Winning Mending stays a win if you press Escape during the ending.
-- Campfires no longer show a cooldown message when your party has no companions that can rest.
-- Battles check your party before starting, preventing losses that could leave companions unrecoverable.
-- Fixed two walkable table tiles inside the lighthouse.
-- The title screen now shows the current game version.
+- Picked berries now disappear from their bushes.
+- The Oil-Shop Keys now have a matching inventory icon.
+- Restored missing lit windows along the southern road.

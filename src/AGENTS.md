@@ -59,8 +59,9 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
   labels. `World.actor` resolves a registered identity only on its owning map;
   don't scan event names or assume an actor exists after a transfer.
 - `Presentation::OwnedSprite` disposes its bitmap and only an explicitly owned
-  viewport. Use it for newly allocated code-drawn props, not borrowed/cache-backed
-  bitmaps. Essentials Pokémon sprite classes own their `AnimatedBitmap` lifecycle;
+  viewport. Use it for independently loaded/allocated bitmaps, never borrowed/cache-backed
+  images. Static props use approved pictures and anchors in `assets/props.json`;
+  add an asset record and a `prop` event instead of another drawing class. Essentials Pokémon sprite classes own their `AnimatedBitmap` lifecycle;
   reuse `Presentation::Position` without giving a second owner the same bitmap.
 
 Evidence and upstream methods: [Essentials contracts](../docs/essentials-contracts.md).

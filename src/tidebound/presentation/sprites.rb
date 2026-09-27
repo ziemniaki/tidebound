@@ -12,13 +12,20 @@ module Tidebound::Presentation
     end
   end
 
-  # Only code-drawn props own their bitmap. PokemonIconSprite manages its own art.
+  # Own allocated or independently loaded bitmaps; never borrowed cache images.
   class OwnedSprite < Sprite
     include Position
 
     def initialize(viewport, owns_viewport: false)
       super(viewport)
       @owned_viewport = viewport if owns_viewport
+    end
+
+    def load_prop(name)
+      asset = PROP_ASSETS.fetch(name)
+      bitmap.dispose if bitmap && !bitmap.disposed?
+      self.bitmap = Bitmap.new("Graphics/Pictures/#{asset.fetch("file")}")
+      self.ox, self.oy = asset.fetch("anchor")
     end
 
     def dispose

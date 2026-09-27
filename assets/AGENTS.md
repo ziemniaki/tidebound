@@ -1,55 +1,82 @@
-# Pokémon artwork workflow
+# Asset sources
 
-Retain source art under `assets/<species>/`; engine filenames use species IDs,
-not display names. For stats/forms/evolutions, also read the
-[content workflow](../tools/tidebound_dev/content/AGENTS.md). Art-only replacement
-of an existing form does not require changing its gameplay definition.
+Approved custom sources live here; exported player files live in `game/`.
+`references/` contains concepts and working material, never build inputs.
+Edit source → `uv run play --preview <selector>` → stage source and generated
+outputs → `uv run check --all`. Selectors use exact case and no file extension:
+`pokemon/ID`, `characters/NAME`, `trainers/ID`, `items/ID`, `pictures/PATH`,
+`props/KEY`. Pipeline changes: [exporter guide](../tools/tidebound_dev/art/AGENTS.md).
 
-## Find the owner before replacing a PNG
+## Pokémon sprites, forms and icons
 
-`tools/tidebound_dev/art/compiler.py::build` runs on full rebuild.
-All repeatable game pixel exports run here using locked Pillow. Inputs are either
-stock sprites plus a palette/detail recipe, retained Nivalora/Whyduck artwork, or
-`pixels.png` atlases for Sunkern, Moonkern, Moonflora and Glaciverm. Each atlas is
-320×224: front 160×160 at (0,0), back at (160,0), two-frame 128×64 icon at (0,160).
-Edit those approved pixels directly; export only crops, without resampling.
-Their high-resolution `reference.png` and prompts are design references. The retired
-ImageMagick recipes did not reproduce shipped pixels on a current installation.
-Do not re-quantize that reference art during a maintenance rebuild.
+1. Add approved PNGs under `pokemon/<ENGINE_ID>/`: `front.png`, `back.png`,
+   `icon.png`. Use `SPECIES` for the base form and `SPECIES_1` for form 1, never
+   `SPECIES_0` or comma IDs. Current battle canvases are 160×160; retain pixel
+   scale and padding. Export does no quantization, resizing or alpha blending.
+2. Register the ID in `tools/tidebound_dev/art/pokemon.py::POKEMON`. Declare its
+   cry source and whether shiny artwork is distinct. For an original cry, set
+   `cry` to the asset's own ID and add `cry.ogg` to its source bundle. `shiny=True` requires
+   `front_shiny.png` and `back_shiny.png` (or the stock shiny files when using
+   `stock`); otherwise normal pixels are reused. Distinct shiny canvases must match
+   their normal counterparts. Party icons share normal/shiny artwork. `stock`
+   explicitly reuses stock sprites; palette recipes live in `art/recolors.py`.
+3. Icons are a **horizontal strip of square frames**: Essentials takes image
+   height as frame width. Our two 64×64 frames make a 128×64 image. A vertical
+   strip is not equivalent. Preserve headroom; inspect centering in the party UI.
+4. Stats and placement metrics belong to the [content owner](../tools/tidebound_dev/content/AGENTS.md).
+   Do not offset PNGs and `METRICS` blindly together. Debug-editor metric changes
+   are overwritten by regeneration.
+5. Preview front/back, normal/shiny and icons; inspect placement in battle/party.
+   Use `uv run rebuild --all` first when changing content or maps too. Native
+   `species` checks exact art/cry paths: fallback to base sprites or `000` must
+   not hide missing custom assets.
 
-`art/compiler.py` makes species/form aliases and cry copies after their producers.
-Editing generated destinations alone will be undone. Change the declared source.
-The approved files under `Whyduck/pieces/` are build inputs; update those directly.
-The source/exporter inventory is in [artwork](../docs/artwork.md).
+Art replacement of an existing form does not require changing gameplay data.
+Use ordinary image tools or generation to prepare artwork, then approve the final
+pixels. Do not add a bespoke production renderer for each Pokémon. Record external
+provenance in [credits](../docs/credits.md). For audio, read the
+[audio workflow](../tools/tidebound_dev/art/AGENTS.md).
 
-## Add or replace an asset
+## Characters, trainers, item icons and pictures
 
-1. Keep the approved source and export recipe together. For new repeatable
-   exporters, put callable code in `tools/tidebound_dev/art/`, pass the destination
-   game root explicitly and register it in the current export path. Importing an
-   exporter must not write files. Do not add another shell-only export pipeline.
-2. Export transparent PNGs into `game/Graphics/Pokemon/Front`, `Back`, `Front shiny`,
-   `Back shiny`, and `Icons` as required by the approved design. Name base form
-   `SPECIES.png`, form 1 `SPECIES_1.png`; **not** `SPECIES_0.png` or a comma ID.
-   Existing custom battle canvases are usually 160×160; this is a project art
-   convention, not an engine limit. Preserve native pixel scale and positioning.
-3. Icons are a **horizontal strip of square frames**: the engine takes image
-   height as frame width. Existing custom icons are two 64×64 frames, hence
-   128×64. A 64×128 vertical strip is not equivalent. Icon centering assumes space
-   above the figure; inspect it in the party UI, not only in an image viewer.
-4. Adjust sprite placement through `METRICS` in the content definitions and
-   regenerate; manual debug-editor metric changes otherwise disagree with the
-   generator. Do not offset the PNG and the metrics blindly at the same time.
-5. Check the exact filename resolved for the intended species/form, normal/shiny
-   and front/back. Essentials deliberately falls back to normal/base/`000` art;
-   “a bitmap loaded” does not prove the requested asset exists. Reusing normal art
-   for shiny is an explicit art decision, not evidence of a shiny design.
-6. Run the actual exporter, then full rebuild if its outputs are pipeline-owned;
-   stage source and outputs before `check --all`. Inspect front/back in battle and
-   icons in the party screen. Native `species` derives its roster from content definitions and checks exact
-   resolved paths, icon layout and cries. Declare deliberate cry reuse in
-   `content/verification.py`; missing artwork cannot pass via a placeholder.
-   Record provenance/credit in `docs/credits.md` when adding outside assets.
+Put approved PNGs in `characters/`, `trainers/`, `items/` or `pictures/`; paths
+below that directory become paths below `game/Graphics/<Category>/`. Reuse stock
+art explicitly in `art/files.py::ALIASES`. Do not copy artwork in a content or map
+builder. Every output has one source; an approved file and an alias cannot own
+the same destination.
 
-For cries, use [audio workflow](../tools/tidebound_dev/art/AGENTS.md). Resolver and icon-frame
-implementation: [Essentials contracts](../docs/essentials-contracts.md).
+Characters use XP's **four columns × four rows**, in down/left/right/up order.
+The frame canvas includes transparent padding; equal division alone cannot prove
+correct feet alignment or direction order. Inspect all directions in the engine.
+Trainer battle portraits and Pokémon party icons are different formats; never
+use a party strip as a walking charset. Trainer IDs must match the content record.
+Item icons use item IDs; absent images otherwise resolve to Essentials' `000`.
+
+Maps reference assets and own placement/collision. Static prop images and anchors
+belong to the asset owner; interaction and animation remain in Ruby. A painted
+object does not automatically block movement. Map-embedded artwork such as the
+lantern beacon reads approved source pixels when assembling its tileset.
+
+For world props, add `"key": {"file": "Tidebound/picture", "anchor": [16, 32]}`
+to `assets/props.json`. `file` is relative to `assets/pictures/`, without `.png`;
+`anchor` is the integer pixel point placed at the event (it may lie outside the
+image). Optional integer `z` fixes the layer; no other fields are accepted.
+Use `Map.event(..., role="prop", asset="key")` for static scenery, then rebuild
+with `--all`. New pictures need no new role or Ruby class. Map generation rejects
+unknown asset keys; placement must not depend on filename prefixes.
+Static props share `presentation/props.rb`; flickering lamps and quest props retain
+their behavior owners. `load_prop` replaces and disposes an independently loaded
+bitmap; do not pass it a shared/cache-owned image. Household pie/plate states are
+separate images, while the pearl glint remains a small dynamic effect.
+
+## Tilesets and lighting
+
+`tilesets/Outside/windows.png` is a transparent overlay aligned pixel-for-pixel
+with the stock `Outside.png` atlas. Paint only the lit glass; its alpha is the
+light strength. Map compilation crops this approved mask, without guessing from
+blue pixels. Landscape maps select it through `Map.light_mask`. A tileset packer
+must preserve `Map.source_tiles` (packed ID → original ID); otherwise metadata
+would attach to unrelated tiles after packing. The road packer is the example.
+Packed game tilesets are outputs. Shared map painters own packing and map
+composition; approved standalone pictures stay under the asset owner. Tileset or
+mask edits require `uv run rebuild --all`; ordinary play does not repack maps.

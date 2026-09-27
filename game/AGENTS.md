@@ -9,7 +9,7 @@ It is not a disposable build directory.
 | `Data/Scripts.rxdata` | `src/`, load manifest and explicit `tools/tidebound_dev/scripts/patches.py` patches |
 | `Data/Map101.rxdata` … `Map116.rxdata`, custom tilesets | [Map builders](../tools/tidebound_dev/maps/AGENTS.md) |
 | Tidebound species/forms/items/encounter PBS and `.dat` | [Content definitions](../tools/tidebound_dev/content/AGENTS.md) |
-| Pokémon PNGs | [Asset ownership/export guide](../assets/AGENTS.md) |
+| Custom Pokémon, character, trainer, item and picture PNGs | [Asset ownership/export guide](../assets/AGENTS.md) |
 | Sound files | [Audio workflow](../tools/tidebound_dev/art/AGENTS.md) |
 
 Do not edit ignored `tests/engine_reference/`: it is an inspection copy.
@@ -17,9 +17,11 @@ Do not delete stock data or seemingly unused art based on text searches; Essenti
 resolves many filenames dynamically. Manual editor changes to generated maps must
 be brought back into their builders before regeneration. Preserve supplied edits.
 
-`uv run play` rebuilds Ruby only. It will not compile a changed PBS file or rebuild
-a map. Full rebuild publishes both authored PBS and native databases for supported
-content; arbitrary new PBS fields require native compiler validation.
+`uv run play` refreshes custom assets and Ruby. It preserves compiled content and
+map geometry. Edit approved sources in `assets/`, not exported PNG/OGG files;
+`tools/generated/assets.json` identifies owned exports. Packed tilesets/light masks
+need `uv run rebuild --all`. Full rebuild writes both authored PBS and native data;
+arbitrary new PBS fields require native compiler validation.
 
 RPG Maker Test Play uses the project save namespace. Use `uv run play` for the
 separate development namespace. Restored EXE/DLL helpers are ignored; use

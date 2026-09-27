@@ -46,7 +46,7 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run format --check` | Check formatting without editing |
 | `uv run check` | Formatting, tooling, geometry, scripts and quest/save tests; no game regeneration |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
-| `uv run rebuild` | Embed the Ruby load manifest only |
+| `uv run rebuild` | Export custom assets and embed the Ruby load manifest |
 | `uv run rebuild --all` | Regenerate maps, data, pipeline-owned art, reports and scripts |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
 | `uv run editor` | On Windows, restore ignored helpers and open `game/Game.rxproj` |
@@ -80,7 +80,7 @@ its own Test Play uses the project's normal save namespace. Use `uv run play`
 for isolated development saves. Generated maps 101–116 must be reconciled with
 their Python generators after direct editor changes. `rebuild --all` overwrites
 those maps; review or commit editor work before intentionally regenerating.
-Ordinary `play` rebuilds scripts, not map geometry.
+Ordinary `play` refreshes custom artwork/audio and scripts; it preserves map geometry.
 
 Full regeneration writes directly to tracked files. If it fails, fix the reported
 error and rerun `uv run rebuild --all` before playing. Review the generated diff
@@ -98,8 +98,8 @@ The scoped guides explain the source files, engine contracts and checks for
 [Pokémon artwork](../assets/AGENTS.md) and [sound](../tools/tidebound_dev/art/AGENTS.md).
 They apply to human development as well as agents.
 
-Full rebuild reproduces the [registered artwork exports](artwork.md). Other
-checked-in graphics and audio are direct inputs. Check the asset guide before
+Ordinary rebuild refreshes the [registered custom assets](artwork.md); full rebuild
+also repacks map tilesets and lighting. Stock engine graphics/audio are direct inputs. Check the asset guide before
 editing a game PNG: generated destinations are replaced by their exporter.
 
 ## Less common work
@@ -108,13 +108,12 @@ Reusable tools live in the installed `tidebound_dev` package. The everyday comma
 call the same operations as CI; `pipeline.py` owns the full rebuild sequence. Short aliases such as `uv run format`
 and `uv run tidebound format` use the same options and implementation.
 Run a diagnostic module with `uv run python -m tidebound_dev.<module>` or a
-focused test with `uv run python -m unittest tests.tooling.test_generation -v`
-(see [testing](testing.md) for suite boundaries). Optional audio/PDF regeneration has separate
-dependencies. For the game specification PDF, run
+focused test with `uv run python -m unittest tests.tooling.test_assets -v`
+(see [testing](testing.md) for suite boundaries). Optional PDF regeneration has separate dependencies. For the game specification PDF, run
 `uv run --group docs python -m tidebound_dev.documents.specification`; use `--output /path/to/preview.pdf`
 to render a preview. macOS/Windows use Times New Roman and Arial; Linux needs
 Liberation Serif and DejaVu Sans (`fonts-liberation` and `fonts-dejavu-core` on Ubuntu).
-Audio generation needs NumPy and ffmpeg. Rebuilding the Mac engine is separate from
+Approved audio files need no composer or encoder dependency. Rebuilding the Mac engine is separate from
 packaging: see [runtime provenance](runtime/macOS.md).
 
 Verified release candidates require a clean checkout and the procedure in
@@ -162,3 +161,26 @@ devenv shell until a concrete need outweighs that additional setup.
 References: [uv projects](https://docs.astral.sh/uv/guides/projects/),
 [uv entry points](https://docs.astral.sh/uv/concepts/projects/config/),
 [devenv installation](https://devenv.sh/getting-started/).
+
+## Asset previews
+
+Edit the approved source, then use the same development command:
+
+```sh
+uv run play --preview pokemon/WHYDUCK
+uv run play --preview characters/Tidebound_Ivo_Seated
+uv run play --preview props/ship1
+uv run play --preview items/TIDEBOUNDOILKEYS
+uv run play --preview trainers/TBLOCALYOUTH
+uv run play --preview pictures/Tidebound/title
+uv run play --preview 'audio/BGM/Tidebound Shore'
+```
+
+Use exact asset IDs/filenames without extensions. `build --preview` stages the
+same viewer without launching. Pokémon previews show normal/shiny front/back
+sprites and animated icons; character previews animate all four directions.
+Prop crosshairs mark the event anchor. Audio plays through Essentials' wrappers;
+Enter replays it, Esc closes. This is a disposable development player: the preview
+Main never enters a game or loads/writes a player save and never ships in releases.
+Battle positioning metrics, map collisions, lighting and music transitions still
+need inspection in their actual scenes.

@@ -1,6 +1,5 @@
 """Compile story Key Items and trainer classes; battle rosters live in Ruby features."""
 
-import shutil
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol
@@ -55,28 +54,24 @@ def build_items(game):
             "TIDEBOUNDPIE",
             "Homemade Pie",
             "A homemade pie on a ceramic plate painted with two blue reeds. A thank-you for you and Mother.",
-            "LAVACOOKIE",
         ),
         (
             "TIDEBOUNDPLATE",
             "Blue-Reed Plate",
             "An ordinary ceramic plate, washed and dried. Two blue reeds decorate its rim. Return it to the oil seller.",
-            "SHOALSHELL",
         ),
         (
             "TIDEBOUNDNECKLACE",
             "Pearl Necklace",
             "A small pearl necklace recovered from the thieves. The oil seller is waiting for it.",
-            "PEARLSTRING",
         ),
         (
             "TIDEBOUNDREEDCHARM",
             "Blue-Reed Keepsake",
             "A small ceramic charm painted with two blue reeds. A gift from the oil seller, to keep.",
-            "SHOALSHELL",
         ),
     ]
-    for ident, name, desc, icon in rows:
+    for ident, name, desc in rows:
         data = clone(items[Symbol("TIDEBOUNDOILKEYS")])
         data.attributes.update(
             {
@@ -91,7 +86,6 @@ def build_items(game):
         )
         items[Symbol(ident)] = data
         text += item_section(ident, name, desc)
-        shutil.copy2(game / f"Graphics/Items/{icon}.png", game / f"Graphics/Items/{ident}.png")
     (game / "PBS/items_tidebound_neighbor.txt").write_text(text, encoding="utf-8-sig")
     (game / "Data/items.dat").write_bytes(writes(items))
 
@@ -119,13 +113,6 @@ def build_trainers(game):
         )
         types[Symbol(ident)] = data
         text += f"\n#-------------------------------\n[{ident}]\nName = {name}\nGender = Male\nBaseMoney = 0\nSkillLevel = 0\nBattleBGM = Tidebound Stillness\nVictoryBGM = Tidebound Stillness\n"
-        shutil.copy2(
-            game / f"Graphics/Trainers/{base}.png", game / f"Graphics/Trainers/{ident}.png"
-        )
-        shutil.copy2(
-            game / f"Graphics/Characters/trainer_{base}.png",
-            game / f"Graphics/Characters/trainer_{ident}.png",
-        )
     (game / "PBS/trainer_types_tidebound_neighbor.txt").write_text(text, encoding="utf-8-sig")
     (game / "Data/trainer_types.dat").write_bytes(writes(types))
 

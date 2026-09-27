@@ -132,6 +132,7 @@ class BuildTransactionTests(unittest.TestCase):
             )
             patcher.start()
             self.addCleanup(patcher.stop)
+        self.enterContext(patch("tidebound_dev.packaging.pipeline.validate_assets"))
         patcher = patch("tidebound_dev.packaging.pipeline.validate")
         patcher.start()
         self.addCleanup(patcher.stop)
