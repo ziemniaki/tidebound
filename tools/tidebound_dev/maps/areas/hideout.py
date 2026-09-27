@@ -1,15 +1,12 @@
-from ..files import save_png
 from PIL import Image, ImageDraw
-
-from .model import command, script
 import random
+from ...files import save_png
+from ..model import Map
+from ..registry import MAPS, ACTORS
 
 
-def decorate(paths, interior, hideout):
-    """The inhabited storehouse: native furniture and small code-drawn clutter.
-    Decorates the storehouse before the shared interior atlas is written.
-    Old map/event IDs and arrival (11,14) are retained.
-    """
+def build(paths, interior):
+    hideout = Map(MAPS["hideout"], "The Old Storehouse", 22, 18, 3)
 
     # Everything here is specific to the squat; shared lighthouse furniture stays intact.
     def squat_asset(kind, w, h):
@@ -256,15 +253,7 @@ def decorate(paths, interior, hideout):
             sheet.alpha_composite(seat, (xx * fw, yy * fh))
     save_png(sheet, paths.game / "Graphics/Characters/Tidebound_Ivo_Seated.png")
 
-    placements = {
-        "Abyss runner": (13, 7, "Tidebound::Hideout.guard", "trainer_YOUNGSTER"),
-        "necklace_thief": (16, 4, "Tidebound::Hideout.boss", "Tidebound_Ivo_Seated"),
-        "Abyss packer": (18, 11, "Tidebound::NeighborQuest.packer", "trainer_BUGCATCHER"),
-        "Abyss lookout": (3, 9, "Tidebound::NeighborQuest.lookout", "trainer_YOUNGSTER"),
-        "Dispatch slip": (12, 4, "Tidebound::Hideout.cache", ""),
-        "Arrival": (2, 15, "Tidebound::Hideout.arrival", ""),
-    }
-    clutter_spots = [
+    for x, y in [
         (5, 12),
         (7, 12),
         (9, 12),
@@ -275,30 +264,29 @@ def decorate(paths, interior, hideout):
         (19, 12),
         (7, 8),
         (10, 8),
-    ]
-    for e in hideout.events.values():
-        a = e.attributes
-        name = hideout.actor_settings.get(a["@id"], {}).get("key", a["@name"])
-        p = a["@pages"][0].attributes
-        if name == "Crate goods":
-            x, y = clutter_spots.pop(0)
-            a.update({"@name": "Clutter", "@x": x, "@y": y})
-            p["@graphic"].attributes.update({"@character_name": "", "@opacity": 255})
-            p["@list"] = script("Tidebound::Hideout.clutter") + [command(0)]
-        elif name in placements:
-            x, y, code, char = placements[name]
-            a.update({"@x": x, "@y": y})
-            p["@graphic"].attributes["@character_name"] = char
-            p["@list"] = script(code) + [command(0)]
-            p["@direction_fix"] = name == "necklace_thief"
-            p["@through"] = not bool(char)
-            if char:
-                hideout.walk[y][x] = False
-    hideout.blocking_events = {
-        event_id
-        for event_id, event in hideout.events.items()
-        if not hideout.walk[event.attributes["@y"]][event.attributes["@x"]]
-    }
+    ]:
+        hideout.event("Clutter", x, y, "Tidebound::Hideout.clutter", through=False, blocks=True)
+    hideout.event(
+        "Abyss runner", 13, 7, "Tidebound::Hideout.guard", "trainer_YOUNGSTER", blocks=True
+    )
+    hideout.event(
+        ACTORS["necklace_thief"],
+        16,
+        4,
+        "Tidebound::Hideout.boss",
+        "Tidebound_Ivo_Seated",
+        blocks=True,
+        direction_fix=True,
+    )
+    hideout.event(
+        "Abyss packer", 18, 11, "Tidebound::NeighborQuest.packer", "trainer_BUGCATCHER", blocks=True
+    )
+    hideout.event(
+        "Abyss lookout", 3, 9, "Tidebound::NeighborQuest.lookout", "trainer_YOUNGSTER", blocks=True
+    )
+    hideout.event("Dispatch slip", 12, 4, "Tidebound::Hideout.cache")
+    hideout.event("Arrival", 2, 15, "Tidebound::Hideout.arrival", trigger=3)
+    hideout.door(11, 16, 108, 35, 43, 2)
     for x in [14, 15]:
         hideout.event("Sofa approach", x, 9, "Tidebound::Hideout.approach", trigger=1)
     hideout.event("Rune console", 15, 6, "Tidebound::Hideout.console")
@@ -334,3 +322,5 @@ def decorate(paths, interior, hideout):
                     im.putdata(pixels)
                     squat_clones[t] = interior.itile(im)
                 row[xx] = squat_clones[t]
+
+    return hideout

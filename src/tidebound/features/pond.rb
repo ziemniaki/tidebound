@@ -22,40 +22,49 @@ module Tidebound::Pond
     lines.each { |line| pbMessage(line) }
   end
   FISHERS = {
-    toma: [
-      "Toma",
-      [[:MAGIKARP, 9], [:GOLDEEN, 10]],
-      "Toma: The sea takes my hooks. This pond usually gives them back. Care for a little battle while the fish ignore us?",
-      "Toma: Well played. Even a quiet pond has its surprises.",
-      "Toma: That duck comes here when the road gets noisy. We leave the shallow bank to it."
-    ],
-    ida: [
-      "Ida",
-      [[:WOOPER, 10], [:POLIWAG, 11]],
-      "Ida: I mend nets for the dock crews. This is where I rest my hands. Shall we let our companions stretch instead?",
-      "Ida: A useful lesson. Thank you for taking the time.",
-      "Ida: I can see marks on that stone, but I can't read them from here. And I'm certainly not swimming across."
-    ],
-    renzo: [
-      "Renzo",
-      [[:BARBOACH, 12]],
-      "Renzo: Aipom stole my bait. Then it came back for the lid. Help me recover a little dignity with a battle?",
-      "Renzo: There goes the dignity. At least I still have the bucket.",
-      "Renzo: Someone used to prune the berry tree. I take two and leave the rest. Seems only fair."
-    ]
+    toma: {
+      name: "Toma",
+      team: [[:MAGIKARP, 9], [:GOLDEEN, 10]],
+      invite:
+        "Toma: The sea takes my hooks. This pond usually gives them back. Care for a little battle while the fish ignore us?",
+      loss: "Toma: Well played. Even a quiet pond has its surprises.",
+      after: "Toma: That duck comes here when the road gets noisy. We leave the shallow bank to it."
+    },
+    ida: {
+      name: "Ida",
+      team: [[:WOOPER, 10], [:POLIWAG, 11]],
+      invite:
+        "Ida: I mend nets for the dock crews. This is where I rest my hands. Shall we let our companions stretch instead?",
+      loss: "Ida: A useful lesson. Thank you for taking the time.",
+      after:
+        "Ida: I can see marks on that stone, but I can't read them from here. And I'm certainly not swimming across."
+    },
+    renzo: {
+      name: "Renzo",
+      team: [[:BARBOACH, 12]],
+      invite:
+        "Renzo: Aipom stole my bait. Then it came back for the lid. Help me recover a little dignity with a battle?",
+      loss: "Renzo: There goes the dignity. At least I still have the bucket.",
+      after:
+        "Renzo: Someone used to prune the berry tree. I take two and leave the rest. Seems only fair."
+    }
   }.freeze
   def fisher(id)
-    name, team, invite, defeat, after = FISHERS.fetch(id)
-    return say(after) if flags[id]
-    return unless pbConfirmMessage(invite)
+    fisher = FISHERS.fetch(id)
+    return say(fisher.fetch(:after)) if flags[id]
+    return unless pbConfirmMessage(fisher.fetch(:invite))
     return unless Tidebound::Encounters.able?
-    foe = Tidebound::Encounters.trainer(:FISHERMAN, name, defeat, team)
-    result = Tidebound.trainer!(foe)
-    if result == :astral
-      Tidebound::World.travel(:astral, 15, 21, 8)
-    elsif result == 1
+    result =
+      Tidebound::Encounters.trainer(
+        type: :FISHERMAN,
+        name: fisher.fetch(:name),
+        loss: fisher.fetch(:loss),
+        team: fisher.fetch(:team),
+        departure: nil
+      )
+    if result == 1
       flags[id] = true
-      say(defeat, after)
+      say(fisher.fetch(:loss), fisher.fetch(:after))
     end
   end
   def hidden_item

@@ -4,6 +4,16 @@ The normal loop is **edit → `uv run format` → `uv run play` → `uv run chec
 Run commands from the checkout; no environment activation or manual runtime
 copying is needed.
 
+## Agent-assisted development
+
+Describe the player-visible change and affected area. The agent reads `AGENTS.md`,
+implements it on a branch, and builds a development player for you to try with
+`uv run play`. Review the behavior and PR before merging. Story decisions belong
+in `specs/`; development instructions belong in `docs/` and scoped `AGENTS.md` files.
+
+If you also edit maps in RPG Maker XP, tell the agent which maps changed before
+regeneration so those edits can be incorporated into their Python source.
+
 ## Setup
 
 Install [Git](https://git-scm.com/downloads) and
@@ -109,6 +119,38 @@ packaging: see [runtime provenance](runtime/macOS.md).
 
 Verified release candidates require a clean checkout and the procedure in
 [releasing](releasing.md). Development copies are not release artifacts.
+
+## Branches and pull requests
+
+Work in `ziemniaki/tidebound`, without forks. Start from the current checkout and
+preserve uncommitted work. A focused PR should describe the resulting behavior,
+any changed integration contracts and the verification actually performed.
+
+Quick checks run on pushes. Request `/verify` before merging substantial changes;
+docs-only changes need link/contract review and quick checks. Workflow-definition
+changes need branch-dispatched verification: `/verify` uses the trusted workflow.
+Keep status-writing permissions separate from execution of untrusted PR code.
+Publication follows the separate [release procedure](releasing.md).
+
+## Independent feature work
+
+Use separate checkouts for simultaneous agents; changing branches in a shared
+directory does not isolate edits or builds. Before splitting work, agree the
+contracts being touched: map/species/form IDs, actor identities and roles, handler
+keys, public Ruby calls and script load order. Keep each feature's edits together.
+The [task table](../AGENTS.md#read-for-your-change) routes to its source owner.
+
+Coordinate changes to `src/load_order.txt`, `maps/compiler.py`, `maps/registry.py`,
+species catalogs and shared NPC dispatch. Individual map layouts belong in
+`maps/areas/<map>.py`; another area must not patch their events or geometry.
+
+Include source and generated outputs in the PR. When combining work, resolve
+source first, then regenerate once. For generator-owned binary conflicts, use a
+known common baseline, apply the combined source, then run `uv run format`,
+`uv run rebuild --all` and `uv run check --all`. Never choose one branch's archive
+wholesale: that can discard another feature. Stock data and supplied editor/asset
+edits need their own reconciliation. Never regenerate in another agent's active
+checkout. Handoffs name the branch/commit, checks and remaining work.
 
 ## Tooling choice
 

@@ -4,7 +4,7 @@ class TideboundCompanionSprite < PokemonIconSprite
   include Tidebound::Presentation::Position
   def initialize(event, viewport)
     @map_event = event
-    actor = Tidebound::Actors.info(event)
+    actor = @actor = Tidebound::Actors.info(event)
     @house_species =
       %w[house room outside_dog].include?(actor["role"]) ? actor.fetch("species").to_sym : nil
     @spirit_index = actor["index"]
@@ -21,7 +21,7 @@ class TideboundCompanionSprite < PokemonIconSprite
 
   def update
     super
-    self.visible = Tidebound::Actors.visible?(@map_event)
+    self.visible = Tidebound::Actors.visible?(@map_event, @actor)
     if @spirit_index
       self.opacity = 165 + (Math.sin(System.uptime * 2) * 30).to_i
       self.color = Color.new(140, 188, 214, 100)

@@ -11,23 +11,18 @@ the engine's expected directory structure intact inside `game/`.
 | Rules, state, identity and recovery | `src/tidebound/domain/state.rb` | `game/Data/Scripts.rxdata` |
 | Essentials save/battle integration | `src/tidebound/engine/battles.rb` | Same script archive |
 | Opening, quests and presentation | `src/tidebound/features/` and `src/tidebound/presentation/` | Same script archive |
-| Map layouts and events | `tools/tidebound_dev/maps/` area builders and painters | `game/Data/Map*.rxdata`, tilesets, previews/reports |
+| Map layouts and events | `tools/tidebound_dev/maps/areas/` and shared painters | `game/Data/Map*.rxdata`, tilesets, previews/reports |
 | Maze/pond/passage geometry | Map generators | `src/generated/map_passages.rb`, `maze_geometry.rb`, `pond_geometry.rb` |
 | Species, items, trainers, encounters | `tools/tidebound_dev/content/`, item/encounter builders | Matching `game/PBS/*.txt`, compiled `game/Data/*.dat` |
 | Artwork | `assets/<species>/` inputs and `tools/tidebound_dev/art/` exporters | `game/Graphics/` |
 | Sound | `tools/tidebound_dev/art/audio.py`, existing attributed assets | `game/Audio/` |
 | Engine packaging | `tools/tidebound_dev/packaging/`, `release.json`, pinned `runtime/` | Ignored local builds or CI artifacts |
 
-Map builders return independent in-memory areas. `maps/compiler.py` declares
-composition explicitly: base areas, connections, landscape, interiors and harbor/
-pond decoration. Painters own their tile atlases and caches; area modules receive
-only the maps and painters they use. Imports never load or write game assets. Interaction targets are derived from
-current event records; painters do not maintain a second position list.
-Full rebuild writes maps, content, art and scripts directly in dependency order,
-then validates the complete game. A failure can leave partial generated outputs;
-fix the error and rerun before playing. Git holds the previous tracked versions.
-`check --all` runs the same plan in a disposable copy and compares outputs without
-changing the checkout.
+Each `maps/areas/<map>.py` owns the complete layout, events and painting of one
+map. `maps/compiler.py` assembles them and publishes shared atlases; painters
+provide reusable primitives without reaching into other areas. Events are defined
+at their final positions with their final scripts, preserving existing IDs.
+`maps/serialization.py` writes native data, collision masks and previews.
 
 ## Python operations
 
@@ -75,6 +70,10 @@ Map definitions in `maps/definitions.py` own IDs, arrivals, music, metadata and
 atmosphere. They feed native maps, PBS metadata, validation and generated runtime
 settings, including the coast coordinate origin. Map drawing APIs use absolute
 tiles; builders convert local coast positions explicitly with `Map.absolute`.
+`maps/scenery.py` bakes dock props and source-glass window masks. The generated
+window placement table and PNG atlas let `presentation/quay.rb` position sprites
+without map scans or per-pixel drawing during play.
+
 Offline previews live in `maps/preview.py`, sharing decoded art and tile crops
 for one generation. Map-qualified actor identities live in `maps/registry.py`;
 event roles
@@ -121,7 +120,8 @@ duplicate companions/items and memorials. Only outcome 1 advances trainer wins;
 loss, draw and cancellation leave the encounter retryable. Technical failures
 must preserve rollback behavior rather than becoming permanent narrative loss.
 
-Use the existing wild/trainer wrappers and handle their astral-transfer result.
+Use `Encounters.fight`/`Encounters.trainer` for shared outcome handling and astral
+transfers. Recurring recovery interactions belong to `features/astral.rb`.
 Death mechanics are not a global replacement for every engine blackout route.
 Manual saves, provisional recovery balance and late-game state helpers are not
 proof that the full final-game design is implemented.

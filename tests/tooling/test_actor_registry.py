@@ -3,7 +3,10 @@
 from dataclasses import replace
 import unittest
 from unittest.mock import patch
-from tidebound_dev.maps import registry, model, areas
+from tidebound_dev.maps import registry, model
+from tidebound_dev.maps.areas import home
+from tidebound_dev.maps.interior import InteriorPainter
+from tidebound_dev.paths import ROOT
 
 
 class ActorRegistryTests(unittest.TestCase):
@@ -19,12 +22,12 @@ class ActorRegistryTests(unittest.TestCase):
             model.Map(102, "Coast", 3, 3, 1).event(mother, 1, 1, "")
 
     def test_label_changes_preserve_identity_role_and_placement(self):
-        original = areas.build_home()
+        original = home.build(InteriorPainter(ROOT / "game"))
         with patch.dict(
             registry.ACTORS,
             {key: replace(value, label="Label " + key) for key, value in registry.ACTORS.items()},
         ):
-            renamed = areas.build_home()
+            renamed = home.build(InteriorPainter(ROOT / "game"))
         self.assertEqual(original.actor_settings, renamed.actor_settings)
         for event_id in original.events:
             old = original.events[event_id].attributes

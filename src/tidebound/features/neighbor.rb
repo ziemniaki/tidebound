@@ -5,19 +5,24 @@ module Tidebound
     PLATE = :TIDEBOUNDPLATE
     NECKLACE = :TIDEBOUNDNECKLACE
     ROSTERS = {
-      first: [:TBLOCALYOUTH, "Toma", "I wasn't even trying!", [[:RATTATA, 5, %i[TACKLE TAILWHIP]]]],
-      runner: [
-        :TBABYSSRUNNER,
-        "Bram",
-        "This is coming out of somebody's share.",
-        [[:ZIGZAGOON, 6, %i[TACKLE GROWL]]]
-      ],
-      second: [
-        :TBLOCALYOUTH2,
-        "Ivo",
-        "These pearls aren't even worth this!",
-        [[:POOCHYENA, 7, %i[TACKLE HOWL SANDATTACK]]]
-      ]
+      first: {
+        type: :TBLOCALYOUTH,
+        name: "Toma",
+        loss: "I wasn't even trying!",
+        team: [[:RATTATA, 5, %i[TACKLE TAILWHIP]]]
+      },
+      runner: {
+        type: :TBABYSSRUNNER,
+        name: "Bram",
+        loss: "This is coming out of somebody's share.",
+        team: [[:ZIGZAGOON, 6, %i[TACKLE GROWL]]]
+      },
+      second: {
+        type: :TBLOCALYOUTH2,
+        name: "Ivo",
+        loss: "These pearls aren't even worth this!",
+        team: [[:POOCHYENA, 7, %i[TACKLE HOWL SANDATTACK]]]
+      }
     }.freeze
     WILDS = { shorebird: [:NATU, 4], shoreforager: [:ZIGZAGOON, 4] }.freeze
     class << self
@@ -242,12 +247,7 @@ module Tidebound
     end
     def battle(id)
       return 0 unless Tidebound::Encounters.able?
-      outcome = Tidebound.trainer!(Tidebound::Encounters.trainer(*ROSTERS.fetch(id)))
-      if outcome == :astral
-        say("The sound of the world draws away.")
-        Tidebound::World.travel(:astral, 15, 21, 8)
-      end
-      outcome
+      Tidebound::Encounters.trainer(**ROSTERS.fetch(id))
     end
     def first_thief
       return if stage != :pursuit || q[:first_won]
@@ -361,33 +361,5 @@ module Tidebound
       self.pearl_glint = 0
       self.busy = false
     end
-    def sync_actors
-      return if self.busy
-      if $game_map.map_id == 102
-        %i[robbery_youth_one robbery_youth_two].each do |name|
-          e = Tidebound::World.actor(name)
-          next unless e
-          e.opacity = 0
-          e.through = true
-        end
-      elsif $game_map.map_id == 108
-        e = Tidebound::World.actor(:road_thief)
-        if e
-          visible = stage == :pursuit && !q[:first_won]
-          e.opacity = visible ? 255 : 0
-          e.through = !visible
-        end
-        e = Tidebound::World.actor(:running_thief)
-        if e
-          e.opacity = 0
-          e.through = true
-        end
-      end
-    end
   end
 end
-EventHandlers.add(
-  :on_enter_map,
-  :tidebound_neighbor_actors,
-  proc { |_previous_map| Tidebound::NeighborQuest.sync_actors }
-)

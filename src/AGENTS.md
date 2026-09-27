@@ -39,8 +39,10 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
 - Battles: use `Encounters.able?` before starting an interaction and the Tidebound
   battle adapters. Core outcomes are integers: 0 aborted, 1 won, 2 lost, 3 fled,
   4 caught, 5 draw. Ruby treats all of them as truthy. Only `== 1` advances trainer
-  victory. `Encounters.fight` handles `:astral` transfer for wilds; callers of
-  `Tidebound.trainer!` must handle it themselves. Stop the living scene after transfer.
+  victory. `Encounters.fight` and `Encounters.trainer` handle `:astral` transfers.
+  Trainer definitions use named type/name/loss/team fields. Stop the living scene
+  after transfer; only victory grants quest progress. `features/astral.rb` owns
+  recurring guide/recovery/return interactions.
 - Essentials heals loss/draw parties during `after_battle` when `canLose` is set.
   Tidebound snapshots **before** that cleanup. Moving recovery to `on_end_battle`
   loses the pre-heal state. Spirit capture restores the original companion;
@@ -51,8 +53,9 @@ written by Python compilers. No second copy in `game/Plugins/Tidebound`.
 - Pokémon form setters and learnsets have separate side effects; read the
   [content guide](../tools/tidebound_dev/content/AGENTS.md) before changing forms.
 - Rendered visibility does not establish collision. `features/actors.rb` owns
-  story-actor collision and skips forced routes; update its policy alongside
-  presentation. Generated actor roles select policy independently of display
+  visibility and collision policy. It indexes collision actors once, skips forced
+  routes, and applies NPC resting visibility only on map entry or explicit
+  `Actors.refresh` scene boundaries. Per-frame sync must not hide a cutscene actor. Generated actor roles select policy independently of display
   labels. `World.actor` resolves a registered identity only on its owning map;
   don't scan event names or assume an actor exists after a transfer.
 - `Presentation::OwnedSprite` disposes its bitmap and only an explicitly owned

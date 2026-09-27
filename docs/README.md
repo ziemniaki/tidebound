@@ -1,6 +1,5 @@
 # Documentation
 
-- [Maintainer workflow](maintainer.md): ask for a change, try it, review it.
 - [Development](development.md): setup, commands and editor support.
 - [Architecture](architecture.md): ownership, generated data and save invariants.
 - [Essentials contracts](essentials-contracts.md): inspected engine APIs and versioned sources.
@@ -8,7 +7,6 @@
 - [Artwork](artwork.md): editable sources, exporters and approved visual details.
 - [Testing](testing.md): headless and native checks.
 - [Releasing](releasing.md): checks, tags, draft review and publication.
-- [Repository workflow](repository-workflow.md): branches, PRs and handoffs.
 - [Walkthrough](walkthrough.md): the opening, with spoilers.
 - [Game specification](../specs/game-design.md): creative authority, full story spoilers.
 - [Credits](credits.md) and [release notes](release-notes.md).

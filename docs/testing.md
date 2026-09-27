@@ -24,7 +24,7 @@ or real battle-engine behavior. Native tests cover that separate runtime boundar
 
 ```sh
 # One tooling module (no Node startup)
-uv run python -m unittest tests.tooling.test_generation -v
+uv run python -m unittest tests.tooling.test_map_validation -v
 # All tooling checks; successful tool output is hidden, failures retain it
 uv run python -m unittest discover -s tests/tooling -t . --buffer --durations 5
 # One isolated Ruby suite, after a successful check has refreshed engine references

@@ -9,14 +9,9 @@ module Tidebound::Encounters
     false
   end
   def fight(*foes)
-    result = Tidebound.wild!(*foes)
-    if result == :astral
-      pbMessage("The sound of the world draws away.")
-      Tidebound::World.travel(:astral, 15, 21, 8)
-    end
-    result
+    finish(Tidebound.wild!(*foes), "The sound of the world draws away.")
   end
-  def trainer(type, name, loss, team)
+  def trainer(type:, name:, loss:, team:, departure: "The sound of the world draws away.")
     foe = NPCTrainer.new(name, type)
     foe.lose_text = loss
     team.each do |species, level, moves|
@@ -27,6 +22,15 @@ module Tidebound::Encounters
       end
       foe.party << pokemon
     end
-    foe
+    finish(Tidebound.trainer!(foe), departure)
   end
+
+  def finish(result, departure)
+    if result == :astral
+      pbMessage(departure) if departure
+      Tidebound::World.travel(:astral, 15, 21, 8)
+    end
+    result
+  end
+  private_class_method :finish
 end

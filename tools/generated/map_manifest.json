@@ -929,7 +929,7 @@
         12,
         4,
         0,
-        true
+        false
       ],
       [
         "Arrival",
@@ -943,7 +943,7 @@
         11,
         16,
         1,
-        true
+        false
       ],
       [
         "Sofa approach",

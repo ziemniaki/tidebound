@@ -51,7 +51,7 @@ module Tidebound::VaultVisit
       e.opacity = 0
       e.through = true
     end
-    sync
+    Tidebound::Actors.refresh($game_map)
   end
   def mother
     say(
@@ -68,7 +68,7 @@ module Tidebound::VaultVisit
       "Mother: Mind the last step. It is lower than it looks."
     )
     q[:open] = true
-    pbFadeOutIn { sync }
+    pbFadeOutIn { Tidebound::Actors.refresh($game_map) }
   end
   def stairs
     unless q[:open]
@@ -127,29 +127,4 @@ module Tidebound::VaultVisit
       say("The sabre rests behind glass. There is still no maker named on the label.")
     end
   end
-  def sync
-    map = $game_map.map_id
-    names =
-      case map
-      when 101
-        { mother: !q[:open] || q[:museum], seller_at_home: q[:gift] && !q[:open] }
-      when 106
-        { oil_seller: !q[:gift] || q[:museum] }
-      when 111
-        { mother_at_vault: q[:open] && !q[:museum], seller_at_vault: q[:open] && !q[:museum] }
-      else
-        {}
-      end
-    names.each do |name, visible|
-      e = Tidebound::World.actor(name)
-      next unless e
-      e.opacity = visible ? 255 : 0
-      e.through = !visible
-    end
-  end
 end
-EventHandlers.add(
-  :on_enter_map,
-  :tidebound_vault_actors,
-  proc { |_previous_map| Tidebound::VaultVisit.sync }
-)

@@ -7,6 +7,7 @@ tidebound/world/navigation.rb
 tidebound/world/atmosphere.rb
 tidebound/engine/encounters.rb
 tidebound/features/opening.rb
+tidebound/features/astral.rb
 tidebound/presentation/sprites.rb
 tidebound/features/actors.rb
 tidebound/presentation/title.rb
@@ -19,7 +20,8 @@ tidebound/features/fields.rb
 tidebound/presentation/fields.rb
 tidebound/features/vault.rb
 tidebound/presentation/vault.rb
-tidebound/world/docks.rb
+generated/window_lights.rb
+tidebound/presentation/quay.rb
 tidebound/engine/regional_forms.rb
 tidebound/engine/frostcoon.rb
 tidebound/presentation/lighthouse.rb
