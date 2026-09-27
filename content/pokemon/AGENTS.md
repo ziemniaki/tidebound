@@ -1,4 +1,4 @@
-# Species, forms, items and encounters
+# Species, forms and encounters
 
 Each `<ENGINE_ID>/species.json` owns `species`, optional `metrics`, and `art`.
 Compilers discover these bundles; there is no registration list. Source images
@@ -35,19 +35,18 @@ live in the same folder. Naming/ownership: [architecture](../../docs/architectur
    Missing expected colours fail export. Preview all frames, then inspect battle
    and party composition; form fallback can hide missing assets.
 6. Format, `uv run build --compile-only`, stage additions, then `uv run check --all`.
-   Native verification derives its roster from the catalog and compares all native
-   species/metric attributes except PBS source bookkeeping and non-evolving family
-   backlinks. It checks exact front/back/shiny/icon/cry resolution. Cry exports and native expectations share the asset catalog; normal/shiny party
-   icons share the declared normal icon path. New species require their own assets by default.
+   Native verification derives rosters and art expectations from the same catalog
+   as export. It compares species/metrics except PBS bookkeeping and non-evolving
+   family backlinks, and checks exact front/back/shiny/icon/cry resolution.
+   Extend that catalog and its checks; never maintain a separate verification list.
    Run the native species scenario when altering definitions/compiler behavior.
 
 ## Data, form and encounter contracts
 
 - `BaseStats` uses PBS order: **HP, Attack, Defense, Speed, Special Attack,
   Special Defense**. It differs from the common display order with Speed last.
-  Python Height/Weight values are metres/kilograms; the compiler writes native
-  tenths. Do not pre-multiply by ten or change the stat order when copying a design.
-
+  Height/Weight values are metres/kilograms; the compiler writes native tenths.
+  Do not pre-multiply by ten or change stat order when copying a design.
 - `pokemon.form = n` clears cached ability, runs form hooks, recalculates stats and
   registers in the Pokédex. It **does not reset moves**. For a newly generated wild
   whose form has a different learnset, set form then `reset_moves`. Never reset
@@ -69,14 +68,12 @@ live in the same folder. Naming/ownership: [architecture](../../docs/architectur
 - The full pipeline compiles species before encounter rosters. Keep this order:
   encounter validation must see newly added species in the same build.
 
-[Inspected Essentials methods](../../docs/essentials-contracts.md).
-Full rebuild writes directly in dependency order. If it fails, fix the cause and
-rerun before playing; it does not roll back generated files. `check --all` verifies
-regeneration in a disposable copy. Review generated diffs before committing.
+[Inspected Essentials methods](../../docs/essentials-contracts.md). Failed builds
+do not roll back: fix the source and rerun before playing. Review generated diffs;
+`check --all` verifies isolated regeneration.
 
-`game/.generated/content.json` records custom records and files. Full rebuild removes
-retired records/files, so deleting a declaration retires its output without
-touching stock inputs. Never hand-edit the inventory to claim a stock ID. Published
-species/items may still exist in player saves: retire them only as an explicit
-content decision. The manifest is written before generation so failed builds can
-be fixed and rerun; it is not a save schema or migration system.
+`game/.generated/content.json` tracks custom ownership; rebuild retires deleted
+declarations' outputs while preserving stock inputs. Never hand-edit it to claim
+a stock ID. Published species/items may exist in saves: retirement requires an
+explicit content decision. The manifest is written before generation for retries,
+not save versioning.

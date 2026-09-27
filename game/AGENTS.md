@@ -1,8 +1,7 @@
 # Engine project and generated outputs
 
-`Game.rxproj` is the RPG Maker XP editor project. This directory combines stock
-engine inputs, generated Tidebound outputs and directly maintained assets.
-It is not a disposable build directory.
+`Game.rxproj` opens the RPG Maker XP project. Preserve its stock inputs and
+directly maintained assets alongside generated outputs; never clear this directory.
 
 | Editing | Source to change first |
 | --- | --- |
@@ -12,16 +11,12 @@ It is not a disposable build directory.
 | Custom Pokémon, character, trainer, item and picture PNGs | [Asset ownership/export guide](../content/AGENTS.md) |
 | Sound files | [Audio workflow](../content/audio/AGENTS.md) |
 
-Do not edit ignored `tests/engine_reference/`: it is an inspection copy.
-Do not delete stock data or seemingly unused art based on text searches; Essentials
-resolves many filenames dynamically. Use the [RPG Maker workflow](../docs/development.md#rpg-maker) to import saved map
-edits into authored content before rebuilding. Preserve supplied edits.
-
-`uv run play` compiles all authored content, including maps. Edit approved sources in `content/`, not exported PNG/OGG files;
-`game/.generated/assets.json` identifies owned exports. The same rebuild writes
-fixed tilesets, lighting, authored PBS and native data;
-arbitrary new PBS fields require native compiler validation.
-
-Use `uv run play` for native development playtesting. Optional RPG Maker setup
-and its different save namespace are documented in the linked editor workflow.
-Locally extracted EXE/DLL files are ignored; do not commit them.
+- Preserve supplied editor edits: follow the [import workflow](../docs/development.md#rpg-maker)
+  before rebuilding. It also covers editor setup and Test Play's save namespace.
+- Fix generated content at its source, then rebuild through `uv run play` or
+  `uv run build --compile-only`. Extend the owning compiler when needed;
+  direct output patches disappear on the next build. New PBS fields need native
+  compiler validation. `game/.generated/assets.json` identifies owned asset exports.
+- Never delete stock data/art on text-search evidence alone; Essentials resolves
+  filenames dynamically. Ignored `tests/engine_reference/` is for inspection only.
+- Use `uv run play` for development playtesting. Keep extracted EXE/DLL files ignored.

@@ -2,8 +2,8 @@
 
 A feature with several concerns gets one folder: `quest.rb` (state/transitions),
 `actors.rb` (availability), `presentation.rb` when needed. See `neighbor/` and
-`vault/`. Small independent features can remain one file. Add every Ruby file to
-`src/load_order.txt`; keep dependencies before consumers.
+`vault/`; small independent features can remain one file. Follow
+[gameplay integration](../../AGENTS.md) for load order, event wiring and checks.
 
 - Register named NPC rules with `Actors.on_entry(:actor_key) { |event, actor| ... }`;
   register changing role collision with `Actors.on_frame("role") { ... }`.

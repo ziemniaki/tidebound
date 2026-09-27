@@ -3,8 +3,8 @@
 `map.json` owns the map ID, display name, named entrances, encounters, atmosphere,
 actor identities/roles and retired event IDs. `layout.json` owns the complete RPG
 Maker map: dimensions, tile layers, audio, events, pages and movement routes.
-Both are authored data. Builds serialize them; they never execute map builders.
-The [editor workflow](../../docs/development.md#rpg-maker) is shared by humans and agents.
+Builds serialize this authored data; they never execute map builders.
+Follow the [editor workflow](../../docs/development.md#rpg-maker) for RPG Maker edits.
 
 ## Layout and tiles
 
@@ -39,7 +39,9 @@ The [editor workflow](../../docs/development.md#rpg-maker) is shared by humans a
   both the live and retired maxima; RPG Maker may offer a retired ID. For JSON
   deletions, add the removed ID to that list yourself.
 - `actor_settings` maps event IDs to runtime roles and optional `key`, `species`,
-  `asset`, `state`, `index` or `cue`. A named `key` is the actor identity, independent of the event's display name. Every declared actor must reference an existing event. Follow [src/AGENTS.md](../../src/AGENTS.md) for feature behavior.
+  `asset`, `state`, `index` or `cue`. `key` identifies an actor independently of its
+  display name. Each declaration must reference a live event. Feature behavior
+  follows [src/AGENTS.md](../../src/AGENTS.md).
 - Roles select consumers in `world/actors.rb`: companions need `species`, spirits
   need `index`, neighbor wildlife needs `state`, props need `asset` from
   `content/props/`. Door cues are `north|south|east|west`. Do not infer roles from labels.
@@ -60,17 +62,15 @@ The [editor workflow](../../docs/development.md#rpg-maker) is shared by humans a
 
 ## Add or generate a map
 
-Create a lower_snake_case bundle with `map.json` and `layout.json`; copying a small
-existing room preserves native defaults. Use a new map ID unless deliberately
-adopting an existing native map; source declarations own those IDs on rebuild.
-Declare entrances and actor settings only when needed. Alternatively create a map
-in RPG Maker and import it using the linked editor workflow; no scaffold is needed.
-Procedural tools may write these same files as a one-time authoring operation.
-Their output is ordinary editable content; generators are never a build dependency.
+Copy a small room into a lower_snake_case bundle to preserve native defaults, or
+create a map in RPG Maker and import it. Allocate a new map ID unless deliberately
+adopting a native map; declarations own those IDs on rebuild. Add entrances and
+actor settings only when needed. Procedural authoring may write these same editable
+files; reusable tooling belongs in the existing package, never a map-specific
+build generator.
 
 Run `uv run play` to compile and play; `uv run build --compile-only` exports without
 launching. Inspect `.build/maps/map_<id>_preview.png`, then verify entrances,
 interactions and collision in the player. Stage sources/exports and run
 `uv run check --all`. Previews do not establish event scheduling or gameplay.
-The compiler updates Essentials' native map revision so saves reload changed maps
-without rewriting Pokémon or quest state.
+The compiler updates the native map revision so saves reload changed maps.

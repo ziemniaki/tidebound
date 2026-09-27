@@ -1,15 +1,41 @@
 # Working on Tidebound
 
 Pokémon Essentials 21.1 on mkxp-z; gameplay stays Ruby, authoring/build tools stay
-Python. The maintainer often works through agents. Deliver a playable change.
+Python. Deliver a complete, playable change within the requested scope.
 Creative authority is [specs/game-design.md](specs/game-design.md); planned lore
 and provisional mechanics are not permission to implement them.
+
+## Engineering standard
+
+- Follow all applicable authoring, build, verification and release workflows,
+  including linked guides. Read the existing implementation before changing it.
+  When a workflow needs a lasting capability, extend it rather than creating a bypass.
+- Prefer no new code when a source edit, existing tool or manual one-off completes
+  the task cleanly. Temporary scripts are fine for one-off work; do not turn them
+  into permanent tooling without a concrete recurring need.
+- For lasting code changes, extend the existing owner and shared path. Prefer a
+  declaration or a small API change over a special-case script, duplicate pipeline,
+  manual output patch or permanent workaround for one task.
+- Make extensions useful to the next similar case without another exception.
+  Keep one source of truth and reuse discovery, validation and lifecycle rules.
+  Update the workflow, its checks and its documentation together.
+- Build the simplest complete solution. Add the complexity the feature needs;
+  do not cut required behavior or weaken correctness to keep the code small.
+  Every new abstraction, branch or configuration option must earn its maintenance
+  cost through a concrete requirement or shared use. Reduce incidental complexity
+  where feasible. Generalize demonstrated needs;
+  avoid speculative frameworks and unrelated refactors. Keep feature-specific
+  behavior with its feature until there is a concrete shared responsibility.
+- Finish the integration: connect source to its consumer, regenerate required
+  outputs, run the applicable checks and report what was actually verified.
 
 ## Read for your change
 
 Read [current status](docs/status.md), then the applicable guides below, including
 cross-directory guides when your task touches their outputs. Each guide names
 its source files, engine traps and verification; do not load every guide by default.
+Keep shared rules here, local contracts in scoped guides and detailed procedures
+in `docs/`. Update the owning document rather than duplicating instructions.
 
 | Task | Guide |
 | --- | --- |
@@ -18,17 +44,16 @@ its source files, engine traps and verification; do not load every guide by defa
 | Species/form, evolution or encounter data | [pokemon/AGENTS.md](content/pokemon/AGENTS.md) |
 | Items, actors, artwork and prop anchors | [content/AGENTS.md](content/AGENTS.md) |
 | Music, sound effect or cry | [audio/AGENTS.md](content/audio/AGENTS.md) |
+| Authoring/build tools or CLI | [tooling/AGENTS.md](tools/tidebound_dev/AGENTS.md) |
 | Asset pipeline | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
 | RPG Maker edits or compiled game files | [game/AGENTS.md](game/AGENTS.md) |
 | Start a playthrough from a declared state | [Playtest workflow](docs/development.md#playtest-scenarios) |
 | Add/change tests | [tests/AGENTS.md](tests/AGENTS.md) |
 | Packaging, CI, release | [releasing](docs/releasing.md), [runtime notes](docs/architecture.md#runtime-boundaries) |
 
-[Essentials contracts](docs/essentials-contracts.md) indexes the inspected engine
-methods and upstream sources. Use the embedded engine as the version authority;
-a tutorial for another Essentials version is not an API contract.
-
-Structure and naming: [architecture](docs/architecture.md#authored-content).
+Use the embedded engine as the version authority; tutorials for other versions
+are not API contracts. See [Essentials contracts](docs/essentials-contracts.md)
+and [structure and naming](docs/architecture.md#authored-content).
 
 ## Commands and shared outputs
 
@@ -50,12 +75,11 @@ outputs before `check --all`: its input set comes from `git ls-files`.
 Setup/editor details: [development](docs/development.md).
 
 Use a focused branch in `ziemniaki/tidebound`, never a fork. Independent agents
-need separate checkouts; Git branches alone do not isolate writes. Map IDs, actor
-identities, species/form IDs, event-handler keys and shared entry points are integration
-contracts. Agree those before splitting work; report them in the PR. After combining
-source changes, regenerate shared binaries once from the combined source. Never
-resolve `Scripts.rxdata`, species databases or generated maps by choosing one
-agent's binary wholesale. [Integration workflow](docs/development.md#independent-feature-work).
+need separate checkouts. Before splitting work, agree map/species/form IDs, actor
+identities, handler keys and shared entry points; report changes in the PR.
+Combine source first, then regenerate shared binaries once; never resolve binary
+conflicts by choosing one agent's output wholesale.
+Follow the [integration workflow](docs/development.md#independent-feature-work).
 
 ## Project constraints
 
