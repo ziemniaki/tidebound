@@ -1,5 +1,5 @@
-# Tidebound 0.8.8
+# Tidebound 0.8.9
 
-- Picked berries now disappear from their bushes.
-- The Oil-Shop Keys now have a matching inventory icon.
-- Restored missing lit windows along the southern road.
+- Existing saves now load updated maps after a game update.
+- Interrupted scenes restore character movement, visibility and camera position.
+- Fixed handling of losses and draws in grass encounters.

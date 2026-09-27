@@ -1,4 +1,4 @@
-Tidebound 0.8.8 - Windows x64
+Tidebound 0.8.9 - Windows x64
 
 The player folder can be moved, including to paths with spaces or Unicode names.
 
