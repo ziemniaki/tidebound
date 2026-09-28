@@ -98,8 +98,10 @@ editor database wholesale. Follow the
   RPG Maker Test Play uses the project/release namespace. Keep `fontHeightReporting: 1`.
 - Ordinary locations remain night. Maintenance does not authorize engine or
   gameplay redesign. Update current docs in place when behavior changes.
-- PR pushes run quick checks; full builds use `/verify` or release tags. Keep Mac
-  CI at one translocated launch per architecture; other paths are manual diagnostics.
+- PR pushes run quick checks; full verification uses `/verify`. Releases assume
+  `main` is already tested: tags package and publish, without another test matrix
+  or manual playtest/approval gate. Keep Mac CI at one translocated launch per
+  architecture; other paths are manual diagnostics.
   Docs-only changes do not need a platform matrix. Report actual checks/playtests.
 - Release assets are three player ZIPs: Mac universal, Windows x64, Linux x86_64.
   Published tags/assets are immutable. Notes are one concise player-facing list.

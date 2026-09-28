@@ -1,4 +1,4 @@
-name: Prepare release
+name: Publish release
 
 on:
   push:
@@ -13,8 +13,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  validate-tag:
-    runs-on: ubuntu-24.04
+  build:
+    runs-on: macos-14
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -31,12 +32,9 @@ jobs:
               raise SystemExit('Run this workflow on the version tag declared in release.json')
           subprocess.run(['git', 'merge-base', '--is-ancestor', 'HEAD', 'origin/main'], check=True)
           PY
+      - uses: ./.github/actions/package
 
-  build:
-    needs: validate-tag
-    uses: ./.github/workflows/verify.yml
-
-  draft:
+  publish:
     needs: build
     runs-on: ubuntu-24.04
     permissions:
@@ -66,7 +64,7 @@ jobs:
           config = load_release()
           validate_candidate(Path('candidate'), config['version'], os.environ['SOURCE_SHA'], config['mac_build'])
           PY
-      - name: Create an unpublished release; never overwrite an existing one
+      - name: Publish the release; never overwrite an existing one
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -80,4 +78,4 @@ jobs:
           test "$(gh api "repos/$GH_REPO/commits/$RELEASE_TAG" --jq .sha)" = "$SOURCE_SHA"
           version="${RELEASE_TAG#v}"
           gh release create "$RELEASE_TAG" "candidate/Tidebound_Mac_${version}_universal.zip" "candidate/Tidebound_Windows_${version}_x64.zip" "candidate/Tidebound_Linux_${version}_x86_64.zip" \
-            --verify-tag --draft --title "Tidebound $RELEASE_TAG" --notes-file candidate/RELEASE_NOTES.md
+            --verify-tag --title "Tidebound $RELEASE_TAG" --notes-file candidate/RELEASE_NOTES.md
