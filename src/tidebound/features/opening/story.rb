@@ -253,8 +253,6 @@ module Tidebound
       else
         pbMessage("You wait until the end of a wave. Nothing surfaces.")
       end
-    ensure
-      self.lapras_visible = false
     end
 
     def fire
