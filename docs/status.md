@@ -8,6 +8,11 @@ oil-shop errand, forest/coastal encounters, necklace pursuit, hideout and Mendin
 minigame, vault/museum visit, docks and southern pond. The captain's Psyduck
 Island conversation reaches the demo endpoint.
 
+The dock-city upgrade adds three optional harbour errands, residents with local
+histories and a north-eastern outdoor ring. Machop and Hitmonlee spar beside
+betting sailors; Harker offers a saved, party-scaled challenger every 15 real
+minutes. Names, rewards and the curated opponent roster remain provisional.
+
 Island voyage gameplay, later Team Abyss chapters, shrine progression, Dive,
 Koga's settlements, late Suicune/sabre story, cemetery finale and endings remain
 planned. Helpers and concept art do not make those chapters playable. Respect
@@ -39,7 +44,9 @@ for the edit/build/check loop and scoped authoring guides.
 ## Next work
 
 - Playtest the current demo on the maintainer's target machines.
-- Choose the next complete playable milestone with the creative director.
+- Playtest the harbour errands and ring via `play --from docks/harbour` and
+  `play --from docks/ring`; check ropes, animation, battle cancellation and astral
+  recovery on the target machines before releasing this upgrade.
 - Split large gameplay modules by feature when changing that feature; preserve
   current save state and the explicit source manifest order.
 - Consider external binary hosting/LFS only with tested automatic restoration.

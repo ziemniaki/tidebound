@@ -63,7 +63,8 @@ package from the same checkout as its PBS and test sources.
 - `world` uses [declared starts](../docs/development.md#playtest-scenarios) to capture
   home, coast, forest, lighthouse, vault, docks and pond. It checks companion/item/
   quest continuity, stale-map refresh, state before map callbacks and interrupted
-  forced-route restoration. Seven scenes are not a complete walkthrough.
+  forced-route restoration. The dock ring adds a capture and native rope collision
+  checks on all four sides. These scenes are not a complete walkthrough.
 - `species` recompiles PBS with native Essentials and compares custom species and
   metrics, excluding PBS bookkeeping and non-evolving family backlinks. Its
   catalog-derived `NativeContent` fixture checks exact normal/shiny sprites,

@@ -1,0 +1,25 @@
+{
+  "base": "opening/exploration",
+  "location": [
+    "docks",
+    "ring"
+  ],
+  "party": [
+    {
+      "species": "MAKUHITA",
+      "level": 14
+    },
+    {
+      "species": "POOCHYENA",
+      "level": 12
+    }
+  ],
+  "story": {
+    "neighbor_quest": {
+      "stage": ":complete"
+    },
+    "vault_visit": {
+      "open": true
+    }
+  }
+}

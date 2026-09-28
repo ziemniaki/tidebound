@@ -76,6 +76,27 @@ start this chapter by speaking to the seller in his shop.
 Explore the two sailing ships and speak to their crews. Nell and Oren offer
 optional battles; neither gates the story. Shop frontages remain closed.
 
+The jobs board near the western approach points to three optional errands:
+
+- Take Jory's sealed letter to Irena by the lamp north-west of the museum, then
+  return to Jory for two Oran Berries.
+- Ask Sella about her netting shuttle, search the folded nets by the western
+  pier, and return it for a Silk Scarf.
+- Read all three cargo labels for Daro. The lots total twelve flour sacks and
+  **five** oil tins. Report the missing lamp oil, ask Harker at the north-eastern
+  ring to return it, and tell Daro for three Oran Berries.
+
+A full bag leaves each reward available for another visit. These jobs do not
+gate the captain, museum or ring.
+
+Watch Machop and Hitmonlee at the north-eastern ring, then speak to Harker below
+the ropes to meet a challenger. Each offer lasts 15 real minutes and survives
+saving. It has up to three companions, one to three levels below the median of
+your able party (minimum level one). Declining or cancelling before battle
+completion preserves the offer; a completed bout uses it until the timer ends.
+Changing your able party rebalances its levels without extending the timer.
+Losses use normal astral recovery; the ring provides no healing.
+
 At the end of the eastern pier, speak to the captain about **Psyduck Island**.
 Accepting reaches the demo's ending message. You remain free to explore and save;
 the voyage and island are not yet playable.

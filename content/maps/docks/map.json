@@ -4,7 +4,8 @@
   "entrances": {
     "west": [11, 28, 2],
     "museum": [32, 23, 2],
-    "from_museum": [32, 23, 2]
+    "from_museum": [32, 23, 2],
+    "ring": [69, 27, 8]
   },
   "name": "The Docks",
   "actor_settings": {
@@ -145,6 +146,35 @@
     "67": {
       "role": "prop",
       "asset": "memorial"
+    },
+    "68": {
+      "key": "dock_ring_corner"
+    },
+    "92": {
+      "role": "dock_fighter",
+      "species": "MACHOP"
+    },
+    "93": {
+      "role": "dock_fighter",
+      "species": "HITMONLEE"
+    },
+    "94": {
+      "role": "npc",
+      "key": "ring_harker"
+    },
+    "98": {
+      "role": "prop",
+      "asset": "board"
+    },
+    "101": {
+      "role": "prop",
+      "asset": "board"
+    },
+    "102": {
+      "role": "coast_lamp"
+    },
+    "103": {
+      "role": "coast_lamp"
     }
   }
 }

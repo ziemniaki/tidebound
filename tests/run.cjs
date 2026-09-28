@@ -18,7 +18,7 @@ const suites = {
     h.ruby('tests/support/scene_services.rb');
     h.ruby('tests/support/story_helpers.rb');
     for (const suite of [
-      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'scenes', 'regional_snakes'
+      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'scenes', 'regional_snakes', 'harbour'
     ]) h.ruby(`tests/gameplay/${suite}.rb`);
     h.compileEvents();
   },
