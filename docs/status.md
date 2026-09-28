@@ -44,9 +44,6 @@ for the edit/build/check loop and scoped authoring guides.
 ## Next work
 
 - Playtest the current demo on the maintainer's target machines.
-- Playtest the harbour errands and ring via `play --from docks/harbour` and
-  `play --from docks/ring`; check ropes, animation, battle cancellation and astral
-  recovery on the target machines before releasing this upgrade.
 - Split large gameplay modules by feature when changing that feature; preserve
   current save state and the explicit source manifest order.
 - Consider external binary hosting/LFS only with tested automatic restoration.

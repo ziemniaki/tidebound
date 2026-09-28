@@ -170,9 +170,12 @@ Work in `ziemniaki/tidebound`, without forks. Start from the current checkout an
 preserve uncommitted work. A focused PR should describe the resulting behavior,
 any changed integration contracts and the verification actually performed.
 
-Quick checks run on pushes. Request `/verify` before merging substantial changes;
-docs-only changes need link/contract review and quick checks. Workflow-definition
-changes need branch-dispatched verification: `/verify` uses the trusted workflow.
+Quick checks run on pushes. Request `/verify` before merging substantial gameplay
+or runtime changes; docs-only changes need link/contract review and quick checks.
+Validate workflow definitions with `actionlint`. When they need native verification,
+dispatch it on the changed branch: `/verify` uses the trusted workflow.
+Releases assume the merged changes are tested; version bumps do not require a
+fresh full matrix or manual playtest. Tags package and publish automatically.
 Keep status-writing permissions separate from execution of untrusted PR code.
 Publication follows the separate [release procedure](releasing.md).
 
