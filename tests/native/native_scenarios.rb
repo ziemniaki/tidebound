@@ -237,6 +237,7 @@ module NativeScenarios
       Tidebound::World.travel(name, x, y)
       capture(output, name)
     end
+    dock_ring(output)
     identity = $player.party.map { |pet| [Tidebound.identity(pet), pet.item_id] }
     story = Marshal.dump(Tidebound.story)
     save_path = File.join(System.data_directory, "world-current.rxdata")
@@ -280,6 +281,24 @@ module NativeScenarios
       end
     end
     puts "PASS: NPC events block occupied cells and leave walkable floor after relocating"
+  end
+
+  def dock_ring(output)
+    # Invisible native rail events must block the same perimeter as the ropes.
+    [
+      [65, 20, :move_right],
+      [74, 20, :move_left],
+      [69, 17, :move_down],
+      [69, 24, :move_up]
+    ].each do |x, y, move|
+      Tidebound::World.travel(:docks, x, y)
+      raise "Ring check requires normal collision" if $game_player.through
+      $game_player.public_send(move)
+      raise "Player crossed a ring rope" unless [$game_player.x, $game_player.y] == [x, y]
+    end
+    Tidebound::World.travel(:docks, 69, 24, 8)
+    capture(output, "dock-ring")
+    puts "PASS: native ring ropes block entry on every side; dock ring rendered"
   end
 
   def furniture_overhangs(output)

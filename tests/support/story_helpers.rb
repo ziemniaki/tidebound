@@ -14,6 +14,7 @@ def check(value, label)
 end
 def new_opening
   SaveData.mark_values_as_unloaded
+  $game_temp = Game_Temp.new
   $quest_outcome = 1
   $quest_reject_item = nil
   $hideout_plays = 0

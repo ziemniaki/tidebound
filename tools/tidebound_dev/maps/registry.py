@@ -15,6 +15,7 @@ ROLES = {
     "wood_bird",
     "neighbor_wild",
     "shore_duck",
+    "dock_fighter",
     "keys",
     "crate",
     "fire",
@@ -38,6 +39,7 @@ def validate_actor(info):
         "wood_bird",
         "neighbor_wild",
         "shore_duck",
+        "dock_fighter",
     ) and not info.get("species"):
         raise ValueError(f"Actor role {role} requires a species")
     if role == "spirit" and (type(info.get("index")) is not int or info["index"] < 0):

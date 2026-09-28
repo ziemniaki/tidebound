@@ -35,6 +35,9 @@ tidebound/features/dream/quest.rb
 tidebound/features/prelude.rb
 tidebound/engine/audio.rb
 tidebound/features/docks/quest.rb
+tidebound/features/docks/ring.rb
+tidebound/features/docks/errands.rb
+tidebound/features/docks/ring_presentation.rb
 tidebound/features/mending/quest.rb
 tidebound/features/mending/presentation.rb
 tidebound/features/hideout.rb
