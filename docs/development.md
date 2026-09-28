@@ -43,7 +43,7 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run build --platform linux` | Cross-package a Linux x86_64 development copy |
 | `uv run format` | Format handwritten Python and Ruby |
 | `uv run format --check` | Check formatting without editing |
-| `uv run check` | Compile, then check formatting, tooling, geometry, scripts and quest/save behavior |
+| `uv run check` | Compile, then check formatting, tooling, geometry, scripts, named Tidebound API calls and quest/save behavior |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
 | `uv run build --compile-only` | Compile the project and checkpoint it without packaging a player |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |

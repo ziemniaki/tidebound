@@ -15,6 +15,8 @@ A feature with several concerns gets one folder: `quest.rb` (state/transitions),
   always restores collision, opacity, speed and camera ownership on exit/error.
   Keep temporary visual flags in the feature's own `ensure`. Story transitions,
   item delivery and failure/retry rules remain explicit in the quest.
+  The scene owner pairs setup with cleanup; callers invoke its action (`play`,
+  for example), without resetting its presentation state in their own `ensure`.
 - Shared-NPC interaction priority lives in `features/interactions.rb`; do not
   register competing callbacks or prepend one feature into another.
 - Test through the composed gameplay harness, including interruption/retry for a
