@@ -1,7 +1,8 @@
 # Verified builds and releases
 
 Releases assume `main` is already tested. A version tag packages and publishes
-the three players automatically; it does not rerun gameplay/native tests or wait
+the three players automatically; a manual run of `Publish release` on `main`
+creates the matching new tag and publishes the same packages. Neither path reruns gameplay/native tests or waits
 for a manual playtest, download review or publication approval. Use `/verify`
 during development when a change needs full verification.
 
@@ -32,7 +33,7 @@ is an optional development diagnostic, not a release step:
 
 ```sh
 uv run python -m tidebound_dev.release.candidates ../candidate
-uv run python -m tests.native.mac_runtime_smoke ../candidate/Tidebound_Mac_0.8.11_universal.zip ../smoke-arm64 --arch arm64
+uv run python -m tests.native.mac_runtime_smoke ../candidate/Tidebound_Mac_0.8.12_universal.zip ../smoke-arm64 --arch arm64
 ```
 
 For a Windows-only package, on any development host:
@@ -45,7 +46,7 @@ On Windows x64, test that archive using:
 
 ```powershell
 uv run python -m tidebound_dev.release.artifacts ../windows-candidate
-uv run python -m tests.native.windows_runtime_smoke ../windows-candidate/Tidebound_Windows_0.8.11_x64.zip ../smoke-windows
+uv run python -m tests.native.windows_runtime_smoke ../windows-candidate/Tidebound_Windows_0.8.12_x64.zip ../smoke-windows
 ```
 
 The Windows ZIP contains the unchanged `Game.exe`, Ruby/zlib DLLs, game assets,
@@ -66,7 +67,7 @@ On Linux x86_64 with the libraries in `docs/players/linux.txt` installed:
 
 ```sh
 uv run python -m tidebound_dev.release.artifacts ../linux-candidate
-uv run python -m tests.native.linux_runtime_smoke ../linux-candidate/Tidebound_Linux_0.8.11_x86_64.zip ../smoke-linux
+uv run python -m tests.native.linux_runtime_smoke ../linux-candidate/Tidebound_Linux_0.8.12_x86_64.zip ../smoke-linux
 ```
 
 The Linux ZIP bundles the unchanged upstream executable, lib64, Ruby stdlib,
@@ -180,10 +181,13 @@ For the next release:
 2. Review and merge the version bump through the normal PR and quick-check path.
    Do not repeat full verification or request manual tests for a release-only bump.
 3. Tag the merged commit with a new matching version and push it to the original
-   repository. Never retag a published version.
-4. `Publish release` checks the tag against the config and `main`'s history in
+   repository, or run `Publish release` from the Actions UI with `main` selected.
+   The manual run creates the missing version tag at its exact source commit.
+   Never retag a published version.
+4. `Publish release` checks the ref against the config and `main`'s history in
    the Mac packaging job. A separate publisher checks candidate checksums,
-   version/source metadata and the remote tag's commit, then uploads the three
+   version/source metadata, creates only a missing version tag, checks the remote
+   tag's commit, then uploads the three
    ZIPs and publishes automatically. Only the publisher gets `contents: write`.
    No test matrix, manual download review or draft approval is part of this path.
 

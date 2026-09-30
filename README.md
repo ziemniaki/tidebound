@@ -15,7 +15,8 @@ Built with Pokémon Essentials 21.1 and mkxp-z.
 [Download the latest release](https://github.com/ziemniaki/tidebound/releases/latest)
 for macOS (Intel or Apple Silicon), Windows x64, or Linux x86_64.
 No development tools are needed. The demo includes the lighthouse opening,
-coastal quests, hideout and southern pond; Psyduck Island is its endpoint.
+coastal quests, hideout, southern pond and a northern haunted forest with a
+skull-mouth cave; Psyduck Island is its endpoint.
 
 ## Development
 

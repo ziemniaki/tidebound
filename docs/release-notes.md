@@ -1,7 +1,8 @@
-# Tidebound 0.8.11
+# Tidebound 0.8.12
 
-The harbour has new errands, residents to meet and an outdoor battle ring.
+Explore a haunted forest north of the Listening Wood, with an ancient skull
+marking the entrance to a nearly pitch-black cave.
 
-- Help the locals with three optional errands around the docks.
-- Meet Harker at the north-eastern ring for a challenger matched to your party, with a new offer every 15 minutes.
-- Fixed a crash when visiting the pier before taking Pookie for a walk.
+- Face level 20–28 Ghost Pokémon in winding cave passages.
+- Follow the concealed trail in the Psyduck pond area to its visible cache.
+- Fixed cropped trees and rough pond-bank edges.
