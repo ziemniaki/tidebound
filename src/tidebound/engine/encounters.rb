@@ -34,3 +34,17 @@ module Tidebound::Encounters
   end
   private_class_method :finish
 end
+
+# Native random encounters, including caves, use the same pre-cleanup loss
+# snapshot as visible wilds throughout the authored living world.
+module Tidebound::LivingWildBattles
+  def start(*args, can_override: false)
+    if can_override && Tidebound::World::MAP_IDS.include?($game_map.map_id) &&
+         Tidebound.state.realm == :living
+      result = Tidebound::Encounters.fight(*args)
+      return ![2, 5, :astral].include?(result)
+    end
+    super
+  end
+end
+WildBattle.singleton_class.prepend(Tidebound::LivingWildBattles)

@@ -189,7 +189,7 @@ module NativeScenarios
       end
       $PokemonGlobal.surfing = false
     end
-    puts "PASS: native passage flags match all 16 authored maps; pond water supports Surf"
+    puts "PASS: native passage flags match all #{Tidebound::MAP_PASSAGES.length} authored maps; pond water supports Surf"
   ensure
     $PokemonGlobal.surfing = surfing
   end
@@ -239,6 +239,7 @@ module NativeScenarios
     end
     dock_ring(output)
     pond_path(output)
+    haunted_world(output)
     identity = $player.party.map { |pet| [Tidebound.identity(pet), pet.item_id] }
     story = Marshal.dump(Tidebound.story)
     save_path = File.join(System.data_directory, "world-current.rxdata")
@@ -331,6 +332,104 @@ module NativeScenarios
     Tidebound::World.travel(:road, 36, 73, 2)
     capture(output, "pond-south-trees")
     puts "PASS: native player follows the concealed pond trail to its visible cache; pond banks rendered"
+  end
+
+  def walk_to(x, y)
+    start = [$game_player.x, $game_player.y]
+    target = [x, y]
+    rows = Tidebound::MAP_PASSAGES.fetch($game_map.map_id)
+    queue = [start]
+    previous = { start => nil }
+    until queue.empty? || previous.key?(target)
+      point = queue.shift
+      [[0, 1], [-1, 0], [1, 0], [0, -1]].each do |dx, dy|
+        cell = [point[0] + dx, point[1] + dy]
+        if previous.key?(cell) || cell[0] < 0 || cell[1] < 0 || cell[1] >= rows.length ||
+             cell[0] >= rows.first.length || rows[cell[1]][cell[0]] != "1"
+          next
+        end
+        previous[cell] = point
+        queue << cell
+      end
+    end
+    raise "No returnable native route to #{target.inspect}" unless previous.key?(target)
+    route = []
+    point = target
+    while previous[point]
+      route.unshift(point)
+      point = previous[point]
+    end
+    moves = {
+      [0, 1] => :move_down,
+      [-1, 0] => :move_left,
+      [1, 0] => :move_right,
+      [0, -1] => :move_up
+    }
+    route.each do |cell|
+      delta = [cell[0] - $game_player.x, cell[1] - $game_player.y]
+      $game_player.public_send(moves.fetch(delta))
+      unless [$game_player.x, $game_player.y] == cell
+        raise "Native trail blocked at #{cell.inspect}"
+      end
+      $game_player.moveto(*cell)
+    end
+  end
+
+  def step_transfer(move, expected)
+    $game_player.public_send(move)
+    deadline = System.uptime + 10
+    until [$game_map.map_id, $game_player.x, $game_player.y] == expected
+      raise "Native threshold did not transfer to #{expected.inspect}" if System.uptime > deadline
+      Graphics.update
+      Input.update
+      $scene.update
+    end
+    Graphics.transition(0)
+  end
+
+  def haunted_world(output)
+    # Keep the unattended route deterministic; sample the real native tables below.
+    encounter_disabled = $game_system.encounter_disabled
+    $game_system.encounter_disabled = true
+    Tidebound::World.travel(:forest, :north)
+    step_transfer(:move_up, [117, 24, 52])
+    capture(output, "haunted-forest")
+    grass =
+      $game_map.height.times.flat_map do |y|
+        $game_map.width.times.filter_map do |x|
+          [x, y] if $game_map.terrain_tag(x, y).land_wild_encounters
+        end
+      end
+    raise "Haunted forest grass cannot generate encounters" if grass.empty?
+    walk_to(*grass.first)
+    unless $PokemonEncounters.encounter_type == :Land
+      raise "Haunted forest has no native Land encounter"
+    end
+    walk_to(25, 14)
+    Tidebound::World.camera_to(25, 10, 0)
+    capture(output, "ancient-skull")
+    Tidebound::World.camera_to(25, 14, 0)
+    walk_to(25, 13)
+    step_transfer(:move_up, [118, 24, 37])
+    unless $PokemonEncounters.encounter_type == :Cave
+      raise "Cave does not use native step encounters"
+    end
+    40.times do
+      species, level = $PokemonEncounters.choose_wild_pokemon(:Cave)
+      unless level >= 20 && GameData::Species.get(species).types.include?(:GHOST)
+        raise "Skull cave generated a weak or non-Ghost encounter"
+      end
+    end
+    capture(output, "skull-cave-mouth")
+    walk_to(26, 9)
+    capture(output, "skull-cave-deep")
+    walk_to(24, 38)
+    step_transfer(:move_down, [117, 25, 14])
+    walk_to(24, 53)
+    step_transfer(:move_down, [103, 17, 4])
+    puts "PASS: native forest/skull/cave thresholds, walkable deep route and return; level 20+ Ghost encounters"
+  ensure
+    $game_system.encounter_disabled = encounter_disabled
   end
 
   def furniture_overhangs(output)

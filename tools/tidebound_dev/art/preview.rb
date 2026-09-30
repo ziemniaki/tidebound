@@ -80,6 +80,7 @@ module AssetPreview
         sprite = Tidebound::Presentation::OwnedSprite.new(viewport)
         sprite.bitmap = Bitmap.new(path)
         sprite.ox, sprite.oy = spec["anchor"] || [sprite.bitmap.width / 2, sprite.bitmap.height / 2]
+        sprite.zoom_x = sprite.zoom_y = spec.fetch("scale", 1)
         sprite.x, sprite.y = 384, 270
         canvas.fill_rect(364, 270, 40, 1, Color.new(240, 180, 80))
         canvas.fill_rect(384, 250, 1, 40, Color.new(240, 180, 80))

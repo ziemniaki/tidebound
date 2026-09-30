@@ -5,13 +5,19 @@ mkxp-z runtime; universal Mac, Windows x64 and Linux x86_64 releases.
 
 The demo includes the dream opening, lighthouse family and companion choice,
 oil-shop errand, forest/coastal encounters, necklace pursuit, hideout and Mending
-minigame, vault/museum visit, docks and southern pond. The captain's Psyduck
+minigame, vault/museum visit, docks, southern pond and northern haunted forest
+with a skull-mouth cave. The captain's Psyduck
 Island conversation reaches the demo endpoint.
 
 The dock-city upgrade adds three optional harbour errands, residents with local
 histories and a north-eastern outdoor ring. Machop and Hitmonlee spar beside
 betting sailors; Harker offers a saved, party-scaled challenger every 15 real
 minutes. Names, rewards and the curated opponent roster remain provisional.
+
+The Hollow Wood opens north of the Listening Wood. Its ancient skull entrance
+leads into the nearly lightless Skull Hollow, with looping passages and level
+20–28 Ghost encounters. These areas are optional and substantially more dangerous
+than the opening keys route. Their working names and the skull's origin remain open.
 
 Island voyage gameplay, later Team Abyss chapters, shrine progression, Dive,
 Koga's settlements, late Suicune/sabre story, cemetery finale and endings remain

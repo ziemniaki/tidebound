@@ -307,18 +307,5 @@ module Tidebound
         pbMessage("The branches stop trembling.")
       end
     end
-
-    def northern_way
-      pbMessage("Beyond the last trees, the bridge has fallen into the gorge.")
-      pbMessage("You can still see a lantern burning on the other side.")
-      unless Tidebound.story[:chapter_end]
-        Tidebound.story[:chapter_end] = true
-        pbMessage(
-          "The first chapter ends here. You can keep exploring the village and the wood, and save from the menu."
-        )
-      end
-      $game_player.moveto(17, 4)
-      $game_player.turn_down
-    end
   end
 end

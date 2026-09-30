@@ -71,16 +71,3 @@ module Tidebound::FieldTerrain
   end
 end
 Game_Map.prepend(Tidebound::FieldTerrain)
-
-# Route native grass encounters (including any double encounter) through the same
-# pre-cleanup loss snapshot as the explicitly visible wild Pokemon.
-module Tidebound::GrassBattles
-  def start(*args, can_override: false)
-    if can_override && [103, 108].include?($game_map.map_id) && Tidebound.state.realm == :living
-      result = Tidebound::Encounters.fight(*args)
-      return ![2, 5, :astral].include?(result)
-    end
-    super
-  end
-end
-WildBattle.singleton_class.prepend(Tidebound::GrassBattles)

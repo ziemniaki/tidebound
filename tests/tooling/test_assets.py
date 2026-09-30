@@ -101,10 +101,14 @@ class AssetTests(unittest.TestCase):
             catalog = root / "content/props/lamp/prop.json"
             catalog.write_text(json.dumps({"anchor": [8, 20]}))
             self.assertEqual(preview.select(root, "props/lamp")["anchor"], [8, 20])
+            catalog.write_text(json.dumps({"anchor": [8, 20], "scale": 0.25}))
+            self.assertEqual(preview.select(root, "props/lamp")["scale"], 0.25)
             for metadata, message in (
                 ({"anchor": None}, "anchor"),
                 ({"anchor": [8, 20], "layer": 5}, "optional z"),
                 ({"image": "../lamp", "anchor": [8, 20]}, "image must name"),
+                ({"anchor": [8, 20], "scale": 0}, "scale"),
+                ({"anchor": [8, 20], "scale": True}, "scale"),
             ):
                 with self.subTest(metadata=metadata):
                     catalog.write_text(json.dumps(metadata))

@@ -240,7 +240,7 @@ Proposed domestic details include drying cloth, an old maintenance routine, an u
 
 **Confirmed large forest; working name and central placement.** Natu is common here. The forest contains riddles, routes, old places, and a cherished protected refuge. It must be substantial enough to remain important beyond one introductory route.
 
-**Prototype.** Only an opening section exists, with a traveller's resting fire, a Natu encounter, a dangerous pool, and a northern endpoint. This is not the entire intended forest.
+**Prototype.** The opening section has a traveller's resting fire, a Natu encounter and a dangerous pool. Its northern path now reaches the darker Hollow Wood and a skull-mouth cave, described in section 33. This remains part of the larger intended forest.
 
 **Proposed internal districts.** The old road connects inhabited places; a rain village survives under the canopy; a bell grove retains an old ritual; a white clearing holds the protected refuge; deeper paths approach mountain watercourses. These earlier working ideas can be combined or reduced when the actual map develops.
 
@@ -1347,3 +1347,25 @@ The fictional game opens as **Pet House**, then reveals **The Mending**. Guide a
 **Future boundary.** Surf is not awarded here. The obelisk's origin, inscription, purpose, future quest and reward remain open. This ordinary fishing place must not explain the sea entities.
 
 **Presentation continuity.** The youngsters' squat retains its approved colder, paler interior: boarded windows, torn pallet mattresses and broken storage. Its quest is unchanged.
+
+## 33. Northern haunted forest and skull cave
+
+**Confirmed direction, 30 September 2026.** Above the opening northern forest,
+introduce a much darker, frightening forest district with haunted horror
+atmosphere. A giant ancient skull forms the entrance to a cave. Its interior is
+nearly pitch black, making it difficult to remember the way back. Ghost Pokemon
+inside are level 20 or above.
+
+**Prototype implementation.** The working names are the Hollow Wood and the
+Skull Hollow. Cold, dense trees, low drifting fog, worn branching trails,
+weathered stones and a cracked, rooted skull create the exterior. The cave has
+irregular connected chambers, a large loop and blind alcoves. Very faint rock
+outlines and scattered pale stone seams preserve enough bearings to retreat.
+Native cave encounters are Gastly, Duskull, Shuppet, Haunter and Misdreavus at
+levels 20–28. Forest grass also has level 20–24 Ghost encounters. The existing
+northern threshold is open in both directions, with no quest prerequisite.
+
+**Open boundaries.** The skull's species, origin, age and relation to other lore
+remain unresolved. Ordinary Ghost Pokemon do not explain the water demons,
+Mother's ritual or the planned poisoned refuge. No boss, shrine, reward or
+cave-progression requirement is introduced at this stage.

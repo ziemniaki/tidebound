@@ -585,9 +585,9 @@
           "list": [
             {
               "$type": "RPG::EventCommand",
-              "code": 355,
+              "code": 201,
               "indent": 0,
-              "parameters": ["Tidebound::Opening.northern_way"]
+              "parameters": [0, 117, 24, 52, 8, 0]
             },
             {
               "$type": "RPG::EventCommand",
