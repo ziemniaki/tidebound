@@ -4,7 +4,8 @@
   "environment": "Forest",
   "entrances": {
     "south": [17, 25, 2],
-    "campfire": [11, 22, 2]
+    "campfire": [11, 22, 2],
+    "north": [17, 4, 8]
   },
   "encounters": {
     "Land": {
@@ -36,6 +37,9 @@
     },
     "10": {
       "role": "berry"
+    },
+    "7": {
+      "cue": "north"
     }
   }
 }

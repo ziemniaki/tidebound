@@ -1,0 +1,17 @@
+{
+  "base": "opening/exploration",
+  "location": ["haunted_forest", "south"],
+  "checkpoint": ["forest", "campfire"],
+  "party": [
+    {
+      "species": "XATU",
+      "level": 25,
+      "name": "Wick"
+    },
+    {
+      "species": "POOCHYENA",
+      "level": 24,
+      "name": "Pookie"
+    }
+  ]
+}

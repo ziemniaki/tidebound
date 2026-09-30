@@ -23,6 +23,12 @@ comes from the supplied kit and is temporary in this prototype.
 
 This is an unofficial fan project. Please support the official games.
 
+Ancient skull cave entrance (northern haunted forest): original transparent
+pixel artwork generated with OpenAI's built-in image tool. Approved source is
+`content/props/ancient_skull/image.png`; native display scale preserves its pixels.
+Prompt: a cracked, moss-covered giant ancient skull with dead black eye sockets,
+roots around its sides and an open cave mouth, in overhead RPG pixel art.
+
 Tidebound Sunkern (0.7.2): regional sprite edit generated with OpenAI's built-in
 image editing tool from the included Sunkern art. Original sprite attribution
 remains applicable. Approved pixels are in content/pokemon/SUNKERN_1.

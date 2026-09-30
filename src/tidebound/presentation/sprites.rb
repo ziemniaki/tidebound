@@ -26,6 +26,7 @@ module Tidebound::Presentation
       bitmap.dispose if bitmap && !bitmap.disposed?
       self.bitmap = Bitmap.new("Graphics/Pictures/#{asset.fetch("file")}")
       self.ox, self.oy = asset.fetch("anchor")
+      self.zoom_x = self.zoom_y = asset.fetch("scale", 1)
     end
 
     def dispose

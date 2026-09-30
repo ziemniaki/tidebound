@@ -110,6 +110,15 @@ then turn south between the trees to an old basket. The island obelisk needs Sur
 which this demo does not award. Species evolution and battle-role notes are in
 [species design](../specs/species.md).
 
+The northern path in the Listening Wood now opens into the Hollow Wood. Follow
+the worn trail through the fog to the ancient skull in its northern clearing;
+walk into the mouth to enter the Skull Hollow. Forest grass contains level
+20–24 Ghost Pokemon; the cave contains Gastly, Duskull, Shuppet, Haunter and
+Misdreavus at levels 20–28. The cave is almost black. Keep track of turns and the
+sparse pale stone seams; both sides of its large loop lead back to the southern
+entrance. There is no story gate, new shrine or cave reward yet. Prepare at the
+existing forest fire before exploring.
+
 Resting fires in the forest and on the road set a return checkpoint and restore
 full HP/PP once every 15 real minutes per fire. They do not cure poison or other
 status conditions. Berry trees give two berries and regrow after an hour.

@@ -1,6 +1,7 @@
 # TEST ONLY: replaces Main in an isolated copy of a packaged Mac or Windows game.
 # The Windows runtime omits the JSON library; Python converts this Marshal report.
 report = ENV.fetch("TIDEBOUND_SMOKE_REPORT")
+$stdout.sync = true
 begin
   puts "Smoke working directory: #{Dir.pwd}; animations on disk: #{File.exist?("Data/Animations.rxdata")}"
   raise "player smoke unexpectedly started in debug mode" if $DEBUG

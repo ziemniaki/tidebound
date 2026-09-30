@@ -1,5 +1,7 @@
 """Prop bundles own approved images and event anchors."""
 
+import math
+
 from ..catalog import bundles
 from ..files import ruby
 
@@ -8,8 +10,8 @@ def load(root):
     declarations = bundles(root, "props", "prop.json")
     records = {}
     for name, record in declarations.items():
-        if not {"anchor"} <= record.keys() <= {"anchor", "z", "image"}:
-            raise ValueError(f"Prop {name}: expected anchor and optional z/image")
+        if not {"anchor"} <= record.keys() <= {"anchor", "z", "image", "scale"}:
+            raise ValueError(f"Prop {name}: expected anchor and optional z/image/scale")
         image = record.get("image", name)
         if image not in declarations or "image" in declarations[image]:
             raise ValueError(f"Prop {name}: image must name a prop with its own image.png")
@@ -27,9 +29,17 @@ def load(root):
             raise ValueError(f"Prop {name}: anchor must be [x, y] in pixels")
         if "z" in record and type(record["z"]) is not int:
             raise ValueError(f"Prop {name}: z must be an integer")
+        if "scale" in record and (
+            type(record["scale"]) not in (int, float)
+            or not math.isfinite(record["scale"])
+            or record["scale"] <= 0
+        ):
+            raise ValueError(f"Prop {name}: scale must be a finite positive number")
         records[name] = {"file": f"props/{image}", "anchor": anchor}
         if "z" in record:
             records[name]["z"] = record["z"]
+        if "scale" in record:
+            records[name]["scale"] = record["scale"]
     return records
 
 

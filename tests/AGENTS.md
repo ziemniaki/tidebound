@@ -78,6 +78,10 @@ package from the same checkout as its PBS and test sources.
   forced-route restoration. The dock ring adds a capture and native rope collision
   checks on all four sides. The pond check walks the concealed path with native
   player movement and captures its entrance, visible cache and repaired trees.
+  The northern extension walks through all four forest/cave thresholds, reaches
+  the deep cave and returns, and samples native level 20+ Ghost encounters.
+  Random battle triggering is disabled only during this unattended route and
+  restored afterwards; the encounter tables themselves are sampled directly.
   These scenes are not a complete walkthrough.
 - `species` recompiles PBS with native Essentials and compares custom species and
   metrics, excluding PBS bookkeeping and non-evolving family backlinks. Its
