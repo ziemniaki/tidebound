@@ -105,8 +105,10 @@ the voyage and island are not yet playable.
 
 The pond below the South Coast Road has optional fishermen battles, a visible
 regional Psyduck, grass encounters and an Oran tree. Search behind the western
-thicket for Mystic Water. The island obelisk needs Surf, which this demo does not
-award. Species evolution and battle-role notes are in [species design](../specs/species.md).
+thicket for Mystic Water: follow the worn grass west of Psyduck's shallow bank,
+then turn south between the trees to an old basket. The island obelisk needs Surf,
+which this demo does not award. Species evolution and battle-role notes are in
+[species design](../specs/species.md).
 
 Resting fires in the forest and on the road set a return checkpoint and restore
 full HP/PP once every 15 real minutes per fire. They do not cure poison or other

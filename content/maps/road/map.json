@@ -6,7 +6,9 @@
     "hideout": [35, 43, 2],
     "campfire": [26, 39, 2],
     "from_hideout": [35, 43, 2],
-    "from_docks": [43, 43, 4]
+    "from_docks": [43, 43, 4],
+    "pond": [22, 56, 2],
+    "pond_path": [18, 58, 4]
   },
   "encounters": {
     "Land": {

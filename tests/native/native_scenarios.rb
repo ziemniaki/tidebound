@@ -238,6 +238,7 @@ module NativeScenarios
       capture(output, name)
     end
     dock_ring(output)
+    pond_path(output)
     identity = $player.party.map { |pet| [Tidebound.identity(pet), pet.item_id] }
     story = Marshal.dump(Tidebound.story)
     save_path = File.join(System.data_directory, "world-current.rxdata")
@@ -299,6 +300,37 @@ module NativeScenarios
     Tidebound::World.travel(:docks, 69, 24, 8)
     capture(output, "dock-ring")
     puts "PASS: native ring ropes block entry on every side; dock ring rendered"
+  end
+
+  def pond_path(output)
+    path = load_data("NativePond.rxdata").fetch("hidden_path")
+    Tidebound::World.travel(:road, 18, 58, 4)
+    capture(output, "pond-path-entry")
+    path[0...-1].each do |x, y|
+      delta = [x - $game_player.x, y - $game_player.y]
+      move = {
+        [0, 1] => :move_down,
+        [-1, 0] => :move_left,
+        [1, 0] => :move_right,
+        [0, -1] => :move_up
+      }.fetch(delta)
+      $game_player.public_send(move)
+      unless [$game_player.x, $game_player.y] == [x, y]
+        raise "Hidden pond path blocked at #{x},#{y}"
+      end
+      $game_player.moveto(x, y)
+    end
+    cache = $game_map.events.fetch(28)
+    unless [cache.x, cache.y] == path.last && cache.tile_id > 0
+      raise "Hidden pond reward has no visible marker at the end of the path"
+    end
+    $game_player.turn_left
+    capture(output, "pond-path-cache")
+    Tidebound::World.travel(:road, 20, 59, 2)
+    capture(output, "pond-bank")
+    Tidebound::World.travel(:road, 36, 73, 2)
+    capture(output, "pond-south-trees")
+    puts "PASS: native player follows the concealed pond trail to its visible cache; pond banks rendered"
   end
 
   def furniture_overhangs(output)

@@ -69,7 +69,7 @@ module Tidebound::Pond
   end
   def hidden_item
     return say("Only dry leaves remain in the little hollow.") if flags[:cache]
-    say("Behind the roots, something has been wrapped in old waxed cloth.")
+    say("Under the dry leaves in the old basket, something has been wrapped in waxed cloth.")
     flags[:cache] = true if pbReceiveItem(:MYSTICWATER)
   end
 end
