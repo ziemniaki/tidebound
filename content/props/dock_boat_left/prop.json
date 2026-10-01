@@ -1,7 +1,8 @@
 {
   "anchor": [
-    96,
-    80
+    1625,
+    689
   ],
-  "image": "dock_boat"
+  "image": "dock_boat",
+  "scale": 0.05763688760806916
 }
