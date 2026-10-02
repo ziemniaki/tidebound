@@ -1,0 +1,46 @@
+{
+  "data": {
+    "design": "Use the established Hariyama appearance. The planned custom third stage does not authorize redesigning this existing stage.",
+    "height_m": 2.3,
+    "moves": [
+      {
+        "description": "Level 22 in the species learnset. Acts late for a reliable throw; it suits standing ground rather than speed.",
+        "name": "Vital Throw"
+      },
+      {
+        "description": "Level 38 in the species learnset. Strong pressure that can be interrupted by an attack, making protection or timing matter.",
+        "name": "Focus Punch"
+      },
+      {
+        "description": "Level 46 in the species learnset. Strong offense trades away defensive safety.",
+        "name": "Close Combat"
+      }
+    ],
+    "questions": [
+      {
+        "question": "What further evolution would grow from this companion’s established identity, and how would the player reach it?"
+      }
+    ],
+    "types": [
+      "Fighting"
+    ],
+    "weight_kg": 253.8
+  },
+  "description": "The existing Fighting stage after Makuhita, reached at level 24. It retains the line’s physical strength, disruption and willingness to stand its ground; its larger body changes how a familiar helper occupies a place. A further custom stage is intended but has no settled name, appearance or typing.\n\nProposed local use: a willing companion can brace a load while people reposition it, with a clear cue to release. Its size makes narrow stairs, fragile floorboards and crowded rooms real staging constraints. Human cooperation matters as much as strength; Hariyama should not become an unlimited replacement for porters or solve every locked route by pushing. Maku’s particular care with bottles remains his own history.",
+  "id": "species_hariyama",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "sections": "§§7.3–7.3a: household lines and intended third stages"
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Hariyama"
+}

@@ -1,0 +1,63 @@
+{
+  "data": {
+    "beats": [
+      "The refuge must matter before its corruption.",
+      {
+        "description": "Confront corrupted Suicune at the poisoned refuge before the pseudo-Koga boss.",
+        "options": [
+          {
+            "description": "Kill Suicune. The journey remains finishable, but this removes the intended healed-Suicune and sabre resolution."
+          },
+          {
+            "description": "Capture Suicune. Care and healing remain ahead; capture alone does not cure the forest or secure the hopeful ending."
+          }
+        ]
+      },
+      "Capture permits a healing process that remains undesigned.",
+      "The healed Water/Grass individual and the unique sabre enable the intended hopeful resolution."
+    ],
+    "consequences": "The story remains finishable without him, with irreversible harm in the darker ending.",
+    "design": "Retain beauty beneath the damage; show recovery as renewed life, not merely a reversed palette. Specific form designs remain open.",
+    "questions": [
+      {
+        "options": [
+          {
+            "description": "Bible proposal: make the irreversible choice explicit after subduing him, so an ordinary attack does not silently select it. The exact interface remains open."
+          }
+        ],
+        "question": "How does the player choose between killing and capturing Suicune?"
+      }
+    ]
+  },
+  "description": "A rare beautiful resident of the cherished forest has been poisoned along with its refuge. The player meets this damage before confronting pseudo-Koga. Killing or capturing him leads to different responsibilities; capture alone does not heal the forest.\n\nProposed first refuge encounter: the child reaches a narrow water crossing while Suicune stands on the opposite bank. Ordinary birds are drinking below it. He waits until they have moved clear, then crosses without approaching the child. An early return can repeat the place and the pause, making restraint rather than a display of power recognizable. After poisoning, the same crossing is churned and the waiting birds are absent; the damaged creature cannot settle into its old sequence. The familiar place should carry the comparison before anyone explains what happened.\n\nProposed recovery experience after capture: first give him somewhere he can stand clear of the polluted water and approach without being cornered. Early attempts at care may be refused; later, choosing to come to the water’s edge and remaining there without struggling would be visible progress. That behavior can accompany the eventual healing process, but does not itself define the cure or make the forest clean. Returning to the crossing after treatment lets his regained ability to wait for smaller creatures matter before his unique role with the sabre.",
+  "id": "suicune",
+  "kind": "creature",
+  "links": [
+    {
+      "kind": "instance_of",
+      "to": "species_suicune"
+    },
+    {
+      "kind": "lives_in",
+      "to": "forest_refuge"
+    },
+    {
+      "data": {
+        "description": "Proposed early refuge scene: ordinary Natu drink at the narrow crossing while Suicune waits for them to clear. Their later absence makes the poisoning a loss of familiar life as well as damage to one exceptional creature."
+      },
+      "kind": "shares_habitat_with",
+      "to": "species_natu"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
+          "§§7.4, 10.3, 13.2–13.4: capture, healing, irreversible choices and unresolved ending conditions"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Suicune"
+}

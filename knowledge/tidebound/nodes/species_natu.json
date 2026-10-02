@@ -1,0 +1,80 @@
+{
+  "data": {
+    "design": "Use existing Natu appearance. A special third stage after Xatu is a future design, not a license to redesign this bird.",
+    "moves": [
+      {
+        "description": "Level 1 in the species learnset. An ordinary early physical attack alongside psychic development.",
+        "name": "Peck"
+      },
+      {
+        "description": "Level 5 in the species learnset. Its damage rewards stat increases rather than simply being a strong early Psychic attack.",
+        "name": "Stored Power"
+      },
+      {
+        "description": "Level 20 in the species learnset. Damage follows the user’s level. Wick is separately granted this move in the opening.",
+        "name": "Night Shade"
+      }
+    ],
+    "types": [
+      "Psychic",
+      "Flying"
+    ]
+  },
+  "description": "The region’s ordinary bird is a Natu, not a rare chosen creature. Its abundance makes Wick a particular familiar individual within a common species. Xatu’s intended additional evolution remains undesigned.\n\nCommon in the great forest; local familiarity precedes its unsettling psychic possibilities.\n\nProposed woodland life: small groups climb the low, crooked trees beside the walking path to peck at new shoots. A bird pauses above a branch joint before committing its weight; another follows the same route only after the first moves on. Their short contact calls let a walker hear a group moving through foliage without seeing every bird. Climbing shifts the leaves where Wurmple feed, so the larvae draw back to their silk anchors while the birds pass. Feeding on shoots extends the stock species account into this forest; these local routines are proposed, not evidence that wild Natu share Wick’s projection game.",
+  "id": "species_natu",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed: climbing to new shoots shakes the leaves beneath which Wurmple feed; the larvae retreat to branch joints and resume after the birds move on. An ordinary encounter sign, not predation or a combat bonus."
+      },
+      "kind": "disturbs",
+      "to": "species_wurmple_1"
+    },
+    {
+      "data": {
+        "description": "Level 25. This is the existing second stage; the later custom third stage remains undesigned."
+      },
+      "kind": "evolves_into",
+      "to": "species_xatu"
+    },
+    {
+      "data": {
+        "description": "Proposed early refuge visit: calls and brief low-branch sightings establish ordinary residents before the poisoning. The later absence of those calls follows the bible’s proposed warning; no new encounter table is specified."
+      },
+      "kind": "found_in",
+      "to": "forest_refuge"
+    },
+    {
+      "data": {
+        "description": "A visible forest encounter supports its intended common-bird role; it is not in the current forest Land grass table."
+      },
+      "kind": "found_in",
+      "to": "listening_wood"
+    },
+    {
+      "data": {
+        "description": "A visible scripted road encounter, separate from Wick and from the grass encounter tables."
+      },
+      "kind": "found_in",
+      "to": "south_road"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    }
+  ],
+  "name": "Natu"
+}

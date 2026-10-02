@@ -1,0 +1,30 @@
+{
+  "description": "A treasured protected place in the great forest becomes poisoned. Its old guardian is dying and Suicune has been corrupted. The player needs an earlier meaningful visit so the damage is a loss of a known place, not scenery supplied for a boss.\n\nProposed first visit: a low footbridge crosses a narrow run where small creatures pass between drinking edges. The guardian has cleared one gutter and asks for help lifting windfall from another; leave the lower wildlife gap open. Suicune waits across the water until smaller animals have crossed. Completing the task restores an ordinary route and earns a sheltered place to rest, without making recruitment or a later perfect outcome a reward for obedience.\n\nProposed return: keep the bridge and its repaired rail recognizable. Natu’s ordinary calls have stopped. A green film collects against the same gutter, then appears in the channels farther uphill; rainwater away from the channels remains clearer. These observations support tracing contamination, while the guardian’s testimony identifies Suicune’s condition. Killing or capturing him does not clear the water. After the immediate threat ends, survivors can reopen the dry crossing while fencing off the fouled bank. The guardian’s identity and final fate remain open.\n\nProposed sound: the first visit has water through the cleared run, wings in the leaves and occasional familiar bird calls. On return, keep water audible while the calls are absent. Later repair restores a footfall across the rail-side boards before any claim that wildlife has returned.",
+  "id": "forest_refuge",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed shared watercourse continues toward the lowland settlement; a traversable route and its timing remain to be designed."
+      },
+      "kind": "connected_to",
+      "to": "river_settlement"
+    },
+    {
+      "kind": "part_of",
+      "to": "listening_wood"
+    },
+    {
+      "data": {
+        "sections": [
+          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
+          "§§5.4, 5.7: protected part of the great forest",
+          "§§4.3, 5.4, 5.7 and 9 Chapter VI: earlier attachment, guardian, corruption and proposed watershed. Bridge, gutter task and specific physical evidence are new proposals."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The cherished forest refuge"
+}

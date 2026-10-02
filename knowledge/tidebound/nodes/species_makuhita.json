@@ -1,0 +1,47 @@
+{
+  "data": {
+    "design": "Existing Makuhita appearance. A custom third stage is intended but remains undesigned.",
+    "moves": [
+      {
+        "description": "Level 7 in the species learnset. Repeated physical strikes establish its close-range fighting style.",
+        "name": "Arm Thrust"
+      },
+      {
+        "description": "Level 10 in the species learnset. A first-turn interruption; not usable as an endless flinch loop.",
+        "name": "Fake Out"
+      },
+      {
+        "description": "Level 19 in the species learnset. Dark coverage and held-item disruption expand its answers beyond Fighting attacks.",
+        "name": "Knock Off"
+      }
+    ],
+    "types": [
+      "Fighting"
+    ]
+  },
+  "description": "The household’s physical helper comes from the Makuhita/Hariyama line. Maku’s affection and clumsy care are individual characterization, not a claim that every Makuhita shares his household habits.\n\nA physical alternative to Wick and Pookie; the early move access must allow meaningful participation against spectral enemies.",
+  "id": "species_makuhita",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Level 24. This is the existing second stage; the later custom third stage remains undesigned."
+      },
+      "kind": "evolves_into",
+      "to": "species_hariyama"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    }
+  ],
+  "name": "Makuhita"
+}

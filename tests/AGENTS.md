@@ -13,6 +13,8 @@ its isolated build copies only Git-tracked paths.
 | `gameplay/` | Companion identity, battle rollback, quest retries, saves and sprite resources |
 | `native/` | Packaged runtime startup, rendering, real engine saves and platform path handling |
 | `support/` | Explicit engine doubles and shared headless setup |
+| `../knowledge/tests/` | Tidebound graph identities, source relationships and real graph browsing |
+| `../tools/kg/tests/` | Real local server persistence, transactions, search, snapshot roundtrips and CLI; independent uv project |
 
 ```sh
 uv run check
@@ -20,6 +22,9 @@ uv run check --all
 # One Python module, or the entire tooling suite
 uv run python -m unittest tests.tooling.test_map_validation -v
 uv run python -m unittest discover -s tests/tooling -t . --buffer --durations 5
+# Knowledge graph suites (separate Linux CI job; isolated servers, no API keys)
+uv run --locked --project tools/kg python -m unittest discover -s tools/kg/tests --buffer
+uv run --locked --project tools/kg python -m unittest discover -s knowledge/tests --buffer
 # After check has refreshed engine references
 node tests/run.cjs battles
 node tests/run.cjs presentation

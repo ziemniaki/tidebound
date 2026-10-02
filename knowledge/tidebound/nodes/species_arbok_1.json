@@ -1,0 +1,44 @@
+{
+  "data": {
+    "design": "Original Arbok hood, coils and markings. Neutral grey replacing purple; retain distinguishing markings. Front, rear and icon must agree in palette and silhouette. No demonic hood symbols or claim that the palette proves a mythological origin.",
+    "moves": [
+      {
+        "description": "On evolution. Immediate physical Dark offense at evolution.",
+        "name": "Crunch"
+      },
+      {
+        "description": "Level 12 in the species learnset. Retains the snake line’s paralyzing threat.",
+        "name": "Glare"
+      },
+      {
+        "description": "Level 56 in the species learnset. Attack and accuracy setup replaces Coil in this regional line.",
+        "name": "Hone Claws"
+      }
+    ],
+    "types": [
+      "Normal",
+      "Dark"
+    ]
+  },
+  "description": "Regional Arbok continues the grey Normal/Dark snake line, retaining its recognizable hood and markings. Its visual familiarity matters more than decorative redesign; its altered typing is not a story about corruption.\n\nContinues the regional Dark move substitutions and stock battle proportions; no new wild Arbok placement is implied.\n\nProposed raising continuity: the larger body needs a wider exit and can no longer disappear into the small gaps used as Ekans. A companion first draws its coils away from a passing person, then spreads its hood if repeatedly crowded. The warning should be readable before battle rather than appearing as an unexplained ambush. Its caretaker learns to leave it room to withdraw; commanding aggression is not the only way to live with an intimidating animal.",
+  "id": "species_arbok_1",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_arbok_1"
+    }
+  ],
+  "name": "ARBOK (Tidebound)"
+}

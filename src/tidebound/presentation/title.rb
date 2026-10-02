@@ -15,7 +15,7 @@ class Scene_TideboundTitle
     b.font.size = 18
     b.draw_text(44, 320, 420, 32, "Press Enter")
     b.font.size = 14
-    b.draw_text(44, 350, 400, 24, "Demo 1 | #{Tidebound::VERSION}  |  An unofficial fan project")
+    b.draw_text(44, 350, 400, 24, "#{Tidebound::VERSION}  |  An unofficial fan project")
     pbBGMPlay("shore", 80, 100)
     Graphics.transition(20)
     loop do

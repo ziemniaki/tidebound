@@ -1,0 +1,33 @@
+{
+  "data": {
+    "design": "Ordinary shop keys among the established white flowers. No magical glow or invented ceremonial design."
+  },
+  "description": "The seller has misplaced the oil-shop keys among white flowers in the northern wood. Recovering them lets him open his shop and thank the child with oil and homemade pie.",
+  "id": "keys",
+  "kind": "item",
+  "links": [
+    {
+      "kind": "belongs_to",
+      "to": "seller"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 10.7: pie, necklace and delayed pearl meaning",
+          "§10.7: the seller’s keys"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_items"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "Oil-Shop Keys"
+}

@@ -1,0 +1,43 @@
+{
+  "data": {
+    "design": "Use the established Weedle body, large red nose and head horn. Proposed field motion emphasizes the nose checking a leaf, then the small defensive withdrawal that makes the horn visible. Its warm ordinary palette should remain distinct beside the pale-blue regional Wurmple.",
+    "types": [
+      "Bug",
+      "Poison"
+    ]
+  },
+  "description": "An ordinary Bug/Poison caterpillar in the Listening Wood’s grass. Its native species account distinguishes preferred leaves by smell; Poison Sting and String Shot are available from level 1. Its early evolution into Kakuna at level 7 differs from regional Wurmple’s fixed level-10 branch. Poison typing alone does not connect it to Koga, demon-defense practices or the poisoned refuge.\n\nProposed forest behavior: it runs its nose along a leaf edge before feeding, rejecting some leaves that neighboring Wurmple readily eat. That allows two small caterpillars to share a patch without being interchangeable palette variants. On a low branch it draws its head back and presents the horn when crowded. Reaching around it or leaving that leaf alone can avoid a sting; a careless approach need not summon a supernatural explanation. A companion’s sniff-and-select routine makes food preference visible without creating a compulsory feeding meter.",
+  "id": "species_weedle",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Existing forest-grass encounters at levels 3–5."
+      },
+      "kind": "found_in",
+      "to": "listening_wood"
+    },
+    {
+      "data": {
+        "description": "Proposed feeding scene: Weedle rejects some leaves by smell while nearby regional Wurmple continue feeding. Their overlapping habitat does not mean identical food preferences, defenses or evolution routes."
+      },
+      "kind": "shares_habitat_with",
+      "to": "species_wurmple_1"
+    },
+    {
+      "data": {
+        "description": "Authored forest and road encounter tables, including the pond-grass table on the road map."
+      },
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "data": {
+        "description": "Pinned species account, typing, move availability and evolution condition; new local behavior is explicitly proposed."
+      },
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Weedle"
+}

@@ -1,0 +1,36 @@
+{
+  "data": {
+    "questions": [
+      {
+        "question": "Who made the obelisk, and what does its inscription say?"
+      },
+      {
+        "question": "What future quest and reward involve the obelisk?"
+      }
+    ]
+  },
+  "description": "Below the southern coast road, fishermen live with hooks, nets, stolen bait and a tended berry tree. Psyduck wanders by the bank. A concealed western path and an island obelisk give the place edges beyond its ordinary work; the obelisk is not yet explained.\n\nProposed bank routine: bait is kept in lidded boxes weighted with stones after repeated Aipom thefts. A clean landing beside the tree is kept clear of discarded hooks; the muddier feeding edge belongs to the creatures until somebody needs to land a boat. Help can mean collecting abandoned line or moving a dropped bait box, with the resulting clear patch still visible on a later visit. Optional battles are invitations away from the line-tending work, not the price of using the bank. None of this explains the obelisk or makes an ordinary fish catch into a relic.",
+  "id": "pond",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "part_of",
+      "to": "south_road"
+    },
+    {
+      "data": {
+        "sections": [
+          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
+          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_pond"
+    }
+  ],
+  "name": "The pond below the South Coast Road"
+}

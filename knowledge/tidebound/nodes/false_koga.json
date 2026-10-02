@@ -1,0 +1,40 @@
+{
+  "data": {
+    "design": "Initially convincing resemblance; later cruel behavior and increasing disfigurement; final cloudlike poison horror. Exact stages need design. Its final team contains none of real Koga’s familiar team members."
+  },
+  "description": "Desperate villagers conjure a poison construction that looks like the missing friend. Its comfort first feels convincing, including companionship in the astral plane. Protection becomes cruelty and total control until the familiar shape deteriorates into a cloudlike poison horror.\n\nOffers the comfort of a returned friend, then makes protection incompatible with the community’s freedom and health.\n\nConfront the damaged refuge and Suicune first. Defeat stops the immediate threat; later testimony establishes the imitation’s origin without locating real Koga.\n\nProposed draft: the early imitation waits when asked to wait and shares uncertainty in the fog. Later, an apprentice asks to move a watch away from a contaminated room. The figure treats the request as a refusal to be protected and orders the exit kept shut. This is observable coercion, not a magic test that tells the player his identity. When the sister moves the apprentices anyway, the conflict becomes about their safety and freedom before it becomes a revelation about his origin.",
+  "id": "false_koga",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "description": "She must respond to the returned figure’s useful defense and harmful orders without initially knowing it is an imitation."
+      },
+      "kind": "associated_with",
+      "to": "koga_sister"
+    },
+    {
+      "kind": "harms",
+      "to": "forest_refuge"
+    },
+    {
+      "kind": "harms",
+      "to": "winter_settlement"
+    },
+    {
+      "kind": "portrays",
+      "to": "koga"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities",
+          "§§5.5, 5.7, 10.2–10.3: poisonous protection and damaged refuge"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The apparent return"
+}

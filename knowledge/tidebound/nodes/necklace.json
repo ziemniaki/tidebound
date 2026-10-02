@@ -1,0 +1,50 @@
+{
+  "data": {
+    "design": "A modest necklace small enough to lie across an elderly man’s palm. Pearls with restrained light; exact metal and clasp design are open. A usable clasp, a square of soft wrapping cloth, one brief slightly brighter pearl glint. No aura, runes, legendary presentation or early sacred/cursed label."
+  },
+  "description": "A small pearl necklace the seller’s wife wore on important days and ordinary ones. Its clasp and the place beside the mirror matter before its material does. Later recognition of its unusual pearls places the deep magical world inside a familiar domestic keepsake.\n\nStolen by visiting youths, recovered by the child, returned to the seller and then entrusted to Mother’s vault.\n\nHealthy remembrance of the dead. Emotional value comes from the wearer; the pearl category is not unique to this object.\n\nThe wife’s connection is spoken only after recovery. The glint is observable; the deeper ecology is a late reinterpretation, not knowledge the seller possesses.",
+  "id": "necklace",
+  "kind": "item",
+  "links": [
+    {
+      "kind": "belonged_to",
+      "to": "seller_wife"
+    },
+    {
+      "data": {
+        "description": "His wife’s keepsake. Returning it restores his possession; he then entrusts its safekeeping to Mother."
+      },
+      "kind": "belongs_to",
+      "to": "seller"
+    },
+    {
+      "kind": "foreshadows",
+      "to": "pearls_deeper_world"
+    },
+    {
+      "data": {
+        "description": "After its recovery and the vault visit."
+      },
+      "kind": "kept_at",
+      "to": "vault"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 10.7: pie, necklace and delayed pearl meaning"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_items"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "Pearl Necklace"
+}

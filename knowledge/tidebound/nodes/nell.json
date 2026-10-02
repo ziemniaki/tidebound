@@ -1,0 +1,39 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. After winning the optional sailor battle.",
+        "lines": [
+          {
+            "speaker": "Nell",
+            "text": "Those little birds will brave a gale for each other. I try to be worthy of that."
+          }
+        ],
+        "source": "source_docks"
+      }
+    ]
+  },
+  "description": "A sailor who offers a voluntary friendly challenge when off watch. After defeat she speaks of little birds braving a gale for each other and trying to be worthy of them. Her affection for companions is expressed through work at sea.",
+  "id": "nell",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "sourced_from",
+      "to": "source_docks"
+    },
+    {
+      "data": {
+        "sections": [
+          "§30: working harbour, optional sailors and the planned island crossing."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "works_at",
+      "to": "docks"
+    }
+  ],
+  "name": "Nell"
+}

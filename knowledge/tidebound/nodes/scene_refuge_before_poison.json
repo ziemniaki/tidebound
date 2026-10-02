@@ -1,0 +1,43 @@
+{
+  "data": {
+    "beats": [
+      "Enter from a rough path into a sheltered stopping place beside a low footbridge and narrow run. Set a wet wrap over its rail. Proposed: help the guardian clear windfall from a drainage gutter while leaving a gap for small creatures to cross. The guardian’s identity and communication remain undecided; this action does not require a human speech.",
+      "Koga stops trying to improve the journey for a while. A familiar team member chooses where to rest; he leaves it alone. The player can sit, look around or continue without losing a reward.",
+      "Suicune appears across the narrow run and waits for smaller animals to cross before passing through. Keep the glimpse brief and allow him to leave; no capture challenge or explanation of his future value is offered.",
+      "At the later poisoned visit, reuse the same footbridge, repaired rail and water sound. Contaminated film following upstream channels, a stained resting place and absent movement make the damage legible before anyone names the threat. The dying guardian then directs attention to corrupted Suicune as the bible requires."
+    ],
+    "consequences": "Proposed: familiarity supplies evidence of loss. The early visit grants no new healing or capture power. Declining rest does not invalidate the later Suicune choice, and the guardian’s final fate remains undecided."
+  },
+  "description": "Proposed draft. An early visit makes the refuge useful and familiar before any crisis. Its guardian’s identity remains open; the visit works through observable care and does not require that an unchosen animal or spirit deliver human dialogue.",
+  "id": "scene_refuge_before_poison",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "koga"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "suicune"
+    },
+    {
+      "data": {
+        "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.",
+        "sections": [
+          "§§5.7, 6.8, 10.3: known refuge, dying guardian and Suicune order"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "forest_refuge"
+    }
+  ],
+  "name": "A quiet place in the forest"
+}

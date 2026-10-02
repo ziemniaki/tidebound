@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/astral.rb"
+  },
+  "description": "Six-turn dialogue and individual recovery; numerical catch parameter additionally established by bible 12.2",
+  "id": "source_astral",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "astral"
+}

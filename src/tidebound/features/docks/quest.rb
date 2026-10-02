@@ -1,7 +1,8 @@
-# Demo 1: additive events, persistent optional encounters, no new plot gate.
-module Tidebound::DemoLaunch
+# Harbour conversations, optional battles and passage to the next chapter.
+module Tidebound::Docks
   module_function
   def flags
+    # Preserve the persisted key so existing saves retain their harbour progress.
     Tidebound.story[:demo_launch] ||= {}
   end
   def say(*lines)
@@ -118,7 +119,7 @@ module Tidebound::DemoLaunch
     say(
       "Captain: Then we'll keep a place for you. Take one last look around, eh?",
       "Beyond the harbour, the water carries a thin seam of silver.",
-      "Thank you for playing Tidebound - Demo 1.\nThe journey to Psyduck Island continues in a future chapter.",
+      "Your passage to Psyduck Island is arranged.\nThe crossing will open in a future chapter.",
       "You can keep exploring and save your journey. Speak to the captain again whenever you like."
     )
   end

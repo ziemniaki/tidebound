@@ -1,0 +1,25 @@
+{
+  "data": {
+    "design": "Proposed location study: low stone boundary walls, a worn domestic threshold, a shared work surface and recesses at more than one body scale. Silt interrupts familiar routes; retained landmarks guide the return. Begin with ordinary use and restrained underwater visibility rather than a grand ruined throne or explanatory murals."
+  },
+  "description": "Late underwater exploration is part of the intended region, reached through Dive. The bible proposes drowned settlement remains and shrine approaches where evidence of ordinary habitation comes before the larger legendary account. The catastrophe, ancient taking, inhabitants and exact sites remain unresolved.\n\nProposed first area: follow a low wall to a threshold worn smooth at its center. Beyond it, a shared work surface and different-sized resting recesses make a life with Pokémon imaginable without identifying the former residents as a specific people. The first useful discovery is how the place was used, not a prophecy. Farther in, removed fittings and worked gaps in the stone can become evidence to compare with the museum once the nature of the ancient exploitation is chosen.\n\nKeep a recognizable route back to the entry water. Later passages can become less human in scale and harder to interpret, while navigation still gives the player understandable choices. The final layout depends on the eventual Dive route; no access through the lighthouse’s lower lamp is established.",
+  "id": "location_submerged_coast",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed late exploration of submerged land; exact coast placement is open."
+      },
+      "kind": "part_of",
+      "to": "sea"
+    },
+    {
+      "data": {
+        "sections": "§§4.2, 5.9 and 9 Chapter VIII: proposed submerged habitation and evidence; specific threshold and navigation design are new."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The submerged coast"
+}

@@ -1,0 +1,32 @@
+{
+  "data": {
+    "questions": [
+      {
+        "question": "What is this nonunique kind of unusual pearl called?"
+      },
+      {
+        "question": "What is its exact ecology?"
+      }
+    ]
+  },
+  "description": "These are one nonunique kind of unusual pearl in the deeper magical ecology; its name and ecology remain open.\n\nThis is revealed late in the story; the revealing scene remains unwritten.",
+  "id": "pearls_deeper_world",
+  "kind": "lore",
+  "links": [
+    {
+      "kind": "about",
+      "to": "necklace"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 14: disclosure boundaries and unresolved late scene order",
+          "Section 10.7: pie, necklace and delayed pearl meaning"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Pearls deeper world"
+}

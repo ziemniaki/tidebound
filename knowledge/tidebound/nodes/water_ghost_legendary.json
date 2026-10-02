@@ -1,0 +1,17 @@
+{
+  "description": "Identity and relation to the sea remain open; do not merge it with the final boss.",
+  "id": "water_ghost_legendary",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The Water/Ghost legendary"
+}

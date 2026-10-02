@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "content/pokemon/WHYDUCK/species.json"
+  },
+  "description": "Authored species/form declaration",
+  "id": "source_species_whyduck",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "species/WHYDUCK"
+}

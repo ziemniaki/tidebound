@@ -1,0 +1,29 @@
+{
+  "description": "A coastal route leads the child away from familiar neighbors into a petty theft and toward the working harbour. Wind-bent flowers, foraging creatures, a resting fire and the old storehouse keep the pursuit grounded in a place people use.",
+  "id": "south_road",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "connected_to",
+      "to": "docks"
+    },
+    {
+      "kind": "connected_to",
+      "to": "hideout"
+    },
+    {
+      "data": {
+        "sections": [
+          "§12.3: grass encounters; §§29 and 32: regional Psyduck and relocation to the pond."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "The South Coast Road"
+}

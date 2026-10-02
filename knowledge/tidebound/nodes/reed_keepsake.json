@@ -1,0 +1,33 @@
+{
+  "data": {
+    "design": "Small ceramic keepsake with blue-reed identity; use the existing item reference for its precise icon.",
+    "questions": [
+      {
+        "question": "Does the keepsake eventually have a practical use?"
+      }
+    ]
+  },
+  "description": "A small ceramic charm from the seller’s hometown, given as a personal thank-you after the necklace returns. Its blue-reed identity recalls the meal and borrowed plate. It is not the key to Mother’s vault.\n\nNo power is established for the keepsake; its value as a thank-you does not require one.",
+  "id": "reed_keepsake",
+  "kind": "item",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "Section 10.7: pie, necklace and delayed pearl meaning"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_items"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "Blue-Reed Keepsake"
+}

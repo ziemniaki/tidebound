@@ -1,0 +1,25 @@
+{
+  "description": "Oil supplies, crates and repaired maintenance tools occupy the lighthouse cellar before its heavy vault door. Ordinary work gives the threshold its contrast; secret ritual machinery is not established here.",
+  "id": "cellar",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "part_of",
+      "to": "lighthouse_home"
+    },
+    {
+      "data": {
+        "sections": [
+          "§5.3: lighthouse cellar; §20: implemented vault access."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "The Lighthouse Cellar"
+}

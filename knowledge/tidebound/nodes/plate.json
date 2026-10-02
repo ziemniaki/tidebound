@@ -1,0 +1,32 @@
+{
+  "data": {
+    "design": "Ceramic with two blue reeds painted on the rim. Keep the rim intact and the plate recognizable before and after the meal."
+  },
+  "description": "The borrowed ceramic plate carries the seller’s pie into the household and makes returning to his shop an ordinary obligation. Mother washes and dries around its two blue reeds. It must remain an ordinary good plate, not a second magical artifact.",
+  "id": "plate",
+  "kind": "item",
+  "links": [
+    {
+      "kind": "belongs_to",
+      "to": "seller"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 10.7: pie, necklace and delayed pearl meaning"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_items"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "Blue-Reed Plate"
+}

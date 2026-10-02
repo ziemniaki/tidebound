@@ -1,0 +1,35 @@
+{
+  "data": {
+    "design": "Use the established Zigzagoon silhouette, angular brown-and-cream coat and low searching posture. Proposed field tracks change direction twice across a soft verge; keep their scale small enough to belong to this animal rather than a path marker.",
+    "types": [
+      "Normal"
+    ]
+  },
+  "description": "An ordinary Normal Pokémon in the South Coast Road’s grass. Its native species account describes a searching nose and a wandering route that leaves zigzag tracks. It evolves into Linoone at level 20. Its inherited Pickup ability does not authorize story-critical objects to disappear from people or the player.\n\nProposed roadside behavior: it checks the ground around a recently lifted crate, retraces two steps, then follows a different smell into the verge. A scrap of food may interest it while an expensive tool does not. This keeps roadside scavenging distinct from the boys’ deliberate theft. A traveler can close a food bundle or let the animal finish investigating before taking it up. A recruited individual still wants to check the place where the party rested; its small delay can be familiar and amusing without an obedience penalty.",
+  "id": "species_zigzagoon",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Existing road-grass encounters at levels 4–6."
+      },
+      "kind": "found_in",
+      "to": "south_road"
+    },
+    {
+      "data": {
+        "description": "Authored forest and road encounter tables, including the pond-grass table on the road map."
+      },
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "data": {
+        "description": "Pinned species account, typing, move availability and evolution condition; new local behavior is explicitly proposed."
+      },
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Zigzagoon"
+}

@@ -1,0 +1,46 @@
+{
+  "data": {
+    "design": "Use the established Mightyena appearance. The planned custom third stage does not authorize redesigning this existing stage.",
+    "height_m": 1.0,
+    "moves": [
+      {
+        "description": "On evolution. Weakens special offense when this stage is reached.",
+        "name": "Snarl"
+      },
+      {
+        "description": "Level 40 in the species learnset. A later physical Dark attack.",
+        "name": "Crunch"
+      },
+      {
+        "description": "Level 52 in the species learnset. Priority depends on anticipating an attack; a prediction tool rather than universal speed.",
+        "name": "Sucker Punch"
+      }
+    ],
+    "questions": [
+      {
+        "question": "What further evolution would grow from this companion’s established identity, and how would the player reach it?"
+      }
+    ],
+    "types": [
+      "Dark"
+    ],
+    "weight_kg": 37.0
+  },
+  "description": "The existing Dark stage after Poochyena, reached at level 18. Snarl on evolution adds pressure against special attackers. Pack coordination belongs to its stock species characterization; Pookie’s loyalty and unease at the pier remain the history of one individual. A further custom stage is intended but undesigned.\n\nProposed companion behavior: a familiar travel group can coordinate through pauses, glances and waiting at a fork, extending the stock species’ pack coordination without assigning every individual a rigid master. A larger dog changes the distance at which strangers are comfortable approaching. Let an ordinary wary traveler ask for space and receive it; reassurance need not be demonstrated by defeating them in battle.",
+  "id": "species_mightyena",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "sections": "§§7.3–7.3a: household lines and intended third stages"
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Mightyena"
+}

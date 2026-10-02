@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/vault/quest.rb"
+  },
+  "description": "Keepsake, Mother’s key, storage, docks gate and optional sabre view",
+  "id": "source_vault",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "vault"
+}

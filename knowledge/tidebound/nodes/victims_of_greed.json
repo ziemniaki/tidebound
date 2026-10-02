@@ -1,0 +1,37 @@
+{
+  "description": "The demons were once peaceful inhabitants harmed through human greed; their grievance does not erase harm to present innocents.\n\nThis is revealed late in the story; the revealing scene remains unwritten.\n\nProposed evidence sequence: first let submerged thresholds, foot-worn steps and shared work surfaces establish ordinary habitation. Later, compare what remains with records of material taken away. A forced threshold or dismantled retaining work can support a specific account only after the ancient taking has been chosen; it cannot by itself prove ritual sacrifice or identify all the inhabitants. The modern criminals’ pressure on supplies makes material greed recognizable before the past is explained. Their later breach repeats an injury; it need not be a literal replay of the ancient event.",
+  "id": "victims_of_greed",
+  "kind": "lore",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed ordinary-life evidence grounds the later historical revelation before its supernatural explanation."
+      },
+      "kind": "about",
+      "to": "location_submerged_coast"
+    },
+    {
+      "data": {
+        "description": "The bible connects present exploitation to the older injury; exact material and historical mechanisms remain open."
+      },
+      "kind": "about",
+      "to": "team_abyss"
+    },
+    {
+      "kind": "about",
+      "to": "water_demons"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 14: disclosure boundaries and unresolved late scene order",
+          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
+          "§§4.1–4.3 and 5.9: ancient taking, present exploitation and underwater evidence. Evidence ordering is proposed."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Victims of greed"
+}

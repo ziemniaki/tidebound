@@ -1,0 +1,46 @@
+{
+  "description": "Team Abyss is the working name of a predatory organisation that loots poor and partly deserted communities. Its local storehouse sends stolen coastal goods toward dock buyers; theft, fencing and illegal distribution share the harbour with legitimate work. The necklace thieves show immature local hierarchy before the wider organisation becomes visible. Later members steal the museum sabre without understanding its full purpose. Desperate, reckless interference eventually unleashes water demons. Leadership, emblem and final fate remain open.\n\nProposed operation: a dock buyer advances the youths food and space for resale goods, then declares that their next delivery only pays an old debt. The buyer can discard an unreliable thief while keeping the buyers and storage access. This explains why beating one boy does not empty the supply chain, without excusing his choices or making every youth a willing participant in the later breach.\n\nProposed pressure on the region: stolen oil is sold back through a different quay while threatened boat crews charge more to make uncertain runs. The river settlement loses deliveries just as it needs to search for Koga; fear makes a promised defender more persuasive. The criminals need profitable passages and objects, not a plan to end the world. A later attempt to force open a protected salvage route can be the concrete act that crosses a dangerous threshold. Which object or barrier is disturbed must follow the eventual design of the ancient wrong.\n\nUseful outcomes stay local: return a marked load, protect a willing witness, or reopen a berth. A worker who can unload flour again gives victory a consequence.",
+  "id": "team_abyss",
+  "kind": "faction",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed supply pressure contributes to desperation around Koga’s absence; it does not explain his disappearance or absolve the conjurors."
+      },
+      "kind": "harms",
+      "to": "river_settlement"
+    },
+    {
+      "data": {
+        "description": "Confirmed eventual reckless breach renews the older injury and releases danger. The concrete act and historical mechanism remain open."
+      },
+      "kind": "harms",
+      "to": "water_demons"
+    },
+    {
+      "data": {
+        "description": "Established theft, fencing and illegal distribution beside legitimate trade."
+      },
+      "kind": "operates_in",
+      "to": "docks"
+    },
+    {
+      "data": {
+        "description": "Small coastal storehouse and local resale link, not a regional headquarters."
+      },
+      "kind": "operates_in",
+      "to": "hideout"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities",
+          "§§4.1–4.3, 5.11, 8.1 and 10.6: predation, dock infrastructure, incomplete knowledge and eventual breach. Debt arrangement and delivery pressure are new proposals."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Team Abyss"
+}

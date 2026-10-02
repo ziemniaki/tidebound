@@ -1,0 +1,46 @@
+{
+  "data": {
+    "beats": [
+      "Navigate the opened body.",
+      "Stand beside each of three sacs and loosen its stitch.",
+      "Leave through the northern mouth."
+    ],
+    "consequences": "Slow contractions return the figure to the entrance but keep released nests. Leaving early gives no quest progress; retry is free. Real companions are never harmed, healed or resurrected.",
+    "design": "Tiny pale figure against an opened, breathing Chansey-like interior; sutures and trapped Natu shapes must be legible as the three objectives. An approved abrupt early body-horror rupture inside the console game, not an astral journey.",
+    "questions": [
+      {
+        "question": "Who made The Mending?"
+      },
+      {
+        "question": "Does the game have a wider connection to events outside it?"
+      }
+    ]
+  },
+  "description": "Pet House reveals itself as The Mending: a tiny pale figure enters a breathing Chansey-like body to release three Natu shapes from sutured sacs and leave through its mouth. The horror happens inside the boys’ fictional game.",
+  "id": "mending",
+  "kind": "scene",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "§31: Pet House, The Mending and the boundary between fiction and real companions."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_hideout"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_mending"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "hideout"
+    }
+  ],
+  "name": "The Mending"
+}

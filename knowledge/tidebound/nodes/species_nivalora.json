@@ -1,0 +1,63 @@
+{
+  "data": {
+    "category": "Kindly Wings",
+    "design": "Butterfly dragon retaining Wurmple’s face, split cream muzzle, head horn and curled tail. White and pale-blue wings, golden eyes and cream muzzle. In the rear view, tilt the right upper wing outward so the face stays separate from the wing edge. No poison theme, sea-divinity claim, cure for the world’s curse or decorative silhouette clutter.",
+    "dex_entry": "Rarely seen, it shelters lost travelers beneath its frost-white wings. Its gentle scales lull frightened creatures to sleep, and it waits beside them until they wake.",
+    "height_m": 2.4,
+    "moves": [
+      {
+        "description": "Level 28 in the species learnset. Retained cocoon support quiets an opponent; ordinary accuracy and status limits still apply.",
+        "name": "Sleep Powder"
+      },
+      {
+        "description": "On evolution. The evolution introduces a Dragon attack; its ordinary paralysis effect remains.",
+        "name": "Dragon Breath"
+      },
+      {
+        "description": "Level 55 in the species learnset. A reliable special attack that fits its newly powerful special offense.",
+        "name": "Ice Beam"
+      },
+      {
+        "description": "Level 61 in the species learnset. Heals itself in battle; it is not a field cure or resurrection.",
+        "name": "Roost"
+      },
+      {
+        "description": "Level 72 in the species learnset. Late setup supports special offense and resilience; earlier Dragon Dance instead boosts physical Attack and Speed.",
+        "name": "Quiver Dance"
+      }
+    ],
+    "types": [
+      "Ice",
+      "Dragon"
+    ],
+    "weight_kg": 22.0
+  },
+  "description": "A benevolent butterfly dragon shelters lost travelers beneath frost-white wings. Its gentle scales quiet frightened creatures into sleep, and it waits until they wake. Beauty here can offer actual relief rather than another concealed betrayal.\n\nVery fast special attacker with strong special resilience and inherited support; modest physical defense. Sleep expresses kindness without removing ordinary battle risk.\n\nShield Dust blocks additional effects of damaging attacks, not direct status moves. Evolution turns the very slow cocoon into an exceptionally fast special attacker while retaining support options; physical defense remains modest. Sleep, Wish and Life Dew do not cure the world’s curse or resurrect companions.\n\nProposed behavior: on meeting a frightened traveler, it settles beside the path and leaves space beneath one lowered wing rather than pursuing them. If the traveler approaches, the established sheltering and calming behavior can become a quiet encounter. After the long cocoon stage, the same companion making room for someone else gives its new size and mobility an observable meaning; no automatic sleep or forced interaction is implied.\n\nProposed encounter continuity: the resting place beneath the wing is offered at the edge of a sheltered clearing, with a visible way to leave. The creature remains after a traveler wakes and can accept their company without escorting them to a secret or rewarding them with an item. A raised individual still pauses to settle its weight before resting, recalling the careful placement of its cocoon. Its kindness is useful even when the player is merely tired or frightened.",
+  "id": "species_nivalora",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed rare sighting in a sheltered clearing within the wider forest, giving its established traveler-sheltering behavior a place. No repeatable wild encounter or guaranteed recruitment is implied; raising Frostcoon remains the playable route."
+      },
+      "kind": "found_in",
+      "to": "listening_wood"
+    },
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_nivalora"
+    }
+  ],
+  "name": "Nivalora"
+}

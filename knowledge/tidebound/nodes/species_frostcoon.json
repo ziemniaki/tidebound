@@ -1,0 +1,78 @@
+{
+  "data": {
+    "category": "Frozen Silk",
+    "design": "Familiar Silcoon cocoon silhouette. Pale blue frozen silk, cold white highlights, blue shading, small golden eye. Read as frozen silk rather than a carved crystal. No new anatomy, sea connection or healing that resurrects companions.",
+    "dex_entry": "It seals itself in silk glazed with frost. Even when its shell lies perfectly still, a faint scratching can be heard from within.",
+    "height_m": 0.7,
+    "moves": [
+      {
+        "description": "On evolution. Entry hazards offer indirect pressure without a damaging attack.",
+        "name": "Spikes"
+      },
+      {
+        "description": "Level 10 in the species learnset. Delayed healing can reach a teammate switched into its position.",
+        "name": "Wish"
+      },
+      {
+        "description": "Level 22 in the species learnset. Heals the user and active allies, not the bench; does not cure poison or revive companions.",
+        "name": "Life Dew"
+      },
+      {
+        "description": "Level 25 in the species learnset. Slows opposing switch-ins; rewards planning around later turns.",
+        "name": "Sticky Web"
+      },
+      {
+        "description": "Level 31 in the species learnset. Provides the battle weather needed for Aurora Veil; its indirect damage still matters.",
+        "name": "Hail"
+      },
+      {
+        "description": "Level 34 in the species learnset. Reduces incoming physical and special attack damage while supported by Hail.",
+        "name": "Aurora Veil"
+      }
+    ],
+    "types": [
+      "Bug",
+      "Ice"
+    ],
+    "weight_kg": 12.0
+  },
+  "description": "Frostcoon seals itself in silk glazed with frost. The shell can lie perfectly still while faint scratching continues inside. Raising this companion asks for patience: it supports others rather than attacking, long before its late evolution.\n\nSlow defensive support with Wish, screens, weather and hazards; no damaging moves in its authored level-up list. Its eventual level-55 evolution rewards the long branch.\n\nShell Armor prevents critical hits; it does not erase the severe Fire/Rock weaknesses or cure status. Becoming Frostcoon replaces inherited attacks with available support moves while preserving chosen support moves and spent PP. This transition matters when comparing it with Glaciverm: the cocoon is deliberately unable to rely on its larval attacks.\n\nProposed ecology: silk anchors the cocoon under a branch where wind cannot roll it. The scratching grows irregular when its support is shaken, then settles after the branch is still. A companion-care moment could involve choosing a secure resting place and waiting for that ordinary sound, without a new hidden bond meter, healing power or evolution requirement.\n\nProposed woodland placement and care: a cocoon hangs inside the sheltered fork that its larval form used, above the trampled path. A wind-fallen occupied branch presents a small choice: prop it into the nearby fork, leave it alone, or take the longer way around. The response is audible scratching that settles, not a reward dispensed by the animal. A traveling companion can attach to a padded branch rest; the familiar scratching helps the player recognize it through the long, outwardly still stage.",
+  "id": "species_frostcoon",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Level 55"
+      },
+      "kind": "evolves_into",
+      "to": "species_nivalora"
+    },
+    {
+      "data": {
+        "description": "Proposed habitat: sheltered branch forks above the path, occasionally brought down by wind. These are possible observations and care encounters; raising regional Wurmple remains the established acquisition route."
+      },
+      "kind": "found_in",
+      "to": "listening_wood"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_frostcoon_support"
+    },
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_frostcoon"
+    }
+  ],
+  "name": "Frostcoon"
+}

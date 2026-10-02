@@ -1,0 +1,22 @@
+{
+  "description": "The later bedroom maze is Natu’s psychic projection; this does not settle the origin of the preceding false rooms.\n\nThe opening is presented as finding Wick. Explain that the giant bedroom is his projection only in a later scene, still undesigned.",
+  "id": "natu_projection",
+  "kind": "lore",
+  "links": [
+    {
+      "kind": "about",
+      "to": "wick"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 14: disclosure boundaries and unresolved late scene order",
+          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Natu projection"
+}

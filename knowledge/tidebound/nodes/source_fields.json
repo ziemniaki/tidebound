@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/fields/quest.rb"
+  },
+  "description": "Per-fire wall time, HP/PP recovery, statuses and berry cooldowns",
+  "id": "source_fields",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "fields"
+}

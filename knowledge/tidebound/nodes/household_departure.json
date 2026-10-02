@@ -1,0 +1,53 @@
+{
+  "data": {
+    "beats": [
+      "Hear Mother’s hall talk while Maku carries bottles.",
+      "Walk Pookie for 100 actual outside steps and return together.",
+      "Optionally follow her bark to the pier and call her back; nothing appears in the water.",
+      "Choose one familiar household individual; the others stay with Mother."
+    ],
+    "consequences": "The pier detour is optional. Returning without Pookie does not complete the walk. Choice preserves the same creature."
+  },
+  "description": "Mother gives the child a small freedom before a larger one. Maku’s imperfect help and Pookie’s enthusiasm establish a family that exists before companion selection.\n\nThe scene presents preparation and care, not the explanation of arrested childhood.",
+  "id": "household_departure",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "maku"
+    },
+    {
+      "kind": "features",
+      "to": "mother"
+    },
+    {
+      "kind": "features",
+      "to": "pookie"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "wick"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_walk"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "lighthouse_home"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "shiohama"
+    }
+  ],
+  "name": "A little walk, then a companion"
+}

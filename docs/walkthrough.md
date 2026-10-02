@@ -1,6 +1,6 @@
-# Demo walkthrough
+# Opening walkthrough
 
-**Spoilers for the current demo.** See [current status](status.md) for its scope
+**Spoilers for the current playable chapters.** See [current status](status.md) for its scope
 and [release notes](release-notes.md) for changes between versions.
 
 ## Controls and saves
@@ -77,14 +77,14 @@ Explore the two sailing ships and speak to their crews. Nell and Oren offer
 optional battles; neither gates the story. Shop frontages remain closed.
 
 At the end of the eastern pier, speak to the captain about **Psyduck Island**.
-Accepting reaches the demo's ending message. You remain free to explore and save;
+Accepting reserves passage for a future chapter. You remain free to explore and save;
 the voyage and island are not yet playable.
 
 ## Optional exploration and recovery
 
 The pond below the South Coast Road has optional fishermen battles, a visible
 regional Psyduck, grass encounters and an Oran tree. Search behind the western
-thicket for Mystic Water. The island obelisk needs Surf, which this demo does not
+thicket for Mystic Water. The island obelisk needs Surf, which the current game does not
 award. Species evolution and battle-role notes are in [species design](../specs/species.md).
 
 Resting fires in the forest and on the road set a return checkpoint and restore

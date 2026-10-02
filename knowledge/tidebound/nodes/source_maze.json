@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/maze.rb"
+  },
+  "description": "Maze completion and return to ordinary bedroom",
+  "id": "source_maze",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "maze"
+}

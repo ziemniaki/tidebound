@@ -1,0 +1,30 @@
+{
+  "description": "The first public hall places an unexplained sabre beside coastal objects with ordinary uses: a bell, sounding weights, a shipping ledger and ceramics. The attendant distinguishes evidence from conjecture. Seeing the blade is a visit, not acquiring it.\n\nProposed curatorial practice: labels distinguish an object’s reported find-place from what wear and material actually show. A cracked sounding weight can be useful evidence without being valuable treasure; an incomplete shipping ledger can identify a trade route without explaining a drowned people. Later, the player can bring a rubbing or a careful description from a submerged threshold and compare it with an ordinary collection piece. Similarity supports a question; it does not certify the sabre’s maker or a full account of the catastrophe. The missing blade leaves an empty mounting and an interrupted ordinary display, not a newly revealed altar.",
+  "id": "museum",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed comparison of ordinary coastal objects and late underwater finds. Museum knowledge is partial; the comparison does not settle the sabre’s origin."
+      },
+      "kind": "associated_with",
+      "to": "location_submerged_coast"
+    },
+    {
+      "kind": "part_of",
+      "to": "docks"
+    },
+    {
+      "data": {
+        "sections": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "Dockside Museum"
+}

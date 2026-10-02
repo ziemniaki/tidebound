@@ -1,0 +1,62 @@
+{
+  "data": {
+    "design": "Original Ekans coils and markings. Neutral grey scales with stock contrast and markings. Preserve original pixel shading and pose. No new poison mythology or additional anatomy.",
+    "moves": [
+      {
+        "description": "Level 9 in the species learnset. Dark offense replaces the stock line’s early poison emphasis.",
+        "name": "Bite"
+      },
+      {
+        "description": "Level 12 in the species learnset. Paralysis remains useful despite the changed typing.",
+        "name": "Glare"
+      },
+      {
+        "description": "Level 20 in the species learnset. Weakens special attackers; defense through intimidation rather than a new corruption power.",
+        "name": "Snarl"
+      }
+    ],
+    "types": [
+      "Normal",
+      "Dark"
+    ]
+  },
+  "description": "The coastal regional Ekans keeps its familiar snake shape while its purple scales become neutral grey. It is Normal/Dark, using intimidation and Dark attacks rather than the original poison move set. Its origin is not established.\n\nDark substitutions replace poison moves; even Coil is replaced by Hone Claws. It evolves into regional Arbok at level 22.\n\nProposed roadside behavior: it takes cover where a stone edge meets tall grass, with only a section of grey coil visible against the stones. As heavy footfalls approach, it pulls into cover; when the exit is blocked, it raises the front of its body and holds the position before striking. Give that retreat somewhere to go. Someone setting a crate down in the grass may accidentally close it, turning the same animal from an avoidable presence into a threatened one. This is a territorial encounter, not evidence of poison, evil or a supernatural origin.",
+  "id": "species_ekans_1",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Level 22"
+      },
+      "kind": "evolves_into",
+      "to": "species_arbok_1"
+    },
+    {
+      "data": {
+        "description": "Existing regional road-grass encounters at levels 4–6; no new wild Arbok placement follows."
+      },
+      "kind": "found_in",
+      "to": "south_road"
+    },
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_ekans_1"
+    }
+  ],
+  "name": "EKANS (Tidebound)"
+}

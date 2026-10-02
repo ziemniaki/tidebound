@@ -1,0 +1,39 @@
+{
+  "description": "The game must remain finishable without Suicune, with harm the player cannot repair.\n\nProposed aftermath, as an alternative to the hopeful crossing: survivors make a longer land detour because the familiar water route remains unsafe. The winter community can still repair a shared room and receive supplies. This preserves a real victory and continuing care while a visible wound endures; it does not decree the fate of every town or character. Choose the remaining harm together with the final supernatural mechanism, not as an extra punishment for missing a collectible.",
+  "id": "darker_ending",
+  "kind": "ending",
+  "links": [
+    {
+      "data": {
+        "description": "This is a viable victory without the unique solution, not an instruction to kill Suicune or an automatic result of every unfinished healing attempt."
+      },
+      "kind": "about",
+      "to": "suicune"
+    },
+    {
+      "data": {
+        "description": "Proposed aftermath visits show community work continuing without resolving Koga’s disappearance."
+      },
+      "kind": "features",
+      "to": "koga_sister"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
+          "§13.3–13.4: continued play without the unique solution"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "Proposed partial recovery; the exact final state depends on the final conflict design."
+      },
+      "kind": "takes_place_in",
+      "to": "winter_settlement"
+    }
+  ],
+  "name": "Victory without Suicune"
+}

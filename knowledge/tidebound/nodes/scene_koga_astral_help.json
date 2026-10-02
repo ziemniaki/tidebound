@@ -1,0 +1,58 @@
+{
+  "data": {
+    "beats": [
+      "The apparent friend stays visible while the protagonist checks an obscured path. He lets the child call him back and waits without complaint; the reunion is allowed to feel helpful.",
+      "One turn seems to bring them beside the same broken rail. Compare where the rail is broken and where their footsteps stop, then choose a route together. This local puzzle need not imply that astral geography follows a universal new rule.",
+      "At a safe pause, the child can admit relief at company or ask how he arrived. He can acknowledge confusion without naming Mother’s ritual, offering proof of his identity or explaining real Koga’s disappearance.",
+      "Reach the exit of this local space together. No cruelty in the last line overturns the moment. The later escalation occurs elsewhere, after the player has had time to remember the help."
+    ],
+    "consequences": "Proposed: this is a complete shared success within the false-return arc. It neither identifies the imitation yet nor authenticates an afterlife appearance by real Koga. Design a reachable route that does not require an established companion to die.",
+    "dialogue": [
+      {
+        "context": "Proposed draft. In the fog, while the reunion still feels trustworthy.",
+        "lines": [
+          {
+            "speaker": "The apparent Koga",
+            "text": "You can look. I’ll stay where you can see me."
+          },
+          {
+            "speaker": "Protagonist",
+            "text": "And if the path moves?"
+          },
+          {
+            "speaker": "The apparent Koga",
+            "text": "Call me back. We can be wrong together."
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Proposed draft. During the convincing phase of the false return, the apparent Koga helps the protagonist find a way through an astral space. The local objective is returning together, not paying for a friendship scene with a permanent companion loss. Entry and exit details must use the eventual astral traversal design.",
+  "id": "scene_koga_astral_help",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "false_koga"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.",
+        "sections": [
+          "§9 Chapter V; §§6.6, 10.2: convincing reunion and shared astral quest"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "astral"
+    }
+  ],
+  "name": "Someone waits in the fog"
+}

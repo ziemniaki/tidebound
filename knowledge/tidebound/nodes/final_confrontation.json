@@ -1,0 +1,60 @@
+{
+  "data": {
+    "questions": [
+      {
+        "question": "What happens when Suicune is captured but unhealed, healed and later lost, absent despite owning the sabre, or never encountered?"
+      },
+      {
+        "question": "What precise use of healed Suicune and the unique sabre enables the hopeful resolution?"
+      },
+      {
+        "question": "Which harm remains after ordinary victory, and what changes for familiar people and places in each ending?"
+      }
+    ]
+  },
+  "description": "Both ordinary victory without Suicune and the intended better resolution must remain possible; exact permanent conditions are not settled.\n\nProposed presentation: before the confrontation, let the player name a concrete person or place they mean to protect, then acknowledge evidence of the old wrongdoing. The adversary need not grant moral permission. Combat can stop an immediate attack while the separately designed Suicune–sabre interaction addresses the deeper harm. The two victories must show different consequences in a place already known, without suggesting the victims’ history was a lie.",
+  "id": "final_confrontation",
+  "kind": "quest",
+  "links": [
+    {
+      "kind": "features",
+      "to": "final_demon"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "description": "The late historical evidence makes the demons’ grievance intelligible without excusing attacks on present innocents."
+      },
+      "kind": "features",
+      "to": "victims_of_greed"
+    },
+    {
+      "data": {
+        "description": "Ordinary victory remains possible without Suicune. The lasting harm and detailed branch conditions remain open."
+      },
+      "kind": "leads_to",
+      "to": "darker_ending"
+    },
+    {
+      "data": {
+        "description": "The intended healed-Suicune and sabre route; precise final interaction remains undesigned."
+      },
+      "kind": "leads_to",
+      "to": "hopeful_ending"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
+          "§13: confirmed routes, proposed aftermaths and unresolved edge cases"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The final confrontation"
+}

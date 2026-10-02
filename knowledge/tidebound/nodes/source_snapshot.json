@@ -1,0 +1,16 @@
+{
+  "data": {
+    "baseline": {
+      "checkout": "71883156c1f586c2785ef82c1a88046e93fd9508",
+      "method": "Manual reading of authored code and creative specification; not rendered play observation",
+      "observed": "2026-09-28",
+      "spec": "1.31",
+      "version": "0.8.10"
+    }
+  },
+  "description": "Historical initial reading: game version 0.8.10 and bible 1.31. Subsequent graph authoring keeps imported facts distinct from new lore proposals. This baseline is not a claim about latest main or a record of a playtest.",
+  "id": "source_snapshot",
+  "kind": "source",
+  "links": [],
+  "name": "Tidebound inspected source snapshot"
+}

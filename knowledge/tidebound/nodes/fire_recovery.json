@@ -1,0 +1,29 @@
+{
+  "description": "Resting at a fire sets a return checkpoint. Each fire can restore eligible companions’ HP and PP once every 15 real minutes; the cooldown survives saves and includes time away. It can restore zero-HP party members but leaves status conditions unchanged and excludes eggs and borrowed guides. It cannot retrieve an individual already lost in the astral realm.\n\nA fire therefore offers a dependable pause without resolving every injury. A poisoned companion still needs attention after the warmth and full HP; returning to a familiar resting place has a practical purpose. Proposed staging: let the selected companion find room beside the child while distant route sounds remain audible. A quiet rest needs no new affection meter, prophecy or collectible.",
+  "id": "fire_recovery",
+  "kind": "mechanic",
+  "links": [
+    {
+      "kind": "about",
+      "to": "listening_wood"
+    },
+    {
+      "kind": "about",
+      "to": "south_road"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_fields"
+    },
+    {
+      "data": {
+        "sections": [
+          "§12.3: implemented per-fire rest, status limits and cooldown."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Fire recovery"
+}

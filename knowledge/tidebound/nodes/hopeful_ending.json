@@ -1,0 +1,46 @@
+{
+  "description": "Healed Suicune and the sabre enable the intended better resolution; exact final conditions remain undecided.\n\nProposed aftermath, conditional on the final mechanism still to be chosen: return to a familiar water crossing that can now be used safely, then to the winter community’s repaired shared room. The sister still has work and Koga is still absent. Show one ordinary journey resumed and one surviving burden; do not use a montage of universal restoration. The seller’s wife and permanently lost companions remain absent, and the sea’s deepest nature remains unresolved.",
+  "id": "hopeful_ending",
+  "kind": "ending",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed aftermath visits show community work continuing without resolving Koga’s disappearance."
+      },
+      "kind": "features",
+      "to": "koga_sister"
+    },
+    {
+      "data": {
+        "description": "The unique sabre and its intended use with healed Suicune matter; a generic source of Behemoth Blade is not an equivalent solution."
+      },
+      "kind": "requires",
+      "to": "sabre"
+    },
+    {
+      "data": {
+        "description": "The particular Suicune must be saved and healed; capture by itself is insufficient. Exact final conditions remain open."
+      },
+      "kind": "requires",
+      "to": "suicune"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
+          "§§7.5, 13.2–13.4: healed individual, unique weapon and unresolved conditions"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "Proposed partial recovery; the exact final state depends on the final conflict design."
+      },
+      "kind": "takes_place_in",
+      "to": "winter_settlement"
+    }
+  ],
+  "name": "The more hopeful resolution"
+}

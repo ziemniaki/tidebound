@@ -1,12 +1,12 @@
 # Current status
 
-**Playable baseline:** Demo 1, version 0.8.10. Pokémon Essentials 21.1, pinned
+**Current playable build:** Version 0.8.10. Pokémon Essentials 21.1, pinned
 mkxp-z runtime; universal Mac, Windows x64 and Linux x86_64 releases.
 
-The demo includes the dream opening, lighthouse family and companion choice,
+The current game includes the dream opening, lighthouse family and companion choice,
 oil-shop errand, forest/coastal encounters, necklace pursuit, hideout and Mending
 minigame, vault/museum visit, docks and southern pond. The captain's Psyduck
-Island conversation reaches the demo endpoint.
+Island conversation offers passage; the crossing is not yet playable.
 
 Island voyage gameplay, later Team Abyss chapters, shrine progression, Dive,
 Koga's settlements, late Suicune/sabre story, cemetery finale and endings remain
@@ -38,7 +38,15 @@ for the edit/build/check loop and scoped authoring guides.
 
 ## Next work
 
-- Playtest the current demo on the maintainer's target machines.
+Development knowledge is available through [KG](../tools/kg/README.md): one
+local SurrealDB graph shared by Codex and an account-free Surrealist browser UI,
+with full-text search, relationships and small Git exports. Its [current snapshot](../knowledge/README.md) describes
+the inspected game/spec baseline with lore dossiers, creature distinctions,
+contextual dialogue, visual briefs and concise source evidence. Its
+[authoring guide](../knowledge/authoring.md) sets the standard for grounded expansion. It does not execute
+gameplay or add any dependency to normal game builds and players.
+
+- Playtest the current game on the maintainer's target machines.
 - Choose the next complete playable milestone with the creative director.
 - Split large gameplay modules by feature when changing that feature; preserve
   current save state and the explicit source manifest order.

@@ -1,0 +1,21 @@
+{
+  "data": {
+    "paths": [
+      "content/items/TIDEBOUNDNECKLACE/item.json",
+      "content/items/TIDEBOUNDOILKEYS/item.json",
+      "content/items/TIDEBOUNDPIE/item.json",
+      "content/items/TIDEBOUNDPLATE/item.json",
+      "content/items/TIDEBOUNDREEDCHARM/item.json"
+    ]
+  },
+  "description": "Existing authored declarations; imported once, not a second native catalog",
+  "id": "source_items",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "items"
+}

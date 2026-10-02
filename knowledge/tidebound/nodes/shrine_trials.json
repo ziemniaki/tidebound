@@ -1,0 +1,68 @@
+{
+  "data": {
+    "beats": [
+      "Proposed: meet the traveller at an existing kind of resting stop. Help carry the cover or ask where it is needed; the traveller offers the incense for attempting the shrine visit, not as payment for winning a battle. The exact acquisition transaction remains to be designed without a new currency.",
+      "Find an empty shrine whose windward roof leaks over the offering place. Move the loose bench, secure the cover and sweep wet leaves clear. Keep this a short, readable piece of upkeep, not a crafting recipe or material grind. The smoke can now rise from a sheltered place.",
+      {
+        "description": "Inspect the offering place before committing to the summons. Tell the player it begins a trainer trial; do not unexpectedly start the fight while they are only examining the room.",
+        "options": [
+          {
+            "description": "Begin when ready. Summon the master only for the fight, allowing a brief greeting at its start."
+          },
+          {
+            "description": "Leave the incense unlit and return later. The repaired shelter remains useful to travellers; refusing the battle neither condemns the player nor undoes the work."
+          }
+        ]
+      },
+      "Proposed encounter: the master’s first companion endures and prepares while the next brings immediate pressure. Repeat a visible preparation cue so the player can respond to what the opponent does rather than solve a moral riddle. Choose the actual species and moves from the native battle rules when this trial is placed; no new combat mechanic is established here.",
+      "Victory grants this master’s eventual power or knowledge, still undecided. The master does not stay behind as a permanent shop or lore dispenser. If the player loses, preserve a route to trying again; incense consumption and how renewed access works require a deliberate decision before implementation.",
+      "On a later visit, the traveller or another passerby can use the repaired dry shelter even if the player declined the trial. A shifted bench and folded cover acknowledge that someone has been there. The shrine has an ordinary consequence as well as its eventual progression reward."
+    ],
+    "consequences": "Proposed: reaching and tending the shrine creates a usable stopping place. Winning and declining remain different—the power is not awarded for upkeep alone—but neither refusal nor battle loss erases the player’s contribution. No exact power, Dive award, incense consumption, recovery benefit or shrine count is selected.",
+    "dialogue": [
+      {
+        "context": "Proposed draft. The summoned master’s greeting at the start of the fight, after the player has chosen to begin.",
+        "lines": [
+          {
+            "speaker": "The summoned master",
+            "text": "Mind the wet boards. We are testing your companions, not your ankles."
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Most later shrines are empty until special incense summons a master for a fight. Finding a way to reach and use a neglected place matters before the trial; these are encounters within a journey, not a normal gym circuit. The number of shrines, masters, powers, incense varieties and consumption rules remain open. Dive must become available through a viable progression route, but its giver and conditions are not assigned here.\n\nProposed first-visit situation: a traveller maintaining a small resting fire has kept a wrapped piece of special incense dry, but a leaking shrine roof has made the offering place unusable. The traveller can describe the path and ask for help carrying a spare cover. The ordinary repair and entrusted incense provide a reason to visit without making the traveller an expert on every master. Neither the traveller’s identity nor this shrine’s location is fixed by the proposal.",
+  "id": "shrine_trials",
+  "kind": "quest",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed first-visit contact is a traveller maintaining a small resting fire. The shrine adds no healing or changes to existing fire recovery rules."
+      },
+      "kind": "associated_with",
+      "to": "fire_recovery"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "description": "The established very late cemetery belongs to the intended shrine progression; this link fixes no shrine count, geographic route or intermediate reward."
+      },
+      "kind": "includes",
+      "to": "cemetery_trial"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
+          "§11.1–11.3: incense, summoned fights, proposed retries and undecided traversal awards"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The old masters’ shrines"
+}

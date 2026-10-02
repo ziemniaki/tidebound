@@ -1,0 +1,32 @@
+{
+  "description": "Integrated whole-party loss starts an astral journey. Each waiting companion has one encounter and a six-round deadline; the engine catch-rate parameter is 35, not a 35 percent probability. Catching a spirit recovers the same individual, retaining the identity and history that made the loss matter. Defeating it, fleeing or running out of turns loses it permanently. Leaving with companions still waiting requires a warning and leaves them behind.\n\nThis pressure makes the encounter a reunion that can fail, rather than a replacement-creature reward. Keep its rules distinct from ordinary fire recovery, the opening bird dream and the fictional Mending game. The proposed shared journey with the apparent Koga needs its own reachable entry; this recovery loop does not require a sacrifice to unlock story companionship.\n\nLoss is permanent within the continuing journey; the current ordinary manual-save system still permits loading an older save. No anti-reload policy is established.",
+  "id": "astral_recovery",
+  "kind": "mechanic",
+  "links": [
+    {
+      "kind": "about",
+      "to": "astral"
+    },
+    {
+      "data": {
+        "description": "Permanent losses can inform the planned late memorial and trial; the cemetery does not undo recovery failures."
+      },
+      "kind": "associated_with",
+      "to": "cemetery_trial"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_astral"
+    },
+    {
+      "data": {
+        "sections": [
+          "§12.2: one encounter, six-round deadline and individual recovery; §12.4: saves."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Astral recovery"
+}

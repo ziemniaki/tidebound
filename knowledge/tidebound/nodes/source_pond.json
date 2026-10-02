@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/pond.rb"
+  },
+  "description": "Separate fisherman Toma, optional battles and persistent Psyduck appearance",
+  "id": "source_pond",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "pond"
+}

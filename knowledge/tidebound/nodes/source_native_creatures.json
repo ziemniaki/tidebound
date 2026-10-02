@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "runtime/essentials/base.zip"
+  },
+  "description": "Essentials 21.1 baseline: PBS/pokemon.txt, PBS/moves.txt and PBS/abilities.txt. Inspected for stock evolution levels, move availability and battle effects; these match the restored stock files. Stock Pokédex myths, geography and technologies are not automatically Tidebound lore. Authored regional overrides take precedence.",
+  "id": "source_native_creatures",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "Pinned native species, moves and abilities"
+}

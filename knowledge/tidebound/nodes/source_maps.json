@@ -1,0 +1,32 @@
+{
+  "data": {
+    "paths": [
+      "content/maps/astral/map.json",
+      "content/maps/basement/map.json",
+      "content/maps/bedroom/map.json",
+      "content/maps/coast/map.json",
+      "content/maps/docks/map.json",
+      "content/maps/dream/map.json",
+      "content/maps/folded/map.json",
+      "content/maps/forest/map.json",
+      "content/maps/hideout/map.json",
+      "content/maps/home/map.json",
+      "content/maps/lantern/map.json",
+      "content/maps/maze/map.json",
+      "content/maps/museum/map.json",
+      "content/maps/road/map.json",
+      "content/maps/shop/map.json",
+      "content/maps/vault/map.json"
+    ]
+  },
+  "description": "Existing authored declarations; imported once, not a second native catalog",
+  "id": "source_maps",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "maps"
+}

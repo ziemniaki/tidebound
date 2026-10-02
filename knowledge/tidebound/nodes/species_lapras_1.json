@@ -1,0 +1,49 @@
+{
+  "data": {
+    "design": "Original Lapras proportions and poses. Cold white and cream body, muted grey shell, jade eye, faded-yellow forehead scar. Small pixel accents and sparse stepped mist behind the body. No elaborate aura or claim that Ghost typing implies malice. The scar’s meaning is undecided.",
+    "moves": [
+      {
+        "description": "Level 5 in the species learnset. Inherited sleep move; a possible source for performance direction, not proof of a new lore power.",
+        "name": "Sing"
+      },
+      {
+        "description": "Level 15 in the species learnset. Inherited active-party healing does not establish recruitment or field recovery.",
+        "name": "Life Dew"
+      },
+      {
+        "description": "Level 60 in the species learnset. Inherited late battle countdown affects active battlers; it does not establish the apparition’s intentions.",
+        "name": "Perish Song"
+      }
+    ],
+    "questions": [
+      {
+        "question": "Which Ghost techniques, if any, should distinguish this form from its inherited Lapras moves, and when should they become available?"
+      }
+    ],
+    "types": [
+      "Water",
+      "Ghost"
+    ]
+  },
+  "description": "A recognizable Lapras made cold-white and ghostly. The Water/Ghost form must be capable of tenderness as well as unease; the specific pier individual carries the planned relationship arc.\n\nThe current regional form changes typing to Water/Ghost while inheriting ordinary Lapras’s level-up moves and abilities: Water Absorb, Shell Armor and hidden Hydration. The inherited level-up list has Confuse Ray but no damaging Ghost-type attacks. Its eventual recruitment, growth and regional move identity therefore remain real design work.",
+  "id": "species_lapras_1",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_lapras_1"
+    }
+  ],
+  "name": "LAPRAS (Tidebound)"
+}

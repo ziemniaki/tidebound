@@ -1,0 +1,25 @@
+{
+  "description": "The eastern-pier captain offers passage toward Psyduck Island while the Little Promise prepares stores. His invitation opens the next journey; he remains a working boat operator, not the mouthpiece of a supernatural explanation.",
+  "id": "captain",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "sourced_from",
+      "to": "source_docks"
+    },
+    {
+      "data": {
+        "sections": [
+          "§30: working harbour, optional sailors and the planned island crossing."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "works_at",
+      "to": "docks"
+    }
+  ],
+  "name": "The eastern-pier captain"
+}

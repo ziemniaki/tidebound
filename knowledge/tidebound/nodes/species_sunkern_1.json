@@ -1,0 +1,75 @@
+{
+  "data": {
+    "design": "Stock Sunkern seed silhouette, small and vulnerable. Faded ochre and olive shell; drooping sage leaves with dry tips. Tired, sad face; wilted leaves must read at actual sprite size. No demonic symbols, new limbs or promise of an approved sunlight cure.",
+    "dex_entry": "With no sunrise to turn towards, its leaves droop and its shell loses its colour. It roots in the dark soil, drawing out just enough energy to endure another night.",
+    "moves": [
+      {
+        "description": "Level 1 in the species learnset. Draws health from a target; establishes the line’s draining battle style.",
+        "name": "Absorb"
+      },
+      {
+        "description": "Level 7 in the species learnset. Gradual healing trades away the ability to switch freely.",
+        "name": "Ingrain"
+      },
+      {
+        "description": "Level 31 in the species learnset. A later special Dark attack extends its early survival-focused kit.",
+        "name": "Dark Pulse"
+      }
+    ],
+    "questions": [
+      {
+        "question": "Should the region retain its inherited sun-dependent battle abilities, or use abilities that better fit its ordinary play conditions?"
+      }
+    ],
+    "types": [
+      "Grass",
+      "Dark"
+    ]
+  },
+  "description": "Without sunrise, the local Sunkern endures rather than flourishes. Its leaves droop, the shell loses color and it draws enough from the dark soil to last another night. Its Dark typing describes this regional life; it does not make the small seed evil.\n\nA vulnerable early companion whose moves draw energy from its surroundings and anchor it to the soil.\n\nThe regional move list removes sun-themed progression, but its current abilities still inherit Chlorophyll, Solar Power and hidden Early Bird from ordinary Sunkern. The first two respond to battle sunshine, not a new ordinary daytime cycle. This inherited kit is a design question, not evidence of a cure for the region’s night.\n\nProposed ecology: small groups root in damp soil behind windbreaks. Their position follows shelter and retained moisture rather than an invented surviving sunrise. Disturbed individuals loosen their roots slowly before moving; a companion needs time to settle when the party stops. This could make its battle tradeoff with Ingrain recognizable without making field travel consume a new care resource.\n\nProposed life at the pond: the lee of a broad bank stone holds a little cluster, separated from the place where people put down nets. Psyduck’s foraging sometimes loosens the edge of that soil, leaving a seed tilted but still rooted. Firming the soil beside it rather than tugging the leaves gives an ordinary act of care a visible result: the seed can face upright again, though its leaves remain tired. This helps it endure; it is not a substitute sun or prevention of its established evolution.",
+  "id": "species_sunkern_1",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Level 14"
+      },
+      "kind": "evolves_into",
+      "to": "species_moonkern"
+    },
+    {
+      "data": {
+        "description": "Existing pond-grass encounters at levels 8–10."
+      },
+      "kind": "found_in",
+      "to": "pond"
+    },
+    {
+      "data": {
+        "description": "Existing road-grass encounters at levels 4–6."
+      },
+      "kind": "found_in",
+      "to": "south_road"
+    },
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_sunkern_1"
+    }
+  ],
+  "name": "SUNKERN (Tidebound)"
+}

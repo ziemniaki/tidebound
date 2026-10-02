@@ -1,0 +1,20 @@
+{
+  "data": {
+    "design": "Proposed human-scale approach: a plain resting ledge before the gallery, worn stone at stopping places and shallow ledges that can remain empty. Leave the surrounding landscape and relation to the sea undecided until the late route is chosen. Individual memorial presence should come from the actual lost companion, not identical tomb props with invented names."
+  },
+  "description": "A late shrine and gallery preserve the player’s fallen companions. Facing actual lost individuals can make the final trial personal, but the place is not a guaranteed resurrection service. Its architecture and relation to the astral plane remain open.\n\nProposed care for the place: the visitor can stop at a plain resting ledge before approaching the gallery. Small ledges near remembered companions are kept clear; leaving them empty is as permissible as placing an ordinary token. The master tends this space between challengers rather than existing only to start a fight. A pause, a remembered habit and the choice to continue can acknowledge an individual without promising that an offering will bring them back. Final identity, access and architecture remain open.\n\nProposed sound: begin with the visitor’s footsteps and a cloth drawn over stone. A remembered companion’s actual cry can interrupt the quiet when its presence is recognized; use its established identity rather than a generic ghost choir. The trial may become severe without turning every resting place into a threatening sound cue.",
+  "id": "cemetery",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The late cemetery"
+}

@@ -1,0 +1,52 @@
+{
+  "data": {
+    "category": "Phantom Bloom",
+    "design": "Compact Sunflora-like flower: round hollow face, simple petal ring, short stem and leaf arms. Muted petals and flat, restrained colors. Tired, quietly angry eyes in the hollow face; simple contour and stock-like proportions. No ornate petals, decorative wisps, aura or physical resurrection.",
+    "dex_entry": "The flower it longed to become appears only as a spirit. Its hollow face turns towards an absent sun, weary eyes burning with a quiet resentment.",
+    "height_m": 1.1,
+    "moves": [
+      {
+        "description": "On evolution. Gives immediate special Ghost offense at evolution.",
+        "name": "Shadow Ball"
+      },
+      {
+        "description": "Level 22 in the species learnset. Continues the draining plant identity after its spectral change.",
+        "name": "Giga Drain"
+      },
+      {
+        "description": "Level 23 in the species learnset. Earlier access than Moonkern rewards this evolution without restoring the original physical plant.",
+        "name": "Will-O-Wisp"
+      },
+      {
+        "description": "Level 31 in the species learnset. Offers a special-offense setup route alongside draining and disruption.",
+        "name": "Nasty Plot"
+      }
+    ],
+    "types": [
+      "Grass",
+      "Ghost"
+    ],
+    "weight_kg": 0.1
+  },
+  "description": "The flower the seed longed to become appears as a spirit. A hollow face turns toward an absent sun with quiet resentment. Becoming flower-shaped does not establish that the original plant has returned to life.\n\nIt keeps Moonkern’s Insomnia/Infiltrator options and hidden Cursed Body. The level-20 evolution strengthens special offense while retaining the spectral line’s draining and disruptive moves. It has no further evolution; the flower shape is not a reversal of death.\n\nProposed behavior: while resting, its hollow face turns toward the same empty horizon and its leaf arms hang close to the stem. It turns the face toward a familiar companion’s approach before lifting the arms. This small recognition should survive its weary expression; spectral appearance need not erase the individual’s bond or make it hostile to all living things.\n\nProposed companion interaction: set down the pack beside its familiar stone and leave room for the flower to settle. It first turns toward the empty horizon, then toward the person waiting beside it. The shared pause is allowed to remain quiet; affection does not erase the longing embodied by this form. For a player who raised the seed, the repeated place makes change legible without a speech about death.",
+  "id": "species_moonflora",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_moonflora"
+    }
+  ],
+  "name": "Moonflora"
+}

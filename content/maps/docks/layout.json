@@ -3188,7 +3188,7 @@
     "44": {
       "$type": "RPG::Event",
       "id": 44,
-      "name": "Demo prop:ship1",
+      "name": "Harbour prop:ship1",
       "x": 27,
       "y": 47,
       "pages": [
@@ -3257,7 +3257,7 @@
     "45": {
       "$type": "RPG::Event",
       "id": 45,
-      "name": "Demo prop:ship2",
+      "name": "Harbour prop:ship2",
       "x": 56,
       "y": 47,
       "pages": [
@@ -3380,7 +3380,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:ropes)"]
+              "parameters": ["Tidebound::Docks.talk(:ropes)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -3449,7 +3449,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:keeper)"]
+              "parameters": ["Tidebound::Docks.talk(:keeper)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -3518,7 +3518,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:flour)"]
+              "parameters": ["Tidebound::Docks.talk(:flour)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -3587,7 +3587,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:stars)"]
+              "parameters": ["Tidebound::Docks.talk(:stars)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -3656,7 +3656,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:letters)"]
+              "parameters": ["Tidebound::Docks.talk(:letters)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -3725,7 +3725,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:cargo)"]
+              "parameters": ["Tidebound::Docks.talk(:cargo)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -3794,7 +3794,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:museum)"]
+              "parameters": ["Tidebound::Docks.talk(:museum)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -3863,7 +3863,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:snow)"]
+              "parameters": ["Tidebound::Docks.talk(:snow)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -3932,7 +3932,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:pie)"]
+              "parameters": ["Tidebound::Docks.talk(:pie)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -4001,7 +4001,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:sleep)"]
+              "parameters": ["Tidebound::Docks.talk(:sleep)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -4070,7 +4070,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:islands)"]
+              "parameters": ["Tidebound::Docks.talk(:islands)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -4139,7 +4139,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:repairs)"]
+              "parameters": ["Tidebound::Docks.talk(:repairs)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -4208,7 +4208,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.talk(:mate)"]
+              "parameters": ["Tidebound::Docks.talk(:mate)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -4277,7 +4277,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.sailor_battle(:nell)"]
+              "parameters": ["Tidebound::Docks.sailor_battle(:nell)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -4346,7 +4346,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.sailor_battle(:oren)"]
+              "parameters": ["Tidebound::Docks.sailor_battle(:oren)"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -4415,7 +4415,7 @@
               "$type": "RPG::EventCommand",
               "code": 355,
               "indent": 0,
-              "parameters": ["Tidebound::DemoLaunch.voyage"]
+              "parameters": ["Tidebound::Docks.voyage"]
             },
             {
               "$type": "RPG::EventCommand",
@@ -4430,7 +4430,7 @@
     "62": {
       "$type": "RPG::Event",
       "id": 62,
-      "name": "Demo prop:cargo",
+      "name": "Harbour prop:cargo",
       "x": 35,
       "y": 38,
       "pages": [
@@ -4499,7 +4499,7 @@
     "63": {
       "$type": "RPG::Event",
       "id": 63,
-      "name": "Demo prop:cargo",
+      "name": "Harbour prop:cargo",
       "x": 48,
       "y": 39,
       "pages": [
@@ -4568,7 +4568,7 @@
     "64": {
       "$type": "RPG::Event",
       "id": 64,
-      "name": "Demo prop:cargo",
+      "name": "Harbour prop:cargo",
       "x": 51,
       "y": 41,
       "pages": [
@@ -4637,7 +4637,7 @@
     "65": {
       "$type": "RPG::Event",
       "id": 65,
-      "name": "Demo prop:board",
+      "name": "Harbour prop:board",
       "x": 51,
       "y": 38,
       "pages": [
@@ -4706,7 +4706,7 @@
     "66": {
       "$type": "RPG::Event",
       "id": 66,
-      "name": "Demo prop:ledger",
+      "name": "Harbour prop:ledger",
       "x": 36,
       "y": 41,
       "pages": [
@@ -4775,7 +4775,7 @@
     "67": {
       "$type": "RPG::Event",
       "id": 67,
-      "name": "Demo prop:memorial",
+      "name": "Harbour prop:memorial",
       "x": 19,
       "y": 40,
       "pages": [

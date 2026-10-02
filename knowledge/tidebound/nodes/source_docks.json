@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/docks/quest.rb"
+  },
+  "description": "Optional sailor battles and accepted invitation; no voyage transfer",
+  "id": "source_docks",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "docks"
+}

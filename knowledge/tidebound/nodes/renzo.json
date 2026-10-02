@@ -1,0 +1,39 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. After winning Renzo’s optional pond battle.",
+        "lines": [
+          {
+            "speaker": "Renzo",
+            "text": "Someone used to prune the berry tree. I take two and leave the rest. Seems only fair."
+          }
+        ],
+        "source": "source_pond"
+      }
+    ]
+  },
+  "description": "A pond fisherman whose complaint grows from stolen bait to the indignity of Aipom returning for the lid. His optional battle offers a way to recover his dignity; after losing, he concedes that at least the bucket remains. He remembers that someone used to prune the berry tree and takes two berries while leaving the rest. He does not claim ownership of the tree or knowledge of the island stone.",
+  "id": "renzo",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_pond"
+    },
+    {
+      "kind": "works_at",
+      "to": "pond"
+    }
+  ],
+  "name": "Renzo"
+}

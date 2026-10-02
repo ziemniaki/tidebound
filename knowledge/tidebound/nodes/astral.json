@@ -1,0 +1,21 @@
+{
+  "description": "Fog and uncertain distances hold roaming lost companions and recognizable fragments of living places. Recovery is a search for the same individual, not the creation of a replacement. This realm must remain distinct from the opening bird dream and the boys’ fictional game.",
+  "id": "astral",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "§§3.6 and 5.8: astral spaces; §12.2: individual recovery."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "Beyond the Shore"
+}

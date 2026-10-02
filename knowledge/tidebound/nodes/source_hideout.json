@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/hideout.rb"
+  },
+  "description": "Bram, Mending, Ivo, persisted wins and full-pocket handoff",
+  "id": "source_hideout",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "hideout"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "An apparently ordinary room folds attempted escape back to its center. Books offer associations for three bed riddles; sleeping for “twelve years” summons Wick. The label is dream language, not proof of elapsed calendar years.",
+  "id": "first_bedroom",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "0.7.18–0.7.19 additions: false room, books, water-curse leaf and second bedroom."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "Your Room"
+}

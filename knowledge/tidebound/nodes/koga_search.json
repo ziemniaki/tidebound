@@ -1,0 +1,97 @@
+{
+  "data": {
+    "beats": [
+      "Proposed opening scenes: work and practice with Koga in the winter community; visit the still-living forest refuge; encounter his practical help in the second settlement. Choose his team before writing species-specific actions.",
+      "Koga disappears. Different residents search, organize defense, pass on return rumours or ask for supernatural help. The player should have actual places and people to revisit, not only a disappearance announcement.",
+      "The apparent return provides genuine-feeling help, including the proposed shared astral scene. Suspicion and coercive protection come later.",
+      "The winter settlement’s poison defense has a visible benefit and an escalating cost. Its sister can oppose a concrete harmful order without already knowing the origin of the returned figure.",
+      "See the refuge poisoned, meet its dying guardian and confront corrupted Suicune before the pseudo-Koga boss. Capture or killing remains the established consequential branch; healing follows separately.",
+      "Destroy the deteriorated poison imitation, whose boss roster contains none of real Koga’s familiar team.",
+      "Proposed testimony scene: connect firsthand accounts with material evidence of the conjuration. Help surviving residents while leaving real Koga’s fate unanswered."
+    ],
+    "consequences": "Stopping the imitation ends its immediate coercion, not the contamination or the absence. Proposed: the sister resumes shared work in one usable room while the search remains unresolved. Neither astral quests nor the cemetery can secretly restore real Koga."
+  },
+  "description": "Know the real friend and his familiar team across repeated visits, lose him, believe the false reunion, confront the refuge’s harm before the imitation boss, then learn the conjuration without finding real Koga. The search matters through relationships and the people it can still help even though its original question remains unanswered.",
+  "id": "koga_search",
+  "kind": "quest",
+  "links": [
+    {
+      "kind": "features",
+      "to": "false_koga"
+    },
+    {
+      "data": {
+        "description": "After the imitation’s destruction, testimony explains the conjuration without locating real Koga."
+      },
+      "kind": "features",
+      "to": "false_koga_origin"
+    },
+    {
+      "kind": "features",
+      "to": "koga"
+    },
+    {
+      "kind": "features",
+      "to": "koga_sister"
+    },
+    {
+      "kind": "features",
+      "to": "suicune"
+    },
+    {
+      "data": {
+        "description": "Proposed scene development within the established Koga arc."
+      },
+      "kind": "includes",
+      "to": "scene_koga_astral_help"
+    },
+    {
+      "data": {
+        "description": "Proposed scene development within the established Koga arc."
+      },
+      "kind": "includes",
+      "to": "scene_koga_shared_work"
+    },
+    {
+      "data": {
+        "description": "Proposed scene development within the established Koga arc."
+      },
+      "kind": "includes",
+      "to": "scene_koga_testimony"
+    },
+    {
+      "data": {
+        "description": "Proposed scene development within the established Koga arc."
+      },
+      "kind": "includes",
+      "to": "scene_refuge_before_poison"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
+          "§§5.5–5.8, 10.2–10.3: communities, astral companionship and refuge order"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "astral"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "forest_refuge"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "river_settlement"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "winter_settlement"
+    }
+  ],
+  "name": "The search for Koga"
+}
