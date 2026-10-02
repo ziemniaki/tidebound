@@ -1,0 +1,34 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Ordinary conversation at the food stall.",
+        "lines": [
+          {
+            "speaker": "Neris",
+            "text": "I feed the late watch from this stall. Hot broth, cold bread, the same argument about the price."
+          },
+          {
+            "speaker": "Neris",
+            "text": "When my husband stopped coming home, they kept bringing his bowl back washed. I still put it out."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "Neris feeds the late watch from a waterfront stall: hot broth, cold bread and recurring arguments over price. When her husband stopped coming home, the crew kept returning his bowl washed. She still sets it out. That repeated act establishes his absence and the crew’s care without confirming death, a supernatural disappearance or a hidden quest.",
+  "id": "neris",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "works_at",
+      "to": "docks"
+    }
+  ],
+  "name": "Neris"
+}

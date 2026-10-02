@@ -1,0 +1,89 @@
+{
+  "data": {
+    "beats": [
+      "Watch the staged bout, inspect the board, or speak to Harker. An unresolved cargo-oil conversation takes priority over the ring menu.",
+      "Ask to meet the challenger. Harker announces the current sailor, species and levels; a party without an able companion cannot receive a bout.",
+      {
+        "description": "The entry prompt explicitly warns that companions face the same danger as in any battle.",
+        "options": [
+          {
+            "description": "Decline. The same offer remains available until its expiry; no bout is consumed."
+          },
+          {
+            "description": "Accept. Fight the announced team under the ordinary battle and loss-recovery rules; the ring provides no healing."
+          }
+        ]
+      },
+      "A completed bout consumes that offer, including loss or draw. An aborted battle leaves it available. Only victory records a win; Harker marks the slate while a spectator counts out a week’s pay.",
+      "Return after the offer’s expiry for another challenger. The ring and harbour errands are optional and do not arrange the island crossing."
+    ],
+    "consequences": "Companions retain the same stakes as elsewhere, including whole-party loss leading into the astral recovery route. There is no house healing, separate safe-sparring ruleset or player betting payout. Used offers and their remaining wait survive saving. The visible Machop and Hitmonlee display itself causes no damage or encounter.",
+    "design": "A rectangular outdoor ring bounded by wooden posts and sagging double ropes, with near ropes drawn in front of the two sparring Pokémon. Machop lunges from the left and Hitmonlee from the right in alternating short movements. Harker stands below the ropes; sailors watch beside a greasy betting slate and a bucket of water described as having turned pink. The ropes block the player from simply walking into the display. Keep the fighting figures distinct from the current challenger’s announced team.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Inspecting the sparring display.",
+        "lines": [
+          {
+            "speaker": "Narration",
+            "text": "Machop drives forward. Hitmonlee answers with a kick. The ropes jerk; the sailors lean closer."
+          },
+          {
+            "speaker": "Narration",
+            "text": "A voice calls a price. Nobody asks the two in the ring."
+          }
+        ],
+        "source": "source_harbour_ring"
+      }
+    ]
+  },
+  "description": "An outdoor ring in the north-east of the dock city brings spectators, betting and ordinary work animals into an uneasy public spectacle. Machop drives forward and Hitmonlee answers with kicks while ropes jerk and sailors lean closer. Their alternating overworld lunges are a staged display; the player challenges a separately generated sailor’s team through Harker. The spectators’ bets do not create a player betting system.\n\nA challenger offers one to three distinct, level-legal species from a curated roster of shore workers, scavengers and brawlers. The size follows the able party up to three opponents; levels sit one to three below the able party’s median, with a floor of one. Each selection favors previously seen species with an 80/20 seen/unseen draw, falling back to the eligible pool if one bucket is empty. Legendary, mythical, Ultra Beast and pseudo-legendary candidates are excluded from both pools, as are alternate forms, species with a base-stat total of 600 or more, and candidates without a damaging move at that level. Seeing a species elsewhere does not make it eligible. These are current balancing choices.\n\nHarker keeps one saved offer for fifteen real minutes. Changing the able party can rebalance its team without extending the clock; reloading does not provide a new draw. A generated challenger’s display name is not an identity for a recurring resident, even when the name happens to be Venn.",
+  "id": "harbour_ring",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "harker"
+    },
+    {
+      "data": {
+        "description": "The fixed spectator distinguishes watching tired feet from knowing which fighter will lose."
+      },
+      "kind": "features",
+      "to": "rusk"
+    },
+    {
+      "data": {
+        "description": "The fixed resident bets beside the display. Generated challenger names do not identify this resident."
+      },
+      "kind": "features",
+      "to": "venn"
+    },
+    {
+      "data": {
+        "description": "Conditional on whole-party loss through the ordinary battle adapter, not a special ring realm."
+      },
+      "kind": "leads_to",
+      "to": "astral_recovery"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_encounters"
+    },
+    {
+      "data": {
+        "description": "§30: the working harbour, optional ring and saved challenger behavior."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_ring"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "docks"
+    }
+  ],
+  "name": "The quarter-hour ring"
+}

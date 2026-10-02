@@ -1,0 +1,30 @@
+{
+  "data": {
+    "design": "Wooden netting shuttle with a smooth, worn handle and three small cuts. Preserve the practical tool and recognizable marks; no magical property is established."
+  },
+  "description": "Sella’s wooden netting tool lies deep in folded nets beside the western pier. Its handle is worn smooth and marked with three small cuts. On its return Sella identifies it as her brother’s, connecting an ordinary working object to his having relearned net repair after a winch injury. It is returned to Sella, not kept as a quest trophy.",
+  "id": "netting_shuttle",
+  "kind": "item",
+  "links": [
+    {
+      "kind": "belongs_to",
+      "to": "sella"
+    },
+    {
+      "data": {
+        "description": "In folded nets beside the western pier; inspect first, collect only after accepting Sella’s request."
+      },
+      "kind": "found_in",
+      "to": "docks"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_items"
+    }
+  ],
+  "name": "Netting Shuttle"
+}

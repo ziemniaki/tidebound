@@ -7,10 +7,11 @@ separate LLM service is needed.
 
 The graph describes the game rather than executing it. The
 [game bible](../specs/game-design.md) remains creative authority and native source
-owns implemented behavior. The initial snapshot covers game version 0.8.10 and spec
-1.31, inspected on 28 September 2026 at checkout
-`71883156c1f586c2785ef82c1a88046e93fd9508`. This is a historical baseline,
-not a claim about the latest main branch.
+owns implemented behavior. The current source review covers game version 0.8.12
+at main commit `4135b5c9baa828d2b4246f3b44c4b90b63021433`, inspected on
+2 October 2026. The bible retains its 1.31 header with later additions through
+section 33. `source_snapshot` records the inspected revision; future main changes
+still need source review.
 
 ## Use
 
@@ -37,14 +38,16 @@ Ctrl-C stops it. See [browser setup](../tools/kg/README.md#browse-locally-withou
 
 The graph covers authored locations, regional species, household individuals, story
 items and NPCs; the opening, oil/necklace progression, Mending, vault, museum,
-docks and pond; and selected wider canon, decisions and asset descriptions.
+harbour errands and ring, pond, Hollow Wood and Skull Hollow; and selected wider
+canon, decisions and asset descriptions.
 
 Each entity has one file under `tidebound/nodes/` containing its properties and
 outgoing links. `graph.json` is a small manifest with no shared entity list.
 Entity IDs use lowercase `snake_case`, including source and species IDs; filenames
 match the ID. Display names retain their natural spelling.
 Source evidence is part of this graph: `sourced_from` links point to source
-entities, which point to the historical `source_snapshot`. Source records identify useful reading and its historical baseline; they carry no
+entities, which point to `source_snapshot`. Source records identify useful reading
+and the inspected revision; they carry no
 per-file checksum maintenance.
 
 Read [Writing Tidebound’s world](authoring.md) before expanding it. Records contain
@@ -84,6 +87,13 @@ the oil trade and fencing, shrine visits, and ordinary life beneath the sea.
 See [review and remaining decisions](../docs/story-asset-graph.md#whole-world-review).
 Tidebound develops continuously; `opening_journey` records the current playable
 extent without making the harbour invitation an ending.
+
+The 0.8.12 pass imports the harbour’s named residents, three errands and their
+objects, Harker’s ring, the two northern areas and their actual Ghost encounters.
+It also checks the repaired pond trail, early pier reveal timing and shared cave
+loss recovery. Existing dialogue is quoted from its owner; generated challenger
+names do not create fixed NPC identities. The traveller’s broken-bridge line is
+recorded as a continuity mismatch with the now-open northern route.
 
 Two people named Toma remain separate identities. Koga and the imitation likewise
 remain separate, connected by `portrays`. The necklace stays one unique keepsake.

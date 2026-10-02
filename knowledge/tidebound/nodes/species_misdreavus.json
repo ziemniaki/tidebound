@@ -1,0 +1,52 @@
+{
+  "data": {
+    "design": "Use the existing Misdreavus form: a floating dark head with flowing hair, pink-edged locks and red beads around the neck. The haunted cave adds no costume, skull connection or regional transformation.",
+    "moves": [
+      {
+        "description": "Level 19. Restrains an affected target from fleeing under ordinary battle rules; it is a battle move, not a cave exit gate.",
+        "name": "Mean Look"
+      },
+      {
+        "description": "Level 23. Available across its cave encounter range and strengthened against a target with a status problem.",
+        "name": "Hex"
+      }
+    ],
+    "types": [
+      "Ghost"
+    ]
+  },
+  "description": "A stock Ghost species encountered inside Skull Hollow, absent from the current forest grass table. Its floating head, flowing hair and red neck beads give the encounter a distinct shape from the other cave ghosts. Levitate accompanies disruption through Confuse Ray and Mean Look. Hex is strengthened by a major status condition; confusion alone does not increase its damage.\n\nIts native evolution into Mismagius uses a Dusk Stone. The northern forest and cave update supplies no new evolution item or acquisition quest.",
+  "id": "species_misdreavus",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Existing cave encounters at levels 23–27."
+      },
+      "kind": "found_in",
+      "to": "skull_hollow"
+    },
+    {
+      "data": {
+        "description": "§33: implemented level 20+ Ghost encounters; the entrance skull’s identity and wider lore remain open."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "Authored northern forest and skull-cave encounter tables."
+      },
+      "kind": "sourced_from",
+      "to": "source_haunted_landscape"
+    },
+    {
+      "data": {
+        "description": "Pinned PBS species and moves: typing, abilities, selected move levels/effects and evolution. Stock supernatural folklore is not imported as a regional explanation."
+      },
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Misdreavus"
+}

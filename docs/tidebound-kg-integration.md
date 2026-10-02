@@ -12,10 +12,12 @@ on character and location identities.
 
 ## Current contents
 
-The first snapshot was curated from game version 0.8.10 and spec 1.31 at checkout
-`71883156c1f586c2785ef82c1a88046e93fd9508`. The `source_snapshot` entity records
-that historical baseline and its limitations. No claim is made that this is the
-latest main branch. Updating it means reviewing current sources and their meanings.
+The current source review covers game version 0.8.12 at main commit
+`4135b5c9baa828d2b4246f3b44c4b90b63021433`. It includes the harbour residents,
+errands and ring, repaired pond route, Hollow Wood and Skull Hollow, and the
+native pier/recovery changes. The bible retains its 1.31 header with later
+additions through section 33. `source_snapshot` records this inspected revision
+and its limitations; updating it requires reading changed sources and their meanings.
 
 The household, regional species and opening scenes now carry concrete descriptions,
 behavior, contextual dialogue and visual direction. Later canon and unresolved

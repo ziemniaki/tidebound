@@ -1,0 +1,70 @@
+{
+  "data": {
+    "beats": [
+      {
+        "description": "Jory offers the sealed letter for Irena by the lamp north-west of the museum.",
+        "options": [
+          {
+            "description": "Accept and make room to carry it. Once handover succeeds, Jory emphasizes that her daughter is alive. A full bag leaves the letter with him for another attempt."
+          },
+          {
+            "description": "Decline or leave. The job remains available; there is no missed-watch deadline."
+          }
+        ]
+      },
+      "While carrying it, Jory repeats the destination and asks that the envelope remain sealed. Talking to Irena delivers the letter; she reads the address twice, opens it and asks the child to tell Jory it arrived.",
+      "Return to Jory for two Oran Berries. On later visits Irena speaks of deciding what she can carry, without saying she has decided to go."
+    ],
+    "consequences": "The envelope is handed over once and disappears from the player’s bag. Reporting delivery remains possible after saving or leaving the area. If the berry reward cannot fit, Jory keeps it for a later attempt; repeated visits do not award it again. This optional job does not arrange passage, unlock the museum or require a battle.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. After Irena opens the delivered letter.",
+        "lines": [
+          {
+            "speaker": "Irena",
+            "text": "She has painted the little room. She says I would like the colour."
+          },
+          {
+            "speaker": "Irena",
+            "text": "Tell Jory it arrived. Do not tell him I cried. He will try to charge for the water."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "An optional delivery carries news between a daughter inland, a sailor whose watch is starting and a harbour resident weighing the possibility of leaving. Jory’s request protects the letter’s privacy; Irena’s response preserves her agency. Completing the task opens a possibility rather than deciding that she must go.",
+  "id": "harbour_letter",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "irena"
+    },
+    {
+      "kind": "features",
+      "to": "jory"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "sealed_letter"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "docks"
+    }
+  ],
+  "name": "A letter for Irena"
+}

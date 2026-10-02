@@ -1,0 +1,19 @@
+{
+  "description": "The Silk Scarf Sella gives after her shuttle is returned was mended by her brother until, in her words, there was more mend than scarf. It still serves its purpose. This is the personal provenance of the existing Silk Scarf reward, not a new item type, unique magic power or evidence that her brother has died.",
+  "id": "sella_scarf",
+  "kind": "item",
+  "links": [
+    {
+      "data": {
+        "description": "She gives it to the protagonist as the one-time reward for returning her shuttle. If it cannot fit, she keeps it until collection succeeds."
+      },
+      "kind": "belongs_to",
+      "to": "sella"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    }
+  ],
+  "name": "Sella’s repaired scarf"
+}

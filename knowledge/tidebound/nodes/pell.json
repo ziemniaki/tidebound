@@ -1,0 +1,34 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Ordinary conversation beside Sella.",
+        "lines": [
+          {
+            "speaker": "Pell",
+            "text": "Sella makes me undo a knot if I cannot explain what holds it."
+          },
+          {
+            "speaker": "Pell",
+            "text": "I thought she was being cruel. Then a man stood on my first net."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "Sella’s apprentice once thought it cruel to be made to undo a knot he could not explain. Seeing a man stand on his first net made the demand understandable. The lesson ties a small hand skill to somebody else’s safety; no larger guild or training institution is established.",
+  "id": "pell",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "works_at",
+      "to": "docks"
+    }
+  ],
+  "name": "Pell"
+}

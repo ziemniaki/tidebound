@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/engine/encounters.rb"
+  },
+  "description": "Visible wild and trainer encounters, plus native grass and cave encounters across authored living-world maps, use the shared loss and astral-transfer path. This establishes current coverage, not a new creature mythology.",
+  "id": "source_encounters",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "Shared living-world encounters"
+}

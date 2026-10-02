@@ -1,0 +1,63 @@
+{
+  "data": {
+    "design": "Use the existing small Shuppet silhouette: a tapered clothlike body, pointed top and large eyes. Keep the ordinary stock form and scale beside the other cave species.",
+    "moves": [
+      {
+        "description": "Level 16. Can inflict burn before Hex becomes available, giving the line a concrete status-based danger.",
+        "name": "Will-O-Wisp"
+      },
+      {
+        "description": "Level 19. Redistributes the user’s and target’s combined current HP between them; it can help or harm the user depending on their relative HP.",
+        "name": "Pain Split"
+      },
+      {
+        "description": "Level 22. A Ghost attack strengthened by the target’s status problem; not yet learned by the lowest-level encounters.",
+        "name": "Hex"
+      }
+    ],
+    "types": [
+      "Ghost"
+    ]
+  },
+  "description": "A stock Ghost species in the Hollow Wood and Skull Hollow whose hanging, clothlike body distinguishes it from Gastly’s gas and Duskull’s mask. Insomnia or Frisk, with hidden Cursed Body, accompany a battle kit that can burn, exploit status and redistribute HP. These are inherited species properties; the northern addition does not define a local haunting origin.\n\nIt evolves into Banette at level 37 in the pinned native data. Banette has not been added to these wild encounter tables.",
+  "id": "species_shuppet",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Existing forest grass encounters at levels 20–24."
+      },
+      "kind": "found_in",
+      "to": "hollow_wood"
+    },
+    {
+      "data": {
+        "description": "Existing cave encounters at levels 21–25."
+      },
+      "kind": "found_in",
+      "to": "skull_hollow"
+    },
+    {
+      "data": {
+        "description": "§33: implemented level 20+ Ghost encounters; the entrance skull’s identity and wider lore remain open."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "Authored northern forest and skull-cave encounter tables."
+      },
+      "kind": "sourced_from",
+      "to": "source_haunted_landscape"
+    },
+    {
+      "data": {
+        "description": "Pinned PBS species and moves: typing, abilities, selected move levels/effects and evolution. Stock supernatural folklore is not imported as a regional explanation."
+      },
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Shuppet"
+}

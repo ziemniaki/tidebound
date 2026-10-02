@@ -1,0 +1,23 @@
+{
+  "data": {
+    "paths": [
+      "src/tidebound/features/docks/ring.rb",
+      "src/tidebound/features/docks/ring_presentation.rb",
+      "src/tidebound/features/docks/errands.rb",
+      "content/maps/docks/map.json",
+      "content/maps/docks/layout.json",
+      "tests/gameplay/harbour.rb",
+      "tests/native/native_scenarios.rb"
+    ]
+  },
+  "description": "Implemented quarter-hour challenges, offer continuity, ordinary loss recovery, sparring presentation and Harker’s ring/cargo conversations. The accompanying gameplay test covers save persistence, refusal, aborted and completed battles, party changes and loss/draw recovery; native checks cover rail collision. This source review is not a fresh rendered playtest.",
+  "id": "source_harbour_ring",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "Harbour ring and Harker"
+}

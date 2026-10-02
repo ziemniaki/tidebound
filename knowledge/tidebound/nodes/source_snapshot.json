@@ -1,14 +1,14 @@
 {
   "data": {
     "baseline": {
-      "checkout": "71883156c1f586c2785ef82c1a88046e93fd9508",
+      "checkout": "4135b5c9baa828d2b4246f3b44c4b90b63021433",
       "method": "Manual reading of authored code and creative specification; not rendered play observation",
-      "observed": "2026-09-28",
+      "observed": "2026-10-02",
       "spec": "1.31",
-      "version": "0.8.10"
+      "version": "0.8.12"
     }
   },
-  "description": "Historical initial reading: game version 0.8.10 and bible 1.31. Subsequent graph authoring keeps imported facts distinct from new lore proposals. This baseline is not a claim about latest main or a record of a playtest.",
+  "description": "Source review through main at game version 0.8.12, including the harbour errands and ring, repaired pond route, northern haunted forest and skull cave. The game bible retains its 1.31 header with later additions through section 33. Imported behavior and quotations were read from sources; proposed lore remains identified in its own passages. This is source inspection, not a native graphical playtest or a promise to track future main commits automatically.",
   "id": "source_snapshot",
   "kind": "source",
   "links": [],

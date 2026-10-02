@@ -1,0 +1,27 @@
+{
+  "data": {
+    "paths": [
+      "content/maps/forest/map.json",
+      "content/maps/forest/layout.json",
+      "content/maps/haunted_forest/map.json",
+      "content/maps/haunted_forest/layout.json",
+      "content/maps/skull_cave/map.json",
+      "content/maps/skull_cave/layout.json",
+      "content/props/ancient_skull/image.png",
+      "content/props/ancient_skull/prop.json",
+      "content/tilesets/haunted/image.png",
+      "tools/tidebound_dev/maps/definitions.py",
+      "src/tidebound/world/atmosphere.rb"
+    ]
+  },
+  "description": "Authored map declarations and layouts establish the open thresholds, encounter geography, inspection text and subdued music. The map atmosphere declaration and native atmosphere consumer establish exterior fog and the cave’s near-darkness. The skull and tileset images were inspected as source art; this review did not run a native playtest.",
+  "id": "source_haunted_landscape",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "Northern forest, skull cave and atmosphere"
+}

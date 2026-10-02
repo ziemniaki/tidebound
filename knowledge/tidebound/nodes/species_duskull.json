@@ -1,0 +1,59 @@
+{
+  "data": {
+    "design": "Use the existing small, shrouded Duskull with a pale skull-like mask and one red eye visible behind it. Do not reuse the cave entrance as a Duskull skeleton reference; that skull’s species remains unknown.",
+    "moves": [
+      {
+        "description": "Level 16. Deals damage equal to the user’s level under ordinary immunity rules, making even a restrained-looking opponent dangerous in these level 21–26 encounters.",
+        "name": "Night Shade"
+      },
+      {
+        "description": "Level 24. Inflicts burn if it succeeds. It becomes available at the upper forest range and within the cave range; lower-level Duskull do not yet know it.",
+        "name": "Will-O-Wisp"
+      }
+    ],
+    "types": [
+      "Ghost"
+    ]
+  },
+  "description": "A stock Ghost species found in the Hollow Wood and Skull Hollow, distinguished by its skull-like face and single red eye. Its ordinary ability is Levitate, with Frisk as the hidden ability. Night Shade provides level-based damage, while later encounters can also burn opponents. Its appearance is not evidence that it made, inhabited or identifies the enormous entrance skull.\n\nIts native evolution into Dusclops is at level 37. The current northern encounter tables contain Duskull rather than that later stage.",
+  "id": "species_duskull",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Existing forest grass encounters at levels 21–24."
+      },
+      "kind": "found_in",
+      "to": "hollow_wood"
+    },
+    {
+      "data": {
+        "description": "Existing cave encounters at levels 22–26."
+      },
+      "kind": "found_in",
+      "to": "skull_hollow"
+    },
+    {
+      "data": {
+        "description": "§33: implemented level 20+ Ghost encounters; the entrance skull’s identity and wider lore remain open."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "Authored northern forest and skull-cave encounter tables."
+      },
+      "kind": "sourced_from",
+      "to": "source_haunted_landscape"
+    },
+    {
+      "data": {
+        "description": "Pinned PBS species and moves: typing, abilities, selected move levels/effects and evolution. Stock supernatural folklore is not imported as a regional explanation."
+      },
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Duskull"
+}

@@ -1,8 +1,8 @@
 {
   "data": {
     "beats": [
-      "The first dog walk suggests a presence without showing a creature.",
-      "A later pier glimpse makes fear visible.",
+      "Optional pier visits before returning Mother’s oil show an empty berth; during Pookie’s walk, her sensed presence remains unseen. The pier can also be visited before that walk.",
+      "After returning the oil, a later pier visit shows the pale apparition once. Subsequent visits show the moving rope and dark water again.",
       "Proposed: repeat the shore meeting, learn when to give Lapras space, and let recognition become mutual before recruitment and its later unsettling discovery. Recruitment remains undecided.",
       "An unsettling fact follows attachment. Its content is open.",
       "The legendary’s magic is revealed near the end."
@@ -28,6 +28,14 @@
       },
       "kind": "sourced_from",
       "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_lapras"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
     },
     {
       "data": {

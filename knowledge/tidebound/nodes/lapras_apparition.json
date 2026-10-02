@@ -1,6 +1,22 @@
 {
   "data": {
     "design": "Use the regional Lapras design described by species_lapras_1. Use the approved faint appearance, fades and camera staging at the pier; no early explanatory spectacle.",
+    "dialogue": [
+      {
+        "context": "Existing narration during the one-time pier glimpse after Mother’s oil is returned. These observations reveal no explanation of the creature’s magic.",
+        "lines": [
+          {
+            "speaker": "Narrator",
+            "text": "A face. Turned towards the lighthouse, as if waiting for its light."
+          },
+          {
+            "speaker": "Narrator",
+            "text": "The sea goes on behind it. Farther than you can see."
+          }
+        ],
+        "source": "source_lapras"
+      }
+    ],
     "questions": [
       {
         "question": "How does Lapras join the journey, and does it enter the party?"
@@ -65,6 +81,10 @@
       },
       "kind": "sourced_from",
       "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_lapras"
     },
     {
       "kind": "sourced_from",

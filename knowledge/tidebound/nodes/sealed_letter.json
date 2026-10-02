@@ -1,0 +1,33 @@
+{
+  "data": {
+    "design": "An ordinary sealed envelope with Irena’s address. No hidden mark or supernatural seal is established; the item uses a stock mail icon."
+  },
+  "description": "A sealed envelope from Irena’s daughter inland, entrusted by Jory for delivery by hand. Its contents offer Irena a painted room and a possible move. The player delivers it unopened; Irena reads the address twice before opening it herself. The letter leaves the bag on delivery, while Irena’s later words preserve its effect.",
+  "id": "sealed_letter",
+  "kind": "item",
+  "links": [
+    {
+      "data": {
+        "description": "Holds the letter until the protagonist accepts delivery and can carry it."
+      },
+      "kind": "associated_with",
+      "to": "jory"
+    },
+    {
+      "data": {
+        "description": "Addressed to her by her daughter."
+      },
+      "kind": "belongs_to",
+      "to": "irena"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_items"
+    }
+  ],
+  "name": "Sealed Letter"
+}

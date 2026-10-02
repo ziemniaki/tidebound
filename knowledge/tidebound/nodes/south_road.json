@@ -1,5 +1,5 @@
 {
-  "description": "A coastal route leads the child away from familiar neighbors into a petty theft and toward the working harbour. Wind-bent flowers, foraging creatures, a resting fire and the old storehouse keep the pursuit grounded in a place people use.",
+  "description": "A coastal route leads the child away from familiar neighbors into a petty theft and toward the working harbour. Wind-bent flowers, foraging creatures, a resting fire and the old storehouse keep the pursuit grounded in a place people use.\n\nThe route broadens into the inhabited pond to the south; its western concealed trail is a footpath, while the island obelisk remains a later Surf destination. The visible regional Psyduck is at that pond, not another roadside individual. Road grass farther north still offers rare regional Psyduck alongside Zigzagoon, Sunkern and Ekans.",
   "id": "south_road",
   "kind": "location",
   "links": [
@@ -23,6 +23,10 @@
     {
       "kind": "sourced_from",
       "to": "source_maps"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_pond"
     }
   ],
   "name": "The South Coast Road"

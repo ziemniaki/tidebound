@@ -1,0 +1,37 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Before offering the letter.",
+        "lines": [
+          {
+            "speaker": "Jory",
+            "text": "I used to carry passengers. Now I carry what they cannot say to each other."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "A sailor who once carried passengers now carries their letters. His watch is about to start, leaving an envelope for Irena undelivered. He asks that it remain sealed and, after entrusting it to the child, immediately says that her daughter is alive. Later he explains that the daughter pays for a reply before writing her own letter. His attention is to getting people news and a means to answer, not discovering the contents for himself.",
+  "id": "jory",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "description": "Carries letters from her daughter inland; asks the protagonist to complete this delivery before his watch starts."
+      },
+      "kind": "associated_with",
+      "to": "irena"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "works_at",
+      "to": "docks"
+    }
+  ],
+  "name": "Jory"
+}

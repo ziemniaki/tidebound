@@ -1,0 +1,37 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Ordinary conversation when the missing-oil confrontation is not pending.",
+        "lines": [
+          {
+            "speaker": "Harker",
+            "text": "I used to call the watches. Now I call the bouts. Same lungs. Better tips."
+          }
+        ],
+        "source": "source_harbour_ring"
+      }
+    ]
+  },
+  "description": "A former watch-caller who now calls the harbour’s bouts for better tips. He keeps the challenger’s slate at the north-eastern outdoor ring and speaks of an available bout as a berth. His loud working skill has moved from coordinating watches to maintaining a crowd.\n\nHe has taken an unopened tin from the island-bound cargo for the ring lanterns, calling it borrowed because the crowd cannot bet in darkness. When the child identifies the shortage and points to the shipping label, he tells Venn to return it. The return resolves through conversation before he offers ring business; it requires no fight. His name and this local history are current implementation choices.",
+  "id": "harker",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "description": "§30: the dock-city upgrade, cargo shortage and quarter-hour ring."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_ring"
+    },
+    {
+      "kind": "works_at",
+      "to": "docks"
+    }
+  ],
+  "name": "Harker"
+}

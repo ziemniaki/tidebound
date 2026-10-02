@@ -78,6 +78,14 @@ amendments were replaced with relevant passages. Lapras’s scene sequence stays
 on its arc, and its pier is correctly placed in Shiohama rather than the docks.
 No new mandatory fields or runtime schema were needed.
 
+The subsequent source pass through version 0.8.12 adds the harbour’s actual
+residents, three errands, personal objects and ring, together with the Hollow
+Wood, Skull Hollow and their encountered Ghost species. Existing conversations
+provide the histories; generated challenger names remain separate from fixed
+residents. The pond’s cache trail, one-time pier glimpse and cave loss recovery
+are grounded in current source. The traveller’s old missing-bridge line remains
+a recorded continuity question beside the now-open route, not invented geography.
+
 ## Decisions that still shape the game
 
 The graph has more usable situations, but several missing designs cannot be

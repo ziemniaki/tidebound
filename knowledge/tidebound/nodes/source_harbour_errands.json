@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/docks/errands.rb"
+  },
+  "description": "Native harbour residents, sealed-letter delivery, netting-shuttle recovery and cargo counting. Establishes the spoken histories, optional interactions, handovers and retryable rewards; it does not establish new supernatural mythology.",
+  "id": "source_harbour_errands",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "Harbour errands and residents"
+}

@@ -1,14 +1,16 @@
 {
   "data": {
     "paths": [
+      "content/items/TIDEBOUNDLETTER/item.json",
       "content/items/TIDEBOUNDNECKLACE/item.json",
       "content/items/TIDEBOUNDOILKEYS/item.json",
       "content/items/TIDEBOUNDPIE/item.json",
       "content/items/TIDEBOUNDPLATE/item.json",
-      "content/items/TIDEBOUNDREEDCHARM/item.json"
+      "content/items/TIDEBOUNDREEDCHARM/item.json",
+      "content/items/TIDEBOUNDSHUTTLE/item.json"
     ]
   },
-  "description": "Existing authored declarations; imported once, not a second native catalog",
+  "description": "Authored story items, including the harbour letter and netting shuttle. Scene dialogue supplies personal provenance; these declarations establish the actual carried items.",
   "id": "source_items",
   "kind": "source",
   "links": [

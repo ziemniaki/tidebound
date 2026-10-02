@@ -1,0 +1,53 @@
+{
+  "data": {
+    "design": "Use the existing Haunter appearance: a pointed purple floating body, detached clawed hands and a wide toothed mouth. It is the ordinary species, with no skull-cave-specific markings or new anatomy.",
+    "moves": [
+      {
+        "description": "Level 24. Present within the cave’s level 25–28 range; gains power against a target with a status problem.",
+        "name": "Hex"
+      },
+      {
+        "description": "Level 20. Its Ghost-specific HP sacrifice and recurring damage can make remaining in battle dangerous even without a strong direct attack.",
+        "name": "Curse"
+      }
+    ],
+    "types": [
+      "Ghost",
+      "Poison"
+    ]
+  },
+  "description": "The evolved Ghost/Poison member of Gastly’s line occurs inside Skull Hollow, above the cave’s lower-level Gastly encounters. Its pointed floating body and detached hands make a different silhouette in darkness while it retains Levitate and the line’s disruptive battle tools. The current forest grass table does not include it.\n\nIts native next evolution is Gengar through trading. This record does not establish a Tidebound trading service or a wild Gengar population.",
+  "id": "species_haunter",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Existing cave encounters at levels 25–28."
+      },
+      "kind": "found_in",
+      "to": "skull_hollow"
+    },
+    {
+      "data": {
+        "description": "§33: implemented level 20+ Ghost encounters; the entrance skull’s identity and wider lore remain open."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "Authored northern forest and skull-cave encounter tables."
+      },
+      "kind": "sourced_from",
+      "to": "source_haunted_landscape"
+    },
+    {
+      "data": {
+        "description": "Pinned PBS species and moves: typing, abilities, selected move levels/effects and evolution. Stock supernatural folklore is not imported as a regional explanation."
+      },
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Haunter"
+}

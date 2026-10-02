@@ -1,0 +1,29 @@
+{
+  "data": {
+    "design": "The bible and authored layout establish cold dense trees, branching worn trails, weathered stones and low drifting fog. The inspected skull artwork has pale cracked bone, broken teeth around a dark walkable mouth, deep empty eye sockets, olive moss and heavy roots clasping its sides. Large missing pieces and irregular cracks keep it visibly weathered. Its humanlike source silhouette does not identify its species or origin. Preserve the readable southern return route and mouth approach within the darker forest presentation."
+  },
+  "description": "A colder, denser forest district lies north of the Listening Wood. Worn branching trails lead from the southern return path toward a giant ancient skull in the north; walking into its mouth enters Skull Hollow. Both thresholds are open without a quest prerequisite. Grass here holds Gastly, Shuppet and Duskull at levels 20–24, a sharp increase from the familiar southern wood. This is optional dangerous exploration, not part of finding the oil seller’s keys.\n\nA weathered board near the southern entrance warns of strong Ghost Pokémon and advises leaving a mark. Farther in, one stone has lost its inscription, another leans in soft earth, and bark bears deep scratches ending above the child’s head. These observations establish an unsettling place without identifying the skull, its former species or whoever made the marks. The warning does not grant a trail-marking mechanic.\n\nThe existing music becomes quieter and lower-pitched than in the Listening Wood. Cold fog drifts across the exterior; there is no separate background-sound loop. The place’s appearance does not make its ordinary Ghost Pokémon water demons or establish a connection to the later poisoned refuge.",
+  "id": "hollow_wood",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "description": "Enter through the ancient skull’s mouth in the northern part of the wood. The cave returns through that same mouth; no quest prerequisite or one-way lock is present."
+      },
+      "kind": "connected_to",
+      "to": "skull_hollow"
+    },
+    {
+      "data": {
+        "sections": "§33: northern haunted district, skull entrance, optional Ghost danger and unresolved identity."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_haunted_landscape"
+    }
+  ],
+  "name": "The Hollow Wood"
+}

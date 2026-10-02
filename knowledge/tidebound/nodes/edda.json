@@ -1,0 +1,41 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Ordinary conversation near the ring.",
+        "lines": [
+          {
+            "speaker": "Edda",
+            "text": "My Machoke hauled barrels for eleven years. When his knee went, the owner offered me half a week's wages for him."
+          },
+          {
+            "speaker": "Edda",
+            "text": "I took him home. We are both slow on stairs now."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "Edda’s Machoke hauled barrels for eleven years. When his knee failed, the owner offered half a week’s wages for him. Edda took him home instead. She now describes both of them as slow on stairs, giving their working history an ordinary continuing companionship rather than making the Pokémon disposable once he cannot haul. Her account does not make this individual a public encounter or a recruitable reward.",
+  "id": "edda",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "associated_with",
+      "to": "docks"
+    },
+    {
+      "data": {
+        "description": "A resident near the ring speaks about her retired working companion."
+      },
+      "kind": "associated_with",
+      "to": "harbour_ring"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    }
+  ],
+  "name": "Edda"
+}

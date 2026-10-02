@@ -1,0 +1,34 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. After the letter has been delivered, on a later conversation.",
+        "lines": [
+          {
+            "speaker": "Irena",
+            "text": "She says there is a room. With a window that opens."
+          },
+          {
+            "speaker": "Irena",
+            "text": "I have started deciding what I can carry. That is different from deciding to go."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "Irena stands by the lamp north-west of the museum. After thirty years of making rope, her hands still twist her bedsheet in her sleep. Her daughter writes from inland. Reading the delivered letter gives her a specific possibility: a newly painted room with a window that opens. She begins deciding what she could carry, while carefully distinguishing that from deciding to leave. The errand changes what she can consider; it does not move her away or settle her future.",
+  "id": "irena",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "associated_with",
+      "to": "docks"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    }
+  ],
+  "name": "Irena"
+}
