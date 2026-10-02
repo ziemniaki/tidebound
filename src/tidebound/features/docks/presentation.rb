@@ -39,11 +39,31 @@ class TideboundWindowLights
   end
 end
 
+# The same local light used by sheltered lamps, reduced to a candle-sized spill.
+class TideboundVotiveLight < TideboundWarmLight
+  def initialize(map, event)
+    @phase = event.id
+    super(map, event.x, event.y)
+    self.zoom_x = self.zoom_y = 0.32
+  end
+
+  def update
+    super
+    self.x -= 18
+    self.y -= 20
+    self.opacity = 140 + (Math.sin(System.uptime * 2.7 + @phase) * 18).to_i
+  end
+end
+
 EventHandlers.add(
   :on_new_spriteset_map,
   :tidebound_dock_details,
   proc do |spriteset, viewport|
     map = spriteset.map
+    map.events.each_value do |event|
+      next unless Tidebound::Actors.info(event)["asset"] == "votive_offerings"
+      spriteset.addUserSprite(TideboundVotiveLight.new(map, event))
+    end
     next unless Tidebound::Presentation::WINDOW_LIGHTS.key?(map.map_id)
     spriteset.addUserSprite(TideboundWindowLights.new(map))
   end

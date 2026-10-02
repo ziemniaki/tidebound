@@ -1,0 +1,12 @@
+{
+  "base": "opening/exploration",
+  "location": ["docks", "park"],
+  "story": {
+    "neighbor_quest": {
+      "stage": ":complete"
+    },
+    "vault_visit": {
+      "open": true
+    }
+  }
+}

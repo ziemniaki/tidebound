@@ -5,7 +5,8 @@
     "west": [11, 28, 2],
     "museum": [32, 23, 2],
     "from_museum": [32, 23, 2],
-    "ring": [69, 27, 8]
+    "ring": [69, 27, 8],
+    "park": [20, 16, 8]
   },
   "name": "The Docks",
   "actor_settings": {
@@ -175,6 +176,43 @@
     },
     "103": {
       "role": "coast_lamp"
+    },
+    "104": {
+      "role": "prop",
+      "asset": "suicune_monument",
+      "key": "park_monument"
+    },
+    "109": {
+      "role": "prop",
+      "asset": "votive_offerings"
+    },
+    "110": {
+      "role": "prop",
+      "asset": "votive_offerings"
+    },
+    "111": {
+      "role": "npc",
+      "key": "park_mara"
+    },
+    "112": {
+      "role": "npc",
+      "key": "park_toven"
+    },
+    "113": {
+      "role": "npc",
+      "key": "park_lina"
+    },
+    "114": {
+      "role": "npc",
+      "key": "park_keeper"
+    },
+    "115": {
+      "role": "prop",
+      "asset": "park_bench"
+    },
+    "116": {
+      "role": "prop",
+      "asset": "park_bench"
     }
   }
 }

@@ -14,6 +14,11 @@ histories and a north-eastern outdoor ring. Machop and Hitmonlee spar beside
 betting sailors; Harker offers a saved, party-scaled challenger every 15 real
 minutes. Names, rewards and the curated opponent roster remain provisional.
 
+The north-west dock park honours Suicune as the land's protector and keeper of
+harmony. A giant stone monument, candle offerings, tended flowers and benches
+give four residents a place to wait and care for one another. Their quiet talks
+are optional; `uv run play --from docks/park` starts at its approach.
+
 The Hollow Wood opens north of the Listening Wood. Its ancient skull entrance
 leads into the nearly lightless Skull Hollow, with looping passages and level
 20–28 Ghost encounters. These areas are optional and substantially more dangerous

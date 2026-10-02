@@ -76,8 +76,10 @@ package from the same checkout as its PBS and test sources.
   home, coast, forest, lighthouse, vault, docks and pond. It checks companion/item/
   quest continuity, stale-map refresh, state before map callbacks and interrupted
   forced-route restoration. The dock ring adds a capture and native rope collision
-  checks on all four sides. The pond check walks the concealed path with native
-  player movement and captures its entrance, visible cache and repaired trees.
+  checks on all four sides. The Suicune park check circles the monument, checks pedestal
+  collision on all sides and verifies that a moving visitor leaves passable floor.
+  The pond check walks the concealed path with native player movement and captures
+  its entrance, visible cache and repaired trees.
   The northern extension walks through all four forest/cave thresholds, reaches
   the deep cave and returns, and samples native level 20+ Ghost encounters.
   Random battle triggering is disabled only during this unattended route and
