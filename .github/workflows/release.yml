@@ -1,4 +1,4 @@
-name: Prepare release
+name: Publish release
 
 on:
   push:
@@ -13,30 +13,31 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  validate-tag:
-    runs-on: ubuntu-24.04
+  build:
+    runs-on: macos-14
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Require a matching version tag on main's history
+      - name: Require a matching version tag or manual release from main
         env:
           RELEASE_REF: ${{ github.ref }}
+          RELEASE_EVENT: ${{ github.event_name }}
         run: |
           python - <<'PY'
           import json, os, subprocess
           version = json.load(open('release.json'))['version']
-          if os.environ['RELEASE_REF'] != 'refs/tags/v' + version:
-              raise SystemExit('Run this workflow on the version tag declared in release.json')
+          tagged = os.environ['RELEASE_REF'] == 'refs/tags/v' + version
+          manual_main = os.environ['RELEASE_EVENT'] == 'workflow_dispatch' and os.environ['RELEASE_REF'] == 'refs/heads/main'
+          if not (tagged or manual_main):
+              raise SystemExit('Run on the declared version tag, or dispatch on main to publish a new version')
           subprocess.run(['git', 'merge-base', '--is-ancestor', 'HEAD', 'origin/main'], check=True)
           PY
+      - uses: ./.github/actions/package
 
-  build:
-    needs: validate-tag
-    uses: ./.github/workflows/verify.yml
-
-  draft:
+  publish:
     needs: build
     runs-on: ubuntu-24.04
     permissions:
@@ -66,18 +67,31 @@ jobs:
           config = load_release()
           validate_candidate(Path('candidate'), config['version'], os.environ['SOURCE_SHA'], config['mac_build'])
           PY
-      - name: Create an unpublished release; never overwrite an existing one
+      - name: Publish the release; never overwrite an existing one
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ github.ref_name }}
           SOURCE_SHA: ${{ github.sha }}
         run: |
+          version="$(python -c 'import json; print(json.load(open("release.json"))["version"])')"
+          RELEASE_TAG="v$version"
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             echo 'Release already exists; refusing to overwrite it.'
             exit 1
           fi
+          gh api "repos/$GH_REPO/git/matching-refs/tags/$RELEASE_TAG" > "$RUNNER_TEMP/release-tag-refs.json"
+          export RELEASE_TAG
+          tag_ref="$(python - <<'PY'
+          import json, os
+          from pathlib import Path
+          refs = json.loads((Path(os.environ['RUNNER_TEMP']) / 'release-tag-refs.json').read_text())
+          wanted = 'refs/tags/' + os.environ['RELEASE_TAG']
+          print(next((ref['ref'] for ref in refs if ref['ref'] == wanted), ''))
+          PY
+          )"
+          if [ -z "$tag_ref" ]; then
+            gh api --method POST "repos/$GH_REPO/git/refs" -f ref="refs/tags/$RELEASE_TAG" -f sha="$SOURCE_SHA"
+          fi
           test "$(gh api "repos/$GH_REPO/commits/$RELEASE_TAG" --jq .sha)" = "$SOURCE_SHA"
-          version="${RELEASE_TAG#v}"
           gh release create "$RELEASE_TAG" "candidate/Tidebound_Mac_${version}_universal.zip" "candidate/Tidebound_Windows_${version}_x64.zip" "candidate/Tidebound_Linux_${version}_x86_64.zip" \
-            --verify-tag --draft --title "Tidebound $RELEASE_TAG" --notes-file candidate/RELEASE_NOTES.md
+            --verify-tag --title "Tidebound $RELEASE_TAG" --notes-file candidate/RELEASE_NOTES.md

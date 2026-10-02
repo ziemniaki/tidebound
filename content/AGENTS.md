@@ -39,7 +39,9 @@ art can silently fall back to `000`; preview checks exact engine resolution.
 
 A prop bundle has `image.png` and `prop.json`: `{"anchor": [16, 32]}`.
 The integer anchor is placed at the event and may lie outside the image. Optional
-integer `z` fixes the layer. To reuse another prop's pixels, use `"image": "dock_boat"`
+integer `z` fixes the layer. Optional positive `scale` sets uniform native display
+size; anchors stay in source-image pixels and exports preserve the original art.
+To reuse another prop's pixels, use `"image": "dock_boat"`
 and omit the local PNG; reuse must point directly to a bundle owning its image.
 Map events declare `{"role": "prop", "asset": "dock_boat"}` in their map's
 `actor_settings`; compile with `uv run build --compile-only`.

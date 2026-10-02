@@ -11,6 +11,7 @@ async function createHarness() {
   compiled ||= WebAssembly.compile(fs.readFileSync(require.resolve('@ruby/3.2-wasm-wasi/dist/ruby.wasm')));
   const { vm } = await DefaultRubyVM(await compiled);
   const entries = JSON.parse(fs.readFileSync(path.join(references, 'index.json'), 'utf8'));
+  const custom = entries.filter(entry => entry.name.startsWith('Tidebound/'));
 
   function evaluate(code, name) {
     const encoded = JSON.stringify(Buffer.from(code).toString('base64'));
@@ -58,25 +59,33 @@ end`, 'data bridge');
   }
 
   function production() {
-    const custom = entries.filter(entry => entry.name.startsWith('Tidebound/'));
     if (!custom.length) throw new Error('No embedded game scripts');
-    for (const entry of custom) ruby(`tests/engine_reference/${entry.file}`);
+    for (const entry of custom) {
+      evaluate(fs.readFileSync(path.join(references, entry.file), 'utf8'), entry.name);
+    }
     console.log(`Loaded all ${custom.length} game scripts in archive order.`);
   }
 
-  function compileEvents() {
+  function checkScripts() {
+    ruby('tests/support/api_checks.rb');
+    for (const entry of custom) {
+      checkApi(fs.readFileSync(path.join(references, entry.file), 'utf8'), entry.name);
+    }
     const source = process.env.TIDEBOUND_EVENT_SCRIPTS || path.join(root, '.build/maps/event_scripts.json');
     const events = JSON.parse(fs.readFileSync(source, 'utf8'));
     for (const event of events) {
       evaluate(`RubyVM::InstructionSequence.compile(${JSON.stringify(event.code)}, ${JSON.stringify(event.name)})`, event.name);
-      for (const match of event.code.matchAll(/\b(Tidebound(?:::[A-Z]\w*)+)\.([a-z_]\w*[!?]?)/g)) {
-        evaluate(`raise "Unknown event API: ${match[1]}.${match[2]}" unless ${match[1]}.respond_to?(:${match[2]})`, event.name);
-      }
+      checkApi(event.code, event.name);
     }
-    console.log(`Compiled ${events.length} native event bodies.`);
+    console.log(`Checked APIs in ${custom.length} game scripts and compiled ${events.length} native event bodies.`);
   }
 
-  return { evaluate, ruby, engine, loadEngine, loadData, production, compileEvents,
+  function checkApi(source, name) {
+    const encoded = JSON.stringify(Buffer.from(source).toString('base64'));
+    evaluate(`ApiChecks.check(${encoded}.unpack1("m0").force_encoding("UTF-8"), ${JSON.stringify(name)})`, name);
+  }
+
+  return { evaluate, ruby, engine, loadEngine, loadData, production, checkScripts,
     finish: () => evaluate('$stdout.flush; $stderr.flush', 'flush') };
 }
 

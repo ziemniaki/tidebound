@@ -59,6 +59,9 @@ def prepare(game, namespace, scenario="all"):
         driver += b"\n" + Path(scenarios.__file__).with_suffix(".rb").read_bytes()
         root = tests.parent.parent
         (game / "NativeStart.rxdata").write_bytes(writes(scenarios.select(root, "neighbor/meal")))
+        (game / "NativePond.rxdata").write_bytes(
+            writes(json.loads((root / "content/maps/road/mechanics.json").read_text()))
+        )
     driver += b"\n" + (tests / "native_runtime_smoke.rb").read_bytes()
     main[0][2] = zlib.compress(driver)
     # Validate both files before publishing either change in this disposable copy.

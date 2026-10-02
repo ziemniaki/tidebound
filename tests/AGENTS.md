@@ -36,6 +36,18 @@ bag and SaveData objects. Custom Ruby must support the native Ruby 3.1 runtime;
 WASM uses Ruby 3.2. Battle execution and display are doubles, so headless checks
 cannot establish real battle-engine behavior, rendering, scheduling or audio.
 
+The gameplay harness checks scripts and events through one API check after loading
+production code. It validates named calls under `Tidebound` and explicit `self`
+calls/setters in known singleton methods, including `module_function` and `ensure`.
+Method source locations distinguish singleton bodies from unrelated instance
+methods. Synthetic checker regressions live in `tooling/api_checks.rb`.
+
+Keep this a bounded API check: no local/return type inference, engine API checks,
+implicit calls or lists of special-case DSLs. Block receivers may change, so only
+named module calls are checked inside blocks. Owners absent from the headless
+composition (such as conditional native battle hooks) are skipped. Broader type
+analysis belongs in a dedicated Ruby tool, not extensions to this checker.
+
 `prepare_reference.py` extracts `game/Data/Scripts.rxdata` into ignored
 `engine_reference/`; never edit that extraction. The harness selects stock scripts
 by name, since numeric prefixes change with archive order. `check` supplies fresh
@@ -68,7 +80,14 @@ package from the same checkout as its PBS and test sources.
 - `world` uses [declared starts](../docs/development.md#playtest-scenarios) to capture
   home, coast, forest, lighthouse, vault, docks and pond. It checks companion/item/
   quest continuity, stale-map refresh, state before map callbacks and interrupted
-  forced-route restoration. Seven scenes are not a complete walkthrough.
+  forced-route restoration. The dock ring adds a capture and native rope collision
+  checks on all four sides. The pond check walks the concealed path with native
+  player movement and captures its entrance, visible cache and repaired trees.
+  The northern extension walks through all four forest/cave thresholds, reaches
+  the deep cave and returns, and samples native level 20+ Ghost encounters.
+  Random battle triggering is disabled only during this unattended route and
+  restored afterwards; the encounter tables themselves are sampled directly.
+  These scenes are not a complete walkthrough.
 - `species` recompiles PBS with native Essentials and compares custom species and
   metrics, excluding PBS bookkeeping and non-evolving family backlinks. Its
   catalog-derived `NativeContent` fixture checks exact normal/shiny sprites,

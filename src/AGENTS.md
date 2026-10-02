@@ -24,6 +24,13 @@ Feature layout and actor rules: [features/AGENTS.md](tidebound/features/AGENTS.m
    also need `check --all`. Add the relevant branch to a production-composition scenario;
    play the interaction, interruption/retry and map re-entry when applicable.
 
+Keep cross-feature calls explicit (`SeaGlimpse.play`, for example), and keep
+module state setters on explicit `self`. `check` validates these known receivers
+against the composed API even in unexecuted branches. When moving/removing an
+API, also search references with `rg`, including setters and `ensure` blocks.
+The check does not infer dynamic receivers, `self` inside blocks or implicit calls;
+see [its scope](../tests/AGENTS.md#commands-and-suite-boundaries).
+
 ## Engine contracts
 
 - `EventHandlers.add(event, key, proc)` keeps the **first** callback for a duplicate

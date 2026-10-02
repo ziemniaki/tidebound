@@ -8,7 +8,7 @@
       "The captain offers the next crossing. Museum inspection is optional, and the player can keep exploring after accepting passage."
     ]
   },
-  "description": "The opening turns familiar household care into a widening set of obligations: companion, oil, meal, stolen necklace, vault and a ship’s invitation. Its warmth gives later reinterpretation something real to alter.\n\nThe current playable journey reaches the captain’s invitation. The first pier detour and museum inspection are optional; accepting passage leaves the region available to explore. Island travel, Koga’s settlements, later Team Abyss chapters, shrine progression, Suicune and the sabre, the cemetery and endings remain planned.",
+  "description": "The opening turns familiar household care into a widening set of obligations: companion, oil, meal, stolen necklace, vault and a ship’s invitation. Its warmth gives later reinterpretation something real to alter.\n\nThe current playable journey reaches the captain’s invitation. The first pier detour and museum inspection are optional; accepting passage leaves the region available to explore. Island travel, Koga’s settlements, later Team Abyss chapters, shrine progression, Suicune and the sabre, the cemetery and endings remain planned.\n\nThe current region also includes optional harbour errands and ring bouts, and the more dangerous Hollow Wood and Skull Hollow north of the opening forest. These additions do not implement the later shrine, Koga or poisoned-refuge chapters.",
   "id": "opening_journey",
   "kind": "quest",
   "links": [

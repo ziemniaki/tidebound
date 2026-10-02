@@ -1,6 +1,8 @@
-# Tidebound 0.8.10
+# Tidebound 0.8.12
 
-Window resizing now keeps pixel art crisp at whole-number scales and smoother at intermediate sizes.
+Explore a haunted forest north of the Listening Wood, with an ancient skull
+marking the entrance to a nearly pitch-black cave.
 
-- The game scales proportionally to the window, keeping menus and text in view.
-- Fixed oversized furniture collision and blocked floor tiles left behind by moved characters.
+- Face level 20–28 Ghost Pokémon in winding cave passages.
+- Follow the concealed trail in the Psyduck pond area to its visible cache.
+- Fixed cropped trees and rough pond-bank edges.

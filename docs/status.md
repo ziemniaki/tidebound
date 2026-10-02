@@ -1,12 +1,23 @@
 # Current status
 
-**Current playable build:** Version 0.8.10. Pokémon Essentials 21.1, pinned
+**Current playable build:** Version 0.8.12. Pokémon Essentials 21.1, pinned
 mkxp-z runtime; universal Mac, Windows x64 and Linux x86_64 releases.
 
 The current game includes the dream opening, lighthouse family and companion choice,
 oil-shop errand, forest/coastal encounters, necklace pursuit, hideout and Mending
-minigame, vault/museum visit, docks and southern pond. The captain's Psyduck
+minigame, vault/museum visit, docks, southern pond and northern haunted forest
+with a skull-mouth cave. The captain's Psyduck
 Island conversation offers passage; the crossing is not yet playable.
+
+The dock-city upgrade adds three optional harbour errands, residents with local
+histories and a north-eastern outdoor ring. Machop and Hitmonlee spar beside
+betting sailors; Harker offers a saved, party-scaled challenger every 15 real
+minutes. Names, rewards and the curated opponent roster remain provisional.
+
+The Hollow Wood opens north of the Listening Wood. Its ancient skull entrance
+leads into the nearly lightless Skull Hollow, with looping passages and level
+20–28 Ghost encounters. These areas are optional and substantially more dangerous
+than the opening keys route. Their working names and the skull's origin remain open.
 
 Island voyage gameplay, later Team Abyss chapters, shrine progression, Dive,
 Koga's settlements, late Suicune/sabre story, cemetery finale and endings remain
@@ -47,7 +58,6 @@ contextual dialogue, visual briefs and concise source evidence. Its
 gameplay or add any dependency to normal game builds and players.
 
 - Playtest the current game on the maintainer's target machines.
-- Choose the next complete playable milestone with the creative director.
 - Split large gameplay modules by feature when changing that feature; preserve
   current save state and the explicit source manifest order.
 - Consider external binary hosting/LFS only with tested automatic restoration.

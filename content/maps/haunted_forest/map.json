@@ -1,0 +1,43 @@
+{
+  "id": 117,
+  "name": "The Hollow Wood",
+  "parent_id": 103,
+  "atmosphere": "haunted",
+  "environment": "Forest",
+  "entrances": {
+    "south": [24, 52, 8],
+    "skull": [25, 15, 8],
+    "from_cave": [25, 14, 2]
+  },
+  "encounters": {
+    "Land": {
+      "chance": 16,
+      "slots": [
+        [40, "GASTLY", 20, 23],
+        [35, "SHUPPET", 20, 24],
+        [25, "DUSKULL", 21, 24]
+      ]
+    }
+  },
+  "actor_settings": {
+    "1": {
+      "cue": "south"
+    },
+    "3": {
+      "role": "prop",
+      "asset": "ancient_skull"
+    },
+    "4": {
+      "role": "prop",
+      "asset": "board"
+    },
+    "5": {
+      "role": "prop",
+      "asset": "memorial"
+    },
+    "6": {
+      "role": "prop",
+      "asset": "memorial"
+    }
+  }
+}

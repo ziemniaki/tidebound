@@ -76,6 +76,27 @@ start this chapter by speaking to the seller in his shop.
 Explore the two sailing ships and speak to their crews. Nell and Oren offer
 optional battles; neither gates the story. Shop frontages remain closed.
 
+The jobs board near the western approach points to three optional errands:
+
+- Take Jory's sealed letter to Irena by the lamp north-west of the museum, then
+  return to Jory for two Oran Berries.
+- Ask Sella about her netting shuttle, search the folded nets by the western
+  pier, and return it for a Silk Scarf.
+- Read all three cargo labels for Daro. The lots total twelve flour sacks and
+  **five** oil tins. Report the missing lamp oil, ask Harker at the north-eastern
+  ring to return it, and tell Daro for three Oran Berries.
+
+A full bag leaves each reward available for another visit. These jobs do not
+gate the captain, museum or ring.
+
+Watch Machop and Hitmonlee at the north-eastern ring, then speak to Harker below
+the ropes to meet a challenger. Each offer lasts 15 real minutes and survives
+saving. It has up to three companions, one to three levels below the median of
+your able party (minimum level one). Declining or cancelling before battle
+completion preserves the offer; a completed bout uses it until the timer ends.
+Changing your able party rebalances its levels without extending the timer.
+Losses use normal astral recovery; the ring provides no healing.
+
 At the end of the eastern pier, speak to the captain about **Psyduck Island**.
 Accepting reserves passage for a future chapter. You remain free to explore and save;
 the voyage and island are not yet playable.
@@ -84,8 +105,19 @@ the voyage and island are not yet playable.
 
 The pond below the South Coast Road has optional fishermen battles, a visible
 regional Psyduck, grass encounters and an Oran tree. Search behind the western
-thicket for Mystic Water. The island obelisk needs Surf, which the current game does not
-award. Species evolution and battle-role notes are in [species design](../specs/species.md).
+thicket for Mystic Water: follow the worn grass west of Psyduck's shallow bank,
+then turn south between the trees to an old basket. The island obelisk needs Surf,
+which the current game does not award. Species evolution and battle-role notes are in
+[species design](../specs/species.md).
+
+The northern path in the Listening Wood now opens into the Hollow Wood. Follow
+the worn trail through the fog to the ancient skull in its northern clearing;
+walk into the mouth to enter the Skull Hollow. Forest grass contains level
+20–24 Ghost Pokemon; the cave contains Gastly, Duskull, Shuppet, Haunter and
+Misdreavus at levels 20–28. The cave is almost black. Keep track of turns and the
+sparse pale stone seams; both sides of its large loop lead back to the southern
+entrance. There is no story gate, new shrine or cave reward yet. Prepare at the
+existing forest fire before exploring.
 
 Resting fires in the forest and on the road set a return checkpoint and restore
 full HP/PP once every 15 real minutes per fire. They do not cure poison or other

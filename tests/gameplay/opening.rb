@@ -1,3 +1,13 @@
+# The pier is reachable before Pookie's walk, including repeated visits.
+new_opening
+Tidebound::World.travel_coast(44, 20)
+Tidebound::Opening.pier
+check(Tidebound.story[:pier_seen] && !Tidebound.story[:lapras_glimpsed], "early apparition")
+messages = $messages.size
+Tidebound::Opening.pier
+check($messages.size == messages && $player.party.empty?, "early pier changed progress")
+puts "PASS: pier interaction before Pookie's walk, including repeat visit."
+
 o = Tidebound::Opening
 %i[NATU MAKUHITA POOCHYENA].each_with_index do |species, index|
   new_opening

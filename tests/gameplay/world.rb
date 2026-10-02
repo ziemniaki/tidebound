@@ -78,20 +78,27 @@ new_opening
 Tidebound::World.travel(:road, 18, 5)
 original_fight = Tidebound::Encounters.method(:fight)
 begin
-  {
-    0 => true,
-    1 => true,
-    2 => false,
-    3 => true,
-    4 => true,
-    5 => false,
-    :astral => false
-  }.each do |outcome, expected|
-    Tidebound::Encounters.define_singleton_method(:fight) { |*foes| outcome }
-    result = WildBattle.start(:ZUBAT, 5, can_override: true)
-    check(result == expected, "WildBattle.start returned #{result.inspect} for #{outcome}")
+  %i[road haunted_forest skull_cave].each do |map|
+    entrance = Tidebound::World::ENTRANCES.fetch(Tidebound::World::MAPS.fetch(map)).values.first
+    Tidebound::World.travel(map, *entrance)
+    {
+      0 => true,
+      1 => true,
+      2 => false,
+      3 => true,
+      4 => true,
+      5 => false,
+      :astral => false
+    }.each do |outcome, expected|
+      Tidebound::Encounters.define_singleton_method(:fight) { |*foes| outcome }
+      result = WildBattle.start(:GASTLY, 20, can_override: true)
+      check(
+        result == expected,
+        "WildBattle.start on #{map} returned #{result.inspect} for #{outcome}"
+      )
+    end
   end
 ensure
   Tidebound::Encounters.define_singleton_method(:fight, original_fight)
 end
-puts "PASS: native grass encounters preserve the engine's Boolean result contract."
+puts "PASS: native grass and cave encounters preserve the engine's Boolean result contract."

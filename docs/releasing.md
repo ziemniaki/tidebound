@@ -1,5 +1,11 @@
 # Verified builds and releases
 
+Releases assume `main` is already tested. A version tag packages and publishes
+the three players automatically; a manual run of `Publish release` on `main`
+creates the matching new tag and publishes the same packages. Neither path reruns gameplay/native tests or waits
+for a manual playtest, download review or publication approval. Use `/verify`
+during development when a change needs full verification.
+
 The current workflow produces one universal Mac ZIP (native `x86_64` and `arm64`),
 a Windows x64 player ZIP and a Linux x86_64 player ZIP. `release.json`
 defines the package version, Mac build number and pinned runtime archive/source
@@ -20,14 +26,14 @@ outputs. Binary game data must match byte-for-byte; PNGs must have identical
 decoded RGBA pixels. Both commands compile the local project; the second also verifies a clean build. Stage newly
 added build sources before running it so they are included in the tracked copy.
 
-On a Mac with Xcode command-line tools installed, run `uv run check --all` before
-packaging. The candidate command checks inputs, signatures, provenance and ZIP
-roundtrips; it assembles the game once from source and does not rerun tests. CI runs those once in its
-required verification job before packaging:
+On a Mac with Xcode command-line tools installed, build a candidate with the
+command below. It checks inputs, signatures, provenance and ZIP roundtrips,
+assembles the game once from source and does not run tests. The smoke command
+is an optional development diagnostic, not a release step:
 
 ```sh
 uv run python -m tidebound_dev.release.candidates ../candidate
-uv run python -m tests.native.mac_runtime_smoke ../candidate/Tidebound_Mac_0.8.10_universal.zip ../smoke-arm64 --arch arm64
+uv run python -m tests.native.mac_runtime_smoke ../candidate/Tidebound_Mac_0.8.12_universal.zip ../smoke-arm64 --arch arm64
 ```
 
 For a Windows-only package, on any development host:
@@ -40,7 +46,7 @@ On Windows x64, test that archive using:
 
 ```powershell
 uv run python -m tidebound_dev.release.artifacts ../windows-candidate
-uv run python -m tests.native.windows_runtime_smoke ../windows-candidate/Tidebound_Windows_0.8.10_x64.zip ../smoke-windows
+uv run python -m tests.native.windows_runtime_smoke ../windows-candidate/Tidebound_Windows_0.8.12_x64.zip ../smoke-windows
 ```
 
 The Windows ZIP contains the unchanged `Game.exe`, Ruby/zlib DLLs, game assets,
@@ -61,7 +67,7 @@ On Linux x86_64 with the libraries in `docs/players/linux.txt` installed:
 
 ```sh
 uv run python -m tidebound_dev.release.artifacts ../linux-candidate
-uv run python -m tests.native.linux_runtime_smoke ../linux-candidate/Tidebound_Linux_0.8.10_x86_64.zip ../smoke-linux
+uv run python -m tests.native.linux_runtime_smoke ../linux-candidate/Tidebound_Linux_0.8.12_x86_64.zip ../smoke-linux
 ```
 
 The Linux ZIP bundles the unchanged upstream executable, lib64, Ruby stdlib,
@@ -86,7 +92,8 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
 
 1. Embedded Ruby agrees with source and load order; package versions, save
    namespace and the font-height fix agree; pinned runtime hashes match.
-2. The headless suites and isolated regeneration pass before release packaging.
+2. Requested Full verification runs headless suites and isolated regeneration
+   before packaging; release tags skip that test job.
 3. All five native images contain Intel and ARM slices. Both slices' linked
    non-system libraries resolve inside the app. Binary deployment targets remain
    at most macOS 10.13 for Intel and 11.0 for ARM; these are binary metadata, not
@@ -100,15 +107,15 @@ packages. Developers do not need Apple certificates for the current ad-hoc build
    extraction alone missed the `Routé 1.mid` signature failure in 0.8.5.
    Mac game-hash manifest keys use NFC for comparison with source filenames;
    asset bytes are unchanged.
-   For release review, also expand a fresh ZIP with macOS Archive Utility and
-   run `codesign --verify --deep --strict --all-architectures` on that app before
-   launching it. This catches extraction problems separately from Gatekeeper
+   To diagnose Mac extraction problems, expand a fresh ZIP with macOS Archive
+   Utility and run `codesign --verify --deep --strict --all-architectures` on it.
+   This optional diagnostic checks extraction separately from Gatekeeper
    trust policy. Apple documents this Unicode issue in
    [Resolving Gatekeeper Problems](https://developer.apple.com/forums/thread/706379).
 5. Every packaged game file matches its source hash. `BUILD.json` records the source commit, runtime
    provenance, architectures, signing status, dependency report and game hashes.
    `SHA256SUMS.txt` covers every release file other than itself.
-6. Native smoke checks launch the packaged engine on separate Intel Mac, ARM Mac
+6. In Full verification, native smoke checks launch the packaged engine on Intel Mac, ARM Mac
    and Windows x64 hosts,
    load the real engine/custom scripts and compiled data, exercise a native
    Pokemon/state disk save roundtrip, and render a font/sprite frame through the
@@ -157,37 +164,41 @@ The Actions UI also provides `Requested verification` with a PR number (includin
 for forks), and `Full verification` for a selected branch/tag or explicit commit.
 Use the requested workflow when a PR commit status is needed. Full runs include
 Linux regeneration, all player packages, ARM Mac/Intel Mac/Windows native
-smoke checks and Linux native smoke on Ubuntu 22.04 and 24.04. Tags always invoke the full workflow before drafting a release.
-Main pushes only run quick checks, avoiding an automatic duplicate full matrix.
+smoke checks and Linux native smoke on Ubuntu 22.04 and 24.04. Release tags run
+packaging and publication only. Both workflows use `.github/actions/package`
+to build the same candidate; only Full verification adds tests.
+Main pushes only run quick checks.
 Actions are pinned to reviewed commits; build jobs never get release credentials.
 
-The comment handler uses trusted workflow definitions from main. When changing
-workflow definitions themselves, also dispatch Full verification on the reviewed
-PR branch to exercise the new definitions before merging; `/verify` intentionally
-does not execute PR-controlled workflows with status-writing credentials.
+The comment handler uses trusted workflow definitions from main. Validate changed
+workflows with `actionlint`; if native verification is needed, dispatch Full
+verification on the changed branch. `/verify` intentionally does not execute
+PR-controlled workflows with status-writing credentials.
 
 For the next release:
 
 1. Update `release.json` and `Tidebound::VERSION` in `src/tidebound/domain/state.rb`.
-   Increment `mac_build`, update current player/docs, and
-   rebuild scripts. The script compiler takes Essentials' version from the config.
-2. Run verification/regeneration and review the resulting source changes in a PR.
-   Merge only after CI passes. Perform the native target-machine playtest separately.
+   Increment `mac_build` and update current player/docs and release notes.
+   Packaging rebuilds scripts; the compiler takes Essentials' version from the config.
+2. Review and merge the version bump through the normal PR and quick-check path.
+   Do not repeat full verification or request manual tests for a release-only bump.
 3. Tag the merged commit with a new matching version and push it to the original
-   repository. Never retag a published version.
-4. `Prepare release` requires the tag to match the config and its commit to be
-   in `main`'s history. It reruns the build and all native platform checks.
-   Only then does a separate job get `contents: write` and upload a **draft**
-   GitHub release with only the three player ZIPs attached. The publisher rechecks checksums and the remote tag's commit.
-5. Review the attached downloads and notes, then publish the draft in GitHub.
-   A draft is an unpublished release, not an automatic public announcement.
+   repository, or run `Publish release` from the Actions UI with `main` selected.
+   The manual run creates the missing version tag at its exact source commit.
+   Never retag a published version.
+4. `Publish release` checks the ref against the config and `main`'s history in
+   the Mac packaging job. A separate publisher checks candidate checksums,
+   version/source metadata, creates only a missing version tag, checks the remote
+   tag's commit, then uploads the three
+   ZIPs and publishes automatically. Only the publisher gets `contents: write`.
+   No test matrix, manual download review or draft approval is part of this path.
 
-For a transient workflow failure, rerun on the same tag. If a draft already exists,
-the publisher refuses to overwrite it; inspect that draft rather than silently
+For a transient workflow failure, rerun on the same tag. If a release already exists,
+the publisher refuses to overwrite it; inspect that release rather than silently
 replacing its files. Changes to a tagged build use a new version and tag.
 Build artifacts have 14-day retention.
 
-## Remaining release gates
+## Known runtime limits
 
 - Ad-hoc signing provides local integrity; it does **not** establish an Apple
   Developer ID or notarization. Public downloads can still show Gatekeeper warnings.
@@ -196,7 +207,7 @@ Build artifacts have 14-day retention.
 - Native smoke is bounded boot/data/save/render coverage. It does not play through
   quests, test a real battle or prove audible output/controller behavior.
 - Hosted Intel CI runs macOS 15, not the primary user's Monterey 12.7.5 machine.
-  Keep Monterey launch, controls, audio and save/load as an explicit manual gate.
+  Its results do not establish Monterey hardware, controls or audio compatibility.
 - Windows smoke runs on the hosted Windows Server 2022 x64 runner; it does not
   establish compatibility with every consumer Windows version or GPU. That runner
   has no audio device, so CI sets `ALSOFT_DRIVERS=null` for the test process only;
@@ -231,8 +242,7 @@ GitHub also supplies its own source-code archives automatically.
 Update `docs/release-notes.md` for each version. The builder requires a
 `# Tidebound <version>` heading and uses this file as the GitHub release body.
 Lead with one sentence about the main player-visible change, then one flat list
-of short, concrete bullets comparing with the previous public release. For a
-refreshed draft, say whether earlier testers should download it again.
+of short, concrete bullets comparing with the previous public release.
 
 Include save compatibility, required actions and known limitations only when
 they affect playing; smoke checks do not establish a full playtest. Omit spoilers,

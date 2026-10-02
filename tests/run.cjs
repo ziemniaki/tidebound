@@ -15,12 +15,13 @@ const suites = {
     h.engine('SaveData', 'SaveData_Value', 'PokemonBag', 'Interpreter', 'Game_SaveValues');
     h.ruby('tests/support/integration_services.rb');
     h.production();
+    h.checkScripts();
+    h.ruby('tests/tooling/api_checks.rb');
     h.ruby('tests/support/scene_services.rb');
     h.ruby('tests/support/story_helpers.rb');
     for (const suite of [
-      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'scenes', 'regional_snakes'
+      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'scenes', 'regional_snakes', 'harbour'
     ]) h.ruby(`tests/gameplay/${suite}.rb`);
-    h.compileEvents();
   },
   presentation(h) {
     h.engine('Event_Handlers', 'Event_HandlerCollections');

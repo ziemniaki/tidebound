@@ -31,6 +31,7 @@ class MapEditorTests(unittest.TestCase):
         shutil.copytree(ROOT / "content/tilesets", self.root / "content/tilesets")
         shutil.copytree(ROOT / "game/Data", self.root / "game/Data")
         shutil.copytree(ROOT / "game/Graphics/Tilesets", self.root / "game/Graphics/Tilesets")
+        self.new_map_id = max(loads((self.root / "game/Data/MapInfos.rxdata").read_bytes())) + 1
         editor.remember(self.root)
 
     def test_saved_tiles_pages_routes_audio_and_collision_survive_export(self):
@@ -113,7 +114,7 @@ class MapEditorTests(unittest.TestCase):
         # A source-only new map must not be read as an already-exported native map.
         added = self.root / "content/maps/agent_room"
         added.mkdir()
-        (added / "map.json").write_text('{"id": 118, "name": "Agent room"}')
+        (added / "map.json").write_text(dump({"id": self.new_map_id, "name": "Agent room"}))
         (added / "layout.json").write_text(dump(authored))
         # Import again without exporting the source-only rename to the editor.
         native.attributes["@bgm"].attributes["@volume"] = 31
@@ -221,13 +222,14 @@ class MapEditorTests(unittest.TestCase):
         self.assertEqual(json.loads(source.read_text())["data"]["rows"][0][:2], [384, 385])
 
     def test_editor_created_map_becomes_authored_content_with_its_native_id(self):
-        path = self.root / "game/Data/Map117.rxdata"
+        map_id = self.new_map_id
+        path = self.root / f"game/Data/Map{map_id:03d}.rxdata"
         record = json.loads((self.root / "content/maps/home/layout.json").read_text())
         record["events"] = {}
         path.write_bytes(writes(native_map(record)))
         info_path = self.root / "game/Data/MapInfos.rxdata"
         infos = loads(info_path.read_bytes())
-        infos[117] = obj(
+        infos[map_id] = obj(
             "RPG::MapInfo",
             name="New room!",
             parent_id=101,
@@ -237,31 +239,32 @@ class MapEditorTests(unittest.TestCase):
             scroll_y=0,
         )
         info_path.write_bytes(writes(infos))
-        with self.assertRaisesRegex(ValueError, "New native map 117"):
+        with self.assertRaisesRegex(ValueError, f"New native map {map_id}"):
             editor.require_import(self.root)
         editor.import_changes(self.root)
         bundle = self.root / "content/maps/new_room"
         self.assertEqual(
             json.loads((bundle / "map.json").read_text()),
-            {"id": 117, "name": "New room!", "entrances": {}, "parent_id": 101, "order": 17},
+            {"id": map_id, "name": "New room!", "entrances": {}, "parent_id": 101, "order": 17},
         )
         shutil.copytree(ROOT / "game/.generated", self.root / "game/.generated")
         ownership.prepare(self.root, ownership.inventory(self.root))
-        area = next(a for a in construct(self.root) if a.id == 117)
+        area = next(a for a in construct(self.root) if a.id == map_id)
         self.assertEqual(map_record(loads(writes(area.native))), record)
         editor.require_import(self.root)
         # A simultaneous source addition must not be silently assigned a second bundle.
-        infos[118] = infos[117]
+        next_id = map_id + 1
+        infos[next_id] = infos[map_id]
         info_path.write_bytes(writes(infos))
-        (self.root / "game/Data/Map118.rxdata").write_bytes(path.read_bytes())
+        (self.root / f"game/Data/Map{next_id:03d}.rxdata").write_bytes(path.read_bytes())
         source = self.root / "content/maps/agent_room"
         source.mkdir()
-        (source / "map.json").write_text('{"id": 118, "name": "Agent room"}')
+        (source / "map.json").write_text(dump({"id": next_id, "name": "Agent room"}))
         before = (bundle / "layout.json").read_bytes()
         with self.assertRaisesRegex(ValueError, "ID already used"):
             editor.import_changes(self.root)
         self.assertEqual((bundle / "layout.json").read_bytes(), before)
-        self.assertFalse((self.root / "content/maps/new_room_118").exists())
+        self.assertFalse((self.root / f"content/maps/new_room_{next_id}").exists())
 
     @patch.object(pipeline.workspace, "prepare")
     @patch.object(pipeline.workspace, "validate_overrides")

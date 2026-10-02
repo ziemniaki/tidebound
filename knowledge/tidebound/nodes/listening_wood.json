@@ -1,18 +1,18 @@
 {
-  "description": "The opening edge of a much larger forest contains common Natu, white flowers, a traveller’s fire, a dangerous pool and a broken northern route. It must eventually become a remembered place with internal communities, not a disposable corridor between towns.\n\nProposed route texture: the maintained path follows raised roots and old drainage cuts; lower side paths stay soft after rain. A fallen branch can make a shortcut muddy without making the whole forest hostile. Shelter beside a forked trunk lets a traveler notice silk under leaves and Natu moving among the branches. The fire has a dry shelf for fuel and a place for wet travelers to sit clear of it. Someone has returned to replenish it; its usefulness need not conceal a shrine or a trap.\n\nProposed wider route: small crossings lead toward the protected refuge and eventually mountain watercourses. Establish the same shallow runnels before and after the poisoning, so their later stain can be followed upstream. Exact distances and map connections remain undesigned.",
+  "description": "The opening edge of a much larger forest contains common Natu, white flowers, a traveller’s fire, a dangerous pool and an open northern route into the Hollow Wood. The newer northern district leads to the ancient skull-mouth entrance of the nearly lightless Skull Hollow. Their level-20-and-above Ghost encounters are optional dangers; the skull’s origin remains unknown (§33). It must eventually become a remembered place with internal communities, not a disposable corridor between towns.\n\nProposed route texture: the maintained path follows raised roots and old drainage cuts; lower side paths stay soft after rain. A fallen branch can make a shortcut muddy without making the whole forest hostile. Shelter beside a forked trunk lets a traveler notice silk under leaves and Natu moving among the branches. The fire has a dry shelf for fuel and a place for wet travelers to sit clear of it. Someone has returned to replenish it; its usefulness need not conceal a shrine or a trap.\n\nProposed wider route: small crossings lead toward the protected refuge and eventually mountain watercourses. Establish the same shallow runnels before and after the poisoning, so their later stain can be followed upstream. Exact distances and map connections remain undesigned.",
   "id": "listening_wood",
   "kind": "location",
   "links": [
     {
       "data": {
-        "description": "Proposed wider journey through mountain watercourses. The current northern endpoint does not implement this route."
+        "description": "Proposed wider journey through mountain watercourses. The playable northern Hollow Wood route does not yet reach this settlement."
       },
       "kind": "connected_to",
       "to": "winter_settlement"
     },
     {
       "data": {
-        "sections": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments."
+        "sections": "§5.4: the larger forest; §33: playable Hollow Wood and Skull Hollow additions."
       },
       "kind": "sourced_from",
       "to": "source_game_bible"

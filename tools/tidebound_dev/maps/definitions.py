@@ -7,6 +7,8 @@ from rubymarshal.classes import Symbol
 ATMOSPHERES = {
     "indoor": {"tone": [-8, -14, -25, 12], "fog": "", "opacity": 0, "speed": 1},
     "night": {"tone": [-80, -74, -48, 150], "fog": "smoke", "opacity": 24, "speed": 1},
+    "haunted": {"tone": [-112, -112, -88, 220], "fog": "smoke", "opacity": 38, "speed": -1},
+    "lightless": {"tone": [-168, -172, -160, 230], "fog": "", "opacity": 0, "speed": 1},
     "astral": {"tone": [-55, -46, -20, 160], "fog": "smoke", "opacity": 95, "speed": -2},
     "hideout": {"tone": [-35, -32, -25, 95], "fog": "", "opacity": 0, "speed": 1},
     "vault": {"tone": [-38, -38, -30, 65], "fog": "", "opacity": 0, "speed": 1},

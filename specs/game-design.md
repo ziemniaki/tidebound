@@ -240,7 +240,7 @@ Proposed domestic details include drying cloth, an old maintenance routine, an u
 
 **Confirmed large forest; working name and central placement.** Natu is common here. The forest contains riddles, routes, old places, and a cherished protected refuge. It must be substantial enough to remain important beyond one introductory route.
 
-**Prototype.** Only an opening section exists, with a traveller's resting fire, a Natu encounter, a dangerous pool, and a northern endpoint. This is not the entire intended forest.
+**Prototype.** The opening section has a traveller's resting fire, a Natu encounter and a dangerous pool. Its northern path now reaches the darker Hollow Wood and a skull-mouth cave, described in section 33. This remains part of the larger intended forest.
 
 **Proposed internal districts.** The old road connects inhabited places; a rain village survives under the canopy; a bell grove retains an old ritual; a white clearing holds the protected refuge; deeper paths approach mountain watercourses. These earlier working ideas can be combined or reduced when the actual map develops.
 
@@ -1314,6 +1314,12 @@ Whyduck retains Psyduck's rounded duck body, beak, feet and tail, with a calm pe
 
 **Optional battles.** Sailors Nell and Oren can be challenged voluntarily; these are not progression gates. They use the existing battle/death framework. Their modest teams and precise levels remain balance choices.
 
+**Dock-city upgrade, 28 September 2026.** The approved direction is a more inhabited harbour: residents with personal histories, small optional jobs, and a visible outdoor ring in the north-east. Machop and Hitmonlee spar in the overworld while sailors bet. A generated challenger becomes available every fifteen real minutes, slightly below the player's levels, with approximately 80% previously seen species and an unfamiliar pool excluding legendary, mythical and pseudo-legendary families.
+
+**Implemented draft.** Jory's sealed letter reaches Irena, Sella recovers a netting shuttle, and Daro's cargo count reveals an oil tin borrowed for Harker's ring lanterns. The jobs reward two Oran Berries, a Silk Scarf and three Oran Berries respectively, with saved progress and retryable full-bag rewards. Other residents discuss work, retirement, apprenticeship and missing family. Names, dialogue details and rewards are provisional local character choices; they establish no later mythology.
+
+The ring keeps one saved offer with a fifteen-minute expiry. Its team contains one to three distinct, level-legal species from a curated shore-worker and brawler roster, at one to three levels below the able party's median (floor level one). Each selection uses an 80/20 seen/unseen draw, falling back to the available eligible pool when a bucket is empty. Exclusions apply to both pools. Party changes rebalance the offer without extending its clock. Declining or aborting preserves the offer; a completed bout consumes it. Ordinary battle/death recovery applies, with no ring healing or player betting system. Exact team size, roster and levels remain balance choices.
+
 **Confirmed next destination.** Psyduck Island is the intended next playable destination after the dock city. An eastern-pier captain offers passage. Accepting the invitation reserves passage for a future chapter and lets the player continue exploring the current region. Tidebound is a continuously evolving game; the invitation marks the current extent of this journey, not an ending. No voyage or island map is implemented. The island's geography, inhabitants, story, exact place in the regional numbering and final name remain open. Do not turn a sailor's casual observation about its ducks into authoritative supernatural lore.
 
 **Ecology adjustment.** The South Coast Road has a visible Tidebound Psyduck in addition to its grass encounters. Its evolution into Whyduck is now level 16, superseding level 33 for the regional form only. The approved appearance, stats and moves remain unchanged.
@@ -1341,3 +1347,25 @@ The fictional game opens as **Pet House**, then reveals **The Mending**. Guide a
 **Future boundary.** Surf is not awarded here. The obelisk's origin, inscription, purpose, future quest and reward remain open. This ordinary fishing place must not explain the sea entities.
 
 **Presentation continuity.** The youngsters' squat retains its approved colder, paler interior: boarded windows, torn pallet mattresses and broken storage. Its quest is unchanged.
+
+## 33. Northern haunted forest and skull cave
+
+**Confirmed direction, 30 September 2026.** Above the opening northern forest,
+introduce a much darker, frightening forest district with haunted horror
+atmosphere. A giant ancient skull forms the entrance to a cave. Its interior is
+nearly pitch black, making it difficult to remember the way back. Ghost Pokemon
+inside are level 20 or above.
+
+**Prototype implementation.** The working names are the Hollow Wood and the
+Skull Hollow. Cold, dense trees, low drifting fog, worn branching trails,
+weathered stones and a cracked, rooted skull create the exterior. The cave has
+irregular connected chambers, a large loop and blind alcoves. Very faint rock
+outlines and scattered pale stone seams preserve enough bearings to retreat.
+Native cave encounters are Gastly, Duskull, Shuppet, Haunter and Misdreavus at
+levels 20–28. Forest grass also has level 20–24 Ghost encounters. The existing
+northern threshold is open in both directions, with no quest prerequisite.
+
+**Open boundaries.** The skull's species, origin, age and relation to other lore
+remain unresolved. Ordinary Ghost Pokemon do not explain the water demons,
+Mother's ritual or the planned poisoned refuge. No boss, shrine, reward or
+cave-progression requirement is introduced at this stage.

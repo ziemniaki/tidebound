@@ -43,7 +43,7 @@ The game bundles Ruby; a system Ruby installation is not required for developmen
 | `uv run build --platform linux` | Cross-package a Linux x86_64 development copy |
 | `uv run format` | Format handwritten Python and Ruby |
 | `uv run format --check` | Check formatting without editing |
-| `uv run check` | Compile, then check formatting, tooling, geometry, scripts and quest/save behavior |
+| `uv run check` | Compile, then check formatting, tooling, geometry, scripts, named Tidebound API calls and quest/save behavior |
 | `uv run check --all` | Also regenerate in isolation and compare outputs |
 | `uv run build --compile-only` | Compile the project and checkpoint it without packaging a player |
 | `uv run tidebound package mac ../candidate` | Stage and verify a release ZIP; requires a clean checkout |
@@ -170,9 +170,12 @@ Work in `ziemniaki/tidebound`, without forks. Start from the current checkout an
 preserve uncommitted work. A focused PR should describe the resulting behavior,
 any changed integration contracts and the verification actually performed.
 
-Quick checks run on pushes. Request `/verify` before merging substantial changes;
-docs-only changes need link/contract review and quick checks. Workflow-definition
-changes need branch-dispatched verification: `/verify` uses the trusted workflow.
+Quick checks run on pushes. Request `/verify` before merging substantial gameplay
+or runtime changes; docs-only changes need link/contract review and quick checks.
+Validate workflow definitions with `actionlint`. When they need native verification,
+dispatch it on the changed branch: `/verify` uses the trusted workflow.
+Releases assume the merged changes are tested; version bumps do not require a
+fresh full matrix or manual playtest. Tags package and publish automatically.
 Keep status-writing permissions separate from execution of untrusted PR code.
 Publication follows the separate [release procedure](releasing.md).
 

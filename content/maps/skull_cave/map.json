@@ -1,0 +1,29 @@
+{
+  "id": 118,
+  "name": "The Skull Hollow",
+  "parent_id": 117,
+  "atmosphere": "lightless",
+  "environment": "Cave",
+  "battleback": "cave1",
+  "entrances": {
+    "mouth": [24, 37, 8],
+    "deep": [26, 9, 2]
+  },
+  "encounters": {
+    "Cave": {
+      "chance": 12,
+      "slots": [
+        [30, "GASTLY", 20, 24],
+        [25, "DUSKULL", 22, 26],
+        [20, "SHUPPET", 21, 25],
+        [15, "HAUNTER", 25, 28],
+        [10, "MISDREAVUS", 23, 27]
+      ]
+    }
+  },
+  "actor_settings": {
+    "1": {
+      "cue": "south"
+    }
+  }
+}
