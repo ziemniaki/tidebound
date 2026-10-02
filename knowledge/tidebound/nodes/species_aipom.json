@@ -1,0 +1,56 @@
+{
+  "data": {
+    "design": "Use the established Aipom silhouette and purple coloring. In a proposed bank animation, the tail hand reaches first while the body braces above it; the front hands fumble with a lid. Keep it an ordinary cheeky animal, with no new occult markings.",
+    "types": [
+      "Normal"
+    ]
+  },
+  "description": "An ordinary Normal Pokémon present in both the Listening Wood and the southern pond grass. Its dexterous handlike tail is a defining stock trait; its front hands are comparatively clumsy. Renzo already complains about Aipom stealing bait at the pond, giving the animal a place in people’s working lives. It evolves into Ambipom after a level gain while knowing Double Hit, which its native learnset offers at level 32.\n\nProposed bank behavior: it hangs beyond arm’s reach and uses the tail hand to test an unattended bait-box lid. Closing the lid before setting down a net prevents that opportunity; chasing it across the bank leaves the other gear unattended. It may retreat with bait and eat it in a tree rather than obligingly await a battle. The same habit gives a companion a practical care need: offer objects that can be grasped and returned, and keep hooks out of its reach.",
+  "id": "species_aipom",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Existing forest-grass encounters at levels 3–5."
+      },
+      "kind": "found_in",
+      "to": "listening_wood"
+    },
+    {
+      "data": {
+        "description": "Existing pond-grass encounters at levels 8–11. Bait theft is already mentioned in the fishermen’s dialogue; the detailed lid interaction is proposed."
+      },
+      "kind": "found_in",
+      "to": "pond"
+    },
+    {
+      "data": {
+        "description": "Authored forest and road encounter tables, including the pond-grass table on the road map."
+      },
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "data": {
+        "description": "Pinned species account, typing, move availability and evolution condition; new local behavior is explicitly proposed."
+      },
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "data": {
+        "description": "Renzo’s existing bait-theft conversation."
+      },
+      "kind": "sourced_from",
+      "to": "source_pond"
+    },
+    {
+      "data": {
+        "description": "Renzo’s existing conversation says Aipom stole his bait and then returned for the lid. This is ordinary nuisance behavior; no theft of quest items or automatic inventory effect is established."
+      },
+      "kind": "steals_from",
+      "to": "renzo"
+    }
+  ],
+  "name": "Aipom"
+}

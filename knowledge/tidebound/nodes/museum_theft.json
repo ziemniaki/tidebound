@@ -1,0 +1,56 @@
+{
+  "data": {
+    "questions": [
+      {
+        "options": [
+          {
+            "description": "Proposed: follow ordinary custody through the dock distribution network until an Abyss buyer is found. Earlier familiarity with goods and routes helps; a magical tracking power is unnecessary."
+          },
+          {
+            "description": "Proposed: intersect a later Abyss operation at a protected site, where the thieves have brought the blade as a suspected valuable instrument. They can be wrong about its use; recovery must not itself settle the ancient history."
+          }
+        ],
+        "question": "How can the player recover the stolen sabre without making early petty thieves know its final purpose?"
+      }
+    ]
+  },
+  "description": "Team Abyss later steals the sabre with incomplete understanding; no heist is implemented.\n\nProposed draft: return to the same ordinary hall after the theft. Its empty sabre supports are more legible than a newly introduced crime scene; the bell, weights and ceramics remain. Staff disagree about whether to close everything or keep the undamaged collections accessible. A missing cargo entry and a reused packing mark could connect the thieves to the established dock trade, but neither should explain the blade’s purpose. Choose the actual evidence with the heist route rather than inventing a complete provenance.",
+  "id": "museum_theft",
+  "kind": "quest",
+  "links": [
+    {
+      "kind": "features",
+      "to": "sabre"
+    },
+    {
+      "kind": "features",
+      "to": "team_abyss"
+    },
+    {
+      "kind": "foreshadows",
+      "to": "sabre_final_role"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
+          "§10.6: Team Abyss steals the sabre from the museum"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "The established distribution network supports the later theft; its exact route remains proposed."
+      },
+      "kind": "takes_place_in",
+      "to": "docks"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "museum"
+    }
+  ],
+  "name": "The later museum theft"
+}

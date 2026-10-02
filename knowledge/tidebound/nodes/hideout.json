@@ -1,0 +1,32 @@
+{
+  "data": {
+    "design": "Cold, pale storehouse interior; a sofa and piled belongings establish paths and obstacles. Pale cold timber, boarded windows and subdued belongings. Torn pallet mattresses, basin of dishes, laundry, discarded food, garbage and resale goods; rune-powered wooden console, glass display, corded handpiece. No general modern-electronics setting and no occult laboratory masquerading as the boys’ home."
+  },
+  "description": "The old storehouse has become the youths’ messy home: sofa, pallet beds, laundry, dishes, waste and resale goods form a walkable maze. Ivo’s console game turns comic petty theft into an abrupt body-horror scene without making the boys supernatural experts.\n\nPetty comic conflict becomes an approved early horror rupture through The Mending, then returns to a modest apology and the stolen object.\n\nThe storehouse is a small link in Team Abyss’s coastal resale network, not its headquarters. The boys take goods toward buyers at the docks.\n\nProposed evidence: ordinary resale parcels are stacked near the usable exit, while stolen personal keepsakes lie in an unsorted cupboard. Wrapping cloth has been cut down and reused, obscuring where a parcel came from. A shipment cannot simply be identified as stolen because it is untidy. The player first knows a particular necklace was taken; later testimony and an identifiable consignment can connect the same address to a fence. The pallets and dirty dishes remain someone’s living space after the confrontation.",
+  "id": "hideout",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "description": "Established resale route through the coast, not a newly implemented direct map exit."
+      },
+      "kind": "connected_to",
+      "to": "docks"
+    },
+    {
+      "data": {
+        "sections": [
+          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
+          "§§5.11, 8.1, 10.7 and 31: small-time theft and dock buyers; parcel arrangement is proposed."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "The Old Storehouse"
+}

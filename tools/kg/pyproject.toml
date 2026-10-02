@@ -1,0 +1,13 @@
+[project]
+name = "kg"
+version = "0.1.0"
+description = "A local knowledge graph shared by Codex and a browser UI"
+requires-python = ">=3.12,<3.14"
+dependencies = ["surrealdb==2.0.0", "filelock==4.0.4"]
+
+[project.scripts]
+kg = "kg.cli:main"
+
+[build-system]
+requires = ["uv_build==0.12.1"]
+build-backend = "uv_build"

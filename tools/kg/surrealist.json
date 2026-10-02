@@ -1,0 +1,5 @@
+{
+  "telemetry": false,
+  "cloud": { "enabled": false },
+  "connections": []
+}

@@ -1,0 +1,35 @@
+{
+  "data": {
+    "paths": [
+      "content/maps/astral/map.json",
+      "content/maps/basement/map.json",
+      "content/maps/bedroom/map.json",
+      "content/maps/coast/map.json",
+      "content/maps/docks/map.json",
+      "content/maps/dream/map.json",
+      "content/maps/folded/map.json",
+      "content/maps/forest/map.json",
+      "content/maps/haunted_forest/map.json",
+      "content/maps/hideout/map.json",
+      "content/maps/home/map.json",
+      "content/maps/lantern/map.json",
+      "content/maps/maze/map.json",
+      "content/maps/museum/map.json",
+      "content/maps/road/layout.json",
+      "content/maps/road/map.json",
+      "content/maps/shop/map.json",
+      "content/maps/skull_cave/map.json",
+      "content/maps/vault/map.json"
+    ]
+  },
+  "description": "Authored map identities, entrances and encounter tables, including the Hollow Wood and Skull Hollow; the road layout supplies the repaired pond trail and basket placement. Source evidence for current routes and populations, separate from proposed ecological ranges.",
+  "id": "source_maps",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "maps"
+}

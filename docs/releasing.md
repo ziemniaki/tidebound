@@ -148,7 +148,9 @@ checkout.
 
 `Quick checks` runs Linux headless verification and tooling/game tests on every
 PR update and main push. It does not package players, regenerate all assets or
-start native Mac/Windows jobs.
+start native Mac/Windows jobs. A separate Linux job checks the development KG
+and its exported content; KG is independent of game verification and has no
+native platform matrix.
 
 For full verification, a collaborator with write permission comments exactly
 `/verify` on an open PR. The trusted `Requested verification` workflow resolves

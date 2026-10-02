@@ -1,0 +1,60 @@
+{
+  "data": {
+    "behavior": [
+      "Makes too much pie and frames accepting it as a favor to him.",
+      "Works the returned clasp once, then twice.",
+      "Still places the necklace beside the mirror when tidying."
+    ],
+    "design": "An elderly shopkeeper whose failed pursuit is legible in posture. Ordinary subdued coastal clothing; detailed costume remains undecided. A hand gripping the wall during the chase; a soft cloth folded around the necklace; oil bottles wrapped in reused fabric. No necromancer motifs or supernatural eyes. Mourning is healthy, not evidence of corruption.",
+    "questions": [
+      {
+        "question": "What are the seller’s and his wife’s names?"
+      },
+      {
+        "question": "When did his wife die, and what shared history matters to his story?"
+      }
+    ]
+  },
+  "description": "An elderly oil seller from City 4, generous with food and unreliable with his keys. When thieves steal his wife’s necklace his legs fail him, but he still notices the returned plate and thanks the child. He keeps an object and a habit of remembering without trying to undo his wife’s death.\n\nRecover the necklace because she wore it, and keep it safe without pretending it belongs among grand museum treasures.\n\nPolite, self-deprecating, mildly comic. His grief is in a concrete habit and a short correction, not a speech about loss.\n\nHe knows Mother as Ellie, the enormous lighthouse vault, the dockside museum and his hometown’s pie recipe. He does not know the pearls’ deeper ecology, Mother’s ritual or the sabre’s final purpose.",
+  "id": "seller",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "from",
+      "to": "city_four"
+    },
+    {
+      "data": {
+        "description": "Keeps her necklace beside the mirror."
+      },
+      "kind": "remembers",
+      "to": "seller_wife"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities",
+          "§§5.12, 10.7: hometown, shop and keepsake"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    },
+    {
+      "data": {
+        "description": "Asks her to keep the necklace safe."
+      },
+      "kind": "trusts",
+      "to": "mother"
+    },
+    {
+      "kind": "works_at",
+      "to": "oil_shop"
+    }
+  ],
+  "name": "The oil seller"
+}

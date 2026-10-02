@@ -1,0 +1,26 @@
+{
+  "description": "A major trainer in the winter community who keeps the history of Koga and their absent mother alive. Her work and decisions should affect apprentices and neighbors; she is not merely a source of exposition or a hostage. Name, team and exact choices remain open.\n\nProposed draft: her first dispute with Koga is over a covered passage that still leaks onto stored bedding while he is eager to try something new. She joins the repair rather than assigning everyone else chores. Later, when poison makes one shared room unsafe, she moves practice to a cramped usable space and keeps meals going there. She can accept the returned figure’s successful defense and still refuse to place apprentices on a contaminated watch. Her early objections concern observable harm; she does not inexplicably know that her brother is an imitation.",
+  "id": "koga_sister",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "member_of",
+      "to": "winter_settlement"
+    },
+    {
+      "kind": "sibling_of",
+      "to": "koga"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities",
+          "§§5.5, 6.3: family and winter community"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Koga’s sister"
+}

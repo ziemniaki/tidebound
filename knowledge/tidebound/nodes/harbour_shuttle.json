@@ -1,0 +1,71 @@
+{
+  "data": {
+    "beats": [
+      "Inspecting the western folded nets before agreeing to help only reveals the smooth-handled shuttle; the player does not take it unasked.",
+      {
+        "description": "Sella asks the child to find the shuttle before the tide does.",
+        "options": [
+          {
+            "description": "Agree and work it free from the folded nets without cutting them. If it cannot fit in the bag, return after making room."
+          },
+          {
+            "description": "Decline or leave. Sella can be asked again; the tide wording does not start a timer or destroy the tool."
+          }
+        ]
+      },
+      "Return the shuttle. Sella turns it over, notices the three cuts and tells how her brother relearned his work after losing two fingers to a winch.",
+      "Accept the Silk Scarf reward when there is room. Later conversation explains how often her brother repaired it."
+    ],
+    "consequences": "Returning the shuttle completes its recovery even when the scarf cannot fit. Sella keeps that unpaid reward available; neither the net search nor the handover must be repeated. The tool and scarf cannot be collected repeatedly. The errand survives leaving and saving and is not a gate to the ring, museum or crossing.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. When the shuttle is returned.",
+        "lines": [
+          {
+            "speaker": "Sella",
+            "text": "My brother's. He lost two fingers to a winch, then taught himself all over again."
+          },
+          {
+            "speaker": "Sella",
+            "text": "People at the ring call that sort of thing a good story. He mostly called it inconvenient."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "An optional search for a working tool lets Sella speak about her brother through marks, repairs and use. The quest keeps his injury separate from the ring crowd’s appetite for a good story; returning what she needs produces a particular gift rather than a confession about the world’s mythology.",
+  "id": "harbour_shuttle",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "netting_shuttle"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "sella"
+    },
+    {
+      "kind": "features",
+      "to": "sella_scarf"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "docks"
+    }
+  ],
+  "name": "The tool in the folded nets"
+}

@@ -1,0 +1,55 @@
+{
+  "data": {
+    "category": "Unbloomed",
+    "design": "Hollow Sunkern contour with spectral drooping leaves. Pale sage and moon-silver against dusty violet. Transparent body, exhausted face and sparse wisps; keep a single readable silhouette across views. No lunar deity, moon ritual or claim that Ghost typing is demonic.",
+    "dex_entry": "It waited for a sunrise that never came. Its seed never sprouted; only a hollow outline remains, carrying the weary longing of the plant it could not become.",
+    "height_m": 0.6,
+    "moves": [
+      {
+        "description": "On evolution. The evolution attack becomes more dangerous against status-afflicted targets.",
+        "name": "Hex"
+      },
+      {
+        "description": "Level 28 in the species learnset. Burn supplies the status that strengthens Hex; a battle combination, not an established supernatural crime.",
+        "name": "Will-O-Wisp"
+      },
+      {
+        "description": "Level 37 in the species learnset. Recovers health while lowering the target’s Attack, useful against physical pressure.",
+        "name": "Strength Sap"
+      }
+    ],
+    "types": [
+      "Grass",
+      "Ghost"
+    ],
+    "weight_kg": 0.1
+  },
+  "description": "Moonkern is the spirit-outline of the seed that never sprouted. Weariness and restrained anger outlast the unfulfilled physical plant. The evolution makes a local consequence of perpetual night tangible without explaining the sea.\n\nA resilient special attacker; restless spectral behavior is reflected by Insomnia/Infiltrator and the Will-O-Wisp/Hex pairing.\n\nInsomnia and Infiltrator, with hidden Cursed Body, support a restless, disruptive battle identity. The level-14 change does not require killing the individual, sacrificing another companion or seeking a sunlight cure. It is normal evolution that preserves the companion.\n\nProposed behavior: it repeats the small orientation movements of a seed looking for light, then stops when no light follows. A familiar companion might resume beside the place where the player sets down their pack. The repetition carries continuity through evolution without asserting new feeding biology, a lost human soul or the power to restore a dead plant.\n\nProposed continuity at the same bank: after evolution, the individual pauses beside the old sheltering stone and makes its familiar turn before following the player. A companion can keep that recognizable preference without needing soil packed around an insubstantial body. A former place of care still matters when the act that once helped there is no longer useful.",
+  "id": "species_moonkern",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Level 20"
+      },
+      "kind": "evolves_into",
+      "to": "species_moonflora"
+    },
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_moonkern"
+    }
+  ],
+  "name": "Moonkern"
+}

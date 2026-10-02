@@ -1,0 +1,24 @@
+{
+  "data": {
+    "design": "Repeat planks, windows and furniture; bookcases form a traversable route to the distant bed. Violet-grey with cold green traces. Dream associations are not biographical facts."
+  },
+  "description": "A larger false bedroom repeats familiar furnishings until bookcases become a winding route. Four readings support four riddles at a distant bed. A second empty bed is a decoy, not a new family biography.",
+  "id": "second_bedroom",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "0.7.19 addition: second bedroom and transition to the Natu maze."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "Your Room, Again"
+}

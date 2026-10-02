@@ -1,0 +1,34 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Ordinary ring-side conversation.",
+        "lines": [
+          {
+            "speaker": "Rusk",
+            "text": "I know which one is tired. Watch the feet."
+          },
+          {
+            "speaker": "Rusk",
+            "text": "That is not the same as knowing which one will lose."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "A spectator who watches feet to recognize a tired fighter, then distinguishes that observation from knowing who will lose. His knowledge is particular and fallible. He offers no guaranteed betting advice or special combat power.",
+  "id": "rusk",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "associated_with",
+      "to": "docks"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    }
+  ],
+  "name": "Rusk"
+}

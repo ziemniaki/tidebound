@@ -1,0 +1,51 @@
+{
+  "data": {
+    "questions": [
+      {
+        "question": "How should the traveler’s missing-bridge line be reconciled with the now-open northern route into the Hollow Wood?"
+      }
+    ]
+  },
+  "description": "The southern, familiar edge of a much larger forest contains common Natu, white flowers, a traveler’s fire and a dangerous pool. The oil seller’s keys lie among the flowers, so returning them does not require entering the darker northern district. The path north now opens directly into the Hollow Wood; the same threshold returns south. Its much stronger Ghost encounters are optional dangers beyond the household errand, not a gate the child must clear. The Listening Wood’s own grass still contains its early low-level wildlife.\n\nProposed route texture: the maintained path follows raised roots and old drainage cuts; lower side paths stay soft after rain. A fallen branch can make a shortcut muddy without making the whole forest hostile. Shelter beside a forked trunk lets a traveler notice silk under leaves and Natu moving among the branches. The fire has a dry shelf for fuel and a place for wet travelers to sit clear of it. Someone has returned to replenish it; its usefulness need not conceal a shrine or a trap.\n\nProposed wider route: small crossings lead toward the protected refuge and eventually mountain watercourses. Establish the same shallow runnels before and after the poisoning, so their later stain can be followed upstream. Exact distances and map connections remain undesigned.\n\nAn existing line still has the traveler say that the northern bridge is gone and that someone was waiting on its other side. That statement conflicts with the currently open northern threshold if read as directions. No second bridge has been established; the spoken line is not evidence that the Hollow Wood route is blocked.",
+  "id": "listening_wood",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "description": "The open northern threshold leads into the haunted district and permits return without a quest prerequisite. The keys errand remains within the Listening Wood."
+      },
+      "kind": "connected_to",
+      "to": "hollow_wood"
+    },
+    {
+      "data": {
+        "description": "Proposed wider journey through mountain watercourses. The playable northern Hollow Wood route does not yet reach this settlement."
+      },
+      "kind": "connected_to",
+      "to": "winter_settlement"
+    },
+    {
+      "data": {
+        "sections": "§5.4: larger forest and familiar opening; §33: open northern threshold and optional dangerous district."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_haunted_landscape"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "data": {
+        "description": "The traveler’s existing missing-bridge line remains in the fire conversation despite the newly open northern threshold."
+      },
+      "kind": "sourced_from",
+      "to": "source_opening"
+    }
+  ],
+  "name": "The Listening Wood"
+}

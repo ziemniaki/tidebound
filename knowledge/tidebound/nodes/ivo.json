@@ -1,0 +1,25 @@
+{
+  "description": "The boy on the sofa wants the protagonist out of his way and demands victory in his console game before discussing the necklace. When beaten he changes the terms to a Pokémon battle. His eventual admission is small and particular; it does not turn him into a redeemed hero or a lore expert.",
+  "id": "ivo",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "member_of",
+      "to": "team_abyss"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "Ivo"
+}

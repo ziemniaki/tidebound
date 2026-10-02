@@ -1,0 +1,95 @@
+{
+  "data": {
+    "design": "Use the regional Lapras design described by species_lapras_1. Use the approved faint appearance, fades and camera staging at the pier; no early explanatory spectacle.",
+    "dialogue": [
+      {
+        "context": "Existing narration during the one-time pier glimpse after Mother’s oil is returned. These observations reveal no explanation of the creature’s magic.",
+        "lines": [
+          {
+            "speaker": "Narrator",
+            "text": "A face. Turned towards the lighthouse, as if waiting for its light."
+          },
+          {
+            "speaker": "Narrator",
+            "text": "The sea goes on behind it. Farther than you can see."
+          }
+        ],
+        "source": "source_lapras"
+      }
+    ],
+    "questions": [
+      {
+        "question": "How does Lapras join the journey, and does it enter the party?"
+      },
+      {
+        "options": [
+          {
+            "description": "An involuntary link through which the sea recognizes the protagonist."
+          },
+          {
+            "description": "Lapras carries traces of the drowned."
+          }
+        ],
+        "question": "What becomes unsettling about Lapras after attachment forms?"
+      },
+      {
+        "question": "How does the player discover the legendary’s magic in Lapras?"
+      },
+      {
+        "question": "What does the forehead scar mean?"
+      }
+    ]
+  },
+  "description": "The presence Pookie senses at the pier later surfaces as a ghostly Lapras. The story asks the player to move from fear to attachment before discovering its disturbing secret and, much later, its connection to a Water/Ghost legendary.\n\nProposed individual behavior: it begins to turn toward the child’s approaching footsteps before the lighthouse beam reaches its shell. Familiarity comes from repeated shore meetings in the Lapras arc; the child learns to respect its resting distance. Neither refusal nor departure makes it hostile.",
+  "id": "lapras_apparition",
+  "kind": "creature",
+  "links": [
+    {
+      "kind": "associated_with",
+      "to": "lapras_arc"
+    },
+    {
+      "data": {
+        "description": "Planned arc, developed through proposed repeated shore meetings: fear gives way to recognition and attachment before the unsettling fact and the late legendary connection. Recruitment remains undecided."
+      },
+      "kind": "bonded_with",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "description": "The existing apparition is glimpsed from Shiohama’s pier after the earlier unseen presence sensed by Pookie. Later repeated meetings nearby are proposed; the first bark still reveals no creature."
+      },
+      "kind": "found_in",
+      "to": "shiohama"
+    },
+    {
+      "data": {
+        "description": "Its magic is revealed near the end, after attachment and the unsettling discovery. The scar has no established explanation."
+      },
+      "kind": "imbued_by",
+      "to": "water_ghost_legendary"
+    },
+    {
+      "kind": "instance_of",
+      "to": "species_lapras_1"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_lapras"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    }
+  ],
+  "name": "The pier apparition"
+}

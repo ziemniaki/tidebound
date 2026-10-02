@@ -1,0 +1,66 @@
+{
+  "data": {
+    "beats": [
+      "Give the necklace back.",
+      "Let the seller speak about his wife without interruption.",
+      "Show one restrained glint.",
+      "Let him consider the museum, dismiss the object as too personal and mention Ellie’s vault."
+    ],
+    "consequences": "The necklace leaves the player’s possession and the neighbor’s recovery quest is complete. His gratitude leads to the keepsake and vault visit.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Only after the necklace is returned.",
+        "lines": [
+          {
+            "speaker": "Seller",
+            "text": "My wife wore this. Every important day of her life, apparently."
+          },
+          {
+            "speaker": "Seller",
+            "text": "And plenty of unimportant ones."
+          },
+          {
+            "speaker": "Seller",
+            "text": "She's been gone a while. I still put it beside the mirror when I tidy."
+          }
+        ],
+        "source": "source_neighbor"
+      }
+    ]
+  },
+  "description": "Returning the necklace changes a stolen object into a remembered life. The seller works its clasp, mentions important and unimportant days, and folds it into cloth. One pearl catches unusual light; his explanation is ordinary.\n\nThe wife’s ownership becomes known here. The pearls’ ecology does not.",
+  "id": "return_necklace",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "necklace"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "seller"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 10.7: pie, necklace and delayed pearl meaning"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "oil_shop"
+    }
+  ],
+  "name": "Return the necklace to the seller"
+}

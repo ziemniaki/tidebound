@@ -1,0 +1,42 @@
+{
+  "data": {
+    "questions": [
+      {
+        "question": "Is the rumour of mental corruption true?"
+      },
+      {
+        "question": "How does poison defend against demons?"
+      }
+    ]
+  },
+  "description": "Rumours associate prolonged poison exposure with mental corruption; neither the cause nor Koga’s fate is established.\n\nA rumor associated with the later Koga communities, not narrator-confirmed biology. When written, its scene must identify a particular speaker and their evidence; do not insert it into ordinary opening NPC dialogue.",
+  "id": "poison_belief",
+  "kind": "lore",
+  "links": [
+    {
+      "data": {
+        "description": "The rumor does not establish his fate or turn the imitation into a corrupted real Koga."
+      },
+      "kind": "about",
+      "to": "koga"
+    },
+    {
+      "kind": "about",
+      "to": "winter_settlement"
+    },
+    {
+      "kind": "held_by",
+      "to": "river_settlement"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The poison rumour"
+}

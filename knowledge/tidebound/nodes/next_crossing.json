@@ -1,0 +1,40 @@
+{
+  "data": {
+    "beats": [
+      "Find the eastern-pier captain after the vault conversation.",
+      "Accept the invitation and then continue exploring the existing region if desired."
+    ],
+    "consequences": "The present invitation permits continued exploration; voyage and island gameplay remain to be built."
+  },
+  "description": "A working ship and an ordinary supply voyage offer a route beyond the familiar coast. The Little Promise’s invitation points the journey toward Psyduck Island.\n\nThe captain knows a route and a destination, not an authoritative explanation of the island’s creatures or magic.",
+  "id": "next_crossing",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "captain"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_docks"
+    },
+    {
+      "data": {
+        "sections": [
+          "§30: working harbour, optional sailors and the planned island crossing."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "docks"
+    }
+  ],
+  "name": "The captain’s invitation"
+}

@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/opening/story.rb"
+  },
+  "description": "Household identities, choice, oil and lamp; native level/move details remain source-owned",
+  "id": "source_opening",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "opening"
+}

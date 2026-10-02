@@ -1,0 +1,73 @@
+{
+  "data": {
+    "beats": [
+      "Koga starts to invite practice; his sister points to damp bedding beneath the passage. He admits the repair he promised is still unfinished.",
+      {
+        "description": "Help with the repair, or wait and watch before joining the optional practice. Neither choice judges the player’s loyalty.",
+        "options": [
+          {
+            "description": "Hold a brace while Koga asks one companion to steady a board. When it cannot reach safely, he lowers the task instead of demanding a harder effort. His sister finishes the fastening."
+          },
+          {
+            "description": "Watch from the dry end. Koga and his sister finish together; the player still sees the same companions, their signals and the adjustment after a failed attempt."
+          }
+        ]
+      },
+      "A second familiar team member waits for loose scraps to be cleared before settling beside the dry bedding. Its species and particular signal must follow the eventual roster choice.",
+      "Practice can now be accepted or declined. Shared food and a dry place to sit remain available either way.",
+      "On a later visit, the repaired passage is still in use and a familiar companion remembers where it settled. Koga can speak about a new ambition while returning to unfinished ordinary work."
+    ],
+    "consequences": "Proposed: the passage becomes usable regardless of accepting a practice battle. The player has seen a failed attempt corrected without punishment. No bond score, exclusive item or mandatory friendship test is added.",
+    "dialogue": [
+      {
+        "context": "Proposed draft. Koga has promised practice before finishing the repair.",
+        "lines": [
+          {
+            "speaker": "Koga",
+            "text": "One round? I want to try something."
+          },
+          {
+            "speaker": "Koga’s sister",
+            "text": "You wanted to try that roof yesterday."
+          },
+          {
+            "speaker": "Koga",
+            "text": "Right. Roof first. Hold this end?"
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Proposed draft. Before Koga disappears, a leaking covered passage in the winter settlement turns an anticipated practice session into shared work. The player meets his sister as someone sustaining the place, and learns the real team through coordination rather than a roster announcement.",
+  "id": "scene_koga_shared_work",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "koga"
+    },
+    {
+      "kind": "features",
+      "to": "koga_sister"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.",
+        "sections": [
+          "§§5.5, 6.3–6.5: community, familiar team and family; §9 Chapter III"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "winter_settlement"
+    }
+  ],
+  "name": "A roof before practice"
+}

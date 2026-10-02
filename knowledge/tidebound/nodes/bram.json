@@ -1,0 +1,21 @@
+{
+  "description": "Bram guards Ivo’s sofa and challenges the approaching child before they can interrupt the game. His place among resale goods and shared mess is a small-time criminal role. A deeper history has not been written.",
+  "id": "bram",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "Bram"
+}

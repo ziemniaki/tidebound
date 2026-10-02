@@ -1,0 +1,31 @@
+{
+  "data": {
+    "beats": [
+      "Walk from the harbour approach into the public exhibition hall.",
+      "Read or inspect the sabre display and the ordinary coastal collections."
+    ],
+    "consequences": "Inspection completes the visit; the blade remains behind glass. The visit is optional and does not gate the captain’s invitation."
+  },
+  "description": "A first museum visit places a strange blade among ordinary coastal objects and makes incomplete historical knowledge visible.\n\nUnknown maker and incomplete provenance are honest limits, not license for an attendant to reveal the final plot.",
+  "id": "museum_visit",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "sabre"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_vault"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "museum"
+    }
+  ],
+  "name": "The blade behind glass"
+}

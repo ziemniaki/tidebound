@@ -1,0 +1,29 @@
+{
+  "description": "Berry trees give two HP-restoring berries and regrow after one real hour; no status-curing berries are distributed. This is a supply rhythm for the current game, not an explanation of the plants’ regional biology. Renzo’s existing habit of taking two and leaving the rest gives that limit a local voice.\n\nProposed connected situation: show uneven picking and a recently cleared approach to a shared tree. On return, the same usable path and new fruit make ordinary care visible. Leave room for people to disagree about who tends it without making a universally enforced harvesting law or rewarding the player for every restraint.",
+  "id": "berry_regrowth",
+  "kind": "mechanic",
+  "links": [
+    {
+      "kind": "about",
+      "to": "pond"
+    },
+    {
+      "kind": "associated_with",
+      "to": "renzo"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_fields"
+    },
+    {
+      "data": {
+        "sections": [
+          "§12.3: field resources and regrowth; §32: southern pond."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Berry regrowth"
+}

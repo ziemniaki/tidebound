@@ -1,0 +1,57 @@
+{
+  "data": {
+    "beats": [
+      "After companion choice, ask the seller for Mother’s bottle.",
+      "Find his keys among the northern wood’s white flowers and return them.",
+      "Enter the unlocked shop to collect the already paid-for oil.",
+      "Bring the bottle to Mother, then measure oil, trim the wick and turn the great lamp’s brass wheel."
+    ],
+    "consequences": "A full Key Items pocket delays collecting the keys; it does not make them disappear. The lamp lesson remains available around the pie visit."
+  },
+  "description": "The oil errand connects the household to its forgetful neighbor and gives Mother a practical skill to pass on.\n\nOnly the great upstairs lamp is part of the lesson. No explanation of the lower lamp.",
+  "id": "lamp_errand",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "item_lamp_oil"
+    },
+    {
+      "kind": "features",
+      "to": "keys"
+    },
+    {
+      "kind": "features",
+      "to": "mother"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "seller"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_walk"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "lantern_room"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "listening_wood"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "oil_shop"
+    }
+  ],
+  "name": "Learning the great lamp"
+}

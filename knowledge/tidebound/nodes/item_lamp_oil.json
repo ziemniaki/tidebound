@@ -1,0 +1,51 @@
+{
+  "data": {
+    "design": "The existing glass bottle is wrapped in an old sleeve; Mother shows its measure while teaching the child. Preserve that ordinary hand-carried shape. Proposed returnable versions use plain glass and a simple stopper. No occult seal, glowing contents or rarity aura. Harbour cargo uses sealed tins rather than the household’s glass bottle; the missing tin has an island shipping label and is returned unopened."
+  },
+  "description": "Ordinary lamp fuel connects the oil seller’s shop, the working harbour and the lighthouse’s great upstairs lamp. In the household errand, Mother’s bottle is already paid for; the seller hands it over after the shop is unlocked. Measuring it, trimming the wick and turning the brass wheel make keeping a light a learned task. The oil does not explain the lower lamp or establish a ritual ingredient.\n\nProposed recurring use: recognizable returnable bottles make a short delivery visible on the seller’s rack. A stolen marked load can later connect an everyday shortage to a particular dock buyer. A bottle offered in thanks remains useful fuel, not a magical upgrade.\n\nIn the current harbour cargo errand, sealed tins are supplies for Psyduck Island. Harker has borrowed the missing sixth tin for ring lanterns, then returns it unopened when confronted with the destination label. The child resolves the shortage without receiving a tin in the bag. This borrowing is distinct from the proposed stolen-load story above; the tin’s intended use does not make Harker a Team Abyss member.",
+  "id": "item_lamp_oil",
+  "kind": "item",
+  "links": [
+    {
+      "data": {
+        "description": "Established ordinary coastal cargo. A specific shop resupply network is proposed."
+      },
+      "kind": "associated_with",
+      "to": "docks"
+    },
+    {
+      "data": {
+        "description": "Used in the great upstairs lamp during Mother’s lesson."
+      },
+      "kind": "associated_with",
+      "to": "lantern_room"
+    },
+    {
+      "data": {
+        "description": "Existing opening handover after the keys are returned and the seller opens the shop."
+      },
+      "kind": "found_in",
+      "to": "oil_shop"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_docks"
+    },
+    {
+      "data": {
+        "sections": "§§5.2, 8.1 and 30: oil errand, proposed criminal fuel control and ordinary dock cargo; returnable-bottle design is new."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    }
+  ],
+  "name": "Lamp oil"
+}

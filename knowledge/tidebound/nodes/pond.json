@@ -1,0 +1,43 @@
+{
+  "data": {
+    "questions": [
+      {
+        "question": "Who made the obelisk, and what does its inscription say?"
+      },
+      {
+        "question": "What future quest and reward involve the obelisk?"
+      }
+    ]
+  },
+  "description": "Below the South Coast Road, fishermen share a substantial pond with hooks, nets, bait-stealing Aipom and an Oran tree. The visible Psyduck stands at the western shallow bank. Its encounter is voluntary: approaching it offers a battle at level 8, and capture or defeat removes that individual. Toma says they leave this bank to the duck when the road gets noisy. Pond grass has a stronger local mix of Psyduck, Sunkern and Aipom than the road grass farther north.\n\nA narrow concealed trail turns west through the thicket, then follows the pond’s western side south to a visible old basket. Dry leaves cover a waxed-cloth bundle containing Mystic Water; collecting it leaves the hollow empty. The trail is reachable on foot and the repaired tree edges keep its way through readable. Farther around the bank, a different fishing basket is patched with three kinds of twine and has a tiny fish carved into its handle. These are distinct objects.\n\nThe island obelisk remains separated by water and requires Surf to reach; Surf is not awarded here. Its marks are worn too shallow to read. Origin, purpose and future reward remain open.\n\nProposed bank routine: bait is kept in lidded boxes weighted with stones after repeated Aipom thefts. A clean landing beside the tree is kept clear of discarded hooks; the muddier feeding edge belongs to the creatures until somebody needs to land a boat. Help can mean collecting abandoned line or moving a dropped bait box, with the resulting clear patch still visible on a later visit. Optional battles are invitations away from the line-tending work, not the price of using the bank. None of this explains the obelisk or makes an ordinary fish catch into a relic.",
+  "id": "pond",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "part_of",
+      "to": "south_road"
+    },
+    {
+      "data": {
+        "sections": [
+          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
+          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "Road layout, named pond entrances and the declared western trail establish the accessible bank, reward basket and isolated obelisk."
+      },
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_pond"
+    }
+  ],
+  "name": "The pond below the South Coast Road"
+}

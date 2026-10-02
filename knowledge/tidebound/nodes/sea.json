@@ -1,0 +1,18 @@
+{
+  "description": "A majestic dark presence; its deepest nature remains partly unexplained.\n\nBoats, crossings and livelihoods depend on a presence that cannot be reduced to a final enemy. Sailors know a run of current or a dangerous landing; that knowledge does not grant knowledge of her nature.\n\nProposed recurring presentation: early, the great lamp passes over familiar moorings with the expected sound of water against timber. Much later, a crossing can repeat the same movement while a wave reaches the hull before its sound. Give the player a familiar rhythm to recognize before withholding one part of it. The anomaly remains an experience, not a collectible explanation of the sea.",
+  "id": "sea",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
+          "§§3.1, 5.1 and 30: majestic sea, proposed sensory disturbances and ordinary crews. Recurring beam-and-hull staging is proposed."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The sea"
+}

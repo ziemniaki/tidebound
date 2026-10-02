@@ -1,0 +1,23 @@
+{
+  "description": "One lighthouse home contains domestic rooms, the great lamp, maintenance storage and a disproportionately large vault. Mother is its sole keeper. Leaving and coming back should feel like changes in a relationship, not visits to a quest dispenser.",
+  "id": "lighthouse_home",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "connected_to",
+      "to": "shiohama"
+    },
+    {
+      "data": {
+        "sections": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "The Keeper's House"
+}

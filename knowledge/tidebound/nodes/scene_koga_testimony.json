@@ -1,0 +1,81 @@
+{
+  "data": {
+    "beats": [
+      "Koga’s sister arrives to compare accounts rather than lead a trial. An organizer admits commissioning an attempt to bring him back. Another resident says they believed the public claim of an ordinary return.",
+      "A participant describes staying through an attempted conjuration: an initially unrecognizable poison shape took on Koga’s appearance. They did not fetch his body or meet him arriving. The ritual’s exact materials and mechanism remain an author decision, not invented here.",
+      "A dissenter distinguishes having opposed the attempt from having stopped it. Let a less-informed resident ask why the account was hidden while the returned protector was praised.",
+      "Testimony must be corroborated by evidence of the same construction at the ritual site and the already-seen poison body. Choose the concrete surviving trace with the eventual ritual design; a rumour alone is insufficient.",
+      {
+        "description": "Choose how to continue the conversation after the origin is clear. The options change what the speakers address, not whether the player grants absolution.",
+        "options": [
+          {
+            "description": "Ask what they believed the attempt would cost. The participant answers for their own decision rather than speaking for the whole settlement."
+          },
+          {
+            "description": "Ask who needs help now. The sister names the people displaced by the poisoned rooms; care begins while responsibility remains unresolved."
+          },
+          {
+            "description": "Leave the conversation. Its evidence remains available later; the player need not perform forgiveness to continue."
+          }
+        ]
+      },
+      "When asked where real Koga is, no witness can answer. His sister returns to the practical work of helping survivors without claiming this settles their loss."
+    ],
+    "consequences": "Proposed: the construction’s origin becomes established and responsibility becomes specific. This is not a rescue clue, a fragment of Koga’s soul, collective guilt assigned to every resident, or a forgiveness gate. Ritual evidence must be authored before implementation.",
+    "dialogue": [
+      {
+        "context": "Proposed draft. After the origin is established, not as a substitute for evidence.",
+        "lines": [
+          {
+            "speaker": "Koga’s sister",
+            "text": "Did any of you see him before it began?"
+          },
+          {
+            "speaker": "A participant",
+            "text": "No. We thought we could make him come back."
+          },
+          {
+            "speaker": "Koga’s sister",
+            "text": "Then tell me what you did. Don’t tell me where he went."
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Proposed draft. After the poison imitation is destroyed, residents of the second settlement give an account of what they attempted. The scene resolves the false return without supplying a destination for real Koga. The witnesses below are roles within the still-unwritten local cast, not four additional named entities.",
+  "id": "scene_koga_testimony",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "false_koga"
+    },
+    {
+      "kind": "features",
+      "to": "false_koga_origin"
+    },
+    {
+      "kind": "features",
+      "to": "koga_sister"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.",
+        "sections": [
+          "§§5.6, 6.7, 10.2, 14.1–14.2: varied responsibility, proof after destruction, unresolved absence"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "river_settlement"
+    }
+  ],
+  "name": "What came back"
+}

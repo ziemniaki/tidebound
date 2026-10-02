@@ -1,0 +1,31 @@
+{
+  "data": {
+    "forms": {
+      "corrupted": "Water/Poison is a working proposal, not final data.",
+      "healed": "Water/Grass is confirmed future direction."
+    },
+    "questions": [
+      {
+        "question": "How does the player heal Suicune?"
+      },
+      {
+        "question": "What do the corrupted and healed forms look like, and how do they differ in battle?"
+      }
+    ]
+  },
+  "description": "Suicune is the rare beautiful creature at the poisoned refuge. The story distinguishes a corrupted state from a healed Water/Grass form; the latter is confirmed while exact battle and healing implementation remains future work.",
+  "id": "species_suicune",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Suicune"
+}

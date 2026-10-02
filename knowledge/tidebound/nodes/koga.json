@@ -1,0 +1,53 @@
+{
+  "data": {
+    "questions": [
+      {
+        "options": [
+          {
+            "description": "Proposed: a small mixed team with one poison specialist. His defensive discovery is a learned practice shared with companions, rather than a claim that every partner is poisonous."
+          },
+          {
+            "description": "Proposed: a poison-focused team with visibly different duties and temperaments. Establish each individual in ordinary work as well as practice battles; neither all-purple silhouettes nor one introductory fight is enough."
+          }
+        ],
+        "question": "Which familiar team lets the player recognize Koga through repeated work and companionship, then feel its complete absence from the imitation’s final roster?"
+      }
+    ]
+  },
+  "description": "A warm, lively and ambitious young prodigy who wants to become stronger and protect others. Poison’s usefulness against demons gives that ambition a practical setting. Repeated help and recognizable behavior from his familiar Pokémon must make him worth missing; the team’s species remain to be chosen.\n\nAfter his disappearance, an imitation offers the comfort of his return. None of his familiar team appears in its final boss roster, an important clue to the deception. The imitation’s cruelty is not real Koga’s corruption arc.\n\nHis destination and fate remain intentionally unexplained even after the imitation is defeated. There is no authenticated return or rescue, including through an astral appearance, optional cemetery encounter or hopeful ending.\n\nProposed draft: Koga treats a failed attempt as something to adjust while it is still warm in his hands. During communal work he asks a companion for one manageable action, watches its answer, and tries again with a smaller load. He is quick to volunteer more help than a visit can hold; his sister makes him finish the task he already accepted. Their disagreement is ordinary and affectionate, not evidence that his ambition is secretly malignant. His habit of leaving room for a creature’s refusal gives the later imitation’s coercion something concrete to contradict.",
+  "id": "koga",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "description": "The second community knows his practical help; proposed river geography remains unconfirmed."
+      },
+      "kind": "associated_with",
+      "to": "river_settlement"
+    },
+    {
+      "data": {
+        "description": "He and his absent mother inspired the community."
+      },
+      "kind": "associated_with",
+      "to": "winter_settlement"
+    },
+    {
+      "data": {
+        "description": "Planned friendship established through repeated help before his disappearance; the imitation does not continue this identity."
+      },
+      "kind": "bonded_with",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Koga"
+}

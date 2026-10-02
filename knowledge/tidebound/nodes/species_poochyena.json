@@ -1,0 +1,47 @@
+{
+  "data": {
+    "design": "Existing Poochyena appearance; the future third stage after Mightyena is open.",
+    "moves": [
+      {
+        "description": "Level 4 in the species learnset. Attack setup before committing to a bite.",
+        "name": "Howl"
+      },
+      {
+        "description": "Level 10 in the species learnset. The ordinary learnset reaches this Dark attack later than Pookie’s hand-picked starting kit.",
+        "name": "Bite"
+      },
+      {
+        "description": "Level 16 in the species learnset. Forces changes of opponent under native battle rules; does not grant a general world-control ability.",
+        "name": "Roar"
+      }
+    ],
+    "types": [
+      "Dark"
+    ]
+  },
+  "description": "Poochyena provides the familiar dog companion before any future supernatural watchdog theme. Pookie’s particular reaction at the pier is scene evidence, not a fully defined sense possessed by every member of the species.",
+  "id": "species_poochyena",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Level 18. This is the existing second stage; the later custom third stage remains undesigned."
+      },
+      "kind": "evolves_into",
+      "to": "species_mightyena"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    }
+  ],
+  "name": "Poochyena"
+}

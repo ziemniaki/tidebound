@@ -1,0 +1,66 @@
+{
+  "data": {
+    "category": "Still Mind",
+    "design": "Rounded Psyduck body, bill, feet and tail; calm penguin-like bearing; arms away from the head. Yellow ordinary body and pink brain; ice-blue shiny body with green brain. Uneven bone edges and a dark cleft surround two irregular hemispheres with winding folds and short roots. Preserve the original eye, hand and bill pixels and the opponent-directed gaze; reverse the raised arm in the rear view. No flower, hat, almond-shaped brain or invented link to sea magic.",
+    "dex_entry": "Its headaches ceased when the folds on its head opened. It stands quietly by the tide for hours, as if considering a question it cannot ask.",
+    "height_m": 1.1,
+    "moves": [
+      {
+        "description": "On evolution. The change to deliberate psychic force is expressed immediately at evolution.",
+        "name": "Psychic"
+      },
+      {
+        "description": "Level 35 in the species learnset. Develops special offense and resilience together.",
+        "name": "Calm Mind"
+      },
+      {
+        "description": "Level 40 in the species learnset. Uses special offense against physical Defense, giving a different target from ordinary Psychic attacks.",
+        "name": "Psyshock"
+      }
+    ],
+    "questions": [
+      {
+        "question": "Does the exposed brain have a separate mind?"
+      },
+      {
+        "question": "Does Whyduck have a connection to Natu or sea magic?"
+      }
+    ],
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "weight_kg": 26.0
+  },
+  "description": "The shore duck’s headache has stopped, but its skull has opened. Whyduck waits quietly by the tide with a broad exposed brain and an uneven casting pose. Its stillness is unsettling without establishing possession or a second consciousness.\n\nStrong special attacker and special defender, more vulnerable physically. Psychic on evolution expresses the shift from headache to deliberate action.\n\nOwn Tempo and Cloud Nine, with hidden Inner Focus, accompany the existing Water/Psychic design. Their battle effects do not establish a separate brain consciousness or a connection to the sea entities. Evolution comes at level 16, so its strong special offense arrives much earlier than Nivalora’s power.\n\nProposed behavior through evolution: the evolved companion returns to a familiar patch by the bank, makes its old small turn, and settles facing the water. The head is no longer clutched, but the preference and recognition remain the same animal’s. It eventually turns toward a familiar voice; remaining beside it or continuing the walk are both ordinary responses. Do not stage every silence as a vision or ask a care action to explain the exposed brain.",
+  "id": "species_whyduck",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "The authored species description places it standing quietly beside the tide. No current wild encounter table is established; raising regional Psyduck remains the playable acquisition route."
+      },
+      "kind": "found_in",
+      "to": "sea"
+    },
+    {
+      "data": {
+        "sections": [
+          "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
+          "§29: Whyduck identity, evolution, visual design and open origin."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_whyduck"
+    }
+  ],
+  "name": "Whyduck"
+}

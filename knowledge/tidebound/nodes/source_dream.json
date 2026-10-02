@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/dream/quest.rb"
+  },
+  "description": "Riddle resets, sleep labels and transfers",
+  "id": "source_dream",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "dream"
+}

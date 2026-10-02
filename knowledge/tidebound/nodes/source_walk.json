@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/opening/walk.rb"
+  },
+  "description": "Walk threshold, pier recall, keys and shop opening",
+  "id": "source_walk",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "walk"
+}

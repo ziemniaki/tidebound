@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/lapras/quest.rb"
+  },
+  "description": "The brief Lapras appearance, its narration and return to the ordinary pier. Opening interactions decide when this scene is reachable.",
+  "id": "source_lapras",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "Pier apparition scene"
+}

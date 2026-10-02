@@ -1,0 +1,46 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. After winning Toma’s optional pond battle.",
+        "lines": [
+          {
+            "speaker": "Toma",
+            "text": "That duck comes here when the road gets noisy. We leave the shallow bank to it."
+          }
+        ],
+        "source": "source_pond"
+      }
+    ]
+  },
+  "description": "A working fisherman who jokes that the sea takes his hooks and the pond usually returns them. After an optional battle he explains that Psyduck comes down when the road grows noisy; the fishermen leave the shallow bank to it. His ordinary accommodation gives the animal room without making it a sacred guardian. He is distinct from the coast-road thief with the same name.",
+  "id": "fisher_toma",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "description": "His existing dialogue describes leaving the pond’s shallow bank to the visiting Psyduck."
+      },
+      "kind": "associated_with",
+      "to": "species_psyduck_1"
+    },
+    {
+      "data": {
+        "sections": [
+          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_pond"
+    },
+    {
+      "kind": "works_at",
+      "to": "pond"
+    }
+  ],
+  "name": "Toma"
+}

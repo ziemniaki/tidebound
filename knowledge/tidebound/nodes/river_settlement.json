@@ -1,0 +1,35 @@
+{
+  "data": {
+    "design": "Proposed: Reeds, damp workshops, moored boats and patched communal buildings distinguish this lowland place from the snowbound dojo."
+  },
+  "description": "A second community gives Koga a life beyond his dojo. Its leading proposal is a river settlement whose dependence on outside help makes his disappearance frightening. Residents’ responses must differ; the eventual conjuration cannot make every villager equally informed or responsible.\n\nDevelop particular residents who search, organize ordinary defense, demand conjuration or doubt it silently. These roles are proposed; names and ritual participation are not decided.\n\nProposed everyday economy: workshops repair skiffs and bind reed screens for cold, wet houses. Boats bring food and carry repaired equipment back downstream; mountain deliveries depend on crews and apprentices meeting at a landing rather than one hero carrying everything. The same sheltered workshop can host an ordinary meal, a disputed search plan and, much later, uncomfortable testimony.\n\nProposed response to Koga’s absence: preserve a table for returned searchers, with route sketches weighted against the damp. One household keeps sending food, another needs its boat back to work, and a third stops giving supplies because the search has found nobody. These are different material limits, not proof that anyone loved him less. Preparation for the conjuration can hide among ordinary borrowed workspaces, but the whole village does not become a secret cult.\n\nProposed later evidence: a participant can show the space they lent and describe what they actually saw; another account can correct the comforting public story. The eventual ritual details must establish a constructed imitation after its destruction, while leaving real Koga entirely unlocated. The names and involvement of these people should be developed through return visits before that testimony.\n\nProposed sound: a caulking mallet answers another from under the landing while mooring lines rub against wet posts. During the search, a repair stops whenever a boat approaches; it resumes when the crew is recognized. The pause can express expectation without another explanation of who is missing.",
+  "id": "river_settlement",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed river-to-estuary watershed; final route and shoreline remain open."
+      },
+      "kind": "connected_to",
+      "to": "sea"
+    },
+    {
+      "data": {
+        "sections": [
+          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
+          "§§4.3, 5.6 and 6.7: dependence, divergent responses and later testimony. Reed work, exchange and search-table detail are proposed."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "data": {
+        "description": "Proposed food and boat-delivery network in return for upland escort and repair help. The supply relationship predates the disappearance."
+      },
+      "kind": "supplies",
+      "to": "winter_settlement"
+    }
+  ],
+  "name": "The second Koga settlement"
+}

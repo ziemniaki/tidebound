@@ -1,0 +1,70 @@
+{
+  "data": {
+    "design": "Original Wurmple anatomy and pose. Bright pale blue with original cream and yellow details. Use direct pixel recoloring and simple stock shading. No crystals, aura or added anatomy.",
+    "moves": [
+      {
+        "description": "Level 1 in the species learnset. Slows a foe with silk; an early defensive tool before its branch is known.",
+        "name": "String Shot"
+      },
+      {
+        "description": "Level 5 in the species learnset. The regional recolor still inherits this attack. Ice typing did not replace the larval move list.",
+        "name": "Poison Sting"
+      }
+    ],
+    "questions": [
+      {
+        "question": "How will a player understand the fixed evolution branch and the long support route before committing to raise it?"
+      }
+    ],
+    "types": [
+      "Bug",
+      "Ice"
+    ]
+  },
+  "description": "The Listening Wood’s familiar caterpillar has a pale-blue Bug/Ice form. It is an ordinary regional animal; no new supernatural origin has been established. The existing larva retains Wurmple’s ordinary moves, including Poison Sting, despite its Bug/Ice form. Its level-10 split is fixed by the individual’s personality rather than rerolled on each attempt. Glaciverm is the early fully evolved physical branch; Frostcoon is a long support commitment before Nivalora at level 55.\n\nProposed ecology: larvae feed along the sheltered underside of leaves and retreat toward branch joints when rain shakes the foliage. Fine silk caught across a fork and a line of clipped leaf edges give the player signs to notice before seeing the animal. A forestry encounter could let the player pass quietly or disturb the branch; this is proposed scene behavior, not an implemented interaction.\n\nProposed encounter detail: a patch of silk with fresh leaf clippings is occupied; a dry broken strand alone may mark an abandoned perch. After a passing Natu shakes the branch, the caterpillar waits at the fork, then reaches back toward the same leaf. A patient player can learn that movement rather than shaking every tree. Handling a recruited Wurmple means offering a stable surface to crawl onto instead of pulling against its anchor.",
+  "id": "species_wurmple_1",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Level 10, the other fixed personality branch"
+      },
+      "kind": "evolves_into",
+      "to": "species_frostcoon"
+    },
+    {
+      "data": {
+        "description": "Level 10, one fixed personality branch"
+      },
+      "kind": "evolves_into",
+      "to": "species_glaciverm"
+    },
+    {
+      "data": {
+        "description": "Existing forest-grass encounters at levels 3–5; its later stages are currently reached by raising this form."
+      },
+      "kind": "found_in",
+      "to": "listening_wood"
+    },
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_wurmple_1"
+    }
+  ],
+  "name": "WURMPLE (Tidebound)"
+}

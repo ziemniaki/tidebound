@@ -1,0 +1,50 @@
+{
+  "data": {
+    "design": "Use the established Xatu appearance. The planned custom third stage does not authorize redesigning this existing stage.",
+    "height_m": 1.5,
+    "moves": [
+      {
+        "description": "On evolution. Adds a special Flying attack at evolution.",
+        "name": "Air Slash"
+      },
+      {
+        "description": "Level 48 in the species learnset. Delayed healing offers a support direction.",
+        "name": "Wish"
+      },
+      {
+        "description": "Level 55 in the species learnset. Delayed psychic pressure makes planning ahead useful in battle without settling any prophetic story knowledge.",
+        "name": "Future Sight"
+      }
+    ],
+    "questions": [
+      {
+        "question": "What are the name, anatomy, typing and battle abilities of the evolution after Xatu?"
+      },
+      {
+        "question": "What item enables that evolution, and how is it acquired?"
+      }
+    ],
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "weight_kg": 15.0
+  },
+  "description": "The existing Psychic/Flying stage after Natu, reached at level 25. Its further regional evolution is a future design, not a replacement for this stage. Air Slash adds a Flying attack at evolution; later Wish and Future Sight offer delayed support and pressure. A capacity associated with foresight is not permission to reveal every plot secret.",
+  "id": "species_xatu",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "sections": "§§7.3–7.3a: household lines and intended third stages"
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    }
+  ],
+  "name": "Xatu"
+}

@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/mending/quest.rb"
+  },
+  "description": "Three nests, contraction retention; each new Game starts empty",
+  "id": "source_mending",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "mending"
+}

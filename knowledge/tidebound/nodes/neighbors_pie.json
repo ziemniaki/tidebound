@@ -1,0 +1,69 @@
+{
+  "data": {
+    "beats": [
+      "Receive warm pie on the blue-reed plate after obtaining oil.",
+      "Share it at home; Mother gives the larger slice, and a remaining pet asks for crumbs.",
+      "Mother washes the plate. Return it to the shop.",
+      "Two boys escape; the seller’s legs fail him. He notices the returned plate before asking for the necklace."
+    ],
+    "consequences": "A full pocket leaves the pie with the seller for later. The meal is pleasant and costs no relationship or hidden moral penalty.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Sharing the pie at home; implemented meal sequence.",
+        "lines": [
+          {
+            "speaker": "Mother",
+            "text": "Oh. He still makes these?"
+          },
+          {
+            "speaker": "Narration",
+            "text": "The crust flakes onto the plate. Mother catches a crumb with her thumb, then gives you the larger slice."
+          },
+          {
+            "speaker": "Mother",
+            "text": "Just as I remember. Perhaps a little more butter. I shan't complain."
+          }
+        ],
+        "source": "source_neighbor"
+      }
+    ]
+  },
+  "description": "The seller’s thanks becomes a comfortable shared meal, then a reason to return. The subsequent theft interrupts ordinary neighborly trust.\n\nThe recipe mentions City 4 without explaining Mother’s history. The wife’s connection to the necklace is withheld until recovery.",
+  "id": "neighbors_pie",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "mother"
+    },
+    {
+      "kind": "features",
+      "to": "pie"
+    },
+    {
+      "kind": "features",
+      "to": "plate"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "seller"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "lighthouse_home"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "oil_shop"
+    }
+  ],
+  "name": "Pie on a borrowed plate"
+}

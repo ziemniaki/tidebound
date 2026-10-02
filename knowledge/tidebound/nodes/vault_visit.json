@@ -1,0 +1,57 @@
+{
+  "data": {
+    "beats": [
+      "Receive the blue-reed ceramic thank-you; it is not a key.",
+      "Mother opens the stair door with her own key. Follow the cellar passage to the heavy vault door.",
+      "Mother and seller put the necklace away and recommend the museum’s sabre exhibit."
+    ],
+    "consequences": "The keepsake can be collected after an already completed necklace quest. The visit neither awards the sabre nor starts the later heist."
+  },
+  "description": "The seller entrusts the necklace to Mother. Ordinary maintenance supplies give way to a vault too large for the visible household, leaving a question without answering it.\n\nVault origin, lower-lamp purpose, Mother’s ritual and her knowledge of the blade remain unconfirmed.",
+  "id": "vault_visit",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "mother"
+    },
+    {
+      "kind": "features",
+      "to": "necklace"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "reed_keepsake"
+    },
+    {
+      "kind": "features",
+      "to": "seller"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 20: implemented vault/museum; supersedes the old unimplemented vault note in 5.3"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_vault"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "cellar"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "vault"
+    }
+  ],
+  "name": "A place to keep it safe"
+}

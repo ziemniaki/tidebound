@@ -1,0 +1,39 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. After winning the optional sailor battle.",
+        "lines": [
+          {
+            "speaker": "Oren",
+            "text": "I promised to come home. Keeping a promise takes practice."
+          }
+        ],
+        "source": "source_docks"
+      }
+    ]
+  },
+  "description": "A sailor who treats practice as part of keeping a promise to come home. His battle is optional. A modest personal commitment gives the challenge a reason without turning it into a progression gate.",
+  "id": "oren",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "sourced_from",
+      "to": "source_docks"
+    },
+    {
+      "data": {
+        "sections": [
+          "§30: working harbour, optional sailors and the planned island crossing."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "works_at",
+      "to": "docks"
+    }
+  ],
+  "name": "Oren"
+}

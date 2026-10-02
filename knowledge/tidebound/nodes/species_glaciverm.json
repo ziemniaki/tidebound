@@ -1,0 +1,55 @@
+{
+  "data": {
+    "category": "Frost Coil",
+    "design": "Long serpentine insect body with overlapping broad shell plates. Pale blue armor, cream underside and short yellow forehead horn. Rounded cream mouth and short lip crease echo Wurmple; small stern eyes. No sea mythology, dragon anatomy or elaborate rendering.",
+    "dex_entry": "It coils its long body beneath roots. Overlapping plates of frozen chitin protect it while it waits to strike at anything that steps too close.",
+    "height_m": 1.8,
+    "moves": [
+      {
+        "description": "On evolution. A small physical attack amplified by Technician; can consume the target’s held berry.",
+        "name": "Bug Bite"
+      },
+      {
+        "description": "Level 10 in the species learnset. Priority helps its slow body act before faster opponents; also benefits from Technician.",
+        "name": "Ice Shard"
+      },
+      {
+        "description": "Level 24 in the species learnset. Improves Attack, Defense and accuracy later, after the initial level-10 power spike.",
+        "name": "Coil"
+      }
+    ],
+    "types": [
+      "Ice",
+      "Bug"
+    ],
+    "weight_kg": 24.0
+  },
+  "description": "Glaciverm coils beneath roots, armored in overlapping frozen chitin. It waits for something to step too close. The Wurmple family face survives its elongated form, linking the small caterpillar to an immediate physical threat.\n\nA slow physical attacker and defender, fully evolved early. Technician strengthens smaller attacks such as Bug Bite and Ice Shard; it does not strengthen every move in the kit. Its strong physical shell still leaves serious Fire and Rock weaknesses. No further evolution or separate wild placement is established.\n\nProposed ecology: adults occupy cavities beneath fallen roots, with the armored coils blocking the entrance. Before striking, one scrapes its outer plates against the root and draws its face inward. That warning gives an approaching traveler a readable territorial boundary. A path obstructed by one could invite a detour as well as a fight; there is no proposed curse or grievance behind the animal’s defense.\n\nProposed relationship to the forest path: its occupied root hollow is distinguishable from an empty one by polished scrape marks at the mouth and loose chips pushed outside. Taking the worn path around the root lets people and the animal keep using the same stretch of wood. A raised individual needs a resting hollow that accommodates its whole coil; repeatedly crowding its entrance invites the same warning as in the wild. Its former Wurmple’s pause before moving can remain recognizable even though the body now fills the shelter.",
+  "id": "species_glaciverm",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed habitat: fallen-root cavities beside older paths. Scrapes and a warning from within can support an avoidable encounter. This does not add a current wild spawn; evolution is the established acquisition route."
+      },
+      "kind": "found_in",
+      "to": "listening_wood"
+    },
+    {
+      "data": {
+        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_glaciverm"
+    }
+  ],
+  "name": "Glaciverm"
+}

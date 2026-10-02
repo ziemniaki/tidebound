@@ -1,0 +1,16 @@
+{
+  "data": {
+    "path": "specs/game-design.md",
+    "version": "1.31"
+  },
+  "description": "Creative authority for Tidebound. Read the relevant section and its later amendments together; later explicit decisions supersede earlier proposals.",
+  "id": "source_game_bible",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "Game bible"
+}

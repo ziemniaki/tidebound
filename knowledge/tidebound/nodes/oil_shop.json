@@ -1,0 +1,36 @@
+{
+  "description": "The seller’s little shop is reached through an errand and a set of lost keys. Oil bottles, reused cloth and homemade food make it an extension of a neighbor’s life. The robbery hurts that life before its stolen object acquires a wider meaning.\n\nProposed shop detail: clean returned bottles dry upside down on a rack; the seller reuses worn sleeves around filled bottles, extending the existing opening gesture. Customers pay for oil and bring the glass back. A short delivery means he has less to sell, not that his memory has suddenly worsened. The empty rack can make a later supply interruption visible before anyone explains who caused it.\n\nProposed sound: glass touches the wooden rack with a small hollow note; cloth dulls it when the seller wraps a bottle. The existing seller remarks that wind through the empty bottles makes a lovely sound. That ordinary pleasure can survive a difficult visit.",
+  "id": "oil_shop",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "part_of",
+      "to": "shiohama"
+    },
+    {
+      "data": {
+        "sections": [
+          "§§5.2 and 6.12: starting town and oil seller; §10.7: plate and necklace."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    },
+    {
+      "data": {
+        "description": "Established oil errand: the seller provides the already paid-for bottle used in the great upstairs lamp."
+      },
+      "kind": "supplies",
+      "to": "lighthouse_home"
+    }
+  ],
+  "name": "The Oil Shop"
+}

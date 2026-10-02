@@ -1,0 +1,57 @@
+{
+  "data": {
+    "beats": [
+      "Follow the coast road and defeat the first boy, who lets slip that the other has the necklace.",
+      "Navigate laundry and rubbish; Bram guards Ivo at the sofa.",
+      "Beat Ivo’s game, The Mending. He breaks his promise and demands a Pokémon battle.",
+      "After defeat he leads the child to the cupboard and hands over the necklace."
+    ],
+    "consequences": "Only victory advances the battles. A completed minigame stays complete after later loss. A full pocket delays handover without repeating victories."
+  },
+  "description": "A comic coastal theft becomes a visit to the boys’ lived-in squat, an unexpected horror game, and a broken promise before a small admission of wrongdoing.\n\nSmall-time immature thieves are not cosmic conspirators. Ivo’s apology does not establish the seller’s forgiveness.",
+  "id": "necklace_pursuit",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "bram"
+    },
+    {
+      "kind": "features",
+      "to": "ivo"
+    },
+    {
+      "kind": "features",
+      "to": "necklace"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "road_thief"
+    },
+    {
+      "kind": "includes",
+      "to": "mending"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_hideout"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "hideout"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "south_road"
+    }
+  ],
+  "name": "The boys and the necklace"
+}

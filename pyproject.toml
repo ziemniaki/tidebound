@@ -37,5 +37,5 @@ docs = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-include = ["content/**/*.py", "tools/**/*.py", "tests/**/*.py", ".github/scripts/*.py"]
+include = ["content/**/*.py", "tools/**/*.py", "tests/**/*.py", "knowledge/tests/**/*.py", ".github/scripts/*.py"]
 extend-exclude = ["tests/engine_reference"]

@@ -1,0 +1,32 @@
+{
+  "data": {
+    "design": "On the blue-reed ceramic plate; whole before the meal, empty plate retained afterwards."
+  },
+  "description": "A warm homemade pie under a tea towel, made from the seller’s City 4 recipe. Mother recognizes it, gives the child the larger slice and shares crumbs with a household companion. The pleasure of eating together should be allowed to last without a sinister reversal.\n\nFlaking crust, scraped forks and the soft sound of eating.",
+  "id": "pie",
+  "kind": "item",
+  "links": [
+    {
+      "kind": "associated_with",
+      "to": "city_four"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 10.7: pie, necklace and delayed pearl meaning"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_items"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "Homemade Pie"
+}

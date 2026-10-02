@@ -1,0 +1,31 @@
+{
+  "data": {
+    "design": "Proposed arrival study: a small timber landing protected by a low rock shoulder, wet sacks under a sloping cover and a narrow path climbing beyond the unload area. Restrained lantern light under permanent night. This explores one useful arrival space, not a settled geography or final island identity.",
+    "questions": [
+      {
+        "question": "What is the island’s geography and who lives there?"
+      },
+      {
+        "question": "What story unfolds there?"
+      },
+      {
+        "question": "What is its final name?"
+      }
+    ]
+  },
+  "description": "The Little Promise is preparing supplies and passage toward Psyduck Island, the intended next destination beyond the working harbour. Sailing and the island’s playable geography remain to be built. A sailor’s joke about ducks does not establish its ecology or supernatural history.\n\nProposed arrival: make the first need unloading a late boat at a small sheltered landing. A resident insists that flour go under cover before the passenger’s questions are answered; this is an inhabited destination with work already underway. Wind, tide and a path around a damaged landing can make the short visit navigable without inventing a compulsory battle or another curse. The island’s broader landscape and the place of Psyduck in daily life remain decisions, not facts inferred from its working name.",
+  "id": "psyduck_island",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "§30: working harbour, optional sailors and the planned island crossing."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Psyduck Island"
+}

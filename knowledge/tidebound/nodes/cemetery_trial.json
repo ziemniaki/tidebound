@@ -1,0 +1,41 @@
+{
+  "data": {
+    "questions": [
+      {
+        "options": [
+          {
+            "description": "Proposed: the gallery keeps every memorial, while the battle uses up to six recent permanent losses and fills remaining places with the master’s team. This follows the existing provisional helper but still needs a deliberate design decision."
+          },
+          {
+            "description": "Proposed: use the master’s complete fallback team when there are fewer than six lost companions; keep those companions present in the gallery rather than mixing them into a battle."
+          }
+        ],
+        "question": "How are more than six losses or a short memorial roster represented without erasing individual histories?"
+      }
+    ]
+  },
+  "description": "The late shrine uses actual lost individuals where possible and an impressive fallback team; it does not automatically resurrect them.\n\nProposed draft: the gallery offers optional stops at preserved names and individual histories before the trial. A player can linger, pass quietly or return later; reading every memorial is not a payment for progress. With no losses, the master presents his own team without accusing the player of avoiding grief. After the battle, allow a silent visit before departure. The companions are not rewards to reclaim and real Koga does not appear among them.",
+  "id": "cemetery_trial",
+  "kind": "quest",
+  "links": [
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
+          "§§5.10, 12.5: late cemetery and the player’s lost companions"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "cemetery"
+    }
+  ],
+  "name": "Facing lost companions"
+}

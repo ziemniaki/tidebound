@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/engine/frostcoon.rb"
+  },
+  "description": "Replaces inherited damaging moves with available support moves when a Wurmple becomes Frostcoon; preserves selected support moves and does not refill spent PP.",
+  "id": "source_frostcoon_support",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "Frostcoon support transition"
+}

@@ -44,7 +44,9 @@ in `docs/`. Update the owning document rather than duplicating instructions.
 | Species/form, evolution or encounter data | [pokemon/AGENTS.md](content/pokemon/AGENTS.md) |
 | Items, actors, artwork and prop anchors | [content/AGENTS.md](content/AGENTS.md) |
 | Music, sound effect or cry | [audio/AGENTS.md](content/audio/AGENTS.md) |
-| Authoring/build tools or CLI | [tooling/AGENTS.md](tools/tidebound_dev/AGENTS.md) |
+| Tidebound knowledge graph and its Git export | [knowledge/AGENTS.md](knowledge/AGENTS.md) |
+| Codex-operated local graph tooling | [kg/AGENTS.md](tools/kg/AGENTS.md) |
+| Tidebound authoring/build tools or CLI | [tooling/AGENTS.md](tools/tidebound_dev/AGENTS.md) |
 | Asset pipeline | [art/AGENTS.md](tools/tidebound_dev/art/AGENTS.md) |
 | RPG Maker edits or compiled game files | [editor workflow](docs/development.md#rpg-maker), [native overrides](content/overrides/AGENTS.md) |
 | Start a playthrough from a declared state | [Playtest workflow](docs/development.md#playtest-scenarios) |

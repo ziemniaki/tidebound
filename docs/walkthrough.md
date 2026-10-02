@@ -1,6 +1,6 @@
-# Demo walkthrough
+# Opening walkthrough
 
-**Spoilers for the current demo.** See [current status](status.md) for its scope
+**Spoilers for the current playable chapters.** See [current status](status.md) for its scope
 and [release notes](release-notes.md) for changes between versions.
 
 ## Controls and saves
@@ -98,7 +98,7 @@ Changing your able party rebalances its levels without extending the timer.
 Losses use normal astral recovery; the ring provides no healing.
 
 At the end of the eastern pier, speak to the captain about **Psyduck Island**.
-Accepting reaches the demo's ending message. You remain free to explore and save;
+Accepting reserves passage for a future chapter. You remain free to explore and save;
 the voyage and island are not yet playable.
 
 ## Optional exploration and recovery
@@ -107,7 +107,7 @@ The pond below the South Coast Road has optional fishermen battles, a visible
 regional Psyduck, grass encounters and an Oran tree. Search behind the western
 thicket for Mystic Water: follow the worn grass west of Psyduck's shallow bank,
 then turn south between the trees to an old basket. The island obelisk needs Surf,
-which this demo does not award. Species evolution and battle-role notes are in
+which the current game does not award. Species evolution and battle-role notes are in
 [species design](../specs/species.md).
 
 The northern path in the Listening Wood now opens into the Hollow Wood. Follow

@@ -4,6 +4,14 @@ Tidebound extends Pokémon Essentials 21.1 on mkxp-z. Ruby owns gameplay; Python
 owns authoring, compilation and packaging. The native RPG Maker layout stays in
 `game/`; contributors edit the source owned by each feature or content bundle.
 
+The [game knowledge graph](story-asset-graph.md) is a development reference
+operated entirely by Codex. [KG](../tools/kg/README.md) connects to one local
+SurrealDB database for search, traversal, editing and Git import/export, shared
+with the browser UI, without Docker or cloud hosting. [Tidebound's graph](../knowledge/README.md) contains game
+descriptions and source evidence together. Its [integration guide](tidebound-kg-integration.md)
+keeps the bible and native code authoritative. KG tests run in a separate Linux CI job;
+game checks, builds and players do not access the database. The runtime is described below.
+
 ## Authored content
 
 `content/` is the source of truth for custom game content. A directory identifies

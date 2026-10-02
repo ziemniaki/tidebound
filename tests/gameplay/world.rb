@@ -14,8 +14,16 @@ Tidebound::Pond.fisher(:toma)
 check(Tidebound::Pond.flags[:toma], "pond depends on an unrelated quest")
 Tidebound::World.travel(:docks, 11, 28)
 $choices = [true]
-Tidebound::DemoLaunch.sailor_battle(:nell)
-check(Tidebound::DemoLaunch.flags[:nell], "dock battle depends on an unrelated quest")
+Tidebound::Docks.sailor_battle(:nell)
+check(Tidebound::Docks.flags[:nell], "dock battle depends on an unrelated quest")
+$choices = [true]
+Tidebound::Docks.voyage
+roundtrip
+$choices = [true]
+Tidebound::Docks.sailor_battle(:nell)
+check($choices == [true], "saved harbour victory offered the same battle again")
+check(Tidebound::Docks.flags[:completed], "save lost the arranged passage")
+check(Tidebound::Docks.flags[:nell], "save lost the harbour victory")
 Tidebound::Actors.refresh($game_map)
 puts "PASS: named world operations and pond/dock battles preserve map ownership and quest progress."
 

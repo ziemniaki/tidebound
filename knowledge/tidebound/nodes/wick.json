@@ -1,0 +1,83 @@
+{
+  "data": {
+    "design": "Keep the familiar small, round Natu silhouette. Existing Natu palette; no new individual marking is approved. Recognition comes from head tilt, paired taps and food-directed movement. Do not add a mystical crown or project later evolution designs onto Wick.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Speaking to the household Natu.",
+        "lines": [
+          {
+            "speaker": "Narration",
+            "text": "Wick tilts his head before you speak, as though he remembers the question."
+          }
+        ],
+        "source": "source_opening"
+      }
+    ],
+    "habits": [
+      "Taps twice against the floor or blanket in answer to the child.",
+      "Tilts his head before the player speaks.",
+      "Follows the fork when Mother and child share pie."
+    ],
+    "moves": [
+      {
+        "description": "Hand-picked starting move in the playable household opening. An ordinary physical option.",
+        "name": "Peck"
+      },
+      {
+        "description": "Hand-picked starting move in the playable household opening. Lowers physical Defense.",
+        "name": "Leer"
+      },
+      {
+        "description": "Hand-picked starting move in the playable household opening. Deals level-based damage; available to this household individual earlier than the normal Natu learnset.",
+        "name": "Night Shade"
+      }
+    ]
+  },
+  "description": "Wick is the household Natu who answers the child’s two taps and guesses the hidden button correctly. He waits for the next move in a private game. At the table his attention becomes much less mysterious: he inches closer and watches every journey of the fork.\n\nAn already familiar household individual. Choosing him extends a relationship that begins before the adventure.\n\nThe bedroom projection gives his game an uncanny scale. Its existence does not establish a link to Whyduck’s brain or the sea entities.\n\nProposed continuity after evolution: as Xatu, Wick no longer fits the little space beside the child’s pillow. He settles beside the bed and answers the same two taps against the floor. At a later shared meal, his long, solemn stillness ends when the fork moves. These repeated private habits make the taller creature recognizable without treating evolution as permission to disclose the future or explain the opening dream.",
+  "id": "wick",
+  "kind": "creature",
+  "links": [
+    {
+      "kind": "bonded_with",
+      "to": "protagonist"
+    },
+    {
+      "kind": "cared_for_by",
+      "to": "mother"
+    },
+    {
+      "kind": "instance_of",
+      "to": "species_natu"
+    },
+    {
+      "kind": "lives_in",
+      "to": "lighthouse_home"
+    },
+    {
+      "data": {
+        "sections": [
+          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_walk"
+    }
+  ],
+  "name": "Wick"
+}

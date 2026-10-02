@@ -1,0 +1,49 @@
+{
+  "data": {
+    "beats": [
+      "Optional pier visits before returning Mother’s oil show an empty berth; during Pookie’s walk, her sensed presence remains unseen. The pier can also be visited before that walk.",
+      "After returning the oil, a later pier visit shows the pale apparition once. Subsequent visits show the moving rope and dark water again.",
+      "Proposed: repeat the shore meeting, learn when to give Lapras space, and let recognition become mutual before recruitment and its later unsettling discovery. Recruitment remains undecided.",
+      "An unsettling fact follows attachment. Its content is open.",
+      "The legendary’s magic is revealed near the end."
+    ]
+  },
+  "description": "The planned Lapras arc moves from fear through attachment to an unsettling discovery and a late explanation. The Shiohama pier glimpse is an existing prototype; recruitment and the precise disturbing truth remain undecided.\n\nProposed attachment sequence: after the frightening sighting, repeated shore visits let the same Lapras keep pace offshore, then wait opposite the place where the path climbs away from the water. On one visit it turns away before the child reaches the edge; on another it stays. The child learns when to stop advancing. Later, it turns toward the sound of the child arriving before the lighthouse beam reaches its shell. The player can watch or leave without offending it. After recruitment is separately decided, revisit that place with the companion and let it choose a resting distance. Recognition and a respected boundary build trust before the unsettling disclosure.",
+  "id": "lapras_arc",
+  "kind": "quest",
+  "links": [
+    {
+      "kind": "features",
+      "to": "lapras_apparition"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_lapras"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    },
+    {
+      "data": {
+        "description": "The pier is the proposed site of repeated attachment scenes after the frightening glimpse; recruitment remains undecided."
+      },
+      "kind": "takes_place_in",
+      "to": "shiohama"
+    }
+  ],
+  "name": "Lapras’s changing meaning"
+}

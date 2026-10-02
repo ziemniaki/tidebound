@@ -1,0 +1,37 @@
+{
+  "data": {
+    "design": "Blade behind glass among ordinary coastal exhibits. The label admits missing evidence. Final weapon design, provenance and name remain open; do not add lore-bearing runes or a Suicune insignia.",
+    "questions": [
+      {
+        "question": "What exact interaction and conditions govern the sabre’s use with Suicune?"
+      },
+      {
+        "question": "How does the player recover the sabre?"
+      }
+    ]
+  },
+  "description": "An unexplained blade behind museum glass, with an unknown maker and incomplete arrival history. Its public identity is modestly documented. Much later, its theft and recovery connect the familiar exhibit to healed Suicune’s intended final role.\n\nThe opening visit does not reveal Behemoth Blade, Suicune’s role or a future theft plan.\n\nThe optional museum inspection leaves the blade behind glass; looking at it does not grant the item.",
+  "id": "sabre",
+  "kind": "item",
+  "links": [
+    {
+      "kind": "displayed_at",
+      "to": "museum"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 20: implemented vault/museum; supersedes the old unimplemented vault note in 5.3",
+          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_vault"
+    }
+  ],
+  "name": "The museum sabre"
+}

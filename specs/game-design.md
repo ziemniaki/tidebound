@@ -1291,7 +1291,7 @@ and familiarity-before-strangeness rule. It is not a daylight exception.
 
 ## 29. Tidebound Psyduck and Whyduck - 0.7.22
 
-**Confirmed regional species.** Shore Psyduck retains its familiar shape and its original moves and statistics. Its Tidebound form is Water/Psychic and evolves at level 16 into Whyduck. Ordinary Psyduck and Golduck still exist elsewhere; already owned ordinary Psyduck remain ordinary. The present demo offers a rare shore Psyduck encounter in the southern road grass and a visible level-8 Psyduck beside the road. Its precise place in the finished regional ecology remains open.
+**Confirmed regional species.** Shore Psyduck retains its familiar shape and its original moves and statistics. Its Tidebound form is Water/Psychic and evolves at level 16 into Whyduck. Ordinary Psyduck and Golduck still exist elsewhere; already owned ordinary Psyduck remain ordinary. The 0.7.22 build offered a rare shore Psyduck encounter in the southern road grass and a visible level-8 Psyduck beside the road. Its precise place in the finished regional ecology remains open.
 
 Whyduck retains Psyduck's rounded duck body, beak, feet and tail, with a calm penguin-like bearing. Its arms have left its aching head and angle outward as it prepares an incantation. The skull has visibly opened: uneven bone edges and a dark cleft surround a broad exposed, pink brain. Two irregular hemispheres are connected by winding folds and short roots that grow into the opening. It should read as brain tissue, never as a flower, hat or almond. The brain looks almost like something that has hatched, but whether it has a separate mind and whether it relates to Natu's projection or sea magic remain **unresolved**. Do not decide its origin without a new creative choice.
 
@@ -1302,11 +1302,11 @@ Whyduck retains Psyduck's rounded duck body, beak, feet and tail, with a calm pe
 **Visual continuity (approved for 0.7.24).** Gen 3 pixel sprites reuse original Psyduck eye, hand and bill pixels, shifting the pupils down-left toward its opponent. Its brain is pink in the ordinary sprite and green in the ice-blue shiny. An uneven casting pose reverses its raised arm in the rear view; both icon frames share its palette. Regional Psyduck still looks like ordinary Psyduck. Whyduck's cry currently reuses Psyduck's as a placeholder; the final cry remains open.
 
 
-## 30. Demo 1: the working harbour and the next crossing
+## 30. The working harbour and the next crossing
 
 **Confirmed opening wording.** After “A bird wants to play...” the opening instructs “Take it for a little walk, 100 steps.” This is dreamlike text, not a new counted objective. The existing Natu-to-bed spirit-maze gameplay remains unchanged.
 
-**Confirmed narrative vocabulary.** A Pokémon that loses its HP is described as having died, rather than fainted. The demo changes the battle and field-poison messages; it does not introduce a different death/recovery system or claim that every stock interface has been rewritten.
+**Confirmed narrative vocabulary.** A Pokémon that loses its HP is described as having died, rather than fainted. The implementation changes the battle and field-poison messages; it does not introduce a different death/recovery system or claim that every stock interface has been rewritten.
 
 **First settlement.** Shiohama's houses are old dark wood, with restrained stone foundations and sheltered warm windows. The lighthouse retains its existing exterior and garden. Ordinary locations remain perpetually night.
 
@@ -1320,7 +1320,7 @@ Whyduck retains Psyduck's rounded duck body, beak, feet and tail, with a calm pe
 
 The ring keeps one saved offer with a fifteen-minute expiry. Its team contains one to three distinct, level-legal species from a curated shore-worker and brawler roster, at one to three levels below the able party's median (floor level one). Each selection uses an 80/20 seen/unseen draw, falling back to the available eligible pool when a bucket is empty. Exclusions apply to both pools. Party changes rebalance the offer without extending its clock. Declining or aborting preserves the offer; a completed bout consumes it. Ordinary battle/death recovery applies, with no ring healing or player betting system. Exact team size, roster and levels remain balance choices.
 
-**Confirmed next destination.** Psyduck Island is the intended next playable destination after the dock city. An eastern-pier captain offers passage. Accepting the invitation marks the end of Demo 1 and lets the player continue exploring the current region. No voyage or island map is implemented. The island's geography, inhabitants, story, exact place in the regional numbering and final name remain open. Do not turn a sailor's casual observation about its ducks into authoritative supernatural lore.
+**Confirmed next destination.** Psyduck Island is the intended next playable destination after the dock city. An eastern-pier captain offers passage. Accepting the invitation reserves passage for a future chapter and lets the player continue exploring the current region. Tidebound is a continuously evolving game; the invitation marks the current extent of this journey, not an ending. No voyage or island map is implemented. The island's geography, inhabitants, story, exact place in the regional numbering and final name remain open. Do not turn a sailor's casual observation about its ducks into authoritative supernatural lore.
 
 **Ecology adjustment.** The South Coast Road has a visible Tidebound Psyduck in addition to its grass encounters. Its evolution into Whyduck is now level 16, superseding level 33 for the regional form only. The approved appearance, stats and moves remain unchanged.
 

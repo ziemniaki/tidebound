@@ -1,0 +1,25 @@
+{
+  "description": "The ordinary small bedroom is the home-sized space that returns after Wick’s oversized maze. Repeated later visits stay ordinary; the contrast makes familiarity something regained.",
+  "id": "bedroom",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "part_of",
+      "to": "lighthouse_home"
+    },
+    {
+      "data": {
+        "sections": [
+          "§5.3: lighthouse home; 0.7.17–0.7.20 additions: dream sequence and ordinary bedroom."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "Your Room"
+}

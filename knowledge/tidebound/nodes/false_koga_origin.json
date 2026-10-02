@@ -1,0 +1,22 @@
+{
+  "description": "Desperate villagers conjured a poison imitation containing no real Koga and no returned fragment of his soul.\n\nEstablish the conjuration after the imitation is destroyed, through concrete testimony or evidence. Its exact revealing scene remains to be written. This answer must not also locate real Koga.",
+  "id": "false_koga_origin",
+  "kind": "lore",
+  "links": [
+    {
+      "kind": "about",
+      "to": "false_koga"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities",
+          "Section 14: disclosure boundaries and unresolved late scene order"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "False koga origin"
+}

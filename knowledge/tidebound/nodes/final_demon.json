@@ -1,0 +1,24 @@
+{
+  "description": "A final water-demon opponent belongs to the later conflict over the sea’s real grievance and harm to innocents. The intended healed-Suicune and sabre resolution does not establish this opponent’s species, biography or identity with the legendary.\n\nProposed voice direction: address the present choice through a particular injury or demand supported by the eventual ancient-history design. Avoid a speech explaining the entire sea or a claim that every living person shares equal guilt. The adversary can be persuasive about a wrong and still refuse to distinguish its perpetrators from people now in danger. Specific dialogue waits for that injury to be authored.",
+  "id": "final_demon",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "description": "Belongs to the final water-demon conflict; its identity is not established as the Water/Ghost legendary."
+      },
+      "kind": "associated_with",
+      "to": "water_demons"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "The final water-demon adversary"
+}

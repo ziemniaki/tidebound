@@ -1,0 +1,66 @@
+{
+  "data": {
+    "beats": [
+      "Guide the bird through a brief spirit-maze prelude.",
+      "Use books to answer the first room’s three riddles: Thursday, the empty chair, under the pillow. Choose twelve years to make Wick appear.",
+      "Follow him into a distorted second room. Read its four associations and answer its bed riddles.",
+      "Find Wick through the pusher and teleporter maze; return to the small bedroom."
+    ],
+    "consequences": "Wrong or abandoned riddle runs restart only their sequence; completed earlier phases stay completed. No combat, item cost or real-time twelve-year wait.",
+    "questions": [
+      {
+        "question": "What is the origin of the false bedrooms?"
+      },
+      {
+        "question": "Does the answer “twelve years” have a literal chronological meaning?"
+      }
+    ]
+  },
+  "description": "A bird reaches a sleeping child; two false bedrooms lead into Wick’s projected maze before Mother’s call restores the ordinary room.\n\nNo authoritative explanation of the false rooms, curse or elapsed years; the optional Water curse leaf is unstable dream text.",
+  "id": "dream_opening",
+  "kind": "scene",
+  "links": [
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "wick"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_dream"
+    },
+    {
+      "data": {
+        "sections": [
+          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maze"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "bedroom"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "first_bedroom"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "psychic_maze"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "second_bedroom"
+    }
+  ],
+  "name": "The rooms before home"
+}

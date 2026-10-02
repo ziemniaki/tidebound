@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "content/pokemon/SUNKERN_1/species.json"
+  },
+  "description": "Authored species/form declaration",
+  "id": "source_species_sunkern_1",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "species/SUNKERN_1"
+}

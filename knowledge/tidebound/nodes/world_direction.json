@@ -1,0 +1,33 @@
+{
+  "data": {
+    "boundaries": [
+      "No ordinary day/night cycle or invented cause for perpetual night.",
+      "No automatic Ghost-equals-demon rule.",
+      "No conventional rival, professor or badge circuit.",
+      "Do not make every meal, kindness or companion a trap."
+    ],
+    "design": "Ordinary locations remain night. Begin near familiar Generation 3 silhouettes and readable tile scale: charcoal, slate, grey-blue sea, muted foliage and small amber lamps. Stronger departures need a scene-specific reason.",
+    "questions": [
+      {
+        "question": "Which scenes reveal the late truths, and in what order?"
+      }
+    ],
+    "sound": "Use space and restraint. The bird prelude lowers the existing ambient music’s level and pitch. Do not substitute constant ominous effects for a place with recognizable ordinary sounds."
+  },
+  "description": "A solitary journey through a wounded coast where care can become containment. Attachment must precede reinterpretation: a familiar companion, a pleasant meal or a useful neighbor gives later discoveries something to change. Some kindness remains uncomplicated.\n\nPeople speak from tasks, needs and partial knowledge. Concrete actions and changes of subject can carry subtext. Every survivor need not speak in riddles.\n\nThe broad sequence is established: domestic care; Koga and attachment; comforting false return; harmful protection; proof of conjuration; later ancient wrongdoing, Mother’s intervention and Lapras’s legendary connection. Exact late scenes and their local order remain open.",
+  "id": "world_direction",
+  "kind": "lore",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "§§1, 14–15; prelude amendment 0.7.20",
+          "Section 14: disclosure boundaries and unresolved late scene order"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Tidebound’s creative direction"
+}

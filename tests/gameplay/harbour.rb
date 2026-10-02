@@ -55,7 +55,7 @@ check(!h.flags[:cargo_paid], "cargo reward lost on full bag")
 $quest_reject_item = nil
 2.times { h.porter }
 check($bag.quantity(:ORANBERRY) == 5, "cargo reward duplicated")
-check(!Tidebound::DemoLaunch.flags[:completed], "optional jobs completed the main demo")
+check(!Tidebound::Docks.flags[:completed], "optional jobs arranged the main journey’s passage")
 puts "PASS: harbour delivery/counting quests survive saves, wrong answers and full bags without duplicate rewards."
 
 new_opening

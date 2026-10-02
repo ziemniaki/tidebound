@@ -1,0 +1,30 @@
+{
+  "description": "The absent woman whose work with Koga inspired the winter settlement’s community. His sister preserves the stories. Whether she died, departed or vanished is unknown; she is a different person from the lighthouse keeper.\n\nProposed draft, as her daughter’s recollection: training once paused until visitors and Pokémon had somewhere dry to sit. The daughter continues that practice while others remember more impressive demonstrations. This gives the mother a surviving influence that can be used and argued over without deciding whether she died, departed or disappeared. It establishes no connection to the lighthouse keeper.",
+  "id": "koga_mother",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "member_of",
+      "to": "winter_settlement"
+    },
+    {
+      "kind": "parent_of",
+      "to": "koga"
+    },
+    {
+      "kind": "parent_of",
+      "to": "koga_sister"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities",
+          "§5.5: Koga, his mother and sister"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Koga’s mother"
+}

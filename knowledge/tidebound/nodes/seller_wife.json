@@ -1,0 +1,21 @@
+{
+  "description": "The deceased woman who wore the necklace on ordinary days as well as important ones. She is known through a surviving habit and an object, not a solved biography. Name, death date and further history remain open.",
+  "id": "seller_wife",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "The seller’s wife"
+}

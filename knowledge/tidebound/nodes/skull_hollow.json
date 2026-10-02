@@ -1,0 +1,22 @@
+{
+  "data": {
+    "design": "From the bible and authored layout: nearly black irregular rock chambers, a substantial connected loop and blind recesses, with faint outlines and scattered pale stone seams for orientation. The southern mouth supplies the recognizable way back. Keep the visual scarcity of bearings; do not fill the interior with luminous runes, an altar or a revealed owner of the skull."
+  },
+  "description": "The ancient skull’s mouth opens into a nearly lightless cave. Irregular chambers connect through a large loop and blind alcoves; faint rock edges and scattered pale seams give enough bearings to find the southern exit through the teeth. A narrow fissure at the northern end disappears beyond the available light but does not lead to another playable area. Exploring it does not award a reward or unlock a required route.\n\nGastly, Duskull, Shuppet, Haunter and Misdreavus occur through native cave encounters at levels 20–28. They can interrupt ordinary movement inside, not only a visible grass patch. The return path remains available, but finding it in the darkness is part of the danger.\n\nOld parallel scratches cross a wall beneath mineral crust. Elsewhere the child notices wet stone without audible dripping. The source preserves that contrast through an inspection line rather than a new explanation of the cave. The existing ambient music is quieter and lower-pitched again; the cave has no drifting fog or separate background-sound loop.\n\nThe skull’s species, origin and relation to other lore remain open. This is a cave reached through an ancient skull, not an established shrine, boss arena or account of the sea’s dead.",
+  "id": "skull_hollow",
+  "kind": "location",
+  "links": [
+    {
+      "data": {
+        "sections": "§33: nearly lightless looping cave, level-20-and-above Ghosts, return bearings and limits of established lore."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_haunted_landscape"
+    }
+  ],
+  "name": "The Skull Hollow"
+}

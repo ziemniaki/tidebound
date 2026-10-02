@@ -1,0 +1,79 @@
+{
+  "data": {
+    "design": "Original Psyduck silhouette and anatomy. Existing Psyduck colors. Keep the familiar duck appearance before Whyduck’s disturbing change. No exposed brain before evolution or invented supernatural origin.",
+    "moves": [
+      {
+        "description": "Level 6 in the species learnset. An early Psychic attack already exists before Whyduck’s exposed-brain form.",
+        "name": "Confusion"
+      },
+      {
+        "description": "Level 12 in the species learnset. Aquatic offense remains part of the line.",
+        "name": "Water Pulse"
+      },
+      {
+        "description": "Level 15 in the species learnset. Disruption arrives just before the level-16 evolution.",
+        "name": "Disable"
+      }
+    ],
+    "types": [
+      "Water",
+      "Psychic"
+    ]
+  },
+  "description": "Tidebound’s shore Psyduck looks ordinary but is Water/Psychic. A visible individual lives by the southern pond, alongside grass encounters there and on the coast road. The reason for the regional change remains open.\n\nEvolves into Whyduck at level 16; the ordinary Psyduck/Golduck line remains distinct.\n\nProposed pond life: it probes the soft bank with its bill, leaving paired webbed tracks and shallow scoops among the reeds. When a fishing line draws taut nearby, it backs out of the water before watching the movement; it is reacting to a disturbance, not diagnosing the hook or foretelling danger. The same searching bill can loosen soil around rooted Sunkern. Broad stones separating the fishing access from the sheltered seed patch would leave both animals room, making a maintained bank more than a battle backdrop. A companion can retain a favorite way of settling with its back toward a stone even after evolution.",
+  "id": "species_psyduck_1",
+  "kind": "species",
+  "links": [
+    {
+      "data": {
+        "description": "Proposed: bill-foraging along the pond margin loosens soil around rooted Sunkern. Leaving a sheltered patch away from the main water access reduces the disturbance without treating either species as malicious."
+      },
+      "kind": "disturbs",
+      "to": "species_sunkern_1"
+    },
+    {
+      "data": {
+        "description": "Level 16"
+      },
+      "kind": "evolves_into",
+      "to": "species_whyduck"
+    },
+    {
+      "data": {
+        "description": "Pond-grass encounters at levels 8–11 and the visible scripted individual. This supersedes its old visible roadside position."
+      },
+      "kind": "found_in",
+      "to": "pond"
+    },
+    {
+      "data": {
+        "description": "Road-grass encounters at levels 4–6 remain; the visible individual was moved to the pond."
+      },
+      "kind": "found_in",
+      "to": "south_road"
+    },
+    {
+      "data": {
+        "sections": [
+          "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
+          "§29: regional Psyduck and level-16 evolution; §32 supersedes its visible roadside position."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_species_psyduck_1"
+    }
+  ],
+  "name": "PSYDUCK (Tidebound)"
+}

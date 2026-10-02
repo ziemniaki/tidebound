@@ -1,0 +1,92 @@
+{
+  "data": {
+    "design": "Familiar Poochyena silhouette, changing from curled sleep to wagging movement to a rigid pier stance. Existing Poochyena palette. The walking ribbon is an existing interaction prop; its color is not established. No visible ghost in her first pier scene and no invented glowing eyes.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Calling Pookie back from the optional pier detour.",
+        "lines": [
+          {
+            "speaker": "Narration",
+            "text": "Pookie stands rigid at the end of the pier. Her growl is so low you can feel it through the boards."
+          },
+          {
+            "speaker": "Narration",
+            "text": "You say her name. Slowly, she turns back to you."
+          }
+        ],
+        "source": "source_walk"
+      }
+    ],
+    "habits": [
+      "Presses her nose into the child’s palm.",
+      "Avoids the sea-facing window.",
+      "Wags at the walking ribbon.",
+      "Turns back slowly when called at the pier."
+    ],
+    "moves": [
+      {
+        "description": "Hand-picked starting move in the playable household opening. An ordinary physical option.",
+        "name": "Tackle"
+      },
+      {
+        "description": "Hand-picked starting move in the playable household opening. Raises Attack.",
+        "name": "Howl"
+      },
+      {
+        "description": "Hand-picked starting move in the playable household opening. Reduces opposing accuracy.",
+        "name": "Sand Attack"
+      },
+      {
+        "description": "Hand-picked starting move in the playable household opening. A Dark attack granted before the species normally learns it.",
+        "name": "Bite"
+      }
+    ]
+  },
+  "description": "Pookie sleeps beside the lighthouse with her nose tucked beneath her tail. Reaching for her walking ribbon turns sleep into immediate excitement: for once Mother is not coming too. At the optional pier detour she becomes rigid and growls through the boards at something the child cannot see; hearing her name brings her attention back.\n\nThe walk makes returning together the meaningful action. It can finish without visiting the pier.\n\nHer reaction suggests a sensed presence, not an ability to explain it. The first bark must not reveal Lapras.\n\nProposed return after evolution: as Mightyena, she still noses the walking ribbon before going outside, then stops when its old knot no longer sits comfortably. Refastening the ribbon is a small acknowledgment that she has grown. On the walk she pauses for the child to catch up; recalling her at the water remains a learned relationship, not proof that the species can identify ghosts. A familiar door and waiting companion can matter even on a visit without a quest.",
+  "id": "pookie",
+  "kind": "creature",
+  "links": [
+    {
+      "kind": "bonded_with",
+      "to": "protagonist"
+    },
+    {
+      "kind": "cared_for_by",
+      "to": "mother"
+    },
+    {
+      "kind": "instance_of",
+      "to": "species_poochyena"
+    },
+    {
+      "kind": "lives_in",
+      "to": "lighthouse_home"
+    },
+    {
+      "data": {
+        "sections": [
+          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_walk"
+    }
+  ],
+  "name": "Pookie"
+}

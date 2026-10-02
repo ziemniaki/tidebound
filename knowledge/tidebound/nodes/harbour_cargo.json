@@ -1,0 +1,93 @@
+{
+  "data": {
+    "beats": [
+      "Daro describes his injured shoulder and the counting work the clerk kept him on for. The manifest lists twelve flour sacks and six oil tins.",
+      "Read all three waterfront cargo labels: west has five flour sacks and two tins, middle four and two, east three and one. The east lot has a clean circle where a tin stood. Labels can be inspected before or after meeting Daro.",
+      {
+        "description": "Report the shortage after inspecting every lot.",
+        "options": [
+          {
+            "description": "Answer lamp oil: twelve flour sacks are present, but only five tins. Daro recalls Harker carrying something toward the ring and asks for a quiet word."
+          },
+          {
+            "description": "Answer flour or nothing: Daro asks the child to count the lots together; the manifest remains available and the answer can be retried."
+          },
+          {
+            "description": "Ask to check again or leave: there is no penalty, battle or lost reward."
+          }
+        ]
+      },
+      "Ask Harker after establishing the shortage. The missing-oil conversation takes priority over his usual ring menu. When shown PSYDUCK ISLAND on the label, he admits the tin is unopened and tells Venn to take it to the east lot; a sailor carries it back.",
+      "Report to Daro for three Oran Berries. The east label subsequently adds a note recording the returned sixth tin; Daro says the village can light its windows and Harker can find his own oil."
+    ],
+    "consequences": "The player never needs to carry a separate oil tin item. The return happens through Harker’s conversation without starting a ring challenge. The cargo’s original label gains a correction instead of pretending the earlier short count never happened. Full bags postpone the berry reward, which remains claimable once. Completion persists through saves and does not gate passage, the museum or ring play.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. After correctly identifying the shortage.",
+        "lines": [
+          {
+            "speaker": "Daro",
+            "text": "Five tins. Harker carried something up to the ring just before I arrived."
+          },
+          {
+            "speaker": "Daro",
+            "text": "Ask him. Quietly. I would rather have the oil than a fight."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "Counting supplies for Psyduck Island reveals a small competing claim on useful fuel: Harker borrowed a sealed oil tin to light the ring. Daro wants it returned quietly. The solution is a conversation about the destination label, not a fight or proof of Team Abyss activity.",
+  "id": "harbour_cargo",
+  "kind": "scene",
+  "links": [
+    {
+      "data": {
+        "description": "Harker’s borrowed tin was intended for its lanterns. Returning it requires no bout."
+      },
+      "kind": "associated_with",
+      "to": "harbour_ring"
+    },
+    {
+      "data": {
+        "description": "The manifest names the island as the cargo’s destination; completing this job does not implement the voyage."
+      },
+      "kind": "associated_with",
+      "to": "psyduck_island"
+    },
+    {
+      "kind": "features",
+      "to": "daro"
+    },
+    {
+      "kind": "features",
+      "to": "harker"
+    },
+    {
+      "kind": "features",
+      "to": "item_lamp_oil"
+    },
+    {
+      "kind": "features",
+      "to": "protagonist"
+    },
+    {
+      "kind": "features",
+      "to": "venn"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    },
+    {
+      "kind": "takes_place_in",
+      "to": "docks"
+    }
+  ],
+  "name": "The missing sixth tin"
+}

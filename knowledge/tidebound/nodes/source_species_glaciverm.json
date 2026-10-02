@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "content/pokemon/GLACIVERM/species.json"
+  },
+  "description": "Authored species/form declaration",
+  "id": "source_species_glaciverm",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "species/GLACIVERM"
+}

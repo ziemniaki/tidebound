@@ -1,0 +1,25 @@
+{
+  "description": "The visiting youth called Toma lies badly on the coast road, then gives away that the other boy has the necklace after losing. He is not a young permanent resident of Shiohama and is not the fisherman with the same name.",
+  "id": "road_thief",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "member_of",
+      "to": "team_abyss"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    }
+  ],
+  "name": "Toma"
+}

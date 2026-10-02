@@ -1,0 +1,46 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Invitation to the optional pond battle.",
+        "lines": [
+          {
+            "speaker": "Ida",
+            "text": "I mend nets for the dock crews. This is where I rest my hands. Shall we let our companions stretch instead?"
+          }
+        ],
+        "source": "source_pond"
+      }
+    ]
+  },
+  "description": "Ida mends nets for the dock crews and visits the pond to rest her hands. She offers an optional battle as a chance for the companions to stretch instead. She can see marks on the island stone but cannot read them from shore and refuses to swim across. Skilled work and a sensible limit distinguish her from a keeper of hidden obelisk lore.",
+  "id": "ida",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_pond"
+    },
+    {
+      "data": {
+        "description": "Mends nets for the dock crews; rests her hands at the pond."
+      },
+      "kind": "works_at",
+      "to": "docks"
+    },
+    {
+      "kind": "works_at",
+      "to": "pond"
+    }
+  ],
+  "name": "Ida"
+}

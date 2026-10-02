@@ -1,0 +1,34 @@
+{
+  "data": {
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Ordinary conversation beside the ring.",
+        "lines": [
+          {
+            "speaker": "Venn",
+            "text": "Three coins on the long legs. No, two. The third is for supper."
+          },
+          {
+            "speaker": "Venn",
+            "text": "Do not look at me like that. I have already lost supper once."
+          }
+        ],
+        "source": "source_harbour_errands"
+      }
+    ]
+  },
+  "description": "A sailor beside the ring reduces a three-coin bet to two because the third coin is for supper; he admits having lost supper once already. During the cargo errand Harker calls for Venn to return the unopened oil tin, and a sailor carries it back toward the east lot. This fixed harbour resident is not automatically the same person as a generated ring challenger who happens to draw the name Venn. His betting is background dialogue, not a player betting feature.",
+  "id": "venn",
+  "kind": "character",
+  "links": [
+    {
+      "kind": "associated_with",
+      "to": "docks"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_harbour_errands"
+    }
+  ],
+  "name": "Venn"
+}

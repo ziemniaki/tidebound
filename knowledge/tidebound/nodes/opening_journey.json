@@ -1,0 +1,122 @@
+{
+  "data": {
+    "beats": [
+      "The dream opening returns the child to the ordinary lighthouse bedroom.",
+      "Walk Pookie, return together, and choose a familiar household companion. Her first pier detour is optional.",
+      "Recover the seller’s keys and collect Mother’s oil. Share and return the pie plate; the lamp lesson remains available around this visit.",
+      "The stolen necklace leads through the coast road, hideout and Mending to its recovery, return and safekeeping in the vault.",
+      "The captain offers the next crossing. Museum inspection is optional, and the player can keep exploring after accepting passage."
+    ]
+  },
+  "description": "The opening turns familiar household care into a widening set of obligations: companion, oil, meal, stolen necklace, vault and a ship’s invitation. Its warmth gives later reinterpretation something real to alter.\n\nThe current playable journey reaches the captain’s invitation. The first pier detour and museum inspection are optional; accepting passage leaves the region available to explore. Island travel, Koga’s settlements, later Team Abyss chapters, shrine progression, Suicune and the sabre, the cemetery and endings remain planned.\n\nOptional harbour errands and ring bouts, and the more dangerous Hollow Wood and Skull Hollow, widen the currently playable region. Their own records describe those activities; none requires the future shrine or Koga chapters.",
+  "id": "opening_journey",
+  "kind": "quest",
+  "links": [
+    {
+      "kind": "includes",
+      "to": "dream_opening"
+    },
+    {
+      "data": {
+        "description": "Optional current content; not a prerequisite for accepting passage."
+      },
+      "kind": "includes",
+      "to": "harbour_cargo"
+    },
+    {
+      "data": {
+        "description": "Optional current content; not a prerequisite for accepting passage."
+      },
+      "kind": "includes",
+      "to": "harbour_letter"
+    },
+    {
+      "data": {
+        "description": "Optional current content; not a prerequisite for accepting passage."
+      },
+      "kind": "includes",
+      "to": "harbour_ring"
+    },
+    {
+      "data": {
+        "description": "Optional current content; not a prerequisite for accepting passage."
+      },
+      "kind": "includes",
+      "to": "harbour_shuttle"
+    },
+    {
+      "kind": "includes",
+      "to": "household_departure"
+    },
+    {
+      "kind": "includes",
+      "to": "lamp_errand"
+    },
+    {
+      "kind": "includes",
+      "to": "museum_visit"
+    },
+    {
+      "kind": "includes",
+      "to": "necklace_pursuit"
+    },
+    {
+      "kind": "includes",
+      "to": "neighbors_pie"
+    },
+    {
+      "kind": "includes",
+      "to": "next_crossing"
+    },
+    {
+      "kind": "includes",
+      "to": "return_necklace"
+    },
+    {
+      "kind": "includes",
+      "to": "vault_visit"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_docks"
+    },
+    {
+      "data": {
+        "sections": "§30 harbour upgrade and §33 northern forest/cave: current optional activities."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_hideout"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_vault"
+    },
+    {
+      "data": {
+        "description": "Optional current content; not a prerequisite for accepting passage."
+      },
+      "kind": "takes_place_in",
+      "to": "hollow_wood"
+    },
+    {
+      "data": {
+        "description": "Optional current content; not a prerequisite for accepting passage."
+      },
+      "kind": "takes_place_in",
+      "to": "skull_hollow"
+    }
+  ],
+  "name": "The opening journey"
+}

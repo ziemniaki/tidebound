@@ -1,0 +1,25 @@
+{
+  "description": "The great lamp is a working object the child learns to maintain: measure the oil, trim the wick and turn the brass wheel. Its beam gives the sea an edge. Knowledge passed between keeper and child matters before any interpretation of the lower lamp.",
+  "id": "lantern_room",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "part_of",
+      "to": "lighthouse_home"
+    },
+    {
+      "data": {
+        "sections": [
+          "§§5.3, 6.2 and 10.5: lighthouse, keeper and distinct lower lamp."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "The Lantern Room"
+}

@@ -1,0 +1,92 @@
+{
+  "data": {
+    "design": "Familiar Makuhita body and hands; use existing proportions. Existing Makuhita colors. Show weight through a crate and care through a small, deliberate pat. No unapproved monk costume or final-evolution anatomy.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. During Mother’s hall conversation.",
+        "lines": [
+          {
+            "speaker": "Mother",
+            "text": "Oh, Maku! Gently, sweetheart. Those are bottles, not turnips."
+          },
+          {
+            "speaker": "Narration",
+            "text": "Maku pats the box twice, very carefully."
+          }
+        ],
+        "source": "source_walk"
+      }
+    ],
+    "habits": [
+      "Leans against the child’s knee.",
+      "Carries Mother’s boxes.",
+      "Responds to correction by carefully patting the crate.",
+      "Sits upright for a share of the pie."
+    ],
+    "moves": [
+      {
+        "description": "Hand-picked starting move in the playable household opening. A straightforward physical attack.",
+        "name": "Tackle"
+      },
+      {
+        "description": "Hand-picked starting move in the playable household opening. Fighting pressure through repeated strikes.",
+        "name": "Arm Thrust"
+      },
+      {
+        "description": "Hand-picked starting move in the playable household opening. Reduces opposing accuracy.",
+        "name": "Sand Attack"
+      },
+      {
+        "description": "Hand-picked starting move in the playable household opening. Lets Normal and Fighting attacks reach an identified Ghost under native battle rules; an early answer to type immunity.",
+        "name": "Foresight"
+      }
+    ]
+  },
+  "description": "Maku is Mother’s affectionate Makuhita helper. He carries heavy things but handles them too enthusiastically. When she tells him the bottles are not turnips, he pats the box twice with exaggerated care. At the meal he sits very straight, hands on knees, waiting to be included.\n\nHe belongs to the household before selection; his affection has no hidden agenda.\n\nProposed return after evolution: as Hariyama, he brings a crate to the house and stops at the doorway that used to be easy. Mother asks him to wait while the child moves the loose bottles inside; he gives the crate his two careful pats before handing it over. The task has changed because he is larger, while the familiar response survives. Helping him make room lets strength remain affectionate rather than turning him into a convenient cargo machine.",
+  "id": "maku",
+  "kind": "creature",
+  "links": [
+    {
+      "kind": "bonded_with",
+      "to": "protagonist"
+    },
+    {
+      "kind": "cared_for_by",
+      "to": "mother"
+    },
+    {
+      "kind": "instance_of",
+      "to": "species_makuhita"
+    },
+    {
+      "kind": "lives_in",
+      "to": "lighthouse_home"
+    },
+    {
+      "data": {
+        "sections": [
+          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_native_creatures"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_neighbor"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_walk"
+    }
+  ],
+  "name": "Maku"
+}

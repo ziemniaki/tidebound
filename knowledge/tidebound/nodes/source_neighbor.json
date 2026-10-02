@@ -1,0 +1,15 @@
+{
+  "data": {
+    "path": "src/tidebound/features/neighbor/quest.rb"
+  },
+  "description": "Pie exchange, robbery, pursuit, identity of keepsake, return and pearl glint",
+  "id": "source_neighbor",
+  "kind": "source",
+  "links": [
+    {
+      "kind": "inspected_in",
+      "to": "source_snapshot"
+    }
+  ],
+  "name": "neighbor"
+}

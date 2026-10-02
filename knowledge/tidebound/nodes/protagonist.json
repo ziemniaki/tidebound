@@ -1,0 +1,21 @@
+{
+  "description": "Mother’s child leaves a lighthouse household with a familiar companion. Much later they learn they were an existing person altered by water magic, not created by it. Their affinity with the demons makes human protection a choice made with knowledge of the grievance, not ignorance of it.",
+  "id": "protagonist",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    }
+  ],
+  "name": "The lighthouse child"
+}

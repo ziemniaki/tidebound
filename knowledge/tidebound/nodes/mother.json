@@ -1,0 +1,70 @@
+{
+  "data": {
+    "behavior": [
+      "Interrupts a serious conversation to caution Maku about bottles, then praises his good heart.",
+      "Takes the oil bottle in both hands; for a moment neither she nor the child lets go.",
+      "After an astral return she says the child is cold and closes the latch instead of finishing her thought."
+    ],
+    "design": "An elderly human keeper within a familiar Gen 3 household scale. World palette: muted coastal colors with small warm interior lights. Stage age through hands on a bottle, lamp work and careful domestic movements. These are scene directions, not approval of a new costume. Hair, clothing construction and final portrait design need an approved reference; Ellie is a working name. No occult insignia, monstrous anatomy or conspicuously sinister portrait.",
+    "dialogue": [
+      {
+        "context": "Existing dialogue. Teaching the oil lesson after the bottle is returned.",
+        "lines": [
+          {
+            "speaker": "Mother",
+            "text": "Thank you. Come, you should know how to tend it yourself."
+          },
+          {
+            "speaker": "Mother",
+            "text": "Take it upstairs to the great lamp. Only that one, please."
+          }
+        ],
+        "source": "source_opening"
+      }
+    ],
+    "questions": [
+      {
+        "question": "What religious purpose did Mother’s ritual serve?"
+      },
+      {
+        "question": "When and under what circumstances did she perform it, and what did it cost?"
+      },
+      {
+        "question": "How much does she know about the ancient wrong and the sabre’s future use?"
+      }
+    ]
+  },
+  "description": "The lighthouse’s elderly sole keeper is teaching her child how to leave her. She knows she has little time left and wants the child prepared to live beyond her care. Her practical affection is in measured lamp oil, a trimmed wick and the larger slice of pie. She straightens a crease that is not there while telling the child they can go.\n\nShe speaks in plain domestic instructions, affectionate “love” and small corrections. When she evades a subject, she changes her action or leaves a sentence unfinished.\n\nMother performed the ritual on an already existing child and believes in the water entities’ mythology. The ritual served a religious purpose beyond the child’s welfare; its purpose and cost remain open. These are later revelations. The opening shows a keeper and parent, without cult emblems or explanations of arrested childhood. Later knowledge reinterprets her care as both love and containment; it does not make every affectionate scene insincere.",
+  "id": "mother",
+  "kind": "character",
+  "links": [
+    {
+      "data": {
+        "description": "Preparing the child for independence after years of containment."
+      },
+      "kind": "cares_for",
+      "to": "protagonist"
+    },
+    {
+      "kind": "lives_in",
+      "to": "lighthouse_home"
+    },
+    {
+      "data": {
+        "sections": [
+          "Sections 5–6: places and characters; working names versus identities",
+          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
+          "Section 14: disclosure boundaries and unresolved late scene order",
+          "§6.2: lighthouse keeper and parent"
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_opening"
+    }
+  ],
+  "name": "Mother"
+}

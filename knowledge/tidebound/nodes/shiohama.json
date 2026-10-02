@@ -1,0 +1,38 @@
+{
+  "data": {
+    "design": "Old dark-wood houses on restrained stone foundations; readable Gen 3 paths around the existing lighthouse and garden. Charcoal, slate, cold grey-blue water, muted foliage and sheltered amber windows. Keep ordinary locations at night. Worn autumn foliage, stone and small flowers carry season without daylight. No cheerful daytime treatment, professor’s lab, cult symbols on every house or invented explanation for the age distribution.",
+    "questions": [
+      {
+        "question": "Why are the other permanent residents all old?"
+      },
+      {
+        "question": "Who knows about the child’s condition?"
+      }
+    ]
+  },
+  "description": "A poor, partly deserted coastal town within the lighthouse household’s daily orbit. Its remaining permanent human residents are elderly; the child is the exception. Oil, a borrowed plate and a returned keepsake establish its social scale before distant history becomes intelligible.\n\nRemaining neighbors maintain modest routines despite the town’s reduced population. The seller’s food and Mother’s lamp are useful acts rather than disguised lore deliveries.\n\nProposed daily life: the remaining neighbors share a handcart because several can still mend a wheel but few can carry a full load uphill. A shutter that stays closed can mean someone is keeping a room warm, not that its owner has vanished. Empty houses supply spare hinges with permission from whoever still keeps the keys. The child can help carry a delivery without gaining a new tragedy to investigate. When a delayed shipment finally arrives, the recognizable change is a repaired door and a neighbor working outside again.",
+  "id": "shiohama",
+  "kind": "location",
+  "links": [
+    {
+      "kind": "connected_to",
+      "to": "listening_wood"
+    },
+    {
+      "kind": "connected_to",
+      "to": "south_road"
+    },
+    {
+      "data": {
+        "sections": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments."
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    },
+    {
+      "kind": "sourced_from",
+      "to": "source_maps"
+    }
+  ],
+  "name": "Shiohama"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "Ordinary locations remain perpetually night, with restrained warmth in sheltered windows and lamps.",
+  "id": "perpetual_night",
+  "kind": "lore",
+  "links": [
+    {
+      "kind": "about",
+      "to": "shiohama"
+    },
+    {
+      "data": {
+        "sections": [
+          "Section 15.1 and 30: perpetual night and familiar Gen 3 visual direction",
+          "§§15.1 and 30: permanent night and restrained local light."
+        ]
+      },
+      "kind": "sourced_from",
+      "to": "source_game_bible"
+    }
+  ],
+  "name": "Perpetual night"
+}
