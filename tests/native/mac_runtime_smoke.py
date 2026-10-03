@@ -144,4 +144,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     for location in locations if args.location == "all" else [args.location]:
         smoke(args.archive, args.output / location, args.arch, location, args.scenario)
-
