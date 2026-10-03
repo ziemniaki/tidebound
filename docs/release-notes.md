@@ -1,8 +1,7 @@
-# Tidebound 0.8.12
+# Tidebound 0.8.13
 
-Explore a haunted forest north of the Listening Wood, with an ancient skull
-marking the entrance to a nearly pitch-black cave.
+The harbour now has a sheltered Suicune garden and newly detailed ships.
 
-- Face level 20–28 Ghost Pokémon in winding cave passages.
-- Follow the concealed trail in the Psyduck pond area to its visible cache.
-- Fixed cropped trees and rough pond-bank edges.
+- Visit the giant stone Suicune monument, with candles, offerings, flowers and benches.
+- Meet four residents tending the garden and hear their stories.
+- Explore the docks beside a weathered cargo vessel, fishing cutter and wooden skiffs.
