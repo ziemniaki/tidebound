@@ -62,3 +62,8 @@ No image generation was used for this regional form. Cry inherits Lapras.
 Frostcoon (0.7.10): manually specified palette edit of included Silcoon front,
 back and icon sprites. Original asset attribution remains applicable. Recipe:
 tools/tidebound_dev/art/export.py. No image generation; cry reuses Silcoon.
+
+Dock vessels: original cargo-ship, fishing-cutter and rowboat sprites generated
+and edited with OpenAI's built-in image tool. Approved pixels are in
+content/props/{moored_ship,offshore_ship,dock_boat}; dock_boat_left shares the
+rowboat image. Art direction and prompts are in references/dock_ships/art_direction.md.
