@@ -238,6 +238,7 @@ module NativeScenarios
       capture(output, name)
     end
     dock_ring(output)
+    dock_park(output)
     pond_path(output)
     haunted_world(output)
     identity = $player.party.map { |pet| [Tidebound.identity(pet), pet.item_id] }
@@ -267,7 +268,11 @@ module NativeScenarios
   end
 
   def relocating_npc_floor
-    [[:home, :mother, 12, 7], [:shop, :oil_seller, 7, 5]].each do |map, key, x, y|
+    [
+      [:home, :mother, 12, 7],
+      [:shop, :oil_seller, 7, 5],
+      [:docks, :park_mara, 17, 14]
+    ].each do |map, key, x, y|
       Tidebound::World.travel(map, x - 1, y, 6)
       actor = Tidebound::World.actor(key)
       raise "NPC fixture is not present: #{key}" unless actor && !actor.through
@@ -301,6 +306,39 @@ module NativeScenarios
     Tidebound::World.travel(:docks, 69, 24, 8)
     capture(output, "dock-ring")
     puts "PASS: native ring ropes block entry on every side; dock ring rendered"
+  end
+
+  def dock_park(output)
+    # The pedestal is solid; the tall sculpture above it must not block the garden.
+    [
+      [20, 14, :move_up],
+      [17, 12, :move_right],
+      [23, 12, :move_left],
+      [20, 11, :move_down]
+    ].each do |x, y, move|
+      Tidebound::World.travel(:docks, x, y)
+      raise "Park check requires normal collision" if $game_player.through
+      $game_player.public_send(move)
+      raise "Player crossed the Suicune pedestal" unless [$game_player.x, $game_player.y] == [x, y]
+    end
+    Tidebound::World.travel(:docks, :park)
+    walk_to(20, 14)
+    walk_to(20, 15)
+    walk_to(25, 15)
+    walk_to(25, 12)
+    walk_to(24, 11)
+    walk_to(20, 10)
+    walk_to(17, 12)
+    walk_to(16, 12)
+    walk_to(16, 15)
+    walk_to(20, 15)
+    walk_to(20, 16)
+    $game_player.turn_up
+    Tidebound::World.camera_to(20, 11)
+    capture(output, "suicune-park")
+    Tidebound::World.travel(:docks, 20, 11, 2)
+    capture(output, "behind-suicune")
+    puts "PASS: native park route circles Suicune; pedestal collision stays below the sculpture; candle garden rendered"
   end
 
   def pond_path(output)

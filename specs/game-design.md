@@ -2,7 +2,7 @@
 
 ## Game bible
 
-**Version 1.31 | 28 September 2026**
+**Version 1.32 | 2 October 2026**
 **Creative direction: Wojciech Krzyżanowski**  
 **Working title: Tidebound | Full story spoilers**
 
@@ -301,6 +301,18 @@ Proposed exploration moves from navigable human-scale remains toward spaces that
 **Confirmed future canon; numbered working designation.** City 2 is an important, potentially principal dock city. Its identity centres on shipping, coastal trade, warehouses, salvage, and the movement of goods between isolated coastal settlements. Illegal resale and distribution operate alongside ordinary trade.
 
 Team Abyss maintains a theft, fencing and illegal-distribution operation here. The small storehouse in the necklace quest belongs to this wider network. Early thieves mention buyers at the docks without explaining the city's full importance. Later exploration should make the economics of that network comprehensible.
+
+**Confirmed by the creator; prototype implemented.** A small park occupies the
+north-west corner of the dock city. Its giant stone Suicune sculpture honours the
+beloved protector of this land and his magic of harmony. He is known to live in
+the heart of the forest. Residents tend little candles and bring modest offerings;
+their reasons are personal and quietly painful rather than prophetic.
+
+**Prototype details.** Worn paths, sheltered benches, flowers and a caretaker
+make the park a place of continuing care. Four residents speak of a late traveller,
+a family estrangement, an ageing companion and a lost spouse. The monument and
+offerings can be inspected. This introduces local reverence; Suicune's forest
+refuge, corruption, healing and later sabre story remain future chapters.
 
 **Confirmed future canon: the museum.** City 2 contains an important museum that becomes a major narrative location. It publicly displays the unique mystic sabre already connected to healed Suicune and the better final resolution. The museum's possession must eventually make historical sense, but its complete provenance remains undecided. Team Abyss later steals the sabre with incomplete understanding; see 7.5 and 10.6.
 

@@ -67,3 +67,9 @@ Dock vessels: original cargo-ship, fishing-cutter and rowboat sprites generated
 and edited with OpenAI's built-in image tool. Approved pixels are in
 content/props/{moored_ship,offshore_ship,dock_boat}; dock_boat_left shares the
 rowboat image. Art direction and prompts are in references/dock_ships/art_direction.md.
+
+Suicune park: original stone-monument, candle-offering and mended-bench sprites generated with
+OpenAI's built-in image tool. Suicune remains an existing Pokémon design with the
+original attribution above. Approved source pixels are in
+content/props/{suicune_monument,votive_offerings,park_bench}; full prompts are recorded in
+references/suicune_park/art_direction.md.

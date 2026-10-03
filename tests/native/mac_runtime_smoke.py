@@ -90,7 +90,8 @@ def smoke(archive, output, arch, location, scenario="all"):
                 str(app),
             ]
             try:
-                subprocess.run(command, cwd="/", timeout=60, check=True)
+                # World traversal and content checks share the other native runners' 90-second budget.
+                subprocess.run(command, cwd="/", timeout=90, check=True)
             finally:
                 # open is a launcher; terminating it alone leaves an app with a
                 # modal error alive. Match only this unique disposable bundle.
