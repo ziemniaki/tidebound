@@ -1,6 +1,6 @@
 {
-  "version": "0.8.12",
-  "mac_build": "47",
+  "version": "0.8.13",
+  "mac_build": "48",
   "runtime_commit": "826929eeb3ebc4b887c011604919217a790770f4",
   "runtime_archive": "runtime/macOS/mkxp-z-826929e-portable1.zip",
   "runtime_sha256": "9df250b6f720201be2f0c19e33889992bc4467ecc77a9d8d2e6b450cb50d19ad",

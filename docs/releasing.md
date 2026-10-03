@@ -33,7 +33,7 @@ is an optional development diagnostic, not a release step:
 
 ```sh
 uv run python -m tidebound_dev.release.candidates ../candidate
-uv run python -m tests.native.mac_runtime_smoke ../candidate/Tidebound_Mac_0.8.12_universal.zip ../smoke-arm64 --arch arm64
+uv run python -m tests.native.mac_runtime_smoke ../candidate/Tidebound_Mac_0.8.13_universal.zip ../smoke-arm64 --arch arm64
 ```
 
 For a Windows-only package, on any development host:
@@ -46,7 +46,7 @@ On Windows x64, test that archive using:
 
 ```powershell
 uv run python -m tidebound_dev.release.artifacts ../windows-candidate
-uv run python -m tests.native.windows_runtime_smoke ../windows-candidate/Tidebound_Windows_0.8.12_x64.zip ../smoke-windows
+uv run python -m tests.native.windows_runtime_smoke ../windows-candidate/Tidebound_Windows_0.8.13_x64.zip ../smoke-windows
 ```
 
 The Windows ZIP contains the unchanged `Game.exe`, Ruby/zlib DLLs, game assets,
@@ -67,7 +67,7 @@ On Linux x86_64 with the libraries in `docs/players/linux.txt` installed:
 
 ```sh
 uv run python -m tidebound_dev.release.artifacts ../linux-candidate
-uv run python -m tests.native.linux_runtime_smoke ../linux-candidate/Tidebound_Linux_0.8.12_x86_64.zip ../smoke-linux
+uv run python -m tests.native.linux_runtime_smoke ../linux-candidate/Tidebound_Linux_0.8.13_x86_64.zip ../smoke-linux
 ```
 
 The Linux ZIP bundles the unchanged upstream executable, lib64, Ruby stdlib,
