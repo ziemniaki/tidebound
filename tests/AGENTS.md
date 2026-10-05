@@ -84,6 +84,8 @@ package from the same checkout as its PBS and test sources.
   the deep cave and returns, and samples native level 20+ Ghost encounters.
   Random battle triggering is disabled only during this unattended route and
   restored afterwards; the encounter tables themselves are sampled directly.
+  Lighting captures compare the lighthouse on/off, test lantern movement/save/load
+  and renderer disposal, and report native render costs.
   These scenes are not a complete walkthrough.
 - `species` recompiles PBS with native Essentials and compares custom species and
   metrics, excluding PBS bookkeeping and non-evolving family backlinks. Its

@@ -50,6 +50,41 @@
     "13": {
       "key": "seller_at_home",
       "role": "npc"
+    },
+    "14": {
+      "role": "lamp"
+    },
+    "15": {
+      "role": "lamp"
     }
+  },
+  "lighting": {
+    "ambient": 67,
+    "tone": [0, 0, -5, 12],
+    "bounds": [2, 2, 17, 13],
+    "player": {
+      "radius": 2.5,
+      "strength": 0.2
+    },
+    "sources": [
+      {
+        "radius": 4,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 14,
+        "offset": [0, -20]
+      },
+      {
+        "radius": 3,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 15,
+        "offset": [0, -20]
+      }
+    ]
   }
 }

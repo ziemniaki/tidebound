@@ -1,0 +1,15 @@
+{
+  "name": "Hand Lantern",
+  "description": "A small, warm flame. Use it to light your surroundings, or put it out.",
+  "stock_icon": "FLAMEORB",
+  "light": {
+    "radius": 4.8,
+    "strength": 0.82,
+    "color": [
+      255,
+      185,
+      95
+    ],
+    "softness": 0.85
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "base": "opening/exploration",
+  "location": ["haunted_forest", "south"],
+  "bag": {"TIDEBOUNDLANTERN": 1, "POTION": 5},
+  "story": {"light_item": ":TIDEBOUNDLANTERN"}
+}

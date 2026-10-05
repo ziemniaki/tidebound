@@ -7,7 +7,9 @@ module Tidebound::World
   def atmosphere
     settings = MAP_SETTINGS[$game_map.map_id]
     return unless settings
-    $game_screen.start_tone_change(Tone.new(*settings.fetch(:tone)), 0)
+    lighting = settings.fetch(:lighting, {})
+    tone = lighting.empty? ? settings.fetch(:tone) : lighting.fetch("tone", [0, 0, 0, 60])
+    $game_screen.start_tone_change(Tone.new(*tone), 0)
     $game_map.fog_name = settings.fetch(:fog)
     $game_map.fog_opacity = settings.fetch(:opacity)
     $game_map.fog_zoom = 160

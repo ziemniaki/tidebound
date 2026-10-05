@@ -1,7 +1,5 @@
 """Map-qualified actor identities and explicit runtime roles, independent of labels."""
 
-import json
-
 from ..art import props
 from ..files import ruby
 
@@ -105,7 +103,7 @@ def write_registry(root, maps):
     lines.append("    MAP_SETTINGS = {")
     for definition in (m.definition for m in maps):
         values = ", ".join(
-            f"{key}: {json.dumps(value)}" for key, value in definition.runtime_settings().items()
+            f"{key}: {ruby(value)}" for key, value in definition.runtime_settings().items()
         )
         lines.append(f"      {definition.id} => {{{values}}},")
     lines.append("    }.freeze")

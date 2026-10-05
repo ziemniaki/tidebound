@@ -3,16 +3,19 @@
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from rubymarshal.classes import Symbol
+from ..files import ruby
+from ..maps.lighting import light
 
 
 def clone(value):
     return loads(writes(value))
 
 
-def item_section(ident, name, description):
+def item_section(ident, name, description, field_use=0):
+    use = "FieldUse = Direct\n" if field_use == 2 else ""
     return (
         f"\n#-------------------------------\n[{ident}]\nName = {name}\nNamePlural = {name}\n"
-        f"Pocket = 8\nPrice = 0\nFlags = KeyItem\nConsumable = false\nDescription = {description}\n"
+        f"{use}Pocket = 8\nPrice = 0\nFlags = KeyItem\nConsumable = false\nDescription = {description}\n"
     )
 
 
@@ -22,8 +25,13 @@ from ..catalog import ITEMS, TRAINERS
 def build_items(game):
     items = loads((game / "Data/items.dat").read_bytes())
     text = "# Generated story Key Items.\n"
+    lights = {}
     for ident, record in ITEMS.items():
         name, description = record["name"], record["description"]
+        field_use = 2 if "light" in record else 0
+        if "light" in record:
+            light(record["light"])
+            lights[ident] = record["light"]
         data = clone(items[Symbol("TOWNMAP")])
         data.attributes.update(
             {
@@ -35,7 +43,7 @@ def build_items(game):
                 "@pocket": 8,
                 "@price": 0,
                 "@sell_price": 0,
-                "@field_use": 0,
+                "@field_use": field_use,
                 "@battle_use": 0,
                 "@flags": ["KeyItem"],
                 "@consumable": False,
@@ -44,9 +52,12 @@ def build_items(game):
             }
         )
         items[Symbol(ident)] = data
-        text += item_section(ident, name, description)
+        text += item_section(ident, name, description, field_use)
     (game / "PBS/items_tidebound_story.txt").write_text(text, encoding="utf-8-sig")
     (game / "Data/items.dat").write_bytes(writes(items))
+    (game.parent / "src/generated/item_lights.rb").write_text(
+        "module Tidebound::Lighting\n  ITEM_LIGHTS = " + ruby(lights) + ".freeze\nend\n"
+    )
 
 
 def build_trainers(game):

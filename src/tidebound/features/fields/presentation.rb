@@ -81,7 +81,8 @@ EventHandlers.add(
       if Tidebound::Actors.info(event)["cue"]
         spriteset.addUserSprite(TideboundThreshold.new(event, viewport, map))
       end
-      if %w[coast_lamp fire].include?(Tidebound::Actors.role(event))
+      if !Tidebound::Lighting.enabled?(map.map_id) &&
+           %w[coast_lamp fire].include?(Tidebound::Actors.role(event))
         spriteset.addUserSprite(TideboundWarmLight.new(map, event.x, event.y))
       end
     end
