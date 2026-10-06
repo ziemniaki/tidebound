@@ -62,6 +62,11 @@ module Tidebound::Lighting
       @width, @height, @config = width, height, config
       @cache = {}
       @profiles = {}
+      count = width * height
+      @illumination = Array.new(count, 0.0)
+      @red, @green, @blue = Array.new(count, 0.0), Array.new(count, 0.0), Array.new(count, 0.0)
+      @darkness = [2, 4, 9, 0] * count
+      @warmth = [0, 0, 0, 255] * count
     end
 
     def ambient(y)
@@ -116,9 +121,8 @@ module Tidebound::Lighting
     end
 
     def render(origin_x, origin_y, sources)
-      count = @width * @height
-      illumination = Array.new(count, 0.0)
-      red, green, blue = Array.new(count, 0.0), Array.new(count, 0.0), Array.new(count, 0.0)
+      illumination = @illumination.fill(0.0)
+      red, green, blue = @red.fill(0.0), @green.fill(0.0), @blue.fill(0.0)
       @cache.delete_if { |key, _| !sources.any? { |s| s[0] == key } }
       ox, oy = origin_x.div(CELL), origin_y.div(CELL)
       sources.each do |key, x, y, source, strength|
@@ -135,27 +139,43 @@ module Tidebound::Lighting
         floor = color.min
         colored = color.max != floor
         tint = color.map { |c| (c - floor) * 0.12 }
-        stencil(key, x, y, source).each do |gx, gy, weight|
-          sx, sy = gx - ox, gy - oy
+        unobstructed = @config.fetch("blockers", []).empty?
+        points = unobstructed ? profile(source) : stencil(key, x, y, source)
+        dx, dy = unobstructed ? [x.div(CELL) - ox, y.div(CELL) - oy] : [-ox, -oy]
+        bounds = unobstructed && (source["bounds"] || @config["bounds"])
+        points.each do |gx, gy, weight|
+          sx, sy = gx + dx, gy + dy
           next if sx < 0 || sy < 0 || sx >= @width || sy >= @height
+          if bounds &&
+               !Tidebound::Lighting.inside?(
+                 ((sx + ox) * CELL + CELL / 2.0) / 32,
+                 ((sy + oy) * CELL + CELL / 2.0) / 32,
+                 bounds
+               )
+            next
+          end
           index = sy * @width + sx
           amount = weight * strength
           illumination[index] = 1 - (1 - illumination[index]) * (1 - amount)
           if colored
-            red[index] = [red[index], tint[0] * amount].max
-            green[index] = [green[index], tint[1] * amount].max
-            blue[index] = [blue[index], tint[2] * amount].max
+            r, g, b = tint[0] * amount, tint[1] * amount, tint[2] * amount
+            red[index] = r if r > red[index]
+            green[index] = g if g > green[index]
+            blue[index] = b if b > blue[index]
           end
         end
       end
-      darkness, warmth = [], []
+      darkness, warmth = @darkness, @warmth
       @height.times do |y|
         base = ambient((oy + y) * CELL)
         @width.times do |x|
           index = y * @width + x
           brightness = base + (1 - base) * illumination[index]
-          darkness.push(2, 4, 9, ((1 - brightness) * 255).round)
-          warmth.push(red[index].round, green[index].round, blue[index].round, 255)
+          offset = index * 4
+          darkness[offset + 3] = ((1 - brightness) * 255).round
+          warmth[offset] = red[index].round
+          warmth[offset + 1] = green[index].round
+          warmth[offset + 2] = blue[index].round
         end
       end
       [darkness.pack("C*"), warmth.pack("C*")]
