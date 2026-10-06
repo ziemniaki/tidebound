@@ -214,5 +214,150 @@
       "role": "prop",
       "asset": "park_bench"
     }
+  },
+  "lighting": {
+    "ambient": 60,
+    "tone": [-8, -8, 0, 75],
+    "player": {
+      "radius": 2.7,
+      "strength": 0.25
+    },
+    "sources": [
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 9,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 10,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 11,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 12,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 13,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 23,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 24,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 25,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 26,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 27,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 28,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 102,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 3.5,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 103,
+        "offset": [0, -18]
+      },
+      {
+        "radius": 1.8,
+        "strength": 0.65,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 109,
+        "offset": [-2, -8]
+      },
+      {
+        "radius": 1.8,
+        "strength": 0.65,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 110,
+        "offset": [-2, -8]
+      }
+    ]
   }
 }

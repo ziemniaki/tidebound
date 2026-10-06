@@ -1,7 +1,7 @@
 # Map authoring
 
 `map.json` owns the map ID, display name, named entrances, encounters, atmosphere,
-actor identities/roles and retired event IDs. `layout.json` owns the complete RPG
+actor identities/roles, lighting and retired event IDs. `layout.json` owns the complete RPG
 Maker map: dimensions, tile layers, audio, events, pages and movement routes.
 Builds serialize this authored data; they never execute map builders.
 Follow the [editor workflow](../../docs/development.md#rpg-maker) for RPG Maker edits.
@@ -83,3 +83,5 @@ launching. Inspect layouts in RPG Maker and verify appearance, entrances,
 interactions and collision in the native player. Stage source changes and run
 `uv run check --all`; static validation does not establish event scheduling or rendering.
 The compiler updates the native map revision so saves reload changed maps.
+
+Local illumination settings and units are documented in [architecture](../../docs/architecture.md#local-lighting-prototype). Declare light blockers separately from movement collision.

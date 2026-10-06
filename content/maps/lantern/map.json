@@ -15,5 +15,33 @@
     "3": {
       "cue": "south"
     }
+  },
+  "lighting": {
+    "ambient": 48,
+    "tone": [0, 0, -5, 18],
+    "bounds": [3, 2, 8, 10],
+    "player": {
+      "radius": 2.7,
+      "strength": 0.35
+    },
+    "sources": [
+      {
+        "radius": 6,
+        "strength": 0.95,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 1,
+        "flag": "lamp_lit"
+      },
+      {
+        "radius": 2.6,
+        "strength": 0.8,
+        "color": [255, 185, 95],
+        "softness": 0.85,
+        "flicker": 0.025,
+        "event": 2
+      }
+    ]
   }
 }

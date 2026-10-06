@@ -124,3 +124,46 @@ Loose executable libraries stay untracked. The shared player staging pipeline
 copies only native runtime files; platform adapters own layout, signing and
 permissions. Release builds add archive round-trip verification. Publication and
 native verification requirements live in [releasing](releasing.md).
+
+## Local lighting prototype
+
+`presentation/lighting.rb` owns the screen light field. Selected maps opt in through
+`map.json::lighting`; other maps retain their existing atmosphere. Ambient brightness
+and local visibility are independent from the map's colour tone. Local illumination
+reveals the original scene rather than painting an opaque glow over it. Warm colour
+adds a small tint after illumination; overlapping lights approach full visibility
+without adding unbounded brightness. UI viewports remain above the light field.
+
+Authoring controls:
+
+| Property | Units and meaning |
+| --- | --- |
+| `ambient` | 0–100 brightness; 100 leaves scenery undimmed |
+| `tone` | Native `[red, green, blue, grey]` atmosphere; avoid using large negative values as a second darkness layer |
+| `player` | Neutral visibility source; same radius/strength/softness controls as other lights |
+| `sources` | Lights anchored to an explicit `event` ID or fixed `position: [x, y]` in tiles |
+| `radius`, `strength`, `softness` | Tiles, 0–1 contribution, and 0.1–1 fraction devoted to smooth edge falloff |
+| `color`, `stretch` | RGB warmth and ellipse proportions, default white and `[1, 1]` |
+| `offset`, `flicker` | Pixel offset from event centre; subtle source-strength variation, 0–0.1 |
+| `flag` | Optional story key controlling whether a placed source is lit |
+| `bounds`, `blockers` | Tile rectangles `[x, y, width, height]`; room/source limits and opaque barriers |
+| `north_fade` | Smooth ambient gradient from `from_y` to a northern `to_y`, with target `ambient` |
+
+Light blockers are authored independently of walking collision. Water, chairs and
+small props are not implicitly opaque. Put sources in front of a wall, not inside
+its blocker. Source bounds override room bounds. This prototype does not provide
+height-aware shadows, beams or automatically inferred tree/building silhouettes.
+
+An item's optional `item.json::light` record uses the same source properties.
+The item compiler generates `Lighting::ITEM_LIGHTS` and native/PBS field-use data.
+Use in the bag toggles an explicitly active item, saved in existing story state;
+ownership alone never lights it. The Hand Lantern is supplied only by the
+`lighting/forest` development scenario, with a temporary stock icon. Its acquisition,
+fuel and quest role remain undesigned. No release-save migration is required.
+
+The field samples every four world pixels, caches source falloff, culls off-screen
+sources and only uploads changed fields through the bundled runtime's `Bitmap#raw_data=`.
+Each spriteset owns and disposes its bitmaps/viewport. Only the current connected map
+renders a screen mask. Native `world` verification captures the prototype, checks
+lighthouse switching, movement, lantern save/load and disposal, and reports render
+cost. Hardware performance and the final visual balance still need player review.

@@ -224,6 +224,14 @@ Mother, Natu and Makuhita are at home when the pair returns. Mother explains tha
 
 **Confirmed expansion, prototype 0.6.0.** Recovering the keys also earns a homemade pie on a borrowed ceramic plate. Mother and child share it at home. Returning the plate leads into the robbery and a southward pursuit, described in 10.7. Two visiting youths from the surrounding coast commit the theft; they are not additional young permanent residents of Shiohama. The familiar household and village remain the emotional centre.
 
+**Confirmed lighting direction.** Ambient brightness varies by location. Lamps,
+flames and the lighthouse visibly illuminate nearby scenery, usually with warm
+light. The player retains a small, softly fading area of visibility; this does not
+mean that they carry a lamp. Hollow Wood becomes substantially darker northwards.
+Ordinary areas should remain readable. Locations and items own adjustable light
+settings. A switchable carried lantern is a prototype for evaluating this system;
+its acquisition, fuel and story role remain open.
+
 ### 5.3 The lighthouse and headland
 
 **Confirmed.** This is the protagonist's home. Mother, an old woman, is its sole keeper. Earlier concept art showing a small garden house does not override the later lighthouse-home decision.
