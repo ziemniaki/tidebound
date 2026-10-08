@@ -4,9 +4,7 @@
   "kind": "item",
   "links": [
     {
-      "data": {
-        "description": "She gives it to the protagonist as the one-time reward for returning her shuttle. If it cannot fit, she keeps it until collection succeeds."
-      },
+      "description": "She gives it to the protagonist as the one-time reward for returning her shuttle. If it cannot fit, she keeps it until collection succeeds.",
       "kind": "belongs_to",
       "to": "sella"
     },

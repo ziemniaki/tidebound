@@ -3,13 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Before offering the letter.",
-        "lines": [
-          {
-            "speaker": "Jory",
-            "text": "I used to carry passengers. Now I carry what they cannot say to each other."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Jory: I used to carry passengers. Now I carry what they cannot say to each other."
       }
     ]
   },
@@ -18,13 +12,12 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "Carries letters from her daughter inland; asks the protagonist to complete this delivery before his watch starts."
-      },
+      "description": "Carries letters from her daughter inland; asks the protagonist to complete this delivery before his watch starts.",
       "kind": "associated_with",
       "to": "irena"
     },
     {
+      "description": "Quoted dialogue: Before offering the letter.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     },

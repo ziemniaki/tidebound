@@ -4,12 +4,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "sections": [
-          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
-          "§§3.1, 5.1 and 30: majestic sea, proposed sensory disturbances and ordinary crews. Recurring beam-and-hull staging is proposed."
-        ]
-      },
+      "description": "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology\n\n§§3.1, 5.1 and 30: majestic sea, proposed sensory disturbances and ordinary crews. Recurring beam-and-hull staging is proposed.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

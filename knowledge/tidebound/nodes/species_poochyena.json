@@ -24,9 +24,7 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Level 18. This is the existing second stage; the later custom third stage remains undesigned."
-      },
+      "description": "Level 18. This is the existing second stage; the later custom third stage remains undesigned.",
       "kind": "evolves_into",
       "to": "species_mightyena"
     },

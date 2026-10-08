@@ -3,13 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. After winning Toma’s optional pond battle.",
-        "lines": [
-          {
-            "speaker": "Toma",
-            "text": "That duck comes here when the road gets noisy. We leave the shallow bank to it."
-          }
-        ],
-        "source": "source_pond"
+        "text": "Toma: That duck comes here when the road gets noisy. We leave the shallow bank to it."
       }
     ]
   },
@@ -18,22 +12,17 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "His existing dialogue describes leaving the pond’s shallow bank to the visiting Psyduck."
-      },
+      "description": "His existing dialogue describes leaving the pond’s shallow bank to the visiting Psyduck.",
       "kind": "associated_with",
       "to": "species_psyduck_1"
     },
     {
-      "data": {
-        "sections": [
-          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
-        ]
-      },
+      "description": "§32: pond, fishermen, relocated Psyduck and unresolved obelisk.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
+      "description": "Quoted dialogue: After winning Toma’s optional pond battle.",
       "kind": "sourced_from",
       "to": "source_pond"
     },

@@ -32,11 +32,7 @@
       "to": "seller"
     },
     {
-      "data": {
-        "sections": [
-          "Section 20: implemented vault/museum; supersedes the old unimplemented vault note in 5.3"
-        ]
-      },
+      "description": "Section 20: implemented vault/museum; supersedes the old unimplemented vault note in 5.3",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

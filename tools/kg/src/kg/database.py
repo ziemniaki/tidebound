@@ -25,6 +25,7 @@ DEFINE FIELD OVERWRITE data ON entity TYPE option<object> FLEXIBLE
 DEFINE ANALYZER IF NOT EXISTS words TOKENIZERS blank, class FILTERS lowercase, ascii;
 DEFINE TABLE IF NOT EXISTS link TYPE RELATION IN entity OUT entity ENFORCED SCHEMAFULL;
 DEFINE FIELD IF NOT EXISTS kind ON link TYPE string;
+DEFINE FIELD IF NOT EXISTS description ON link TYPE option<string>;
 DEFINE FIELD OVERWRITE data ON link TYPE option<object> FLEXIBLE
     VALUE IF $value = {} THEN NONE ELSE $value END;
 DEFINE INDEX IF NOT EXISTS link_identity ON link FIELDS in, kind, out UNIQUE;
@@ -122,7 +123,9 @@ class Graph:
                 IF !(record::exists($origin) AND record::exists($target)) {
                     THROW 'Missing relationship endpoint';
                 };
-                RELATE $origin->$id->$target CONTENT {kind: $edge.kind, data: $edge.data};
+                RELATE $origin->$id->$target CONTENT {
+                    kind: $edge.kind, description: $edge.description, data: $edge.data
+                };
             };
         """
         sql += "COMMIT TRANSACTION;"
@@ -158,6 +161,7 @@ class Graph:
                 {
                     "kind": edge["kind"],
                     "to": edge["out"].id,
+                    **({"description": edge["description"]} if "description" in edge else {}),
                     **({"data": edge["data"]} if edge.get("data") else {}),
                 }
             )
@@ -179,6 +183,7 @@ class Graph:
                     {
                         "kind": e["kind"],
                         "to": e["out"].id,
+                        **({"description": e["description"]} if "description" in e else {}),
                         **({"data": e["data"]} if e.get("data") else {}),
                     }
                     for e in outgoing
@@ -188,6 +193,7 @@ class Graph:
                 {
                     "kind": e["kind"],
                     "from": e["in"].id,
+                    **({"description": e["description"]} if "description" in e else {}),
                     **({"data": e["data"]} if e.get("data") else {}),
                 }
                 for e in incoming

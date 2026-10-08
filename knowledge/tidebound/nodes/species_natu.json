@@ -25,37 +25,27 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Proposed: climbing to new shoots shakes the leaves beneath which Wurmple feed; the larvae retreat to branch joints and resume after the birds move on. An ordinary encounter sign, not predation or a combat bonus."
-      },
+      "description": "Proposed: climbing to new shoots shakes the leaves beneath which Wurmple feed; the larvae retreat to branch joints and resume after the birds move on. An ordinary encounter sign, not predation or a combat bonus.",
       "kind": "disturbs",
       "to": "species_wurmple_1"
     },
     {
-      "data": {
-        "description": "Level 25. This is the existing second stage; the later custom third stage remains undesigned."
-      },
+      "description": "Level 25. This is the existing second stage; the later custom third stage remains undesigned.",
       "kind": "evolves_into",
       "to": "species_xatu"
     },
     {
-      "data": {
-        "description": "Proposed early refuge visit: calls and brief low-branch sightings establish ordinary residents before the poisoning. The later absence of those calls follows the bible’s proposed warning; no new encounter table is specified."
-      },
+      "description": "Proposed early refuge visit: calls and brief low-branch sightings establish ordinary residents before the poisoning. The later absence of those calls follows the bible’s proposed warning; no new encounter table is specified.",
       "kind": "found_in",
       "to": "forest_refuge"
     },
     {
-      "data": {
-        "description": "A visible forest encounter supports its intended common-bird role; it is not in the current forest Land grass table."
-      },
+      "description": "A visible forest encounter supports its intended common-bird role; it is not in the current forest Land grass table.",
       "kind": "found_in",
       "to": "listening_wood"
     },
     {
-      "data": {
-        "description": "A visible scripted road encounter, separate from Wick and from the grass encounter tables."
-      },
+      "description": "A visible scripted road encounter, separate from Wick and from the grass encounter tables.",
       "kind": "found_in",
       "to": "south_road"
     },

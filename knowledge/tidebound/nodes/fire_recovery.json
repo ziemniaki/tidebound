@@ -16,11 +16,7 @@
       "to": "source_fields"
     },
     {
-      "data": {
-        "sections": [
-          "§12.3: implemented per-fire rest, status limits and cooldown."
-        ]
-      },
+      "description": "§12.3: implemented per-fire rest, status limits and cooldown.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

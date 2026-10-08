@@ -4,40 +4,27 @@
   "kind": "ending",
   "links": [
     {
-      "data": {
-        "description": "Proposed aftermath visits show community work continuing without resolving Koga’s disappearance."
-      },
+      "description": "Proposed aftermath visits show community work continuing without resolving Koga’s disappearance.",
       "kind": "features",
       "to": "koga_sister"
     },
     {
-      "data": {
-        "description": "The unique sabre and its intended use with healed Suicune matter; a generic source of Behemoth Blade is not an equivalent solution."
-      },
+      "description": "The unique sabre and its intended use with healed Suicune matter; a generic source of Behemoth Blade is not an equivalent solution.",
       "kind": "requires",
       "to": "sabre"
     },
     {
-      "data": {
-        "description": "The particular Suicune must be saved and healed; capture by itself is insufficient. Exact final conditions remain open."
-      },
+      "description": "The particular Suicune must be saved and healed; capture by itself is insufficient. Exact final conditions remain open.",
       "kind": "requires",
       "to": "suicune"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
-          "§§7.5, 13.2–13.4: healed individual, unique weapon and unresolved conditions"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings\n\n§§7.5, 13.2–13.4: healed individual, unique weapon and unresolved conditions",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
-      "data": {
-        "description": "Proposed partial recovery; the exact final state depends on the final conflict design."
-      },
+      "description": "Proposed partial recovery; the exact final state depends on the final conflict design.",
       "kind": "takes_place_in",
       "to": "winter_settlement"
     }

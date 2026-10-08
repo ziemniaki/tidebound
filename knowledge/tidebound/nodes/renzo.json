@@ -3,13 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. After winning Renzo’s optional pond battle.",
-        "lines": [
-          {
-            "speaker": "Renzo",
-            "text": "Someone used to prune the berry tree. I take two and leave the rest. Seems only fair."
-          }
-        ],
-        "source": "source_pond"
+        "text": "Renzo: Someone used to prune the berry tree. I take two and leave the rest. Seems only fair."
       }
     ]
   },
@@ -18,15 +12,12 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "sections": [
-          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
-        ]
-      },
+      "description": "§32: pond, fishermen, relocated Psyduck and unresolved obelisk.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
+      "description": "Quoted dialogue: After winning Renzo’s optional pond battle.",
       "kind": "sourced_from",
       "to": "source_pond"
     },

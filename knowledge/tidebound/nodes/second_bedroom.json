@@ -7,11 +7,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "sections": [
-          "0.7.19 addition: second bedroom and transition to the Natu maze."
-        ]
-      },
+      "description": "0.7.19 addition: second bedroom and transition to the Natu maze.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

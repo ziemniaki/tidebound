@@ -8,12 +8,7 @@
       "to": "shiohama"
     },
     {
-      "data": {
-        "sections": [
-          "Section 15.1 and 30: perpetual night and familiar Gen 3 visual direction",
-          "§§15.1 and 30: permanent night and restrained local light."
-        ]
-      },
+      "description": "Section 15.1 and 30: perpetual night and familiar Gen 3 visual direction\n\n§§15.1 and 30: permanent night and restrained local light.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

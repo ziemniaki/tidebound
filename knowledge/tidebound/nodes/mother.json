@@ -9,17 +9,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Teaching the oil lesson after the bottle is returned.",
-        "lines": [
-          {
-            "speaker": "Mother",
-            "text": "Thank you. Come, you should know how to tend it yourself."
-          },
-          {
-            "speaker": "Mother",
-            "text": "Take it upstairs to the great lamp. Only that one, please."
-          }
-        ],
-        "source": "source_opening"
+        "text": "Mother: Thank you. Come, you should know how to tend it yourself.\nMother: Take it upstairs to the great lamp. Only that one, please."
       }
     ],
     "questions": [
@@ -39,9 +29,7 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "Preparing the child for independence after years of containment."
-      },
+      "description": "Preparing the child for independence after years of containment.",
       "kind": "cares_for",
       "to": "protagonist"
     },
@@ -50,18 +38,12 @@
       "to": "lighthouse_home"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 5–6: places and characters; working names versus identities",
-          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
-          "Section 14: disclosure boundaries and unresolved late scene order",
-          "§6.2: lighthouse keeper and parent"
-        ]
-      },
+      "description": "Sections 5–6: places and characters; working names versus identities\n\nSections 2–3: confirmed foundations, origin distinctions and unresolved cosmology\n\nSection 14: disclosure boundaries and unresolved late scene order\n\n§6.2: lighthouse keeper and parent",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
+      "description": "Quoted dialogue: Teaching the oil lesson after the bottle is returned.",
       "kind": "sourced_from",
       "to": "source_opening"
     }

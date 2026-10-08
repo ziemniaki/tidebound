@@ -3,17 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. After the letter has been delivered, on a later conversation.",
-        "lines": [
-          {
-            "speaker": "Irena",
-            "text": "She says there is a room. With a window that opens."
-          },
-          {
-            "speaker": "Irena",
-            "text": "I have started deciding what I can carry. That is different from deciding to go."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Irena: She says there is a room. With a window that opens.\nIrena: I have started deciding what I can carry. That is different from deciding to go."
       }
     ]
   },
@@ -26,6 +16,7 @@
       "to": "docks"
     },
     {
+      "description": "Quoted dialogue: After the letter has been delivered, on a later conversation.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     }

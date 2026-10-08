@@ -19,12 +19,7 @@
       "to": "museum"
     },
     {
-      "data": {
-        "sections": [
-          "Section 20: implemented vault/museum; supersedes the old unimplemented vault note in 5.3",
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
-        ]
-      },
+      "description": "Section 20: implemented vault/museum; supersedes the old unimplemented vault note in 5.3\n\nSections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

@@ -3,17 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Ordinary conversation near the ring.",
-        "lines": [
-          {
-            "speaker": "Edda",
-            "text": "My Machoke hauled barrels for eleven years. When his knee went, the owner offered me half a week's wages for him."
-          },
-          {
-            "speaker": "Edda",
-            "text": "I took him home. We are both slow on stairs now."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Edda: My Machoke hauled barrels for eleven years. When his knee went, the owner offered me half a week's wages for him.\nEdda: I took him home. We are both slow on stairs now."
       }
     ]
   },
@@ -26,13 +16,12 @@
       "to": "docks"
     },
     {
-      "data": {
-        "description": "A resident near the ring speaks about her retired working companion."
-      },
+      "description": "A resident near the ring speaks about her retired working companion.",
       "kind": "associated_with",
       "to": "harbour_ring"
     },
     {
+      "description": "Quoted dialogue: Ordinary conversation near the ring.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     }

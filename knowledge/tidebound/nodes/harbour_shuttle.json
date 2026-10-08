@@ -20,17 +20,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. When the shuttle is returned.",
-        "lines": [
-          {
-            "speaker": "Sella",
-            "text": "My brother's. He lost two fingers to a winch, then taught himself all over again."
-          },
-          {
-            "speaker": "Sella",
-            "text": "People at the ring call that sort of thing a good story. He mostly called it inconvenient."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Sella: My brother's. He lost two fingers to a winch, then taught himself all over again.\nSella: People at the ring call that sort of thing a good story. He mostly called it inconvenient."
       }
     ]
   },
@@ -55,6 +45,7 @@
       "to": "sella_scarf"
     },
     {
+      "description": "Quoted dialogue: When the shuttle is returned.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     },

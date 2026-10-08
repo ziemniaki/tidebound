@@ -17,30 +17,22 @@
       "to": "dream_opening"
     },
     {
-      "data": {
-        "description": "Optional current content; not a prerequisite for accepting passage."
-      },
+      "description": "Optional current content; not a prerequisite for accepting passage.",
       "kind": "includes",
       "to": "harbour_cargo"
     },
     {
-      "data": {
-        "description": "Optional current content; not a prerequisite for accepting passage."
-      },
+      "description": "Optional current content; not a prerequisite for accepting passage.",
       "kind": "includes",
       "to": "harbour_letter"
     },
     {
-      "data": {
-        "description": "Optional current content; not a prerequisite for accepting passage."
-      },
+      "description": "Optional current content; not a prerequisite for accepting passage.",
       "kind": "includes",
       "to": "harbour_ring"
     },
     {
-      "data": {
-        "description": "Optional current content; not a prerequisite for accepting passage."
-      },
+      "description": "Optional current content; not a prerequisite for accepting passage.",
       "kind": "includes",
       "to": "harbour_shuttle"
     },
@@ -81,9 +73,7 @@
       "to": "source_docks"
     },
     {
-      "data": {
-        "sections": "§30 harbour upgrade and §33 northern forest/cave: current optional activities."
-      },
+      "description": "§30 harbour upgrade and §33 northern forest/cave: current optional activities.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -104,16 +94,12 @@
       "to": "source_vault"
     },
     {
-      "data": {
-        "description": "Optional current content; not a prerequisite for accepting passage."
-      },
+      "description": "Optional current content; not a prerequisite for accepting passage.",
       "kind": "takes_place_in",
       "to": "hollow_wood"
     },
     {
-      "data": {
-        "description": "Optional current content; not a prerequisite for accepting passage."
-      },
+      "description": "Optional current content; not a prerequisite for accepting passage.",
       "kind": "takes_place_in",
       "to": "skull_hollow"
     }

@@ -31,30 +31,22 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Level 14"
-      },
+      "description": "Level 14",
       "kind": "evolves_into",
       "to": "species_moonkern"
     },
     {
-      "data": {
-        "description": "Existing pond-grass encounters at levels 8–10."
-      },
+      "description": "Existing pond-grass encounters at levels 8–10.",
       "kind": "found_in",
       "to": "pond"
     },
     {
-      "data": {
-        "description": "Existing road-grass encounters at levels 4–6."
-      },
+      "description": "Existing road-grass encounters at levels 4–6.",
       "kind": "found_in",
       "to": "south_road"
     },
     {
-      "data": {
-        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

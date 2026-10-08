@@ -16,11 +16,7 @@
       "to": "source_fields"
     },
     {
-      "data": {
-        "sections": [
-          "§12.3: field resources and regrowth; §32: southern pond."
-        ]
-      },
+      "description": "§12.3: field resources and regrowth; §32: southern pond.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

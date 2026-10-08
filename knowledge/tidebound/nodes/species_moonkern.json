@@ -29,16 +29,12 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Level 20"
-      },
+      "description": "Level 20",
       "kind": "evolves_into",
       "to": "species_moonflora"
     },
     {
-      "data": {
-        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

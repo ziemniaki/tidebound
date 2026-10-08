@@ -11,9 +11,7 @@
       "to": "sella"
     },
     {
-      "data": {
-        "description": "In folded nets beside the western pier; inspect first, collect only after accepting Sella’s request."
-      },
+      "description": "In folded nets beside the western pier; inspect first, collect only after accepting Sella’s request.",
       "kind": "found_in",
       "to": "docks"
     },

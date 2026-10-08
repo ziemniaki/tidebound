@@ -7,26 +7,17 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "Proposed river-to-estuary watershed; final route and shoreline remain open."
-      },
+      "description": "Proposed river-to-estuary watershed; final route and shoreline remain open.",
       "kind": "connected_to",
       "to": "sea"
     },
     {
-      "data": {
-        "sections": [
-          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
-          "§§4.3, 5.6 and 6.7: dependence, divergent responses and later testimony. Reed work, exchange and search-table detail are proposed."
-        ]
-      },
+      "description": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.\n\n§§4.3, 5.6 and 6.7: dependence, divergent responses and later testimony. Reed work, exchange and search-table detail are proposed.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
-      "data": {
-        "description": "Proposed food and boat-delivery network in return for upland escort and repair help. The supply relationship predates the disappearance."
-      },
+      "description": "Proposed food and boat-delivery network in return for upland escort and repair help. The supply relationship predates the disappearance.",
       "kind": "supplies",
       "to": "winter_settlement"
     }

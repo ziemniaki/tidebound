@@ -3,13 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Invitation to the optional pond battle.",
-        "lines": [
-          {
-            "speaker": "Ida",
-            "text": "I mend nets for the dock crews. This is where I rest my hands. Shall we let our companions stretch instead?"
-          }
-        ],
-        "source": "source_pond"
+        "text": "Ida: I mend nets for the dock crews. This is where I rest my hands. Shall we let our companions stretch instead?"
       }
     ]
   },
@@ -18,22 +12,17 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "sections": [
-          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
-        ]
-      },
+      "description": "§32: pond, fishermen, relocated Psyduck and unresolved obelisk.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
+      "description": "Quoted dialogue: Invitation to the optional pond battle.",
       "kind": "sourced_from",
       "to": "source_pond"
     },
     {
-      "data": {
-        "description": "Mends nets for the dock crews; rests her hands at the pond."
-      },
+      "description": "Mends nets for the dock crews; rests her hands at the pond.",
       "kind": "works_at",
       "to": "docks"
     },

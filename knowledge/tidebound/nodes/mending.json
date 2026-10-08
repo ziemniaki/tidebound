@@ -21,11 +21,7 @@
   "kind": "scene",
   "links": [
     {
-      "data": {
-        "sections": [
-          "§31: Pet House, The Mending and the boundary between fiction and real companions."
-        ]
-      },
+      "description": "§31: Pet House, The Mending and the boundary between fiction and real companions.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

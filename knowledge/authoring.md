@@ -17,7 +17,7 @@ number or small object makes something easier to understand or use.
 | Appearance and asset direction | One `data.design` string, for any subject. Describe actual form, materials, color, movement and relevant constraints together. |
 | A scene or a longer arc | Ordered `data.beats`. A beat is normally a sentence; a branching beat can have a `description` and `options`, each with a `description` of the action and consequence. |
 | What persists after a scene | Plain `data.consequences` when this needs explanation beyond the beats. |
-| Dialogue | Exchanges with `context`, optional `source`, and ordered `lines` containing `speaker` and `text`. |
+| Dialogue | Exchanges with only `context` and `text`. Write speaker names and line breaks inside the text; cite existing dialogue through `sourced_from` links. |
 | An unresolved author decision | `data.questions`, each with `question` and optional `options` containing `description`. |
 | Useful exact properties | Ordinary values such as species `types`, `height_m` and `weight_kg`. Add them because they matter, not because another record has them. |
 | Defining moves | Optional `data.moves`: a selection of `{name, description}` objects explaining availability, effect and why the move matters to this creature. |
@@ -52,8 +52,8 @@ real distinction, not different phrasing. Read incoming as well as outgoing link
 do not store reverse duplicates just to make both records look populated.
 
 A link needs only `kind` and `to`. If its meaning depends on time, a belief or a
-condition, put that in one `data.description` string. For example, the necklace is
-`kept_at` the vault **after recovery and the vault visit**. A hopeful ending
+condition, put that in one `description` string directly on the link. For example,
+the necklace is `kept_at` the vault **after recovery and the vault visit**. A hopeful ending
 `requires` this Suicune **saved and healed**, not merely a creature with his name.
 Do not use a prerequisite link to mean that a person appears in a scene.
 
@@ -67,7 +67,8 @@ visits, refusal, retry and alternative routes where they actually exist.
 Facts have an owner. Scenes show when and how a player encounters them; other
 records can summarize enough for orientation without copying the whole account.
 A source link identifies evidence to inspect. Keep source paths on source records,
-with useful sections on `sourced_from` links, rather than code manifests on people.
+with useful sections in `sourced_from` link descriptions, rather than code
+manifests on people.
 Existing source citations do not certify newly invented passages. Ground imported
 facts and quoted dialogue in evidence. A new proposal need not manufacture a source
 record; identify it as a proposal and cite existing constraints only as context.
@@ -197,7 +198,28 @@ refuse or change a relationship. Voice comes from attention, vocabulary and rhyt
 Read it aloud and remove lines that recite the dossier. State in `context` whether
 lines are existing dialogue or a proposed draft; verify quotations and reachable
 branches against source. Keep shared exchanges on their scenes, with short voice
-samples on characters only when useful.
+samples on characters only when useful. Each exchange has just `context` and
+`text`; use speaker labels and line breaks inside the text, including narration
+where needed. Cite imported dialogue on a `sourced_from` link, whose description
+identifies the exchange when an entity has several sources. Preserve the exact
+words and order when converting existing dialogue.
+
+```json
+{
+  "context": "Existing dialogue. During Mother’s hall conversation.",
+  "text": "Mother: Oh, Maku! Gently, sweetheart. Those are bottles, not turnips.\nNarration: Maku pats the box twice, very carefully."
+}
+```
+
+A relationship qualifier is equally direct:
+
+```json
+{
+  "kind": "kept_at",
+  "to": "vault",
+  "description": "After recovery and the vault visit."
+}
+```
 
 Design prose should let an artist draw the subject. Whyduck’s uneven skull edge,
 dark cleft and folded pink hemispheres help; “ancient, haunting, mysterious” does

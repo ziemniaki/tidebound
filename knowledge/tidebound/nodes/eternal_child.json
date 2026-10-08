@@ -4,9 +4,7 @@
   "kind": "lore",
   "links": [
     {
-      "data": {
-        "description": "She altered an existing child through the ritual; this is a late revelation."
-      },
+      "description": "She altered an existing child through the ritual; this is a late revelation.",
       "kind": "about",
       "to": "mother"
     },
@@ -15,12 +13,7 @@
       "to": "protagonist"
     },
     {
-      "data": {
-        "sections": [
-          "Section 14: disclosure boundaries and unresolved late scene order",
-          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology"
-        ]
-      },
+      "description": "Section 14: disclosure boundaries and unresolved late scene order\n\nSections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

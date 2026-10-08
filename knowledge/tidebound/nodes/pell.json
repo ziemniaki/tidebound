@@ -3,17 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Ordinary conversation beside Sella.",
-        "lines": [
-          {
-            "speaker": "Pell",
-            "text": "Sella makes me undo a knot if I cannot explain what holds it."
-          },
-          {
-            "speaker": "Pell",
-            "text": "I thought she was being cruel. Then a man stood on my first net."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Pell: Sella makes me undo a knot if I cannot explain what holds it.\nPell: I thought she was being cruel. Then a man stood on my first net."
       }
     ]
   },
@@ -22,6 +12,7 @@
   "kind": "character",
   "links": [
     {
+      "description": "Quoted dialogue: Ordinary conversation beside Sella.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     },

@@ -10,21 +10,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Only after the necklace is returned.",
-        "lines": [
-          {
-            "speaker": "Seller",
-            "text": "My wife wore this. Every important day of her life, apparently."
-          },
-          {
-            "speaker": "Seller",
-            "text": "And plenty of unimportant ones."
-          },
-          {
-            "speaker": "Seller",
-            "text": "She's been gone a while. I still put it beside the mirror when I tidy."
-          }
-        ],
-        "source": "source_neighbor"
+        "text": "Seller: My wife wore this. Every important day of her life, apparently.\nSeller: And plenty of unimportant ones.\nSeller: She's been gone a while. I still put it beside the mirror when I tidy."
       }
     ]
   },
@@ -45,15 +31,12 @@
       "to": "seller"
     },
     {
-      "data": {
-        "sections": [
-          "Section 10.7: pie, necklace and delayed pearl meaning"
-        ]
-      },
+      "description": "Section 10.7: pie, necklace and delayed pearl meaning",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
+      "description": "Quoted dialogue: Only after the necklace is returned.",
       "kind": "sourced_from",
       "to": "source_neighbor"
     },

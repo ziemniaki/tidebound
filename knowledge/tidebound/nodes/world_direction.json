@@ -19,12 +19,7 @@
   "kind": "lore",
   "links": [
     {
-      "data": {
-        "sections": [
-          "§§1, 14–15; prelude amendment 0.7.20",
-          "Section 14: disclosure boundaries and unresolved late scene order"
-        ]
-      },
+      "description": "§§1, 14–15; prelude amendment 0.7.20\n\nSection 14: disclosure boundaries and unresolved late scene order",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

@@ -60,9 +60,11 @@ def node(value):
         raise DesignError("links must be an array")
     found = set()
     for link in value["links"]:
-        fields(link, ("kind", "to"), optional=("data",))
+        fields(link, ("kind", "to"), optional=("description", "data"))
         text(link["kind"])
         identifier(link["to"])
+        if "description" in link:
+            text(link["description"])
         if not isinstance(link.get("data", {}), dict):
             raise DesignError("Link data must be an object")
         json_value(link.get("data", {}))

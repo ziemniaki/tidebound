@@ -7,16 +7,12 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "Proposed late exploration of submerged land; exact coast placement is open."
-      },
+      "description": "Proposed late exploration of submerged land; exact coast placement is open.",
       "kind": "part_of",
       "to": "sea"
     },
     {
-      "data": {
-        "sections": "§§4.2, 5.9 and 9 Chapter VIII: proposed submerged habitation and evidence; specific threshold and navigation design are new."
-      },
+      "description": "§§4.2, 5.9 and 9 Chapter VIII: proposed submerged habitation and evidence; specific threshold and navigation design are new.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

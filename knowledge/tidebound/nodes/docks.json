@@ -4,17 +4,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Cargo worker; ordinary waterfront conversation.",
-        "lines": [
-          {
-            "speaker": "Sailor",
-            "text": "Flour, lamp oil, spare hinges. That's the cargo."
-          },
-          {
-            "speaker": "Sailor",
-            "text": "People ask what wonders I've brought from across the sea. Mostly hinges."
-          }
-        ],
-        "source": "source_docks"
+        "text": "Sailor: Flour, lamp oil, spare hinges. That's the cargo.\nSailor: People ask what wonders I've brought from across the sea. Mostly hinges."
       }
     ]
   },
@@ -23,23 +13,17 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "The Little Promise prepares an intended supply crossing; sailing and arrival have not yet been implemented."
-      },
+      "description": "The Little Promise prepares an intended supply crossing; sailing and arrival have not yet been implemented.",
       "kind": "connected_to",
       "to": "psyduck_island"
     },
     {
+      "description": "Quoted dialogue: Cargo worker; ordinary waterfront conversation.",
       "kind": "sourced_from",
       "to": "source_docks"
     },
     {
-      "data": {
-        "sections": [
-          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
-          "§§5.11, 8.1 and 30: legitimate cargo, fencing and the museum network; proposed specific delivery routine is new."
-        ]
-      },
+      "description": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.\n\n§§5.11, 8.1 and 30: legitimate cargo, fencing and the museum network; proposed specific delivery routine is new.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -52,9 +36,7 @@
       "to": "source_maps"
     },
     {
-      "data": {
-        "description": "Proposed regular route: lamp oil arrives by coastal ship, then travels along the South Coast Road to the seller. Native dialogue establishes oil cargo, but this particular supply arrangement is new."
-      },
+      "description": "Proposed regular route: lamp oil arrives by coastal ship, then travels along the South Coast Road to the seller. Native dialogue establishes oil cargo, but this particular supply arrangement is new.",
       "kind": "supplies",
       "to": "oil_shop"
     }

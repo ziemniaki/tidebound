@@ -35,9 +35,7 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "sections": "§§7.3–7.3a: household lines and intended third stages"
-      },
+      "description": "§§7.3–7.3a: household lines and intended third stages",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

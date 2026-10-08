@@ -18,19 +18,12 @@
       "to": "south_road"
     },
     {
-      "data": {
-        "sections": [
-          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
-          "§32: pond, fishermen, relocated Psyduck and unresolved obelisk."
-        ]
-      },
+      "description": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.\n\n§32: pond, fishermen, relocated Psyduck and unresolved obelisk.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
-      "data": {
-        "description": "Road layout, named pond entrances and the declared western trail establish the accessible bank, reward basket and isolated obelisk."
-      },
+      "description": "Road layout, named pond entrances and the declared western trail establish the accessible bank, reward basket and isolated obelisk.",
       "kind": "sourced_from",
       "to": "source_maps"
     },

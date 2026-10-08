@@ -18,11 +18,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "sections": [
-          "§30: working harbour, optional sailors and the planned island crossing."
-        ]
-      },
+      "description": "§30: working harbour, optional sailors and the planned island crossing.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

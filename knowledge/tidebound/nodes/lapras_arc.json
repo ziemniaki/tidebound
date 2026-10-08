@@ -21,11 +21,7 @@
       "to": "protagonist"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -38,9 +34,7 @@
       "to": "source_opening"
     },
     {
-      "data": {
-        "description": "The pier is the proposed site of repeated attachment scenes after the frightening glimpse; recruitment remains undecided."
-      },
+      "description": "The pier is the proposed site of repeated attachment scenes after the frightening glimpse; recruitment remains undecided.",
       "kind": "takes_place_in",
       "to": "shiohama"
     }

@@ -31,19 +31,12 @@
       "to": "sabre_final_role"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
-          "§10.6: Team Abyss steals the sabre from the museum"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings\n\n§10.6: Team Abyss steals the sabre from the museum",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
-      "data": {
-        "description": "The established distribution network supports the later theft; its exact route remains proposed."
-      },
+      "description": "The established distribution network supports the later theft; its exact route remains proposed.",
       "kind": "takes_place_in",
       "to": "docks"
     },

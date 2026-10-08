@@ -11,12 +11,7 @@
       "to": "seller"
     },
     {
-      "data": {
-        "sections": [
-          "Section 10.7: pie, necklace and delayed pearl meaning",
-          "§10.7: the seller’s keys"
-        ]
-      },
+      "description": "Section 10.7: pie, necklace and delayed pearl meaning\n\n§10.7: the seller’s keys",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

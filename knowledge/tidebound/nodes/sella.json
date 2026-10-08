@@ -3,13 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Before asking for help finding the shuttle.",
-        "lines": [
-          {
-            "speaker": "Sella",
-            "text": "A net is mostly holes held in the right places. This one has ambitions."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Sella: A net is mostly holes held in the right places. This one has ambitions."
       }
     ]
   },
@@ -18,13 +12,12 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "Teaches him to undo and understand knots; his work must safely bear weight."
-      },
+      "description": "Teaches him to undo and understand knots; his work must safely bear weight.",
       "kind": "associated_with",
       "to": "pell"
     },
     {
+      "description": "Quoted dialogue: Before asking for help finding the shuttle.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     },

@@ -7,23 +7,17 @@
   "kind": "item",
   "links": [
     {
-      "data": {
-        "description": "Established ordinary coastal cargo. A specific shop resupply network is proposed."
-      },
+      "description": "Established ordinary coastal cargo. A specific shop resupply network is proposed.",
       "kind": "associated_with",
       "to": "docks"
     },
     {
-      "data": {
-        "description": "Used in the great upstairs lamp during Mother’s lesson."
-      },
+      "description": "Used in the great upstairs lamp during Mother’s lesson.",
       "kind": "associated_with",
       "to": "lantern_room"
     },
     {
-      "data": {
-        "description": "Existing opening handover after the keys are returned and the seller opens the shop."
-      },
+      "description": "Existing opening handover after the keys are returned and the seller opens the shop.",
       "kind": "found_in",
       "to": "oil_shop"
     },
@@ -32,9 +26,7 @@
       "to": "source_docks"
     },
     {
-      "data": {
-        "sections": "§§5.2, 8.1 and 30: oil errand, proposed criminal fuel control and ordinary dock cargo; returnable-bottle design is new."
-      },
+      "description": "§§5.2, 8.1 and 30: oil errand, proposed criminal fuel control and ordinary dock cargo; returnable-bottle design is new.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

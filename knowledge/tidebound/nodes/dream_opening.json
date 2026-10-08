@@ -33,11 +33,7 @@
       "to": "source_dream"
     },
     {
-      "data": {
-        "sections": [
-          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
-        ]
-      },
+      "description": "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

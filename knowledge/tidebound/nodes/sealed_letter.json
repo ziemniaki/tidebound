@@ -7,16 +7,12 @@
   "kind": "item",
   "links": [
     {
-      "data": {
-        "description": "Holds the letter until the protagonist accepts delivery and can carry it."
-      },
+      "description": "Holds the letter until the protagonist accepts delivery and can carry it.",
       "kind": "associated_with",
       "to": "jory"
     },
     {
-      "data": {
-        "description": "Addressed to her by her daughter."
-      },
+      "description": "Addressed to her by her daughter.",
       "kind": "belongs_to",
       "to": "irena"
     },

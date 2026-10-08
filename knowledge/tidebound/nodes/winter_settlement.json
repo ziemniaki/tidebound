@@ -7,26 +7,17 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "Proposed watershed: runoff from the poisoned mountain town reaches the refuge along recognizable watercourses. This supports investigation without fixing the final overworld map."
-      },
+      "description": "Proposed watershed: runoff from the poisoned mountain town reaches the refuge along recognizable watercourses. This supports investigation without fixing the final overworld map.",
       "kind": "connected_to",
       "to": "forest_refuge"
     },
     {
-      "data": {
-        "sections": [
-          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
-          "§§3.5, 5.5, 6.4 and 8.2: protection, costs, communal practice and sister’s agency. Specific routines and contested path are proposed."
-        ]
-      },
+      "description": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.\n\n§§3.5, 5.5, 6.4 and 8.2: protection, costs, communal practice and sister’s agency. Specific routines and contested path are proposed.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
-      "data": {
-        "description": "Proposed reciprocal exchange: apprentices help escort difficult upland loads and repair rope crossings; the river community supplies food and transport. Koga’s help occurs within an existing relationship rather than creating it alone."
-      },
+      "description": "Proposed reciprocal exchange: apprentices help escort difficult upland loads and repair rope crossings; the river community supplies food and transport. Koga’s help occurs within an existing relationship rather than creating it alone.",
       "kind": "supplies",
       "to": "river_settlement"
     }

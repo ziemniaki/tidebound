@@ -4,19 +4,12 @@
   "kind": "faction",
   "links": [
     {
-      "data": {
-        "description": "Proposed late remains can reveal the inhabitants’ former lives. Their composition, transformation and relationship to any specific site remain unresolved."
-      },
+      "description": "Proposed late remains can reveal the inhabitants’ former lives. Their composition, transformation and relationship to any specific site remain unresolved.",
       "kind": "associated_with",
       "to": "location_submerged_coast"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
-          "§§3.1–3.2 and 4: real grievance, harm to innocents and unresolved identities. Contrasting encounter behaviors are proposed."
-        ]
-      },
+      "description": "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology\n\n§§3.1–3.2 and 4: real grievance, harm to innocents and unresolved identities. Contrasting encounter behaviors are proposed.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

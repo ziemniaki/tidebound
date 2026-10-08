@@ -3,17 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Ordinary conversation beside the ring.",
-        "lines": [
-          {
-            "speaker": "Venn",
-            "text": "Three coins on the long legs. No, two. The third is for supper."
-          },
-          {
-            "speaker": "Venn",
-            "text": "Do not look at me like that. I have already lost supper once."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Venn: Three coins on the long legs. No, two. The third is for supper.\nVenn: Do not look at me like that. I have already lost supper once."
       }
     ]
   },
@@ -26,6 +16,7 @@
       "to": "docks"
     },
     {
+      "description": "Quoted dialogue: Ordinary conversation beside the ring.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     }

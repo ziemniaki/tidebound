@@ -26,30 +26,22 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Level 10, the other fixed personality branch"
-      },
+      "description": "Level 10, the other fixed personality branch",
       "kind": "evolves_into",
       "to": "species_frostcoon"
     },
     {
-      "data": {
-        "description": "Level 10, one fixed personality branch"
-      },
+      "description": "Level 10, one fixed personality branch",
       "kind": "evolves_into",
       "to": "species_glaciverm"
     },
     {
-      "data": {
-        "description": "Existing forest-grass encounters at levels 3–5; its later stages are currently reached by raising this form."
-      },
+      "description": "Existing forest-grass encounters at levels 3–5; its later stages are currently reached by raising this form.",
       "kind": "found_in",
       "to": "listening_wood"
     },
     {
-      "data": {
-        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

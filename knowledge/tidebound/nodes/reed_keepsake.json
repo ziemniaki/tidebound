@@ -12,11 +12,7 @@
   "kind": "item",
   "links": [
     {
-      "data": {
-        "sections": [
-          "Section 10.7: pie, necklace and delayed pearl meaning"
-        ]
-      },
+      "description": "Section 10.7: pie, necklace and delayed pearl meaning",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

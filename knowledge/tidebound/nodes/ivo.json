@@ -8,11 +8,7 @@
       "to": "team_abyss"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 5–6: places and characters; working names versus identities"
-        ]
-      },
+      "description": "Sections 5–6: places and characters; working names versus identities",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

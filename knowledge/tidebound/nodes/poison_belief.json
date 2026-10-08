@@ -14,9 +14,7 @@
   "kind": "lore",
   "links": [
     {
-      "data": {
-        "description": "The rumor does not establish his fate or turn the imitation into a corrupted real Koga."
-      },
+      "description": "The rumor does not establish his fate or turn the imitation into a corrupted real Koga.",
       "kind": "about",
       "to": "koga"
     },
@@ -29,11 +27,7 @@
       "to": "river_settlement"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology"
-        ]
-      },
+      "description": "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

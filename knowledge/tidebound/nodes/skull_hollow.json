@@ -7,9 +7,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "sections": "§33: nearly lightless looping cave, level-20-and-above Ghosts, return bearings and limits of established lore."
-      },
+      "description": "§33: nearly lightless looping cave, level-20-and-above Ghosts, return bearings and limits of established lore.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

@@ -15,8 +15,12 @@ metadata or entity types does not create that depth.
 | --- | --- |
 | Entity: `id`, `kind`, `name`, `description` | An independently meaningful subject and a readable account of it. A kind is a label, not an inheritance hierarchy. |
 | Optional `data` | Content that benefits from a distinct value: design prose, dialogue, ordered beats, author questions, dimensions or types. No required per-kind template. |
-| Relationship: `kind`, `to`, optional `data` | A meaningful connection between subjects. A description can explain its timing, reason or condition. |
+| Relationship: `kind`, `to`, optional `description` | A meaningful connection between subjects. A description can explain its timing, reason or condition. |
 | Source entity and `sourced_from` relationship | Where an imported claim or quotation can be checked; useful source sections can qualify the link. |
+
+Dialogue entries use `context` and `text`, with speakers and line breaks inside
+the text. Imported exchanges cite source entities through links. Relationship
+prose lives directly in `description`, without a `data` wrapper.
 
 Git serializes outgoing relationships in each entity’s `links` list. The database
 stores them as native relations with endpoints. These are representations of the
@@ -41,7 +45,7 @@ together without requiring three independently maintained accounts of the event.
 | --- | --- |
 | Most links led to sources while important story participants were disconnected. | Connect scenes, objects, people, places and conditional outcomes. A citation cannot substitute for a world relationship. |
 | Small lore nodes repeated Mother’s role, an evolution rule, a minigame boundary or a line of item history. | Keep these facts with their subjects; reserve independent lore records for truths or beliefs that connect several subjects. |
-| Visual dictionaries and relationship qualifiers accumulated slightly different labels. | Use one `design` description across subjects and one relationship `description` for prose qualifiers. Keep meaningful structure such as source sections and creature dimensions. |
+| Visual dictionaries and relationship qualifiers accumulated slightly different labels. | Use one `design` description across subjects and one relationship `description` for prose qualifiers. Write source-section notes in the link description; keep useful structured values such as creature dimensions. |
 | Sequence fields proliferated and a chapter’s order implied a rigid route. | Reuse ordered beats, with optional actions and branches explained in their text. Scene membership links do not mean mandatory progression. |
 | Removing metadata did not itself describe meaningful choices. | A branching beat uses a description and options; each option states an action and consequence. Suicune’s kill/capture encounter is the worked example. |
 | Mandatory citations encouraged treating every drafted idea as sourced canon. | Check citations when supplied. Ground imported facts and quotations; label invention honestly without manufacturing evidence. |

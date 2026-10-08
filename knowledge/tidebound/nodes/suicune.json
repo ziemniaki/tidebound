@@ -42,19 +42,12 @@
       "to": "forest_refuge"
     },
     {
-      "data": {
-        "description": "Proposed early refuge scene: ordinary Natu drink at the narrow crossing while Suicune waits for them to clear. Their later absence makes the poisoning a loss of familiar life as well as damage to one exceptional creature."
-      },
+      "description": "Proposed early refuge scene: ordinary Natu drink at the narrow crossing while Suicune waits for them to clear. Their later absence makes the poisoning a loss of familiar life as well as damage to one exceptional creature.",
       "kind": "shares_habitat_with",
       "to": "species_natu"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
-          "§§7.4, 10.3, 13.2–13.4: capture, healing, irreversible choices and unresolved ending conditions"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings\n\n§§7.4, 10.3, 13.2–13.4: capture, healing, irreversible choices and unresolved ending conditions",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

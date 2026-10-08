@@ -3,13 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Ordinary conversation when the missing-oil confrontation is not pending.",
-        "lines": [
-          {
-            "speaker": "Harker",
-            "text": "I used to call the watches. Now I call the bouts. Same lungs. Better tips."
-          }
-        ],
-        "source": "source_harbour_ring"
+        "text": "Harker: I used to call the watches. Now I call the bouts. Same lungs. Better tips."
       }
     ]
   },
@@ -18,13 +12,12 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "§30: the dock-city upgrade, cargo shortage and quarter-hour ring."
-      },
+      "description": "§30: the dock-city upgrade, cargo shortage and quarter-hour ring.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
+      "description": "Quoted dialogue: Ordinary conversation when the missing-oil confrontation is not pending.",
       "kind": "sourced_from",
       "to": "source_harbour_ring"
     },

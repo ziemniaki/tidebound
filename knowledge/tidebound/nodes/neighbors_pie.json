@@ -10,21 +10,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Sharing the pie at home; implemented meal sequence.",
-        "lines": [
-          {
-            "speaker": "Mother",
-            "text": "Oh. He still makes these?"
-          },
-          {
-            "speaker": "Narration",
-            "text": "The crust flakes onto the plate. Mother catches a crumb with her thumb, then gives you the larger slice."
-          },
-          {
-            "speaker": "Mother",
-            "text": "Just as I remember. Perhaps a little more butter. I shan't complain."
-          }
-        ],
-        "source": "source_neighbor"
+        "text": "Mother: Oh. He still makes these?\nNarration: The crust flakes onto the plate. Mother catches a crumb with her thumb, then gives you the larger slice.\nMother: Just as I remember. Perhaps a little more butter. I shan't complain."
       }
     ]
   },
@@ -53,6 +39,7 @@
       "to": "seller"
     },
     {
+      "description": "Quoted dialogue: Sharing the pie at home; implemented meal sequence.",
       "kind": "sourced_from",
       "to": "source_neighbor"
     },

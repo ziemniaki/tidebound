@@ -8,11 +8,7 @@
       "to": "shiohama"
     },
     {
-      "data": {
-        "sections": [
-          "§§5.2 and 6.12: starting town and oil seller; §10.7: plate and necklace."
-        ]
-      },
+      "description": "§§5.2 and 6.12: starting town and oil seller; §10.7: plate and necklace.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -25,9 +21,7 @@
       "to": "source_opening"
     },
     {
-      "data": {
-        "description": "Established oil errand: the seller provides the already paid-for bottle used in the great upstairs lamp."
-      },
+      "description": "Established oil errand: the seller provides the already paid-for bottle used in the great upstairs lamp.",
       "kind": "supplies",
       "to": "lighthouse_home"
     }

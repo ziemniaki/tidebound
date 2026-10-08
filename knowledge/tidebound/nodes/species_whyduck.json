@@ -37,19 +37,12 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "The authored species description places it standing quietly beside the tide. No current wild encounter table is established; raising regional Psyduck remains the playable acquisition route."
-      },
+      "description": "The authored species description places it standing quietly beside the tide. No current wild encounter table is established; raising regional Psyduck remains the playable acquisition route.",
       "kind": "found_in",
       "to": "sea"
     },
     {
-      "data": {
-        "sections": [
-          "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
-          "§29: Whyduck identity, evolution, visual design and open origin."
-        ]
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.\n\n§29: Whyduck identity, evolution, visual design and open origin.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

@@ -27,6 +27,8 @@ optional alternatives. Prose carries lore and reveal timing; the graph has no
 per-kind forms, implementation badges or decision lifecycle. Visual design is
 one prose field across subjects. Branching beats reuse small descriptions and
 options; links connect the people, objects, locations and conditional outcomes.
+Dialogue uses `context` and `text`, with speakers in the text and citations on
+source links. Relationship conditions and source notes use a direct `description`.
 
 Sources are concise records linked with `sourced_from`, without mirrored build
 manifests or source hashes. Read [the authoring guide](../knowledge/authoring.md)

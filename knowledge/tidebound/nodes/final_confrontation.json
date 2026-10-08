@@ -25,33 +25,22 @@
       "to": "protagonist"
     },
     {
-      "data": {
-        "description": "The late historical evidence makes the demons’ grievance intelligible without excusing attacks on present innocents."
-      },
+      "description": "The late historical evidence makes the demons’ grievance intelligible without excusing attacks on present innocents.",
       "kind": "features",
       "to": "victims_of_greed"
     },
     {
-      "data": {
-        "description": "Ordinary victory remains possible without Suicune. The lasting harm and detailed branch conditions remain open."
-      },
+      "description": "Ordinary victory remains possible without Suicune. The lasting harm and detailed branch conditions remain open.",
       "kind": "leads_to",
       "to": "darker_ending"
     },
     {
-      "data": {
-        "description": "The intended healed-Suicune and sabre route; precise final interaction remains undesigned."
-      },
+      "description": "The intended healed-Suicune and sabre route; precise final interaction remains undesigned.",
       "kind": "leads_to",
       "to": "hopeful_ending"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
-          "§13: confirmed routes, proposed aftermaths and unresolved edge cases"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings\n\n§13: confirmed routes, proposed aftermaths and unresolved edge cases",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

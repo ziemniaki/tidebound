@@ -7,9 +7,7 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "She must respond to the returned figure’s useful defense and harmful orders without initially knowing it is an imitation."
-      },
+      "description": "She must respond to the returned figure’s useful defense and harmful orders without initially knowing it is an imitation.",
       "kind": "associated_with",
       "to": "koga_sister"
     },
@@ -26,12 +24,7 @@
       "to": "koga"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 5–6: places and characters; working names versus identities",
-          "§§5.5, 5.7, 10.2–10.3: poisonous protection and damaged refuge"
-        ]
-      },
+      "description": "Sections 5–6: places and characters; working names versus identities\n\n§§5.5, 5.7, 10.2–10.3: poisonous protection and damaged refuge",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

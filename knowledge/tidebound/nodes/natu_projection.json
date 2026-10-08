@@ -8,12 +8,7 @@
       "to": "wick"
     },
     {
-      "data": {
-        "sections": [
-          "Section 14: disclosure boundaries and unresolved late scene order",
-          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
-        ]
-      },
+      "description": "Section 14: disclosure boundaries and unresolved late scene order\n\n0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

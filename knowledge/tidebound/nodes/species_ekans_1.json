@@ -25,23 +25,17 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Level 22"
-      },
+      "description": "Level 22",
       "kind": "evolves_into",
       "to": "species_arbok_1"
     },
     {
-      "data": {
-        "description": "Existing regional road-grass encounters at levels 4–6; no new wild Arbok placement follows."
-      },
+      "description": "Existing regional road-grass encounters at levels 4–6; no new wild Arbok placement follows.",
       "kind": "found_in",
       "to": "south_road"
     },
     {
-      "data": {
-        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

@@ -24,19 +24,12 @@
       "to": "city_four"
     },
     {
-      "data": {
-        "description": "Keeps her necklace beside the mirror."
-      },
+      "description": "Keeps her necklace beside the mirror.",
       "kind": "remembers",
       "to": "seller_wife"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 5–6: places and characters; working names versus identities",
-          "§§5.12, 10.7: hometown, shop and keepsake"
-        ]
-      },
+      "description": "Sections 5–6: places and characters; working names versus identities\n\n§§5.12, 10.7: hometown, shop and keepsake",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -45,9 +38,7 @@
       "to": "source_neighbor"
     },
     {
-      "data": {
-        "description": "Asks her to keep the necklace safe."
-      },
+      "description": "Asks her to keep the necklace safe.",
       "kind": "trusts",
       "to": "mother"
     },

@@ -16,12 +16,7 @@
       "to": "koga_sister"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 5–6: places and characters; working names versus identities",
-          "§5.5: Koga, his mother and sister"
-        ]
-      },
+      "description": "Sections 5–6: places and characters; working names versus identities\n\n§5.5: Koga, his mother and sister",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

@@ -20,37 +20,27 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Existing forest grass encounters at levels 21–24."
-      },
+      "description": "Existing forest grass encounters at levels 21–24.",
       "kind": "found_in",
       "to": "hollow_wood"
     },
     {
-      "data": {
-        "description": "Existing cave encounters at levels 22–26."
-      },
+      "description": "Existing cave encounters at levels 22–26.",
       "kind": "found_in",
       "to": "skull_hollow"
     },
     {
-      "data": {
-        "description": "§33: implemented level 20+ Ghost encounters; the entrance skull’s identity and wider lore remain open."
-      },
+      "description": "§33: implemented level 20+ Ghost encounters; the entrance skull’s identity and wider lore remain open.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
-      "data": {
-        "description": "Authored northern forest and skull-cave encounter tables."
-      },
+      "description": "Authored northern forest and skull-cave encounter tables.",
       "kind": "sourced_from",
       "to": "source_haunted_landscape"
     },
     {
-      "data": {
-        "description": "Pinned PBS species and moves: typing, abilities, selected move levels/effects and evolution. Stock supernatural folklore is not imported as a regional explanation."
-      },
+      "description": "Pinned PBS species and moves: typing, abilities, selected move levels/effects and evolution. Stock supernatural folklore is not imported as a regional explanation.",
       "kind": "sourced_from",
       "to": "source_native_creatures"
     }

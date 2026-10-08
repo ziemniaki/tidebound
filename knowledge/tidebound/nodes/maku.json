@@ -4,17 +4,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. During Mother’s hall conversation.",
-        "lines": [
-          {
-            "speaker": "Mother",
-            "text": "Oh, Maku! Gently, sweetheart. Those are bottles, not turnips."
-          },
-          {
-            "speaker": "Narration",
-            "text": "Maku pats the box twice, very carefully."
-          }
-        ],
-        "source": "source_walk"
+        "text": "Mother: Oh, Maku! Gently, sweetheart. Those are bottles, not turnips.\nNarration: Maku pats the box twice, very carefully."
       }
     ],
     "habits": [
@@ -63,11 +53,7 @@
       "to": "lighthouse_home"
     },
     {
-      "data": {
-        "sections": [
-          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
-        ]
-      },
+      "description": "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -84,6 +70,7 @@
       "to": "source_opening"
     },
     {
+      "description": "Quoted dialogue: During Mother’s hall conversation.",
       "kind": "sourced_from",
       "to": "source_walk"
     }

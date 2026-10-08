@@ -25,12 +25,7 @@
       "to": "suicune"
     },
     {
-      "data": {
-        "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.",
-        "sections": [
-          "§§5.7, 6.8, 10.3: known refuge, dying guardian and Suicune order"
-        ]
-      },
+      "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.\n\n§§5.7, 6.8, 10.3: known refuge, dying guardian and Suicune order",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

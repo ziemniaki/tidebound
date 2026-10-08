@@ -29,16 +29,12 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Proposed habitat: fallen-root cavities beside older paths. Scrapes and a warning from within can support an avoidable encounter. This does not add a current wild spawn; evolution is the established acquisition route."
-      },
+      "description": "Proposed habitat: fallen-root cavities beside older paths. Scrapes and a warning from within can support an avoidable encounter. This does not add a current wild spawn; evolution is the established acquisition route.",
       "kind": "found_in",
       "to": "listening_wood"
     },
     {
-      "data": {
-        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

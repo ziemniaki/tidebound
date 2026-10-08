@@ -220,8 +220,16 @@ with options. No scope, status or implementation fields are required. Tidebound�
 [authoring guide](../../knowledge/authoring.md) explains useful dossiers, dialogue,
 design prose, branching beats and how to separate established lore from proposals. An outgoing link
 is identified by its source, kind and target; it may carry additional structured
-data. A plain `data.description` explains a relationship’s condition or meaning;
-source links can carry sections. There is no separate schema per relation kind.
+data when a structured value is actually useful. Put prose directly in the optional
+link `description`, including conditions and source-section notes:
+
+```json
+{"kind": "kept_at", "to": "vault", "description": "After recovery and the vault visit."}
+```
+
+Tidebound dialogue uses `{ "context": "…", "text": "…" }`, with speaker labels
+and line breaks in the text. Source links carry citations. There is no separate
+schema per relation kind.
 In the database, entities are records in `entity`; links are native graph
 relations in `link`, with `in` and `out` endpoints. Metadata lives in
 `metadata:graph`. Full-text indexes cover `name`, `description` and nested `data`

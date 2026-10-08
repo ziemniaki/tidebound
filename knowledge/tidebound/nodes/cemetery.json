@@ -7,11 +7,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

@@ -4,11 +4,7 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "sections": [
-          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology"
-        ]
-      },
+      "description": "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

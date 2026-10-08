@@ -19,32 +19,22 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "The second community knows his practical help; proposed river geography remains unconfirmed."
-      },
+      "description": "The second community knows his practical help; proposed river geography remains unconfirmed.",
       "kind": "associated_with",
       "to": "river_settlement"
     },
     {
-      "data": {
-        "description": "He and his absent mother inspired the community."
-      },
+      "description": "He and his absent mother inspired the community.",
       "kind": "associated_with",
       "to": "winter_settlement"
     },
     {
-      "data": {
-        "description": "Planned friendship established through repeated help before his disappearance; the imitation does not continue this identity."
-      },
+      "description": "Planned friendship established through repeated help before his disappearance; the imitation does not continue this identity.",
       "kind": "bonded_with",
       "to": "protagonist"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 5–6: places and characters; working names versus identities"
-        ]
-      },
+      "description": "Sections 5–6: places and characters; working names versus identities",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

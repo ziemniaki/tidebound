@@ -8,19 +8,12 @@
       "to": "sabre"
     },
     {
-      "data": {
-        "description": "Healed Suicune and the unique sabre enable the intended final Behemoth Blade interaction."
-      },
+      "description": "Healed Suicune and the unique sabre enable the intended final Behemoth Blade interaction.",
       "kind": "about",
       "to": "suicune"
     },
     {
-      "data": {
-        "sections": [
-          "Section 14: disclosure boundaries and unresolved late scene order",
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
-        ]
-      },
+      "description": "Section 14: disclosure boundaries and unresolved late scene order\n\nSections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

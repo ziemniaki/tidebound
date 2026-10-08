@@ -25,40 +25,27 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Proposed: bill-foraging along the pond margin loosens soil around rooted Sunkern. Leaving a sheltered patch away from the main water access reduces the disturbance without treating either species as malicious."
-      },
+      "description": "Proposed: bill-foraging along the pond margin loosens soil around rooted Sunkern. Leaving a sheltered patch away from the main water access reduces the disturbance without treating either species as malicious.",
       "kind": "disturbs",
       "to": "species_sunkern_1"
     },
     {
-      "data": {
-        "description": "Level 16"
-      },
+      "description": "Level 16",
       "kind": "evolves_into",
       "to": "species_whyduck"
     },
     {
-      "data": {
-        "description": "Pond-grass encounters at levels 8–11 and the visible scripted individual. This supersedes its old visible roadside position."
-      },
+      "description": "Pond-grass encounters at levels 8–11 and the visible scripted individual. This supersedes its old visible roadside position.",
       "kind": "found_in",
       "to": "pond"
     },
     {
-      "data": {
-        "description": "Road-grass encounters at levels 4–6 remain; the visible individual was moved to the pond."
-      },
+      "description": "Road-grass encounters at levels 4–6 remain; the visible individual was moved to the pond.",
       "kind": "found_in",
       "to": "south_road"
     },
     {
-      "data": {
-        "sections": [
-          "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
-          "§29: regional Psyduck and level-16 evolution; §32 supersedes its visible roadside position."
-        ]
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.\n\n§29: regional Psyduck and level-16 evolution; §32 supersedes its visible roadside position.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

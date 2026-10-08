@@ -26,8 +26,10 @@ from `tools/tidebound_dev/`; gameplay stays in its native engine.
   `data`. Tidebound content follows [its authoring guide](../../knowledge/authoring.md).
   Add a new kind as data, without changing Python code. Do not add per-kind schemas
   or mandatory scope/status metadata. Omit `data` on entities and relationships
-  without extra properties. Prose carries meaning; small objects and
-  arrays preserve useful structure such as dialogue and questions with options.
+  without extra properties. Put relationship prose directly in the optional
+  link `description`; reserve link `data` for structured values. Prose carries
+  meaning; small objects and arrays preserve useful structure such as dialogue
+  and questions with options.
 - Stable IDs identify concepts independently of names, file paths and engine
   symbols. Use lowercase `snake_case` IDs as defined in the README; keep natural
   spelling in display names. Similar names do not imply the same person. Species, individuals and

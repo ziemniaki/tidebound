@@ -11,30 +11,22 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Existing forest-grass encounters at levels 3–5."
-      },
+      "description": "Existing forest-grass encounters at levels 3–5.",
       "kind": "found_in",
       "to": "listening_wood"
     },
     {
-      "data": {
-        "description": "Proposed feeding scene: Weedle rejects some leaves by smell while nearby regional Wurmple continue feeding. Their overlapping habitat does not mean identical food preferences, defenses or evolution routes."
-      },
+      "description": "Proposed feeding scene: Weedle rejects some leaves by smell while nearby regional Wurmple continue feeding. Their overlapping habitat does not mean identical food preferences, defenses or evolution routes.",
       "kind": "shares_habitat_with",
       "to": "species_wurmple_1"
     },
     {
-      "data": {
-        "description": "Authored forest and road encounter tables, including the pond-grass table on the road map."
-      },
+      "description": "Authored forest and road encounter tables, including the pond-grass table on the road map.",
       "kind": "sourced_from",
       "to": "source_maps"
     },
     {
-      "data": {
-        "description": "Pinned species account, typing, move availability and evolution condition; new local behavior is explicitly proposed."
-      },
+      "description": "Pinned species account, typing, move availability and evolution condition; new local behavior is explicitly proposed.",
       "kind": "sourced_from",
       "to": "source_native_creatures"
     }

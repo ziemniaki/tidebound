@@ -19,15 +19,18 @@ For any content work, read and apply [the authoring guide](authoring.md).
   creature distinctions, contextual dialogue and drawable visual descriptions.
   Keep new invention explicitly proposed. Do not replace unknowns with generic lore.
 - Start with prose. Use structured data for useful details, not a per-kind form.
-  Visual descriptions are a single `data.design` string for any subject. Scene
-  beats can include options with descriptions of actions and consequences.
+  Visual descriptions are a single `data.design` string for any subject. Dialogue
+  entries have `context` and `text`, with speakers and line breaks in the text;
+  cite existing dialogue through `sourced_from` links. Scene beats can include
+  options with descriptions of actions and consequences.
   Keep decisions on their subject as `questions`, with optional `options` whose
   entries contain a `description`. These are author decisions; player choices
   belong in scenes. No IDs or status flags for individual questions.
 - Develop connected situations: needs, relationships, player actions and visible
   consequences. Link important subjects so an agent can retrieve that context.
   Reuse existing subjects before adding new ones; fold standalone repeated facts
-  into their owners. Give relationship qualifiers one `data.description` string.
+  into their owners. Give relationship qualifiers one `description` string
+  directly on the link, including source-section notes. No wrapper object for prose.
 - Creature work should connect ecology, encounter behavior, raising and evolution.
   Use optional `moves` entries with `name` and `description` for defining techniques;
   check availability against native data. Keep individual starting kits distinct

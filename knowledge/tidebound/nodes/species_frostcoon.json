@@ -41,16 +41,12 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Level 55"
-      },
+      "description": "Level 55",
       "kind": "evolves_into",
       "to": "species_nivalora"
     },
     {
-      "data": {
-        "description": "Proposed habitat: sheltered branch forks above the path, occasionally brought down by wind. These are possible observations and care encounters; raising regional Wurmple remains the established acquisition route."
-      },
+      "description": "Proposed habitat: sheltered branch forks above the path, occasionally brought down by wind. These are possible observations and care encounters; raising regional Wurmple remains the established acquisition route.",
       "kind": "found_in",
       "to": "listening_wood"
     },
@@ -59,9 +55,7 @@
       "to": "source_frostcoon_support"
     },
     {
-      "data": {
-        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

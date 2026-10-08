@@ -4,11 +4,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "sections": [
-          "0.7.17 addition: Natu’s bedroom maze; later room/prelude additions fix its place in the opening."
-        ]
-      },
+      "description": "0.7.17 addition: Natu’s bedroom maze; later room/prelude additions fix its place in the opening.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

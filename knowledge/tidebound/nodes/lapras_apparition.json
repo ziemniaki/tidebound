@@ -4,17 +4,7 @@
     "dialogue": [
       {
         "context": "Existing narration during the one-time pier glimpse after Mother’s oil is returned. These observations reveal no explanation of the creature’s magic.",
-        "lines": [
-          {
-            "speaker": "Narrator",
-            "text": "A face. Turned towards the lighthouse, as if waiting for its light."
-          },
-          {
-            "speaker": "Narrator",
-            "text": "The sea goes on behind it. Farther than you can see."
-          }
-        ],
-        "source": "source_lapras"
+        "text": "Narrator: A face. Turned towards the lighthouse, as if waiting for its light.\nNarrator: The sea goes on behind it. Farther than you can see."
       }
     ],
     "questions": [
@@ -49,23 +39,17 @@
       "to": "lapras_arc"
     },
     {
-      "data": {
-        "description": "Planned arc, developed through proposed repeated shore meetings: fear gives way to recognition and attachment before the unsettling fact and the late legendary connection. Recruitment remains undecided."
-      },
+      "description": "Planned arc, developed through proposed repeated shore meetings: fear gives way to recognition and attachment before the unsettling fact and the late legendary connection. Recruitment remains undecided.",
       "kind": "bonded_with",
       "to": "protagonist"
     },
     {
-      "data": {
-        "description": "The existing apparition is glimpsed from Shiohama’s pier after the earlier unseen presence sensed by Pookie. Later repeated meetings nearby are proposed; the first bark still reveals no creature."
-      },
+      "description": "The existing apparition is glimpsed from Shiohama’s pier after the earlier unseen presence sensed by Pookie. Later repeated meetings nearby are proposed; the first bark still reveals no creature.",
       "kind": "found_in",
       "to": "shiohama"
     },
     {
-      "data": {
-        "description": "Its magic is revealed near the end, after attachment and the unsettling discovery. The scar has no established explanation."
-      },
+      "description": "Its magic is revealed near the end, after attachment and the unsettling discovery. The scar has no established explanation.",
       "kind": "imbued_by",
       "to": "water_ghost_legendary"
     },
@@ -74,15 +58,12 @@
       "to": "species_lapras_1"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
+      "description": "Quoted dialogue: Existing narration during the one-time pier glimpse after Mother’s oil is returned. These observations reveal no explanation of the creature’s magic.",
       "kind": "sourced_from",
       "to": "source_lapras"
     },

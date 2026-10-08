@@ -11,9 +11,7 @@
       "to": "seller_wife"
     },
     {
-      "data": {
-        "description": "His wife’s keepsake. Returning it restores his possession; he then entrusts its safekeeping to Mother."
-      },
+      "description": "His wife’s keepsake. Returning it restores his possession; he then entrusts its safekeeping to Mother.",
       "kind": "belongs_to",
       "to": "seller"
     },
@@ -22,18 +20,12 @@
       "to": "pearls_deeper_world"
     },
     {
-      "data": {
-        "description": "After its recovery and the vault visit."
-      },
+      "description": "After its recovery and the vault visit.",
       "kind": "kept_at",
       "to": "vault"
     },
     {
-      "data": {
-        "sections": [
-          "Section 10.7: pie, necklace and delayed pearl meaning"
-        ]
-      },
+      "description": "Section 10.7: pie, necklace and delayed pearl meaning",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

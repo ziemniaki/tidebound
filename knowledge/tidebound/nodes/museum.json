@@ -4,9 +4,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "Proposed comparison of ordinary coastal objects and late underwater finds. Museum knowledge is partial; the comparison does not settle the sabre’s origin."
-      },
+      "description": "Proposed comparison of ordinary coastal objects and late underwater finds. Museum knowledge is partial; the comparison does not settle the sabre’s origin.",
       "kind": "associated_with",
       "to": "location_submerged_coast"
     },
@@ -15,9 +13,7 @@
       "to": "docks"
     },
     {
-      "data": {
-        "sections": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments."
-      },
+      "description": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

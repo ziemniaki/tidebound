@@ -23,12 +23,7 @@
       "to": "protagonist"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
-          "§§5.10, 12.5: late cemetery and the player’s lost companions"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings\n\n§§5.10, 12.5: late cemetery and the player’s lost companions",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

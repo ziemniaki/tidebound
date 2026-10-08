@@ -4,9 +4,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "Proposed shared watercourse continues toward the lowland settlement; a traversable route and its timing remain to be designed."
-      },
+      "description": "Proposed shared watercourse continues toward the lowland settlement; a traversable route and its timing remain to be designed.",
       "kind": "connected_to",
       "to": "river_settlement"
     },
@@ -15,13 +13,7 @@
       "to": "listening_wood"
     },
     {
-      "data": {
-        "sections": [
-          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
-          "§§5.4, 5.7: protected part of the great forest",
-          "§§4.3, 5.4, 5.7 and 9 Chapter VI: earlier attachment, guardian, corruption and proposed watershed. Bridge, gutter task and specific physical evidence are new proposals."
-        ]
-      },
+      "description": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.\n\n§§5.4, 5.7: protected part of the great forest\n\n§§4.3, 5.4, 5.7 and 9 Chapter VI: earlier attachment, guardian, corruption and proposed watershed. Bridge, gutter task and specific physical evidence are new proposals.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

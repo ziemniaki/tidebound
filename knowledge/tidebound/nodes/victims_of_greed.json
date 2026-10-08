@@ -4,16 +4,12 @@
   "kind": "lore",
   "links": [
     {
-      "data": {
-        "description": "Proposed ordinary-life evidence grounds the later historical revelation before its supernatural explanation."
-      },
+      "description": "Proposed ordinary-life evidence grounds the later historical revelation before its supernatural explanation.",
       "kind": "about",
       "to": "location_submerged_coast"
     },
     {
-      "data": {
-        "description": "The bible connects present exploitation to the older injury; exact material and historical mechanisms remain open."
-      },
+      "description": "The bible connects present exploitation to the older injury; exact material and historical mechanisms remain open.",
       "kind": "about",
       "to": "team_abyss"
     },
@@ -22,13 +18,7 @@
       "to": "water_demons"
     },
     {
-      "data": {
-        "sections": [
-          "Section 14: disclosure boundaries and unresolved late scene order",
-          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
-          "§§4.1–4.3 and 5.9: ancient taking, present exploitation and underwater evidence. Evidence ordering is proposed."
-        ]
-      },
+      "description": "Section 14: disclosure boundaries and unresolved late scene order\n\nSections 2–3: confirmed foundations, origin distinctions and unresolved cosmology\n\n§§4.1–4.3 and 5.9: ancient taking, present exploitation and underwater evidence. Evidence ordering is proposed.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

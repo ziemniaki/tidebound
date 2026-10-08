@@ -10,20 +10,7 @@
     "dialogue": [
       {
         "context": "Proposed draft. In the fog, while the reunion still feels trustworthy.",
-        "lines": [
-          {
-            "speaker": "The apparent Koga",
-            "text": "You can look. I’ll stay where you can see me."
-          },
-          {
-            "speaker": "Protagonist",
-            "text": "And if the path moves?"
-          },
-          {
-            "speaker": "The apparent Koga",
-            "text": "Call me back. We can be wrong together."
-          }
-        ]
+        "text": "The apparent Koga: You can look. I’ll stay where you can see me.\nProtagonist: And if the path moves?\nThe apparent Koga: Call me back. We can be wrong together."
       }
     ]
   },
@@ -40,12 +27,7 @@
       "to": "protagonist"
     },
     {
-      "data": {
-        "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.",
-        "sections": [
-          "§9 Chapter V; §§6.6, 10.2: convincing reunion and shared astral quest"
-        ]
-      },
+      "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.\n\n§9 Chapter V; §§6.6, 10.2: convincing reunion and shared astral quest",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

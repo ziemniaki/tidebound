@@ -24,17 +24,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. After correctly identifying the shortage.",
-        "lines": [
-          {
-            "speaker": "Daro",
-            "text": "Five tins. Harker carried something up to the ring just before I arrived."
-          },
-          {
-            "speaker": "Daro",
-            "text": "Ask him. Quietly. I would rather have the oil than a fight."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Daro: Five tins. Harker carried something up to the ring just before I arrived.\nDaro: Ask him. Quietly. I would rather have the oil than a fight."
       }
     ]
   },
@@ -43,16 +33,12 @@
   "kind": "scene",
   "links": [
     {
-      "data": {
-        "description": "Harker’s borrowed tin was intended for its lanterns. Returning it requires no bout."
-      },
+      "description": "Harker’s borrowed tin was intended for its lanterns. Returning it requires no bout.",
       "kind": "associated_with",
       "to": "harbour_ring"
     },
     {
-      "data": {
-        "description": "The manifest names the island as the cargo’s destination; completing this job does not implement the voyage."
-      },
+      "description": "The manifest names the island as the cargo’s destination; completing this job does not implement the voyage.",
       "kind": "associated_with",
       "to": "psyduck_island"
     },
@@ -77,6 +63,7 @@
       "to": "venn"
     },
     {
+      "description": "Quoted dialogue: After correctly identifying the shortage.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     },

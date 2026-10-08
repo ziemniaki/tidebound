@@ -20,9 +20,7 @@
       "to": "false_koga"
     },
     {
-      "data": {
-        "description": "After the imitation’s destruction, testimony explains the conjuration without locating real Koga."
-      },
+      "description": "After the imitation’s destruction, testimony explains the conjuration without locating real Koga.",
       "kind": "features",
       "to": "false_koga_origin"
     },
@@ -39,40 +37,27 @@
       "to": "suicune"
     },
     {
-      "data": {
-        "description": "Proposed scene development within the established Koga arc."
-      },
+      "description": "Proposed scene development within the established Koga arc.",
       "kind": "includes",
       "to": "scene_koga_astral_help"
     },
     {
-      "data": {
-        "description": "Proposed scene development within the established Koga arc."
-      },
+      "description": "Proposed scene development within the established Koga arc.",
       "kind": "includes",
       "to": "scene_koga_shared_work"
     },
     {
-      "data": {
-        "description": "Proposed scene development within the established Koga arc."
-      },
+      "description": "Proposed scene development within the established Koga arc.",
       "kind": "includes",
       "to": "scene_koga_testimony"
     },
     {
-      "data": {
-        "description": "Proposed scene development within the established Koga arc."
-      },
+      "description": "Proposed scene development within the established Koga arc.",
       "kind": "includes",
       "to": "scene_refuge_before_poison"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
-          "§§5.5–5.8, 10.2–10.3: communities, astral companionship and refuge order"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings\n\n§§5.5–5.8, 10.2–10.3: communities, astral companionship and refuge order",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

@@ -3,13 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. After winning the optional sailor battle.",
-        "lines": [
-          {
-            "speaker": "Oren",
-            "text": "I promised to come home. Keeping a promise takes practice."
-          }
-        ],
-        "source": "source_docks"
+        "text": "Oren: I promised to come home. Keeping a promise takes practice."
       }
     ]
   },
@@ -18,15 +12,12 @@
   "kind": "character",
   "links": [
     {
+      "description": "Quoted dialogue: After winning the optional sailor battle.",
       "kind": "sourced_from",
       "to": "source_docks"
     },
     {
-      "data": {
-        "sections": [
-          "§30: working harbour, optional sailors and the planned island crossing."
-        ]
-      },
+      "description": "§30: working harbour, optional sailors and the planned island crossing.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

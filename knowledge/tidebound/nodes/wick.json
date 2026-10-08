@@ -4,13 +4,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Speaking to the household Natu.",
-        "lines": [
-          {
-            "speaker": "Narration",
-            "text": "Wick tilts his head before you speak, as though he remembers the question."
-          }
-        ],
-        "source": "source_opening"
+        "text": "Narration: Wick tilts his head before you speak, as though he remembers the question."
       }
     ],
     "habits": [
@@ -54,11 +48,7 @@
       "to": "lighthouse_home"
     },
     {
-      "data": {
-        "sections": [
-          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
-        ]
-      },
+      "description": "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -71,6 +61,7 @@
       "to": "source_neighbor"
     },
     {
+      "description": "Quoted dialogue: Speaking to the household Natu.",
       "kind": "sourced_from",
       "to": "source_opening"
     },

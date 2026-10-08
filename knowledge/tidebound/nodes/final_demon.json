@@ -4,18 +4,12 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "Belongs to the final water-demon conflict; its identity is not established as the Water/Ghost legendary."
-      },
+      "description": "Belongs to the final water-demon conflict; its identity is not established as the Water/Ghost legendary.",
       "kind": "associated_with",
       "to": "water_demons"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology"
-        ]
-      },
+      "description": "Sections 2–3: confirmed foundations, origin distinctions and unresolved cosmology",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

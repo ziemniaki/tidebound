@@ -37,16 +37,12 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Proposed rare sighting in a sheltered clearing within the wider forest, giving its established traveler-sheltering behavior a place. No repeatable wild encounter or guaranteed recruitment is implied; raising Frostcoon remains the playable route."
-      },
+      "description": "Proposed rare sighting in a sheltered clearing within the wider forest, giving its established traveler-sheltering behavior a place. No repeatable wild encounter or guaranteed recruitment is implied; raising Frostcoon remains the playable route.",
       "kind": "found_in",
       "to": "listening_wood"
     },
     {
-      "data": {
-        "sections": "Regional Pokédex; later species amendments §§21–29 and pond revision §32."
-      },
+      "description": "Regional Pokédex; later species amendments §§21–29 and pond revision §32.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

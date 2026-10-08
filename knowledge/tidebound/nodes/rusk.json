@@ -3,17 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Ordinary ring-side conversation.",
-        "lines": [
-          {
-            "speaker": "Rusk",
-            "text": "I know which one is tired. Watch the feet."
-          },
-          {
-            "speaker": "Rusk",
-            "text": "That is not the same as knowing which one will lose."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Rusk: I know which one is tired. Watch the feet.\nRusk: That is not the same as knowing which one will lose."
       }
     ]
   },
@@ -26,6 +16,7 @@
       "to": "docks"
     },
     {
+      "description": "Quoted dialogue: Ordinary ring-side conversation.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     }

@@ -3,17 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Ordinary conversation at the food stall.",
-        "lines": [
-          {
-            "speaker": "Neris",
-            "text": "I feed the late watch from this stall. Hot broth, cold bread, the same argument about the price."
-          },
-          {
-            "speaker": "Neris",
-            "text": "When my husband stopped coming home, they kept bringing his bowl back washed. I still put it out."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Neris: I feed the late watch from this stall. Hot broth, cold bread, the same argument about the price.\nNeris: When my husband stopped coming home, they kept bringing his bowl back washed. I still put it out."
       }
     ]
   },
@@ -22,6 +12,7 @@
   "kind": "character",
   "links": [
     {
+      "description": "Quoted dialogue: Ordinary conversation at the food stall.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     },

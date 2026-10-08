@@ -4,11 +4,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "sections": [
-          "§§3.6 and 5.8: astral spaces; §12.2: individual recovery."
-        ]
-      },
+      "description": "§§3.6 and 5.8: astral spaces; §12.2: individual recovery.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

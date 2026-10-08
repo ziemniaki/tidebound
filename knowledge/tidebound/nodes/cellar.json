@@ -8,11 +8,7 @@
       "to": "lighthouse_home"
     },
     {
-      "data": {
-        "sections": [
-          "§5.3: lighthouse cellar; §20: implemented vault access."
-        ]
-      },
+      "description": "§5.3: lighthouse cellar; §20: implemented vault access.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

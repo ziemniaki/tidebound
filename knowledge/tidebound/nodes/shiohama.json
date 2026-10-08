@@ -23,9 +23,7 @@
       "to": "south_road"
     },
     {
-      "data": {
-        "sections": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments."
-      },
+      "description": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

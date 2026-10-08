@@ -11,23 +11,17 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "The open northern threshold leads into the haunted district and permits return without a quest prerequisite. The keys errand remains within the Listening Wood."
-      },
+      "description": "The open northern threshold leads into the haunted district and permits return without a quest prerequisite. The keys errand remains within the Listening Wood.",
       "kind": "connected_to",
       "to": "hollow_wood"
     },
     {
-      "data": {
-        "description": "Proposed wider journey through mountain watercourses. The playable northern Hollow Wood route does not yet reach this settlement."
-      },
+      "description": "Proposed wider journey through mountain watercourses. The playable northern Hollow Wood route does not yet reach this settlement.",
       "kind": "connected_to",
       "to": "winter_settlement"
     },
     {
-      "data": {
-        "sections": "§5.4: larger forest and familiar opening; §33: open northern threshold and optional dangerous district."
-      },
+      "description": "§5.4: larger forest and familiar opening; §33: open northern threshold and optional dangerous district.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -40,9 +34,7 @@
       "to": "source_maps"
     },
     {
-      "data": {
-        "description": "The traveler’s existing missing-bridge line remains in the fire conversation despite the newly open northern threshold."
-      },
+      "description": "The traveler’s existing missing-bridge line remains in the fire conversation despite the newly open northern threshold.",
       "kind": "sourced_from",
       "to": "source_opening"
     }

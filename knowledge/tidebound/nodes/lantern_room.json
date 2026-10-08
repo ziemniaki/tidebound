@@ -8,11 +8,7 @@
       "to": "lighthouse_home"
     },
     {
-      "data": {
-        "sections": [
-          "§§5.3, 6.2 and 10.5: lighthouse, keeper and distinct lower lamp."
-        ]
-      },
+      "description": "§§5.3, 6.2 and 10.5: lighthouse, keeper and distinct lower lamp.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

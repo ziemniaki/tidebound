@@ -4,19 +4,12 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "The seller’s hometown is the existing source of the meal; extending the blue-reed household pottery motif here is a bible proposal, not magical heraldry."
-      },
+      "description": "The seller’s hometown is the existing source of the meal; extending the blue-reed household pottery motif here is a bible proposal, not magical heraldry.",
       "kind": "associated_with",
       "to": "plate"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 5–6: places and characters; working names versus identities",
-          "§5.12: hometown, recipe and possible pottery recognition. Pastry-making and recipe disagreement are new proposals."
-        ]
-      },
+      "description": "Sections 5–6: places and characters; working names versus identities\n\n§5.12: hometown, recipe and possible pottery recognition. Pastry-making and recipe disagreement are new proposals.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

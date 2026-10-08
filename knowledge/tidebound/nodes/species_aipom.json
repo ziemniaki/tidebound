@@ -10,44 +10,32 @@
   "kind": "species",
   "links": [
     {
-      "data": {
-        "description": "Existing forest-grass encounters at levels 3–5."
-      },
+      "description": "Existing forest-grass encounters at levels 3–5.",
       "kind": "found_in",
       "to": "listening_wood"
     },
     {
-      "data": {
-        "description": "Existing pond-grass encounters at levels 8–11. Bait theft is already mentioned in the fishermen’s dialogue; the detailed lid interaction is proposed."
-      },
+      "description": "Existing pond-grass encounters at levels 8–11. Bait theft is already mentioned in the fishermen’s dialogue; the detailed lid interaction is proposed.",
       "kind": "found_in",
       "to": "pond"
     },
     {
-      "data": {
-        "description": "Authored forest and road encounter tables, including the pond-grass table on the road map."
-      },
+      "description": "Authored forest and road encounter tables, including the pond-grass table on the road map.",
       "kind": "sourced_from",
       "to": "source_maps"
     },
     {
-      "data": {
-        "description": "Pinned species account, typing, move availability and evolution condition; new local behavior is explicitly proposed."
-      },
+      "description": "Pinned species account, typing, move availability and evolution condition; new local behavior is explicitly proposed.",
       "kind": "sourced_from",
       "to": "source_native_creatures"
     },
     {
-      "data": {
-        "description": "Renzo’s existing bait-theft conversation."
-      },
+      "description": "Renzo’s existing bait-theft conversation.",
       "kind": "sourced_from",
       "to": "source_pond"
     },
     {
-      "data": {
-        "description": "Renzo’s existing conversation says Aipom stole his bait and then returned for the lid. This is ordinary nuisance behavior; no theft of quest items or automatic inventory effect is established."
-      },
+      "description": "Renzo’s existing conversation says Aipom stole his bait and then returned for the lid. This is ordinary nuisance behavior; no theft of quest items or automatic inventory effect is established.",
       "kind": "steals_from",
       "to": "renzo"
     }

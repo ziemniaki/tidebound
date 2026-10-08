@@ -4,17 +4,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Calling Pookie back from the optional pier detour.",
-        "lines": [
-          {
-            "speaker": "Narration",
-            "text": "Pookie stands rigid at the end of the pier. Her growl is so low you can feel it through the boards."
-          },
-          {
-            "speaker": "Narration",
-            "text": "You say her name. Slowly, she turns back to you."
-          }
-        ],
-        "source": "source_walk"
+        "text": "Narration: Pookie stands rigid at the end of the pier. Her growl is so low you can feel it through the boards.\nNarration: You say her name. Slowly, she turns back to you."
       }
     ],
     "habits": [
@@ -63,11 +53,7 @@
       "to": "lighthouse_home"
     },
     {
-      "data": {
-        "sections": [
-          "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer"
-        ]
-      },
+      "description": "0.7.17–0.7.20 additions: ordered prelude, two false rooms and Natu maze; books supersede computer",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
@@ -84,6 +70,7 @@
       "to": "source_opening"
     },
     {
+      "description": "Quoted dialogue: Calling Pookie back from the optional pier detour.",
       "kind": "sourced_from",
       "to": "source_walk"
     }

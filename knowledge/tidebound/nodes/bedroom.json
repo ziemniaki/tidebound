@@ -8,11 +8,7 @@
       "to": "lighthouse_home"
     },
     {
-      "data": {
-        "sections": [
-          "§5.3: lighthouse home; 0.7.17–0.7.20 additions: dream sequence and ordinary bedroom."
-        ]
-      },
+      "description": "§5.3: lighthouse home; 0.7.17–0.7.20 additions: dream sequence and ordinary bedroom.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

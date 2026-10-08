@@ -25,20 +25,7 @@
     "dialogue": [
       {
         "context": "Proposed draft. After the origin is established, not as a substitute for evidence.",
-        "lines": [
-          {
-            "speaker": "Koga’s sister",
-            "text": "Did any of you see him before it began?"
-          },
-          {
-            "speaker": "A participant",
-            "text": "No. We thought we could make him come back."
-          },
-          {
-            "speaker": "Koga’s sister",
-            "text": "Then tell me what you did. Don’t tell me where he went."
-          }
-        ]
+        "text": "Koga’s sister: Did any of you see him before it began?\nA participant: No. We thought we could make him come back.\nKoga’s sister: Then tell me what you did. Don’t tell me where he went."
       }
     ]
   },
@@ -63,12 +50,7 @@
       "to": "protagonist"
     },
     {
-      "data": {
-        "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.",
-        "sections": [
-          "§§5.6, 6.7, 10.2, 14.1–14.2: varied responsibility, proof after destruction, unresolved absence"
-        ]
-      },
+      "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.\n\n§§5.6, 6.7, 10.2, 14.1–14.2: varied responsibility, proof after destruction, unresolved absence",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

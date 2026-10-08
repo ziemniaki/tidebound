@@ -21,20 +21,7 @@
     "dialogue": [
       {
         "context": "Proposed draft. Koga has promised practice before finishing the repair.",
-        "lines": [
-          {
-            "speaker": "Koga",
-            "text": "One round? I want to try something."
-          },
-          {
-            "speaker": "Koga’s sister",
-            "text": "You wanted to try that roof yesterday."
-          },
-          {
-            "speaker": "Koga",
-            "text": "Right. Roof first. Hold this end?"
-          }
-        ]
+        "text": "Koga: One round? I want to try something.\nKoga’s sister: You wanted to try that roof yesterday.\nKoga: Right. Roof first. Hold this end?"
       }
     ]
   },
@@ -55,12 +42,7 @@
       "to": "protagonist"
     },
     {
-      "data": {
-        "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.",
-        "sections": [
-          "§§5.5, 6.3–6.5: community, familiar team and family; §9 Chapter III"
-        ]
-      },
+      "description": "Existing constraints for this proposed scene; the new actions and dialogue are not quotations or established events.\n\n§§5.5, 6.3–6.5: community, familiar team and family; §9 Chapter III",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

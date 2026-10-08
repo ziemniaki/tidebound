@@ -19,17 +19,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. After Irena opens the delivered letter.",
-        "lines": [
-          {
-            "speaker": "Irena",
-            "text": "She has painted the little room. She says I would like the colour."
-          },
-          {
-            "speaker": "Irena",
-            "text": "Tell Jory it arrived. Do not tell him I cried. He will try to charge for the water."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Irena: She has painted the little room. She says I would like the colour.\nIrena: Tell Jory it arrived. Do not tell him I cried. He will try to charge for the water."
       }
     ]
   },
@@ -54,6 +44,7 @@
       "to": "sealed_letter"
     },
     {
+      "description": "Quoted dialogue: After Irena opens the delivered letter.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     },

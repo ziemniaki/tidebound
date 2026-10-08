@@ -22,12 +22,7 @@
     "dialogue": [
       {
         "context": "Proposed draft. The summoned master’s greeting at the start of the fight, after the player has chosen to begin.",
-        "lines": [
-          {
-            "speaker": "The summoned master",
-            "text": "Mind the wet boards. We are testing your companions, not your ankles."
-          }
-        ]
+        "text": "The summoned master: Mind the wet boards. We are testing your companions, not your ankles."
       }
     ]
   },
@@ -36,9 +31,7 @@
   "kind": "quest",
   "links": [
     {
-      "data": {
-        "description": "Proposed first-visit contact is a traveller maintaining a small resting fire. The shrine adds no healing or changes to existing fire recovery rules."
-      },
+      "description": "Proposed first-visit contact is a traveller maintaining a small resting fire. The shrine adds no healing or changes to existing fire recovery rules.",
       "kind": "associated_with",
       "to": "fire_recovery"
     },
@@ -47,19 +40,12 @@
       "to": "protagonist"
     },
     {
-      "data": {
-        "description": "The established very late cemetery belongs to the intended shrine progression; this link fixes no shrine count, geographic route or intermediate reward."
-      },
+      "description": "The established very late cemetery belongs to the intended shrine progression; this link fixes no shrine count, geographic route or intermediate reward.",
       "kind": "includes",
       "to": "cemetery_trial"
     },
     {
-      "data": {
-        "sections": [
-          "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings",
-          "§11.1–11.3: incense, summoned fights, proposed retries and undecided traversal awards"
-        ]
-      },
+      "description": "Sections 7, 10–13: planned Lapras, Suicune, sabre, recovery and endings\n\n§11.1–11.3: incense, summoned fights, proposed retries and undecided traversal awards",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

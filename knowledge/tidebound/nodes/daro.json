@@ -3,13 +3,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. After the oil has been returned.",
-        "lines": [
-          {
-            "speaker": "Daro",
-            "text": "I used to lift all this. Now I count it. Turns out that matters too."
-          }
-        ],
-        "source": "source_harbour_errands"
+        "text": "Daro: I used to lift all this. Now I count it. Turns out that matters too."
       }
     ]
   },
@@ -18,13 +12,12 @@
   "kind": "character",
   "links": [
     {
-      "data": {
-        "description": "Asks the protagonist to recover an island oil tin Harker borrowed for the ring, without a fight."
-      },
+      "description": "Asks the protagonist to recover an island oil tin Harker borrowed for the ring, without a fight.",
       "kind": "associated_with",
       "to": "harker"
     },
     {
+      "description": "Quoted dialogue: After the oil has been returned.",
       "kind": "sourced_from",
       "to": "source_harbour_errands"
     },

@@ -22,17 +22,7 @@
     "dialogue": [
       {
         "context": "Existing dialogue. Inspecting the sparring display.",
-        "lines": [
-          {
-            "speaker": "Narration",
-            "text": "Machop drives forward. Hitmonlee answers with a kick. The ropes jerk; the sailors lean closer."
-          },
-          {
-            "speaker": "Narration",
-            "text": "A voice calls a price. Nobody asks the two in the ring."
-          }
-        ],
-        "source": "source_harbour_ring"
+        "text": "Narration: Machop drives forward. Hitmonlee answers with a kick. The ropes jerk; the sailors lean closer.\nNarration: A voice calls a price. Nobody asks the two in the ring."
       }
     ]
   },
@@ -45,23 +35,17 @@
       "to": "harker"
     },
     {
-      "data": {
-        "description": "The fixed spectator distinguishes watching tired feet from knowing which fighter will lose."
-      },
+      "description": "The fixed spectator distinguishes watching tired feet from knowing which fighter will lose.",
       "kind": "features",
       "to": "rusk"
     },
     {
-      "data": {
-        "description": "The fixed resident bets beside the display. Generated challenger names do not identify this resident."
-      },
+      "description": "The fixed resident bets beside the display. Generated challenger names do not identify this resident.",
       "kind": "features",
       "to": "venn"
     },
     {
-      "data": {
-        "description": "Conditional on whole-party loss through the ordinary battle adapter, not a special ring realm."
-      },
+      "description": "Conditional on whole-party loss through the ordinary battle adapter, not a special ring realm.",
       "kind": "leads_to",
       "to": "astral_recovery"
     },
@@ -70,13 +54,12 @@
       "to": "source_encounters"
     },
     {
-      "data": {
-        "description": "§30: the working harbour, optional ring and saved challenger behavior."
-      },
+      "description": "§30: the working harbour, optional ring and saved challenger behavior.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
     {
+      "description": "Quoted dialogue: Inspecting the sparring display.",
       "kind": "sourced_from",
       "to": "source_harbour_ring"
     },

@@ -7,19 +7,12 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "description": "Established resale route through the coast, not a newly implemented direct map exit."
-      },
+      "description": "Established resale route through the coast, not a newly implemented direct map exit.",
       "kind": "connected_to",
       "to": "docks"
     },
     {
-      "data": {
-        "sections": [
-          "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.",
-          "§§5.11, 8.1, 10.7 and 31: small-time theft and dock buyers; parcel arrangement is proposed."
-        ]
-      },
+      "description": "Locations §5; presentation §15; current opening/harbour/hideout/pond amendments.\n\n§§5.11, 8.1, 10.7 and 31: small-time theft and dock buyers; parcel arrangement is proposed.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

@@ -8,9 +8,7 @@
       "to": "astral"
     },
     {
-      "data": {
-        "description": "Permanent losses can inform the planned late memorial and trial; the cemetery does not undo recovery failures."
-      },
+      "description": "Permanent losses can inform the planned late memorial and trial; the cemetery does not undo recovery failures.",
       "kind": "associated_with",
       "to": "cemetery_trial"
     },
@@ -23,11 +21,7 @@
       "to": "source_encounters"
     },
     {
-      "data": {
-        "sections": [
-          "§12.2: one encounter, six-round deadline and individual recovery; §12.4: saves."
-        ]
-      },
+      "description": "§12.2: one encounter, six-round deadline and individual recovery; §12.4: saves.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     }

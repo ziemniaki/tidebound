@@ -54,7 +54,9 @@ Read [Writing Tidebound’s world](authoring.md) before expanding it. Records co
 readable dossiers, meaningful relationships, species distinctions, creature habits,
 contextual dialogue, scene beats and visual direction. The household, regional ecology, necklace sequence and proposed Koga scenes
 provide worked examples. Visual
-direction uses a single `design` description; scene beats can carry small options
+direction uses a single `design` description. Dialogue entries use `context` and
+`text`, with speaker labels in the text and citations on source links. Link
+qualifiers use a direct `description`. Scene beats can carry small options
 with action-and-consequence descriptions. Meaningful links connect people, objects,
 places and outcomes, so retrieval returns the situation around a subject. Proposed
 material and real unknowns are marked where they occur.

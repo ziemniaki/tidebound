@@ -35,7 +35,7 @@ def fixture():
             "hero",
             description="Carries the pearl necklace",
             data={"design": "A salt-stained coat"},
-            links=[{"kind": "knows", "to": "other", "data": {"since": "opening"}}],
+            links=[{"kind": "knows", "to": "other", "description": "Friends since the opening."}],
         ),
         node("other", description="Lives in the lighthouse"),
     ]
@@ -61,12 +61,26 @@ class LocalGraph(unittest.TestCase):
         self.start_server()
         with database.connect(self.path) as graph:
             self.assertEqual(graph.show("hero")["node"], fixture()[0])
-            self.assertEqual(graph.show("other")["incoming"][0]["from"], "hero")
+            self.assertEqual(
+                graph.show("other")["incoming"],
+                [{"kind": "knows", "from": "hero", "description": "Friends since the opening."}],
+            )
             self.assertEqual([row["id"].id for row in graph.search("pearl")], ["hero"])
             result = graph.query(
                 "SELECT ->link[WHERE kind='knows']->entity.name AS names FROM entity:hero;"
             )
             self.assertEqual(result, [[{"names": ["Same name"]}]])
+            graph.query("UPDATE link SET description='Met at the quay.';")
+            self.assertEqual(
+                graph.show("hero")["node"]["links"][0]["description"], "Met at the quay."
+            )
+            before = graph.export()
+            for invalid in (None, {}, [], "", "  "):
+                with self.subTest(description=invalid), self.assertRaises(DesignError):
+                    graph.put(
+                        node("hero", links=[{"kind": "knows", "to": "other", "description": invalid}])
+                    )
+                self.assertEqual(graph.export(), before)
             self.assertEqual(len(graph.export()[1]), 2)
 
     def test_put_rolls_back_everything_on_missing_endpoint(self):
@@ -128,6 +142,7 @@ class LocalGraph(unittest.TestCase):
             graph.ingest(GRAPH, values)
             self.assertNotIn("data", graph.query("SELECT * FROM ONLY entity:hero;")[0])
             self.assertNotIn("data", graph.query("SELECT * FROM link;")[0][0])
+            self.assertNotIn("description", graph.query("SELECT * FROM link;")[0][0])
             self.assertEqual(graph.show("other")["incoming"], [{"kind": "knows", "from": "hero"}])
             self.assertEqual(graph.export(), (GRAPH, expected))
             folder = self.root / "optional-data"
@@ -201,6 +216,8 @@ class LocalGraph(unittest.TestCase):
             "amount": None,
             "text": 'Line one\n"; DELETE entity; --\t\\ $name',
         }
+        values[0]["links"][0]["description"] = 'After the return.\n"; DELETE link; --'
+        values[0]["links"][0]["data"] = {"example": [None, {"value": 2}]}
         folder = self.root / "snapshot"
         with database.connect(self.path) as graph:
             graph.ingest(GRAPH, values)
@@ -214,6 +231,7 @@ class LocalGraph(unittest.TestCase):
         ):
             graph.ingest(*snapshot.load(folder))
             self.assertEqual(graph.show("hero")["node"]["data"], values[0]["data"])
+            self.assertEqual(graph.show("hero")["node"]["links"], values[0]["links"])
             snapshot.write(folder, *graph.export())
         after = {p.relative_to(folder): p.read_bytes() for p in folder.rglob("*.json")}
         self.assertEqual(before, after)

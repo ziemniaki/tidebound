@@ -4,11 +4,7 @@
   "kind": "location",
   "links": [
     {
-      "data": {
-        "sections": [
-          "0.7.18–0.7.19 additions: false room, books, water-curse leaf and second bedroom."
-        ]
-      },
+      "description": "0.7.18–0.7.19 additions: false room, books, water-curse leaf and second bedroom.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },

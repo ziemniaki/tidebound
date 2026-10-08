@@ -18,12 +18,7 @@
       "to": "lighthouse_home"
     },
     {
-      "data": {
-        "sections": [
-          "Section 20: implemented vault/museum; supersedes the old unimplemented vault note in 5.3",
-          "§20: implemented vault and museum, superseding the earlier unimplemented-vault note in §5.3."
-        ]
-      },
+      "description": "Section 20: implemented vault/museum; supersedes the old unimplemented vault note in 5.3\n\n§20: implemented vault and museum, superseding the earlier unimplemented-vault note in §5.3.",
       "kind": "sourced_from",
       "to": "source_game_bible"
     },
