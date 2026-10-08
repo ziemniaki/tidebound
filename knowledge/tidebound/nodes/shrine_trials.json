@@ -31,7 +31,7 @@
   "kind": "quest",
   "links": [
     {
-      "description": "Proposed first-visit contact is a traveller maintaining a small resting fire. The shrine adds no healing or changes to existing fire recovery rules.",
+      "description": "The proposed shrine visit adds no healing or changes to existing fire recovery rules.",
       "kind": "associated_with",
       "to": "fire_recovery"
     },

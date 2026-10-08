@@ -1,10 +1,10 @@
 {
-  "description": "The oil seller’s hometown reaches the opening through a pie recipe and remembered food, not a world-map exposition scene. Its architecture, residents and wider role remain undeveloped; it is not established as either Koga settlement.\n\nProposed future recognition: the child notices blue reeds painted unevenly on bowls in ordinary kitchens, not an emblem reserved for a sacred order. A baker folds pastry scraps into a smaller pie rather than throwing them away. The seller’s recipe can be recognized by its folded edge before somebody tells the player where they are. A local may disagree about how much butter belongs in it; home memories need not be geographically exact. These details give the place a familiar taste and craft without fixing its location, population or wider quest.",
+  "description": "The oil seller’s hometown reaches the opening through a pie recipe and remembered food, not a world-map exposition scene. Its architecture, residents and wider role remain undeveloped; it is not established as either Koga settlement.\n\nProposed future recognition: a baker folds pastry scraps into a smaller pie rather than throwing them away. The seller’s recipe can be recognized by its folded edge before somebody tells the player where they are. A local may disagree about how much butter belongs in it; home memories need not be geographically exact. These details give the place a familiar taste and craft without fixing its location, population or wider quest.",
   "id": "city_four",
   "kind": "location",
   "links": [
     {
-      "description": "The seller’s hometown is the existing source of the meal; extending the blue-reed household pottery motif here is a bible proposal, not magical heraldry.",
+      "description": "Bible proposal: extend the plate’s blue-reed motif into the hometown’s household pottery. The child could notice reeds painted unevenly on bowls in ordinary kitchens, not an emblem reserved for a sacred order or magical heraldry.",
       "kind": "associated_with",
       "to": "plate"
     },

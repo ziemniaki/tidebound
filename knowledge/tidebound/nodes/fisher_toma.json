@@ -7,12 +7,12 @@
       }
     ]
   },
-  "description": "A working fisherman who jokes that the sea takes his hooks and the pond usually returns them. After an optional battle he explains that Psyduck comes down when the road grows noisy; the fishermen leave the shallow bank to it. His ordinary accommodation gives the animal room without making it a sacred guardian. He is distinct from the coast-road thief with the same name.",
+  "description": "A working fisherman who jokes that the sea takes his hooks and the pond usually returns them. He is distinct from the coast-road thief with the same name.",
   "id": "fisher_toma",
   "kind": "character",
   "links": [
     {
-      "description": "His existing dialogue describes leaving the pond’s shallow bank to the visiting Psyduck.",
+      "description": "After an optional battle, he explains that Psyduck comes down when the road grows noisy; the fishermen leave the shallow bank to it. This is ordinary accommodation, not treatment as a sacred guardian.",
       "kind": "associated_with",
       "to": "species_psyduck_1"
     },

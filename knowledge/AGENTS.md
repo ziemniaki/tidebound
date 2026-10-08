@@ -31,6 +31,10 @@ For any content work, read and apply [the authoring guide](authoring.md).
   Reuse existing subjects before adding new ones; fold standalone repeated facts
   into their owners. Give relationship qualifiers one `description` string
   directly on the link, including source-section notes. No wrapper object for prose.
+  Read descriptions and incoming/outgoing links together: give a relationship
+  one account, not paraphrases in both biographies and link descriptions. Leave
+  links bare when a scene already explains the interaction; retain any unique
+  conditions and proposed/established distinctions on the surviving account.
 - Creature work should connect ecology, encounter behavior, raising and evolution.
   Use optional `moves` entries with `name` and `description` for defining techniques;
   check availability against native data. Keep individual starting kits distinct

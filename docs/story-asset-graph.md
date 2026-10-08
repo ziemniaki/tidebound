@@ -44,6 +44,7 @@ together without requiring three independently maintained accounts of the event.
 | Finding | Refinement |
 | --- | --- |
 | Most links led to sources while important story participants were disconnected. | Connect scenes, objects, people, places and conditional outcomes. A citation cannot substitute for a world relationship. |
+| Entity descriptions retold the same relationships as their links. | Keep personal characteristics on the entity and each relationship's account on its link. Where a scene owns the interaction, use bare links instead of repeating its synopsis. |
 | Small lore nodes repeated Mother’s role, an evolution rule, a minigame boundary or a line of item history. | Keep these facts with their subjects; reserve independent lore records for truths or beliefs that connect several subjects. |
 | Visual dictionaries and relationship qualifiers accumulated slightly different labels. | Use one `design` description across subjects and one relationship `description` for prose qualifiers. Write source-section notes in the link description; keep useful structured values such as creature dimensions. |
 | Sequence fields proliferated and a chapter’s order implied a rigid route. | Reuse ordered beats, with optional actions and branches explained in their text. Scene membership links do not mean mandatory progression. |

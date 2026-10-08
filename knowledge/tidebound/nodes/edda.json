@@ -16,7 +16,7 @@
       "to": "docks"
     },
     {
-      "description": "A resident near the ring speaks about her retired working companion.",
+      "description": "Stands near the ring.",
       "kind": "associated_with",
       "to": "harbour_ring"
     },

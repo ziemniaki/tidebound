@@ -7,12 +7,12 @@
       }
     ]
   },
-  "description": "Sella mends nets and teaches Pell to explain what holds a knot before accepting the work. Her missing wooden shuttle belonged to her brother, who lost two fingers to a winch and taught himself the work again. She resists turning his injury into an entertaining story for the ring crowd: he mostly called it inconvenient. Returning the shuttle earns his much-repaired scarf, which still does its work. Neither his current whereabouts nor his death is established.",
+  "description": "Sella mends nets. Her missing wooden shuttle belonged to her brother, who lost two fingers to a winch and taught himself the work again. She resists turning his injury into an entertaining story for the ring crowd: he mostly called it inconvenient. Returning the shuttle earns his much-repaired scarf, which still does its work. Neither his current whereabouts nor his death is established.",
   "id": "sella",
   "kind": "character",
   "links": [
     {
-      "description": "Teaches him to undo and understand knots; his work must safely bear weight.",
+      "description": "Teaches Pell to undo and explain what holds a knot before accepting his work; the finished net must safely bear a person’s weight.",
       "kind": "associated_with",
       "to": "pell"
     },

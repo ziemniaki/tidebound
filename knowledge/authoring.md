@@ -66,6 +66,14 @@ visits, refusal, retry and alternative routes where they actually exist.
 
 Facts have an owner. Scenes show when and how a player encounters them; other
 records can summarize enough for orientation without copying the whole account.
+Read an entity's description and its links together. Keep the subject's own
+characteristics in its description and the particular relationship on its link;
+do not paraphrase the same account in both. Sella's description can say she mends
+nets; her link to Pell owns how she teaches him. Read incoming links as well, so
+Pell's biography need not repeat that lesson. If a scene already owns the full
+interaction, its participant links can be bare. Add a link description only for
+meaning or a condition that would otherwise be missing. Preserve proposed status,
+reveal timing and other qualifications wherever the surviving account lives.
 A source link identifies evidence to inspect. Keep source paths on source records,
 with useful sections in `sourced_from` link descriptions, rather than code
 manifests on people.

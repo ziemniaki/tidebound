@@ -33,12 +33,11 @@
   "kind": "scene",
   "links": [
     {
-      "description": "Harker’s borrowed tin was intended for its lanterns. Returning it requires no bout.",
       "kind": "associated_with",
       "to": "harbour_ring"
     },
     {
-      "description": "The manifest names the island as the cargo’s destination; completing this job does not implement the voyage.",
+      "description": "Completing this errand does not make the voyage playable.",
       "kind": "associated_with",
       "to": "psyduck_island"
     },

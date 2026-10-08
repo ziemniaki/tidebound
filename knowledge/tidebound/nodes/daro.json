@@ -7,12 +7,12 @@
       }
     ]
   },
-  "description": "Daro hurt his shoulder unloading the Salt Thread. The clerk kept him on to count instead of lift. He compares island supplies against a manifest and asks the child to inspect the labels along the waterfront. When the oil count is short, he remembers Harker carrying something toward the ring and asks for a quiet conversation rather than a fight. Recovering the sealed tin lets him see counting as useful work and the island as a place whose windows need light.",
+  "description": "Daro hurt his shoulder unloading the Salt Thread. The clerk kept him on to count instead of lift. He compares island supplies against a manifest and asks the child to inspect the labels along the waterfront. Recovering the sealed tin lets him see counting as useful work and the island as a place whose windows need light.",
   "id": "daro",
   "kind": "character",
   "links": [
     {
-      "description": "Asks the protagonist to recover an island oil tin Harker borrowed for the ring, without a fight.",
+      "description": "When the island oil count is short, Daro recalls Harker carrying something toward the ring and asks the child to speak with him quietly. He wants the tin back, not a fight.",
       "kind": "associated_with",
       "to": "harker"
     },

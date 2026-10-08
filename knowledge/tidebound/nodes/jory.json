@@ -7,12 +7,12 @@
       }
     ]
   },
-  "description": "A sailor who once carried passengers now carries their letters. His watch is about to start, leaving an envelope for Irena undelivered. He asks that it remain sealed and, after entrusting it to the child, immediately says that her daughter is alive. Later he explains that the daughter pays for a reply before writing her own letter. His attention is to getting people news and a means to answer, not discovering the contents for himself.",
+  "description": "A sailor who once carried passengers now carries their letters. His attention is to getting people news and a means to answer, not discovering the contents for himself.",
   "id": "jory",
   "kind": "character",
   "links": [
     {
-      "description": "Carries letters from her daughter inland; asks the protagonist to complete this delivery before his watch starts.",
+      "description": "Carries letters from Irena’s daughter inland. His watch is about to start, so he entrusts this sealed envelope to the child and immediately reassures them that the daughter is alive. She pays for a reply before writing her own letter.",
       "kind": "associated_with",
       "to": "irena"
     },
