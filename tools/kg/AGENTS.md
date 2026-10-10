@@ -23,7 +23,9 @@ from `tools/tidebound_dev/`; gameplay stays in its native engine.
   language, scenario simulator, approval engine or generation queue.
 - The graph describes the entire game design, including behavior and assets.
   Use meaningful entities and relationships, readable dossiers and structured
-  `data`. Tidebound content follows [its authoring guide](../../knowledge/authoring.md).
+  `data`. Prefer a specific property or relationship when it fits the fact; use
+  `description` for remaining narrative and facts without a suitable property.
+  Do not duplicate structured values in prose. Tidebound content follows [its authoring guide](../../knowledge/authoring.md).
   Add a new kind as data, without changing Python code. Do not add per-kind schemas
   or mandatory scope/status metadata. Omit `data` on entities and relationships
   without extra properties. Put relationship prose directly in the optional

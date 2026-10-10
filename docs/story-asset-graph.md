@@ -14,9 +14,13 @@ metadata or entity types does not create that depth.
 | Structure | Responsibility |
 | --- | --- |
 | Entity: `id`, `kind`, `name`, `description` | An independently meaningful subject and a readable account of it. A kind is a label, not an inheritance hierarchy. |
-| Optional `data` | Content that benefits from a distinct value: design prose, dialogue, ordered beats, author questions, dimensions or types. No required per-kind template. |
-| Relationship: `kind`, `to`, optional `description` | A meaningful connection between subjects. A description can explain its timing, reason or condition. |
+| Optional `data` | The preferred home for facts with a suitable specialist property: design prose, dialogue, abilities, ordered beats, questions, dimensions or types. No required per-kind template. |
+| Relationship: `kind`, `to`, optional `description` and specialist `data` | A meaningful connection between subjects. A description can explain its timing, reason or condition. |
 | Source entity and `sourced_from` relationship | Where an imported claim or quotation can be checked; useful source sections can qualify the link. |
+
+Prefer a suitable specialist property or relationship over the main description.
+Use `description` for remaining narrative and facts without a suitable home; do
+not repeat structured values there. Specialist properties may themselves be prose.
 
 Dialogue entries use `context` and `text`, with speakers and line breaks inside
 the text. Imported exchanges cite source entities through links. Relationship
@@ -131,15 +135,17 @@ Further coverage should be driven by playable situations:
 | What persists on returning, after failure, or with a different companion? | Consequences and a few meaningful variations of the scene, not a combinatorial route catalog. |
 | What makes the subject recognizable in play? | Design prose, movement and sound direction, readable scale and distinct interaction cues; references to actual assets when available. |
 
-The first creature extension adds only one content convention: optional `moves`
-entries with `name` and `description`. Availability, effect and design relevance
-fit in that description. Keep shared mechanics in an independent record only when
-several subjects need to reference and develop the same rule. Do not add a move
+Creature `moves` entries use `name`, an optional known learning `level`, and
+`description` for effects and design relevance. Named abilities belong in
+`abilities`; known evolution thresholds and encounter ranges belong on their
+links. Gastly demonstrates these specialist properties without a required form.
+Keep shared mechanics in an independent record only when several subjects need to reference and develop the same rule. Do not add a move
 node for every stock attack or an empty diet/breeding/temperament form to each species.
 
 These are missing designs, not missing mandatory fields. A new property earns its
 place when it helps a concrete use, such as comparing dimensions, preserving a
-conversation’s order or keeping alternatives distinct. Otherwise use prose.
+conversation’s order or keeping alternatives distinct. Reuse a suitable property
+first; use description prose when none fits.
 Quiet details can create familiarity, humor or atmosphere without a plot payoff.
 
 ## Time, knowledge and uncertainty

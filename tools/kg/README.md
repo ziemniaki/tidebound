@@ -214,9 +214,11 @@ null values inside meaningful data are preserved. Existing local databases adopt
 this field definition when the CLI connects; existing empty objects can be cleared
 with `UPDATE entity UNSET data WHERE data = {};` and the same query for `link`.
 
-Kinds and `data` are ordinary content, not a fixed game schema. Start with prose;
-use objects and arrays for things such as dialogue, scene order and questions
-with options. No scope, status or implementation fields are required. Tidebound’s
+Kinds and `data` are ordinary content, not a fixed game schema. Prefer specific
+properties and relationships for facts they express well; use `description` for
+remaining narrative or facts without a suitable property. Specialist values can
+be prose, numbers, lists or small objects. Reuse conventions, omit unused fields,
+and avoid repeating their contents in the main description. No scope, status or implementation fields are required. Tidebound’s
 [authoring guide](../../knowledge/authoring.md) explains useful dossiers, dialogue,
 design prose, branching beats and how to separate established lore from proposals. An outgoing link
 is identified by its source, kind and target; it may carry additional structured

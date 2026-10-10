@@ -8,26 +8,43 @@ written here without implementing it in the game.
 ## A small vocabulary
 
 Records use `id`, `kind`, `name`, `description`, `links`, and optional `data`.
-Kinds are useful labels, not classes with required forms. Use prose until a list,
-number or small object makes something easier to understand or use.
+Kinds are useful labels, not classes with required forms. Put each fact in the
+most specific useful property or relationship available. Reuse existing conventions
+before adding a property for a concrete need. Use `description` for narrative
+context and information that has no suitable specialist home; it is the flexible
+fallback, not a copy of every field and link.
+
+Specialization does not require elaborate structure. `design` can be one prose
+string, `types` a list, and a known move-learning `level` a number. A useful new
+property needs neither a Python schema nor matching empty fields on other entities.
+Keep related prose together when splitting it would add labels without meaning.
+Preserve uncertainty and conditions on the fact itself rather than forcing a
+qualified statement into an unconditional value.
+
+Gastly is a worked example: appearance belongs in `design`, typing in `types`,
+Levitate in `abilities`, and each selected move's learning level on that move.
+Evolution belongs on `evolves_into`; current encounter methods and level ranges
+belong on `found_in`. The main description need not repeat any of them. Compare
+move levels with encounter ranges when needed instead of maintaining a second
+account of the same numbers.
 
 | Content | Useful shape |
 | --- | --- |
-| Identity, life, motives, ecology, history and rules | Connected paragraphs in `description`. |
+| Narrative context and facts without a suitable specialist property | Connected paragraphs in `description`; do not repeat properties or relationships. |
 | Appearance and asset direction | One `data.design` string, for any subject. Describe actual form, materials, color, movement and relevant constraints together. |
 | A scene or a longer arc | Ordered `data.beats`. A beat is normally a sentence; a branching beat can have a `description` and `options`, each with a `description` of the action and consequence. |
 | What persists after a scene | Plain `data.consequences` when this needs explanation beyond the beats. |
 | Dialogue | Exchanges with only `context` and `text`. Write speaker names and line breaks inside the text; cite existing dialogue through `sourced_from` links. |
 | An unresolved author decision | `data.questions`, each with `question` and optional `options` containing `description`. |
-| Useful exact properties | Ordinary values such as species `types`, `height_m` and `weight_kg`. Add them because they matter, not because another record has them. |
-| Defining moves | Optional `data.moves`: a selection of `{name, description}` objects explaining availability, effect and why the move matters to this creature. |
+| Useful exact properties | Ordinary values such as species `types`, `abilities`, `height_m` and `weight_kg`. Add them because they matter, not because another record has them. |
+| Defining moves | Optional `data.moves`: a selection of `{name, level?, description}` objects. Use a known learning level as a number; prose explains effects, other acquisition conditions and why the move matters. |
 
 These are conventions for content that benefits from them, not mandatory fields
 or new database types. A species may need dimensions; a remembered person may
 need only a paragraph. Omit empty data. Keep a coherent passage together instead
-of dividing it into `motivation`, `contradiction`, `role`, `voice` and other labels
-that an LLM can already understand from the prose. Lists of useful observed habits
-are fine; do not duplicate them as a second biography.
+of dividing it into arbitrary labels. Use a specialist property when it identifies
+a meaningful subject that can be read or edited independently. Lists of useful
+observed habits are fine; do not duplicate them as a second biography.
 
 No scope/status/development badges, audience lists, confidence scores, search
 copies or source hashes. Describe playable extent once on the chapter, and explain
@@ -66,9 +83,9 @@ visits, refusal, retry and alternative routes where they actually exist.
 
 Facts have an owner. Scenes show when and how a player encounters them; other
 records can summarize enough for orientation without copying the whole account.
-Read an entity's description and its links together. Keep the subject's own
-characteristics in its description and the particular relationship on its link;
-do not paraphrase the same account in both. Sella's description can say she mends
+Read an entity's description, data and links together. Keep characteristics in
+their suitable properties, remaining narrative in the main description, and each
+particular relationship on its link. Do not paraphrase the same account in both. Sella's description can say she mends
 nets; her link to Pell owns how she teaches him. Read incoming links as well, so
 Pell's biography need not repeat that lesson. If a scene already owns the full
 interaction, its participant links can be bare. Add a link description only for
@@ -138,14 +155,15 @@ Do not invent biology to explain every supernatural mystery.
 When developing a creature, consider how a player encounters it, recognizes its
 behavior, approaches or avoids it, and lives with it after recruitment. Diet,
 shelter, social behavior, warning signs, ordinary variation, care and relationships
-with other species can supply useful detail. Develop the relevant ones together
-in prose; these are not fields to fill for every species. Describe something a
+with other species can supply useful detail. Use suitable specialist properties
+for these subjects when they have concrete content; prose within them can preserve
+nuance. These are not fields to fill for every species. Describe something a
 scene can show. Regional Wurmple’s proposed clipped leaf edges and anchored silk
 are encounter clues; Frostcoon’s proposed reaction to a shaken branch can support
 care without inventing a hidden affection meter.
 
-Evolution needs both the established condition on an `evolves_into` link and an
-account of what changes: movement, size, behavior, battle role and what remains
+Evolution needs the established condition on an `evolves_into` link (for example,
+`data.level: 25` for a known level threshold) and an account of what changes: movement, size, behavior, battle role and what remains
 recognizable about the individual. Include known intermediate stages. Do not
 invent a target node for an unnamed future stage; put that decision on the last
 known stage. A level threshold does not establish a biological explanation or a
@@ -153,11 +171,11 @@ new ritual. Explain important inherited-move changes, such as Frostcoon replacin
 attacks with support moves, where they affect the raising experience.
 
 Keep `moves` selective, not a second complete learnset. For example:
-`{"name": "Wish", "description": "Level 10. Delayed healing can reach a teammate switched into Frostcoon’s position."}`
+`{"name": "Wish", "level": 10, "description": "Delayed healing can reach a teammate switched into Frostcoon’s position."}`
 Check availability and effects against the pinned native version and authored
 overrides, not recollection of another Pokémon game. Explain useful ability
-interactions and limitations in prose. Distinguish a move present in a species
-list from one actually learned by an individual. Maku’s starting Foresight and
+interactions and limitations alongside the relevant ability or move. Distinguish
+a move present in a species list from one actually learned by an individual. Maku’s starting Foresight and
 Wick’s early Night Shade are authored individual choices; evolution need not
 erase them. The game still owns exact balance and complete compatibility tables.
 
@@ -167,7 +185,10 @@ does not create a day/night cycle. Equally, a native Habitat label, inherited cr
 or stock Pokédex story need not be intentional regional design. Record meaningful
 mismatches as questions, without silently changing the game to fit the prose.
 Acquisition links describe actual or explicitly planned encounters, separately
-from proposed ecological ranges. An evolved creature need not have a wild spawn.
+from proposed ecological ranges. Use `found_in` link data for known encounter
+`method`, `min_level` and `max_level`, with a direct link description only for
+additional conditions or proposed habitat meaning. An evolved creature need not
+have a wild spawn.
 
 Places need ordinary uses, resources, paths and recognizable sounds. History
 should leave evidence people use, misunderstand, preserve or dispute. Institutions

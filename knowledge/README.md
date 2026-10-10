@@ -59,7 +59,10 @@ direction uses a single `design` description. Dialogue entries use `context` and
 qualifiers use a direct `description`. Scene beats can carry small options
 with action-and-consequence descriptions. Meaningful links connect people, objects,
 places and outcomes, so retrieval returns the situation around a subject. Proposed
-material and real unknowns are marked where they occur.
+material and real unknowns are marked where they occur. Prefer specialist
+properties and relationships over the main description when they fit the fact;
+use description as a flexible fallback, without duplicating those values.
+Gastly is a worked example with abilities, move levels, evolution and encounters.
 
 The earlier audience lists, state declarations, simulation guards/effects and
 seven test routes are removed. Native source and tests own execution. Story

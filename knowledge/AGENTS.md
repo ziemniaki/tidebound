@@ -18,7 +18,11 @@ For any content work, read and apply [the authoring guide](authoring.md).
 - Write useful dossiers and coherent scenes: concrete habits, relationships,
   creature distinctions, contextual dialogue and drawable visual descriptions.
   Keep new invention explicitly proposed. Do not replace unknowns with generic lore.
-- Start with prose. Use structured data for useful details, not a per-kind form.
+- Prefer the most specific useful property or relationship for each fact; reuse
+  existing conventions first. Use `description` when no suitable property exists
+  or for narrative connecting facts. A specialist property can contain prose.
+  Add properties for concrete content, not a mandatory per-kind form, and do not
+  repeat their values in the main description.
   Visual descriptions are a single `data.design` string for any subject. Dialogue
   entries have `context` and `text`, with speakers and line breaks in the text;
   cite existing dialogue through `sourced_from` links. Scene beats can include
@@ -36,7 +40,8 @@ For any content work, read and apply [the authoring guide](authoring.md).
   links bare when a scene already explains the interaction; retain any unique
   conditions and proposed/established distinctions on the surviving account.
 - Creature work should connect ecology, encounter behavior, raising and evolution.
-  Use optional `moves` entries with `name` and `description` for defining techniques;
+  Use optional `moves` entries with `name`, known learning `level`, and
+  `description` for defining techniques;
   check availability against native data. Keep individual starting kits distinct
   from species learnsets, and proposed biology distinct from inherited stock data.
 - No scope/development badges, audience lists, save flags, state-machine expressions,

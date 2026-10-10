@@ -1,13 +1,18 @@
 {
   "data": {
-    "design": "Use the existing Gastly appearance: a dark spherical face suspended inside purple gas, with large eyes and visible fangs. Preserve its stock silhouette and animation; the haunted region introduces no new regional form.",
+    "abilities": [
+      "Levitate"
+    ],
+    "design": "A dark spherical face suspended inside purple gas, with large eyes and visible fangs. The suspended face and gas distinguish it from the more solid, masked and clothlike ghosts sharing its habitats. Use the existing stock silhouette and animation; the haunted region introduces no new regional form.",
     "moves": [
       {
-        "description": "Level 20. Uses the Ghost form of Curse: the user sacrifices HP to place recurring damage on the target. This is available throughout the authored Gastly encounter ranges.",
+        "description": "Uses the Ghost form of Curse: the user sacrifices HP to place recurring damage on the target.",
+        "level": 20,
         "name": "Curse"
       },
       {
-        "description": "Level 24. A Ghost attack strengthened when the target has a status problem. The highest-level cave Gastly can know it; the forest’s level 20–23 encounters have not reached it.",
+        "description": "A Ghost attack strengthened when the target has a status problem.",
+        "level": 24,
         "name": "Hex"
       }
     ],
@@ -16,22 +21,32 @@
       "Poison"
     ]
   },
-  "description": "A stock Ghost/Poison species encountered in both the Hollow Wood and Skull Hollow. Its suspended face and surrounding gas distinguish it from the more solid, masked and clothlike ghosts sharing those routes. Levitate and its Ghost typing shape ordinary battle matchups; it is not a regional water demon.\n\nGastly evolves into Haunter at level 25. The cave also contains wild Haunter at that stage, so encountering the evolved form does not depend on raising a captured Gastly.",
+  "description": "Its presence in the haunted region does not establish a connection to the water demons.",
   "id": "species_gastly",
   "kind": "species",
   "links": [
     {
-      "description": "Level 25.",
+      "data": {
+        "level": 25
+      },
       "kind": "evolves_into",
       "to": "species_haunter"
     },
     {
-      "description": "Existing forest grass encounters at levels 20–23.",
+      "data": {
+        "max_level": 23,
+        "method": "grass",
+        "min_level": 20
+      },
       "kind": "found_in",
       "to": "hollow_wood"
     },
     {
-      "description": "Existing cave encounters at levels 20–24.",
+      "data": {
+        "max_level": 24,
+        "method": "cave",
+        "min_level": 20
+      },
       "kind": "found_in",
       "to": "skull_hollow"
     },

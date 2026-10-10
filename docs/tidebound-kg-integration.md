@@ -23,7 +23,9 @@ The household, regional species and opening scenes now carry concrete descriptio
 behavior, contextual dialogue and visual direction. Later canon and unresolved
 content remain distinct. Simulation actions and routes have been consolidated
 into readable scenes. Decisions sit on their subjects as small questions with
-optional alternatives. Prose carries lore and reveal timing; the graph has no
+optional alternatives. Facts gravitate toward suitable specialist properties and
+relationships; description supplies narrative and flexibility where none fits.
+Prose within any property can carry lore and reveal timing. The graph has no
 per-kind forms, implementation badges or decision lifecycle. Visual design is
 one prose field across subjects. Branching beats reuse small descriptions and
 options; links connect the people, objects, locations and conditional outcomes.
