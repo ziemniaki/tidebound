@@ -1,7 +1,9 @@
-# Tidebound 0.8.13
+# Tidebound 0.8.14
 
-The harbour now has a sheltered Suicune garden and newly detailed ships.
+The island now has local lighting and slow, drifting cloud fog.
 
-- Visit the giant stone Suicune monument, with candles, offerings, flowers and benches.
-- Meet four residents tending the garden and hear their stories.
-- Explore the docks beside a weathered cargo vessel, fishing cutter and wooden skiffs.
+- Lamps and candles reveal nearby scenery with warm light and a broad, faint outer glow.
+- Outdoor darkness varies by location, with a subtle visibility lift around the player.
+- Hollow Wood grows darker toward the north.
+- Soft, translucent fog banks drift across the coast and woods, becoming thicker at intervals.
+- The lighthouse's glow follows its existing lamp-lit state.
