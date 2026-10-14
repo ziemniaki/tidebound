@@ -1,6 +1,6 @@
 # Current status
 
-**Playable baseline:** Demo 1, version 0.8.13. Pokémon Essentials 21.1, pinned
+**Playable baseline:** Demo 1, version 0.8.14. Pokémon Essentials 21.1, pinned
 mkxp-z runtime; universal Mac, Windows x64 and Linux x86_64 releases.
 
 The demo includes the dream opening, lighthouse family and companion choice,
@@ -24,13 +24,13 @@ leads into the nearly lightless Skull Hollow, with looping passages and level
 20–28 Ghost encounters. These areas are optional and substantially more dangerous
 than the opening keys route. Their working names and the skull's origin remain open.
 
-A local-lighting prototype covers the keeper's house, lantern room, opening coast,
+Local lighting covers the keeper's house, lantern room, opening coast,
 Listening Wood, south coast road, docks and Hollow Wood. Lamps and candles reveal surrounding scenery with a warm tint and a broad, faint outer glow;
 the forest darkens northwards while retaining neutral visibility around the player.
 Outdoor light is cold and subdued, with slow, soft cloud banks, occasional thicker fog and a faint player
 visibility lift. Hollow Wood becomes nearly black in the north.
 `uv run play --from lighting/forest` starts an ordinary player without a portable light.
-No handheld lantern is included. The released baseline above is unchanged.
+No handheld lantern is included.
 
 Island voyage gameplay, later Team Abyss chapters, shrine progression, Dive,
 Koga's settlements, late Suicune/sabre story, cemetery finale and endings remain
