@@ -20,7 +20,7 @@ class TideboundWindowLights
   end
   def initialize(map)
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
-    @viewport.z = 1
+    @viewport.z = Tidebound::Lighting.enabled?(map.map_id) ? 3 : 1
     @atlas = Bitmap.new("Graphics/Pictures/Tidebound/window_panes")
     @sprites =
       Tidebound::Presentation::WINDOW_LIGHTS
@@ -62,7 +62,9 @@ EventHandlers.add(
     map = spriteset.map
     map.events.each_value do |event|
       next unless Tidebound::Actors.info(event)["asset"] == "votive_offerings"
-      spriteset.addUserSprite(TideboundVotiveLight.new(map, event))
+      unless Tidebound::Lighting.enabled?(map.map_id)
+        spriteset.addUserSprite(TideboundVotiveLight.new(map, event))
+      end
     end
     next unless Tidebound::Presentation::WINDOW_LIGHTS.key?(map.map_id)
     spriteset.addUserSprite(TideboundWindowLights.new(map))

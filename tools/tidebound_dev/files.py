@@ -40,4 +40,8 @@ def ruby(value):
 
     if isinstance(value, dict):
         return "{" + ", ".join(f"{ruby(k)} => {ruby(v)}" for k, v in value.items()) + "}"
+    if isinstance(value, (list, tuple)):
+        return "[" + ", ".join(ruby(v) for v in value) + "]"
+    if value is None:
+        return "nil"
     return json.dumps(value)

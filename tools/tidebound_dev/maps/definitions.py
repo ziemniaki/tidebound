@@ -2,12 +2,13 @@
 
 from dataclasses import dataclass, field
 from ..catalog import bundles
+from .lighting import validate
 from rubymarshal.classes import Symbol
 
 ATMOSPHERES = {
     "indoor": {"tone": [-8, -14, -25, 12], "fog": "", "opacity": 0, "speed": 1},
-    "night": {"tone": [-80, -74, -48, 150], "fog": "smoke", "opacity": 24, "speed": 1},
-    "haunted": {"tone": [-112, -112, -88, 220], "fog": "smoke", "opacity": 38, "speed": -1},
+    "night": {"tone": [-80, -74, -48, 150], "fog": "coastal_mist", "opacity": 110, "speed": 1},
+    "haunted": {"tone": [-112, -112, -88, 220], "fog": "coastal_mist", "opacity": 150, "speed": -1},
     "lightless": {"tone": [-168, -172, -160, 230], "fog": "", "opacity": 0, "speed": 1},
     "astral": {"tone": [-55, -46, -20, 160], "fog": "smoke", "opacity": 95, "speed": -2},
     "hideout": {"tone": [-35, -32, -25, 95], "fog": "", "opacity": 0, "speed": 1},
@@ -27,6 +28,7 @@ class MapDefinition:
     order: int | None = None
     encounters: dict = field(default_factory=dict)
     wild_forms: dict[str, int] = field(default_factory=dict)
+    lighting: dict = field(default_factory=dict)
     atmosphere: str = "indoor"
     battleback: str = "field"
     environment: str = "None"
@@ -35,6 +37,7 @@ class MapDefinition:
     origin: tuple[int, int] = (0, 0)
 
     def __post_init__(self):
+        validate(self.lighting)
         keys = [v["key"] for v in self.actor_settings.values() if v.get("key")]
         if len(set(keys)) != len(keys):
             raise ValueError(f"Map {self.id}: duplicate actor identity")
@@ -90,7 +93,12 @@ class MapDefinition:
         }
 
     def runtime_settings(self):
-        return {**ATMOSPHERES[self.atmosphere], "night": self.night, "origin": self.origin}
+        return {
+            **ATMOSPHERES[self.atmosphere],
+            "night": self.night,
+            "origin": self.origin,
+            "lighting": self.lighting,
+        }
 
 
 def load(root):

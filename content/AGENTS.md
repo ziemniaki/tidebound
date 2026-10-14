@@ -50,6 +50,7 @@ An image does not set collision, and filenames do not select gameplay behavior.
 Static props share `presentation/props.rb`; flicker and quest transitions stay
 with their feature. `load_prop` owns/disposes its bitmap; never pass it cached art.
 Tile sheets (`tilesets/<name>/image.png`), IDs, collision and light masks follow
-the [map guide](maps/AGENTS.md). Shared UI/effect images use `ui/` and `effects/`.
+the [map guide](maps/AGENTS.md). Shared UI/effect images use `ui/` and `effects/`; seamless fog textures use `fogs/`
+and the native scrolling fog plane.
 Keep concepts and working files in root `references/`, and external attribution
 in [credits](../docs/credits.md).

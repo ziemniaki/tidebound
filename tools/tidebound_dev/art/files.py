@@ -36,6 +36,8 @@ def exports(root):
     for category in ("ui", "effects"):
         for source in sorted((content / category).glob("*.png")):
             yield Export(source, f"game/Graphics/Pictures/{category}/{source.name}")
+    for source in sorted((content / "fogs").glob("*.png")):
+        yield Export(source, f"game/Graphics/Fogs/{source.name}")
     for category, destination in AUDIO.items():
         for source in sorted((content / "audio" / category).glob("*.ogg")):
             yield Export(source, f"game/Audio/{destination}/{source.name}")

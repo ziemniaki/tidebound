@@ -73,3 +73,8 @@ OpenAI's built-in image tool. Suicune remains an existing Pokémon design with t
 original attribution above. Approved source pixels are in
 content/props/{suicune_monument,votive_offerings,park_bench}; full prompts are recorded in
 references/suicune_park/art_direction.md.
+
+Coastal mist: white-grey cloud texture generated and refined with OpenAI’s built-in
+image tool. Source pixels: content/fogs/coastal_mist.png. Prompts and integration
+notes: references/coastal_mist/art_direction.md. The earlier original procedural
+streak texture is retained at content/fogs/light_shafts.png for future locations.

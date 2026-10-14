@@ -12,7 +12,7 @@ const suites = {
     h.loadEngine();
     h.loadData();
     h.ruby('tests/support/world_services.rb');
-    h.engine('SaveData', 'SaveData_Value', 'PokemonBag', 'Interpreter', 'Game_SaveValues');
+    h.engine('SaveData', 'SaveData_Value', 'PokemonBag', 'Interpreter', 'Game_SaveValues', 'Item_Utilities');
     h.ruby('tests/support/integration_services.rb');
     h.production();
     h.checkScripts();
@@ -20,7 +20,7 @@ const suites = {
     h.ruby('tests/support/scene_services.rb');
     h.ruby('tests/support/story_helpers.rb');
     for (const suite of [
-      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'scenes', 'regional_snakes', 'harbour'
+      'companions', 'opening', 'neighbor', 'hideout', 'interaction', 'world', 'scenes', 'regional_snakes', 'harbour', 'lighting'
     ]) h.ruby(`tests/gameplay/${suite}.rb`);
   },
   presentation(h) {

@@ -5,6 +5,7 @@ import json
 from rubymarshal.reader import loads
 from rubymarshal.writer import writes
 from .definitions import load
+from .lighting import validate_map
 from .data import native_map, read
 from . import scenery, tilesets
 from .model import obj
@@ -25,6 +26,7 @@ class AuthoredMap:
             raise ValueError(f"Map {self.id}: map dimensions disagree with tile data")
         self.layers = [rows[i * self.h : (i + 1) * self.h] for i in range(3)]
         self.events = fields["@events"]
+        validate_map(definition.lighting, self.w, self.h, self.events)
         for eid, event in self.events.items():
             if eid in definition.retired_event_ids:
                 raise ValueError(f"Map {self.id}: event {eid} reuses a retired ID")

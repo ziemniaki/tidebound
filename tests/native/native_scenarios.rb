@@ -128,6 +128,7 @@ module NativeScenarios
     sources = Dir.glob("NativePBS/pokemon*.txt").map { |path| File.expand_path(path) }
     raise "Species scenario requires PBS inputs" if sources.empty?
     # The shipped Linux tree is read-only. Compile into the isolated save area.
+    item_sources = Dir.glob("NativePBS/items*.txt").map { |path| File.expand_path(path) }
     destination = File.join(System.data_directory, "pbs-check")
     Dir.mkdir(destination)
     Dir.mkdir(File.join(destination, "Data"))
@@ -135,6 +136,11 @@ module NativeScenarios
       Compiler.compile_pokemon(*sources.reject { |path| path =~ /pokemon_(forms|metrics)/ })
       Compiler.compile_pokemon_forms(*sources.select { |path| path.include?("pokemon_forms") })
       Compiler.compile_pokemon_metrics(*sources.select { |path| path.include?("pokemon_metrics") })
+      Compiler.compile_items(*item_sources)
+    end
+    Tidebound::Lighting::ITEM_LIGHTS.each_key do |id|
+      item = GameData::Item.get(id)
+      raise "Item lighting PBS lost direct use" unless item.field_use == 2 && !item.consumable
     end
     actual = content_snapshot(inventory)
     changed = []
@@ -194,6 +200,56 @@ module NativeScenarios
     $PokemonGlobal.surfing = surfing
   end
 
+  def lighting(output)
+    Tidebound::World.travel(:lantern, 6, 6)
+    Tidebound.story[:lamp_lit] = false
+    capture(output, "lamp-off")
+    renderer =
+      ObjectSpace
+        .each_object(Tidebound::Lighting::Renderer)
+        .find { |r| !r.disposed? && r.instance_variable_get(:@map) == $game_map }
+    raise "Active map has no lighting renderer" unless renderer
+    bitmap = renderer.instance_variable_get(:@dark).bitmap
+    before = bitmap.raw_data
+    Tidebound.story[:lamp_lit] = true
+    capture(output, "lamp-on")
+    after = bitmap.raw_data
+    revealed = (3...before.bytesize).step(4).count { |i| after.getbyte(i) < before.getbyte(i) - 20 }
+    raise "Lighthouse fails to illuminate surrounding scenery" if revealed < 200
+    Tidebound::World.travel(:haunted_forest, :skull)
+    capture(output, "forest-player-light")
+    renderer =
+      ObjectSpace
+        .each_object(Tidebound::Lighting::Renderer)
+        .find { |r| !r.disposed? && r.instance_variable_get(:@map) == $game_map }
+    timings = []
+    24.times do |i|
+      $game_player.moveto(24 + i % 2, 15)
+      $scene.updateSpritesets
+      timings << renderer.last_render_ms
+    end
+    puts "Lighting render ms: median=#{timings.sort[12].round(2)}, max=#{timings.max.round(2)}"
+    mist =
+      ObjectSpace
+        .each_object(Tidebound::Presentation::CoastalMist)
+        .find { |m| !m.disposed? && m.instance_variable_get(:@map) == $game_map }
+    raise "Coastal mist missing in Hollow Wood" unless mist
+    planes = mist.instance_variable_get(:@planes)
+    positions = planes.map(&:ox)
+    densities = planes.map(&:opacity)
+    60.times do
+      Graphics.update
+      Input.update
+      $scene.updateSpritesets
+    end
+    raise "Mist does not move" if planes.map(&:ox) == positions
+    raise "Mist density stays fixed" if planes.map(&:opacity) == densities
+    Tidebound::World.travel(:home, 10, 8)
+    raise "Previous renderer survived map disposal" unless renderer.disposed?
+    raise "Outdoor mist survived entering a house" unless mist.disposed?
+    puts "PASS: native local illumination, lighthouse on/off, player movement, map disposal and RGBA upload"
+  end
+
   def world(output)
     spec = load_data("NativeStart.rxdata")
     entered = false
@@ -237,6 +293,7 @@ module NativeScenarios
       Tidebound::World.travel(name, x, y)
       capture(output, name)
     end
+    lighting(output)
     dock_ring(output)
     dock_park(output)
     pond_path(output)

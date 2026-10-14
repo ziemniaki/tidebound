@@ -13,7 +13,7 @@ def select(root, name):
     kind, separator, identifier = name.partition("/")
     if not separator or not identifier:
         raise ValueError(
-            "Preview expects pokemon/ID, actors/name, items/ID, trainers/ID, props/name, ui/name, effects/name or audio/category/name"
+            "Preview expects pokemon/ID, actors/name, items/ID, trainers/ID, props/name, ui/name, effects/name, fogs/name or audio/category/name"
         )
     record = {"kind": kind, "name": identifier}
     if kind == "pokemon" and identifier in bundles(root, "pokemon", "species.json"):
@@ -33,6 +33,7 @@ def select(root, name):
         "trainers": ("trainers", "Graphics/Trainers"),
         "ui": ("pictures", "Graphics/Pictures/ui"),
         "effects": ("pictures", "Graphics/Pictures/effects"),
+        "fogs": ("pictures", "Graphics/Fogs"),
     }
     if kind == "audio":
         category, _, identifier = identifier.partition("/")

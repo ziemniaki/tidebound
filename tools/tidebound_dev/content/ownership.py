@@ -28,6 +28,7 @@ def inventory(root):
         "game/PBS/trainer_types_tidebound_story.txt",
         "game/PBS/encounters_tidebound.txt",
         "src/generated/wild_forms.rb",
+        "src/generated/item_lights.rb",
     ]
     files += [f"game/Data/Map{i:03}.rxdata" for i in maps]
     return {

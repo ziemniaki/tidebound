@@ -39,5 +39,20 @@
       "role": "prop",
       "asset": "memorial"
     }
+  },
+  "lighting": {
+    "ambient": 22,
+    "tone": [-12, -6, 0, 155],
+    "north_fade": {
+      "from_y": 49,
+      "to_y": 17,
+      "ambient": 7
+    },
+    "player": {
+      "radius": 2.6,
+      "strength": 0.22,
+      "softness": 1
+    },
+    "sources": []
   }
 }

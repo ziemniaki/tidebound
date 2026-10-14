@@ -41,5 +41,34 @@
     "7": {
       "cue": "north"
     }
+  },
+  "lighting": {
+    "ambient": 28,
+    "tone": [-16, -9, 0, 125],
+    "player": {
+      "radius": 2.6,
+      "strength": 0.12,
+      "softness": 1
+    },
+    "sources": [
+      {
+        "event": 2,
+        "radius": 3.2,
+        "strength": 0.68,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "offset": [0, -8]
+      },
+      {
+        "event": 2,
+        "radius": 5.76,
+        "strength": 0.2,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "offset": [0, -8]
+      }
+    ]
   }
 }

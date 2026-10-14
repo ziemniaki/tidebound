@@ -67,5 +67,70 @@
     "22": {
       "role": "coast_lamp"
     }
+  },
+  "lighting": {
+    "ambient": 36,
+    "tone": [-16, -9, 0, 125],
+    "player": {
+      "radius": 2.6,
+      "strength": 0.08,
+      "softness": 1
+    },
+    "sources": [
+      {
+        "event": 14,
+        "radius": 2.8,
+        "strength": 0.68,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "offset": [0, -18]
+      },
+      {
+        "event": 14,
+        "radius": 5.04,
+        "strength": 0.2,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "offset": [0, -18]
+      },
+      {
+        "event": 15,
+        "radius": 2.8,
+        "strength": 0.68,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "offset": [0, -18]
+      },
+      {
+        "event": 15,
+        "radius": 5.04,
+        "strength": 0.2,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "offset": [0, -18]
+      },
+      {
+        "event": 22,
+        "radius": 2.8,
+        "strength": 0.68,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "offset": [0, -18]
+      },
+      {
+        "event": 22,
+        "radius": 5.04,
+        "strength": 0.2,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "offset": [0, -18]
+      }
+    ]
   }
 }

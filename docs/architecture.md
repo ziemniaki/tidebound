@@ -20,6 +20,7 @@ bundles by their conventional filenames, without another registration list.
 | `content/maps/<name>/map.json` + `layout.json` | Layout, native event pages, entrances and encounters | Native maps, metadata and encounters |
 | `content/audio/{music,ambience,effects,cues}/` | Approved Ogg playback files | `Audio/{BGM,BGS,SE,ME}/` respectively |
 | `content/ui/`, `content/effects/` | Shared UI and effect PNGs | Corresponding subdirectories of `Graphics/Pictures/` |
+| `content/fogs/` | Seamless mist PNGs | `Graphics/Fogs/` |
 | `content/tilesets/` | Fixed native tile sheets, flags and light masks | Tilesets and lighting |
 
 Use **lower_snake_case** for authored directories and ordinary filenames. Engine
@@ -124,3 +125,66 @@ Loose executable libraries stay untracked. The shared player staging pipeline
 copies only native runtime files; platform adapters own layout, signing and
 permissions. Release builds add archive round-trip verification. Publication and
 native verification requirements live in [releasing](releasing.md).
+
+## Local lighting prototype
+
+`presentation/lighting.rb` owns the screen light field. Selected maps opt in through
+`map.json::lighting`; other maps retain their existing atmosphere. Ambient brightness
+and local visibility are independent from the map's colour tone. Local illumination
+reveals the original scene rather than painting an opaque glow over it. Warm colour
+adds a small tint after illumination; overlapping lights approach full visibility
+without adding unbounded brightness. UI viewports remain above the light field.
+
+Authoring controls:
+
+| Property | Units and meaning |
+| --- | --- |
+| `ambient` | 0–100 brightness; 100 leaves scenery undimmed |
+| `tone` | Native `[red, green, blue, grey]` atmosphere; avoid using large negative values as a second darkness layer |
+| `player` | Neutral visibility source; same radius/strength/softness controls as other lights |
+| `sources` | Lights anchored to an explicit `event` ID or fixed `position: [x, y]` in tiles |
+| `radius`, `strength`, `softness` | Tiles, 0–1 contribution, and 0.1–1 fraction devoted to smooth edge falloff |
+| `color`, `stretch` | RGB warmth and ellipse proportions, default white and `[1, 1]` |
+| `offset`, `flicker` | Pixel offset from event centre; subtle source-strength variation, 0–0.1 |
+| `flag` | Optional story key controlling whether a placed source is lit |
+| `bounds`, `blockers` | Tile rectangles `[x, y, width, height]`; room/source limits and opaque barriers |
+| `north_fade` | Smooth ambient gradient from `from_y` to a northern `to_y`, with target `ambient` |
+
+Lamps use two sources on the same event: the existing bright core and a wider,
+weak source with full smooth falloff. The outer source reaches 1.8 times the core
+radius at strength 0.20 (0.12 for small candles). Both share the event, offset,
+colour, story flag and room bounds. Adjust either record independently. Player
+visibility and ambient brightness do not use this lamp spill.
+
+Light blockers are authored independently of walking collision. Water, chairs and
+small props are not implicitly opaque. Put sources in front of a wall, not inside
+its blocker. Source bounds override room bounds. This prototype does not provide
+height-aware shadows, beams or automatically inferred tree/building silhouettes.
+
+An item's optional `item.json::light` record uses the same source properties.
+The item compiler generates `Lighting::ITEM_LIGHTS` and native/PBS field-use data.
+Use in the bag toggles an explicitly active item, saved in existing story state;
+ownership alone never lights it. No light-emitting inventory item is currently
+authored: portable lamps, acquisition and fuel are not part of this prototype.
+The `lighting/forest` development scenario uses ordinary player visibility.
+No release-save migration is required.
+
+Outdoor atmosphere presets use `content/fogs/coastal_mist.png` in two native
+planes owned by `presentation/mist.rb`. The layers cross the darkness field at
+low opacity as soft white-grey cloud banks with translucent edges. Different
+scales and slow wind speeds (7 and 3 pixels/second) produce overlapping rounded
+masses. Display scale normalizes source dimensions to 512 pixels; source pixels
+and alpha remain intact. The earlier streak texture is retained as
+`content/fogs/light_shafts.png` for future art direction, unused in current maps. Smooth 24- and 37-second density
+cycles overlap to make occasional thicker banks; entry fades in over 1.5 seconds.
+The existing atmosphere opacity scales both layers (night 110, haunted 150),
+and its speed sets wind direction. Only the active map displays mist. Each
+spriteset owns/disposes its planes, shared bitmap and viewport. Indoors and caves
+stay clear; the existing astral fog retains its native implementation.
+
+The field samples every four world pixels, caches source falloff, culls off-screen
+sources and only uploads changed fields through the bundled runtime's `Bitmap#raw_data=`.
+Each spriteset owns and disposes its bitmaps/viewport. Only the current connected map
+renders a screen mask. Native `world` verification captures the prototype, checks
+lighthouse switching, player movement and disposal, and reports render
+cost. Hardware performance and the final visual balance still need player review.
