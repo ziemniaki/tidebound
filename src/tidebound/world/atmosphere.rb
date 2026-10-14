@@ -10,7 +10,9 @@ module Tidebound::World
     lighting = settings.fetch(:lighting, {})
     tone = lighting.empty? ? settings.fetch(:tone) : lighting.fetch("tone", [0, 0, 0, 60])
     $game_screen.start_tone_change(Tone.new(*tone), 0)
-    $game_map.fog_name = settings.fetch(:fog)
+    fog = settings.fetch(:fog)
+    # CoastalMist owns the moving layers above local darkness; avoid a second veil.
+    $game_map.fog_name = fog == "coastal_mist" ? "" : fog
     $game_map.fog_opacity = settings.fetch(:opacity)
     $game_map.fog_zoom = 160
     $game_map.fog_sx = settings.fetch(:speed)

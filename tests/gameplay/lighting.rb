@@ -1,4 +1,4 @@
-# Exercise the actual light field and real bag/save state, without a graphics double.
+# Exercise the actual light field without a graphics double.
 new_opening
 field = Tidebound::Lighting::Field.new(64, 64, { "ambient" => 20 })
 source = { "radius" => 2, "strength" => 0.8, "color" => [255, 180, 90] }
@@ -33,15 +33,4 @@ unless fade.ambient(10 * 32) < fade.ambient(25 * 32) &&
          fade.ambient(25 * 32) < fade.ambient(40 * 32)
   raise "North fails to get darker"
 end
-$bag.add(:TIDEBOUNDLANTERN)
-raise "Owned lantern is automatically lit" if Tidebound::Lighting.active_item
-raise "Lantern cannot be lit" unless ItemHandlers.triggerUseInField(:TIDEBOUNDLANTERN) == 1
-saved = Marshal.load(Marshal.dump(Tidebound.state))
-raise "Active lantern not saved" unless saved.story[:light_item] == :TIDEBOUNDLANTERN
-raise "Lit lantern missing" unless Tidebound::Lighting.active_item
-ItemHandlers.triggerUseInField(:TIDEBOUNDLANTERN)
-raise "Extinguished lantern still active" if Tidebound::Lighting.active_item
-ItemHandlers.triggerUseInField(:TIDEBOUNDLANTERN)
-$bag.remove(:TIDEBOUNDLANTERN)
-raise "Missing item emits light" if Tidebound::Lighting.active_item
-puts "PASS: local illumination, falloff, warm tint, overlap, walls, north gradient and saved item activation"
+puts "PASS: local illumination, falloff, warm tint, overlap, walls and north gradient"

@@ -41,17 +41,17 @@
     }
   },
   "lighting": {
-    "ambient": 34,
-    "tone": [-4, -2, 0, 90],
+    "ambient": 22,
+    "tone": [-12, -6, 0, 155],
     "north_fade": {
       "from_y": 49,
       "to_y": 17,
-      "ambient": 14
+      "ambient": 7
     },
     "player": {
-      "radius": 3.3,
-      "strength": 0.68,
-      "softness": 0.9
+      "radius": 2.6,
+      "strength": 0.22,
+      "softness": 1
     },
     "sources": []
   }

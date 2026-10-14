@@ -35,10 +35,27 @@
         "flag": "lamp_lit"
       },
       {
+        "radius": 10.8,
+        "strength": 0.2,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "event": 1,
+        "flag": "lamp_lit"
+      },
+      {
         "radius": 2.6,
         "strength": 0.8,
         "color": [255, 185, 95],
         "softness": 0.85,
+        "flicker": 0.025,
+        "event": 2
+      },
+      {
+        "radius": 4.68,
+        "strength": 0.2,
+        "color": [255, 185, 95],
+        "softness": 1,
         "flicker": 0.025,
         "event": 2
       }

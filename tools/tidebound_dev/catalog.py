@@ -55,7 +55,7 @@ def validate_names(root):
         "props": {"prop.json", "image.png"},
         "actors": {"character.png"},
     }
-    categories = roles.keys() | {"maps", "audio", "ui", "effects", "tilesets"}
+    categories = roles.keys() | {"maps", "audio", "ui", "effects", "fogs", "tilesets"}
     for path in sorted((root / "content").rglob("*")):
         relative = path.relative_to(root / "content")
         if (
@@ -86,7 +86,7 @@ def validate_names(root):
         if path.is_file() and category in roles:
             if len(relative.parts) != 3 or path.name not in roles[category]:
                 raise ValueError(f"{relative}: expected bundle files {sorted(roles[category])}")
-        if path.is_file() and category in {"ui", "effects", "tilesets"}:
+        if path.is_file() and category in {"ui", "effects", "fogs", "tilesets"}:
             if (
                 path.suffix != ".png"
                 and not (category == "tilesets" and path.name == "tileset.json")

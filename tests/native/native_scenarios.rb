@@ -218,12 +218,6 @@ module NativeScenarios
     raise "Lighthouse fails to illuminate surrounding scenery" if revealed < 200
     Tidebound::World.travel(:haunted_forest, :skull)
     capture(output, "forest-player-light")
-    $bag.add(:TIDEBOUNDLANTERN)
-    unless ItemHandlers.triggerUseFromBag(:TIDEBOUNDLANTERN) == 2
-      raise "Bag cannot activate lantern"
-    end
-    Tidebound::Lighting.toggle_item(:TIDEBOUNDLANTERN)
-    capture(output, "forest-lantern")
     renderer =
       ObjectSpace
         .each_object(Tidebound::Lighting::Renderer)
@@ -235,18 +229,25 @@ module NativeScenarios
       timings << renderer.last_render_ms
     end
     puts "Lighting render ms: median=#{timings.sort[12].round(2)}, max=#{timings.max.round(2)}"
-    raise "Lantern disappeared after movement" unless Tidebound::Lighting.active_item
-    # Real engine save codec preserves activation without touching a player save.
-    saved = Marshal.load(Marshal.dump(SaveData.compile_save_hash))
-    Tidebound.story[:light_item] = nil
-    SaveData.mark_values_as_unloaded
-    SaveData.load_all_values(saved)
-    raise "Lantern activation lost across save/load" unless Tidebound::Lighting.active_item
-    Tidebound::Lighting.toggle_item(:TIDEBOUNDLANTERN)
-    $bag.remove(:TIDEBOUNDLANTERN)
+    mist =
+      ObjectSpace
+        .each_object(Tidebound::Presentation::CoastalMist)
+        .find { |m| !m.disposed? && m.instance_variable_get(:@map) == $game_map }
+    raise "Coastal mist missing in Hollow Wood" unless mist
+    planes = mist.instance_variable_get(:@planes)
+    positions = planes.map(&:ox)
+    densities = planes.map(&:opacity)
+    60.times do
+      Graphics.update
+      Input.update
+      $scene.updateSpritesets
+    end
+    raise "Mist does not move" if planes.map(&:ox) == positions
+    raise "Mist density stays fixed" if planes.map(&:opacity) == densities
     Tidebound::World.travel(:home, 10, 8)
     raise "Previous renderer survived map disposal" unless renderer.disposed?
-    puts "PASS: native local illumination, lighthouse on/off, lantern movement/save, map disposal and RGBA upload"
+    raise "Outdoor mist survived entering a house" unless mist.disposed?
+    puts "PASS: native local illumination, lighthouse on/off, player movement, map disposal and RGBA upload"
   end
 
   def world(output)

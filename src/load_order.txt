@@ -13,6 +13,7 @@ tidebound/features/astral.rb
 tidebound/presentation/sprites.rb
 generated/item_lights.rb
 tidebound/presentation/lighting.rb
+tidebound/presentation/mist.rb
 generated/prop_assets.rb
 tidebound/presentation/props.rb
 tidebound/presentation/title.rb

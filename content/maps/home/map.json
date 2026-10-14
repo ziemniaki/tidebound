@@ -77,10 +77,28 @@
         "offset": [0, -20]
       },
       {
+        "radius": 7.2,
+        "strength": 0.2,
+        "color": [255, 185, 95],
+        "softness": 1,
+        "flicker": 0.025,
+        "event": 14,
+        "offset": [0, -20]
+      },
+      {
         "radius": 3,
         "strength": 0.8,
         "color": [255, 185, 95],
         "softness": 0.85,
+        "flicker": 0.025,
+        "event": 15,
+        "offset": [0, -20]
+      },
+      {
+        "radius": 5.4,
+        "strength": 0.2,
+        "color": [255, 185, 95],
+        "softness": 1,
         "flicker": 0.025,
         "event": 15,
         "offset": [0, -20]

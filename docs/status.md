@@ -24,11 +24,13 @@ leads into the nearly lightless Skull Hollow, with looping passages and level
 20–28 Ghost encounters. These areas are optional and substantially more dangerous
 than the opening keys route. Their working names and the skull's origin remain open.
 
-A local-lighting prototype covers the keeper's house, lantern room, docks and
-Hollow Wood. Lamps and candles reveal surrounding scenery with a warm tint;
+A local-lighting prototype covers the keeper's house, lantern room, opening coast,
+Listening Wood, south coast road, docks and Hollow Wood. Lamps and candles reveal surrounding scenery with a warm tint and a broad, faint outer glow;
 the forest darkens northwards while retaining neutral visibility around the player.
-`uv run play --from lighting/forest` supplies a switchable Hand Lantern for testing.
-Its acquisition is not part of the story. The released baseline above is unchanged.
+Outdoor light is cold and subdued, with slow, soft cloud banks, occasional thicker fog and a faint player
+visibility lift. Hollow Wood becomes nearly black in the north.
+`uv run play --from lighting/forest` starts an ordinary player without a portable light.
+No handheld lantern is included. The released baseline above is unchanged.
 
 Island voyage gameplay, later Team Abyss chapters, shrine progression, Dive,
 Koga's settlements, late Suicune/sabre story, cemetery finale and endings remain
