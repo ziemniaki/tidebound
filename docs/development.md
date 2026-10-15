@@ -156,7 +156,13 @@ focused test with `uv run python -m unittest tests.tooling.test_assets -v`
 (see [testing](../tests/AGENTS.md) for suite boundaries). To generate a portable game specification PDF, run
 `uv run --group docs python -m tidebound_dev.documents.specification`; use `--output /path/to/preview.pdf`
 to choose another destination. The default `specs/game-design.pdf` is ignored;
-commit the Markdown and renderer, not generated PDFs. macOS/Windows use Times New Roman and Arial; Linux needs
+commit the Markdown, referenced screenshots and renderer, not generated PDFs.
+The bible's cover records its own revision and the playable release it covers.
+Standard Markdown image blocks use paths relative to `specs/`; their alternative
+text becomes the PDF caption. Image sections begin on a fresh page and preserve
+the source pixels. The 0.8.14 visual record is stored in
+`specs/images/demo-0.8.14/` and renders through this same command.
+macOS/Windows use Times New Roman and Arial; Linux needs
 Liberation Serif and DejaVu Sans (`fonts-liberation` and `fonts-dejavu-core` on Ubuntu).
 Approved audio files need no composer or encoder dependency. Rebuilding the Mac engine is separate from
 packaging: see [runtime provenance](runtime/macOS.md).

@@ -2,7 +2,8 @@
 
 ## Game bible
 
-**Version 1.32 | 2 October 2026**
+**Version 1.33 | 15 October 2026**
+**Playable baseline: Demo 1, version 0.8.14 | Published 14 October 2026**
 **Creative direction: Wojciech Krzyżanowski**  
 **Working title: Tidebound | Full story spoilers**
 
@@ -10,7 +11,15 @@ A solitary Pokémon journey through a wounded coastal land, where the sea keeps 
 
 This is the consolidated creative record for the whole game. It expands and supersedes the short design record dated 8 September 2026. It preserves established decisions, outlines a playable narrative, and identifies what still needs invention. It describes the intended game, not a claim that these chapters have already been built.
 
-**Playable content and verification:** see the [current status](../docs/status.md). This bible records creative direction; planned chapters are not permission to implement them.
+**Coverage.** This revision consolidates the approved creative direction and playable content through [Demo 1, version 0.8.14](https://github.com/ziemniaki/tidebound/releases/tag/v0.8.14). It includes the dock-city errands and fighting ring, Suicune garden, redrawn harbour vessels, southern pond and concealed trail, northern forest and skull cave, and the final local-lighting and moving-cloud-fog treatment. Bible revision numbers and game release numbers are separate. Section 34 records the 0.8.14 lighting decisions; section 35 contains screenshots from that published release.
+
+**Current playable journey.** The Natu prelude, two false bedrooms and psychic maze lead into the lighthouse household, Pookie's walk and companion choice. The keys and lamp-oil errand, shared pie, stolen necklace, youngsters' hideout and The Mending continue into the lighthouse cellar and vault, first museum visit, and working harbour. Optional harbour jobs, ring challenges, Suicune park conversations, pond exploration, and the Hollow Wood/Skull Hollow route are playable. The captain's offer of passage to Psyduck Island marks Demo 1's endpoint. The existing astral death-and-recovery system is playable; its larger planned story remains future content.
+
+**Current world.** The demo contains 18 authored maps: the keeper's house, ordinary bedroom, lantern room, oil shop, cellar, vault, museum, youngsters' hideout, first false bedroom, folded bedroom, Natu's room maze, Shiohama coast, Listening Wood, South Coast Road including its pond, dock city, Hollow Wood, Skull Hollow and Beyond the Shore. The brief Natu prelude and The Mending are separate scenes rather than additional overworld maps. Section 35 illustrates all 18 maps with 24 selected views.
+
+**Future boundary.** The island voyage, later Team Abyss chapters, shrine progression, Dive, Koga's settlements and disappearance arc, poisoned refuge, Suicune healing and sabre quest, cemetery finale and endings remain planned. A story outline or prototype helper does not establish that those chapters are built. Existing species designs, unresolved lore and intentional mysteries retain their confirmed/proposed/open labels.
+
+**Playable content and verification:** see the [current status](../docs/status.md) and [demo walkthrough](../docs/walkthrough.md). They own current platform, control, save and verification details. This bible records creative direction and its playable manifestation; planned chapters are not permission to implement them.
 
 ### How to read this document
 
@@ -38,6 +47,8 @@ The game bible governs fictional facts, characterisation, emotional intent, and 
 14. Revelation and continuity rules
 15. Art, sound, dialogue, and quest design
 16. Open decisions
+
+Later approved additions cover the vault and museum (20), regional species (21–29), the revised dream opening, working harbour (30), youngsters' hideout (31), southern pond (32), northern forest and skull cave (33), local lighting and cloud fog (34), and the illustrated 0.8.14 record (35).
 
 ## 1. The emotional promise
 
@@ -212,7 +223,7 @@ The region should fold back through earlier places as abilities and knowledge ch
 
 Potential residents include someone who sells lamp oil, a person waiting for a boat that no longer calls, and a neighbour who remembers Mother before the protagonist does. These are roles for development, not final named characters.
 
-**Confirmed opening revision, implemented in prototype 0.4.0.** The player begins in their bedroom playing with Wick the Natu. Mother enters and asks them to come to the main hall. Makuhita is visibly moving boxes while she talks about letting the child explore alone; she pauses to scold his sloppiness sweetly. She suggests taking Pookie the Poochyena for a walk.
+**Current opening, implemented through 0.8.14.** A short Natu prelude leads through the first false bedroom, the larger folded bedroom and Wick's psychic hide-and-seek maze. Mother's call returns the player to their ordinary bedroom; they then go downstairs. These scenes supersede the earlier opening in which Mother physically entered the bedroom. Makuhita visibly moves boxes in the main hall while Mother talks about letting the child explore alone; she pauses to scold his sloppiness sweetly. She suggests taking Pookie the Poochyena for a walk. The opening presents the experience without explaining Natu's projection or Mother's ritual.
 
 Pookie sleeps outside beside the lighthouse. She follows the player for a walk of 100 actual steps around the village. Only if they approach the pier does she bark at an unseen presence and run to its end. Speaking to her there restores following. This implies that she senses Lapras, without showing the player a creature. The detour is optional: the walk can finish without going near the pier. Returning home together after 100 steps completes it; returning without Pookie does not.
 
@@ -229,8 +240,10 @@ flames and the lighthouse visibly illuminate nearby scenery, usually with warm
 light. The player retains a small, softly fading area of visibility; this does not
 mean that they carry a lamp. Hollow Wood becomes substantially darker northwards.
 Ordinary areas should remain readable. Locations and items own adjustable light
-settings. A switchable carried lantern is a prototype for evaluating this system;
-its acquisition, fuel and story role remain open.
+settings. The 0.8.14 player visibility is faint and neutral; no handheld lantern
+or light-emitting inventory item is available. Portable-light acquisition, fuel
+and story role would require a later decision. See section 34 for the final
+brightness, warm outer glow and animated cloud-fog direction.
 
 ### 5.3 The lighthouse and headland
 
@@ -242,7 +255,7 @@ its acquisition, fuel and story role remain open.
 
 Proposed domestic details include drying cloth, an old maintenance routine, an unfinished meal, and a place where the companion habitually waits. Establish Mother's age through everyday action and accumulated knowledge, not only through cryptic speeches.
 
-**Confirmed vault seed.** The lighthouse contains an unusually large secure vault. The protagonist first hears of it when the oil seller considers where to keep the recovered necklace and casually suggests Ellie's enormous vault. The vault's location within the building, purpose, construction, contents and connection to the lower lamp remain open. This milestone adds only the remark. No vault room, access puzzle or explanatory scene is implemented.
+**Confirmed vault; first visit implemented.** The lighthouse contains an unusually large secure vault. The oil seller suggests Ellie's vault as a safe place for his recovered necklace. Mother opens the locked stair door in the main hall, and the player can visit the maintenance cellar and large stone vault, as described in section 20. Their physical route is established in the demo. The vault's origin, original purpose, complete contents and connection to the lower lamp remain open; the first visit supplies no explanation of those mysteries.
 
 ### 5.4 The Listening Wood: the great forest
 
@@ -317,14 +330,17 @@ the heart of the forest. Residents tend little candles and bring modest offering
 their reasons are personal and quietly painful rather than prophetic.
 
 **Prototype details.** Worn paths, sheltered benches, flowers and a caretaker
-make the park a place of continuing care. Four residents speak of a late traveller,
-a family estrangement, an ageing companion and a lost spouse. The monument and
+make the park a place of continuing care. Four residents speak of an overdue traveller,
+a family estrangement, an ageing companion and a lost spouse. The traveller is
+Mara's overdue son; her dialogue does not establish that he has died. Toven hopes
+to reconcile with his sister, Lina asks for her old Growlithe to sleep peacefully,
+and Orren continues tending the garden his wife used to care for. The monument and
 offerings can be inspected. This introduces local reverence; Suicune's forest
 refuge, corruption, healing and later sabre story remain future chapters.
 
 **Confirmed future canon: the museum.** City 2 contains an important museum that becomes a major narrative location. It publicly displays the unique mystic sabre already connected to healed Suicune and the better final resolution. The museum's possession must eventually make historical sense, but its complete provenance remains undecided. Team Abyss later steals the sabre with incomplete understanding; see 7.5 and 10.6.
 
-**Open.** Final city and museum names, exact map, population, curatorial details, full quest structure, heist timing and staging. The city and museum are not built in 0.6. The short southbound pursuit route leads in their direction without fixing a complete regional map.
+**Current scope and open decisions.** The dock city, its park and ring, harbour residents and first museum hall are playable. Final city and museum names, further districts, full population, curatorial history, later quest structure, heist timing and staging remain open. The demo's local map does not fix the complete future city or regional geography.
 
 ### 5.12 City 4: a hometown mentioned over food
 
@@ -458,7 +474,7 @@ New forms require more than recolouring: narrative role, ecology, readable silho
 
 **Confirmed type and arc: Water/Ghost.**
 
-**First encounter: fear.** The player encounters a ghost before understanding a companion. The event should feel wrong in a place that seemed familiar. The existing pier glimpse is a prototype of this beat, not the final sprite or complete encounter.
+**First encounter: fear.** The player encounters a ghost before understanding a companion. The event should feel wrong in a place that seemed familiar. The existing pier glimpse is a prototype of this beat and now uses the approved Tidebound Lapras visual form described in section 26. It does not implement the complete later encounter or companion arc.
 
 **Later: attachment.** The player learns to love Lapras. This requires repeated acts or experiences that establish character beyond a useful traversal ability. Proposed moments include waiting nearby, recognising the protagonist, or guiding them through a frightening passage. Exact recruitment and party status remain open.
 
@@ -909,7 +925,9 @@ Late submerged discoveries establish the ancient victims and human wrongdoing. M
 
 Daylight or unusually bright surroundings are reserved for specifically approved magical locations later in the game. Do not add a normal day/night cycle, sunrise, or host-clock-dependent brightening. This is a firm world and presentation rule. Its narrative cause has not been established; do not invent one or reveal a supposed explanation in early dialogue. Ordinary battle scenes and time-of-day queries should also use night.
 
-**Confirmed direction: familiarity before strangeness.** The opening should feel almost like a vanilla Generation 3 Pokémon reskin. Preserve its tile scale, familiar silhouettes, readable paths, movement and ordinary dialogue presentation. The coastal palette is dark and desaturated: slate rock, grey-blue sea, muted foliage, weathered timber, dim flowers and small amber lamp accents. Comfy autumn JRPG pixel art meets the sorrow and unease of Dark Souls and Twin Peaks. These are tonal references, not a request to copy their assets.
+**Confirmed direction: familiarity before strangeness.** The opening should feel almost like a vanilla Generation 3 Pokémon reskin. Preserve its tile scale, familiar silhouettes, readable paths, movement and ordinary dialogue presentation. The coastal palette is dark and desaturated: slate rock, grey-blue sea, muted foliage, weathered timber, dim flowers and small amber lamp accents. Familiar Pokémon pixel art carries the sorrow and unease of Dark Souls and Twin Peaks. The 0.8.14 direction confines reassurance to particular lights, people and sheltered spaces; the ordinary outdoors should feel cold and exposed. These are tonal references, not a request to copy their assets.
+
+**Confirmed lighting and fog, implemented in 0.8.14.** Brightness varies by place rather than applying one darkness setting to the whole game. Lamps and flames reveal a useful nearby area and a wider, weaker outer glow. Outdoor player visibility remains small, faint and neutral. Slow, partially transparent white-grey cloud banks drift across ordinary coastal and wooded maps, becoming thicker at intervals. Hollow Wood darkens markedly towards the skull entrance. Homes and ordinary inhabited interiors stay legible; the neglected hideout is colder and dimmer. Skull Hollow remains nearly lightless. This supersedes the stronger outdoor player halo and directional streak-fog experiment; see section 34.
 
 Introduce deeper mechanical changes, unusual scripts, animation and stronger visual departures progressively through the journey. Let the player first grow attached to a recognisable world. Early effects should serve a specific scene: a dog reacts to nothing visible; a quiet camera movement reveals more sea; a pale presence slowly becomes perceptible. Avoid front-loading a catalogue of custom systems or constantly advertising how modified the game is. Existing recovery mechanics remain in the prototype; this rule governs presentation and future pacing, rather than removing established mechanics.
 
@@ -919,7 +937,7 @@ Introduce deeper mechanical changes, unusual scripts, animation and stronger vis
 
 The town's transformation should alter surfaces, water, movement, and residents' routines. It should not consist only of a purple overlay. Beauty needs its own visual treatment: a clear interval after rain, a living garden, a companion at rest, or light moving through water.
 
-**Asset status.** Existing art is temporary Essentials material. The current Lapras apparition uses a pale stock icon. Earlier concept images establish atmosphere, not a finished tileset or approved sprite sheet. Record final palettes and designs separately when chosen.
+**Asset status.** The demo combines retained Essentials material with approved custom regional Pokémon, harbour vessels, Suicune monument, offerings, benches and cloud-fog artwork. The Lapras apparition uses the approved ghostly regional form rather than the earlier pale stock icon. Earlier concept images remain atmospheric references unless their pixels were explicitly approved and integrated. [Credits](../docs/credits.md), authored assets and their art-direction records preserve attribution and implementation provenance. Screenshots in section 35 document the integrated release, not speculative concept art.
 
 ### 15.2 Sound and music
 
@@ -1334,6 +1352,8 @@ Whyduck retains Psyduck's rounded duck body, beak, feet and tail, with a calm pe
 
 **Optional battles.** Sailors Nell and Oren can be challenged voluntarily; these are not progression gates. They use the existing battle/death framework. Their modest teams and precise levels remain balance choices.
 
+**Approved vessel artwork, included in 0.8.13 and retained in 0.8.14.** The harbour uses the redrawn cargo ship, fishing cutter and rowboat assets in place of the earlier placeholder vessels. Their readable wooden hulls, sails, rigging and moorings support an inhabited working port. This art revision changes neither the named ships' local roles nor the planned island crossing. The dock park, offerings and mended benches likewise use their integrated approved artwork; their first playable scenes do not reveal the later Suicune quest.
+
 **Dock-city upgrade, 28 September 2026.** The approved direction is a more inhabited harbour: residents with personal histories, small optional jobs, and a visible outdoor ring in the north-east. Machop and Hitmonlee spar in the overworld while sailors bet. A generated challenger becomes available every fifteen real minutes, slightly below the player's levels, with approximately 80% previously seen species and an unfamiliar pool excluding legendary, mythical and pseudo-legendary families.
 
 **Implemented draft.** Jory's sealed letter reaches Irena, Sella recovers a netting shuttle, and Daro's cargo count reveals an oil tin borrowed for Harker's ring lanterns. The jobs reward two Oran Berries, a Silk Scarf and three Oran Berries respectively, with saved progress and retryable full-bag rewards. Other residents discuss work, retirement, apprenticeship and missing family. Names, dialogue details and rewards are provisional local character choices; they establish no later mythology.
@@ -1389,3 +1409,187 @@ northern threshold is open in both directions, with no quest prerequisite.
 remain unresolved. Ordinary Ghost Pokemon do not explain the water demons,
 Mother's ritual or the planned poisoned refuge. No boss, shrine, reward or
 cave-progression requirement is introduced at this stage.
+
+## 34. Local lighting and drifting cloud fog - 0.8.14
+
+**Confirmed direction, refined through 14 October 2026.** Lighting must reveal
+an area around a lamp or flame, rather than merely decorating its sprite. Ambient
+brightness varies between places. Darkness should deepen beyond the player's
+immediate surroundings without applying the same dim filter everywhere. Most
+ordinary artificial light is warm, consistent with flame and oil lamps. These
+presentation decisions do not establish new light-related mythology.
+
+**The player.** Outdoors, the player has only a faint, small, neutral visibility
+lift with a soft edge. It helps distinguish nearby ground and objects without
+making every path feel safe or warmly lit. It is a readability convention, not
+evidence of a handheld lantern, magical aura or new equipment. The stronger halo
+from the first lighting experiment is superseded. No portable light item is
+authored or obtainable in 0.8.14; its acquisition, fuel and gameplay role remain
+open for a later decision.
+
+**Placed light.** Lamps, windows, candles and resting fires provide local points
+of warmth. A useful inner glow continues into a substantially wider, weaker outer
+reach. Both zones fade smoothly; the outer zone should gently disclose scenery
+without becoming a second bright circle. Lamps may flicker subtly. Their radius,
+strength, softness and colour can be adjusted per source. Brightness and colour
+tone remain separate controls. The great lighthouse lamp's illumination follows
+its existing lit/unlit story state, including the oil errand.
+
+**The island outdoors.** Shiohama, Listening Wood, South Coast Road and the dock
+city stay cold, subdued and recognisably nocturnal between lights. A lamp, a
+sheltered window or a small fire offers a local contrast. These areas should not
+all acquire the extreme darkness of the northern forest. Hollow Wood darkens
+strongly towards the ancient skull, retaining only limited nearby visibility.
+Its northern atmosphere should feel substantially more threatening than the
+ordinary keys route. The forest's gradient and the faint player visibility are
+independently adjustable.
+
+**Interiors and the cave.** The keeper's home and ordinary inhabited interiors
+remain readable, with warmer domestic light where appropriate. The lantern room
+changes visibly when its great lamp is lit. The maintenance cellar and vault are
+more subdued. The youngsters' neglected hideout retains its colder, dimmer
+presentation. Skull Hollow remains nearly pitch black, with faint rock edges and
+pale seams; its difficulty is part of the approved optional horror district.
+The new system does not impose a blanket darkness increase on every interior.
+
+**Cloud fog.** Ordinary coastal and wooded night maps use slow-moving,
+partially transparent white-grey banks with rounded, softly feathered forms and
+clear gaps. They should resemble low island mist, with overlapping airbrush-like
+cloud masses. Two layers drift at different scales and speeds. Their density
+changes smoothly, occasionally producing thicker banks even while the player
+stands still. The movement and changing density distinguish fog from a static
+grey screen filter. It remains an atmospheric effect rather than an explanation
+of the sea or the water demons.
+
+**Current implementation.** Local illumination is enabled for the keeper's
+house, lantern room, Shiohama coast, Listening Wood, South Coast Road, docks and
+Hollow Wood. Other interiors retain their existing atmosphere. The new coastal
+cloud fog stays outside houses and caves; the astral realm keeps its separate
+established fog. Entering another map replaces the local effect. Map and source
+settings own ambient brightness, colour, falloff, gradients and placement; the
+item-light declaration path is available for future authored equipment. Exact
+values remain prototype tuning, not fixed fictional laws. The
+[lighting and fog authoring reference](../docs/architecture.md#local-lighting-prototype)
+records those controls and current numerical settings.
+
+**Retained experiment.** The earlier directional streak effect looked like rays
+of light and was rejected for this island treatment. Its texture and settings
+remain available for a future location, as requested, but no current map uses
+them. The published 0.8.14 coast and forest use cloud banks instead. Ordinary
+locations remain perpetually night; neither the fog nor the lighting introduces
+a daylight cycle.
+
+**Review boundary.** Section 35 records the published look for further aesthetic
+evaluation. Later changes may adjust brightness, warmth, reach or fog density
+without revising the story. New equipment, recovery functions, beam mechanics,
+new locations or an explanation for perpetual night require separate creative
+decisions.
+
+## 35. Visual record - Demo 1, 0.8.14
+
+**Release snapshot.** These 24 selected screenshots cover all 18 authored maps
+in the published 0.8.14 native player. They preserve the original 512 by 384
+pixels, brightness and colours. PDF placement scales the images for the page;
+it does not brighten the cave or grade the outdoor scenes. The view numbers
+match the larger 42-image aesthetic review set.
+
+**Staging.** The review capture places the player at selected viewpoints and
+pauses dialogue, random encounters and event progression so the scenery stays
+visible. Lighting and fog continue rendering normally. The lit/unlit lighthouse
+views show its real lamp states; the thicker-fog view waits for a natural density
+peak. The astral view uses the existing astral state. These images document the
+release's presentation, not a single continuous playthrough or a new story event.
+
+**How to read the plates.** Compare the ordinary home's visibility with the
+hideout, the warm lamp core with its weak outer reach, and the ordinary forest
+with Hollow Wood. The two skull-entrance views show changing fog at one viewpoint.
+The nearly black cave images deliberately retain the game's actual darkness.
+Each location's geometry and art remain a prototype; the pictures do not settle
+the origin of the skull, the obelisk, the vault or the astral realm.
+
+The plates are grouped as follows:
+
+- Home and bedroom.
+- Lighthouse lamp lit and unlit.
+- Oil shop and maintenance cellar.
+- Vault and museum.
+- Youngsters' hideout and first false bedroom.
+- Natu's room maze and folded bedroom.
+- Shiohama lighthouse approach and shop frontage.
+- Listening Wood and South Coast Road.
+- Psyduck pond and Suicune garden.
+- Dock-city ring and working ships.
+- Hollow Wood with thin and thicker cloud fog.
+- Skull Hollow and Beyond the Shore.
+
+### Home and bedroom
+
+![View 01. Keeper's house](images/demo-0.8.14/01-home.png)
+
+![View 02. Ordinary bedroom](images/demo-0.8.14/02-bedroom.png)
+
+### The lighthouse lamp
+
+![View 03. Lantern room - great lamp lit](images/demo-0.8.14/03-lantern-on.png)
+
+![View 04. Lantern room - great lamp unlit](images/demo-0.8.14/04-lantern-off.png)
+
+### Oil shop and maintenance cellar
+
+![View 05. Oil shop](images/demo-0.8.14/05-shop.png)
+
+![View 06. Lighthouse cellar](images/demo-0.8.14/06-basement.png)
+
+### Vault and museum
+
+![View 07. Lighthouse vault](images/demo-0.8.14/07-vault.png)
+
+![View 08. First dockside museum hall](images/demo-0.8.14/08-museum.png)
+
+### Hideout and first false bedroom
+
+![View 09. Youngsters' hideout](images/demo-0.8.14/09-hideout.png)
+
+![View 10. First false bedroom](images/demo-0.8.14/10-dream.png)
+
+### Natu's room maze and folded bedroom
+
+![View 11. Room maze - lower passage](images/demo-0.8.14/11-maze.png)
+
+![View 13. Folded room - lower chamber](images/demo-0.8.14/13-folded.png)
+
+### Shiohama after dark
+
+![View 15. Shiohama - lighthouse approach](images/demo-0.8.14/15-coast.png)
+
+![View 16. Shiohama - shop frontage](images/demo-0.8.14/16-coast.png)
+
+### Listening Wood and South Coast Road
+
+![View 20. Listening Wood - resting fire](images/demo-0.8.14/20-forest.png)
+
+![View 23. South Coast Road - northern stretch](images/demo-0.8.14/23-road.png)
+
+### Pond and garden
+
+![View 26. Psyduck pond - northern bank](images/demo-0.8.14/26-road.png)
+
+![View 29. Dock city - Suicune garden](images/demo-0.8.14/29-docks.png)
+
+### The working harbour
+
+![View 31. Dock city - outdoor fighting ring](images/demo-0.8.14/31-docks.png)
+
+![View 33. Dock city - eastern ships](images/demo-0.8.14/33-docks.png)
+
+### Hollow Wood and its moving fog
+
+![View 37. Hollow Wood - ancient skull](images/demo-0.8.14/37-haunted_forest.png)
+
+![View 38. Same viewpoint - a thicker natural fog bank](images/demo-0.8.14/38-haunted_forest-thick.png)
+
+### Skull Hollow and Beyond the Shore
+
+![View 40. Skull Hollow - inner passage](images/demo-0.8.14/40-skull_cave.png)
+
+![View 42. Beyond the Shore - astral realm](images/demo-0.8.14/42-astral-astral.png)

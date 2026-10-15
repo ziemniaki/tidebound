@@ -1,24 +1,27 @@
-from pathlib import Path
-import re
 import argparse
-from tidebound_dev.documents.fonts import resolve_fonts
+import re
 from html import escape
+from pathlib import Path
 from urllib.parse import urljoin
-from reportlab.platypus import (
-    SimpleDocTemplate,
-    Paragraph,
-    Spacer,
-    PageBreak,
-    CondPageBreak,
-)
-from reportlab.platypus.tableofcontents import TableOfContents
-from reportlab.lib.styles import ParagraphStyle
+
 from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.pagesizes import A4
+from reportlab.platypus import (
+    CondPageBreak,
+    Image,
+    KeepTogether,
+    PageBreak,
+    Paragraph,
+    SimpleDocTemplate,
+    Spacer,
+)
+from reportlab.platypus.tableofcontents import TableOfContents
 
-
+from tidebound_dev.documents.fonts import resolve_fonts
 from tidebound_dev.paths import ROOT as CHECKOUT
 
 
@@ -28,7 +31,9 @@ def main(root=CHECKOUT):
     parser.add_argument("--output", type=Path, default=ROOT / "game-design.pdf")
     OUT = parser.parse_args().output
     TEXT = (ROOT / "game-design.md").read_text()
-    edition = re.search(r"^\*\*(Version [^\n*]+)\*\*$", TEXT, re.M)[1].replace("|", "/")
+    edition = re.search(r"^\*\*(Version [^\n*]+)\*\*$", TEXT, re.MULTILINE)[1].replace("|", "/")
+    coverage = re.search(r"^\*\*(Playable baseline: [^\n*]+)\*\*$", TEXT, re.MULTILINE)[1]
+    game_version = re.search(r"version ([\d.]+)", coverage)[1]
     for name, path in resolve_fonts().items():
         pdfmetrics.registerFont(TTFont(name, str(path)))
     pdfmetrics.registerFontFamily(
@@ -83,7 +88,20 @@ def main(root=CHECKOUT):
             allowWidows=0,
             allowOrphans=0,
         ),
+        "caption": ParagraphStyle(
+            "Caption",
+            fontName="Head",
+            fontSize=9.2,
+            leading=12,
+            alignment=1,
+            spaceBefore=6,
+            spaceAfter=12,
+            textColor=grey,
+        ),
     }
+    styles["front"] = ParagraphStyle(
+        "Front matter", parent=styles["body"], fontSize=10.5, leading=14.4, spaceAfter=7
+    )
 
     def inline(s):
         s = s.replace("\u2014", " - ").replace("\u2013", "-").replace("\u2011", "-")
@@ -144,6 +162,7 @@ def main(root=CHECKOUT):
             [
                 "Creative direction: Wojciech Krzyżanowski",
                 edition,
+                coverage.replace("|", "/"),
                 "Working title / Full story spoilers",
                 "Confirmed decisions, proposals, and intentional mysteries",
             ]
@@ -160,7 +179,7 @@ def main(root=CHECKOUT):
         canvas.setStrokeColor(colors.HexColor("#CED8D5"))
         canvas.setLineWidth(0.5)
         canvas.line(52, h - 41, w - 52, h - 41)
-        canvas.drawString(52, 29, f"{edition}  /  Full story spoilers")
+        canvas.drawString(52, 29, f"{edition}  /  Demo {game_version}  /  Full story spoilers")
         canvas.drawRightString(w - 52, 29, str(doc.page))
         canvas.restoreState()
 
@@ -182,8 +201,8 @@ def main(root=CHECKOUT):
     for block in front.strip().split("\n\n"):
         if block.startswith("### "):
             continue
-        story.append(Paragraph(inline(block.replace("\n", " ")), styles["body"]))
-    story += [Spacer(1, 9), Paragraph("Contents", styles["h2"])]
+        story.append(Paragraph(inline(block.replace("\n", " ")), styles["front"]))
+    story += [PageBreak(), Paragraph("Contents", styles["h2"])]
     toc = TableOfContents()
     toc.levelStyles = [
         ParagraphStyle(
@@ -200,13 +219,16 @@ def main(root=CHECKOUT):
     ]
     story.append(toc)
     content = "## 1. " + TEXT.split("## 1. ", 1)[1]
-    for block in content.split("\n\n"):
-        block = block.strip()
-        if not block:
-            continue
+    blocks = [block.strip() for block in content.split("\n\n") if block.strip()]
+    for index, block in enumerate(blocks):
         if block.startswith("## "):
             title = block[3:]
-            if title.startswith(("1. ", "27. ", "29. ")):
+            end = next(
+                (i for i in range(index + 1, len(blocks)) if blocks[i].startswith("## ")),
+                len(blocks),
+            )
+            illustrated = any(part.startswith("![") for part in blocks[index + 1 : end])
+            if illustrated or title.startswith(("1. ", "27. ", "29. ")):
                 story.append(PageBreak())
             else:
                 story.extend([CondPageBreak(190), Spacer(1, 23)])
@@ -214,7 +236,18 @@ def main(root=CHECKOUT):
             p.chapter = title
             story.append(p)
         elif block.startswith("### "):
+            # A captioned image section starts a fresh page, keeping each pair
+            # of native screenshots together without a separate gallery layout.
+            if index + 1 < len(blocks) and blocks[index + 1].startswith("!["):
+                story.append(PageBreak())
             story.append(Paragraph(inline(block[4:]), styles["h2"]))
+        elif block.startswith("!["):
+            caption, relative_path = re.fullmatch(r"!\[([^\]]+)\]\(([^)]+)\)", block).groups()
+            path = ROOT / relative_path
+            width, height = ImageReader(str(path)).getSize()
+            scale = min(408 / width, 306 / height)
+            art = Image(str(path), width=width * scale, height=height * scale)
+            story.append(KeepTogether([art, Paragraph(inline(caption), styles["caption"])]))
         elif block.startswith("- "):
             for line in block.splitlines():
                 assert line.startswith("- "), line
