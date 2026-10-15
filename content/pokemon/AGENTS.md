@@ -1,6 +1,8 @@
 # Species, forms and encounters
 
-Each `<ENGINE_ID>/species.json` owns `species`, optional `metrics`, and `art`.
+Each `<ENGINE_ID>/species.json` owns `art` and optional `species`/`metrics`.
+For an existing native species that only needs artwork, omit `species` and
+`metrics`; its native data and evolution rules remain untouched.
 Compilers discover these bundles; there is no registration list. Source images
 live in the same folder. Naming/ownership: [architecture](../../docs/architecture.md#authored-content).
 

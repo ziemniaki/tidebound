@@ -92,7 +92,8 @@ EventHandlers.add(
     spriteset.map.events.each_value do |event|
       sprite =
         case Tidebound::Actors.role(event)
-        when "spirit", "wood_bird", "neighbor_wild", "shore_duck", "house", "room", "outside_dog"
+        when "spirit", "wood_bird", "neighbor_wild", "shore_duck", "house", "room", "outside_dog",
+             "wildlife"
           TideboundCompanionSprite.new(event, viewport)
         when "fire", "main_lamp", "lamp"
           unless Tidebound::Actors.role(event) == "main_lamp" && spriteset.map.map_id == 104

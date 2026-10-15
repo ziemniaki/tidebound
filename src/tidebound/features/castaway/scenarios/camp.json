@@ -1,0 +1,36 @@
+{
+  "base": "opening/exploration",
+  "location": [
+    "wreck_beach",
+    "camp"
+  ],
+  "checkpoint": [
+    "wreck_beach",
+    "camp"
+  ],
+  "party": [
+    {
+      "species": "NATU",
+      "name": "Wick",
+      "level": 15,
+      "item": "MYSTICWATER"
+    },
+    {
+      "species": "MAKUHITA",
+      "name": "Maku",
+      "level": 14
+    }
+  ],
+  "story": {
+    "neighbor_quest": {
+      "stage": ":complete"
+    },
+    "vault_visit": {
+      "open": true
+    },
+    "castaway": {
+      "arrived": true,
+      "greeted": true
+    }
+  }
+}

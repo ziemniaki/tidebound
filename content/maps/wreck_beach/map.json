@@ -1,0 +1,125 @@
+{
+  "id": 119,
+  "name": "Wreck Beach",
+  "parent_id": 112,
+  "atmosphere": "sunny",
+  "night": false,
+  "day": true,
+  "environment": "Sand",
+  "battleback": "water",
+  "entrances": {
+    "arrival": [
+      15,
+      22,
+      2
+    ],
+    "camp": [
+      15,
+      18,
+      2
+    ],
+    "palmstrand": [
+      46,
+      18,
+      4
+    ]
+  },
+  "actor_settings": {
+    "2": {
+      "role": "npc",
+      "key": "castaway_captain"
+    },
+    "3": {
+      "role": "npc",
+      "key": "castaway_nell"
+    },
+    "4": {
+      "role": "fire"
+    },
+    "5": {
+      "role": "prop",
+      "asset": "ledger"
+    },
+    "6": {
+      "role": "prop",
+      "key": "castaway_shelter",
+      "asset": "castaway_shelter"
+    },
+    "7": {
+      "role": "prop",
+      "asset": "castaway_wreck"
+    },
+    "8": {
+      "role": "prop",
+      "asset": "cargo"
+    },
+    "10": {
+      "role": "wildlife",
+      "species": "WINGULL"
+    },
+    "11": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "12": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "13": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "14": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "15": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "16": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "17": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "18": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "19": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "20": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "21": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "22": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "23": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "24": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "25": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "26": {
+      "role": "prop",
+      "asset": "island_palm"
+    }
+  }
+}

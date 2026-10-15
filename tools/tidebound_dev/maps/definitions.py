@@ -14,6 +14,8 @@ ATMOSPHERES = {
     "hideout": {"tone": [-35, -32, -25, 95], "fog": "", "opacity": 0, "speed": 1},
     "vault": {"tone": [-38, -38, -30, 65], "fog": "", "opacity": 0, "speed": 1},
     "folded": {"tone": [-20, -30, -12, 25], "fog": "", "opacity": 0, "speed": 1},
+    "sunny": {"tone": [0, 0, 0, 0], "fog": "", "opacity": 0, "speed": 0},
+    "canopy": {"tone": [-18, -6, -12, 6], "fog": "", "opacity": 0, "speed": 0},
 }
 
 
@@ -34,10 +36,13 @@ class MapDefinition:
     environment: str = "None"
     outdoor: bool = False
     night: bool = True
+    day: bool = False
     origin: tuple[int, int] = (0, 0)
 
     def __post_init__(self):
         validate(self.lighting)
+        if self.day and self.night:
+            raise ValueError(f"Map {self.id}: fixed day and fixed night are mutually exclusive")
         keys = [v["key"] for v in self.actor_settings.values() if v.get("key")]
         if len(set(keys)) != len(keys):
             raise ValueError(f"Map {self.id}: duplicate actor identity")
@@ -96,6 +101,7 @@ class MapDefinition:
         return {
             **ATMOSPHERES[self.atmosphere],
             "night": self.night,
+            "day": self.day,
             "origin": self.origin,
             "lighting": self.lighting,
         }

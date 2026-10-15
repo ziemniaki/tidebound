@@ -1,0 +1,118 @@
+{
+  "id": 123,
+  "name": "The Overgrown Garden",
+  "parent_id": 119,
+  "atmosphere": "canopy",
+  "night": false,
+  "day": true,
+  "environment": "Forest",
+  "battleback": "field",
+  "entrances": {
+    "canopy": [
+      6,
+      24,
+      6
+    ],
+    "ridge": [
+      37,
+      8,
+      2
+    ]
+  },
+  "actor_settings": {
+    "3": {
+      "role": "prop",
+      "asset": "ledger"
+    },
+    "4": {
+      "role": "prop",
+      "key": "castaway_tools",
+      "asset": "cargo"
+    },
+    "5": {
+      "role": "prop",
+      "asset": "votive_offerings"
+    },
+    "6": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "7": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "8": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "9": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "10": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "11": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "12": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "13": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "14": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "15": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "16": {
+      "role": "prop",
+      "asset": "island_palm"
+    }
+  },
+  "encounters": {
+    "Land": {
+      "chance": 13,
+      "slots": [
+        [
+          30,
+          "FOMANTIS",
+          13,
+          16
+        ],
+        [
+          25,
+          "BOUNSWEET",
+          13,
+          16
+        ],
+        [
+          20,
+          "PIKIPEK",
+          13,
+          16
+        ],
+        [
+          15,
+          "MANKEY",
+          14,
+          17
+        ],
+        [
+          10,
+          "ORANGURU",
+          16,
+          18
+        ]
+      ]
+    }
+  }
+}

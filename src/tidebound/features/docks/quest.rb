@@ -109,17 +109,14 @@ module Tidebound::DemoLaunch
     end
   end
   def voyage
+    if Tidebound::Castaway.flags[:completed]
+      say("Captain: There's a fair passage back to our island, if you miss the warmth.")
+      return Tidebound::Castaway.depart
+    end
     say(
       "Captain: The Little Promise sails for Psyduck Island with the next watch.",
       "Captain: Room for one more, if you don't mind sharing the deck with the flour sacks."
     )
-    return unless pbConfirmMessage("Join them for the voyage to Psyduck Island?")
-    flags[:completed] = true
-    say(
-      "Captain: Then we'll keep a place for you. Take one last look around, eh?",
-      "Beyond the harbour, the water carries a thin seam of silver.",
-      "Thank you for playing Tidebound - Demo 1.\nThe journey to Psyduck Island continues in a future chapter.",
-      "You can keep exploring and save your journey. Speak to the captain again whenever you like."
-    )
+    Tidebound::Castaway.depart
   end
 end

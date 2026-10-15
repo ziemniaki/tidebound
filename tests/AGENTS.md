@@ -84,6 +84,11 @@ package from the same checkout as its PBS and test sources.
   the deep cave and returns, and samples native level 20+ Ghost encounters.
   Random battle triggering is disabled only during this unattended route and
   restored afterwards; the encounter tables themselves are sampled directly.
+  The Castaway extension walks the six island areas in both directions, checks
+  fixed daylight against midnight/noon queries and mainland night on return,
+  generates an Alolan visitor, captures camp/signal changes and exchanges a
+  native seventh catch through the sanctuary. The animated crossing and complete
+  dialogue choices still need a separate native scene playthrough.
   Lighting captures compare the lighthouse on/off, test player-light movement
   and renderer disposal, and report native render costs. Coastal mist checks cover
   wind motion, changing density and disposal on entering a house.

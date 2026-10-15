@@ -14,6 +14,7 @@ SPECIES = {
         "file": "pokemon_forms_tidebound" if "_" in identifier else "pokemon_tidebound",
     }
     for identifier, record in POKEMON.items()
+    if "species" in record
 }
 METRICS = {
     identifier: {**record["metrics"], "file": "pokemon_metrics_tidebound"}

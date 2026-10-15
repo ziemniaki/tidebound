@@ -55,10 +55,17 @@ class NativeFixtureTests(unittest.TestCase):
 
 class ContentInventoryTests(unittest.TestCase):
     def test_new_species_derives_native_expectations(self):
-        with patch.object(native_fixture, "SPECIES", {"NEWBIRD": {}, "NEWBIRD_1": {}}):
+        with (
+            patch.object(native_fixture, "SPECIES", {"NEWBIRD": {}, "NEWBIRD_1": {}}),
+            patch.object(
+                native_fixture, "POKEMON", {"NEWBIRD": {}, "NEWBIRD_1": {}, "AIPOM": {"art": {}}}
+            ),
+        ):
             result = native_fixture.inventory()
         self.assertEqual(result["species"], ["NEWBIRD", "NEWBIRD_1"])
-        self.assertEqual([entry["id"] for entry in result["art"]], ["NEWBIRD", "NEWBIRD_1"])
+        self.assertEqual(
+            [entry["id"] for entry in result["art"]], ["NEWBIRD", "NEWBIRD_1", "AIPOM"]
+        )
         self.assertEqual(
             result["art"][1]["front_shiny"], "Graphics/Pokemon/Front shiny/NEWBIRD_1.png"
         )

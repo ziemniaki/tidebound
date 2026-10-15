@@ -78,3 +78,19 @@ Coastal mist: white-grey cloud texture generated and refined with OpenAI’s bui
 image tool. Source pixels: content/fogs/coastal_mist.png. Prompts and integration
 notes: references/coastal_mist/art_direction.md. The earlier original procedural
 streak texture is retained at content/fogs/light_shafts.png for future locations.
+
+
+Castaway island: original coconut-palm and sailcloth-shelter sprites generated
+with OpenAI's built-in image tool. Approved pixels are in
+content/props/{island_palm,castaway_shelter}; prompts and display metadata are in
+references/castaway/art_direction.md. The signal frame, collecting bowl and
+animated tropical water are authored pixel assets. The forest uses retained
+Essentials tree artwork with its existing attribution. The grounded vessel reuses
+the approved harbour-ship artwork.
+
+Alolan and tropical Pokémon artwork and cries: PokeAPI/sprites and PokeAPI/cries,
+with upstream contributors and original Pokémon attribution retained. Exact
+pinned revisions, upstream credit notes and source hashes are recorded in
+references/castaway/{sprite_sources.md,source_manifest.json}. Canvas adaptation
+uses integer nearest-neighbour scaling and transparent padding. No stock species
+or evolution data is changed by these artwork-only bundles.

@@ -2,11 +2,36 @@
   "id": 112,
   "atmosphere": "night",
   "entrances": {
-    "west": [11, 28, 2],
-    "museum": [32, 23, 2],
-    "from_museum": [32, 23, 2],
-    "ring": [69, 27, 8],
-    "park": [20, 16, 8]
+    "west": [
+      11,
+      28,
+      2
+    ],
+    "museum": [
+      32,
+      23,
+      2
+    ],
+    "from_museum": [
+      32,
+      23,
+      2
+    ],
+    "ring": [
+      69,
+      27,
+      8
+    ],
+    "park": [
+      20,
+      16,
+      8
+    ],
+    "captain": [
+      55,
+      50,
+      8
+    ]
   },
   "name": "The Docks",
   "actor_settings": {
@@ -213,11 +238,20 @@
     "116": {
       "role": "prop",
       "asset": "park_bench"
+    },
+    "117": {
+      "role": "prop",
+      "asset": "ledger"
     }
   },
   "lighting": {
     "ambient": 38,
-    "tone": [-16, -9, 0, 125],
+    "tone": [
+      -16,
+      -9,
+      0,
+      125
+    ],
     "player": {
       "radius": 2.6,
       "strength": 0.08,
@@ -227,272 +261,482 @@
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 9,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 9,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 10,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 10,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 11,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 11,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 12,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 12,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 13,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 13,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 23,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 23,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 24,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 24,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 25,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 25,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 26,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 26,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 27,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 27,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 28,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 28,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 102,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 102,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 2.8,
         "strength": 0.68,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 103,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 5.04,
         "strength": 0.2,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 103,
-        "offset": [0, -18]
+        "offset": [
+          0,
+          -18
+        ]
       },
       {
         "radius": 1.8,
         "strength": 0.65,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 109,
-        "offset": [-2, -8]
+        "offset": [
+          -2,
+          -8
+        ]
       },
       {
         "radius": 3.24,
         "strength": 0.12,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 109,
-        "offset": [-2, -8]
+        "offset": [
+          -2,
+          -8
+        ]
       },
       {
         "radius": 1.8,
         "strength": 0.65,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 110,
-        "offset": [-2, -8]
+        "offset": [
+          -2,
+          -8
+        ]
       },
       {
         "radius": 3.24,
         "strength": 0.12,
-        "color": [255, 185, 95],
+        "color": [
+          255,
+          185,
+          95
+        ],
         "softness": 1,
         "flicker": 0.025,
         "event": 110,
-        "offset": [-2, -8]
+        "offset": [
+          -2,
+          -8
+        ]
       }
     ]
   }

@@ -139,6 +139,7 @@ def validate(root, event_scripts_output=None, check_scripts=True):
                 if (
                     arrivals
                     and page["@trigger"] not in (3, 4)
+                    and any(command.attributes["@code"] != 0 for command in page["@list"])
                     and name not in ["Lapras", "Pond obelisk (Surf)"]
                 ):
                     reachable = (

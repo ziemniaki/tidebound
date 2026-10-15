@@ -34,7 +34,9 @@ class MapValidationTests(unittest.TestCase):
             shutil.copy2(ROOT / name, dest)
         shutil.copytree(ROOT / "content/maps", self.root / "content/maps")
         shutil.copytree(ROOT / "src", self.root / "src")
-        for original in (ROOT / "game/Data").glob("Map1[01][0-9].rxdata"):
+        manifest = json.loads((self.game / ".generated/map_manifest.json").read_text())
+        for area in manifest:
+            original = ROOT / f"game/Data/Map{area['id']:03}.rxdata"
             shutil.copy2(original, self.game / "Data" / original.name)
             data = loads(original.read_bytes()).attributes
             self.asset("Audio/BGM/" + str(data["@bgm"].attributes["@name"]) + ".ogg")
@@ -44,7 +46,7 @@ class MapValidationTests(unittest.TestCase):
                     if name:
                         self.asset("Graphics/Characters/" + name + ".png")
         metadata = loads((self.game / "Data/map_metadata.dat").read_bytes())
-        for mid in range(101, 117):
+        for mid in (area["id"] for area in manifest):
             back = str(metadata[mid].attributes["@battle_background"])
             for suffix in ("_bg", "_base0", "_base1", "_message"):
                 self.asset("Graphics/Battlebacks/" + back + suffix + ".png")
@@ -57,6 +59,23 @@ class MapValidationTests(unittest.TestCase):
     def test_missing_bgm_is_rejected(self):
         next((self.game / "Audio/BGM").glob("*.ogg")).unlink()
         with self.assertRaisesRegex(RuntimeError, "missing BGM"):
+            validate(self.root)
+
+    def test_remote_scenery_is_allowed_but_remote_interactions_still_fail(self):
+        path = self.game / "Data/Map101.rxdata"
+        native = loads(path.read_bytes())
+        event = loads(writes(next(iter(native.attributes["@events"].values()))))
+        identifier = max(native.attributes["@events"]) + 1
+        event.attributes.update({"@id": identifier, "@name": "Remote scenery", "@x": 0, "@y": 0})
+        page = event.attributes["@pages"][0]
+        event.attributes["@pages"] = [page]
+        page.attributes.update({"@trigger": 0, "@list": [command(0)]})
+        native.attributes["@events"][identifier] = event
+        path.write_bytes(writes(native))
+        validate(self.root)
+        page.attributes["@list"] = [command(355, 'pbMessage("A reachable clue")'), command(0)]
+        path.write_bytes(writes(native))
+        with self.assertRaisesRegex(RuntimeError, "Remote scenery/page1 unreachable event"):
             validate(self.root)
 
     def test_directional_corridor_accepts_arrivals_but_blocks_forbidden_edges(self):

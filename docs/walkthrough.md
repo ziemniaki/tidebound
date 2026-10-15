@@ -98,8 +98,8 @@ Changing your able party rebalances its levels without extending the timer.
 Losses use normal astral recovery; the ring provides no healing.
 
 At the end of the eastern pier, speak to the captain about **Psyduck Island**.
-Accepting reaches the demo's ending message. You remain free to explore and save;
-the voyage and island are not yet playable.
+In the published 0.8.14 release, accepting reaches the ending message. The
+unreleased development chapter continues with the crossing described below.
 
 ## Optional exploration and recovery
 
@@ -134,3 +134,32 @@ Leaving also loses any spirits still waiting; the exit asks first. A memorial
 records losses. With no survivors, a different Natu accompanies your return so
 the journey can continue; the borrowed guide stays behind. Ordinary manual saves
 remain available, so loading an earlier save can roll back losses.
+
+
+## Castaway island (unreleased development chapter)
+
+Board at the eastern pier. The crossing ends at Wreck Beach; your party and bag
+survive. Speak to the captain and Nell. The camp ledger manages resting companions;
+the same refuge is accessible from a ledger beside the dock-city park. Invite,
+deposit or exchange companions there, including catches stored when the party was
+full. Transfers do not heal. Keep at least one able companion with you.
+
+1. Follow Palmstrand east from camp. Recover the sailcloth in its eastern reaches,
+   then return to Nell to build the shelter. Ask her for the surviving supplies.
+2. From Palmstrand go north into the Fruit Canopy, then west to Freshwater Hollow.
+   At the spring, clear **the stone-lined channel**. Wrong channels and cancellation
+   permit another attempt.
+3. Collect ripe fruit in the canopy's western grove. Speak to the troop on the
+   eastern path. Pass in this order: **forked trunk, low branch, flat stone**.
+   Failed or cancelled attempts keep the fruit available.
+4. Enter the Overgrown Garden. Read the slate if you wish, and recover the red
+   shipwright's chest towards the south-east. Return to the captain when water,
+   shelter and tools are ready; he repairs the hull.
+5. Take the garden's northern path to Signal Ridge. Raise the spare sail on the
+   old frame, then return to the captain to leave. You can remain on the island
+   until ready and revisit after sailing home.
+
+Wild encounters occupy visible vegetation. Alolan Raichu and Alolan Exeggutor are
+optional visible encounters at Palmstrand. No battle or specific Pokémon is
+required to solve the chapter. The camp fire uses the existing recovery rules;
+arrival sets an island recovery point before exploration.

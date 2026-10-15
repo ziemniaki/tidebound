@@ -12,7 +12,7 @@ bundles by their conventional filenames, without another registration list.
 
 | Source | Owns | Native destination |
 | --- | --- | --- |
-| `content/pokemon/<ID>/species.json` + frame PNGs/optional cry | Species, metrics, artwork and explicit stock reuse | Species/PBS data, Pokémon sprites and cries |
+| `content/pokemon/<ID>/species.json` + frame PNGs/optional cry | Optional species/metrics, artwork and explicit stock reuse | Species/PBS data, Pokémon sprites and cries |
 | `content/items/<ID>/item.json` + icon | Story Key Item definition and artwork | Item data and `Graphics/Items/<ID>.png` |
 | `content/trainers/<ID>/trainer.json` + portrait/character | Trainer type and artwork | Trainer data, portraits and walking sheets |
 | `content/actors/<name>/character.png` | Named actor walking sheet | `Graphics/Characters/<name>.png` |
@@ -188,3 +188,13 @@ Each spriteset owns and disposes its bitmaps/viewport. Only the current connecte
 renders a screen mask. Native `world` verification captures the prototype, checks
 lighthouse switching, player movement and disposal, and reports render
 cost. Hardware performance and the final visual balance still need player review.
+
+
+## Fixed regional daylight
+
+Map declarations keep the mainland's default `night: true`. The approved tropical
+island declares `night: false, day: true` and a `sunny` or `canopy` atmosphere.
+Fixed day and fixed night are mutually exclusive. The shared atmosphere owner
+controls clock queries, native tint and battle time, so host time cannot darken
+the island and island travel cannot brighten the mainland. Real cooldowns still
+use real elapsed time.
