@@ -99,6 +99,9 @@ def main(root=CHECKOUT):
             textColor=grey,
         ),
     }
+    styles["front"] = ParagraphStyle(
+        "Front matter", parent=styles["body"], fontSize=10.5, leading=14.4, spaceAfter=7
+    )
 
     def inline(s):
         s = s.replace("\u2014", " - ").replace("\u2013", "-").replace("\u2011", "-")
@@ -198,8 +201,8 @@ def main(root=CHECKOUT):
     for block in front.strip().split("\n\n"):
         if block.startswith("### "):
             continue
-        story.append(Paragraph(inline(block.replace("\n", " ")), styles["body"]))
-    story += [Spacer(1, 9), Paragraph("Contents", styles["h2"])]
+        story.append(Paragraph(inline(block.replace("\n", " ")), styles["front"]))
+    story += [PageBreak(), Paragraph("Contents", styles["h2"])]
     toc = TableOfContents()
     toc.levelStyles = [
         ParagraphStyle(
@@ -220,7 +223,12 @@ def main(root=CHECKOUT):
     for index, block in enumerate(blocks):
         if block.startswith("## "):
             title = block[3:]
-            if title.startswith(("1. ", "27. ", "29. ")):
+            end = next(
+                (i for i in range(index + 1, len(blocks)) if blocks[i].startswith("## ")),
+                len(blocks),
+            )
+            illustrated = any(part.startswith("![") for part in blocks[index + 1 : end])
+            if illustrated or title.startswith(("1. ", "27. ", "29. ")):
                 story.append(PageBreak())
             else:
                 story.extend([CondPageBreak(190), Spacer(1, 23)])
