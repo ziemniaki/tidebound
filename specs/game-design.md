@@ -1603,14 +1603,12 @@ The plates are grouped as follows:
 
 **Arrival and companionship.** The Little Promise grounds on a reef. The player, captain and Nell survive. The party and bag remain intact. The captain explains that the current carried them past Psyduck Island. The ship becomes a landmark and repair project; the beach becomes a small home. Survivor choice, dialogue and the ordinary household traces inland are implementation choices, not settled regional history.
 
-| Area | Playable purpose |
-| --- | --- |
-| Wreck Beach | Captain, Nell, resting fire, supplies, companion refuge and developing camp |
-| Palmstrand | Tidal pools, recovered sailcloth, shore encounters and optional Alolan visitors |
-| The Fruit Canopy | Monkey wildlife, ripe fruit and the troop's passing-game route puzzle |
-| Freshwater Hollow | Restore a stone-lined collecting channel and water for the grove |
-| The Overgrown Garden | Abandoned household traces, a slate and the washed-up shipwright's kit |
-| Signal Ridge | Raise the spare sail, receive an answering flash and arrange a safe passage out |
+- **Wreck Beach.** Captain, Nell, resting fire, supplies, companion refuge and developing camp.
+- **Palmstrand.** Tidal pools, recovered sailcloth, shore encounters and optional Alolan visitors.
+- **The Fruit Canopy.** Monkey wildlife, ripe fruit and the troop's passing-game route puzzle.
+- **Freshwater Hollow.** Restore a stone-lined collecting channel and water for the grove.
+- **The Overgrown Garden.** Abandoned household traces, a slate and the washed-up shipwright's kit.
+- **Signal Ridge.** Raise the spare sail, receive an answering flash and arrange a safe passage out.
 
 **Chapter progression.** Recover sailcloth and ask Nell to rig shade. Restore the spring by clearing the stone-lined channel. Collect a piece of ripe fruit and watch the Passimian routine: forked trunk, low branch, flat stone. Joining in opens the garden route. Recover the shipwright's kit, then ask the captain to repair the hull once water and shelter are ready. Raise the signal sail on the ridge and return to the captain to leave. The island can be revisited after the return. The captain's tasks remain available without a hunger, thirst or crafting interface.
 
