@@ -12,6 +12,7 @@ from rubymarshal.writer import writes
 from tidebound_dev.runtime.config import isolated_saves
 from tidebound_dev.content.species_compiler import SPECIES, METRICS, identity
 from tidebound_dev import scenarios
+from tidebound_dev.catalog import POKEMON
 
 SCENARIOS = ("runtime", "world", "species", "all")
 
@@ -20,7 +21,7 @@ def inventory():
     # Include each form's base so compiler-added family relationships are checked.
     species = sorted(set(SPECIES) | {identity(name)[0] for name in SPECIES})
     art = []
-    for identifier in SPECIES:
+    for identifier in POKEMON:
         name, form = identity(identifier)
         art.append(
             {

@@ -1,0 +1,97 @@
+{
+  "id": 124,
+  "name": "Signal Ridge",
+  "parent_id": 119,
+  "atmosphere": "sunny",
+  "night": false,
+  "day": true,
+  "environment": "Sand",
+  "battleback": "water",
+  "entrances": {
+    "garden": [
+      22,
+      29,
+      8
+    ],
+    "signal": [
+      22,
+      14,
+      8
+    ]
+  },
+  "actor_settings": {
+    "2": {
+      "role": "prop",
+      "asset": "board"
+    },
+    "3": {
+      "role": "prop",
+      "key": "castaway_signal",
+      "asset": "island_signal"
+    },
+    "4": {
+      "role": "prop",
+      "key": "castaway_cutter",
+      "asset": "dock_boat"
+    },
+    "6": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "7": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "8": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "9": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "10": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "11": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "12": {
+      "role": "prop",
+      "asset": "island_palm"
+    }
+  },
+  "encounters": {
+    "Land": {
+      "chance": 13,
+      "slots": [
+        [
+          40,
+          "PIKIPEK",
+          14,
+          17
+        ],
+        [
+          30,
+          "MANKEY",
+          14,
+          17
+        ],
+        [
+          20,
+          "AIPOM",
+          14,
+          17
+        ],
+        [
+          10,
+          "PASSIMIAN",
+          15,
+          18
+        ]
+      ]
+    }
+  }
+}

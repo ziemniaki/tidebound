@@ -1,0 +1,141 @@
+{
+  "id": 120,
+  "name": "Palmstrand",
+  "parent_id": 119,
+  "atmosphere": "sunny",
+  "night": false,
+  "day": true,
+  "environment": "Sand",
+  "battleback": "water",
+  "entrances": {
+    "wreck": [
+      5,
+      22,
+      6
+    ],
+    "canopy": [
+      31,
+      7,
+      2
+    ],
+    "lagoon": [
+      39,
+      25,
+      2
+    ]
+  },
+  "actor_settings": {
+    "3": {
+      "role": "prop",
+      "key": "castaway_canvas",
+      "asset": "mooring_rope"
+    },
+    "4": {
+      "role": "wildlife",
+      "species": "RAICHU_1"
+    },
+    "5": {
+      "role": "wildlife",
+      "species": "EXEGGUTOR_1"
+    },
+    "6": {
+      "role": "wildlife",
+      "species": "SANDYGAST"
+    },
+    "7": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "8": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "9": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "10": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "11": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "12": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "13": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "14": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "15": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "16": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "17": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "18": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "19": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "20": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "21": {
+      "role": "prop",
+      "asset": "island_palm"
+    }
+  },
+  "wild_forms": {
+    "RAICHU": 1,
+    "EXEGGUTOR": 1
+  },
+  "encounters": {
+    "Land": {
+      "chance": 13,
+      "slots": [
+        [
+          35,
+          "CRABRAWLER",
+          10,
+          13
+        ],
+        [
+          30,
+          "WIMPOD",
+          10,
+          13
+        ],
+        [
+          25,
+          "WINGULL",
+          10,
+          13
+        ],
+        [
+          10,
+          "SANDYGAST",
+          12,
+          14
+        ]
+      ]
+    }
+  }
+}

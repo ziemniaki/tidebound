@@ -233,6 +233,10 @@ need inspection in their actual scenes.
 uv run play --from neighbor/meal
 ```
 
+The island chapter has `castaway/voyage`, `castaway/arrival`, `castaway/camp`
+and `castaway/signal` starts for its crossing, initial beach, established arrival
+and repaired-ship finale. These use the same game and isolated playtest saves.
+
 This starts the **full game** with the declared starting state: location, party,
 bag and story progress. Keep playing, travel, battle and save normally.
 Omitting `--from` opens the normal development title screen. Each `--from` launch

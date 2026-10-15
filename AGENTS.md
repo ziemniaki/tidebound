@@ -96,7 +96,7 @@ editor database wholesale. Follow the
   migration chains. Never delete player saves to make a check pass.
 - Release saves use `Tidebound_Opening_0_2`; `play` uses `Tidebound_Development`.
   RPG Maker Test Play uses the project/release namespace. Keep `fontHeightReporting: 1`.
-- Ordinary locations remain night. Maintenance does not authorize engine or
+- Ordinary mainland locations remain night. The approved Castaway island uses fixed daylight. Maintenance does not authorize engine or
   gameplay redesign. Update current docs in place when behavior changes.
 - PR pushes run quick checks; full verification uses `/verify`. Releases assume
   `main` is already tested: tags package and publish, without another test matrix

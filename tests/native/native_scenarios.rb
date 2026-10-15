@@ -298,6 +298,7 @@ module NativeScenarios
     dock_park(output)
     pond_path(output)
     haunted_world(output)
+    castaway(output)
     identity = $player.party.map { |pet| [Tidebound.identity(pet), pet.item_id] }
     story = Marshal.dump(Tidebound.story)
     save_path = File.join(System.data_directory, "world-current.rxdata")
@@ -433,6 +434,7 @@ module NativeScenarios
     start = [$game_player.x, $game_player.y]
     target = [x, y]
     rows = Tidebound::MAP_PASSAGES.fetch($game_map.map_id)
+    occupied = $game_map.events.values.reject(&:through).map { |event| [event.x, event.y] }
     queue = [start]
     previous = { start => nil }
     until queue.empty? || previous.key?(target)
@@ -440,7 +442,8 @@ module NativeScenarios
       [[0, 1], [-1, 0], [1, 0], [0, -1]].each do |dx, dy|
         cell = [point[0] + dx, point[1] + dy]
         if previous.key?(cell) || cell[0] < 0 || cell[1] < 0 || cell[1] >= rows.length ||
-             cell[0] >= rows.first.length || rows[cell[1]][cell[0]] != "1"
+             cell[0] >= rows.first.length || rows[cell[1]][cell[0]] != "1" ||
+             occupied.include?(cell)
           next
         end
         previous[cell] = point
@@ -525,6 +528,87 @@ module NativeScenarios
     puts "PASS: native forest/skull/cave thresholds, walkable deep route and return; level 20+ Ghost encounters"
   ensure
     $game_system.encounter_disabled = encounter_disabled
+  end
+
+  def castaway(output)
+    disabled = $game_system.encounter_disabled
+    $game_system.encounter_disabled = true
+    quest = Tidebound::Castaway
+    quest.flags.merge!(arrived: true, greeted: true)
+    Tidebound::World.travel(:wreck_beach, :arrival)
+    capture(output, "wreck-beach")
+    quest.flags[:shelter] = true
+    quest.refresh
+    Tidebound::World.travel(:wreck_beach, :camp)
+    capture(output, "castaway-camp")
+    walk_to(47, 18)
+    step_transfer(:move_right, [120, 5, 22])
+    walk_to(32, 25)
+    capture(output, "palmstrand")
+    midnight = Time.new(2026, 1, 1, 0, 0, 0)
+    noon = Time.new(2026, 1, 1, 12, 0, 0)
+    [midnight, noon].each do |time|
+      unless PBDayNight.isDay?(time) && !PBDayNight.isNight?(time) && PBDayNight.getShade == 255
+        raise "Island daylight follows the host clock"
+      end
+    end
+    raichu = pbGenerateWildPokemon(:RAICHU, 17)
+    unless raichu.form_simple == 1 && raichu.types == %i[ELECTRIC PSYCHIC]
+      raise "Alolan wildlife generated the wrong form"
+    end
+    walk_to(31, 6)
+    step_transfer(:move_up, [121, 24, 32])
+    walk_to(34, 24)
+    capture(output, "fruit-canopy")
+    walk_to(5, 17)
+    step_transfer(:move_left, [122, 40, 26])
+    walk_to(17, 14)
+    capture(output, "freshwater-hollow")
+    walk_to(41, 26)
+    step_transfer(:move_right, [121, 6, 17])
+    quest.flags[:troop] = true
+    walk_to(44, 24)
+    step_transfer(:move_right, [123, 6, 24])
+    walk_to(22, 20)
+    capture(output, "overgrown-garden")
+    walk_to(37, 7)
+    step_transfer(:move_up, [124, 22, 29])
+    walk_to(22, 14)
+    quest.flags[:signalled] = true
+    quest.refresh
+    capture(output, "signal-ridge")
+    walk_to(22, 30)
+    step_transfer(:move_down, [123, 37, 8])
+    walk_to(5, 24)
+    step_transfer(:move_left, [121, 43, 24])
+    walk_to(24, 33)
+    step_transfer(:move_down, [120, 31, 7])
+    walk_to(4, 22)
+    step_transfer(:move_left, [119, 46, 18])
+    # Native seventh-catch storage and recovery preserve the same individual.
+    party = $player.party.dup
+    $player.party << Pokemon.new(:AIPOM, 12) until $player.party.length == 6
+    seventh = Pokemon.new(:PASSIMIAN, 16)
+    seventh.item = :SILKSCARF
+    Tidebound.state.assign_identity(seventh)
+    box = $PokemonStorage.pbStoreCaught(seventh)
+    raise "Native storage rejected seventh catch" if box < 0
+    slot =
+      (0...$PokemonStorage.maxPokemon(box)).find { |i| $PokemonStorage[box, i].equal?(seventh) }
+    unless Tidebound::Sanctuary.exchange(5, box, slot) && $player.party[5].equal?(seventh)
+      raise "Native sanctuary could not retrieve seventh catch"
+    end
+    unless Tidebound::Sanctuary.exchange(5, box, slot) && $PokemonStorage[box, slot].equal?(seventh)
+      raise "Native sanctuary changed stored companion identity"
+    end
+    $player.party.replace(party)
+    Tidebound::World.travel(:docks, :captain)
+    unless PBDayNight.isNight?(noon) && !PBDayNight.isDay?(noon)
+      raise "Island daylight leaked into the mainland"
+    end
+    puts "PASS: native island routes in both directions, fixed daylight, Alolan generation, six area captures, camp/signal changes and seventh-catch sanctuary exchange"
+  ensure
+    $game_system.encounter_disabled = disabled
   end
 
   def furniture_overhangs(output)

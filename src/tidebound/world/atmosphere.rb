@@ -4,6 +4,9 @@ module Tidebound::World
   def perpetual_night?
     $game_map && MAP_SETTINGS[$game_map.map_id]&.fetch(:night)
   end
+  def perpetual_day?
+    $game_map && MAP_SETTINGS[$game_map.map_id]&.fetch(:day, false)
+  end
   def atmosphere
     settings = MAP_SETTINGS[$game_map.map_id]
     return unless settings
@@ -37,16 +40,28 @@ EventHandlers.add(
 module TideboundNightClock
   def isNight?(time = nil)
     return true if Tidebound::World.perpetual_night?
+    return false if Tidebound::World.perpetual_day?
     super
   end
-  %i[isDay? isMorning? isAfternoon? isEvening?].each do |name|
+  def isDay?(time = nil)
+    return false if Tidebound::World.perpetual_night?
+    return true if Tidebound::World.perpetual_day?
+    super
+  end
+  %i[isMorning? isAfternoon? isEvening?].each do |name|
     define_method(name) do |time = nil|
       next false if Tidebound::World.perpetual_night?
+      next(name == :isAfternoon?) if Tidebound::World.perpetual_day?
       super(time)
     end
   end
   def getShade
     return 0 if Tidebound::World.perpetual_night?
+    return 255 if Tidebound::World.perpetual_day?
+    super
+  end
+  def getTone
+    return Tone.new(0, 0, 0, 0) if Tidebound::World.perpetual_day?
     super
   end
 end
@@ -55,6 +70,7 @@ module TideboundNightBattle
   def prepare_battle(battle)
     super
     battle.time = 2 if Tidebound::World.perpetual_night?
+    battle.time = 0 if Tidebound::World.perpetual_day?
   end
 end
 if defined?(BattleCreationHelperMethods)

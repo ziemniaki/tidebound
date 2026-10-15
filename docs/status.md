@@ -32,7 +32,14 @@ visibility lift. Hollow Wood becomes nearly black in the north.
 `uv run play --from lighting/forest` starts an ordinary player without a portable light.
 No handheld lantern is included.
 
-Island voyage gameplay, later Team Abyss chapters, shrine progression, Dive,
+The unreleased Castaway chapter adds a short animated voyage, a grounded ship and
+six connected sunny-island areas. Water, sailcloth, a monkey-troop puzzle, hull
+repairs and a signal ridge form a complete returnable route. The camp develops
+visibly; a refuge at camp and beside the dock park exposes the existing saved
+companion storage, including full-party exchanges. These changes are on the
+development branch; the published release remains 0.8.14.
+
+Playable shipboard sequences, the smaller Psyduck Island adventure, later Team Abyss chapters, shrine progression, Dive,
 Koga's settlements, late Suicune/sabre story, cemetery finale and endings remain
 planned. Helpers and concept art do not make those chapters playable. Respect
 the confirmed/proposed/open labels in [the specification](../specs/game-design.md).

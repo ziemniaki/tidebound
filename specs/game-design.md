@@ -2,7 +2,7 @@
 
 ## Game bible
 
-**Version 1.33 | 15 October 2026**
+**Version 1.34 | 15 October 2026**
 **Playable baseline: Demo 1, version 0.8.14 | Published 14 October 2026**
 **Creative direction: Wojciech Krzyżanowski**  
 **Working title: Tidebound | Full story spoilers**
@@ -11,13 +11,13 @@ A solitary Pokémon journey through a wounded coastal land, where the sea keeps 
 
 This is the consolidated creative record for the whole game. It expands and supersedes the short design record dated 8 September 2026. It preserves established decisions, outlines a playable narrative, and identifies what still needs invention. It describes the intended game, not a claim that these chapters have already been built.
 
-**Coverage.** This revision consolidates the approved creative direction and playable content through [Demo 1, version 0.8.14](https://github.com/ziemniaki/tidebound/releases/tag/v0.8.14). It includes the dock-city errands and fighting ring, Suicune garden, redrawn harbour vessels, southern pond and concealed trail, northern forest and skull cave, and the final local-lighting and moving-cloud-fog treatment. Bible revision numbers and game release numbers are separate. Section 34 records the 0.8.14 lighting decisions; section 35 contains screenshots from that published release.
+**Coverage.** This revision consolidates the approved creative direction and playable content through [Demo 1, version 0.8.14](https://github.com/ziemniaki/tidebound/releases/tag/v0.8.14). It includes the dock-city errands and fighting ring, Suicune garden, redrawn harbour vessels, southern pond and concealed trail, northern forest and skull cave, and the final local-lighting and moving-cloud-fog treatment. Bible revision numbers and game release numbers are separate. Section 34 records the 0.8.14 lighting decisions; section 35 contains screenshots from that published release. Section 36 records the newly approved Castaway chapter, implemented on the development branch and not yet included in a published release.
 
 **Current playable journey.** The Natu prelude, two false bedrooms and psychic maze lead into the lighthouse household, Pookie's walk and companion choice. The keys and lamp-oil errand, shared pie, stolen necklace, youngsters' hideout and The Mending continue into the lighthouse cellar and vault, first museum visit, and working harbour. Optional harbour jobs, ring challenges, Suicune park conversations, pond exploration, and the Hollow Wood/Skull Hollow route are playable. The captain's offer of passage to Psyduck Island marks Demo 1's endpoint. The existing astral death-and-recovery system is playable; its larger planned story remains future content.
 
 **Current world.** The demo contains 18 authored maps: the keeper's house, ordinary bedroom, lantern room, oil shop, cellar, vault, museum, youngsters' hideout, first false bedroom, folded bedroom, Natu's room maze, Shiohama coast, Listening Wood, South Coast Road including its pond, dock city, Hollow Wood, Skull Hollow and Beyond the Shore. The brief Natu prelude and The Mending are separate scenes rather than additional overworld maps. Section 35 illustrates all 18 maps with 24 selected views.
 
-**Future boundary.** The island voyage, later Team Abyss chapters, shrine progression, Dive, Koga's settlements and disappearance arc, poisoned refuge, Suicune healing and sabre quest, cemetery finale and endings remain planned. A story outline or prototype helper does not establish that those chapters are built. Existing species designs, unresolved lore and intentional mysteries retain their confirmed/proposed/open labels.
+**Future boundary.** Playable shipboard sequences and the smaller Psyduck Island adventure remain future insertions before the Castaway crossing. Later Team Abyss chapters, shrine progression, Dive, Koga's settlements and disappearance arc, poisoned refuge, Suicune healing and sabre quest, cemetery finale and endings remain planned. A story outline or prototype helper does not establish that those chapters are built. Existing species designs, unresolved lore and intentional mysteries retain their confirmed/proposed/open labels.
 
 **Playable content and verification:** see the [current status](../docs/status.md) and [demo walkthrough](../docs/walkthrough.md). They own current platform, control, save and verification details. This bible records creative direction and its playable manifestation; planned chapters are not permission to implement them.
 
@@ -48,7 +48,7 @@ The game bible governs fictional facts, characterisation, emotional intent, and 
 15. Art, sound, dialogue, and quest design
 16. Open decisions
 
-Later approved additions cover the vault and museum (20), regional species (21–29), the revised dream opening, working harbour (30), youngsters' hideout (31), southern pond (32), northern forest and skull cave (33), local lighting and cloud fog (34), and the illustrated 0.8.14 record (35).
+Later approved additions cover the vault and museum (20), regional species (21–29), the revised dream opening, working harbour (30), youngsters' hideout (31), southern pond (32), northern forest and skull cave (33), local lighting and cloud fog (34), the illustrated 0.8.14 record (35), and the sunny Castaway island chapter (36).
 
 ## 1. The emotional promise
 
@@ -921,9 +921,9 @@ Late submerged discoveries establish the ancient victims and human wrongdoing. M
 
 ### 15.1 Visual direction
 
-**Confirmed world rule: perpetual night.** Ordinary locations always take place at night. Retain the grey, dark, desaturated mood of the earlier opening; the brighter, cheerful autumn treatment in 0.5 is superseded. Autumn appears through worn foliage, stone, shore texture and small flowers under moonlight. Use charcoal, slate, cold grey-blue water and restrained traces of colour. Small lamps and sheltered interiors may offer warmth without turning the landscape into daylight.
+**Confirmed mainland rule: perpetual night.** Ordinary mainland locations always take place at night. Retain the grey, dark, desaturated mood of the earlier opening; the brighter, cheerful autumn treatment in 0.5 is superseded. Autumn appears through worn foliage, stone, shore texture and small flowers under moonlight. Use charcoal, slate, cold grey-blue water and restrained traces of colour. Small lamps and sheltered interiors may offer warmth without turning the landscape into daylight.
 
-Daylight or unusually bright surroundings are reserved for specifically approved magical locations later in the game. Do not add a normal day/night cycle, sunrise, or host-clock-dependent brightening. This is a firm world and presentation rule. Its narrative cause has not been established; do not invent one or reveal a supposed explanation in early dialogue. Ordinary battle scenes and time-of-day queries should also use night.
+The Castaway island is the first specifically approved daylight exception (15 October 2026). Its sunshine is real and its cause remains unexplained. The mainland has no normal day/night cycle, sunrise or host-clock-dependent brightening; its battle scenes and time-of-day queries stay night. Do not invent a cause for the mainland's darkness or resolve the island's light as an illusion. Further daylight locations require a specific creative decision.
 
 **Confirmed direction: familiarity before strangeness.** The opening should feel almost like a vanilla Generation 3 Pokémon reskin. Preserve its tile scale, familiar silhouettes, readable paths, movement and ordinary dialogue presentation. The coastal palette is dark and desaturated: slate rock, grey-blue sea, muted foliage, weathered timber, dim flowers and small amber lamp accents. Familiar Pokémon pixel art carries the sorrow and unease of Dark Souls and Twin Peaks. The 0.8.14 direction confines reassurance to particular lights, people and sheltered spaces; the ordinary outdoors should feel cold and exposed. These are tonal references, not a request to copy their assets.
 
@@ -1360,7 +1360,7 @@ Whyduck retains Psyduck's rounded duck body, beak, feet and tail, with a calm pe
 
 The ring keeps one saved offer with a fifteen-minute expiry. Its team contains one to three distinct, level-legal species from a curated shore-worker and brawler roster, at one to three levels below the able party's median (floor level one). Each selection uses an 80/20 seen/unseen draw, falling back to the available eligible pool when a bucket is empty. Exclusions apply to both pools. Party changes rebalance the offer without extending its clock. Declining or aborting preserves the offer; a completed bout consumes it. Ordinary battle/death recovery applies, with no ring healing or player betting system. Exact team size, roster and levels remain balance choices.
 
-**Confirmed next destination.** Psyduck Island is the intended next playable destination after the dock city. An eastern-pier captain offers passage. Accepting the invitation marks the end of Demo 1 and lets the player continue exploring the current region. No voyage or island map is implemented. The island's geography, inhabitants, story, exact place in the regional numbering and final name remain open. Do not turn a sailor's casual observation about its ducks into authoritative supernatural lore.
+**Next crossing, updated 15 October 2026.** The published 0.8.14 demo ends at the captain's offer of passage to Psyduck Island. The development chapter now continues from that offer into an animated crossing and a wreck on a separate sunny tropical island. The captain explains that the current carried the ship past its destination. A playable shipboard sequence and a smaller Psyduck Island adventure are reserved for later insertion before this crossing. Their geography, inhabitants, story, exact regional numbering and final names remain open. Do not turn a sailor's casual observation about ducks into authoritative supernatural lore.
 
 **Ecology adjustment.** The South Coast Road has a visible Tidebound Psyduck in addition to its grass encounters. Its evolution into Whyduck is now level 16, superseding level 33 for the regional form only. The approved appearance, stats and moves remain unchanged.
 
@@ -1593,3 +1593,52 @@ The plates are grouped as follows:
 ![View 40. Skull Hollow - inner passage](images/demo-0.8.14/40-skull_cave.png)
 
 ![View 42. Beyond the Shore - astral realm](images/demo-0.8.14/42-astral-astral.png)
+
+
+## 36. Castaway: the sunny island chapter
+
+**Approved direction, 15 October 2026; development implementation, unreleased.** The next chapter temporarily goes straight from the harbour's captain to a short animated crossing and a stranded ship on a sunny tropical island. The later playable boat sequence and smaller island adventure will fit before this crossing. The working chapter title is Castaway; all six area names remain provisional.
+
+**Daylight exception.** The mainland remains perpetually night. This island has fixed daylight, independent of the host clock, including wild encounters and battle presentation. Bright sand, turquoise water, coconut palms and cooler jungle shade create an intentional sensory departure. The light is genuinely beautiful. Its existence does not establish an illusion, a magical trap, a global sunrise or the cause of the mainland's darkness.
+
+**Arrival and companionship.** The Little Promise grounds on a reef. The player, captain and Nell survive. The party and bag remain intact. The captain explains that the current carried them past Psyduck Island. The ship becomes a landmark and repair project; the beach becomes a small home. Survivor choice, dialogue and the ordinary household traces inland are implementation choices, not settled regional history.
+
+- **Wreck Beach.** Captain, Nell, resting fire, supplies, companion refuge and developing camp.
+- **Palmstrand.** Tidal pools, recovered sailcloth, shore encounters and optional Alolan visitors.
+- **The Fruit Canopy.** Monkey wildlife, ripe fruit and the troop's passing-game route puzzle.
+- **Freshwater Hollow.** Restore a stone-lined collecting channel and water for the grove.
+- **The Overgrown Garden.** Abandoned household traces, a slate and the washed-up shipwright's kit.
+- **Signal Ridge.** Raise the spare sail, receive an answering flash and arrange a safe passage out.
+
+**Chapter progression.** Recover sailcloth and ask Nell to rig shade. Restore the spring by clearing the stone-lined channel. Collect a piece of ripe fruit and watch the Passimian routine: forked trunk, low branch, flat stone. Joining in opens the garden route. Recover the shipwright's kit, then ask the captain to repair the hull once water and shelter are ready. Raise the signal sail on the ridge and return to the captain to leave. The island can be revisited after the return. The captain's tasks remain available without a hunger, thirst or crafting interface.
+
+**Wildlife.** Aipom, Mankey, Passimian and Oranguru give the jungle several kinds of monkey presence. Pikipek, Bounsweet and Fomantis inhabit the vegetation; Crabrawler, Wimpod, Wingull and Sandygast occupy the shore. Alolan Raichu and Alolan Exeggutor are optional repeatable wild encounters. Owned mainland individuals keep their forms. Encounter levels run roughly 10–19, with higher levels at rare visible visitors. No trainer battle is required to finish the chapter. New sprites include the associated evolution artwork; native evolution requirements still apply. Crabominable's stock location evolution is not currently available in the authored region.
+
+**Companion refuge.** Nell and the camp ledger open the refuge. A second ledger beside the dock park provides mainland access before boarding. This is a non-electronic front end to the existing saved Pokémon storage. Players can deposit, withdraw or exchange the actual individuals, including a seventh catch sent to storage. Exchanges work with a full travelling party. Injuries, PP, held items and identity remain intact; refuge transfers do not heal. At least one able companion must remain available for travel. Resting-fire and astral recovery rules continue to apply.
+
+**Presentation and persistence.** Recovered canvas produces a visible shelter. The restored collecting bowl, raised signal sail and responding boat have saved visibility. Supplies record each delivered stack separately, so a full pocket permits a retry without duplication. The wreck does not consume money, items or companions. The short voyage is a scene rather than a playable ship map. All new maps use the normal editable map bundles and native renderer.
+
+**Still open.** The island's final name, the cause of its daylight, the absent household's history and the future smaller-island and shipboard chapters remain unresolved. No Suicune, sabre, shrine or Team Abyss revelation is added here.
+
+
+### 36.1 Development visual record
+
+Native Linux captures of the implemented chapter. These show staged viewpoints
+and completed camp/signal flags; the location-announcement overlay is hidden
+for aesthetic review. The source pixels, gameplay sprites, map lighting and
+renderer are unchanged. These images document the development branch, not a
+newly published release.
+
+![The Little Promise grounded off Wreck Beach.](images/castaway-development/wreck.png)
+
+![Wreck Beach with recovered sailcloth shelter and companion refuge.](images/castaway-development/camp.png)
+
+![Palmstrand: clear shallows, coconut palms and an Alolan visitor.](images/castaway-development/palmstrand.png)
+
+![The Fruit Canopy and the troop's eastern route.](images/castaway-development/canopy.png)
+
+![Freshwater Hollow with its restored collecting bowl.](images/castaway-development/spring.png)
+
+![The abandoned garden's cistern and slate.](images/castaway-development/garden.png)
+
+![The raised signal sail at the ridge.](images/castaway-development/ridge.png)

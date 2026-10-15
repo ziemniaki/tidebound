@@ -13,6 +13,7 @@ class TideboundWorldProp < Tidebound::Presentation::OwnedSprite
   def update
     super
     position_at_event(@event)
+    self.visible = Tidebound::Actors.visible?(@event)
     self.z = @layer unless @layer.nil?
   end
 end

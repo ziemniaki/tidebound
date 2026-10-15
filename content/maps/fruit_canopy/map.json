@@ -1,0 +1,151 @@
+{
+  "id": 121,
+  "name": "The Fruit Canopy",
+  "parent_id": 119,
+  "atmosphere": "canopy",
+  "night": false,
+  "day": true,
+  "environment": "Forest",
+  "battleback": "field",
+  "entrances": {
+    "shore": [
+      24,
+      32,
+      8
+    ],
+    "spring": [
+      6,
+      17,
+      6
+    ],
+    "garden": [
+      43,
+      24,
+      4
+    ]
+  },
+  "actor_settings": {
+    "4": {
+      "role": "wildlife",
+      "key": "castaway_troop",
+      "species": "PASSIMIAN"
+    },
+    "5": {
+      "role": "prop",
+      "asset": "board"
+    },
+    "6": {
+      "role": "wildlife",
+      "species": "AIPOM"
+    },
+    "7": {
+      "role": "wildlife",
+      "species": "ORANGURU"
+    },
+    "8": {
+      "role": "wildlife",
+      "species": "PASSIMIAN"
+    },
+    "9": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "10": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "11": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "12": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "13": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "14": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "15": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "16": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "17": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "18": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "19": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "20": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "21": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "22": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "23": {
+      "role": "prop",
+      "asset": "island_palm"
+    },
+    "24": {
+      "role": "prop",
+      "asset": "island_palm"
+    }
+  },
+  "encounters": {
+    "Land": {
+      "chance": 13,
+      "slots": [
+        [
+          25,
+          "AIPOM",
+          11,
+          14
+        ],
+        [
+          20,
+          "MANKEY",
+          12,
+          15
+        ],
+        [
+          20,
+          "PIKIPEK",
+          11,
+          14
+        ],
+        [
+          20,
+          "BOUNSWEET",
+          11,
+          14
+        ],
+        [
+          15,
+          "PASSIMIAN",
+          14,
+          16
+        ]
+      ]
+    }
+  }
+}
